@@ -1288,7 +1288,7 @@ in there" is the question that follows "what is flagged".</p>
 </tr>
 <tr>
 <td>5</td>
-<td>Organisms that need attention: <strong>overgrown</strong>, <strong>missing</strong> (commonly carried, not detected where the detection model says it should have been), <strong>depleted</strong>, <strong>worth watching</strong> (expanded, or uncommon to carry). Each with its share, the typical carrier's level, its deviation and its rank among carriers</td>
+<td>Organisms that need attention: <strong>overgrown</strong> (above the 90th percentile among carriers for an opportunist, above the 97th for anything, or — for an opportunist most people do not carry — several times above the level of the people who do), <strong>missing</strong> (commonly carried, not detected where the detection model says it should have been), <strong>depleted</strong>, <strong>worth watching</strong> (expanded, or uncommon to carry). Each with its share, the typical carrier's level, its deviation and its rank among carriers</td>
 </tr>
 <tr>
 <td>6</td>
@@ -1296,7 +1296,7 @@ in there" is the question that follows "what is flagged".</p>
 </tr>
 <tr>
 <td>7</td>
-<td>Pathogens: every target searched, graded (see below)</td>
+<td>Pathogens: every target searched, graded (see below), with each bacterial call reconciled against the organism inventory</td>
 </tr>
 <tr>
 <td>8</td>
@@ -1402,13 +1402,40 @@ whole, on the scale of the marker catalogue that measures the composition. A
 apart within one marker species; a ° marks an organism the marker catalogue
 has no entry for, whose share is estimated from the whole-genome search and
 drawn from the unclassified band; <em>within</em> marks a population counted inside
-its relatives' shares above it. <strong>Level</strong> is the deviation from the typical
+its relatives' shares above it; a § marks a share that includes what the
+marker catalogue had read under a relative the whole-genome competition
+rejected — the reads belong to the marked organism, so its share came with
+them, and the rejected name is printed beneath. <strong>Level</strong> is the deviation from the typical
 carrier — the median level among reference adults who carry the organism at
 all, printed in brackets — with the percentile among those carriers; the two
 are taken on the same distribution, so above the 50th percentile is always a
 positive deviation. Where fewer than ten reference adults carry an organism no
-rank is stated, and where the reference catalogue reads a species fivefold
-differently from the composition the row says <em>not comparable</em>.</p>
+rank is stated. Where the reference catalogue reads a species fivefold
+differently from the composition, the organism is ranked instead in the
+population of a lane whose reading agrees with the share (marked ‡, the
+population named); where none does, the row says <em>not comparable</em>.</p>
+<p><strong>One account of what is present.</strong> The pathogen screen aligns reads to its
+own 485 reference genomes, so sequence an organism shares with a relative the
+bundle carries no reference for lands on the nearest target and reads as a
+signal. Every named bacterial call is therefore checked against the organism
+inventory, which mapped the same reads competitively against every relative
+it found. A call the inventory found keeps its status and quotes the
+community share; one the inventory did not find, whose coverage is piled into
+conserved regions rather than spread across the genome (or whose call the
+competitive confirmation rejected), is reported under <em>Sequence that belongs
+to relatives, not to these organisms</em>, names the relatives that carry the
+reads, and stops counting as a finding. A call with genuine coverage that the
+inventory's catalogues cannot see — they have a detection floor this screen
+does not — is kept, and says so. <code>pathogens.inventory_reconciliation</code> records
+the outcome, and each record carries <code>inventory_agreement</code>,
+<code>inventory_species</code>, <code>inventory_evenness</code> and, where it applies,
+<code>inventory_share_percent</code> or <code>inventory_relatives</code>. Identity is deliberately
+not a gate: a genuine strain 1–2% divergent from its reference maps no better
+than a cross-mapped relative.</p>
+<p>Sections ranked against a single reference catalogue — the biofilm cards and
+the disease-pattern tables — keep that catalogue's own readings, because that
+is what makes a percentile against its cohort mean anything, and say so where
+the pooled methods disagree with them.</p>
 <p><strong>Evidence cards.</strong> Each card names the exact intervention (strain and dose as</p>
 <p>studied, diet protocol, drug, or clinical route), who it was studied in, the
 evidence <em>for</em> and <em>against</em> side by side with PMIDs/DOIs, the evidence lane

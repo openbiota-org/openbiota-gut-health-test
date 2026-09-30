@@ -380,6 +380,39 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#inputs-by-path-and-the-sample-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inputs by path, and the sample name
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#organism-detection-and-confirmation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organism detection and confirmation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-assisted-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model-assisted simulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#output" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -960,6 +993,39 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#inputs-by-path-and-the-sample-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inputs by path, and the sample name
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#organism-detection-and-confirmation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organism detection and confirmation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-assisted-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model-assisted simulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#output" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1372,6 +1438,91 @@ filter, so it rebuilds only when a pathway definition actually changes.</p>
 <tr>
 <td><code>--no-taxonomy</code></td>
 <td>Skip the community profile</td>
+</tr>
+</tbody>
+</table>
+<h3 id="inputs-by-path-and-the-sample-name">Inputs by path, and the sample name<a class="headerlink" href="#inputs-by-path-and-the-sample-name" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--r1 PATH</code>, <code>--r2 PATH</code></td>
+<td>Explicit mate files, when they are not in <code>./fastq</code> or not named <code>&lt;sample&gt;_1/_2</code></td>
+</tr>
+<tr>
+<td><code>--sample NAME</code></td>
+<td>The sample name (default: inferred from the file names); it names the results directory and appears in the report header</td>
+</tr>
+</tbody>
+</table>
+<h3 id="organism-detection-and-confirmation">Organism detection and confirmation<a class="headerlink" href="#organism-detection-and-confirmation" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--lanes LANE ...</code></td>
+<td>Run only these expanded lanes (<code>metaphlan_jan26 sylph_globdb motus4 kraken_uhgg singlem_globdb</code>); default all that are installed</td>
+</tr>
+<tr>
+<td><code>--metaphlan4 PATH</code></td>
+<td>A MetaPhlAn 4 executable for the Jun23 extended catalogue</td>
+</tr>
+<tr>
+<td><code>--no-assembly</code></td>
+<td>Skip targeted assembly even when SingleM triggers it; the completeness gate records the skip</td>
+</tr>
+<tr>
+<td><code>--no-pathogens</code></td>
+<td>Skip the pathogen screen</td>
+</tr>
+<tr>
+<td><code>--strict-cdiff</code></td>
+<td>Report a <em>Clostridioides difficile</em> species detection as a positive finding even without the toxin genes (<code>tcdA</code>/<code>tcdB</code>), instead of filing it as carriage; the report states the mode</td>
+</tr>
+<tr>
+<td><code>--no-age</code></td>
+<td>Skip the estimated microbiome age</td>
+</tr>
+<tr>
+<td><code>--mode {participant,clinician,research}</code></td>
+<td>Report mode; <code>research</code> (the default) states that the age estimate carries no residual against an actual age</td>
+</tr>
+<tr>
+<td><code>--profile-validation PATH</code></td>
+<td>Labelled-cohort AUCs and specificity matrix from <code>openbiota validate-profiles</code></td>
+</tr>
+<tr>
+<td><code>--panels-dir DIR</code></td>
+<td>An alternative panel definition directory</td>
+</tr>
+</tbody>
+</table>
+<h3 id="model-assisted-simulation">Model-assisted simulation<a class="headerlink" href="#model-assisted-simulation" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--simulate {auto,always,never}</code></td>
+<td><code>auto</code> solves the synbiotic scenarios and caches every linear programme, so a regenerated report costs seconds; <code>never</code> reports readiness only (the fast path while iterating on the report: <code>--simulate never --no-pdf</code>)</td>
+</tr>
+<tr>
+<td><code>--lp-workers N</code></td>
+<td>Worker processes for the scenario solver (default: cores minus two, at most 16); each programme has a ten-minute limit and a batch gives stragglers up after thirty</td>
 </tr>
 </tbody>
 </table>

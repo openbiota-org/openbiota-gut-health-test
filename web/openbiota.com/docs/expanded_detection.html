@@ -1259,21 +1259,35 @@ populations the primary lane had already counted under a relative's name.
 After competitive confirmation the inventory therefore resolves every
 organism onto the primary scale:</p>
 <ul>
-<li><strong>split</strong> — within a genus, the primary lane's total for the members it
-  measured is divided among the populations the competition distinguished,
-  in proportion to the reads that mapped uniquely to each genome per
-  megabase. The genus total is conserved; the lane's own reading is kept as
-  <code>marker_percent</code>.</li>
+<li><strong>split</strong> — a marker species is divided among the populations the marker
+  catalogue cannot tell apart from it: its GTDB siblings (<em>X</em>, <em>X_A</em>, <em>X_B</em>)
+  that the competition distinguished, in proportion to the reads that
+  mapped uniquely to each genome per megabase. The species total is
+  conserved and the lane's own reading is kept as <code>marker_percent</code>; the
+  marker lane's readings for species it does distinguish are never
+  redistributed between them.</li>
 <li><strong>estimated</strong> — an organism whose genus the primary lane did not place at
   all takes its whole-genome reading rescaled to the primary scale (median
   ratio of the two lanes over organisms both measured, 0.75–0.8 here);
   those shares are drawn from the unclassified band (<code>unplaced_percent</code> is
   what remains).</li>
 <li><strong>member</strong> — a population the whole-genome lanes saw inside a genus the
-  primary lane measured, but which the competition could not apportion (no
-  genome, or evidence from one method): counted within its relatives'
-  shares and listed beneath the largest of them (<code>counted_within</code>), with no
-  share of its own.</li>
+  primary lane measured that is not a sibling of any marker species there
+  (an unnamed cluster, a species the marker catalogue lacks), or that the
+  competition could not apportion: its reads were counted by the marker
+  lane under its relatives, so it is listed beneath them (<code>counted_within</code>)
+  with no share of its own and its own lane's reading kept as
+  <code>secondary_percent</code>.</li>
+<li><strong>absorbed</strong> — a rejected call's reads belong to the relative that took
+  them in the competition, so the share the marker lane had read under the
+  rejected name goes to that relative (<code>absorbed_percent</code>, <code>absorbed_from</code>
+  on the relative; <code>reads_belong_to</code> on the rejected record). A relative
+  with a marker reading of its own adds the share to it; one the marker
+  catalogue had no entry for takes it as its share (basis <code>absorbed</code>), and
+  a whole-genome estimate of the same population gives way to it. <em>Blautia
+  massiliensis</em> at 5.5% in one sample was rejected because its reads mapped
+  to <em>B. caecimuris</em> at higher identity; the 5.5% is <em>B. caecimuris</em>'s, and
+  the composition adds up again.</li>
 </ul>
 <p><code>share_unification</code> in the inventory records the scale factor and the
 counts. Nothing is summed across lanes: the primary lane's total is the
@@ -1297,10 +1311,29 @@ typical carrier, −90% a tenth) is taken on that same reading and that same
 median, so above the 50th percentile is always a positive deviation and
 below always negative. The reading is the scoring lane's value rescaled to
 its classified fraction - the number the rank was computed on - not the
-composition share, and where the two disagree fivefold the row says
-"not comparable" instead of a rank. Rarity of carriage is stated on its
-own: "carried by 9%", and an opportunist fewer than one in ten reference
-adults carry is listed to watch whatever its level.</p>
+composition share. Every rank names the lane whose reading it was taken on
+(<code>reference_lane</code>, with that lane's raw reading as <code>reference_lane_percent</code>),
+and where that reading and the share disagree fivefold the row says "not
+comparable" instead of a rank. Rarity of carriage is stated on its own:
+"carried by 9%", and an opportunist fewer than one in ten reference adults
+carry is listed to watch whatever its level.</p>
+<p>Ranking among carriers is the right comparison for a level, but on its own it
+let an uncommon opportunist that had clearly expanded off the attention page:
+<em>Clostridium innocuum</em> — vancomycin-resistant, reported in
+antibiotic-associated diarrhoea — at 0.041% of one sample, 372% above the
+typical carrier's level and above 95% of all reference adults, ranked 81st
+among the 29% who carry it. An opportunist is therefore overgrown when it
+clears the carrier bar (90th percentile among carriers), <em>or</em> when all of
+these hold together: above the 95th percentile of all reference adults, at
+least three times the typical carrier's level, in the upper quarter of its
+carriers, and seen by more than one detection method
+(<code>organisms.UNCOMMON_POPULATION_AT</code> and its neighbours). Rarity puts it in;
+a trace, a single method, or a conditional resident that many populations
+simply lack stays out.</p>
+<p>The typical carrier's level is the interpolated median of the carrier
+readings, so it and the midrank percentile beside it describe the same
+distribution; taking the upper middle reading for an even carrier count
+printed "50th percentile" beside "24% below the typical carrier".</p>
 <h3 id="what-the-report-does-and-does-not-say">What the report does and does not say<a class="headerlink" href="#what-the-report-does-and-does-not-say" title="Permanent link">&para;</a></h3>
 <p>Detection statuses (<code>supported</code> / <code>provisional</code>), rejected calls with their
 measurements, and the comparison with the previous reference set are in
@@ -1338,11 +1371,13 @@ PRJNA1271016 the pathway ranges rest on (3,000,000 read pairs per run,
 prefix sampling; the manifest records depth, sampling, engine and database
 release). <code>openbiota.expansion.cohorts</code> ranks a lane's readings against
 its population with the scoring lane's arithmetic (prevalence-aware CLR
-percentile). One population per organism: a scoring rank is never
-overridden; a lane rank is taken only when the scoring set never measured
-the organism, and every rank carries <code>percentile_source</code> ("globdb cohort,
-n=100"). The catalogue marks these ‡ and names the population. Populations
-are never merged, averaged or fallen back between.</p>
+percentile). One population per organism: a lane rank is taken when the
+scoring set never measured the organism, or when the scoring catalogue
+reads it fivefold differently from the composition (its species boundary,
+its markers) and the lane's own reading agrees with the share; every rank
+carries <code>percentile_source</code> ("globdb cohort, n=100"). The catalogue marks
+these ‡ and names the population. Populations are never merged or
+averaged; exactly one is used per organism.</p>
 <h3 id="targeted-assembly">Targeted assembly<a class="headerlink" href="#targeted-assembly" title="Permanent link">&para;</a></h3>
 <p>The assembly stage runs when SingleM leaves lineages above species at
 reconstructable coverage, and assembles only the reads Kraken2/UHGG left
