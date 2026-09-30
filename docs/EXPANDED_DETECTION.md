@@ -210,6 +210,25 @@ comparable" instead of a rank. Rarity of carriage is stated on its own:
 "carried by 9%", and an opportunist fewer than one in ten reference adults
 carry is listed to watch whatever its level.
 
+Ranking among carriers is the right comparison for a level, but on its own it
+let an uncommon opportunist that had clearly expanded off the attention page:
+*Clostridium innocuum* — vancomycin-resistant, reported in
+antibiotic-associated diarrhoea — at 0.041% of one sample, 372% above the
+typical carrier's level and above 95% of all reference adults, ranked 81st
+among the 29% who carry it. An opportunist is therefore overgrown when it
+clears the carrier bar (90th percentile among carriers), *or* when all of
+these hold together: above the 95th percentile of all reference adults, at
+least three times the typical carrier's level, in the upper quarter of its
+carriers, and seen by more than one detection method
+(`organisms.UNCOMMON_POPULATION_AT` and its neighbours). Rarity puts it in;
+a trace, a single method, or a conditional resident that many populations
+simply lack stays out.
+
+The typical carrier's level is the interpolated median of the carrier
+readings, so it and the midrank percentile beside it describe the same
+distribution; taking the upper middle reading for an even carrier count
+printed "50th percentile" beside "24% below the typical carrier".
+
 ### What the report does and does not say
 
 Detection statuses (`supported` / `provisional`), rejected calls with their

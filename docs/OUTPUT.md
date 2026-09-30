@@ -62,7 +62,7 @@ in there" is the question that follows "what is flagged".
 | 4 | Your microbial groups at a glance: the curated groups (butyrate producers, mucin degraders, oral-origin, opportunists …) on reference bars, each with its level against the typical carrier |
 | 5 | Organisms that need attention: **overgrown** (above the 90th percentile among carriers for an opportunist, above the 97th for anything, or — for an opportunist most people do not carry — several times above the level of the people who do), **missing** (commonly carried, not detected where the detection model says it should have been), **depleted**, **worth watching** (expanded, or uncommon to carry). Each with its share, the typical carrier's level, its deviation and its rank among carriers |
 | 6 | Your organisms, classified: every organism detected, one share of the whole each, largest first; the thirty most abundant described one by one; the organisms furthest above and below the reference; then the full table with class, share, level against the typical carrier, how many reference adults carry it, percentile, strain |
-| 7 | Pathogens: every target searched, graded (see below) |
+| 7 | Pathogens: every target searched, graded (see below), with each bacterial call reconciled against the organism inventory |
 | 8 | Estimated biological age of biota: point estimate on the training-support histogram, conformal intervals, what moved it, the model card |
 | 9 | Your microbial functions at a glance: every gene-capacity pathway on the seven-band bar |
 | 10 | Resemblance to published disease patterns at a glance: shape verdict (diffuse vs specific), ranked table of every scored pattern |
@@ -109,6 +109,30 @@ rank is stated. Where the reference catalogue reads a species fivefold
 differently from the composition, the organism is ranked instead in the
 population of a lane whose reading agrees with the share (marked ‡, the
 population named); where none does, the row says *not comparable*.
+
+**One account of what is present.** The pathogen screen aligns reads to its
+own 485 reference genomes, so sequence an organism shares with a relative the
+bundle carries no reference for lands on the nearest target and reads as a
+signal. Every named bacterial call is therefore checked against the organism
+inventory, which mapped the same reads competitively against every relative
+it found. A call the inventory found keeps its status and quotes the
+community share; one the inventory did not find, whose coverage is piled into
+conserved regions rather than spread across the genome (or whose call the
+competitive confirmation rejected), is reported under *Sequence that belongs
+to relatives, not to these organisms*, names the relatives that carry the
+reads, and stops counting as a finding. A call with genuine coverage that the
+inventory's catalogues cannot see — they have a detection floor this screen
+does not — is kept, and says so. `pathogens.inventory_reconciliation` records
+the outcome, and each record carries `inventory_agreement`,
+`inventory_species`, `inventory_evenness` and, where it applies,
+`inventory_share_percent` or `inventory_relatives`. Identity is deliberately
+not a gate: a genuine strain 1–2% divergent from its reference maps no better
+than a cross-mapped relative.
+
+Sections ranked against a single reference catalogue — the biofilm cards and
+the disease-pattern tables — keep that catalogue's own readings, because that
+is what makes a percentile against its cohort mean anything, and say so where
+the pooled methods disagree with them.
 
 **Evidence cards.** Each card names the exact intervention (strain and dose as
 
