@@ -578,6 +578,7 @@ def _card_organisms(card: Mapping[str, Any]) -> list[dict[str, Any]]:
                 ((str(k).replace("_", " "), float(v)) for k, v in leaves.items()),
                 key=lambda kv: -kv[1],
             ),
+            "inventory_note": info.get("inventory_note"),
         })
     out.sort(key=lambda o: -(o["percentile"] or 0.0))
     return out
@@ -625,7 +626,11 @@ def _organisms_table(
             level = f"<font size='7.4'><b>{o['value']:.2f}%</b></font>"
         else:
             level = (f"<font size='7.4'><b>0%</b></font>"
-                     f"<font size='6' color='{_hex(INK_FAINT)}'> not detected</font>")
+                     f"<font size='6' color='{_hex(INK_FAINT)}'> not detected"
+                     + (" by the reference catalogue" if o.get("inventory_note") else "")
+                     + "</font>")
+        if o.get("inventory_note"):
+            name += f"<br/><font size='6' color='{_hex(INK_FAINT)}'>{_esc(str(o['inventory_note']))}</font>"
         rows.append([
             Paragraph(name, st["small"]),
             Paragraph(level, st["small"]),

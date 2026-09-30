@@ -25,6 +25,7 @@ zero.
 from __future__ import annotations
 
 import hashlib
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Final
@@ -648,6 +649,43 @@ def _agreement_table(cards: tuple[Card, ...]) -> list[dict[str, str]]:
     ]
 
 
+def inventory_note(results_json: Mapping[str, Any], leaves: Sequence[str]) -> str | None:
+    """What the pooled inventory holds for a feature the reference namespace
+    could not see.
+
+    Every card here is ranked against a MetaPhlAn 3 cohort, so its readings
+    have to be MetaPhlAn 3's: that is what makes the percentile mean
+    anything. But a reader who is told "Mediterraneibacter gnavus 0%, not
+    detected" on this page and given a share for the same organism in the
+    organism list is owed the reconciliation, not left to find the
+    contradiction. Returns None when the two agree.
+    """
+    from openbiota import inventory as _inventory
+
+    inv = _inventory.from_json(results_json.get("organism_inventory"))
+    if inv is None:
+        return None
+    found: list[str] = []
+    renamed: list[str] = []
+    for leaf in leaves:
+        o = inv.get(str(leaf))
+        if o is not None and o.in_primary and o.percent > 0:
+            found.append(f"{o.display} at {o.percent:.3f}%")
+            continue
+        wanted = str(leaf).replace("_", " ").lower()
+        for other in inv.organisms:
+            listed = {x.replace("_", " ").lower() for x in (other.formerly_listed_as or ())}
+            if wanted in listed and other.in_primary and other.percent > 0:
+                renamed.append(f"the population an earlier catalogue listed as {wanted} is "
+                               f"{other.display} at {other.percent:.3f}%")
+                break
+    if not found and not renamed:
+        return None
+    parts = "; ".join([*found, *renamed])
+    return ("Measured on the reference catalogue, which is what the percentile is taken against. "
+            f"Pooling every detection method (section 6): {parts}.")
+
+
 def analyze(
     sample_dir: Path,
     results_json: dict[str, Any],
@@ -693,6 +731,15 @@ def analyze(
             for name, leaves in reference.FEATURE_LEAVES.items()
         }
         cohort = None
+
+    # Where the reference namespace saw nothing but the pooled inventory did,
+    # say so on the feature rather than leaving two sections to disagree.
+    for name, leaves in reference.FEATURE_LEAVES.items():
+        info = detail.get(name)
+        if isinstance(info, dict) and not info.get("detected"):
+            note = inventory_note(results_json, leaves)
+            if note:
+                info["inventory_note"] = note
 
     out_of_domain, domain_caveat = _domain_state(results_json)
 
