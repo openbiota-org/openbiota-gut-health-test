@@ -104,6 +104,16 @@ pathways on the scale, a community donut and the top disease-pattern bars with
 the library-wide shape verdict. Sample ID, date and version live in the fine
 print at the top-right corner where they belong.
 
+**One account of what is present.** Nine detection methods over the current
+reference catalogues give every organism a single share of the community, and
+every other section is held to that account: the 485-target pathogen screen
+has each bacterial call checked against it, so sequence an organism shares
+with a relative that is present is reported as the relative's rather than as
+a finding; sections ranked against a single reference catalogue keep that
+catalogue's readings — that is what makes their percentiles mean anything —
+and print the pooled reading beside a non-detection instead of contradicting
+the organism list. A test suite asserts it, report by report.
+
 **What is missing, not just what is there.** Every species the reference
 adults commonly carry is checked against a depth-aware detection model, so a
 non-detection is only called *missing* when the sequencing was deep enough to

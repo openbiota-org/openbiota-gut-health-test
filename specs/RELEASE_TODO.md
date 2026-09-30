@@ -10,10 +10,12 @@ Ordered by dependency: nothing below can start before the blockers above it.
 ## Blockers — nothing ships until these are done
 
 - **[YOU]** Register/confirm `openbiota.com` and point DNS at Cloudflare (or wherever the Worker lives). Every URL in the code and the docs already assumes this domain.
-- **[YOU]** Decide the GitHub account: personal vs a new `openbiota` org. All links in code and on the site already say `github.com/openbiota/OpenBiota-Gut-Health-Report`, so the org is less churn. Create it, create the repo, give me the remote.
+- **[ME, done]** GitHub: the repository is `openbiota-org/openbiota-gut-health-test`, created private, with a single squashed release commit authored as Erick Miller and no personal data in the tree or the history. — done 2026-09-30. **[YOU]** to decide when it goes public, and to delete the stray `erickmiller/gut-health-metagenomic-screen`. The dormant `github.com/Openbiota` account (created 2023-07-12, no activity) can be requested through GitHub support if the shorter name matters.
 - **[YOU]** Decide the copyright holder's legal name for `LICENSE` (currently "Erick Miller (OpenBiota)"). An LLC later means re-licensing with contributors in the tree — much harder after the fact.
 - **[YOU]** Decide: is there a paid product at launch, or is this free + email list only? Everything in the "If selling" section below is dead weight until this is answered.
 - **[ME, done]** Pre-flight the first commit: confirm `.gitignore` covers `refs/`, `results/`, `fastq/`, `tinyhealth/`, `.venv*`, `web/**/.DS_Store`; prove no participant data, raw reads or PDFs are tracked; squash to one initial commit. — done 2026-09-29: `.gitignore` covers `fastq/`, `results/`, `refs/*`, `tinyhealth/`, `.venv*`, `vendor/`, secrets; tracked files carry only published sample identifiers (`openbiota/samples.py`); frozen baselines anonymised; verified by `git grep` for names, local ids and absolute paths.
+
+- **[ME, done]** Report self-agreement: the pathogen screen is reconciled against the organism inventory, so no section may name an organism another section says is absent; an opportunist far above the adults who carry it reaches the attention page however few carry it; the biofilm cards and disease-pattern tables name the catalogue that measured them and print the pooled reading beside a non-detection. `tests/test_report_agrees_with_itself.py` holds all of it. — done 2026-09-30.
 
 ## Legal and licensing
 
