@@ -906,6 +906,8 @@ def _confidence_block(story: list[Any], st: dict[str, ParagraphStyle], result: A
 
 
 def _decomposition_table(story: list[Any], st: dict[str, ParagraphStyle], modules: Sequence[Any]) -> None:
+    from openbiota import pdfcontext as _pdfcontext
+
     head = [Paragraph(x, st["label"]) for x in ("FEATURE", "MEASURED", "REF PCT", "DIR", "w", "q", "s", "c", "v", "SOURCES")]
     rows: list[list[Any]] = [head]
     spans: list[int] = []
@@ -925,6 +927,12 @@ def _decomposition_table(story: list[Any], st: dict[str, ParagraphStyle], module
                 measured = (
                     "missing" if getattr(f, "missing", False) else "not detected"
                 )
+                pooled = (_pdfcontext.pooled_note(f.feature.name, catalogue_value=None)
+                          if engine in ("metaphlan", "carrier") else None)
+                if pooled:
+                    # this catalogue read the species as absent; pooling every
+                    # method found it, and section 6 gives it that share
+                    measured += f"<br/><font size='5.6' color='{_hex(INK_FAINT)}'>{pooled}</font>"
             elif engine in ("metaphlan", "carrier"):
                 measured = f"{f.raw_value:.3f}%"
             elif engine == "diamond":

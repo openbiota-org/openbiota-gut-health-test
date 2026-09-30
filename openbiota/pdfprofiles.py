@@ -919,6 +919,8 @@ def _validation_text(name: str, validation: dict[str, Any]) -> str:
 
 
 def _decomposition_table(story: list[Any], st: dict[str, ParagraphStyle], result: Any) -> None:
+    from openbiota import pdfcontext as _pdfcontext
+
     head = [
         Paragraph(x, st["label"])
         for x in ("FEATURE", "MEASURED", "REF PCT", "DIR", "w", "q", "s", "c", "v", "SOURCES")
@@ -934,6 +936,10 @@ def _decomposition_table(story: list[Any], st: dict[str, ParagraphStyle], result
         for f in module.features:
             if f.raw_value is None:
                 measured = "absent"
+                pooled = (_pdfcontext.pooled_note(f.feature.name, catalogue_value=None)
+                          if f.feature.engine == "metaphlan" else None)
+                if pooled:
+                    measured += f"<br/><font size='5.6' color='{_hex(INK_FAINT)}'>{pooled}</font>"
             elif f.feature.engine == "metaphlan":
                 measured = f"{f.raw_value:.3f}%"
             elif f.feature.engine == "diamond":

@@ -2906,6 +2906,11 @@ def build_pdf(
             )
         except Exception:  # noqa: BLE001 - the single-lane listing still renders
             inv = None
+    # One account of what is present, reachable from the sections that are
+    # ranked against a single reference catalogue (openbiota/pdfcontext.py).
+    from openbiota import pdfcontext as _pdfcontext
+
+    _pdfcontext.set_inventory(inv)
 
     sample = str(results.get("sample", "sample"))
     generated = dt.datetime.now().strftime("%-d %B %Y")

@@ -236,3 +236,50 @@ def test_nothing_listed_as_missing_was_found_by_any_method(sample: str) -> None:
             continue
         o = inv.get(a.species)
         assert not _found(o), (sample, a.species)
+
+
+def test_a_catalogues_non_detection_carries_the_pooled_reading() -> None:
+    """A disease-pattern row may say "not detected" only in its own catalogue's
+    voice: where every method together found the organism, the row prints that
+    share, so the table cannot contradict the organism list."""
+    from openbiota import pdfcontext
+
+    blob = {"primary_lane": "jan26", "unclassified_percent": 1.0, "organisms": [
+        {"species": "Blautia_A_wexlerae", "gtdb": "Blautia_A wexlerae", "percent": 0.5875,
+         "in_primary": True, "genus": "Blautia", "status": "supported", "detected_by": ["jan26", "globdb"],
+         "aliases": ["Blautia_wexlerae"]},
+        {"species": "Dorea_hominis", "gtdb": "Dorea_D hominis", "percent": 0.102, "in_primary": True,
+         "genus": "Dorea", "status": "supported", "detected_by": ["jan26"],
+         "formerly_listed_as": ["Mediterraneibacter_gnavus"]},
+        {"species": "Roseburia_inulinivorans", "percent": 0.0, "in_primary": False, "genus": "Roseburia",
+         "status": "provisional", "detected_by": ["rescue"], "share_basis": "member",
+         "counted_within": "Agathobacter rectalis", "secondary_percent": 0.06},
+    ]}
+    inv = inventory_mod.from_json(blob)
+    assert inv is not None
+    pdfcontext.set_inventory(inv)
+    try:
+        # the reference catalogue's own name for the organism resolves to the current record
+        assert pdfcontext.pooled_note("Blautia_wexlerae", catalogue_value=None) == "0.588% pooled"
+        # an older catalogue's label for a population that turned out to be a
+        # different species answers nothing: the bin the 2023 catalogue called
+        # Ruminococcus gnavus is Dorea hominis, and quoting its share here
+        # would assert that gnavus is present
+        assert pdfcontext.pooled_note("Ruminococcus_gnavus", catalogue_value=None) is None
+        # where that catalogue did measure it, nothing is added
+        assert pdfcontext.pooled_note("Blautia_wexlerae", catalogue_value=0.3) is None
+        # a population counted inside a relative's share has no share to quote
+        assert pdfcontext.pooled_note("Roseburia_inulinivorans", catalogue_value=None) is None
+        # and an organism no method found says nothing
+        assert pdfcontext.pooled_note("Escherichia_coli", catalogue_value=None) is None
+    finally:
+        pdfcontext.set_inventory(None)
+
+
+def test_the_pooled_reading_helper_is_safe_without_an_inventory() -> None:
+    from openbiota import pdfcontext
+
+    pdfcontext.set_inventory(None)
+    assert pdfcontext.pooled_note("Blautia_wexlerae", catalogue_value=None) is None
+    assert pdfcontext.pooled_share("Blautia_wexlerae") is None
+    assert pdfcontext.organism("") is None
