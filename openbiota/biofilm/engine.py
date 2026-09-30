@@ -736,10 +736,11 @@ def analyze(
     # say so on the feature rather than leaving two sections to disagree.
     for name, leaves in reference.FEATURE_LEAVES.items():
         info = detail.get(name)
-        if isinstance(info, dict) and not info.get("detected"):
-            note = inventory_note(results_json, leaves)
-            if note:
-                info["inventory_note"] = note
+        if isinstance(info, dict):
+            # always written, None when the two agree, so a reader of the file
+            # can tell "they agree" from "this run predates the check"
+            info["inventory_note"] = (None if info.get("detected")
+                                      else inventory_note(results_json, leaves))
 
     out_of_domain, domain_caveat = _domain_state(results_json)
 

@@ -240,6 +240,21 @@ class SpeciesRow:
         }
 
 
+def carrier_median(carriers: Sequence[float]) -> float | None:
+    """The typical carrier's level: the median of the sorted carrier readings.
+
+    Interpolated for an even count, so the median and `carrier_rank` describe
+    the same distribution. Taking the upper middle value instead put a sample
+    that sat at the lower middle at the 50th percentile and 24% *below* "the
+    typical carrier", which reads as a contradiction on the page.
+    """
+    if not carriers:
+        return None
+    n = len(carriers)
+    mid = n // 2
+    return carriers[mid] if n % 2 else (carriers[mid - 1] + carriers[mid]) / 2.0
+
+
 def carrier_rank(carriers: Sequence[float], value: float) -> float | None:
     """Midrank percentile of `value` among the sorted abundances of reference
     people who carry the feature; None when nobody in the reference does."""
@@ -406,7 +421,7 @@ def build_community_overview(
                 name, genus_of(name), value,
                 _percentile(fr, clr_values[name], detected=True),
                 ref.prevalence, True, _groups_of(name, group_set),
-                reference_median=(carriers[len(carriers) // 2] if carriers else None),
+                reference_median=carrier_median(carriers),
                 carrier_percentile=carrier_rank(carriers, value),
                 reference_carriers=len(carriers),
             )
@@ -453,7 +468,7 @@ def build_community_overview(
                     None if tr is None else tr.prevalence,
                     m in catalogue,
                     carrier_percentile=carrier_rank(m_carriers, mv),
-                    reference_median=(m_carriers[len(m_carriers) // 2] if m_carriers else None),
+                    reference_median=carrier_median(m_carriers),
                     reference_carriers=(len(m_carriers) if tr is not None else None),
                 )
             )
@@ -464,7 +479,7 @@ def build_community_overview(
             totals = sorted(
                 t for t in (sum(float(cohort.abundance[i][j]) for i in idx) for j in range(cohort.n_samples))  # type: ignore[index]
                 if t > 0)
-            group_median = totals[len(totals) // 2] if totals else None
+            group_median = carrier_median(totals)
             group_carrier_pct = carrier_rank(totals, total)
         groups.append(
             GroupReading(
