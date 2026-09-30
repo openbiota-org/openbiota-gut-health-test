@@ -180,7 +180,8 @@ class Attention:
 
 GROUPS: Final[tuple[tuple[str, str, str, colors.Color], ...]] = (
     ("overgrown", "OVERGROWN \u2014 at a level that is a concern",
-     "Opportunists above the 90th percentile among reference adults who carry them, and any organism above the 97th. "
+     "Opportunists above the 90th percentile among reference adults who carry them, any organism above the 97th, and "
+     "opportunists that few adults carry but that are several times above the level of the people who do. "
      "These are the readings to act on first.", CORAL),
     ("missing", "MISSING \u2014 commonly carried, not detected here",
      "Species most reference adults carry that were not found at a depth where they should have been. "

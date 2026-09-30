@@ -88,7 +88,10 @@ def test_every_organism_has_one_share_or_a_relative(sample: str) -> None:
     for o in inv["organisms"]:
         basis = o.get("share_basis")
         if o.get("in_primary"):
-            assert basis in ("marker", "split", "estimated") and float(o["percent"]) > 0, o["species"]
+            assert basis in ("marker", "split", "estimated", "absorbed") and float(o["percent"]) > 0, o["species"]
+            if basis == "absorbed":
+                # its whole share is a rejected relative's marker reading
+                assert o.get("absorbed_from") and abs(float(o["absorbed_percent"]) - float(o["percent"])) < 1e-6, o["species"]
         elif basis == "member":
             assert o.get("counted_within") in by_display, (o["species"], o.get("counted_within"))
             assert by_display[o["counted_within"]].get("in_primary"), o["species"]

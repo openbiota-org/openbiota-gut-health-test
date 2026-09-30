@@ -121,6 +121,24 @@ LOW_AT: Final = 10.0
 VERY_HIGH_AT: Final = 97.0
 VERY_LOW_AT: Final = 3.0
 
+#: An organism carried by a minority sits low among *all* reference adults'
+#: readings even when it is far above what its carriers hold, because most of
+#: them hold none. Ranking among carriers is the right comparison for a level
+#: - but it must not let an uncommon opportunist that has clearly expanded
+#: escape the page: Clostridium innocuum at 0.041%, +372% of the typical
+#: carrier and above 95% of all reference adults, ranked 81st among its
+#: carriers and was printed only in the full table. An opportunist is
+#: overgrown when it clears the carrier bar, *or* when all three of these
+#: hold together (rarity puts it in; trace and single-method noise stay out):
+#: it is above `UNCOMMON_POPULATION_AT` of all reference adults, at least
+#: `UNCOMMON_DEVIATION_AT` above the typical carrier, and in the upper part
+#: of its carriers.
+UNCOMMON_POPULATION_AT: Final = 95.0
+UNCOMMON_DEVIATION_AT: Final = 200.0
+UNCOMMON_CARRIER_AT: Final = 75.0
+#: and it must rest on more than one detection method.
+UNCOMMON_MIN_METHODS: Final = 2
+
 #: How strong a flag is: 0 none, 1 watch, 2 flag.
 FLAG_NONE: Final = 0
 FLAG_WATCH: Final = 1
@@ -298,6 +316,40 @@ def _flag(cls: str, concern_when: str, pct: float | None) -> tuple[str, int, str
     return "", FLAG_NONE, ""
 
 
+def _expanded_uncommon(o: Organism, cls: str, concern_when: str) -> tuple[str, int, str] | None:
+    """An uncommon organism that is nonetheless far above what its carriers hold.
+
+    See `UNCOMMON_POPULATION_AT`. The population percentile answers "is this
+    unusual to find at all, at this level", the deviation answers "how far
+    above the people who do carry it", and the carrier rank keeps an organism
+    that is merely present from qualifying. All three, on an organism the
+    literature says is a concern when high, and seen by more than one method.
+    """
+    # Opportunists only. A conditional resident that is common in some
+    # populations and absent in others (Phocaeicola plebeius, Streptococcus
+    # thermophilus from yoghurt) clears a population percentile simply by
+    # being present, and listing those would bury the readings that matter.
+    if concern_when not in ("high", "both") or cls != OPPORTUNIST:
+        return None
+    population = o.percentile
+    carrier = getattr(o, "level_percentile", None)
+    deviation = getattr(o, "deviation_percent", None)
+    if population is None or carrier is None or deviation is None:
+        return None
+    if not (o.in_primary and o.percent > 0):
+        return None
+    if len(getattr(o, "methods", ()) or ()) < UNCOMMON_MIN_METHODS:
+        return None
+    if population < UNCOMMON_POPULATION_AT or deviation < UNCOMMON_DEVIATION_AT or carrier < UNCOMMON_CARRIER_AT:
+        return None
+    level = FLAG_ISSUE
+    share = f"{deviation / 100.0 + 1.0:,.0f} times" if deviation >= 900 else f"{deviation:.0f}% above"
+    return ("high", level,
+            f"expanded and uncommon — {share} the typical carrier's level, and above "
+            f"{_ordinal(population)} of all reference adults, though only "
+            f"{(o.prevalence or 0):.0%} carry it at all")
+
+
 def _ordinal(p: float) -> str:
     """A percentile as words: 99th, or >99th at the ceiling."""
     if p >= 99.5:
@@ -351,6 +403,8 @@ def verdict(o: Organism) -> Verdict:
     if not desc:
         desc = _fallback_description(o)
     flag, level, reason = _flag(cls, concern, getattr(o, "level_percentile", o.percentile))
+    if not flag:
+        flag, level, reason = _expanded_uncommon(o, cls, concern) or (flag, level, reason)
     # A population counted within a relative's share has no share of its own
     # to be high or low: the composition carries it under the relative, and
     # that relative's level is the one read. Flagging it as well would list

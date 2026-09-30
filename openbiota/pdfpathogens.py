@@ -132,7 +132,7 @@ _STATUS_WORDS: Final[Mapping[str, str]] = {
 
 #: Tier keys in reading order, with the heading and the one-line rule.
 TIER_ORDER: Final[tuple[str, ...]] = (
-    "pathogen", "pathotype_negative", "unresolved_complex", "opportunist",
+    "pathogen", "pathotype_negative", "unresolved_complex", "shared_sequence", "opportunist",
     "uncertain", "elsewhere", "normal",
 )
 
@@ -192,6 +192,18 @@ TIERS: Final[Mapping[str, Mapping[str, Any]]] = {
         ),
         "colour": QUIET, "background": QUIET_BG, "counts_as_pathogen": False,
     },
+    "shared_sequence": {
+        "heading": "Sequence that belongs to relatives, not to these organisms",
+        "blurb": (
+            "The screen aligns reads to its own 485 reference genomes. Where a relative that is "
+            "present has no reference of its own here, the sequence the two organisms share lands "
+            "on the target and reads as a signal. These rows failed that check: the organism "
+            "inventory, which maps the same reads competitively against every relative it found, "
+            "did not find them, and the coverage is piled into the regions relatives share rather "
+            "than spread across the genome. The relative that carries the reads is named on each row."
+        ),
+        "colour": QUIET, "background": QUIET_BG, "counts_as_pathogen": False,
+    },
     "normal": {
         "heading": "Normal residents, food and environmental organisms",
         "blurb": (
@@ -239,7 +251,7 @@ def tier_of(record: Mapping[str, Any]) -> str:
     # on the page for a row carrying no evidence. Guarding here as well as in
     # the resolution pass means a stored verdict from an older run cannot
     # print it either.
-    if explicit in {"unresolved_complex", "pathotype_negative"} and not int(
+    if explicit in {"unresolved_complex", "pathotype_negative", "shared_sequence"} and not int(
         record.get("unique_supporting_fragments") or 0
     ):
         explicit = None
@@ -628,7 +640,7 @@ def summarise(pathogens: Mapping[str, Any] | None) -> dict[str, Any]:
     # would hide the very rows a reader saw counted as pathogens before.
     demoted = [
         r for r in records
-        if str(r.get("report_tier") or "") == "unresolved_complex"
+        if str(r.get("report_tier") or "") in ("unresolved_complex", "shared_sequence")
         and _status(r) not in ("not_assessed", "not_detected")
         and not _is_supported(r)
         and not _is_candidate(r)
@@ -1074,7 +1086,28 @@ _AMOUNT_BANDS: Final[tuple[tuple[float, str, str], ...]] = (
 
 
 def amount_of(record: Mapping[str, Any]) -> dict[str, Any]:
-    """The quantity of one organism, in the several ways a reader needs it."""
+    """The quantity of one organism, in the several ways a reader needs it.
+
+    A row the inventory reconciliation showed to be relatives' shared
+    sequence has no quantity *of this organism* to state: the fragments are
+    real and are still shown, but calling them "0.34% of analysed DNA" of an
+    organism that is not there is the contradiction the reconciliation
+    exists to remove.
+    """
+    if str(record.get("inventory_agreement") or "") == "shared_sequence_from_relatives":
+        relatives = [str(x) for x in (record.get("inventory_relatives") or [])]
+        frags = _fragments(record)
+        return {
+            "fpm": None, "fragments": frags,
+            "regions": record.get("informative_regions_supported") or 0,
+            "percent": None,
+            "figure": f"{frags:,} fragments, shared with relatives",
+            "share": ("from " + ", ".join(relatives[:2])) if relatives else "from a relative that is present",
+            "band": "sequence from relatives",
+            "band_words": ("not an amount of this organism: these fragments are the sequence it shares with "
+                           "relatives that are present"),
+            "shared": True,
+        }
     fpm = record.get("normalized_fragments_per_million")
     try:
         fpm = None if fpm is None else float(fpm)
@@ -1113,6 +1146,7 @@ def amount_of(record: Mapping[str, Any]) -> dict[str, Any]:
         "share": share,
         "band": band,
         "band_words": word,
+        "shared": False,
     }
 
 
@@ -1605,7 +1639,15 @@ def _advice_block(
 
     # How much, always — this is measured, so it is stated whether or not
     # any written advice exists for the organism.
-    if amount["band"]:
+    if amount.get("shared"):
+        how = (
+            f"<b>No amount of this organism.</b> {amount['fragments']:,} DNA fragments aligned to its reference "
+            f"across {amount['regions']:,} regions, but those are regions it shares with relatives that are "
+            f"present in this sample ({amount['share'].removeprefix('from ')}). The nine-method organism "
+            "inventory, which maps the same reads competitively against every relative it found, did not find "
+            "this species, so there is no quantity of it to state."
+        )
+    elif amount["band"]:
         how = (
             f"<b>{amount['band'].capitalize()}</b> in this sample: "
             f"{amount['figure']}"
@@ -1623,6 +1665,17 @@ def _advice_block(
     carriage = carriage_words(record)
     if carriage:
         how += f" For this organism, it is {carriage}."
+    share_pct = record.get("inventory_share_percent")
+    if isinstance(share_pct, (int, float)):
+        how += (
+            f" In the community composition (section 6) this organism is <b>{float(share_pct):.3f}%</b> of the "
+            "whole, measured competitively against every relative found in this sample. That is the amount; the "
+            "count above is this screen's own alignment, which credits shared sequence to the target it knows."
+        )
+    even = record.get("inventory_evenness")
+    if isinstance(even, (int, float)):
+        how += (f" Coverage evenness {float(even):.2f} (1.0 is sequence spread across the whole genome as depth "
+                "would predict; near 0 is reads piled into the regions relatives share).")
     breadth = record.get("reference_breadth_fraction")
     if isinstance(breadth, (int, float)):
         how += (

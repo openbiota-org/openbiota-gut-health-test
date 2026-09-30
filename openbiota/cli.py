@@ -2967,6 +2967,25 @@ def cmd_run(
             n_exp = sum(g.n_detected_expansion_only for g in similarity.community.groups)
             if n_exp:
                 reporter.record(f"    {n_exp} group member(s) detected only by the expanded lanes")
+        # The pathogen screen aligns to its own bundle, so a relative it
+        # carries no reference for has its shared sequence credited to the
+        # nearest target. Reconcile every bacterial call with the inventory,
+        # which mapped the same reads competitively against the relatives it
+        # actually found, so the two sections cannot contradict each other.
+        if isinstance(results_json.get("pathogens"), dict):
+            try:
+                from openbiota.pathogens import reconcile as _reconcile
+
+                _rec = _reconcile.reconcile(
+                    results_json["pathogens"], _inv,
+                    read_length_bp=((results_json.get("sequencing_quality") or {}).get("fastp") or {}).get("read1_mean_length"),
+                    rejected=(results_json.get("organism_inventory") or {}).get("rejected") or [],
+                )
+                if _rec.get("n_shared_sequence"):
+                    reporter.record(f"    pathogen screen: {_rec['n_shared_sequence']} bacterial call(s) are shared "
+                                    f"sequence from relatives the inventory found; {_rec['n_found']} agree with it")
+            except Exception as exc:  # noqa: BLE001 - a reconciliation pass, never fatal
+                reporter.warn(f"pathogen reconciliation failed: {type(exc).__name__}: {exc}")
         # One verdict per organism: class, description basis, and whether
         # its level is a concern. Computed here so the report and any
         # downstream consumer read the same judgement.

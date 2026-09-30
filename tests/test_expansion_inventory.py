@@ -13,6 +13,8 @@ Pure fixtures: no reference files, no sample. What is pinned:
 
 from __future__ import annotations
 
+from dataclasses import replace
+
 import pytest
 
 from openbiota import inventory
@@ -484,3 +486,33 @@ def test_the_reference_catalogues_own_name_answers_a_lookup() -> None:
     # the two records may or may not fold depending on the crosswalk on disk; either way the MP3 name answers
     hit = inv.get("Blautia_producta")
     assert hit is not None and (hit.native_ids or {}).get("scoring") == "Blautia_producta"
+
+
+def test_an_uncommon_opportunist_far_above_its_carriers_is_overgrown() -> None:
+    """Clostridium innocuum: 0.041%, +372% of the typical carrier, above 95% of all
+    reference adults, 81st among the 29% who carry it. Ranked among carriers alone it
+    escaped the attention page entirely; it is a vancomycin-resistant opportunist."""
+    from openbiota import organisms as org
+
+    innocuum = inventory.Organism(
+        species="Clostridium_innocuum", percent=0.0405, in_primary=True, genus="Clostridium",
+        percentile=95.5, carrier_percentile=80.7, prevalence=0.2904, reference_percent=0.0183,
+        reference_reading=0.0863, scoring_percent=0.0433, percentile_source="scoring cohort",
+        reference_carriers=879, methods=("genome_sketch", "marker", "read_classification", "universal_marker"),
+        status="supported")
+    v = org.verdict(innocuum)
+    assert v.cls == org.OPPORTUNIST
+    assert v.is_issue and v.flag == "high"
+    assert "expanded and uncommon" in v.flag_reason and "372%" in v.flag_reason and "29% carry it" in v.flag_reason
+    # one method is not enough, a trace is not enough, and a common organism is judged among its carriers
+    single = replace(innocuum, methods=("marker",))
+    assert not org.verdict(single).flagged
+    absent = replace(innocuum, in_primary=False, percent=0.0)
+    assert not org.verdict(absent).flagged
+    mild = replace(innocuum, reference_reading=0.02)        # +9% of the typical carrier
+    assert not org.verdict(mild).flagged
+    low_in_carriers = replace(innocuum, carrier_percentile=40.0)
+    assert not org.verdict(low_in_carriers).flagged
+    # a conditional resident that is simply present in a population that often lacks it stays off the page
+    plebeius = replace(innocuum, species="Phocaeicola_plebeius", genus="Phocaeicola", percent=3.747)
+    assert org.verdict(plebeius).cls != org.OPPORTUNIST and not org.verdict(plebeius).is_issue
