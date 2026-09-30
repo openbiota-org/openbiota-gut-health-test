@@ -1,0 +1,183 @@
+# A16 model-assisted scenarios: the pinned protocol of BUILD_SPEC_v0.8.3 §11.7.
+#
+# This is the *corrected* paper protocol, not a transcription of the published
+# notebook. The specification audits six discrepancies in the source, and the
+# repairs are recorded here beside the values so nobody re-introduces them:
+#
+#   1. Study A's notebook uses resident .95 plus five .04 additions, totalling
+#      1.15. The paper and the Arivale recipe use .8 + .04x5 = 1.0. The
+#      normalised protocol is below; the 1.15 recipe must fail the mass check
+#      rather than be divided away silently.
+#   2. The model .qza does not bundle its media; the two pinned CSVs are
+#      imported instead.
+#   3. The prediction code uses a growth threshold of .01 h-1 while one figure
+#      caption says .001. Both are recorded; any threshold sensitivity is
+#      research output, never an engraftment probability.
+#   4. Public input has 154 unique sample IDs against 156 reported outputs.
+#      Whole-cohort replication requires an explicit ID-intersection audit.
+#   5. No environment or solver lock is supplied upstream; ours is below.
+#   6. S5 is Strict OOXML. See openbiota/extension/strict_ooxml.py.
+
+schema_version: openbiota.simulation-config/1.0
+spec_version: 0.8.3
+
+# --------------------------------------------------------------------------- #
+# The pinned protocol. Exact, never a floating minimum: a solver or objective
+# change moves every predicted flux, so an update needs its own validation.
+# --------------------------------------------------------------------------- #
+protocol:
+  protocol_id: ext083.micom.paper_protocol/1.0
+  micom_version: "0.37.0"
+  model_asset: agora201_refseq216_species_1.qza
+  model_asset_md5: 6a13da2a3fd9b1bc059987d6344f32b6
+  model_source_id: S11
+  cutoff: 0.001
+  tradeoff: 0.99
+  strategy: none
+  normalize_input_abundance: true
+  resident_fraction: 0.8
+  added_fraction_per_species: 0.04
+  merge_existing_and_added_species: sum
+  required_total_abundance: 1.0
+  mass_tolerance: 1.0e-9
+  primary_replay_objective: raw_butyrate_flux
+  secondary_replay_objective: butyrate_flux_per_community_growth
+  # Recorded, not resolved: see repair 3 above.
+  growth_threshold_methods: 0.01
+  growth_threshold_figure_caption: 0.001
+
+# The consortium the published grid perturbs with. A species-model
+# perturbation, not an exact-strain product and not a personal dose.
+added_species:
+  - Akkermansia muciniphila
+  - Clostridium beijerinckii
+  - Clostridium butyricum
+  - Bifidobacterium longum
+  - Anaerobutyricum hallii
+
+# --------------------------------------------------------------------------- #
+# Frozen model exchange caps, mmol/gDW/h. These are TOTAL caps on the
+# exchange, not additions to the medium's existing bound. The last two are
+# proxies for a whole food, not the food itself.
+# --------------------------------------------------------------------------- #
+substrates:
+  - id: inulin
+    label: Inulin
+    exchange: EX_inulin_m
+    cap: 6.14
+    food_context: Chicory root, alliums, artichoke
+    proxy_for: null
+  - id: pectin
+    label: Pectin
+    exchange: EX_pect_m
+    cap: 0.4
+    food_context: Apple, citrus peel, vegetables
+    proxy_for: null
+  - id: starch
+    label: Starch
+    exchange: EX_strch1_m
+    cap: 16.65
+    food_context: Cooked and cooled starchy foods
+    proxy_for: null
+  - id: maltodextrin
+    label: Maltodextrin
+    exchange: EX_dextrin_m
+    cap: 30.28
+    food_context: Defined maltodextrin preparations
+    proxy_for: null
+  - id: cellulose
+    label: Cellulose
+    exchange: EX_cellul_m
+    cap: 0.37
+    food_context: Hemp seed, intact plant material
+    proxy_for: >-
+      A cellulose exchange standing in for hemp seed. The model sees purified
+      cellulose, not the whole seed's protein, fat and other fibre.
+  - id: arabinoxylan
+    label: Arabinoxylan
+    exchange: EX_arabinoxyl_m
+    cap: 4.09
+    food_context: Wheat and rye bran, psyllium
+    proxy_for: >-
+      An arabinoxylan exchange standing in for psyllium husk. Psyllium is a
+      gel-forming mucilage whose physical behaviour the model does not
+      represent.
+
+# --------------------------------------------------------------------------- #
+# Declared media. With no supplied diet the scenario uses a finite panel of
+# assumptions rather than inventing an observed intake (§11.6).
+# --------------------------------------------------------------------------- #
+media:
+  - id: european
+    label: Average European diet
+    file: refs/micom/s10/european_medium.csv
+    sha256: 0299fdd9b9d1ba2938681a6b078d54ddde73add1912a6b3582c8c9dffbea8f61
+    role: baseline
+  - id: high_fibre
+    label: High-fibre diet
+    file: refs/micom/s10/high_fiber_medium.csv
+    sha256: b29a95fc3bf1639b78bca65ea32d78ee7498753aa37ad653d366df9e2198d526
+    role: sensitivity
+
+# --------------------------------------------------------------------------- #
+# The published-output replay fixture (§11.7). These are values from the
+# released predictions, not a new OpenBiota simulation, and the distinction is
+# carried in the record's execution state.
+# --------------------------------------------------------------------------- #
+replay_fixture:
+  source_id: S10
+  file: refs/micom/s10/S5_Data.xlsx
+  sha256: 19ad4e8e2eea635f3c577df0d1bc04ba852249f368bac25d2519abbe71bd8c3e
+  sheet_raw: production_but
+  sheet_normalized: production_but_normalized
+  sample_id: "22001612560041"
+  tolerance: 1.0e-8
+  exclude_treatments: ["High Fiber"]
+  raw_expected:
+    - candidate: No substrate or consortium
+      treatment: No Prebiotic
+      probiotic: "-"
+      flux: 6.5509159065
+      delta_from_no_addition: 0.0
+    - candidate: Psyllium proxy alone
+      treatment: Psyllium Husk
+      probiotic: "-"
+      flux: 19.8677059714
+      delta_from_no_addition: 13.3167900649
+    - candidate: Maltodextrin proxy alone
+      treatment: Maltodextrin
+      probiotic: "-"
+      flux: 19.6188886985
+      delta_from_no_addition: 13.0679727920
+    - candidate: Starch proxy alone
+      treatment: Starch
+      probiotic: "-"
+      flux: 19.4780226726
+      delta_from_no_addition: 12.9271067661
+    - candidate: Inulin plus consortium
+      treatment: Inulin
+      probiotic: "+"
+      flux: 12.1235454393
+      delta_from_no_addition: 5.5726295328
+  normalized_expected:
+    baseline: 124.022749302492
+    maltodextrin_alone: 378.92775471395
+    psyllium_alone: 377.04681995744096
+    # The orders differ between objectives, which is the whole reason they are
+    # separate metrics: psyllium wins on raw flux, maltodextrin on flux per
+    # unit of community growth.
+    order_note: maltodextrin_alone > psyllium_alone under the normalized objective
+
+# --------------------------------------------------------------------------- #
+# The four-arm software fixture of §11.6. Deliberately tiny and exact.
+# --------------------------------------------------------------------------- #
+contrast_fixture:
+  f00: 1.0
+  f10: 3.0
+  f01: 4.0
+  f11: 8.0
+  expected:
+    delta_pair: 7.0
+    delta_over_substrate: 4.0
+    delta_over_probiotic: 5.0
+    interaction: 2.0

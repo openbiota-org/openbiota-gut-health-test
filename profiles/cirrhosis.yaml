@@ -1,0 +1,309 @@
+name: cirrhosis
+version: 1.0.0
+spec_version: 3
+label: "Liver cirrhosis — gut pattern"
+disease: liver_cirrhosis
+task: cirrhosis_vs_healthy
+family: liver
+body_site: stool
+population: chinese_cohort_derived
+status: research_beta
+evidence_maturity: P3
+challenge_for: [crc, crohns]
+
+summary: >-
+  One of the largest effect sizes in the gut microbiome literature. Qin et al.
+  found that cirrhosis drives oral bacteria into the gut — Veillonella,
+  Streptococcus, Haemophilus — because reduced bile acid output and gastric
+  acid suppression remove the barriers that normally keep them out. The
+  Bajaj cirrhosis dysbiosis ratio captures the same thing: oral and
+  Enterobacteriaceae taxa up, Lachnospiraceae and Ruminococcaceae down.
+  Cross-validated AUC for cirrhosis versus healthy exceeds 0.9 in the
+  discovery cohort.
+
+  Proton pump inhibitors reproduce the oral-invasion part of this pattern on
+  their own, and most cirrhotic patients are on them.
+
+references:
+  primary:
+    source: null
+    note: >-
+      The right contrast is chronic liver disease without cirrhosis, on the
+      same acid suppression. It does not exist in public shotgun data.
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  qin_2014:
+    label: "Qin 2014 Chinese cirrhosis MGWAS"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: qin_2014
+    maturity: P3
+    weight_in_combined: 1.0
+    note: "98 cirrhotic patients, 83 controls, 15-gene biomarker set with AUC 0.94 in discovery."
+    sources: ["Qin N, et al. Nature 2014;513:59-64"]
+    features:
+      - name: Veillonella_parvula
+        level: species
+        direction: higher_in_case
+        cluster: oral_origin
+        w: 1.0
+        q: 0.9
+        s: 0.5
+        c: 0.9
+        conflict_note: "Genus Veillonella is on the conflicted list; species only."
+      - name: Veillonella_atypica
+        level: species
+        direction: higher_in_case
+        cluster: oral_origin
+        w: 0.8
+        q: 0.8
+        s: 0.5
+        c: 0.8
+      - name: Streptococcus_salivarius
+        level: species
+        direction: higher_in_case
+        cluster: oral_origin
+        w: 0.9
+        q: 0.9
+        s: 0.4
+        c: 0.9
+        conflict_note: "Genus Streptococcus is on the conflicted list; species only."
+      - name: Streptococcus_parasanguinis
+        level: species
+        direction: higher_in_case
+        cluster: oral_origin
+        w: 0.8
+        q: 0.8
+        s: 0.4
+        c: 0.8
+      - name: Streptococcus_anginosus_group
+        level: species
+        direction: higher_in_case
+        cluster: oral_origin
+        w: 0.6
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: Haemophilus_parainfluenzae
+        level: species
+        direction: higher_in_case
+        cluster: oral_origin
+        w: 0.8
+        q: 0.8
+        s: 0.4
+        c: 0.8
+      - name: Lactobacillus_salivarius
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.6
+      - name: Eubacterium_rectale
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: Alistipes_putredinis
+        level: species
+        direction: lower_in_case
+        w: 0.6
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: Bacteroides_uniformis
+        level: species
+        direction: lower_in_case
+        w: 0.5
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: Coprococcus_comes
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.5
+        q: 0.7
+        s: 0.3
+        c: 0.7
+
+  bajaj_cdr:
+    label: "Bajaj cirrhosis dysbiosis ratio (16S, US)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    assay_transport: amplicon_taxon_to_shotgun
+    study_group: bajaj_2014
+    maturity: P3
+    note: >-
+      Independent US cohorts; the CDR is a family-level ratio, and the
+      transported species here are its dominant members. Concordant with
+      Qin, which is a genuine cross-population replication.
+    sources: ["Bajaj JS, et al. J Hepatol 2014;60:940-947"]
+    features:
+      - name: Veillonella_parvula
+        level: species
+        direction: higher_in_case
+        cluster: oral_origin
+        w: 0.7
+        q: 0.7
+        s: 0.5
+        c: 0.8
+        mapping_confidence: medium
+      - name: Escherichia_coli
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.7
+        s: 0.3
+        c: 0.7
+        mapping_confidence: medium
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.7
+        s: 0.3
+        c: 0.7
+        mapping_confidence: medium
+      - name: Ruminococcus_bromii
+        level: species
+        direction: lower_in_case
+        w: 0.6
+        q: 0.7
+        s: 0.4
+        c: 0.7
+        mapping_confidence: medium
+
+  ecology:
+    label: "Community ecology"
+    type: direction_panel
+    evidence_type: ECO
+    claim_level: observed
+    study_group: qin_2014
+    maturity: P3
+    features:
+      - name: shannon
+        direction: decreased
+        w: 0.6
+        q: 0.8
+        s: 0.1
+        c: 0.8
+
+  functional:
+    label: "Metabolite gene capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P3
+    note: >-
+      Cirrhosis reduces bile acid delivery to the gut, so 7-alpha-
+      dehydroxylation capacity and secondary bile acids fall (Kakiyama).
+      Urease capacity and ammonia production are the mechanism of hepatic
+      encephalopathy. Butyrate falls with the producers.
+    sources:
+      - "Kakiyama G, et al. J Hepatol 2013;58:949"
+      - "Qin 2014 Nature"
+    features:
+      - name: bai
+        engine: diamond
+        direction: decreased
+        w: 0.9
+        q: 0.8
+        s: 0.5
+        c: 0.8
+      - name: urease
+        engine: diamond
+        direction: increased
+        w: 0.7
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        w: 0.7
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: bsh
+        engine: diamond
+        direction: decreased
+        w: 0.5
+        q: 0.6
+        s: 0.3
+        c: 0.6
+
+  carriers:
+    label: "Oral-origin carrier cross-check"
+    type: mechanism_lane
+    evidence_type: CARRIER_ABUNDANCE
+    claim_level: carrier_proxy
+    maturity: P2
+    features:
+      - name: oral_origin
+        engine: carrier
+        direction: increased
+        w: 1.0
+        q: 0.8
+        s: 0.5
+        c: 0.9
+      - name: butyrate
+        engine: carrier
+        direction: decreased
+        w: 0.6
+        q: 0.8
+        s: 0.2
+        c: 0.8
+
+confounders:
+  - name: Proton pump inhibitors
+    effect: "PPIs alone drive oral taxa into the gut; most cirrhotic patients take them"
+    handling: "Recorded in the ledger when supplied; the oral-invasion module cannot separate the two"
+  - name: Alcohol
+    effect: "Active alcohol use has its own pattern overlapping with cirrhosis"
+    handling: "Recorded when supplied"
+  - name: Lactulose and rifaximin
+    effect: "Standard encephalopathy treatments reshape the community"
+    handling: "Recorded when supplied"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Cirrhosis is diagnosed by imaging, elastography, liver tests and, where
+    needed, biopsy. This profile does not diagnose it.
+  - >-
+    Proton pump inhibitor use reproduces the oral-invasion pattern that
+    carries this profile. A PPI user without liver disease can score high
+    here. The confounder ledger shows whether PPI use was recorded.
+
+effect_size_note: >-
+  Qin 2014: 98 cirrhosis, 83 controls; 15-gene classifier AUC 0.94 in
+  discovery, 0.84 in validation.
+
+citation: >-
+  Qin N, et al. Alterations of the human gut microbiome in liver cirrhosis.
+  Nature 2014;513:59-64; Bajaj JS, et al. Altered profile of human gut
+  microbiome is associated with cirrhosis and its complications. J Hepatol
+  2014;60:940-947; Kakiyama G, et al. Modulation of the fecal bile acid
+  profile by gut microbiota in cirrhosis. J Hepatol 2013;58:949.

@@ -1,0 +1,66 @@
+name: opportunistic_pathogens
+label: "Opportunistic pathogens and pathobionts"
+category: opportunist
+higher_means: adverse
+description: >-
+  Species that are harmless or absent in most healthy adults and cause
+  disease when they expand, when the barrier fails, or when the host is
+  immunocompromised. Enterobacteriaceae blooms (Escherichia, Klebsiella,
+  Enterobacter) are the classic signature of a disrupted community; Clostridioides
+  difficile, Clostridium perfringens and Enterococcus faecalis/faecium round out
+  the hospital-acquired set. This is a curated set, not a complete list of
+  everything ever pathogenic.
+
+summary: >-
+  Bacteria that most healthy adults carry at trace levels or not at all, and
+  which take over when the normal community is disrupted — after antibiotics,
+  during illness, or in a low-diversity gut. A high reading is a general sign
+  of disturbance, not a diagnosis of any specific infection.
+
+members:
+  - Escherichia coli
+  - Klebsiella pneumoniae
+  - Klebsiella oxytoca
+  - Klebsiella variicola
+  - Enterobacter cloacae complex
+  - Citrobacter freundii
+  - Proteus mirabilis
+  - Clostridioides difficile
+  - Clostridium perfringens
+  - Enterococcus faecalis
+  - Enterococcus faecium
+  - Fusobacterium nucleatum
+  - Fusobacterium mortiferum
+  - Fusobacterium varium
+  - Bilophila wadsworthia
+  - Ruminococcus gnavus
+  - Streptococcus anginosus group
+  - Staphylococcus aureus
+  - Pseudomonas aeruginosa group
+  - Haemophilus parainfluenzae
+
+unresolved:
+  - Salmonella enterica
+  - Shigella sonnei
+
+caveats:
+  - >-
+    Escherichia coli is the largest term in this sum and is itself a mix of
+    harmless commensal strains and pathogenic ones; species-level profiling
+    does not separate them. Read a high E. coli-driven total as
+    "Enterobacteriaceae expansion", which is meaningful on its own.
+  - >-
+    Detection of Clostridioides difficile in a stool sample is not the same
+    as C. difficile infection. Asymptomatic carriage runs around 5-15% of
+    healthy adults and is higher in infants.
+  - >-
+    A high reading in someone who has recently taken antibiotics is expected
+    and typically resolves within weeks; the antibiotic exposure field in the
+    subject metadata is used to flag this.
+
+citation: >-
+  Zeng M.Y., Inohara N., Nuñez G., "Mechanisms of inflammation-driven
+  bacterial dysbiosis in the gut", Mucosal Immunol 10:18-26 (2017),
+  doi:10.1038/mi.2016.75; Shin N.R., Whon T.W., Bae J.W., "Proteobacteria:
+  microbial signature of dysbiosis in gut microbiota", Trends Biotechnol
+  33:496-503 (2015).

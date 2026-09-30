@@ -1,0 +1,1385 @@
+# Action mappings (spec v04 §7.6–7.7). A mapping binds a typed trigger
+# selector (profile / panel / group / species / condition) to one studied
+# protocol, its supporting evidence, its against-evidence and its safety rules.
+# Several mappings may fire for one finding; all are rendered, none is ranked
+# by a benefit score. Selectors on `research_profile_resemblance`,
+# `functional_capacity_finding` and `ecological_finding` use the seven-band
+# levels; `min_level` is the weakest level that fires.
+#
+# Directions: high | low | present | any. Level rank: notably_low -3 … notably_high +3.
+action_mappings:
+
+  # =====================================================================
+  # DISEASE-PATTERN PROFILES (research resemblance) — one block per profile
+  # =====================================================================
+
+  # ---------------------------------------------------------------- longcovid
+  - action_mapping_id: MAP_PROFILE_LONGCOVID_SIM01_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: longcovid, direction: high, min_level: somewhat_high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_SIM01_PACS_6M_V1
+    evidence_assertion_refs: [IE_SIM01_PACS_RCT_V1, IE_STOP_FATIGUE_LONGCOVID_V1]
+    against_evidence_assertion_refs: [IE_LONGCOVID_2026_MECHANISTIC_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PROBIOTIC_IMMUNOCOMPROMISE_V1, PREGNANCY_BREASTFEEDING_SUPPLEMENT_V1]
+    confirmation_rule_refs: [post_acute_covid19_syndrome]
+    title: Long COVID — what human trials have tested
+    context_note: >
+      Resemblance to a published Long-COVID stool signature is a research observation. The only
+      randomized evidence with a clinical endpoint is for one exact synbiotic (SIM01) in people
+      with a clinical Long-COVID diagnosis; it does not transfer to other probiotics.
+    never_say: ["treats Long COVID", "clears the virus", "antimicrobials for Long COVID"]
+    fmt_status: investigational_non_cdi
+
+  # ---------------------------------------------------------------- alopecia areata
+  - action_mapping_id: MAP_PROFILE_AA_PROBIOTIC_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: alopecia_areata, direction: high, min_level: somewhat_high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_AA_BTHS_24W_ADJUNCT_V1
+    evidence_assertion_refs: [IE_AA_BTHS_PILOT_RCT_V1]
+    against_evidence_assertion_refs: [IE_AA_FMT_CASES_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PROBIOTIC_IMMUNOCOMPROMISE_V1]
+    confirmation_rule_refs: [alopecia_areata]
+    title: Alopecia areata — the state of microbiome-directed evidence
+    context_note: >
+      One small adjunct probiotic pilot was null on hair outcomes, and the FMT literature is two
+      incidental case reports. Alopecia areata is diagnosed and managed by dermatology.
+    never_say: ["probiotics regrow hair", "FMT for alopecia"]
+    follow_up_route: "Dermatology/scalp examination if hair loss is present (CLINICAL_ROUTE_DERMATOLOGY_SCALP_V1)."
+    fmt_status: investigational_non_cdi
+
+  # ---------------------------------------------------------------- androgenetic alopecia
+  - action_mapping_id: MAP_PROFILE_AGA_PROBIOTIC_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: androgenetic_alopecia, direction: high, min_level: somewhat_high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_AGA_DCN_16W_V1
+    evidence_assertion_refs: [IE_AGA_DCN_RCT_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PROBIOTIC_IMMUNOCOMPROMISE_V1]
+    confirmation_rule_refs: [androgenetic_alopecia]
+    title: Androgenetic alopecia — one exact-product trial
+    context_note: >
+      A single industry trial of three exact Lactiplantibacillus strains reported mixed hair-cycle
+      endpoints in diagnosed androgenetic alopecia. Other probiotics are not covered by it.
+    never_say: ["probiotic cures hair loss"]
+    follow_up_route: "Dermatology evaluation for pattern hair loss (CLINICAL_ROUTE_DERMATOLOGY_SCALP_V1)."
+
+  # ---------------------------------------------------------------- Alzheimer / cognition
+  - action_mapping_id: MAP_PROFILE_AD_LIFESTYLE_FINGER_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: ad_*, direction: high, min_level: somewhat_high}
+    render: inform_only
+    intervention_protocol_ref: PROTOCOL_FINGER_2Y_V1
+    evidence_assertion_refs: [IE_FINGER_RCT_V1]
+    against_evidence_assertion_refs: [IE_MIND_NULL_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Cognition — what has replicated evidence independent of the microbiome
+    context_note: >
+      Resemblance to an Alzheimer-cohort stool pattern does not indicate cognitive impairment. The
+      multidomain FINGER lifestyle programme has randomized evidence for cognition in at-risk older
+      adults; the MIND diet did not beat a control diet.
+    never_say: ["you have Alzheimer's", "prevents dementia"]
+    follow_up_route: "Neurologic/cognitive evaluation only if memory or thinking symptoms are present (CLINICAL_ROUTE_NEURO_COGNITIVE_EVALUATION_V1)."
+  - action_mapping_id: MAP_PROFILE_AD_PROBIOTIC_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: ad_*, direction: high, min_level: high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_AD_MILK_12W_AKBARI_V1
+    evidence_assertion_refs: [IE_AD_PROBIOTIC_MILK_AKBARI_V1]
+    against_evidence_assertion_refs: [IE_AD_PROBIOTIC_SEVERE_NULL_X_V1, IE_AD_PROBIOTIC_META_X_V1, IE_MCI_PROBIOTIC_REVIEW_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PROBIOTIC_IMMUNOCOMPROMISE_V1]
+    confirmation_rule_refs: [alzheimer_disease]
+    title: Alzheimer disease — probiotic trials, positive and null
+    context_note: >
+      One 60-person trial reported MMSE gains; a later trial in severe disease was null and pooled
+      analyses are not robust. FMT in Alzheimer disease is animal and case-level only.
+    never_say: ["reverses dementia"]
+    fmt_status: investigational_non_cdi
+
+  # ---------------------------------------------------------------- IBS family
+  - action_mapping_id: MAP_PROFILE_IBS_DIET_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: ibs*, direction: high, min_level: somewhat_high}
+    render: guideline_route_after_confirmation
+    intervention_protocol_ref: PROTOCOL_LOW_FODMAP_3PHASE_V1
+    evidence_assertion_refs: [IE_AGA_DIET_IBS_A_V1, IE_ACG_IBS_GUIDELINE_A_V1, IE_LOW_FODMAP_HISTAMINE_MCINTOSH_V1]
+    against_evidence_assertion_refs: [IE_ACG_IBS_PROBIOTICS_AGAINST_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, RESTRICTIVE_DIET_EATING_DISORDER_V1, FIBER_ESCALATION_STRUCTURAL_GI_V1]
+    confirmation_rule_refs: [ibs]
+    title: IBS — guideline-backed diet and what is advised against
+    context_note: >
+      IBS is a symptom-based clinical diagnosis. For people with that diagnosis, ACG 2021 and the
+      AGA diet update support soluble fibre, peppermint oil and a limited dietitian-guided
+      low-FODMAP trial; ACG suggests against probiotics for global symptoms.
+    never_say: ["you have IBS", "cure IBS"]
+    follow_up_route: "Symptom-based diagnosis with red-flag review (CLINICAL_ROUTE_IBS_DIAGNOSIS_ACG_V1)."
+    fmt_status: guideline_against_outside_trials
+  - action_mapping_id: MAP_PROFILE_IBS_MIMBB75_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: ibs*, direction: high, min_level: high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_MIMBB75_IBS_8W_V1
+    evidence_assertion_refs: [IE_MIMBB75_IBS_RCT_V1, IE_BINFANTIS_35624_IBS_RCT_V1]
+    against_evidence_assertion_refs: [IE_AGA_PROBIOTICS_GUIDELINE_X_V1, IE_ACG_IBS_PROBIOTICS_AGAINST_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PROBIOTIC_IMMUNOCOMPROMISE_V1]
+    confirmation_rule_refs: [ibs]
+    title: IBS — the two probiotic trials that met their endpoints, and the guideline position
+    context_note: >
+      Heat-inactivated B. bifidum MIMBb75 (443 people) and B. infantis 35624 at one specific dose
+      are the exact products with positive randomized IBS trials; guidelines still place probiotics
+      in the trial-only or advised-against category for global symptoms.
+    never_say: ["any probiotic", "Bifidobacterium supplement fixes IBS"]
+  - action_mapping_id: MAP_PROFILE_IBSD_RIFAXIMIN_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: ibs_d, direction: high, min_level: high}
+    render: clinician_review
+    intervention_protocol_ref: PROTOCOL_RIFAXIMIN_IBSD_V1
+    evidence_assertion_refs: [IE_RIFAXIMIN_IBSD_GUIDELINE_A_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [PRESCRIPTION_REQUIRES_CONFIRMED_INDICATION_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: [ibs_d]
+    title: IBS-D — prescription route for a clinician to review
+    context_note: >
+      Rifaximin is guideline-listed for global IBS-D symptoms after clinical diagnosis. It is a
+      prescription decision made by a clinician, never a response to organisms in stool.
+    never_say: ["take rifaximin for your bacteria"]
+
+  # ---------------------------------------------------------------- IBD family
+  - action_mapping_id: MAP_PROFILE_IBD_ROUTE_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: "{ibd,crohns,uc}", direction: high, min_level: somewhat_high}
+    render: guideline_route_after_confirmation
+    intervention_protocol_ref: PROTOCOL_ROUTE_GI_CALPROTECTIN_V1
+    evidence_assertion_refs: [IE_AGA_FMT_2024_A_V1]
+    against_evidence_assertion_refs: [IE_AGA_FMT_2024_IBD_IBS_AGAINST_X_V1, IE_AGA_PROBIOTICS_GUIDELINE_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Inflammatory bowel disease — confirmation route and what guidelines say about FMT and probiotics
+    context_note: >
+      Resemblance to an IBD-cohort pattern is not a diagnosis. Persistent diarrhoea, blood in
+      stool, weight loss or pain warrant gastroenterology evaluation with fecal calprotectin. AGA
+      2024 recommends against conventional FMT for Crohn's disease and ulcerative colitis outside
+      trials, and AGA 2020 places probiotics in IBD in the trial-only category.
+    never_say: ["you have Crohn's", "you have colitis", "FMT for IBD"]
+    follow_up_route: "Gastroenterology evaluation with fecal calprotectin if symptomatic (CLINICAL_ROUTE_GASTROENTEROLOGY_CALPROTECTIN_V1)."
+    fmt_status: guideline_against_outside_trials
+  - action_mapping_id: MAP_PROFILE_UC_FMT_TRIAL_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: "{ibd,uc}", direction: high, min_level: high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_FMT_UC_PARAMSOTHY_8W_V1
+    evidence_assertion_refs: [IE_UC_FMT_PARAMSOTHY_RCT_V1]
+    against_evidence_assertion_refs: [IE_AGA_FMT_2024_IBD_IBS_AGAINST_X_V1, IE_FDA_FMT_SAFETY_ALERTS_X_V1]
+    safety_rule_refs: [FMT_CLINICIAN_ONLY_V1, FMT_SEVERE_IMMUNOCOMPROMISE_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: [ulcerative_colitis]
+    title: Ulcerative colitis — the FMT trial evidence and its regulatory status
+    context_note: >
+      Intensive multidonor FMT produced remission in 27% versus 8% in one trial of active
+      ulcerative colitis; guidelines still limit FMT for UC to clinical trials.
+    never_say: ["FMT cures colitis"]
+    fmt_status: investigational_non_cdi
+  - action_mapping_id: MAP_PROFILE_CROHNS_CDED_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: "{ibd,crohns}", direction: high, min_level: high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_CDED_PEN_12W_V1
+    evidence_assertion_refs: [IE_CDED_PEN_RCT_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [RESTRICTIVE_DIET_EATING_DISORDER_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: [crohns_disease]
+    title: Crohn's disease — dietary therapy with randomized evidence (clinician-confirmed disease)
+    context_note: >
+      The Crohn's Disease Exclusion Diet with partial enteral nutrition induced sustained remission
+      in children with confirmed mild-to-moderate Crohn's disease. It is delivered by an IBD team,
+      not started from a stool pattern.
+    never_say: ["diet cures Crohn's"]
+
+  # ---------------------------------------------------------------- CRC / adenoma
+  - action_mapping_id: MAP_PROFILE_CRC_SCREENING_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: "{crc,adenoma}", direction: high, min_level: somewhat_high}
+    render: guideline_route_after_confirmation
+    intervention_protocol_ref: PROTOCOL_ROUTE_GENERIC_V1
+    evidence_assertion_refs: [IE_USPSTF_CRC_SCREENING_A_V1, IE_WCRF_CRC_PREVENTION_V1]
+    against_evidence_assertion_refs: [IE_ADENOMA_PROBIOTIC_META_X_V1, IE_FNUCLEATUM_PERIODONTAL_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Colorectal cancer / adenoma pattern — the screening route is the action
+    context_note: >
+      A stool pattern resembling colorectal-cancer or adenoma cohorts does not detect cancer.
+      Guideline screening (FIT or colonoscopy, ages 45–75) is the established route, and whole
+      grains, fibre, physical activity and limiting red/processed meat and alcohol carry
+      population-level prevention evidence.
+    never_say: ["you have cancer", "probiotics prevent colon cancer", "kill Fusobacterium"]
+    follow_up_route: "Age-appropriate colorectal cancer screening per USPSTF; earlier if symptoms or family history (CLINICAL_ROUTE_CRC_SCREENING_USPSTF_V1)."
+  - action_mapping_id: MAP_PROFILE_ADENOMA_CBM588_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: adenoma, direction: high, min_level: high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_CBM588_ADENOMA_V1
+    evidence_assertion_refs: [IE_CBM588_ADENOMA_RCT_V1]
+    against_evidence_assertion_refs: [IE_ADENOMA_PROBIOTIC_META_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PROBIOTIC_IMMUNOCOMPROMISE_V1]
+    confirmation_rule_refs: [colorectal_adenoma]
+    title: Adenoma — one exact-product probiotic trial after polypectomy
+    context_note: >
+      Early, conflicting evidence for the exact Clostridium butyricum MIYAIRI 588 product after
+      polypectomy; pooled adenoma probiotic trials are inconclusive and surveillance intervals do
+      not change.
+    never_say: ["prevents polyps"]
+
+  # ---------------------------------------------------------------- metabolic
+  - action_mapping_id: MAP_PROFILE_T2D_HIGH_FIBER_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: t2d, direction: high, min_level: somewhat_high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_HIGH_FIBER_T2D_12W_V1
+    evidence_assertion_refs: [IE_HIGH_FIBER_T2D_ZHAO_RCT_V1]
+    against_evidence_assertion_refs: [IE_AKK_WST01_ZHANG2025_X_V1]
+    safety_rule_refs: [FIBER_ESCALATION_STRUCTURAL_GI_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: [type_2_diabetes]
+    title: Type 2 diabetes pattern — confirmation first, then dietary trial evidence
+    context_note: >
+      Resemblance to a type-2-diabetes cohort is not a glucose measurement. HbA1c and fasting
+      glucose confirm or exclude diabetes. In diagnosed diabetes, a 12-week high-fibre diet
+      improved HbA1c in one trial; a live Akkermansia product did not improve HbA1c or weight.
+    never_say: ["you have diabetes", "Akkermansia treats diabetes"]
+    follow_up_route: "HbA1c, fasting glucose, lipids, blood pressure and waist (CLINICAL_ROUTE_METABOLIC_CONFIRMATION_V1)."
+    fmt_status: investigational_non_cdi
+  - action_mapping_id: MAP_PROFILE_T2D_FMT_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: "{t2d,obesity}", direction: high, min_level: high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_FMT_LEAN_DONOR_VRIEZE_V1
+    evidence_assertion_refs: [IE_FMT_LEAN_DONOR_VRIEZE_V1]
+    against_evidence_assertion_refs: [IE_FMT_LEAN_DONOR_KOOTTE_X_V1, IE_FMT_ADOLESCENT_OBESITY_LEONG_X_V1, IE_FDA_FMT_SAFETY_ALERTS_X_V1]
+    safety_rule_refs: [FMT_CLINICIAN_ONLY_V1, FMT_SEVERE_IMMUNOCOMPROMISE_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: [metabolic_syndrome]
+    title: Metabolic syndrome / obesity — what FMT trials actually showed
+    context_note: >
+      Lean-donor FMT transiently improved insulin sensitivity in one small trial; the follow-up
+      trial found the effect only in a subset and lost by 18 weeks, and encapsulated FMT did not
+      change BMI in adolescents. FMT for metabolic disease is investigational.
+    never_say: ["FMT for weight loss"]
+    fmt_status: investigational_non_cdi
+  - action_mapping_id: MAP_PROFILE_OBESITY_AKK_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: "{obesity,t2d}", direction: high, min_level: somewhat_high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_AKK_MUCT_PASTEURISED_3M_V1
+    evidence_assertion_refs: [IE_AKK_MUCT_DEPOMMIER_PILOT_V1, IE_AKK_MOUNT_WEIGHT_REGAIN_V1, IE_AKK_2026_OBESITY_RCT_V1]
+    against_evidence_assertion_refs: [IE_AKK_WST01_ZHANG2025_X_V1, IE_AKK_SUENAERT2026_NULL_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PROBIOTIC_IMMUNOCOMPROMISE_V1, PREGNANCY_BREASTFEEDING_SUPPLEMENT_V1]
+    confirmation_rule_refs: [insulin_resistance]
+    title: Pasteurised Akkermansia — positive pilot, null primaries, an exact product
+    context_note: >
+      The Akkermansia evidence is for one pasteurised strain at one dose; positive pilot results
+      and null primary endpoints exist side by side, and stool Akkermansia abundance does not
+      predict response.
+    never_say: ["boost your Akkermansia", "over-the-counter Akkermansia"]
+  - action_mapping_id: MAP_PROFILE_OBESITY_ROUTE_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: obesity, direction: high, min_level: somewhat_high}
+    render: guideline_route_after_confirmation
+    intervention_protocol_ref: PROTOCOL_ROUTE_METABOLIC_V1
+    evidence_assertion_refs: [IE_PREDIMED_RCT_V1, IE_WASTYK_HETEROGENEITY_V1]
+    against_evidence_assertion_refs: [IE_IPE_IPREVENT_NULL_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, RESTRICTIVE_DIET_EATING_DISORDER_V1]
+    confirmation_rule_refs: []
+    title: Obesity pattern — dietary-pattern evidence and what did not work
+    context_note: >
+      Body weight is measured, not inferred from stool. A Mediterranean dietary pattern reduced
+      cardiovascular events in PREDIMED; the fibre-supplement ingredient inulin-propionate ester
+      did not reduce weight gain over twelve months.
+    never_say: ["microbiome weight-loss plan"]
+    follow_up_route: "Weight, waist, blood pressure, lipids and HbA1c with a clinician (CLINICAL_ROUTE_METABOLIC_CONFIRMATION_V1)."
+  - action_mapping_id: MAP_PROFILE_MASLD_ROUTE_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: masld, direction: high, min_level: somewhat_high}
+    render: guideline_route_after_confirmation
+    intervention_protocol_ref: PROTOCOL_ROUTE_MASLD_V1
+    evidence_assertion_refs: [IE_EASL_MASLD_2024_A_V1, IE_PREDIMED_RCT_V1]
+    against_evidence_assertion_refs: [IE_FMT_MASLD_CRAVEN_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Fatty liver (MASLD) pattern — staging route and dietary evidence
+    context_note: >
+      Fatty liver is assessed with metabolic risk and non-invasive fibrosis tests, not stool.
+      Weight reduction and a Mediterranean pattern are guideline lifestyle care; FMT did not
+      improve insulin resistance or hepatic fat in the one randomized trial.
+    never_say: ["you have fatty liver", "liver detox"]
+    follow_up_route: "Metabolic risk assessment with FIB-4 or elastography per EASL/AASLD (CLINICAL_ROUTE_MASLD_EASL_V1)."
+    fmt_status: investigational_non_cdi
+  - action_mapping_id: MAP_PROFILE_T1D_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: t1d, direction: high, min_level: somewhat_high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_FMT_T1D_DEGROOT_V1
+    evidence_assertion_refs: [IE_FMT_T1D_DEGROOT_V1]
+    against_evidence_assertion_refs: [IE_FDA_FMT_SAFETY_ALERTS_X_V1]
+    safety_rule_refs: [FMT_CLINICIAN_ONLY_V1, FMT_SEVERE_IMMUNOCOMPROMISE_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: [type_1_diabetes]
+    title: Type 1 diabetes pattern — research only
+    context_note: >
+      Type 1 diabetes is an autoimmune diagnosis made by blood tests. The single FMT trial in
+      recent-onset disease is hypothesis-generating; no microbiome-directed treatment exists.
+    never_say: ["prevents type 1 diabetes"]
+    fmt_status: investigational_non_cdi
+  - action_mapping_id: MAP_PROFILE_CELIAC_ROUTE_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: celiac, direction: high, min_level: somewhat_high}
+    render: guideline_route_after_confirmation
+    intervention_protocol_ref: PROTOCOL_ROUTE_CELIAC_V1
+    evidence_assertion_refs: [IE_ACG_CELIAC_2023_A_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [GLUTEN_AVOIDANCE_BEFORE_DIAGNOSIS_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Celiac pattern — test before changing gluten
+    context_note: >
+      A gluten-free diet follows a proper celiac diagnosis. Removing gluten before serology and
+      biopsy can make the tests falsely negative, so this pattern is a reason to test, not to
+      change diet.
+    never_say: ["go gluten-free now", "you have celiac"]
+    follow_up_route: "tTG-IgA with total IgA while still eating gluten; biopsy per ACG 2023 (CLINICAL_ROUTE_CELIAC_SEROLOGY_BIOPSY_V1)."
+
+  # ---------------------------------------------------------------- liver / renal / CV
+  - action_mapping_id: MAP_PROFILE_CIRRHOSIS_HE_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: cirrhosis, direction: high, min_level: somewhat_high}
+    render: clinician_review
+    intervention_protocol_ref: PROTOCOL_RIFAXIMIN_HE_6M_BASS_V1
+    evidence_assertion_refs: [IE_EASL_HE_2022_A_V1, IE_RIFAXIMIN_HE_BASS_RCT_V1, IE_HE_PROBIOTIC_DHIMAN_RCT_V1, IE_HE_PROBIOTIC_META_V1, IE_FMT_HE_BAJAJ_PILOT_V1]
+    against_evidence_assertion_refs: [IE_FDA_FMT_SAFETY_ALERTS_X_V1]
+    safety_rule_refs: [PRESCRIPTION_REQUIRES_CONFIRMED_INDICATION_V1, FMT_CLINICIAN_ONLY_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: [hepatic_encephalopathy]
+    title: Cirrhosis / hepatic encephalopathy — guideline care for a clinician to review
+    context_note: >
+      Cirrhosis is diagnosed by imaging, blood tests and history. In confirmed hepatic
+      encephalopathy, lactulose and add-on rifaximin are guideline care; probiotic and FMT
+      evidence is adjunct or investigational.
+    never_say: ["you have cirrhosis", "treat your ammonia bacteria"]
+    follow_up_route: "Hepatology evaluation; HE management per EASL 2022 / AASLD (CLINICAL_ROUTE_HE_GUIDELINE_V1)."
+    fmt_status: investigational_non_cdi
+  - action_mapping_id: MAP_PROFILE_CKD_ROUTE_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: ckd, direction: high, min_level: somewhat_high}
+    render: guideline_route_after_confirmation
+    intervention_protocol_ref: PROTOCOL_ROUTE_KDIGO_V1
+    evidence_assertion_refs: [IE_KDIGO_2024_A_V1, IE_SYNERGY_CKD_ROSSI_V1, IE_CKD_BIOTICS_META_V1]
+    against_evidence_assertion_refs: [IE_RS_CKD_HEADLEY_X_V1]
+    safety_rule_refs: [RENAL_DIET_REVIEW_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: [chronic_kidney_disease]
+    title: Chronic kidney disease pattern — kidney function is measured in blood and urine
+    context_note: >
+      CKD is staged by eGFR and albuminuria. In established CKD, synbiotic and resistant-starch
+      trials changed some uraemic-toxin surrogates without hard renal outcomes; any diet change in
+      CKD needs renal-dietitian review of potassium and phosphorus.
+    never_say: ["you have kidney disease", "kidney detox"]
+    follow_up_route: "eGFR, urine albumin/creatinine and management per KDIGO 2024 (CLINICAL_ROUTE_RENAL_GUIDELINE_KDIGO_V1)."
+    fmt_status: investigational_non_cdi
+  - action_mapping_id: MAP_PROFILE_ACVD_DIET_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: acvd, direction: high, min_level: somewhat_high}
+    render: inform_only
+    intervention_protocol_ref: PROTOCOL_PREDIMED_V1
+    evidence_assertion_refs: [IE_PREDIMED_RCT_V1, IE_RED_MEAT_TMAO_WANG_RCT_V1]
+    against_evidence_assertion_refs: [IE_TMAO_PROBIOTIC_META_NULL_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Cardiovascular-disease pattern — dietary-pattern evidence independent of stool
+    context_note: >
+      Cardiovascular risk is assessed with blood pressure, lipids, glucose, smoking and family
+      history. A Mediterranean dietary pattern has randomized event-reduction evidence; probiotics
+      do not lower TMAO.
+    never_say: ["you have heart disease", "probiotic for TMAO"]
+    follow_up_route: "Standard cardiovascular risk assessment with a clinician (CLINICAL_ROUTE_METABOLIC_CONFIRMATION_V1)."
+  - action_mapping_id: MAP_PROFILE_HYPERTENSION_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: hypertension, direction: high, min_level: somewhat_high}
+    render: guideline_route_after_confirmation
+    intervention_protocol_ref: PROTOCOL_PREMIER_6M_V1
+    evidence_assertion_refs: [IE_PREMIER_RCT_V1]
+    against_evidence_assertion_refs: [IE_FMT_HYPERTENSION_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, RENAL_DIET_REVIEW_V1]
+    confirmation_rule_refs: []
+    title: Hypertension pattern — measure blood pressure; DASH has randomized evidence
+    context_note: >
+      Blood pressure is measured, not inferred. The DASH dietary pattern with behavioural support
+      lowered blood pressure in the PREMIER trial; FMT did not durably change it.
+    never_say: ["you have high blood pressure"]
+    follow_up_route: "Repeated validated blood-pressure measurement (CLINICAL_ROUTE_BLOOD_PRESSURE_V1)."
+    fmt_status: investigational_non_cdi
+
+  # ---------------------------------------------------------------- neuro / immune / psych
+  - action_mapping_id: MAP_PROFILE_PD_CONSTIPATION_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: parkinsons, direction: high, min_level: somewhat_high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_PD_CONSTIPATION_4W_TAN2021_V1
+    evidence_assertion_refs: [IE_PD_PROBIOTIC_CONSTIPATION_TAN_RCT_V1, IE_PD_FMT_BRUGGEMAN_MOTOR_V1]
+    against_evidence_assertion_refs: [IE_PD_FMT_CHENG_NULL_X_V1, IE_FDA_FMT_SAFETY_ALERTS_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PROBIOTIC_IMMUNOCOMPROMISE_V1, FMT_CLINICIAN_ONLY_V1, LEVODOPA_MAOI_MEDICATION_CARD_V1]
+    confirmation_rule_refs: [parkinson_disease]
+    title: Parkinson-disease pattern — what randomized trials measured
+    context_note: >
+      Parkinson disease is a neurological diagnosis. In people who have it, one exact multistrain
+      probiotic improved constipation (not motor symptoms), and FMT trials are split between a
+      null result and a modest motor signal — investigational.
+    never_say: ["you have Parkinson's", "probiotics for Parkinson's"]
+    follow_up_route: "Neurologic evaluation only if motor or non-motor symptoms are present (CLINICAL_ROUTE_NEURO_COGNITIVE_EVALUATION_V1)."
+    fmt_status: investigational_non_cdi
+  - action_mapping_id: MAP_PROFILE_MS_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: ms, direction: high, min_level: somewhat_high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_MS_VSL3_2M_V1
+    evidence_assertion_refs: [IE_MS_PROBIOTIC_TANKOU_V1, IE_MS_PROBIOTIC_2024_CROSSOVER_V1, IE_MS_FMT_PILOT_V1]
+    against_evidence_assertion_refs: [IE_FDA_FMT_SAFETY_ALERTS_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PROBIOTIC_IMMUNOCOMPROMISE_V1, FMT_CLINICIAN_ONLY_V1]
+    confirmation_rule_refs: [multiple_sclerosis]
+    title: Multiple-sclerosis pattern — surrogate-only microbiome studies
+    context_note: >
+      MS is diagnosed by neurology with MRI and CSF. Probiotic and FMT studies in MS are small and
+      report immune or microbiome surrogates, not disease activity.
+    never_say: ["you have MS", "probiotics for MS"]
+    fmt_status: investigational_non_cdi
+  - action_mapping_id: MAP_PROFILE_RA_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: ra, direction: high, min_level: somewhat_high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_RA_LCASEI01_8W_V1
+    evidence_assertion_refs: [IE_RA_PROBIOTIC_ALIPOUR_V1, IE_RA_PROBIOTIC_ZAMANI_V1]
+    against_evidence_assertion_refs: [IE_RA_PROBIOTIC_PINEDA_NULL_X_V1, IE_RA_FMT_CASE_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PROBIOTIC_IMMUNOCOMPROMISE_V1]
+    confirmation_rule_refs: [rheumatoid_arthritis]
+    title: Rheumatoid-arthritis pattern — small probiotic trials, positive and null
+    context_note: >
+      Rheumatoid arthritis is diagnosed by rheumatology with serology and examination. Two small
+      probiotic trials were positive on disease activity, one was null; many RA patients are
+      immunosuppressed, which changes live-microbe safety.
+    never_say: ["you have arthritis", "probiotics treat RA"]
+    fmt_status: investigational_non_cdi
+  - action_mapping_id: MAP_PROFILE_AS_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: ankylosing_spondylitis, direction: high, min_level: somewhat_high}
+    render: no_supported_targeted_intervention
+    intervention_protocol_ref: null
+    evidence_assertion_refs: []
+    against_evidence_assertion_refs: [IE_AS_PROBIOTIC_JENKS_NULL_X_V1, IE_AS_FMT_CASE_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Ankylosing-spondylitis pattern — no supported targeted intervention
+    context_note: >
+      The one randomized probiotic trial in ankylosing spondylitis was null and FMT is case-level.
+      The condition is diagnosed and treated by rheumatology.
+    never_say: ["you have AS"]
+    fmt_status: investigational_non_cdi
+  - action_mapping_id: MAP_PROFILE_MDD_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: mdd, direction: high, min_level: somewhat_high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_SMILES_12W_V1
+    evidence_assertion_refs: [IE_SMILES_RCT_V1, IE_MDD_PROBIOTIC_SCHAUB_RCT_V1]
+    against_evidence_assertion_refs: [IE_MDD_FMT_ESCITALOPRAM_NULL_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PROBIOTIC_IMMUNOCOMPROMISE_V1, RESTRICTIVE_DIET_EATING_DISORDER_V1]
+    confirmation_rule_refs: [major_depressive_disorder]
+    title: Depression pattern — adjunct evidence alongside treatment
+    context_note: >
+      Depression is a clinical diagnosis and this pattern is not a mood measurement. As adjuncts to
+      treatment, dietitian-supported Mediterranean-style dietary change (SMILES) and one exact
+      high-dose probiotic add-on reduced symptoms in randomized trials; FMT added to escitalopram
+      did not.
+    never_say: ["you are depressed", "probiotics replace antidepressants"]
+    fmt_status: investigational_non_cdi
+  - action_mapping_id: MAP_PROFILE_MECFS_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: mecfs, direction: high, min_level: somewhat_high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_MECFS_SHIROTA_8W_V1
+    evidence_assertion_refs: [IE_MECFS_PROBIOTIC_RAO_PILOT_V1, IE_MECFS_BIOMAPAI_SIGNATURE_V1]
+    against_evidence_assertion_refs: [IE_MECFS_FMT_PILOT_NULL_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PROBIOTIC_IMMUNOCOMPROMISE_V1]
+    confirmation_rule_refs: [me_cfs]
+    title: ME/CFS pattern — classifier evidence, thin intervention evidence
+    context_note: >
+      ME/CFS is a clinical diagnosis of exclusion. The microbiome classifier evidence is strong on
+      association; intervention evidence is one small probiotic pilot and a null FMT pilot.
+    never_say: ["you have chronic fatigue syndrome"]
+    fmt_status: investigational_non_cdi
+
+  # =====================================================================
+  # FUNCTIONAL GENE PANELS (rpoB-normalised capacity)
+  # =====================================================================
+  - action_mapping_id: MAP_PANEL_BUTYRATE_LOW_V1
+    trigger_selector: {trigger_type: functional_capacity_finding, target: butyrate, direction: low, min_level: somewhat_low}
+    render: inform_only
+    intervention_protocol_ref: PROTOCOL_WASTYK_10W_V1
+    evidence_assertion_refs: [IE_WASTYK_HETEROGENEITY_V1, IE_RS2_VENKATARAMAN_V1, IE_RIBOGUT_RCT_V1]
+    against_evidence_assertion_refs: [IE_RISEUP_NULL_X_V1, IE_AXOS_KJOLBAEK_X_V1]
+    safety_rule_refs: [FIBER_ESCALATION_STRUCTURAL_GI_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Lower butyrate-gene capacity — dietary evidence and its limits
+    context_note: >
+      This is gene capacity relative to a reference group, not a measured stool butyrate level.
+      Fermented-food and fibre feeding studies changed communities and surrogates in some people
+      (responses depend on the starting community); no trial shows that raising this gene reading
+      changes a health outcome.
+    never_say: ["butyrate deficiency", "take butyrate to fix this"]
+  - action_mapping_id: MAP_PANEL_PROPIONATE_LOW_V1
+    trigger_selector: {trigger_type: functional_capacity_finding, target: propionate, direction: low, min_level: somewhat_low}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_IPE_24W_CHAMBERS_V1
+    evidence_assertion_refs: [IE_IPE_CHAMBERS_RCT_V1, IE_WASTYK_HETEROGENEITY_V1]
+    against_evidence_assertion_refs: [IE_IPE_IPREVENT_NULL_X_V1]
+    safety_rule_refs: [FIBER_ESCALATION_STRUCTURAL_GI_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Lower propionate-gene capacity — an experimental ingredient, positive then null
+    context_note: >
+      Inulin-propionate ester delivered propionate to the colon and reduced weight gain in one
+      trial, then failed in a larger 12-month trial. Gene capacity is not a propionate level.
+    never_say: ["propionate deficiency"]
+  - action_mapping_id: MAP_PANEL_CUTC_HIGH_V1
+    trigger_selector: {trigger_type: functional_capacity_finding, target: cutc, direction: high, min_level: somewhat_high}
+    render: inform_only
+    intervention_protocol_ref: PROTOCOL_RED_MEAT_TMAO_4W_V1
+    evidence_assertion_refs: [IE_RED_MEAT_TMAO_WANG_RCT_V1, IE_PREDIMED_RCT_V1]
+    against_evidence_assertion_refs: [IE_TMAO_PROBIOTIC_META_NULL_X_V1, IE_TMAO_PROBIOTIC_DIALYSIS_NULL_X_V1, IE_TMAO_FEEDING_INCONSISTENT_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Higher TMA-lyase (cutC) capacity — what changes TMAO, and what does not
+    context_note: >
+      cutC gene capacity is not a plasma TMAO measurement. In a controlled feeding trial, red meat
+      raised plasma TMAO about three-fold and switching protein source reversed it within weeks;
+      probiotics did not lower TMAO in pooled trials, and DMB inhibitors are animal-only.
+    never_say: ["you have high TMAO", "avoid choline"]
+  - action_mapping_id: MAP_PANEL_BAI_HIGH_V1
+    trigger_selector: {trigger_type: functional_capacity_finding, target: bai, direction: high, min_level: somewhat_high}
+    render: inform_only
+    intervention_protocol_ref: PROTOCOL_ANIMAL_PLANT_5D_V1
+    evidence_assertion_refs: [IE_BILE_ACID_DAVID_D_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Higher secondary-bile-acid (bai) capacity — diet shifts it quickly, levels need LC-MS
+    context_note: >
+      Bile-acid 7α-dehydroxylation capacity rose within days on an animal-based diet and fell on a
+      plant-based diet in a small feeding study. Actual bile-acid levels require targeted stool
+      LC-MS; no trial treats this gene reading.
+    never_say: ["toxic bile acids", "bile acid detox"]
+  - action_mapping_id: MAP_PANEL_BSH_ANY_V1
+    trigger_selector: {trigger_type: functional_capacity_finding, target: bsh, direction: any}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_LREUTERI_30242_CAPSULE_V1
+    evidence_assertion_refs: [IE_LREUTERI_30242_YOGURT_V1, IE_LREUTERI_30242_CAPSULE_V1, IE_LREUTERI_30242_SAFETY_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PROBIOTIC_IMMUNOCOMPROMISE_V1]
+    confirmation_rule_refs: [hypercholesterolaemia]
+    title: Bile-salt hydrolase — the one strain with LDL trials, and why total capacity is not it
+    context_note: >
+      Total stool BSH gene capacity is not the same as one BSH-active strain. L. reuteri
+      NCIMB 30242 lowered LDL by 9–12% in two trials in people with measured high cholesterol; the
+      reading here does not select or predict that.
+    never_say: ["lowers your cholesterol", "BSH deficiency"]
+  - action_mapping_id: MAP_PANEL_BCAA_HIGH_V1
+    trigger_selector: {trigger_type: functional_capacity_finding, target: bcaa, direction: high, min_level: somewhat_high}
+    render: no_supported_targeted_intervention
+    intervention_protocol_ref: null
+    evidence_assertion_refs: [IE_BCAA_PEDERSEN_E_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Higher microbial BCAA-synthesis capacity — association only
+    context_note: >
+      Microbial BCAA biosynthesis potential correlated with serum BCAA and insulin resistance in
+      one cohort, with causal work in mice. No human trial targets it and protein intake is never
+      restricted from DNA.
+    never_say: ["cut protein", "BCAA toxicity"]
+    follow_up_route: "If metabolic risk is a concern, HbA1c and lipids with a clinician (CLINICAL_ROUTE_METABOLIC_CONFIRMATION_V1)."
+  - action_mapping_id: MAP_PANEL_H2S_HIGH_V1
+    trigger_selector: {trigger_type: functional_capacity_finding, target: h2s, direction: high, min_level: somewhat_high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_BISMUTH_H2S_SUAREZ_V1
+    evidence_assertion_refs: [IE_BISMUTH_H2S_SUAREZ_D_V1]
+    against_evidence_assertion_refs: [IE_4SURE_UC_MIXED_X_V1]
+    safety_rule_refs: [BISMUTH_SALICYLATE_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PREGNANCY_BREASTFEEDING_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Higher hydrogen-sulfide (dsrA) capacity — surrogate evidence only
+    context_note: >
+      Bismuth subsalicylate reduced ex-vivo fecal hydrogen-sulfide release in ten healthy adults
+      (a surrogate, with salicylate and bismuth cautions), and a small sulfide-reducing diet study
+      in UC gave mixed results. No disease endpoint has been shown to change.
+    never_say: ["sulfur toxicity", "avoid sulfur foods"]
+  - action_mapping_id: MAP_PANEL_METHANE_HIGH_V1
+    trigger_selector: {trigger_type: functional_capacity_finding, target: methane, direction: high, min_level: somewhat_high}
+    render: guideline_route_after_confirmation
+    intervention_protocol_ref: PROTOCOL_ROUTE_BREATH_METHANE_V1
+    evidence_assertion_refs: [IE_METHANE_CONSENSUS_A_V1, IE_ACG_SIBO_A_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Higher methanogenesis (mcrA) capacity — breath testing defines methanogen overgrowth
+    context_note: >
+      Stool methanogen genes do not diagnose intestinal methanogen overgrowth. If constipation or
+      bloating are present, a standardised breath test (methane ≥10 ppm) is the recognised
+      route; antibiotics follow a positive test with symptoms, never a stool reading.
+    never_say: ["you have SIBO", "methane overgrowth confirmed"]
+    follow_up_route: "Standardised breath methane test when constipation/bloating are present (CLINICAL_ROUTE_BREATH_METHANE_V1)."
+  - action_mapping_id: MAP_PANEL_METHANE_IMO_RX_V1
+    trigger_selector: {trigger_type: functional_capacity_finding, target: methane, direction: high, min_level: high}
+    render: clinician_review
+    intervention_protocol_ref: PROTOCOL_NEOMYCIN_RIFAXIMIN_IMO_14D_V1
+    evidence_assertion_refs: [IE_NEOMYCIN_RIFAXIMIN_IMO_RCT_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [PRESCRIPTION_REQUIRES_CONFIRMED_INDICATION_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: [methane_positive_ibs_c]
+    title: Methane-positive IBS-C — the prescription trial a clinician would consider after breath testing
+    context_note: >
+      In 31 breath-test-positive IBS-C patients, neomycin plus rifaximin improved some constipation
+      symptoms. This is a clinician-only route after breath testing, not a response to stool DNA.
+    never_say: ["antibiotics for your methane genes"]
+  - action_mapping_id: MAP_PANEL_UREASE_HIGH_V1
+    trigger_selector: {trigger_type: functional_capacity_finding, target: urease, direction: high, min_level: somewhat_high}
+    render: inform_only
+    intervention_protocol_ref: PROTOCOL_ROUTE_HE_V1
+    evidence_assertion_refs: [IE_EASL_HE_2022_A_V1, IE_AASLD_HE_A_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Higher urease capacity — meaningful only with confirmed liver disease
+    context_note: >
+      Urease genes do not measure ammonia or diagnose hepatic encephalopathy. Lactulose and
+      rifaximin are guideline care for people with cirrhosis and HE; they are not treatments for
+      a gene reading in someone without liver disease.
+    never_say: ["ammonia toxicity", "take lactulose"]
+  - action_mapping_id: MAP_PANEL_PCRESOL_HIGH_V1
+    trigger_selector: {trigger_type: functional_capacity_finding, target: pcresol, direction: high, min_level: somewhat_high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_SYNERGY_CKD_6W_V1
+    evidence_assertion_refs: [IE_SYNERGY_CKD_ROSSI_V1, IE_RS_CKD_REVIEW_V1]
+    against_evidence_assertion_refs: [IE_RS_CKD_HEADLEY_X_V1]
+    safety_rule_refs: [RENAL_DIET_REVIEW_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PROBIOTIC_IMMUNOCOMPROMISE_V1]
+    confirmation_rule_refs: [chronic_kidney_disease]
+    title: Higher p-cresol (hpdB) capacity — evidence exists only in established kidney disease
+    context_note: >
+      In pre-dialysis CKD, a synbiotic and resistant starch each lowered serum p-cresyl sulfate
+      in small trials without hard outcomes. In someone with normal kidney function this reading
+      has no supported intervention.
+    never_say: ["uraemic toxins", "kidney damage"]
+  - action_mapping_id: MAP_PANEL_INDOLE_IPA_TRYPTAMINE_V1
+    trigger_selector: {trigger_type: functional_capacity_finding, target: "{indole,ipa,tryptamine}", direction: any}
+    render: no_supported_targeted_intervention
+    intervention_protocol_ref: null
+    evidence_assertion_refs: []
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Tryptophan-metabolite capacity (indole, IPA, tryptamine) — no supported targeted intervention
+    context_note: >
+      Microbial tryptophan metabolism is an active research area with associations to gut barrier
+      and immune signalling, but no human trial shows that changing these gene readings changes a
+      health outcome. Tryptophan intake is never adjusted from stool DNA.
+    never_say: ["serotonin level", "tryptophan deficiency"]
+  - action_mapping_id: MAP_PANEL_GABA_DOPAMINE_V1
+    trigger_selector: {trigger_type: functional_capacity_finding, target: "{gaba,dopamine}", direction: any}
+    render: no_supported_targeted_intervention
+    intervention_protocol_ref: null
+    evidence_assertion_refs: [IE_LEVODOPA_TDC_ASSOCIATION_D_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [LEVODOPA_MAOI_MEDICATION_CARD_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Neurotransmitter-related capacity (GABA, tyrosine decarboxylase) — a medication fact, not a mood reading
+    context_note: >
+      Bacterial GABA and tyrosine-decarboxylase genes do not measure brain neurotransmitters.
+      The one clinically relevant fact is that tyrosine decarboxylase abundance correlated with
+      levodopa dose requirement in Parkinson patients — information for a prescriber, not an
+      action.
+    never_say: ["your dopamine is low", "GABA deficiency", "mood bacteria"]
+    follow_up_route: "If taking levodopa: information card to the prescriber; no dose change from this report (CLINICAL_ROUTE_LEVODOPA_PRESCRIBER_CARD_V1)."
+  - action_mapping_id: MAP_PANEL_HISTAMINE_HIGH_V1
+    trigger_selector: {trigger_type: functional_capacity_finding, target: histamine, direction: high, min_level: somewhat_high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_LOW_FODMAP_3W_MCINTOSH_V1
+    evidence_assertion_refs: [IE_LOW_FODMAP_HISTAMINE_MCINTOSH_V1, IE_HISTAMINE_IBS_DEPALMA_E_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [RESTRICTIVE_DIET_EATING_DISORDER_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: [ibs]
+    title: Higher histidine-decarboxylase capacity — the only trial is a diet trial in IBS
+    context_note: >
+      Stool hdc genes are not a histamine measurement. In diagnosed IBS, a three-week randomized
+      low-FODMAP diet lowered urinary histamine and improved symptoms; the causal
+      Klebsiella-histamine work was in mice.
+    never_say: ["histamine intolerance", "low-histamine diet for everyone"]
+  - action_mapping_id: MAP_PANEL_BGLUCURONIDASE_HIGH_V1
+    trigger_selector: {trigger_type: functional_capacity_finding, target: bglucuronidase, direction: high, min_level: somewhat_high}
+    render: no_supported_targeted_intervention
+    intervention_protocol_ref: null
+    evidence_assertion_refs: [IE_GUS_WALLACE_E_V1, IE_GUS_BHATT_E_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Higher β-glucuronidase capacity — preclinical only
+    context_note: >
+      Bacterial β-glucuronidase inhibitors protected mice from irinotecan toxicity; there is no
+      human trial, and no 'estrogen detox' or calcium-D-glucarate claim is supported.
+    never_say: ["estrogen dominance", "detox supplement"]
+    follow_up_route: "Relevant only during irinotecan chemotherapy, as part of oncology management (CLINICAL_ROUTE_ONCOLOGY_IRINOTECAN_V1)."
+  - action_mapping_id: MAP_PANEL_B12_LOW_V1
+    trigger_selector: {trigger_type: functional_capacity_finding, target: b12, direction: any}
+    render: inform_only
+    intervention_protocol_ref: PROTOCOL_ROUTE_B12_V1
+    evidence_assertion_refs: [IE_B12_ODS_A_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, FOLIC_ACID_MASKS_B12_V1]
+    confirmation_rule_refs: []
+    title: Vitamin B12 synthesis genes — colonic synthesis is not your B12 status
+    context_note: >
+      Bacteria in the colon make B12 that is largely not absorbed there; this reading does not
+      indicate deficiency or sufficiency. B12 status is a blood test, and diet, age, metformin and
+      acid suppression matter more.
+    never_say: ["B12 deficient", "your bacteria make enough B12"]
+    follow_up_route: "Serum B12 (± methylmalonic acid) if deficiency is a concern (CLINICAL_ROUTE_B12_STATUS_V1)."
+  - action_mapping_id: MAP_PANEL_K2_ANY_V1
+    trigger_selector: {trigger_type: functional_capacity_finding, target: k2, direction: any}
+    render: inform_only
+    intervention_protocol_ref: null
+    evidence_assertion_refs: [IE_K2_ODS_A_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [WARFARIN_VITAMIN_K_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Menaquinone (vitamin K2) synthesis genes — not a vitamin K status
+    context_note: >
+      Gene capacity for menaquinone synthesis does not measure coagulation or vitamin K
+      sufficiency. People on warfarin should keep vitamin K intake stable under their prescriber.
+    never_say: ["vitamin K deficiency", "take K2"]
+  - action_mapping_id: MAP_PANEL_FOLATE_ANY_V1
+    trigger_selector: {trigger_type: functional_capacity_finding, target: folate, direction: any}
+    render: inform_only
+    intervention_protocol_ref: null
+    evidence_assertion_refs: [IE_FOLATE_ODS_A_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [FOLIC_ACID_MASKS_B12_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Folate synthesis genes — not a folate status
+    context_note: >
+      Folate status is assessed by diet, medications, pregnancy and blood tests; microbial genes
+      do not indicate deficiency, and high folic-acid intake can mask B12 deficiency.
+    never_say: ["folate deficient", "take folic acid"]
+  - action_mapping_id: MAP_PANEL_RIBOFLAVIN_ANY_V1
+    trigger_selector: {trigger_type: functional_capacity_finding, target: riboflavin, direction: any}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_RIBOGUT_2W_V1
+    evidence_assertion_refs: [IE_RIBOGUT_RCT_V1]
+    against_evidence_assertion_refs: [IE_RISEUP_NULL_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PREGNANCY_BREASTFEEDING_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Riboflavin synthesis genes — the riboflavin-supplement trials measured the microbiome, not you
+    context_note: >
+      Riboflavin supplementation was tested as a way to feed F. prausnitzii: two weeks in healthy
+      adults did not significantly raise it at either dose, and three weeks in Crohn's disease did
+      not alter the metagenome. This gene reading is not a riboflavin status.
+    never_say: ["riboflavin deficiency"]
+  - action_mapping_id: MAP_PANEL_BIOTIN_ANY_V1
+    trigger_selector: {trigger_type: functional_capacity_finding, target: biotin, direction: any}
+    render: inform_only
+    intervention_protocol_ref: null
+    evidence_assertion_refs: [IE_BIOTIN_ODS_A_V1]
+    against_evidence_assertion_refs: [IE_BIOTIN_FDA_INTERFERENCE_X_V1]
+    safety_rule_refs: [HIGH_DOSE_BIOTIN_ASSAY_INTERFERENCE_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Biotin synthesis genes — no hair or supplement claim follows
+    context_note: >
+      Biotin deficiency is rare and this reading does not indicate it. High-dose biotin
+      supplements interfere with laboratory tests including troponin.
+    never_say: ["biotin for hair", "biotin deficiency"]
+  - action_mapping_id: MAP_PANEL_OXALATE_LOW_V1
+    trigger_selector: {trigger_type: functional_capacity_finding, target: oxalate, direction: low, min_level: somewhat_low}
+    render: inform_only
+    intervention_protocol_ref: PROTOCOL_ROUTE_STONES_V1
+    evidence_assertion_refs: [IE_AUA_STONES_A_V1, IE_OXALATE_DIET_LIESKE_V1]
+    against_evidence_assertion_refs: [IE_OXABACT_EPHEX_NULL_X_V1, IE_OXALATE_PROBIOTIC_NULL_X_V1]
+    safety_rule_refs: [KIDNEY_STONE_OXALATE_ROUTE_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Lower oxalate-degradation capacity — probiotics failed; stone formers have a guideline route
+    context_note: >
+      Oxalobacter (Oxabact) colonised but missed its primary endpoint, and a
+      Lactobacillus/Bifidobacterium probiotic did not lower urinary oxalate. For people who form
+      stones, a 24-hour urine and AUA-guided management apply; a controlled diet lowered urinary
+      oxalate where probiotics did not.
+    never_say: ["take Oxalobacter", "oxalate probiotic"]
+    follow_up_route: "24-hour urine and metabolic stone evaluation if there is a stone history (CLINICAL_ROUTE_STONE_EVALUATION_AUA_V1)."
+  - action_mapping_id: MAP_PANEL_URDA_LOW_V1
+    trigger_selector: {trigger_type: functional_capacity_finding, target: urda, direction: any}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_UROLITHIN_A_4M_V1
+    evidence_assertion_refs: [IE_UROLITHIN_A_RCT_MIXED_V1, IE_EQUOL_SETCHELL_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PREGNANCY_BREASTFEEDING_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Polyphenol-conversion capacity (urolithin/equol) — status is defined by a challenge, not by genes
+    context_note: >
+      Whether someone converts ellagitannins to urolithins or daidzein to equol is determined by a
+      substrate challenge with urine measurement. Direct urolithin A supplementation missed its
+      primary endpoints and improved a secondary muscle measure in older adults; it bypasses the
+      microbes rather than restoring them.
+    never_say: ["non-producer", "take urolithin"]
+  - action_mapping_id: MAP_PANEL_CRC_VIRULENCE_HIGH_V1
+    trigger_selector: {trigger_type: functional_capacity_finding, target: crc_virulence, direction: high, min_level: somewhat_high}
+    render: guideline_route_after_confirmation
+    intervention_protocol_ref: PROTOCOL_ROUTE_GENERIC_V1
+    evidence_assertion_refs: [IE_USPSTF_CRC_SCREENING_A_V1, IE_CRC_VIRULENCE_REVIEW_E_V1]
+    against_evidence_assertion_refs: [IE_FNUCLEATUM_PERIODONTAL_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Colorectal-cancer-associated virulence genes (pks, bft, fadA) — carriage, not toxin activity
+    context_note: >
+      These genes mark the potential to make colibactin, fragilysin or FadA; carriage is common
+      and is not toxin expression or cancer. No trial shows that removing these organisms prevents
+      cancer, so conventional screening is the action.
+    never_say: ["cancer-causing bacteria detected", "eradicate pks E. coli"]
+    follow_up_route: "Age-appropriate colorectal cancer screening per USPSTF (CLINICAL_ROUTE_CRC_SCREENING_USPSTF_V1)."
+
+  # =====================================================================
+  # MICROBIAL GROUPS (relative abundance vs matched reference)
+  # =====================================================================
+  - action_mapping_id: MAP_GROUP_BUTYRATE_LOW_V1
+    trigger_selector: {trigger_type: ecological_finding, target: butyrate, direction: low, min_level: somewhat_low}
+    render: inform_only
+    intervention_protocol_ref: PROTOCOL_WASTYK_10W_V1
+    evidence_assertion_refs: [IE_WASTYK_HETEROGENEITY_V1, IE_RS2_VENKATARAMAN_V1, IE_DMP_NO_UNIVERSAL_CORE_V1]
+    against_evidence_assertion_refs: [IE_AXOS_KJOLBAEK_X_V1]
+    safety_rule_refs: [FIBER_ESCALATION_STRUCTURAL_GI_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Fewer butyrate-producing species than the reference — dietary evidence and its limits
+    context_note: >
+      Fermented foods increased diversity and lowered inflammatory markers over ten weeks in
+      healthy adults; fibre responses depended on the baseline community, and resistant potato
+      starch raised butyrate only in people already carrying Ruminococcus bromii. No trial shows
+      a health outcome changes by raising this group.
+    never_say: ["deficient in good bacteria", "take a butyrate probiotic"]
+  - action_mapping_id: MAP_GROUP_BENEFICIAL_LOW_V1
+    trigger_selector: {trigger_type: ecological_finding, target: beneficial, direction: low, min_level: somewhat_low}
+    render: inform_only
+    intervention_protocol_ref: PROTOCOL_WASTYK_10W_V1
+    evidence_assertion_refs: [IE_WASTYK_HETEROGENEITY_V1, IE_DMP_NO_UNIVERSAL_CORE_V1]
+    against_evidence_assertion_refs: [IE_SUEZ_POST_ANTIBIOTIC_X_V1]
+    safety_rule_refs: [FIBER_ESCALATION_STRUCTURAL_GI_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Fewer reference-associated species — there is no universal healthy core to restore
+    context_note: >
+      In 8,208 Dutch adults, geography, age, medications and stool form shaped the community and
+      no universal healthy core existed. A dietary pattern with more fermented foods and diverse
+      fibre has surrogate evidence; after antibiotics, a probiotic delayed recovery of the native
+      community.
+    never_say: ["restore your good bacteria", "probiotic to replace what is missing"]
+  - action_mapping_id: MAP_GROUP_PROBIOTICS_ANY_V1
+    trigger_selector: {trigger_type: ecological_finding, target: probiotics, direction: any}
+    render: inform_only
+    intervention_protocol_ref: null
+    evidence_assertion_refs: [IE_ZMORA_COLONISATION_V1]
+    against_evidence_assertion_refs: [IE_SUEZ_POST_ANTIBIOTIC_X_V1, IE_AGA_PROBIOTICS_GUIDELINE_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PROBIOTIC_IMMUNOCOMPROMISE_V1]
+    confirmation_rule_refs: []
+    title: Probiotic-type species — stool abundance reflects transit as much as colonisation
+    context_note: >
+      Lactobacilli and bifidobacteria in stool largely reflect what passed through (fermented
+      foods, supplements) rather than residents. Colonisation is person- and strain-specific,
+      probiotic effects are strain- and indication-specific, and after antibiotics a probiotic
+      slowed native recovery.
+    never_say: ["you need a probiotic", "probiotic deficiency"]
+  - action_mapping_id: MAP_GROUP_OPPORTUNISTIC_HIGH_V1
+    trigger_selector: {trigger_type: ecological_finding, target: opportunistic_pathogens, direction: high, min_level: somewhat_high}
+    render: guideline_route_after_confirmation
+    intervention_protocol_ref: PROTOCOL_ROUTE_STOOL_PATHOGEN_V1
+    evidence_assertion_refs: [IE_IDSA_DIARRHOEA_A_V1, IE_LIAO_ORAL_RELATIVE_V1]
+    against_evidence_assertion_refs: [IE_HERBAL_SIBO_CHEDID_X_V1, IE_MULTI_INGREDIENT_NO_HUMAN_X_V1, IE_SUEZ_POST_ANTIBIOTIC_X_V1]
+    safety_rule_refs: [BOTANICAL_ANTICOAGULANT_ANTIPLATELET_V1, BOTANICAL_GLUCOSE_LOWERING_V1, BOTANICAL_LIVER_KIDNEY_V1, PREGNANCY_BREASTFEEDING_SUPPLEMENT_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: More opportunistic organisms than the reference — what the human evidence does and does not support
+    context_note: >
+      Enterobacterales and other opportunists live in most healthy guts; a higher relative share
+      is common after antibiotics, with proton-pump inhibitors, or when resident biomass falls. If
+      there are symptoms, clinical stool testing (IDSA) is the route. No human trial shows that
+      berberine, oregano oil, allicin, black-seed oil or multi-ingredient botanical products
+      reduce stool E. coli or Klebsiella; the frequently cited herbal study was a retrospective
+      breath-test chart review.
+    never_say: ["kill the bad bacteria", "natural antibiotics eradicate", "dysbiosis cured"]
+    follow_up_route: "Clinical stool culture/PCR only when symptomatic (CLINICAL_ROUTE_STOOL_PATHOGEN_TESTING_IDSA_V1)."
+  - action_mapping_id: MAP_GROUP_ORAL_ORIGIN_HIGH_V1
+    trigger_selector: {trigger_type: ecological_finding, target: oral_origin, direction: high, min_level: somewhat_high}
+    render: inform_only
+    intervention_protocol_ref: PROTOCOL_ROUTE_ORAL_HEALTH_V1
+    evidence_assertion_refs: [IE_ORAL_HEALTH_ROUTE_V1, IE_LIAO_ORAL_RELATIVE_V1, IE_PPI_ORAL_TAXA_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: More mouth-origin bacteria in stool — usually a transit, acid or biomass story
+    context_note: >
+      Oral bacteria are swallowed constantly and appear in everyone's stool. A higher share is
+      most often linked to proton-pump inhibitors, lower resident gut biomass, or oral health.
+      Ordinary dental care applies if overdue; there is no gut-directed treatment.
+    never_say: ["oral bacteria infecting your gut", "antimicrobial mouthwash for gut"]
+    follow_up_route: "Routine dental evaluation if overdue or symptomatic; review acid-suppression with the prescriber (CLINICAL_ROUTE_ORAL_HEALTH_V1)."
+  - action_mapping_id: MAP_GROUP_MUCIN_DEGRADERS_ANY_V1
+    trigger_selector: {trigger_type: ecological_finding, target: mucin_degraders, direction: any}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_AKK_MUCT_PASTEURISED_3M_V1
+    evidence_assertion_refs: [IE_AKK_MUCT_DEPOMMIER_PILOT_V1]
+    against_evidence_assertion_refs: [IE_AKK_WST01_ZHANG2025_X_V1, IE_AKK_SUENAERT2026_NULL_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PROBIOTIC_IMMUNOCOMPROMISE_V1]
+    confirmation_rule_refs: [insulin_resistance]
+    title: Mucin-degrading species (Akkermansia, R. gnavus) — a context-dependent group
+    context_note: >
+      Akkermansia is linked to metabolic health in some cohorts and enriched in MS and Parkinson
+      cohorts in others; R. gnavus blooms in Crohn's flares. The only trials are of one exact
+      pasteurised Akkermansia product with mixed primary endpoints. Group abundance is not a
+      target.
+    never_say: ["mucus-eating bacteria damaging your gut", "boost Akkermansia"]
+  - action_mapping_id: MAP_GROUP_METHANOGENS_HIGH_V1
+    trigger_selector: {trigger_type: ecological_finding, target: methanogens, direction: high, min_level: somewhat_high}
+    render: guideline_route_after_confirmation
+    intervention_protocol_ref: PROTOCOL_ROUTE_BREATH_METHANE_V1
+    evidence_assertion_refs: [IE_METHANE_CONSENSUS_A_V1, IE_ACG_SIBO_A_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: More methanogens than the reference — breath testing, not stool, defines overgrowth
+    context_note: >
+      Methanobrevibacter smithii is present in about a third to a half of healthy adults. Stool
+      abundance does not diagnose intestinal methanogen overgrowth; a breath test does, and only
+      matters if constipation or bloating are present.
+    never_say: ["methane SIBO", "kill methanogens"]
+    follow_up_route: "Standardised breath methane test when symptomatic (CLINICAL_ROUTE_BREATH_METHANE_V1)."
+  - action_mapping_id: MAP_GROUP_SULFATE_REDUCERS_HIGH_V1
+    trigger_selector: {trigger_type: ecological_finding, target: sulfate_reducers, direction: high, min_level: somewhat_high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_BISMUTH_H2S_SUAREZ_V1
+    evidence_assertion_refs: [IE_BISMUTH_H2S_SUAREZ_D_V1, IE_BILE_ACID_DAVID_D_V1]
+    against_evidence_assertion_refs: [IE_4SURE_UC_MIXED_X_V1]
+    safety_rule_refs: [BISMUTH_SALICYLATE_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PREGNANCY_BREASTFEEDING_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: More sulfate/sulfite reducers (Bilophila, Desulfovibrio) — diet shifts them; outcomes unproven
+    context_note: >
+      Bilophila expanded within days on an animal-based, high-fat diet in a feeding study, and
+      bismuth reduced fecal sulfide release as a surrogate. No trial shows a health outcome
+      changes by lowering this group.
+    never_say: ["sulfur bacteria poisoning", "low-sulfur diet cure"]
+  - action_mapping_id: MAP_GROUP_HEXA_LPS_HIGH_V1
+    trigger_selector: {trigger_type: ecological_finding, target: hexa_lps, direction: high, min_level: somewhat_high}
+    render: no_supported_targeted_intervention
+    intervention_protocol_ref: null
+    evidence_assertion_refs: []
+    against_evidence_assertion_refs: [IE_HERBAL_SIBO_CHEDID_X_V1, IE_MULTI_INGREDIENT_NO_HUMAN_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: More hexa-acylated-LPS carriers (Enterobacterales) — no supported targeted intervention
+    context_note: >
+      Hexa-acylated LPS is a laboratory immunology concept; carrier abundance in stool is not an
+      endotoxin measurement. No human trial shows that a supplement, botanical or diet lowers this
+      group and improves a health outcome.
+    never_say: ["endotoxemia", "leaky gut confirmed"]
+  - action_mapping_id: MAP_GROUP_POLYPHENOL_LOW_V1
+    trigger_selector: {trigger_type: ecological_finding, target: polyphenol_metabolisers, direction: low, min_level: somewhat_low}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_UROLITHIN_A_4M_V1
+    evidence_assertion_refs: [IE_EQUOL_SETCHELL_V1, IE_UROLITHIN_A_RCT_MIXED_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PREGNANCY_BREASTFEEDING_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Fewer polyphenol-converting species — producer status needs a challenge test
+    context_note: >
+      Equol- and urolithin-producer status is defined by a soy or pomegranate challenge with
+      urine measurement, not by species presence. Direct urolithin A had mixed trial results and
+      bypasses the microbes.
+    never_say: ["non-converter", "polyphenol deficiency"]
+
+  # =====================================================================
+  # INDIVIDUAL ORGANISMS (findings buckets)
+  # =====================================================================
+  - action_mapping_id: MAP_TAXON_ENTEROBACTERALES_HIGH_NATURAL_ANTIMICROBIALS_V1
+    trigger_selector: {trigger_type: exact_microbiome_feature, target: "{Escherichia_coli,Klebsiella_*,Enterobacter_*,Citrobacter_*,Proteus_*,Morganella_*,Hafnia_*,Serratia_*,Escherichia_fergusonii}", direction: high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_HERBAL_SIBO_PAIRS_4W_V1
+    evidence_assertion_refs: [IE_BERBERINE_ETEC_1987_D_V1, IE_BOTANICAL_INVITRO_E_V1]
+    against_evidence_assertion_refs: [IE_HERBAL_SIBO_CHEDID_X_V1, IE_BRIEF_SIBO_PROTOCOL_X_V1, IE_MULTI_INGREDIENT_NO_HUMAN_X_V1]
+    safety_rule_refs: [BOTANICAL_ANTICOAGULANT_ANTIPLATELET_V1, BOTANICAL_GLUCOSE_LOWERING_V1, BOTANICAL_LIVER_KIDNEY_V1, BOTANICAL_ALLERGY_AND_QUALITY_V1, PREGNANCY_BREASTFEEDING_SUPPLEMENT_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Natural antimicrobials (berberine, oregano oil, allicin, black-seed oil, GI Microb-X) — the evidence on record
+    context_note: >
+      People often take botanical antimicrobials to 'clear' E. coli or Klebsiella. What exists:
+      one 1987 trial of a single berberine dose for acute enterotoxigenic E. coli diarrhoea (stool
+      volume, not decolonisation); in-vitro and animal work for carvacrol, allicin and Nigella
+      sativa; and a retrospective breath-test chart review comparing herbal pairs with rifaximin.
+      No human trial shows any of them reduce stool E. coli or Klebsiella or improve an outcome.
+      Interactions with anticoagulants, glucose-lowering drugs, pregnancy, and liver/kidney
+      disease are documented.
+    never_say: ["eradicate", "natural antibiotic protocol", "kill Klebsiella"]
+    follow_up_route: "Culture and susceptibility only when infection is clinically suspected (CLINICAL_ROUTE_CLINICAL_CULTURE_AMR_V1)."
+  - action_mapping_id: MAP_TAXON_ENTEROBACTERALES_ROUTE_V1
+    trigger_selector: {trigger_type: exact_microbiome_feature, target: "{Escherichia_coli,Klebsiella_*,Enterobacter_*,Citrobacter_*,Proteus_*,Morganella_*,Serratia_*}", direction: high}
+    render: guideline_route_after_confirmation
+    intervention_protocol_ref: PROTOCOL_ROUTE_CULTURE_V1
+    evidence_assertion_refs: [IE_IDSA_DIARRHOEA_A_V1, IE_LIAO_ORAL_RELATIVE_V1]
+    against_evidence_assertion_refs: [IE_SUEZ_POST_ANTIBIOTIC_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Higher Enterobacterales share — what it usually means and the clinical route
+    context_note: >
+      A higher relative share of E. coli or Klebsiella is common after antibiotics, on acid
+      suppression, or when resident anaerobe biomass falls; it is not an infection. Symptoms
+      (fever, bloody or persistent diarrhoea) call for clinical testing, and asymptomatic carriage
+      is not treated.
+    never_say: ["infection", "you need antibiotics"]
+    follow_up_route: "Stool culture/PCR if symptomatic (CLINICAL_ROUTE_STOOL_PATHOGEN_TESTING_IDSA_V1)."
+  - action_mapping_id: MAP_TAXON_CDIFF_PRESENT_V1
+    trigger_selector: {trigger_type: exact_microbiome_feature, target: Clostridioides_difficile, direction: any}
+    render: guideline_route_after_confirmation
+    intervention_protocol_ref: PROTOCOL_ROUTE_CDI_TOXIN_V1
+    evidence_assertion_refs: [IE_CDI_CARRIAGE_VS_DISEASE_V1, IE_AGA_FMT_2024_A_V1, IE_VOWST_LABEL_A_V1, IE_REBYOTA_LABEL_A_V1, IE_FDA_FMT_ENFORCEMENT_DISCRETION_A_V1]
+    against_evidence_assertion_refs: [IE_FDA_FMT_SAFETY_ALERTS_X_V1]
+    safety_rule_refs: [FMT_CLINICIAN_ONLY_V1, FMT_SEVERE_IMMUNOCOMPROMISE_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: [recurrent_c_difficile_infection]
+    title: Clostridioides difficile DNA — carriage versus infection, and the approved microbiota therapies
+    context_note: >
+      C. difficile DNA in stool is common carriage and is not infection; testing is indicated only
+      with ≥3 unformed stools in 24 hours or other compatible symptoms. For clinician-confirmed
+      recurrent CDI after antibiotics, FMT (AGA 2024, conditional) and two FDA-approved
+      microbiota products (VOWST, REBYOTA) exist — the one setting where microbiota therapy is
+      established.
+    never_say: ["you have C. diff", "C. diff infection detected"]
+    follow_up_route: "Toxin testing only with compatible symptoms (CLINICAL_ROUTE_CDI_TOXIN_TESTING_V1)."
+    fmt_status: established_recurrent_cdi_only
+  - action_mapping_id: MAP_TAXON_ENTERIC_PATHOGENS_V1
+    trigger_selector: {trigger_type: exact_microbiome_feature, target: "{Salmonella_*,Campylobacter_*,Shigella_*,Vibrio_*,Yersinia_*,Clostridium_perfringens,Staphylococcus_aureus}", direction: any}
+    render: guideline_route_after_confirmation
+    intervention_protocol_ref: PROTOCOL_ROUTE_STOOL_PATHOGEN_V1
+    evidence_assertion_refs: [IE_IDSA_DIARRHOEA_A_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Enteric pathogen DNA — confirmation by clinical testing when symptomatic
+    context_note: >
+      Shotgun DNA signal for an enteric pathogen is not a diagnosis of infection and can reflect
+      transient carriage or a related species. With fever, bloody or persistent diarrhoea, clinical
+      culture or PCR and IDSA-guided management apply.
+    never_say: ["food poisoning confirmed", "infection detected"]
+    follow_up_route: "Stool culture/PCR and clinical assessment when symptomatic (CLINICAL_ROUTE_STOOL_PATHOGEN_TESTING_IDSA_V1)."
+  - action_mapping_id: MAP_TAXON_FNUCLEATUM_V1
+    trigger_selector: {trigger_type: exact_microbiome_feature, target: "{Fusobacterium_nucleatum,Parvimonas_micra,Peptostreptococcus_stomatis,Gemella_morbillorum,Solobacterium_moorei,Porphyromonas_asaccharolytica}", direction: high}
+    render: guideline_route_after_confirmation
+    intervention_protocol_ref: PROTOCOL_ROUTE_GENERIC_V1
+    evidence_assertion_refs: [IE_USPSTF_CRC_SCREENING_A_V1, IE_CRC_VIRULENCE_REVIEW_E_V1]
+    against_evidence_assertion_refs: [IE_FNUCLEATUM_PERIODONTAL_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Colorectal-cancer-associated oral anaerobes — screening is the action
+    context_note: >
+      Fusobacterium nucleatum and its oral companions are enriched in colorectal-cancer cohorts
+      and also live in healthy mouths. Detection is a reason to be current on guideline screening,
+      not a cancer finding; periodontal treatment lowered stool F. nucleatum in one study without
+      any cancer outcome.
+    never_say: ["cancer bacteria", "you have colon cancer"]
+    follow_up_route: "Colorectal cancer screening per USPSTF, and dental care if overdue (CLINICAL_ROUTE_CRC_SCREENING_USPSTF_V1)."
+  - action_mapping_id: MAP_TAXON_SGALLOLYTICUS_V1
+    trigger_selector: {trigger_type: exact_microbiome_feature, target: Streptococcus_gallolyticus, direction: any}
+    render: guideline_route_after_confirmation
+    intervention_protocol_ref: PROTOCOL_ROUTE_SGALLOLYTICUS_V1
+    evidence_assertion_refs: [IE_SGALLOLYTICUS_CRC_META_V1, IE_USPSTF_CRC_SCREENING_A_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Streptococcus gallolyticus — a colonoscopy reminder after infection, a screening reminder otherwise
+    context_note: >
+      Bloodstream infection with S. gallolyticus is strongly linked to colorectal neoplasia and
+      colonoscopy is standard after such an infection. Stool detection alone carries no such
+      indication beyond routine screening.
+    never_say: ["you have colon cancer"]
+    follow_up_route: "Guideline colorectal cancer screening; colonoscopy after any documented S. gallolyticus infection (CLINICAL_ROUTE_COLONOSCOPY_AFTER_SGALLOLYTICUS_V1)."
+  - action_mapping_id: MAP_TAXON_EFAECALIS_LEVODOPA_V1
+    trigger_selector: {trigger_type: exact_microbiome_feature, target: "{Enterococcus_faecalis,Enterococcus_faecium}", direction: high}
+    render: inform_only
+    intervention_protocol_ref: PROTOCOL_ROUTE_LEVODOPA_V1
+    evidence_assertion_refs: [IE_LEVODOPA_TDC_ASSOCIATION_D_V1, IE_LIAO_ORAL_RELATIVE_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [LEVODOPA_MAOI_MEDICATION_CARD_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Higher Enterococcus share — common after antibiotics; one medication fact
+    context_note: >
+      Enterococci expand after antibiotics and with lower resident biomass. The only clinically
+      relevant fact is that E. faecalis tyrosine decarboxylase can metabolise levodopa; that is
+      information for a prescriber of levodopa, not an action.
+    never_say: ["VRE infection", "eradicate Enterococcus"]
+    follow_up_route: "If on levodopa, information card to the prescriber (CLINICAL_ROUTE_LEVODOPA_PRESCRIBER_CARD_V1)."
+  - action_mapping_id: MAP_TAXON_FPRAUSNITZII_LOW_V1
+    trigger_selector: {trigger_type: exact_microbiome_feature, target: "{Faecalibacterium_prausnitzii,Eubacterium_rectale,Roseburia_*,Anaerostipes_hadrus,Coprococcus_*,Eubacterium_hallii,Butyrivibrio_*}", direction: low}
+    render: inform_only
+    intervention_protocol_ref: PROTOCOL_WASTYK_10W_V1
+    evidence_assertion_refs: [IE_WASTYK_HETEROGENEITY_V1, IE_RS2_VENKATARAMAN_V1, IE_RIBOGUT_RCT_V1, IE_DMP_NO_UNIVERSAL_CORE_V1]
+    against_evidence_assertion_refs: [IE_RISEUP_NULL_X_V1]
+    safety_rule_refs: [FIBER_ESCALATION_STRUCTURAL_GI_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Lower or absent butyrate producers — what has been tried to raise them
+    context_note: >
+      Reduced Faecalibacterium, Roseburia and Eubacterium rectale are among the most replicated
+      findings in inflammatory bowel disease cohorts, and they also vary widely with diet,
+      antibiotics and transit in healthy people. Fermented-food and diverse-fibre diets changed
+      communities in some people; riboflavin supplementation did not reliably raise
+      F. prausnitzii. No live F. prausnitzii product is approved.
+    never_say: ["butyrate producer deficiency", "take Faecalibacterium"]
+  - action_mapping_id: MAP_TAXON_AKKERMANSIA_ANY_V1
+    trigger_selector: {trigger_type: exact_microbiome_feature, target: Akkermansia_muciniphila, direction: any}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_AKK_MUCT_PASTEURISED_3M_V1
+    evidence_assertion_refs: [IE_AKK_MUCT_DEPOMMIER_PILOT_V1, IE_AKK_MOUNT_WEIGHT_REGAIN_V1]
+    against_evidence_assertion_refs: [IE_AKK_WST01_ZHANG2025_X_V1, IE_AKK_SUENAERT2026_NULL_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PROBIOTIC_IMMUNOCOMPROMISE_V1]
+    confirmation_rule_refs: [insulin_resistance]
+    title: Akkermansia muciniphila — present, absent or high, the evidence is about one product
+    context_note: >
+      Akkermansia is absent in a sizeable minority of healthy adults and enriched in some
+      neurological-disease cohorts; the trials are of one exact pasteurised strain in
+      insulin-resistant adults with mixed primary endpoints. Your own Akkermansia level does not
+      predict response to that product.
+    never_say: ["Akkermansia deficiency", "buy Akkermansia"]
+  - action_mapping_id: MAP_TAXON_BIFIDOBACTERIUM_LOW_V1
+    trigger_selector: {trigger_type: exact_microbiome_feature, target: "Bifidobacterium_*", direction: low}
+    render: inform_only
+    intervention_protocol_ref: PROTOCOL_WASTYK_10W_V1
+    evidence_assertion_refs: [IE_WASTYK_HETEROGENEITY_V1, IE_ZMORA_COLONISATION_V1]
+    against_evidence_assertion_refs: [IE_AGA_PROBIOTICS_GUIDELINE_X_V1, IE_SUEZ_POST_ANTIBIOTIC_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PROBIOTIC_IMMUNOCOMPROMISE_V1]
+    confirmation_rule_refs: []
+    title: Lower or absent Bifidobacterium — common in adults; supplements rarely colonise
+    context_note: >
+      Bifidobacteria dominate infant guts and decline with age; low adult levels are common in
+      Western cohorts. Supplemented strains mostly pass through rather than colonise, and
+      probiotic effects are strain- and indication-specific.
+    never_say: ["Bifidobacterium deficiency", "take a Bifido probiotic"]
+  - action_mapping_id: MAP_TAXON_RGNAVUS_HIGH_V1
+    trigger_selector: {trigger_type: exact_microbiome_feature, target: "{Ruminococcus_gnavus,Ruminococcus_torques}", direction: high}
+    render: guideline_route_after_confirmation
+    intervention_protocol_ref: PROTOCOL_ROUTE_GI_CALPROTECTIN_V1
+    evidence_assertion_refs: [IE_AGA_FMT_2024_A_V1]
+    against_evidence_assertion_refs: [IE_AGA_FMT_2024_IBD_IBS_AGAINST_X_V1, IE_AGA_PROBIOTICS_GUIDELINE_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Higher Ruminococcus gnavus / torques — an ecological pathobiont, not an infection
+    context_note: >
+      R. gnavus lives in most healthy adults at low level and blooms during Crohn's flares. A high
+      share is a reason to take gut symptoms seriously (calprotectin route), not a target for
+      antimicrobials; guidelines do not support FMT or probiotics for IBD outside trials.
+    never_say: ["R. gnavus infection", "eradicate R. gnavus"]
+    follow_up_route: "Gastroenterology evaluation with fecal calprotectin if symptomatic (CLINICAL_ROUTE_GASTROENTEROLOGY_CALPROTECTIN_V1)."
+  - action_mapping_id: MAP_TAXON_BILOPHILA_DESULFOVIBRIO_HIGH_V1
+    trigger_selector: {trigger_type: exact_microbiome_feature, target: "{Bilophila_wadsworthia,Desulfovibrio_*}", direction: high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_ANIMAL_PLANT_5D_V1
+    evidence_assertion_refs: [IE_BILE_ACID_DAVID_D_V1, IE_BISMUTH_H2S_SUAREZ_D_V1]
+    against_evidence_assertion_refs: [IE_4SURE_UC_MIXED_X_V1]
+    safety_rule_refs: [BISMUTH_SALICYLATE_V1, MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Higher Bilophila / Desulfovibrio — a diet-responsive group with surrogate-only evidence
+    context_note: >
+      Bilophila wadsworthia expanded within days of an animal-based diet and fell on a plant-based
+      one in a feeding study. Sulfide-lowering interventions have surrogate evidence only.
+    never_say: ["sulfide toxicity"]
+  - action_mapping_id: MAP_TAXON_METHANOBREVIBACTER_HIGH_V1
+    trigger_selector: {trigger_type: exact_microbiome_feature, target: "Methanobrevibacter_*", direction: high}
+    render: guideline_route_after_confirmation
+    intervention_protocol_ref: PROTOCOL_ROUTE_BREATH_METHANE_V1
+    evidence_assertion_refs: [IE_METHANE_CONSENSUS_A_V1, IE_ACG_SIBO_A_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Higher Methanobrevibacter smithii — a breath test decides whether it matters
+    context_note: >
+      The dominant human methanogen is present in a third to a half of healthy adults and is
+      associated with slower transit. Overgrowth is a breath-test diagnosis made when constipation
+      or bloating are present.
+    never_say: ["methane SIBO detected"]
+    follow_up_route: "Standardised breath methane test when symptomatic (CLINICAL_ROUTE_BREATH_METHANE_V1)."
+  - action_mapping_id: MAP_TAXON_ORAL_HIGH_V1
+    trigger_selector: {trigger_type: exact_microbiome_feature, target: "{Streptococcus_salivarius,Streptococcus_parasanguinis,Streptococcus_vestibularis,Streptococcus_mitis,Streptococcus_anginosus_group,Veillonella_*,Haemophilus_parainfluenzae,Rothia_mucilaginosa,Actinomyces_odontolyticus,Granulicatella_adiacens,Atopobium_parvulum}", direction: high}
+    render: inform_only
+    intervention_protocol_ref: PROTOCOL_ROUTE_ORAL_HEALTH_V1
+    evidence_assertion_refs: [IE_ORAL_HEALTH_ROUTE_V1, IE_LIAO_ORAL_RELATIVE_V1, IE_PPI_ORAL_TAXA_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Higher mouth-origin organism — transit, acid suppression or lower gut biomass
+    context_note: >
+      These organisms come from the mouth and are swallowed daily. A higher stool share is linked
+      to proton-pump inhibitors, oral health, and lower resident gut biomass; ordinary dental care
+      is the only route.
+    never_say: ["oral infection of the gut"]
+    follow_up_route: "Dental evaluation if overdue; review acid suppression with the prescriber (CLINICAL_ROUTE_ORAL_HEALTH_V1)."
+  - action_mapping_id: MAP_TAXON_HPYLORI_V1
+    trigger_selector: {trigger_type: exact_microbiome_feature, target: Helicobacter_pylori, direction: any}
+    render: guideline_route_after_confirmation
+    intervention_protocol_ref: PROTOCOL_ROUTE_GI_CALPROTECTIN_V1
+    evidence_assertion_refs: [IE_IDSA_DIARRHOEA_A_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Helicobacter pylori DNA in stool — confirm with a validated test
+    context_note: >
+      Shotgun stool detection of H. pylori is not a validated diagnostic. Stool antigen, urea
+      breath test or biopsy confirm infection, and treatment (a prescription regimen) follows a
+      positive validated test and clinical judgement.
+    never_say: ["H. pylori infection confirmed", "natural H. pylori protocol"]
+    follow_up_route: "Validated H. pylori testing (stool antigen or urea breath test) with a clinician (CLINICAL_ROUTE_GASTROENTEROLOGY_CALPROTECTIN_V1)."
+  - action_mapping_id: MAP_TAXON_CANDIDA_V1
+    trigger_selector: {trigger_type: exact_microbiome_feature, target: "Candida_*", direction: any}
+    render: no_supported_targeted_intervention
+    intervention_protocol_ref: null
+    evidence_assertion_refs: []
+    against_evidence_assertion_refs: [IE_MULTI_INGREDIENT_NO_HUMAN_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Candida DNA — a normal commensal; no 'candida cleanse' is supported
+    context_note: >
+      Candida albicans is a common gut commensal; DNA detection is not candidiasis. No human trial
+      supports 'anti-candida' diets or botanical protocols for stool Candida, and invasive
+      candidiasis is a clinical diagnosis in specific high-risk settings.
+    never_say: ["candida overgrowth", "anti-candida diet"]
+  - action_mapping_id: MAP_TAXON_ABSENT_EXPECTED_GENERIC_V1
+    trigger_selector: {trigger_type: exact_microbiome_feature, target: "*", direction: low}
+    render: no_supported_targeted_intervention
+    intervention_protocol_ref: null
+    evidence_assertion_refs: [IE_DMP_NO_UNIVERSAL_CORE_V1]
+    against_evidence_assertion_refs: [IE_SUEZ_POST_ANTIBIOTIC_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Expected organism not detected or low — no supported way to 'add it back'
+    context_note: >
+      A species that most reference adults carry is missing or low here. Large cohorts show there
+      is no universal healthy core, so this is a position relative to a reference, not a
+      deficiency. No approved product supplies most gut commensals, and after antibiotics a
+      probiotic delayed native recovery.
+    never_say: ["deficiency", "replace with a probiotic"]
+  - action_mapping_id: MAP_TAXON_UNEXPECTED_PRESENT_GENERIC_V1
+    trigger_selector: {trigger_type: exact_microbiome_feature, target: "*", direction: high}
+    render: no_supported_targeted_intervention
+    intervention_protocol_ref: null
+    evidence_assertion_refs: [IE_DMP_NO_UNIVERSAL_CORE_V1]
+    against_evidence_assertion_refs: []
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
+    confirmation_rule_refs: []
+    title: Uncommon or relatively high organism — no supported targeted intervention
+    context_note: >
+      This organism is uncommon in the reference or higher than the reference range here. Unless
+      it is named in one of the specific cards above, no human study shows that reducing it
+      changes a health outcome.
+    never_say: ["dangerous bacteria", "must be eliminated"]
+
+  # ============================================================================
+  # Chronic urticaria (chronic hives) — CSU and symptomatic dermographism
+  # ============================================================================
+  - action_mapping_id: MAP_PROFILE_CSU_PROBIOTIC_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: csu, direction: high, min_level: somewhat_high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_CU_LREUTERI_ATCC55730_4W_ADJUNCT_V1
+    evidence_assertion_refs: [IE_CU_PROBIOTIC_CAN_2024_V1, IE_CU_PROBIOTIC_BI_2021_V1, IE_CU_PROBIOTIC_DABAGHZADEH_2023_V1, IE_CU_PROBIOTIC_ATEFI_2022_V1, IE_CU_PROBIOTIC_NETTIS_2016_V1, IE_CU_SCFA_LG1_PRECLINICAL_E_V1]
+    against_evidence_assertion_refs: [IE_CU_PROBIOTIC_GODSE_2025_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PROBIOTIC_IMMUNOCOMPROMISE_V1, PREGNANCY_BREASTFEEDING_SUPPLEMENT_V1]
+    confirmation_rule_refs: [chronic_spontaneous_urticaria]
+    title: Chronic hives — what probiotic studies have actually tested
+    context_note: >
+      Resemblance to the published chronic-hives stool pattern is a research observation, and no
+      study has shown that a microbiome result should pick a product. Six adjunct studies exist
+      in people with a clinical diagnosis of chronic urticaria (chronic hives) and they disagree:
+      the most favourable was not randomized, the largest was in children, the largest adult
+      placebo-controlled trial was null on hive control, and the earliest was mostly
+      non-response. Each result belongs to its exact product only.
+    never_say: ["probiotics cure hives", "this probiotic treats urticaria", "eradicate the bacteria causing your hives", "microbiome-selected probiotic"]
+    follow_up_route: "Guideline urticaria (hives) care with a clinician — second-generation H1 antihistamine first line, specialist escalation if hives persist (CLINICAL_ROUTE_URTICARIA_GUIDELINE_CARE_V1)."
+
+  - action_mapping_id: MAP_PROFILE_CSU_DIET_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: csu, direction: high, min_level: somewhat_high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_CU_LOW_HISTAMINE_3W_V1
+    evidence_assertion_refs: [IE_CU_DIET_WAGNER_2017_V1, IE_CU_DIET_SON_2018_V1]
+    against_evidence_assertion_refs: [IE_CU_FIBER_FERMENTED_X_V1]
+    safety_rule_refs: [RESTRICTIVE_DIET_EATING_DISORDER_V1, FIBER_ESCALATION_STRUCTURAL_GI_V1]
+    confirmation_rule_refs: [chronic_urticaria]
+    title: Chronic hives — the dietary evidence, and what it does not show
+    context_note: >
+      Both dietary studies in chronic hives are uncontrolled. A time-limited, dietitian-supported
+      low-histamine trial improved symptom scores in about two-thirds of people who also had gut
+      symptoms, without changing the enzyme the diet is usually justified by — so it is a
+      diagnostic trial with a defined end, not a permanent restriction, and not a correction of
+      anything in the microbiome. Nothing here tells you to add fibre or fermented foods because
+      the panel shows depleted fibre fermenters; in someone reacting to foods, fermented foods
+      are specifically not an automatic suggestion.
+    never_say: ["histamine intolerance", "your gut bacteria are making the histamine", "avoid these foods permanently", "low-histamine diet corrects the microbiome"]
+    follow_up_route: "Dietitian and clinician review before any elimination diet, with a planned reintroduction step (CLINICAL_ROUTE_URTICARIA_GUIDELINE_CARE_V1)."
+
+  - action_mapping_id: MAP_PROFILE_CSU_CLINICAL_ROUTE_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: csu, direction: high, min_level: somewhat_high}
+    render: guideline_route_after_confirmation
+    intervention_protocol_ref: PROTOCOL_ROUTE_URTICARIA_CARE_V1
+    evidence_assertion_refs: [IE_CU_GUIDELINE_2026_V1, IE_CU_VITD_MONY_2020_V1, IE_CU_HPYLORI_PAWLOWICZ_2018_V1]
+    against_evidence_assertion_refs: [IE_CU_HPYLORI_VALSECCHI_1998_X_V1, IE_CU_ANTIMICROBIAL_STACK_X_V1]
+    safety_rule_refs: [PRESCRIPTION_REQUIRES_CONFIRMED_INDICATION_V1, BOTANICAL_ALLERGY_AND_QUALITY_V1]
+    confirmation_rule_refs: [chronic_urticaria]
+    title: Chronic hives — the actual clinical route
+    context_note: >
+      Hives are diagnosed and treated clinically. The current international guideline starts with
+      a second-generation H1 antihistamine and escalates through specialist assessment when hives
+      persist; choice of any further agent is a prescriber decision under local labelling. Two
+      lab-confirmed side routes have randomized or placebo-controlled evidence — vitamin D
+      repletion where a blood test shows deficiency, and H. pylori eradication where a clinical
+      test is positive, paired here with an older study that found no clear benefit. Neither can
+      be triggered from stool DNA: this report measures no vitamin and does not detect a gastric
+      organism.
+    never_say: ["stop your antihistamine", "your hives are caused by your gut bacteria", "take vitamin D", "you have H. pylori", "antimicrobial protocol for hives"]
+    follow_up_route: "Clinician assessment for hives, with serum 25-hydroxyvitamin D or H. pylori testing only if clinically indicated (CLINICAL_ROUTE_URTICARIA_GUIDELINE_CARE_V1)."
+
+  - action_mapping_id: MAP_PROFILE_CSU_FMT_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: csu, direction: high, min_level: notably_high}
+    render: clinician_review
+    intervention_protocol_ref: PROTOCOL_FMT_CU_CASE_WU_V1
+    evidence_assertion_refs: []
+    against_evidence_assertion_refs: [IE_CU_FMT_WU_2023_V1, IE_CU_FMT_ALLERGIC_REACTION_2026_X_V1]
+    safety_rule_refs: [FMT_CLINICIAN_ONLY_V1, FMT_SEVERE_IMMUNOCOMPROMISE_V1]
+    confirmation_rule_refs: [chronic_urticaria]
+    title: Chronic hives and faecal microbiota transplantation — one case report, no trial
+    context_note: >
+      One genuine human case report describes transplantation in chronic hives with recurrent
+      abdominal pain and food allergy; its dose, donor, delivery route and durability were not
+      verifiable and are left empty rather than guessed. No controlled human trial in hives was
+      located. Transplantation is therefore not established for this condition and is not the
+      only option for it — guideline antihistamine care is the route with actual evidence. Two
+      children developed allergic reactions after transplantation for an unrelated indication,
+      which is relevant context for anyone with an allergic condition. Single-strain and
+      short-chain fatty acid treatments for hives have only been given to mice.
+    never_say: ["FMT is the only solution", "FMT treats hives", "a transplant will reset your immune system", "eligible donor"]
+    fmt_status: investigational_non_cdi
+    follow_up_route: "Investigational only, under a clinical trial with regulatory and ethics oversight; discuss with a clinician (CLINICAL_ROUTE_URTICARIA_GUIDELINE_CARE_V1)."
+
+  - action_mapping_id: MAP_PROFILE_SD_EVIDENCE_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: symptomatic_dermographism, direction: high, min_level: somewhat_high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_ROUTE_URTICARIA_CARE_V1
+    evidence_assertion_refs: [IE_CU_GUIDELINE_2026_V1]
+    against_evidence_assertion_refs: [IE_CU_FIBER_FERMENTED_X_V1, IE_CU_ANTIMICROBIAL_STACK_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PRESCRIPTION_REQUIRES_CONFIRMED_INDICATION_V1]
+    confirmation_rule_refs: [symptomatic_dermographism]
+    title: Symptomatic dermographism (hives from stroking the skin) — no microbiome-directed evidence
+    context_note: >
+      No intervention study of any kind has been done in symptomatic dermographism selected by a
+      microbiome result, and the two directions scored here come from a single 16S cohort carried
+      across to shotgun measurement. The evidence that exists is the general urticaria guideline:
+      a second-generation H1 antihistamine, with specialist assessment for inducible hives that
+      do not respond. The probiotic and dietary studies listed under chronic spontaneous
+      urticaria enrolled people with that condition and are not transferred here.
+    never_say: ["probiotics for dermographism", "supplements to stop the skin reacting", "this pattern explains your dermographism"]
+    follow_up_route: "Clinician assessment, including provocation testing where appropriate, for inducible hives (CLINICAL_ROUTE_URTICARIA_GUIDELINE_CARE_V1)."
+
+  # ------------------------------------------- inflammatory skin disease (v4.2)
+  - action_mapping_id: MAP_PROFILE_PSO_PROBIOTIC_ADJUNCT_V1
+    trigger_selector: {trigger_type: research_profile_resemblance, target: plaque_psoriasis, direction: high, min_level: somewhat_high}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_PSO_PROBIOTIC_12W_ADJUNCT_V1
+    evidence_assertion_refs: [IE_PSO_PROBIOTIC_ADJUNCT_RCT_V1]
+    against_evidence_assertion_refs: [IE_PSO_PROBIOTIC_RELAPSE_FOLLOWUP_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PROBIOTIC_IMMUNOCOMPROMISE_V1, PREGNANCY_BREASTFEEDING_SUPPLEMENT_V1]
+    confirmation_rule_refs: [plaque_psoriasis]
+    title: Plaque psoriasis — what human trials have tested
+    context_note: >
+      Resembling a published psoriasis stool pattern is a research observation, not a diagnosis and
+      not an indication for treatment. The randomized evidence here is for one exact three-strain
+      product added to topical therapy in people who already had a confirmed diagnosis. It does not
+      transfer to other probiotics, it does not follow from this index, and no dose is issued from
+      this report.
+    never_say: ["treats psoriasis", "clears plaques", "normalises SGB4348", "antimicrobials for psoriasis", "eradicate the raised organisms"]
+    fmt_status: not_indicated
+
+  - action_mapping_id: MAP_PROFILE_SEBD_EVIDENCE_V1
+    trigger_selector: {trigger_type: clinician_confirmed_condition, target: seborrheic_dermatitis, direction: any}
+    render: evidence_only
+    intervention_protocol_ref: PROTOCOL_ST11_DANDRUFF_56D_V1
+    evidence_assertion_refs: [IE_SEBD_ST11_DANDRUFF_RCT_V1, IE_SEBD_TOPICAL_PROBIOTIC_PILOT_V1]
+    against_evidence_assertion_refs: [IE_SEBD_NO_STOOL_SIGNATURE_X_V1]
+    safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1, PROBIOTIC_IMMUNOCOMPROMISE_V1, PREGNANCY_BREASTFEEDING_SUPPLEMENT_V1]
+    confirmation_rule_refs: [seborrheic_dermatitis]
+    title: Seborrheic dermatitis — what has actually been tested, and where
+    context_note: >
+      No stool-DNA signature is computed for seborrheic dermatitis, so nothing here is retrieved by a
+      score. The two trials differ in route and in phenotype: one is an oral strain studied for
+      dandruff with scalp outcomes, the other is applied to the skin for one week. Neither is a
+      stool-based treatment and neither validates selecting a product from a stool test.
+    never_say: ["treats seborrheic dermatitis", "stool test selects the probiotic", "systemic antifungals for gut Malassezia", "gut antifungal treatment"]
+    fmt_status: not_indicated

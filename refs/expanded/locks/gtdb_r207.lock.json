@@ -1,0 +1,20 @@
+{
+  "source_id": "gtdb_r207",
+  "files": {
+    "gtdb/r207/sp_clusters_r207.tsv": {
+      "url": "https://data.gtdb.ecogenomic.org/releases/release207/207.0/auxillary_files/sp_clusters_r207.tsv",
+      "size": 17331818,
+      "retrieved_at": "2026-09-26T23:23:39-07:00",
+      "sha256": "83e0c9e8f6c9f5c865b5c3b3ee3fa35fc0beb45d3e14b876e8049a67ef6218b2",
+      "verified": true,
+      "publisher_checksum": null,
+      "note": "for the historical Jun23 reconciliation repair",
+      "verification": "size matched Content-Length; no publisher checksum published"
+    }
+  },
+  "release_id": "R207",
+  "taxonomy_release": "GTDB R207",
+  "license": "CC BY-SA 4.0",
+  "count_unit": "",
+  "source_count": null
+}

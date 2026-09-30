@@ -1,0 +1,150 @@
+name: k2
+description: >-
+  Vitamin K2 (menaquinone) biosynthesis. menA and menD mark the classical
+  pathway; the futalosine route (mqnA/mqnE), used by Bacteroides and
+  Helicobacter, is screened separately because it is the dominant route in
+  the gut and is invisible to a men-gene-only panel.
+metabolite: Vitamin K2 (menaquinone, MK-n)
+pathway: >-
+  classical: chorismate -> (menF, menD, menB) -> DHNA -> menA prenylation ->
+  menaquinone; futalosine: chorismate -> futalosine (mqnA) -> ... ->
+  menaquinone
+category: vitamin
+
+organisms:
+  - Bacteroides fragilis
+  - Prevotella copri
+  - Escherichia coli
+  - Veillonella parvula
+  - Eubacterium rectale
+  - Enterococcus faecium
+
+extension: true
+
+targets:
+  - id: MENA
+    label: menA (1,4-dihydroxy-2-naphthoate polyprenyltransferase)
+    gene: menA
+    source: uniprot
+    query: '(protein_name:"1,4-dihydroxy-2-naphthoate polyprenyltransferase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.30
+
+  - id: MEND
+    label: menD (SEPHCHC synthase)
+    gene: menD
+    source: uniprot
+    query: '(protein_name:"2-succinyl-5-enolpyruvyl-6-hydroxy-3-cyclohexene-1-carboxylate synthase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.25
+
+  # Without this entry the panel would report near-zero K2 capacity in a
+  # Bacteroides-dominated gut, which is exactly backwards: Bacteroides is the
+  # largest menaquinone producer in the human colon and uses the futalosine
+  # route, which shares no genes with the classical pathway.
+  - id: MQNE
+    label: mqnE / futalosine route (Bacteroides, the dominant gut route)
+    gene: mqnE
+    source: uniprot
+    query: '((protein_name:"aminofutalosine synthase") OR (protein_name:"futalosine hydrolase") OR (protein_name:"cyclic dehypoxanthinyl futalosine synthase")) AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 1500
+    length_tolerance: 0.30
+
+decoys:
+  - id: PRENYLBG
+    label: prenyltransferase background (menA fold)
+    source: uniprot
+    query: '((protein_name:"4-hydroxybenzoate octaprenyltransferase") OR (protein_name:"protoheme IX farnesyltransferase") OR (protein_name:"digeranylgeranylglycerophospholipid reductase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 2500
+    length_tolerance: 0.30
+
+  - id: THDPBG
+    label: ThDP-dependent enzyme background (menD fold)
+    source: uniprot
+    query: '((protein_name:"acetolactate synthase") OR (protein_name:"pyruvate dehydrogenase E1 component") OR (protein_name:"2-oxoglutarate decarboxylase") OR (protein_name:"transketolase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 3000
+    length_tolerance: 0.30
+    note: "ThDP enzymes are abundant and share menD's fold; the decisive decoy for that target."
+
+  - id: RADSAMBG
+    label: radical SAM background (mqnE fold)
+    source: uniprot
+    query: '((protein_name:"radical SAM protein") OR (protein_name:"biotin synthase") OR (protein_name:"lipoyl synthase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 3000
+    length_tolerance: 0.35
+
+aggregate: sum
+aggregate_from: [MENA, MEND, MQNE]
+aggregate_reason: >-
+  Both routes produce the same vitamin, so total menaquinone capacity is the
+  sum across them. Per-route values are reported separately and are the more
+  informative numbers, since which route a community uses tells you which
+  organisms are doing it.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+caveats:
+  - >-
+    Bacterial menaquinones are mostly long-chain (MK-10 to MK-13) and are
+    poorly absorbed from the colon. The menaquinone forms with the best human
+    evidence — MK-4 and MK-7 — come from diet, not from your colon.
+  - >-
+    Menaquinone is a respiratory quinone: bacteria make it for their own
+    electron transport, not for you. High capacity says the community
+    respires anaerobically, which is what a gut community does.
+  - >-
+    Vitamin K status is assessed clinically by prothrombin time or
+    undercarboxylated osteocalcin, not from stool.
+
+interpretation:
+  what_it_is: >-
+    The capacity of your gut bacteria to make menaquinone (vitamin K2), which
+    they use for their own respiration.
+  made_from: Built de novo by bacteria from chorismate
+  higher_means: unclear
+  reader_direction: favourable
+  direction_note: >-
+    Long-chain menaquinones from gut bacteria contribute to vitamin K status.
+  evidence_strength: limited
+  summary: >-
+    Gut bacteria are major menaquinone producers, but the long-chain forms
+    they make are poorly absorbed from the colon and are made for bacterial
+    electron transport rather than for the host.
+  evidence_detail: >-
+    Karl et al. profiled menaquinone forms in human stool and showed that
+    long-chain MK-10 to MK-13 dominate, matching Bacteroides production, and
+    that faecal menaquinone concentrations did not track markers of host
+    vitamin K status. Ramotar et al. estimated colonic absorption of
+    bacterial menaquinone as low. The interesting biology here is
+    microbiological rather than nutritional: which quinone route a community
+    uses (classical versus futalosine) separates Bacteroidota from
+    Proteobacteria and tracks how the community respires. Claims that gut
+    bacteria are a meaningful source of your vitamin K are not supported by
+    the absorption data.
+  implications:
+    higher: >-
+      Your gut community has more menaquinone synthesis capacity than most
+      people's. Bacteria make it for their own respiration and the long-chain
+      forms are poorly absorbed from the colon, so read this as a feature of
+      the community rather than a contribution to your vitamin K.
+    typical: >-
+      Your community's vitamin K2 (menaquinone) synthesis capacity sits in the middle of the reference range. Gut bacteria make most of the body's menaquinone, and a typical level reflects the usual balance of Bacteroides and other producers; it does not indicate anything about clotting or bone health on its own.
+    lower: >-
+      Less bacterial menaquinone synthesis capacity than most people. This has
+      no established bearing on your vitamin K status, which comes from diet.
+  citation: >-
+    Karl J.P. et al., Am J Clin Nutr 106:1052-1061 (2017),
+    doi:10.3945/ajcn.117.155424; Fenn K. et al., Nat Microbiol 2:16241 (2017)
+
+citation: >-
+  Karl J.P., Meydani M., Barnett J.B., et al., "Fecal concentrations of
+  bacterially derived vitamin K forms are associated with gut microbiota
+  composition but not plasma or fecal cytokine concentrations in healthy
+  adults", Am J Clin Nutr 106:1052-1061 (2017), doi:10.3945/ajcn.117.155424.

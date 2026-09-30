@@ -1,0 +1,298 @@
+name: mdd
+version: 1.0.0
+spec_version: 3
+label: "Major depressive disorder — gut pattern"
+disease: major_depressive_disorder
+task: mdd_vs_healthy
+family: psychiatric
+body_site: stool
+population: mixed_european_chinese_cohorts
+status: research_beta
+evidence_maturity: P2
+opt_in: false
+
+summary: >-
+  Depression is scored and reported like every other pattern here, because
+  the gut evidence for it is published and specific enough to measure. It
+  remains a resemblance score, not a mood measurement: depression is
+  diagnosed by a clinician, and a stool pattern cannot make or exclude that
+  diagnosis.
+
+  Transfer experiments are why this pattern is worth measuring rather than
+  merely noting. Stool from people with major depression induced
+  depression-like behaviour in germ-free mice, and the recipients took on the
+  donors' carbohydrate and amino-acid metabolic shifts (Zheng 2016). The
+  result has been reproduced in microbiota-depleted rats, which developed
+  anhedonia, anxiety-like behaviour and altered tryptophan metabolism (Kelly
+  2016); in germ-free mice given communities from women with prenatal
+  depression, which added hippocampal neuroinflammation and raised plasma LPS
+  (Cao 2025); and in adolescent rats given pooled paediatric MDD stool, which
+  showed reduced sucrose preference and fourteen amino-acid deficiencies in
+  the prefrontal cortex (Teng 2025).
+
+  One human-donor experiment cuts the other way, and it is why the wording
+  here stays careful: in Flinders rats, healthy-donor recipients did better
+  than depression-donor recipients, but the depression-donor group was no
+  worse than untreated controls — so that gap may be benefit from healthy
+  microbes rather than harm from patient microbes (Knudsen 2021).
+
+  The case-control evidence is real but modest. Valles-Colomer et al. found in two large
+  population cohorts that Coprococcus and Dialister were depleted in
+  depression, and that butyrate-producing Faecalibacterium and Coprococcus
+  tracked higher quality-of-life scores; they also showed the microbial
+  capacity to synthesise the dopamine metabolite DOPAC was associated with
+  quality of life. Zheng et al. found Bacteroides higher and Blautia,
+  Eubacterium lower in a Chinese MDD cohort with faecal transfer inducing
+  depression-like behaviour in germ-free mice. Antidepressants themselves
+  have antimicrobial activity and reshape the community.
+
+references:
+  primary:
+    source: null
+    note: "Antidepressant-naive MDD with matched controls is rare; most cohorts are medicated."
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  valles_colomer_2019:
+    label: "Valles-Colomer 2019 Flemish Gut Flora Project + LifeLines DEEP"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    assay_transport: amplicon_taxon_to_shotgun
+    study_group: valles_colomer_2019
+    maturity: P3
+    weight_in_combined: 1.0
+    note: "1,054 + 1,063 participants, population cohorts with depression by GP diagnosis or antidepressant use; 16S with shotgun on a subset. Genus-level findings transported."
+    sources: ["Valles-Colomer M, et al. Nat Microbiol 2019;4:623-632"]
+    features:
+      - name: Coprococcus_comes
+        level: species
+        direction: lower_in_case
+        cluster: coprococcus
+        w: 0.9
+        q: 0.8
+        s: 0.4
+        c: 0.8
+        mapping_confidence: medium
+      - name: Coprococcus_catus
+        level: species
+        direction: lower_in_case
+        cluster: coprococcus
+        w: 0.6
+        q: 0.7
+        s: 0.4
+        c: 0.7
+        mapping_confidence: medium
+      - name: Dialister_invisus
+        level: species
+        direction: lower_in_case
+        w: 0.8
+        q: 0.8
+        s: 0.5
+        c: 0.7
+        mapping_confidence: medium
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.7
+        s: 0.2
+        c: 0.7
+        mapping_confidence: high
+
+  zheng_2016:
+    label: "Zheng 2016 Chinese MDD (16S, GF-mouse transfer)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    assay_transport: amplicon_taxon_to_shotgun
+    study_group: zheng_2016
+    maturity: P2
+    note: "58 MDD, 63 controls. Bacteroidetes higher, Firmicutes lower; faecal transfer to germ-free mice induced depression-like behaviour."
+    sources: ["Zheng P, et al. Mol Psychiatry 2016;21:786-796"]
+    features:
+      - name: Bacteroides_vulgatus
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.3
+        c: 0.5
+        mapping_confidence: low
+        note: "Stands for genus Bacteroides, which is on the conflicted list; the dominant gut species is used at low weight."
+      - name: Eubacterium_rectale
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.5
+        q: 0.6
+        s: 0.2
+        c: 0.6
+        mapping_confidence: medium
+      - name: Blautia_obeum
+        level: species
+        direction: lower_in_case
+        w: 0.4
+        q: 0.5
+        s: 0.4
+        c: 0.5
+        mapping_confidence: low
+        conflict_note: "Genus Blautia is on the conflicted list; species only."
+
+  yang_2020_shotgun:
+    label: "Yang 2020 Chinese MDD shotgun + metabolomics"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: yang_2020
+    maturity: P2
+    note: "156 MDD, 155 controls, shotgun; Bacteroides higher, Blautia and Eubacterium lower, with GABA-related metabolite changes."
+    sources: ["Yang J, et al. Sci Adv 2020;6:eaba8555"]
+    features:
+      - name: Bacteroides_fragilis
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.7
+        s: 0.3
+        c: 0.6
+      - name: Bacteroides_vulgatus
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.7
+        s: 0.3
+        c: 0.6
+      - name: Eubacterium_rectale
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.7
+        s: 0.2
+        c: 0.7
+      - name: Blautia_wexlerae
+        level: species
+        direction: lower_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.6
+      - name: Eubacterium_eligens
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.7
+
+  functional:
+    label: "Neuroactive metabolite capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P2
+    note: >-
+      Bacterial GABA production (gadB) and its degradation, tryptophan
+      routing toward indoles versus kynurenine, and butyrate capacity are the
+      mechanistic lanes with the most literature. Strandwitz found
+      Bacteroides GABA production inversely related to depression brain
+      signatures. Gut-derived tryptamine and the Valles-Colomer DOPAC module
+      are the dopamine-pathway links. These are capacities, not levels.
+    sources:
+      - "Strandwitz P, et al. Nat Microbiol 2019;4:396"
+      - "Valles-Colomer 2019 (DOPAC synthesis module)"
+    features:
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        w: 0.8
+        q: 0.7
+        s: 0.2
+        c: 0.7
+      - name: gaba
+        engine: diamond
+        direction: decreased
+        w: 0.6
+        q: 0.5
+        s: 0.4
+        c: 0.5
+        direction_conflict: material
+        conflict_note: "Bacteroides is a major GABA producer and is higher in MDD; the net direction of GABA capacity is unresolved."
+      - name: ipa
+        engine: diamond
+        direction: decreased
+        w: 0.5
+        q: 0.5
+        s: 0.3
+        c: 0.5
+      - name: dopamine
+        engine: diamond
+        direction: decreased
+        w: 0.4
+        q: 0.4
+        s: 0.4
+        c: 0.4
+        note: "Valles-Colomer's DOPAC synthesis potential tracked quality of life; tyrDC is the closest gene panel."
+
+confounders:
+  - name: Antidepressants
+    effect: "SSRIs and tricyclics have direct antimicrobial activity and shift composition"
+    handling: "Recorded in the ledger when supplied"
+  - name: Diet, sleep and activity
+    effect: "Depression changes all three, and each changes the gut"
+    handling: "Not adjustable; noted"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Depression is diagnosed by a clinician. A stool pattern is not a mood
+    disorder, and this profile is not a mental-health screen. A high score is
+    not evidence that you are depressed, and a low score is not evidence that
+    you are not.
+  - >-
+    Butyrate-producer depletion is shared with everything. The
+    Coprococcus and Dialister findings are the more specific part and are
+    weighted accordingly.
+  - >-
+    If this score is high, the appropriate response is nothing at all
+    without a conversation with a clinician.
+  - >-
+    Transfer of depression-like features between animals does not establish
+    that a community causes depression in people, and one human-donor
+    transfer experiment found no worsening from patient microbiota at all.
+
+effect_size_note: >-
+  Valles-Colomer 2019: 1,054 FGFP with 1,063 LLD validation. Yang 2020: 156
+  MDD, 155 controls, shotgun. Effects modest throughout.
+
+citation: >-
+  Zheng P, et al. Gut microbiome remodeling induces depressive-like behaviors
+  through a pathway mediated by the host's metabolism. Mol Psychiatry
+  2016;21:786-796, doi:10.1038/mp.2016.44; Kelly JR, et al. Transferring the
+  blues: depression-associated gut microbiota induces neurobehavioural
+  changes in the rat. J Psychiatr Res 2016;82:109-118,
+  doi:10.1016/j.jpsychires.2016.07.019; Cao Y, et al. Prenatal
+  depression-associated gut microbiota induces depressive-like behaviors and
+  hippocampal neuroinflammation in germ-free mice. Transl Psychiatry 2025;15,
+  doi:10.1038/s41398-025-03606-x; Teng T, et al. Microbiota alterations
+  leading to amino acid deficiency contribute to depression in children and
+  adolescents. Microbiome 2025;13, doi:10.1186/s40168-025-02122-w; Knudsen
+  JK, et al. Faecal microbiota transplantation from patients with depression
+  or healthy individuals into rats modulates mood-related behaviour. Sci Rep
+  2021;11, doi:10.1038/s41598-021-01248-9; Valles-Colomer M, et al. The neuroactive potential of the human gut
+  microbiota in quality of life and depression. Nat Microbiol 2019;4:623-632;
+  Zheng P, et al. Gut microbiome remodeling induces depressive-like behaviors
+  through a pathway mediated by the host's metabolism. Mol Psychiatry
+  2016;21:786-796; Yang J, et al. Landscapes of bacterial and metabolic
+  signatures and their interaction in major depressive disorders. Sci Adv
+  2020;6:eaba8555; Strandwitz P, et al. GABA-modulating bacteria of the human
+  gut microbiota. Nat Microbiol 2019;4:396.

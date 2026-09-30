@@ -1,0 +1,115 @@
+name: tryptamine
+description: >-
+  Bacterial tryptophan decarboxylase, which converts tryptophan to tryptamine.
+  Tryptamine acts on the intestinal 5-HT4 receptor and accelerates transit,
+  and it is one of the few well-characterised routes by which gut bacteria act
+  on the host's serotonin system. The enzyme is rare: Clostridium sporogenes
+  and Ruminococcus gnavus are the characterised carriers.
+metabolite: Tryptamine
+pathway: "L-tryptophan -> tryptamine + CO2 (bacterial tryptophan decarboxylase, TDC)"
+category: neuroactive
+
+organisms:
+  - Clostridium sporogenes
+  - Ruminococcus gnavus
+  - Blautia hansenii
+
+extension: true
+
+targets:
+  # Williams et al. identified this activity in only two of over 1,000
+  # sequenced gut genomes, so the reference set is genuinely small and the
+  # panel is expected to be reference-limited. That is reported honestly
+  # rather than padded with fold-level relatives.
+  - id: TDC
+    label: TDC (bacterial tryptophan decarboxylase)
+    gene: tdc
+    source: uniprot
+    query: '((protein_name:"tryptophan decarboxylase") OR (protein_name:"L-tryptophan decarboxylase")) AND (taxonomy_id:2)'
+    min_identity: 65.0
+    max_sequences: 1000
+    length_tolerance: 0.25
+    note: >-
+      Identity raised to 65% because the aromatic-L-amino-acid decarboxylase
+      annotation covers both this activity and tyrosine decarboxylation, and
+      the two are separated by a handful of active-site residues that a read
+      fragment cannot resolve.
+
+decoys:
+  - id: AADC
+    label: aromatic-L-amino-acid decarboxylase and group II PLP background
+    source: uniprot
+    query: '((protein_name:"aromatic-L-amino-acid decarboxylase") OR (protein_name:"tyrosine decarboxylase") OR (protein_name:"glutamate decarboxylase") OR (protein_name:"histidine decarboxylase")) AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.25
+    note: >-
+      This decoy will absorb genuine TDC reads as well as false ones. That
+      makes the panel conservative, which is the right error for an enzyme
+      this rare — a false positive here would be far more misleading than a
+      low reading.
+
+aggregate: sum
+aggregate_reason: "Single target."
+
+min_fragments_for_stability: 15
+min_alignment_aa: 25
+
+caveats:
+  - >-
+    This is not serotonin. Tryptamine is a different molecule that happens to
+    act on one of the same receptors in the gut. Bacteria do not make
+    serotonin in any meaningful quantity; the relevant microbial influence on
+    host serotonin is indirect, through spore-forming bacteria stimulating
+    enterochromaffin cells to make more of it themselves.
+  - >-
+    The carriers are rare. A zero here is the common result and is not
+    informative about anything.
+  - >-
+    Both characterised carriers are otherwise unremarkable or, in the case of
+    Ruminococcus gnavus, associated with inflammatory disease. The presence of
+    tryptamine capacity should be read alongside which organism supplies it.
+
+interpretation:
+  what_it_is: >-
+    Tryptamine, a molecule made by a small number of gut bacteria from
+    tryptophan, which speeds intestinal transit through a serotonin receptor.
+  made_from: Dietary tryptophan (protein)
+  higher_means: context-dependent
+  evidence_strength: limited
+  summary: >-
+    Tryptamine activates the intestinal 5-HT4 receptor and accelerates
+    colonic transit in mice. The enzyme is carried by very few gut species, so
+    most people have little or none.
+  evidence_detail: >-
+    Williams et al. found bacterial tryptophan decarboxylase in only two of
+    more than a thousand sequenced human gut bacterial genomes —
+    Clostridium sporogenes and Ruminococcus gnavus — while detecting the gene
+    in about 10% of a human metagenomic cohort. Bhattarai et al. then showed
+    that colonising germ-free mice with a tryptamine-producing strain
+    accelerated colonic transit through the epithelial 5-HT4 receptor. This
+    is a clean, small mechanism. What it does not support is any claim about
+    mood: tryptamine made in the colon acts locally on gut receptors, and the
+    separate literature on microbial effects on host serotonin runs through
+    enterochromaffin cells, not through bacterial synthesis.
+  implications:
+    higher: >-
+      You carry more tryptamine-producing capacity than most people, which is
+      unusual — the enzyme is rare. Tryptamine accelerates colonic transit
+      through a gut serotonin receptor. Worth noting alongside your transit
+      pattern and which organism is supplying it.
+    typical: >-
+      Your tryptophan decarboxylase capacity sits in the middle of the reference range. Tryptamine is made from dietary tryptophan by a small number of gut species and acts on serotonin receptors in the gut wall; a typical level is what most people carry and has no established consequence.
+    lower: >-
+      Little or no tryptamine-producing capacity detected. This is the common
+      result and nothing follows from it.
+  citation: >-
+    Williams B.B. et al., Cell Host Microbe 16:495-503 (2014),
+    doi:10.1016/j.chom.2014.09.001; Bhattarai Y. et al., Cell Host Microbe
+    23:775-785 (2018), doi:10.1016/j.chom.2018.05.004
+
+citation: >-
+  Williams B.B., Van Benschoten A.H., Cimermancic P., et al., "Discovery and
+  characterization of gut microbiota decarboxylases that can produce the
+  neurotransmitter tryptamine", Cell Host Microbe 16:495-503 (2014),
+  doi:10.1016/j.chom.2014.09.001.

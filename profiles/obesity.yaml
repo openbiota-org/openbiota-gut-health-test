@@ -1,0 +1,201 @@
+name: obesity
+version: 1.0.0
+spec_version: 3
+label: "Obesity — ecological pattern"
+disease: obesity
+task: obese_vs_lean
+family: cardiometabolic
+body_site: stool
+population: mixed_european_cohorts
+status: research_beta
+evidence_maturity: P3
+
+summary: >-
+  In the obesity microbiome literature, species-level directions do not
+  replicate across cohorts. The Firmicutes-to-Bacteroidetes
+  ratio, once the headline finding, failed in meta-analyses (Sze and Schloss
+  2016; Walters 2014). What does replicate is ecological: low gene richness
+  and low diversity are associated with adiposity, insulin resistance and
+  dyslipidaemia (Le Chatelier 2013, Cotillard 2013), and the low-richness
+  group gains more weight over time. So this profile scores ecology, not
+  taxa. Akkermansia muciniphila is the one species with consistent direction
+  and interventional support and is kept at moderate weight.
+
+references:
+  primary:
+    source: null
+    note: "Lean controls matched on diet do not exist; diet is the mediator."
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  le_chatelier_2013:
+    label: "Le Chatelier 2013 MetaHIT gene richness"
+    type: direction_panel
+    evidence_type: ECO
+    claim_level: observed
+    study_group: metahit_2013
+    maturity: P3
+    weight_in_combined: 1.0
+    note: "292 Danish participants; low gene count (below ~480,000 genes) marked a group with more adiposity, insulin resistance and inflammation."
+    sources: ["Le Chatelier E, et al. Nature 2013;500:541-546"]
+    features:
+      - name: richness
+        direction: decreased
+        w: 1.0
+        q: 0.9
+        s: 0.2
+        c: 0.9
+      - name: shannon
+        direction: decreased
+        w: 0.8
+        q: 0.9
+        s: 0.2
+        c: 0.9
+
+  cotillard_2013:
+    label: "Cotillard 2013 MicroObes dietary intervention"
+    type: direction_panel
+    evidence_type: ECO
+    claim_level: observed
+    study_group: microobes_2013
+    maturity: P3
+    note: "49 obese and overweight French adults; low richness predicted poorer metabolic response to dietary intervention, and richness rose with fibre."
+    sources: ["Cotillard A, et al. Nature 2013;500:585-588"]
+    features:
+      - name: richness
+        direction: decreased
+        w: 0.8
+        q: 0.8
+        s: 0.2
+        c: 0.8
+
+  akkermansia_lane:
+    label: "Akkermansia muciniphila (replicated species direction)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: dao_2016
+    maturity: P3
+    note: "Higher Akkermansia associated with healthier metabolic status in Dao 2016 and with better response to calorie restriction; pasteurised Akkermansia improved insulin sensitivity in a human trial (Depommier 2019)."
+    sources:
+      - "Dao MC, et al. Gut 2016;65:426"
+      - "Depommier C, et al. Nat Med 2019;25:1096"
+    features:
+      - name: Akkermansia_muciniphila
+        level: species
+        direction: lower_in_case
+        w: 1.0
+        q: 0.8
+        s: 0.4
+        c: 0.8
+        direction_conflict: low
+        conflict_note: "Lower in obesity and metabolic syndrome; higher in Parkinson's and MS. Direction is disease-specific, not universally good."
+
+  non_replicating_taxa:
+    label: "Firmicutes/Bacteroidetes ratio — sensitivity only"
+    type: sensitivity_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    assay_transport: amplicon_taxon_to_shotgun
+    study_group: ley_2006
+    maturity: P0
+    note: "The original F/B ratio finding, kept as a sensitivity panel that never enters the score, so the report can show that it does not track anything in this sample any more than it did in the meta-analyses."
+    sources:
+      - "Ley RE, et al. Nature 2006;444:1022"
+      - "Sze MA, Schloss PD. mBio 2016;7:e01018"
+    features:
+      - name: Bacteroides_vulgatus
+        level: species
+        direction: lower_in_case
+        w: 0.3
+        q: 0.2
+        s: 0.1
+        c: 0.2
+        mapping_confidence: low
+      - name: Bacteroides_uniformis
+        level: species
+        direction: lower_in_case
+        w: 0.3
+        q: 0.2
+        s: 0.1
+        c: 0.2
+        mapping_confidence: low
+
+  functional:
+    label: "Metabolite gene capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P2
+    note: "BCAA biosynthesis potential is higher in insulin resistance (Pedersen 2016). Butyrate is lower with low richness. Neither is specific to adiposity."
+    sources: ["Pedersen HK, et al. Nature 2016;535:376"]
+    features:
+      - name: bcaa
+        engine: diamond
+        direction: increased
+        w: 0.7
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        w: 0.6
+        q: 0.7
+        s: 0.2
+        c: 0.7
+
+  carriers:
+    label: "Mucin degraders"
+    type: mechanism_lane
+    evidence_type: CARRIER_ABUNDANCE
+    claim_level: carrier_proxy
+    maturity: P2
+    features:
+      - name: mucin_degraders
+        engine: carrier
+        direction: decreased
+        w: 0.5
+        q: 0.6
+        s: 0.3
+        c: 0.6
+
+confounders:
+  - name: Diet
+    effect: "Fibre intake is the main determinant of richness and of adiposity; the gut pattern is largely diet"
+    handling: "Recorded in the ledger when supplied"
+  - name: Weight-loss drugs and bariatric surgery
+    effect: "GLP-1 agonists and surgery reshape the community independently of weight"
+    handling: "Recorded when supplied"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Adiposity is measured with a scale and a tape measure. This profile
+    describes an ecological state associated with it, not a cause of it.
+  - >-
+    Low richness is the least specific finding in the microbiome. It marks
+    antibiotics, illness, low-fibre diet and age as readily as adiposity.
+  - >-
+    The Firmicutes/Bacteroidetes ratio is included only to show that it does
+    not work.
+
+effect_size_note: >-
+  Le Chatelier 2013: 292 participants, 23% low gene count with markedly
+  worse metabolic profile. Meta-analyses of taxon-level obesity signatures
+  (Sze and Schloss 2016) found no reproducible species direction.
+
+citation: >-
+  Le Chatelier E, et al. Richness of human gut microbiome correlates with
+  metabolic markers. Nature 2013;500:541-546; Cotillard A, et al. Dietary
+  intervention impact on gut microbial gene richness. Nature 2013;500:585-588;
+  Sze MA, Schloss PD. Looking for a signal in the noise: revisiting obesity and
+  the microbiome. mBio 2016;7:e01018; Dao MC, et al. Akkermansia muciniphila
+  and improved metabolic health during a dietary intervention in obesity. Gut
+  2016;65:426.

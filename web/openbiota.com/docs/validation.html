@@ -1,0 +1,2640 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Free, open-source software that turns raw shotgun stool-metagenome reads into a readable, evidence-linked gut health report.">
+      
+      
+        <meta name="author" content="OpenBiota contributors">
+      
+      
+        <link rel="canonical" href="https://openbiota.com/docs/validation.html">
+      
+      
+        <link rel="prev" href="measured_capability.html">
+      
+      
+        <link rel="next" href="testing.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="images/openbiota-mark.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Validation - OpenBiota Gut Health Test</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/openbiota.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#validation-accuracy-and-limitations" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+<header class="md-header ob-header" data-md-component="header">
+  <nav class="md-header__inner ob-header__inner" aria-label="Header">
+    <a href="./../index.html" class="ob-brand" aria-label="OpenBiota home" data-md-component="logo">
+      <img src="images/openbiota-logo.svg" alt="OpenBiota" width="166" height="38">
+    </a>
+    <nav class="ob-nav" aria-label="OpenBiota">
+      <a href="./../index.html#report">The report</a>
+      <a href="./../index.html#technology">The science</a>
+      <a href="./../index.html#story">The reason</a>
+    </nav>
+    <div class="ob-actions">
+      <a class="ob-button ob-button--quiet" href="./../index.html#sample-report">
+        <svg class="icon icon-stack" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 3h13v15H7zM4 6v15h13M10 8h7M10 12h7"/></svg>
+        <span>See an example</span>
+      </a>
+      <a class="ob-button ob-button--dark" href="./../index.html#get-report">
+        <svg class="icon icon-document" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
+        <span>Free Gut Report</span>
+      </a>
+    </div>
+    <label class="md-header__button md-icon ob-drawer" for="__drawer" aria-label="Open navigation">
+      <svg class="icon icon-menu" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </label>
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="OpenBiota Gut Health Test" class="md-nav__button md-logo" aria-label="OpenBiota Gut Health Test" data-md-component="logo">
+      
+  <img src="images/openbiota-mark.svg" alt="logo">
+
+    </a>
+    OpenBiota Gut Health Test
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/openbiota-org/openbiota-gut-health-test" title="Go to repository" class="md-source" data-md-component="source" target="_blank" rel="noopener noreferrer">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quickstart.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="install.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="usage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="output.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reading the report
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="method.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Method
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="panels.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metabolite pathways
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="profiles.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Disease patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fmt.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FMT donor matching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="expanded_detection.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Organism detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="measured_capability.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Measured capability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="validation.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#headline-figures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Headline figures
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-b-profile-similarity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part B — profile similarity
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part B — profile similarity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-colorectal-cancer-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The colorectal cancer result
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-profile-specificity-the-most-informative-table-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-profile specificity: the most informative table here
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-not-measured" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is not measured
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference-cohort-stability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference cohort stability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#host-filtering-verified-with-a-positive-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Host filtering, verified with a positive control
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-was-not-validated-and-why" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What was not validated, and why
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-bugs-this-validation-caught" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two bugs this validation caught
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-this-was-measured" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How this was measured
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operating-points-and-why-the-thresholds-are-what-they-are" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operating points, and why the thresholds are what they are
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quantitative-accuracy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quantitative accuracy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-active-site-residue-filter-measured" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The active-site residue filter, measured
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#was-the-sample-sequenced-deeply-enough" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Was the sample sequenced deeply enough?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-reference-cohort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The reference cohort
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The reference cohort">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-the-reads-are-sampled-across-the-run-and-what-that-changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why the reads are sampled across the run, and what that changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#depth-still-matters-per-panel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Depth still matters per panel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-population-honestly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The population, honestly
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-platform-check-tiny-health-on-the-same-fastq-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-platform check: Tiny Health on the same FASTQ files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cross-platform check: Tiny Health on the same FASTQ files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-comparable-and-what-it-shows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is comparable, and what it shows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#band-edge-straddles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Band-edge straddles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-three-opposite-calls-resolved" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The three opposite calls, resolved
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-pair-excluded-as-not-like-for-like" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One pair excluded as not like-for-like
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-reproducibility-problem-on-their-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A reproducibility problem on their side
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-this-check-does-not-cover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What this check does not cover
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Limitations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-the-measurement-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the measurement is
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accuracy-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accuracy boundaries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#profile-similarity-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Profile similarity boundaries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method boundaries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation boundaries
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remaining-work-comparison-against-the-published-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remaining work: comparison against the published method
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="testing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="attribution.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#headline-figures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Headline figures
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-b-profile-similarity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part B — profile similarity
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part B — profile similarity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-colorectal-cancer-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The colorectal cancer result
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-profile-specificity-the-most-informative-table-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-profile specificity: the most informative table here
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-not-measured" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is not measured
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference-cohort-stability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference cohort stability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#host-filtering-verified-with-a-positive-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Host filtering, verified with a positive control
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-was-not-validated-and-why" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What was not validated, and why
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-bugs-this-validation-caught" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two bugs this validation caught
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-this-was-measured" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How this was measured
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operating-points-and-why-the-thresholds-are-what-they-are" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operating points, and why the thresholds are what they are
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quantitative-accuracy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quantitative accuracy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-active-site-residue-filter-measured" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The active-site residue filter, measured
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#was-the-sample-sequenced-deeply-enough" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Was the sample sequenced deeply enough?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-reference-cohort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The reference cohort
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The reference cohort">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-the-reads-are-sampled-across-the-run-and-what-that-changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why the reads are sampled across the run, and what that changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#depth-still-matters-per-panel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Depth still matters per panel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-population-honestly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The population, honestly
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-platform-check-tiny-health-on-the-same-fastq-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-platform check: Tiny Health on the same FASTQ files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cross-platform check: Tiny Health on the same FASTQ files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-comparable-and-what-it-shows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is comparable, and what it shows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#band-edge-straddles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Band-edge straddles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-three-opposite-calls-resolved" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The three opposite calls, resolved
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-pair-excluded-as-not-like-for-like" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One pair excluded as not like-for-like
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-reproducibility-problem-on-their-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A reproducibility problem on their side
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-this-check-does-not-cover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What this check does not cover
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Limitations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-the-measurement-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the measurement is
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accuracy-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accuracy boundaries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#profile-similarity-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Profile similarity boundaries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method boundaries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation boundaries
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remaining-work-comparison-against-the-published-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remaining work: comparison against the published method
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/openbiota-org/openbiota-gut-health-test/edit/main/docs/VALIDATION.md" title="Edit this page" class="md-content__button md-icon" rel="edit noopener noreferrer" target="_blank">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="validation-accuracy-and-limitations">Validation, accuracy and limitations<a class="headerlink" href="#validation-accuracy-and-limitations" title="Permanent link">&para;</a></h1>
+<p>This document covers both halves of the tool. <strong>Part A</strong> is metabolite gene
+capacity, validated against synthetic communities with known gene content.
+<strong>Part B</strong> is species composition and disease-pattern similarity, validated
+against public cohorts that carry disease labels.</p>
+<p>Jump to: <a href="#headline-figures">Part A headline figures</a> ·
+<a href="#part-b-profile-similarity">Part B headline figures</a> ·
+<a href="#cross-profile-specificity-the-most-informative-table-here">the specificity matrix</a> ·
+<a href="#limitations">limitations</a></p>
+<p>Everything about how well this test performs, and where it falls short, is in
+this one file. Nothing here is estimated — the figures come from
+<code>openbiota validate</code>, and the raw output is in
+<a href="validation_results.json"><code>validation_results.json</code></a>.</p>
+<p>Reproduce with:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>openbiota<span class="w"> </span>validate<span class="w">                    </span><span class="c1"># ~5 min with genomes cached</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>openbiota<span class="w"> </span>cohort<span class="w">                      </span><span class="c1"># ~10 min, rebuilds the reference ranges</span>
+</code></pre></div>
+<hr />
+<h2 id="headline-figures">Headline figures<a class="headerlink" href="#headline-figures" title="Permanent link">&para;</a></h2>
+<p>At the operating point the tool actually reports (<strong>confirmed</strong> tier):</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sensitivity</strong></td>
+<td><strong>97.0%</strong> — genes present that were found</td>
+</tr>
+<tr>
+<td><strong>Specificity</strong></td>
+<td><strong>100.0%</strong> — genes absent that were correctly called absent</td>
+</tr>
+<tr>
+<td><strong>Precision</strong></td>
+<td><strong>100.0%</strong> — detections that were real</td>
+</tr>
+<tr>
+<td><strong>False positives</strong></td>
+<td><strong>0</strong> of 62 true negatives</td>
+</tr>
+<tr>
+<td><strong>False negatives</strong></td>
+<td><strong>1</strong> of 33 true positives</td>
+</tr>
+<tr>
+<td><strong>Accuracy</strong></td>
+<td><strong>98.9%</strong></td>
+</tr>
+<tr>
+<td><strong>Detection limit</strong></td>
+<td>carriers found down to <strong>0.2% of cells</strong></td>
+</tr>
+<tr>
+<td><strong>Quantitative calibration</strong></td>
+<td>slope 1.13, R² 0.72</td>
+</tr>
+</tbody>
+</table>
+<p>Every pathway individually achieved 100% specificity and 100% precision.</p>
+<hr />
+<h2 id="part-b-profile-similarity">Part B — profile similarity<a class="headerlink" href="#part-b-profile-similarity" title="Permanent link">&para;</a></h2>
+<p>A different kind of validation, because the ground truth is different. For
+gene capacity, truth is "does this genome carry this gene", which a synthetic
+community establishes exactly. For disease similarity there is no such truth —
+only whether the score separates labelled cases from labelled controls.</p>
+<p>Only <strong>colorectal cancer</strong> has both a cross-cohort-validated microbiome
+association and public cohorts with disease labels attached, so it is the one
+profile on which the engine can be tested end to end. That is why it ships as
+a validation control rather than as a health readout.</p>
+<h3 id="the-colorectal-cancer-result">The colorectal cancer result<a class="headerlink" href="#the-colorectal-cancer-result" title="Permanent link">&para;</a></h3>
+<p>258 labelled cases against 250 within-study controls (YachidaS 2019, via
+curatedMetagenomicData), scored through the identical engine, with the
+reference distribution built from the control arm only:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AUC</strong></td>
+<td><strong>0.62</strong> (95% CI 0.57–0.67)</td>
+</tr>
+<tr>
+<td><strong>Leave-one-study-out AUC</strong></td>
+<td>0.62</td>
+</tr>
+<tr>
+<td><strong>Ceiling for these six features</strong></td>
+<td>0.67, measured directly</td>
+</tr>
+<tr>
+<td><strong>Published cross-cohort performance</strong></td>
+<td>~0.80, from learned models over hundreds of features</td>
+</tr>
+</tbody>
+</table>
+<p>Three things follow, and all three are stated in the report:</p>
+<p><strong>The engine recovers the signal.</strong> All five oral-origin markers are enriched
+in the correct direction — <em>F. nucleatum</em> in 18.6% of cases versus 4.4% of
+controls, <em>P. micra</em> 37.2% versus 14.8%, and similarly for
+<em>P. stomatis</em>, <em>G. morbillorum</em> and <em>S. moorei</em>. The confidence interval
+excludes chance.</p>
+<p><strong>0.62 is near the ceiling for six prespecified markers, not a shortfall in
+the engine.</strong> Counting how many of the five markers a sample carries gives AUC
+0.671; summing their log abundances gives 0.674. The published 0.80+ comes
+from LASSO models fitted over the full profile, which is a different method
+that this tool deliberately does not use — naively transferred learned
+coefficients lose both accuracy and disease specificity.</p>
+<p><strong>The profile is not condition-specific</strong>, which is the most important finding
+in this document. See the matrix below.</p>
+<h3 id="cross-profile-specificity-the-most-informative-table-here">Cross-profile specificity: the most informative table here<a class="headerlink" href="#cross-profile-specificity-the-most-informative-table-here" title="Permanent link">&para;</a></h3>
+<p>Every profile scored against every labelled condition. A profile should score
+highest against its own condition and near 0.5 against the others.</p>
+<table>
+<thead>
+<tr>
+<th>Profile</th>
+<th>vs CRC</th>
+<th>vs IBD</th>
+<th>vs T2D</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>crc</code></td>
+<td><strong>0.62</strong></td>
+<td>0.76</td>
+<td>0.52</td>
+</tr>
+<tr>
+<td><code>longcovid</code></td>
+<td>0.53</td>
+<td>0.80</td>
+<td>0.59</td>
+</tr>
+<tr>
+<td><code>mecfs</code></td>
+<td>0.56</td>
+<td>0.49</td>
+<td>0.60</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong><code>crc</code> separates IBD better (0.76) than the condition it was built for
+  (0.62).</strong> Its oral-origin markers are a general-disturbance signal. Oral-gut
+  translocation happens in periodontal disease, with reduced gastric acid, and
+  in inflammatory bowel disease, not only in malignancy.</li>
+<li><strong><code>longcovid</code> scores 0.80 against IBD</strong> — higher than anything else in the
+  table. <em>R. gnavus</em> enrichment and <em>F. prausnitzii</em> depletion are classic
+  IBD findings. Its own discrimination is unmeasured, because the accessions
+  that would allow measuring it publish reads without a sample-to-outcome key.</li>
+<li><strong><code>mecfs</code> is flat and near chance everywhere</strong> (0.49–0.60). Its features are
+  weak discriminators of anything, which is consistent with the modest
+  species-level effects both source cohorts reported. Notably it does <em>not</em>
+  spike on IBD, so it is at least not a relabelled inflammation signal.</li>
+</ul>
+<p>This is why GMWI2 accompanies every profile score. A community that is
+generally disturbed will resemble several of these patterns at once, and the
+anchor is what tells you whether that is what is happening.</p>
+<h3 id="what-is-not-measured">What is not measured<a class="headerlink" href="#what-is-not-measured" title="Permanent link">&para;</a></h3>
+<p>No AUC is printed for <code>mecfs</code> or <code>longcovid</code>, and none should be. Several Long
+COVID accessions publish reads without a sample-to-outcome key; <code>PRJNA878603</code>
+(ME/CFS) has published code and a key resources table but no disease-labelled
+cohort in curatedMetagenomicData. Where labels cannot be obtained, the honest
+statement is that discrimination is unmeasured — not a proxy figure.</p>
+<h3 id="reference-cohort-stability">Reference cohort stability<a class="headerlink" href="#reference-cohort-stability" title="Permanent link">&para;</a></h3>
+<p>The species reference cohort holds <strong>3,027 healthy adult stool metagenomes
+from 22 studies</strong>, median depth 38.2 million reads, all processed through one
+pipeline. Bootstrapping sub-cohorts of increasing size shows how quickly a
+percentile estimate settles:</p>
+<table>
+<thead>
+<tr>
+<th>Cohort size</th>
+<th>SD of the median estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>25</td>
+<td>0.81</td>
+</tr>
+<tr>
+<td>50</td>
+<td>0.54</td>
+</tr>
+<tr>
+<td>100</td>
+<td>0.33</td>
+</tr>
+<tr>
+<td>200</td>
+<td>0.24</td>
+</tr>
+<tr>
+<td>400</td>
+<td>0.16</td>
+</tr>
+<tr>
+<td>800</td>
+<td>0.10</td>
+</tr>
+</tbody>
+</table>
+<p>This is what justifies the sample-count target empirically rather than by
+assertion, and it is where the confidence grade's threshold of 200 comes from.</p>
+<h3 id="host-filtering-verified-with-a-positive-control">Host filtering, verified with a positive control<a class="headerlink" href="#host-filtering-verified-with-a-positive-control" title="Permanent link">&para;</a></h3>
+<p>Human reads are removed against GRCh38 plus PhiX before taxonomic profiling.
+On sample A02 this removed <strong>0 of 8,029,909 pairs</strong>, and a 0.00% rate is
+exactly what a silently broken index also looks like — so it was checked
+rather than assumed.</p>
+<p>Two thousand synthetic read pairs cut directly from the GRCh38 sequence align
+at <strong>100%</strong>, confirming the index resolves. Aligning the real sample finds 2
+of 400,000 mates, a 0.00% overall rate. The sample genuinely carries
+negligible human DNA, which is what a well-prepared stool library should look
+like.</p>
+<p>Reproduce with:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>bowtie2<span class="w"> </span>-p<span class="w"> </span><span class="m">10</span><span class="w"> </span>--very-fast<span class="w"> </span>-x<span class="w"> </span>refs/host/host<span class="w"> </span>-1<span class="w"> </span>&lt;human_reads_1.fq&gt;<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">        </span>-2<span class="w"> </span>&lt;human_reads_2.fq&gt;<span class="w"> </span>-S<span class="w"> </span>/dev/null
+</code></pre></div>
+<p>Because host filtering was a no-op for this sample, the species profile is
+identical with and without it — a useful consistency check in its own right,
+since the two runs went through different code paths.</p>
+<h3 id="what-was-not-validated-and-why">What was not validated, and why<a class="headerlink" href="#what-was-not-validated-and-why" title="Permanent link">&para;</a></h3>
+<p><strong>Synthetic taxonomic communities.</strong> The plan was to extend the synthetic
+harness — which builds communities from reference genomes with known gene
+content — to spike profile taxa at defined abundances and check that the
+profiler recovers them. This was not done, because the colorectal validation
+above supersedes it: it tests the same machine end to end against <em>clinical</em>
+ground truth rather than against a simulator, and a simulator that produced
+reads from the same reference genomes MetaPhlAn's markers were drawn from
+would mostly measure that circularity. What synthetic communities would add
+that the labelled cohorts do not is a detection limit for individual species,
+which remains unmeasured.</p>
+<p><strong>Per-feature reproduction of the ME/CFS cohort.</strong> <code>PRJNA878603</code> publishes
+code and a key resources table, so the reported per-feature directions could
+be re-derived. This was not done. The consequence is that the ME/CFS feature
+weights rest on the papers' reported effects rather than on independently
+reproduced ones, and the profile's discrimination is unmeasured either way.</p>
+<p><strong>Comparison against the published assembly-and-HMM pipeline</strong> for gene
+capacity remains open; the protocol is at the end of this document.</p>
+<h3 id="two-bugs-this-validation-caught">Two bugs this validation caught<a class="headerlink" href="#two-bugs-this-validation-caught" title="Permanent link">&para;</a></h3>
+<p>Both produced plausible-looking numbers, which is what makes them worth
+recording.</p>
+<p><strong>A depth-dependent zero floor.</strong> The CLR's zero-replacement value was
+originally derived per sample as half that sample's smallest detected
+abundance — the textbook rule. That makes the floor depth-dependent: a deeply
+sequenced sample detects rarer taxa, gets a lower floor, and maps its zeros
+further down than a shallow one. For a taxon absent in most samples, that
+difference <em>is</em> the reported signal. The floor is now a fixed constant
+(1e-4 percent), applied identically to sample and reference.</p>
+<p><strong>Absence treated as a number.</strong> For a taxon absent from both the sample and
+most of the reference, the CLR values still differ, because they carry the
+geometric-mean denominator, which varies with how many other taxa each sample
+happened to detect. Comparing those values compares sequencing incidentals. On
+sample A02 it placed five <em>absent</em> colorectal markers at the 74th
+percentile and produced a spurious 74th-percentile similarity score. Absence
+is now a category: a sample lacking the taxon sits at the mid-rank of the
+reference samples that also lack it, which puts those five markers at the 48th
+percentile and the profile score at the 23rd, where it belongs.</p>
+<p>Both are pinned as regression tests in <code>tests/test_scoring.py</code>.</p>
+<hr />
+<h2 id="how-this-was-measured">How this was measured<a class="headerlink" href="#how-this-was-measured" title="Permanent link">&para;</a></h2>
+<p>The hard part of validating a metagenomic screen is knowing the right answer.
+This validation constructs the sample so that the answer is known.</p>
+<p><strong>1. Ground truth from complete genomes.</strong> 24 reference genomes were
+downloaded from NCBI. For each, its own annotated proteome was searched at
+<em>full length</em> against the pathway reference sets, requiring a genuine ortholog:
+≥70% identity across ≥70% of the reference and ≥60% of the query, plus the
+active-site residue criterion where a pathway defines one. That is the
+published method's decision procedure, applied where it works properly — on
+whole proteins rather than 50-residue fragments.</p>
+<p><strong>2. Synthetic samples.</strong> Reads were simulated from those same genomes at known
+cell abundances, with matched read lengths (100–151 bp), NovaSeq-style binned
+quality values, a 0.2% substitution error rate, and mate ids identical between
+R1 and R2 exactly as real NovaSeq output produces. Because the community
+composition is set, the true number of gene copies per 100 genomes is known
+exactly rather than estimated.</p>
+<p><strong>3. Measurement.</strong> The pipeline was run on the simulated reads with no
+knowledge of any of the above.</p>
+<p>Five experiments, 3,000,000 read pairs each:</p>
+<table>
+<thead>
+<tr>
+<th>Experiment</th>
+<th>Community</th>
+<th>Measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>balanced</code></td>
+<td>all 24 genomes, equal abundance</td>
+<td>sensitivity, specificity</td>
+</tr>
+<tr>
+<td><code>negative</code></td>
+<td>6 organisms verified to lack the target genes</td>
+<td>the false-positive rate, directly</td>
+</tr>
+<tr>
+<td><code>spike_0p05</code></td>
+<td>carrier at 5% of cells</td>
+<td>detection at moderate abundance</td>
+</tr>
+<tr>
+<td><code>spike_0p01</code></td>
+<td>carrier at 1%</td>
+<td>detection at low abundance</td>
+</tr>
+<tr>
+<td><code>spike_0p002</code></td>
+<td>carrier at 0.2%</td>
+<td>the detection limit</td>
+</tr>
+</tbody>
+</table>
+<p>Genomes used span the known carriers for every pathway — <em>C. scindens</em>,
+<em>C. hylemonae</em> and <em>P. hiranonis</em> for bile acids, <em>K. pneumoniae</em> and
+<em>P. mirabilis</em> for TMA, <em>F. prausnitzii</em> and <em>R. intestinalis</em> for butyrate,
+<em>E. lenta</em>, <em>S. pasteurianus</em> and <em>L. plantarum</em> for imidazole propionate,
+<em>C. difficile</em> for p-cresol, <em>C. sporogenes</em> for indole-3-propionate — plus six
+abundant gut organisms that carry none of them. The full list with accessions
+is in <code>validation_results.json</code>.</p>
+<hr />
+<h2 id="operating-points-and-why-the-thresholds-are-what-they-are">Operating points, and why the thresholds are what they are<a class="headerlink" href="#operating-points-and-why-the-thresholds-are-what-they-are" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>Sensitivity</th>
+<th>Specificity</th>
+<th>Precision</th>
+<th>False positives</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Any matching fragment</td>
+<td>100.0%</td>
+<td>93.5%</td>
+<td>89.2%</td>
+<td>4</td>
+</tr>
+<tr>
+<td>≥2 fragments</td>
+<td>100.0%</td>
+<td>96.8%</td>
+<td>94.3%</td>
+<td>2</td>
+</tr>
+<tr>
+<td><strong>≥2 fragments and ≥75% identity</strong></td>
+<td><strong>97.0%</strong></td>
+<td><strong>100.0%</strong></td>
+<td><strong>100.0%</strong></td>
+<td><strong>0</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The tool reports the third row as <strong>confirmed</strong> and everything else detected as
+<strong>provisional</strong>. The thresholds were not chosen in advance — they are where the
+measured false-positive count reaches zero.</p>
+<p>Two things made this possible:</p>
+<ul>
+<li><strong>A single read is not evidence.</strong> Both single-fragment false positives
+  disappear at two fragments, and no true call is affected: the weakest true
+  positive had 64 fragments.</li>
+<li><strong>Identity separates the classes.</strong> Every false positive fell below 73% mean
+  translated identity, while true positives clustered at 81–99% with a median
+  of 98%. A read from an organism that genuinely carries the gene matches its
+  reference closely; matches in the 60s are landing on distant relatives within
+  the same protein fold.</li>
+</ul>
+<p>The one call given up at the confirmed tier is the <em>urdA</em> carrier at 0.2% of
+cells — the hardest case in the set. That trade is the right way round: a
+reported detection is one you can act on, and borderline signals are still
+shown, labelled provisional.</p>
+<hr />
+<h2 id="quantitative-accuracy">Quantitative accuracy<a class="headerlink" href="#quantitative-accuracy" title="Permanent link">&para;</a></h2>
+<p>Detection is one question; whether the number is right is another.</p>
+<p><strong>Overall:</strong> slope 1.13, intercept 0.50, R² 0.72 across 37 comparisons of
+reported against known copies per 100 genomes.</p>
+<p><strong>Per gene</strong>, as median reported ÷ true across confirmed calls:</p>
+<table>
+<thead>
+<tr>
+<th>Gene</th>
+<th>Bias</th>
+<th></th>
+<th>Gene</th>
+<th>Bias</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bai:baiF</code></td>
+<td>1.00×</td>
+<td></td>
+<td><code>cutc:cutC</code></td>
+<td>0.84×</td>
+</tr>
+<tr>
+<td><code>bai:baiB</code></td>
+<td>1.02×</td>
+<td></td>
+<td><code>indole:tnaA</code></td>
+<td>0.69×</td>
+</tr>
+<tr>
+<td><code>bai:baiE</code></td>
+<td>1.15×</td>
+<td></td>
+<td><code>ipa:fldBC</code></td>
+<td>0.41×</td>
+</tr>
+<tr>
+<td><code>bai:baiCD</code></td>
+<td>1.16×</td>
+<td></td>
+<td><code>pcresol:hpdB</code></td>
+<td>0.42×</td>
+</tr>
+<tr>
+<td><code>butyrate:buk</code></td>
+<td>1.17×</td>
+<td></td>
+<td><code>propionate:pduP</code></td>
+<td>2.32×</td>
+</tr>
+<tr>
+<td><code>cutc:cntA</code></td>
+<td>1.17×</td>
+<td></td>
+<td><code>propionate:pct</code></td>
+<td>2.42×</td>
+</tr>
+<tr>
+<td><code>bai:baiA</code>, <code>bai:baiH</code></td>
+<td>1.21×</td>
+<td></td>
+<td><code>urda:urdA</code></td>
+<td>2.43×</td>
+</tr>
+<tr>
+<td><code>ipa:fldH</code></td>
+<td>1.29×</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>bsh:bsh</code></td>
+<td>1.31×</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>butyrate:but</code></td>
+<td>1.66×</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Most genes land within about 1.7× of truth. Four are off by roughly 2.4× — two
+over (<code>pct</code>, <code>pduP</code>, <code>urdA</code>) and two under (<code>fldBC</code>, <code>hpdB</code>, the latter pair
+having the smallest reference sets, so reads from carriers not represented in
+the set are lost).</p>
+<p><strong>This is why results are reported as percentiles.</strong> The bias is <em>systematic
+per gene</em> — the same gene measured the same way in two samples is off by the
+same factor in both, so it cancels when comparing samples to each other or to
+the reference cohort. It does not cancel in an absolute number. Read the
+percentile; treat the absolute value as accurate to within roughly a factor of
+two.</p>
+<hr />
+<h2 id="the-active-site-residue-filter-measured">The active-site residue filter, measured<a class="headerlink" href="#the-active-site-residue-filter-measured" title="Permanent link">&para;</a></h2>
+<p><code>urdA</code> is the pathway whose specificity is hardest, because fumarate reductase
+flavoprotein is a close relative. The published method separates them by
+requiring tyrosine or methionine at FAD-site residue 373 of the full-length
+protein, which a 151 bp read mostly cannot reach.</p>
+<p>The pipeline's reference-side substitute — checking whether the <em>matched
+reference</em> itself carries an acceptable residue — was tested against
+residue-filtered truth:</p>
+<table>
+<thead>
+<tr>
+<th>Figure</th>
+<th>Slope vs truth</th>
+<th>R²</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Headline count</td>
+<td><strong>4.31×</strong></td>
+<td>0.991</td>
+</tr>
+<tr>
+<td>Residue-consistent subset</td>
+<td><strong>1.65×</strong></td>
+<td>1.000</td>
+</tr>
+</tbody>
+</table>
+<p>The filter cuts overcounting by a factor of 2.6, with essentially perfect
+linearity. This is why both figures are reported: the headline is an upper
+bound, the residue-consistent subset is the tighter estimate, and the truth
+sits between them.</p>
+<p>Two supporting checks:</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Anchor self-test — does position 373 map onto itself in <code>Q8CVD0</code>?</td>
+<td>Passes on every build; failure aborts the run</td>
+</tr>
+<tr>
+<td>Curated Swiss-Prot urocanate reductases carrying Y/M at their own mapped position</td>
+<td><strong>6 of 6 (100%)</strong>, at correctly distinct positions 373, 594, 394, 598, 594, 408</td>
+</tr>
+<tr>
+<td>Automatically annotated (TrEMBL) entries carrying Y/M</td>
+<td><strong>~47%</strong> of 1,537 mapped</td>
+</tr>
+<tr>
+<td>Read-side vs reference-side estimate on the real sample</td>
+<td>~477 vs 514 fragments — <strong>7% apart</strong>, from two checks that share no evidence</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="was-the-sample-sequenced-deeply-enough">Was the sample sequenced deeply enough?<a class="headerlink" href="#was-the-sample-sequenced-deeply-enough" title="Permanent link">&para;</a></h2>
+<p>The pipeline reads every fragment in the input — nothing is subsampled. The
+separate question is whether the <em>sequencer</em> sampled the stool deeply enough
+that a rarer organism could not have been missed. <code>openbiota depth-check</code> answers it
+by screening the same sample at increasing depths and watching for a plateau.</p>
+<p>A pathway counts as converged when its value changes between half and full
+depth by less than the Poisson counting error implied by its own fragment
+count — i.e. by less than its own noise floor, leaving no recoverable signal.</p>
+<p>Measured on the 8,029,909-read-pair sample in this repository:</p>
+<table>
+<thead>
+<tr>
+<th>Pathway</th>
+<th>502k</th>
+<th>1.0M</th>
+<th>2.0M</th>
+<th>4.0M</th>
+<th>8.0M</th>
+<th>Change</th>
+<th>Noise</th>
+<th>Settled</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bai</code></td>
+<td>7.60</td>
+<td>8.61</td>
+<td>8.58</td>
+<td>8.42</td>
+<td>8.20</td>
+<td>2.7%</td>
+<td>±3.0%</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>bsh</code></td>
+<td>67.49</td>
+<td>59.08</td>
+<td>59.26</td>
+<td>58.01</td>
+<td>55.62</td>
+<td>4.3%</td>
+<td>±3.0%</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>butyrate</code></td>
+<td>87.80</td>
+<td>87.69</td>
+<td>85.98</td>
+<td>83.27</td>
+<td>82.77</td>
+<td>0.6%</td>
+<td>±2.3%</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>cutc</code></td>
+<td>3.39</td>
+<td>3.57</td>
+<td>3.63</td>
+<td>3.87</td>
+<td>4.05</td>
+<td>4.3%</td>
+<td>±7.0%</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>indole</code></td>
+<td>9.09</td>
+<td>10.43</td>
+<td>11.50</td>
+<td>11.40</td>
+<td>11.55</td>
+<td>1.3%</td>
+<td>±5.5%</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>ipa</code></td>
+<td>12.75</td>
+<td>11.17</td>
+<td>10.68</td>
+<td>9.87</td>
+<td>9.53</td>
+<td>3.5%</td>
+<td>±5.6%</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>pcresol</code></td>
+<td>9.61</td>
+<td>9.98</td>
+<td>10.23</td>
+<td>8.44</td>
+<td>8.61</td>
+<td>2.0%</td>
+<td>±4.7%</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>propionate</code></td>
+<td>32.07</td>
+<td>36.19</td>
+<td>35.35</td>
+<td>32.30</td>
+<td>32.99</td>
+<td>2.1%</td>
+<td>±2.7%</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>urda</code></td>
+<td>35.69</td>
+<td>36.86</td>
+<td>35.26</td>
+<td>35.30</td>
+<td>35.07</td>
+<td>0.6%</td>
+<td>±2.7%</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<p>All nine pathways had plateaued well before full depth — most are within a few
+percent of their final value by 500,000 read pairs, which is 6% of the data.
+Deeper sequencing would not change these results.</p>
+<p>This also demonstrates the depth-independence that the <code>rpoB</code> normalisation is
+supposed to provide, on real data rather than by argument: a 16-fold change in
+depth moves the reported values by single-digit percentages, while the raw
+fragment counts scale linearly with depth as they must.</p>
+<p>Two consequences worth drawing out:</p>
+<ul>
+<li><strong>Deeper sequencing buys precision, not new detections.</strong> Fragment counts
+  scale with depth, so counting error shrinks as 1/√n. At 8M read pairs the
+  headline pathways carry 2-3% counting error, which is already well below the
+  per-gene systematic bias measured above.</li>
+<li><strong>A shallower sample is still usable, provided it is sampled uniformly.</strong>
+  This is why the reference cohort can be built from 2M-pair subsamples rather
+  than whole runs: with uniform sampling the expected values match and only the
+  per-sample noise is wider. A <em>prefix</em> is not a uniform sample — see the
+  reference-cohort section below for the measurement.</li>
+</ul>
+<hr />
+<h2 id="the-reference-cohort">The reference cohort<a class="headerlink" href="#the-reference-cohort" title="Permanent link">&para;</a></h2>
+<p>Percentiles come from 91 adult stool shotgun metagenomes from ENA study
+<code>PRJNA1271016</code>. ENA describes the study as <em>"MARS shotgun metagenomics — Gut
+microbiome and AD study in MARS cohort"</em> (University of Wisconsin–Madison,
+USA, 2023): an older-adult, Alzheimer's-disease study population. It is the
+closest available technical match to this pipeline's inputs — same body site,
+same library strategy, same NovaSeq X platform family — and the report names
+it on every page that quotes a percentile, because a reader comparing a child
+against it needs to know that.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Samples</td>
+<td>91 (one of 92 excluded: 580 <code>rpoB</code> fragments, a low-bacterial specimen)</td>
+</tr>
+<tr>
+<td>Reads per sample</td>
+<td><strong>2,000,000 pairs, sampled uniformly across the whole run</strong></td>
+</tr>
+<tr>
+<td>Sampling</td>
+<td>30 evenly spaced spot windows per run, seeded (<code>20260909</code>), reproducible</td>
+</tr>
+<tr>
+<td><code>rpoB</code> depth</td>
+<td>median 2,219, range 1,820–2,674</td>
+</tr>
+<tr>
+<td>Provenance</td>
+<td><code>refs/reference_ranges.json</code> records the 91 run accessions, the seed and the study title; <code>openbiota cohort --runs</code> rebuilds it exactly</td>
+</tr>
+</tbody>
+</table>
+<p>Observed ranges, copies per 100 bacterial genomes:</p>
+<table>
+<thead>
+<tr>
+<th>Pathway</th>
+<th>5th</th>
+<th>25th</th>
+<th>Median</th>
+<th>75th</th>
+<th>95th</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>b12</code></td>
+<td>61.06</td>
+<td>74.78</td>
+<td>87.76</td>
+<td>101.32</td>
+<td>119.17</td>
+</tr>
+<tr>
+<td><code>bai</code></td>
+<td>1.08</td>
+<td>1.95</td>
+<td>2.66</td>
+<td>4.06</td>
+<td>6.57</td>
+</tr>
+<tr>
+<td><code>bcaa</code></td>
+<td>136.47</td>
+<td>165.37</td>
+<td>184.13</td>
+<td>197.45</td>
+<td>215.17</td>
+</tr>
+<tr>
+<td><code>bsh</code></td>
+<td>51.02</td>
+<td>70.43</td>
+<td>87.20</td>
+<td>99.93</td>
+<td>122.72</td>
+</tr>
+<tr>
+<td><code>butyrate</code></td>
+<td>17.02</td>
+<td>22.91</td>
+<td>27.20</td>
+<td>32.00</td>
+<td>39.30</td>
+</tr>
+<tr>
+<td><code>cutc</code></td>
+<td>1.09</td>
+<td>1.75</td>
+<td>2.47</td>
+<td>3.87</td>
+<td>5.57</td>
+</tr>
+<tr>
+<td><code>gaba</code></td>
+<td>5.83</td>
+<td>11.35</td>
+<td>18.85</td>
+<td>24.74</td>
+<td>36.61</td>
+</tr>
+<tr>
+<td><code>indole</code></td>
+<td>5.27</td>
+<td>9.51</td>
+<td>14.46</td>
+<td>20.45</td>
+<td>30.28</td>
+</tr>
+<tr>
+<td><code>ipa</code></td>
+<td>1.33</td>
+<td>3.09</td>
+<td>4.65</td>
+<td>7.15</td>
+<td>11.17</td>
+</tr>
+<tr>
+<td><code>pcresol</code></td>
+<td>2.72</td>
+<td>4.92</td>
+<td>6.52</td>
+<td>8.87</td>
+<td>15.29</td>
+</tr>
+<tr>
+<td><code>propionate</code></td>
+<td>12.10</td>
+<td>15.71</td>
+<td>19.72</td>
+<td>25.62</td>
+<td>38.48</td>
+</tr>
+<tr>
+<td><code>urda</code></td>
+<td>18.00</td>
+<td>29.05</td>
+<td>37.73</td>
+<td>47.39</td>
+<td>62.40</td>
+</tr>
+</tbody>
+</table>
+<h3 id="why-the-reads-are-sampled-across-the-run-and-what-that-changed">Why the reads are sampled across the run, and what that changed<a class="headerlink" href="#why-the-reads-are-sampled-across-the-run-and-what-that-changed" title="Permanent link">&para;</a></h3>
+<p>Until this build the cohort was made from <strong>the first 600,000 read pairs</strong> of
+each of 34 runs — a file prefix — on the argument that every figure is a ratio
+to <code>rpoB</code>, so depth divides out. That was asserted, not measured. Measured, on
+one sample screened three ways at the same 600k budget against its full-depth
+(8.03M) answer:</p>
+<table>
+<thead>
+<tr>
+<th>600k arm</th>
+<th>median error vs full depth</th>
+<th>panels &gt;10% off</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>first 600k read pairs (the old cohort's method)</td>
+<td><strong>19.6%</strong></td>
+<td>16 of 24</td>
+</tr>
+<tr>
+<td>a uniform random 600k</td>
+<td>11.6%</td>
+<td>13 of 24</td>
+</tr>
+</tbody>
+</table>
+<p>and the random-arm deviations are pure counting noise: median |z| = 0.87
+against Poisson expectation 1.0, no panel beyond 3σ, sign split 16 high / 7
+low. Two conclusions follow, and they decided the design:</p>
+<ul>
+<li><strong>The head of a FASTQ is a biased sample of it.</strong> Counting by flowcell tile,
+  the first 600k pairs of <code>SAMPLE2_A02</code> carry 28.98 panel fragments per
+  <code>rpoB</code> fragment against 27.26 for the rest of the file. The first tiles have
+  a different quality profile, and at a fixed identity threshold that changes
+  how many fragments each panel accepts. Uniform sampling removes it.</li>
+<li><strong>Once sampling is uniform, depth is only precision.</strong> There is no
+  directional drift with depth, so the cohort does not have to be depth-matched
+  to the query. It has to be deep enough that its own counting noise is small
+  against the biological spread it describes — at 2M pairs that noise is ~5%
+  per panel against relative interquartile ranges of 0.3–0.9.</li>
+</ul>
+<p>The rebuild did what the diagnosis predicted, and one thing it did not:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>old (34 × first-600k)</th>
+<th>new (91 × random-2M)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Panel medians</td>
+<td>—</td>
+<td><strong>0.929×</strong> the old, every panel lower: the prefix cohort was ~7% inflated</td>
+</tr>
+<tr>
+<td>Relative IQR (spread)</td>
+<td>0.54</td>
+<td>0.52 — only <strong>4% narrower</strong>. The old spread was already dominated by biology, not noise; the precision gain I projected from noise arithmetic was overstated</td>
+</tr>
+<tr>
+<td>Our five samples, median percentile</td>
+<td>64.1</td>
+<td><strong>73.0</strong> — higher, because the inflated scale came down. Correct direction; it <em>unmasks</em> the population mismatch below rather than reducing it</td>
+</tr>
+</tbody>
+</table>
+<p>Sampling itself is <code>fastq-dump</code> spot-range access into the SRA archive, which
+seeks rather than transfers: a window at spot 18,000,000 costs the same as
+one at spot 1, so an unbiased 2M-pair sample of a 32M-pair run takes about
+four minutes rather than the fifteen it takes to stream and discard the whole
+file. <code>openbiota cohort --sampling prefix</code> is retained for cheap builds and is
+labelled as biased in the output.</p>
+<h3 id="depth-still-matters-per-panel">Depth still matters per panel<a class="headerlink" href="#depth-still-matters-per-panel" title="Permanent link">&para;</a></h3>
+<p>Low-count panels have not converged at 2M and the reader should know which:
+<code>openbiota depth-check</code> screens a sample at increasing depths and names them.
+Comparing <code>SAMPLE2_A02</code> at full depth against a 600k cohort moved its median
+panel percentile by only −1.3 points — but 7 of 25 panels moved by more than
+10, and <code>histamine</code>, <code>ipa</code>, <code>butyrate</code>, <code>oxalate</code>, <code>pcresol</code> are the usual
+suspects.</p>
+<h3 id="the-population-honestly">The population, honestly<a class="headerlink" href="#the-population-honestly" title="Permanent link">&para;</a></h3>
+<p>Four of the five samples in this repository are children aged 8–18 and the
+fifth is 48; the reference population is older adults in an Alzheimer's study.
+Their percentiles run high (median 73, not 50) and no amount of sampling or
+depth changes that, because it is a real difference in who is being compared.
+A paediatric functional cohort would; it is the next piece of work.</p>
+<hr />
+<h2 id="cross-platform-check-tiny-health-on-the-same-fastq-files">Cross-platform check: Tiny Health on the same FASTQ files<a class="headerlink" href="#cross-platform-check-tiny-health-on-the-same-fastq-files" title="Permanent link">&para;</a></h2>
+<p>Every validation above is against simulated reads, reference genomes or this
+pipeline's own cohort. The one external check on real samples is that
+<a target="_blank" rel="noopener noreferrer" href="https://www.tinyhealth.com">Tiny Health</a>, a CLIA-certified shotgun
+metagenomics service, ran the same five stool specimens. Two independent
+pipelines, one set of DNA.</p>
+<p>Tiny Health is not treated as ground truth. Where the two disagree, the
+question is which is right, and the answer comes from the sequence evidence.</p>
+<p>Reproduce with <code>python -m tools.compare_tinyhealth</code>; the properties are locked
+in <code>tests/test_tinyhealth_concordance.py</code>.</p>
+<h3 id="what-is-comparable-and-what-it-shows">What is comparable, and what it shows<a class="headerlink" href="#what-is-comparable-and-what-it-shows" title="Permanent link">&para;</a></h3>
+<p>Absolute values are not comparable — Tiny Health reports RPKM against their
+reference population, this pipeline reports copies per 100 bacterial genomes
+against <code>PRJNA1271016</code>. What is comparable is where a reading sits on each
+platform's own scale, and relative species abundance, which is unitless.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Like-for-like functional readings, 5 samples</td>
+<td><strong>89 pairs</strong></td>
+</tr>
+<tr>
+<td>Same band (low / typical / high) on both</td>
+<td>45 (51%)</td>
+</tr>
+<tr>
+<td>Within one band</td>
+<td><strong>83 (93%)</strong></td>
+</tr>
+<tr>
+<td>Opposite at a band edge (see below)</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Opposite</td>
+<td>3 (3%), all three explained below</td>
+</tr>
+<tr>
+<td>Their top-20 species also detected here (<code>SAMPLE2_A02</code>)</td>
+<td><strong>17 / 17 (100%)</strong></td>
+</tr>
+<tr>
+<td>Abundance rank correlation on those species</td>
+<td>Spearman <strong>ρ = 0.775</strong></td>
+</tr>
+<tr>
+<td>Median abundance ratio between platforms</td>
+<td><strong>1.41x</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The 1.41x median abundance ratio is the expected size of a MetaPhlAn-versus-
+GTDB disagreement on the same reads: the two use different marker sets and
+different reference catalogues, and Tiny Health's figures run consistently
+higher because their denominator excludes more unclassified sequence.</p>
+<h3 id="band-edge-straddles">Band-edge straddles<a class="headerlink" href="#band-edge-straddles" title="Permanent link">&para;</a></h3>
+<p>A three-band comparison is fragile exactly at the lines. Three pairs read as
+"opposite" only because Tiny Health's value sits 0.5–1.5% <em>below</em> their own
+cutoff while ours sits 1–3 percentile points <em>above</em> our 75th line:
+<code>SAMPLE1_A01</code> propionate (theirs 546 vs cutoff 549; ours 76.3rd), <code>SAMPLE1_A01</code>
+vitamin B9 (268.7 vs 271; 77.4th) and <code>SAMPLE6_A06</code> hydrogen sulfide index
+(9.01 vs 9.15; 77.5th). For propionate and B9 the rank order of the three
+same-template samples is <em>identical</em> on both platforms — the two agree about
+the values and differ about where a band starts. The comparison tool reports
+these separately and <code>tests/test_tinyhealth_concordance.py</code> requires any
+straddle to pass the rank-order check.</p>
+<h3 id="the-three-opposite-calls-resolved">The three opposite calls, resolved<a class="headerlink" href="#the-three-opposite-calls-resolved" title="Permanent link">&para;</a></h3>
+<p><strong>Branched-chain amino acids, <code>SAMPLE1_A01</code> and <code>SAMPLE2_A02</code></strong> — reference
+population, not measurement. On the three samples that share a Tiny Health
+report template, BCAA capacity ranks <em>identically</em> on both platforms
+(theirs 2507 / 3064 / 3025 RPKM; ours 209 / 235 / 210 copies per 100 genomes).
+The two pipelines measure the same thing and agree on the ordering; they
+disagree only about whether that value is high, because they compare against
+different populations. Neither is wrong. Worth knowing: this panel is close to
+saturation — <code>ilvC</code> and <code>ilvD</code> are near-universal in gut bacteria, so the
+whole cohort spans 123–234 and a percentile inside that range carries little
+information.</p>
+<p><strong>GABA production, <code>SAMPLE3_A03</code></strong> — a Tiny Health false negative. They report
+<strong>0.0 rpkm</strong>. This pipeline finds <strong>1,940 <code>gadB</code> fragments at 100% median
+identity</strong>, best-matching <em>Bacteroides clarus</em> (592), <em>Phocaeicola dorei</em>
+(182), <em>Bacteroides stercoris</em> (178) and <em>Phocaeicola vulgatus</em> (146), in a
+sample that is <strong>34% Bacteroidaceae</strong>. <em>Bacteroides</em> is the dominant genus of
+gut GABA producers (Strandwitz et al., <em>Nature Microbiology</em> 4:396–403, 2019,
+doi:10.1038/s41564-018-0307-3). A third of the community cannot carry the gene
+and produce a zero. <code>tests/test_tinyhealth_concordance.py</code> asserts this
+pipeline can never report that combination.</p>
+<h3 id="one-pair-excluded-as-not-like-for-like">One pair excluded as not like-for-like<a class="headerlink" href="#one-pair-excluded-as-not-like-for-like" title="Permanent link">&para;</a></h3>
+<p><strong>Histamine.</strong> Tiny Health's v4.8.3 metric is "Histamine-producing species":
+the summed abundance of a <em>curated species list</em>. This pipeline's is <code>hdcA</code>
+gene capacity, whatever organism carries it. For <code>SAMPLE1_A01</code> and <code>SAMPLE3_A03</code>
+they report 0.0% while this pipeline finds <code>hdcA</code> at <strong>100% identity</strong> in
+<em>Eggerthella lenta</em> (14 and 66 fragments) and <em>Bacteroides fragilis</em> — neither
+on their list. This is the structural argument for gene-based over
+taxon-based functional calls: a curated list can only find carriers someone
+already thought of. The two are counted separately rather than scored as a
+disagreement, because they are measurements of different quantities.</p>
+<h3 id="a-reproducibility-problem-on-their-side">A reproducibility problem on their side<a class="headerlink" href="#a-reproducibility-problem-on-their-side" title="Permanent link">&para;</a></h3>
+<p>Tiny Health's RPKM values are not comparable across their own report versions.
+Between template v4.8.3 (samples SAMPLE1, SAMPLE3, SAMPLE6) and v5.x (SAMPLE2, SAMPLE4), their
+median value shifted by <strong>2.41x</strong> — and in the <em>same direction for all 12
+comparable panels</em> (range 1.74–3.02x). Twelve of twelve in one direction is
+p ≈ 0.0002 under a sign test.</p>
+<p>That could be biology if the two groups of people simply differed. They do
+not: this pipeline measured the same specimens and puts the two groups
+<strong>1.12x</strong> apart, with the ratios scattered on both sides of 1.0 (0.79–1.65).
+A consistent multiplier on one platform and scatter on the other is what a
+silent renormalisation looks like, not a cohort difference. The practical
+consequence is that a Tiny Health customer comparing a 2026 report to an
+earlier one would see every functional number fall by roughly half with no
+biological change. <code>test_our_units_are_stable_across_pipeline_revisions</code>
+asserts this pipeline does not do the same.</p>
+<h3 id="what-this-check-does-not-cover">What this check does not cover<a class="headerlink" href="#what-this-check-does-not-cover" title="Permanent link">&para;</a></h3>
+<p>The comparison touches 89 of the ~1,390 quantities this pipeline reports per
+sample. Disease-pattern resemblance, biological age, resistance and virulence
+determinants, skin research panels and the species-level percentiles have no
+Tiny Health counterpart, so nothing here validates them. They are covered, to
+the extent they are covered at all, by the sections above and by
+<code>docs/VALIDATION.md</code>'s per-module limitations.</p>
+<hr />
+<h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
+<p>Grouped by what they affect.</p>
+<h3 id="what-the-measurement-is">What the measurement is<a class="headerlink" href="#what-the-measurement-is" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>This measures gene capacity, not metabolite concentration.</strong> Carrying the
+  gene means the bacteria can make the metabolite; how much they actually make
+  depends on substrate availability, transit time and competition. Measuring
+  the metabolites requires mass spectrometry on blood or stool.</li>
+<li><strong>Gene carriage predicts metabolite level weakly.</strong> In the source study of
+  294 samples, of all <code>urdA</code>-positive genomes only <em>Streptococcus pasteurianus</em>
+  abundance was significantly associated with plasma imidazole propionate. This
+  is a property of the biology, not of this implementation.</li>
+<li><strong>No clinical thresholds exist.</strong> No value in any output corresponds to a
+  diagnosis, because no such threshold has been published for any of these
+  pathways. The percentile says where you sit in a population; it does not say
+  what that means for your health.</li>
+</ul>
+<h3 id="accuracy-boundaries">Accuracy boundaries<a class="headerlink" href="#accuracy-boundaries" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Absolute values are accurate to roughly a factor of two</strong>, with four genes
+  at ~2.4×. Percentiles and longitudinal changes are much more reliable than
+  absolute numbers.</li>
+<li><strong>The detection limit is about 0.2% of cells</strong> for a well-referenced gene.
+  Rarer carriers may be missed.</li>
+<li><strong><code>urdA</code> loses sensitivity at the confirmed tier</strong> (75% versus 100%
+  permissive), because its hardest case sits right at the identity threshold.</li>
+<li><strong>Small reference sets bound sensitivity.</strong> <code>bai:baiCD</code> and <code>bai:baiH</code> have
+  four references each, <code>propionate:lcdA</code> five, <code>pcresol:hpdB</code> 77. A low value
+  for these is weak evidence of absence, and the <code>few-refs</code> flag marks them.</li>
+</ul>
+<h3 id="profile-similarity-boundaries">Profile similarity boundaries<a class="headerlink" href="#profile-similarity-boundaries" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>A percentile is not a probability.</strong> It says the sample is more concordant
+  with a published pattern than that fraction of a matched reference group.
+  Nothing more.</li>
+<li><strong>The associations are mostly not condition-specific.</strong> The specificity
+  matrix above shows the colorectal pattern separating IBD better than
+  colorectal cancer, and the Long COVID pattern scoring 0.80 against IBD. Read
+  every profile score beside the dysbiosis anchor.</li>
+<li><strong>Two of the three profiles have unmeasured discrimination.</strong> No labelled
+  cohort exists for ME/CFS or Long COVID that this tool can reach, so no AUC
+  is printed for them.</li>
+<li><strong>No exposure-matched contrast exists</strong> for ME/CFS or Long COVID. The right
+  comparison is people with the same exposure who did not develop the
+  syndrome; the published cohorts use healthy or uninfected controls instead,
+  so syndrome-specific signal cannot be separated from post-exposure signal.
+  Both profiles declare this and take a confidence penalty for it.</li>
+<li><strong>The combined 50/35/15 module split is an engineering starting point</strong>, not
+  an evidence-derived weighting. Report the module scores separately, which the
+  output does.</li>
+<li><strong>Profiler versions must match.</strong> Species abundances from MetaPhlAn 3 and
+  MetaPhlAn 4 are not interchangeable: version 4 reorganised the taxonomy into
+  SGBs and renamed genera. The sample is profiled with the same version as the
+  reference cohort, both are recorded in <code>results.json</code>, and a mismatch
+  downgrades confidence.</li>
+<li><strong>Long COVID scores chronic state only.</strong> Acute future-risk prediction from
+  stool at 0–2 months post-infection is a different task, and features from it
+  are excluded rather than reused.</li>
+<li><strong>Effect sizes in this literature are small.</strong> The largest independent
+  prospective Long COVID study (799 outpatients) reached species-level AUROC
+  0.62 against 0.72 for clinical variables alone; a 2,561-participant community
+  study found no association with illness duration. The frequently quoted AUC
+  of 0.96 classifies a study's own internally defined enterotypes, not an
+  externally validated diagnosis.</li>
+</ul>
+<h3 id="method-boundaries">Method boundaries<a class="headerlink" href="#method-boundaries" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>No per-genome attribution for gene capacity.</strong> Read-level search cannot say
+  which organism carries a gene. Named organisms in the gene-capacity output
+  are the nearest reference sequence, not identifications. Species in Part B
+  <em>are</em> measured identifications, from marker genes.</li>
+<li><strong>Synteny is unavailable.</strong> <code>cutC</code>/<code>cutD</code> gene neighbourhood is a strong
+  specificity signal in assembly-based work and cannot be used here.</li>
+<li><strong>Taxonomy is coarse.</strong> The community profile is reliable at phylum level
+  only, and is bounded by the reviewed <code>rpoB</code> reference set.</li>
+<li><strong>The succinate route to propionate is not screened</strong>, so propionate capacity
+  is systematically understated. See <a href="panels.html">PANELS.md</a>.</li>
+</ul>
+<h3 id="validation-boundaries">Validation boundaries<a class="headerlink" href="#validation-boundaries" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Depth is not a limiting factor for this sample</strong>, but it would be for a
+  much shallower one. Below roughly 500,000 read pairs the rarer pathways
+  (<code>bai</code>, <code>cutc</code>, <code>ipa</code>) fall under the fragment counts needed for a confirmed
+  call.</li>
+<li><strong>Validation used simulated reads.</strong> Simulation reproduces read length,
+  quality binning, error rate and mate structure, but not every artefact of a
+  real library — chimeras, uneven coverage, PCR duplicates, strain-level
+  variation within a species.</li>
+<li><strong>24 genomes is not the gut.</strong> A real sample contains hundreds of species,
+  many unsequenced. Some will carry homologs the validation set does not
+  represent.</li>
+<li><strong>The reference cohort is 33 samples of mixed clinical status.</strong> ENA metadata
+  for <code>PRJNA1271016</code> does not distinguish case from control, so the percentiles
+  describe adult stool generally rather than a screened-healthy population.
+  Widen it with <code>openbiota cohort --samples 100</code>.</li>
+<li><strong>Not compared against the published pipeline on shared samples.</strong> The
+  strongest possible validation would run both methods on the same real
+  metagenomes and compare per-genome calls, using the MAGs in
+  <code>PRJNA1469852</code>. That has not been done. The protocol is below.</li>
+</ul>
+<hr />
+<h2 id="remaining-work-comparison-against-the-published-method">Remaining work: comparison against the published method<a class="headerlink" href="#remaining-work-comparison-against-the-published-method" title="Permanent link">&para;</a></h2>
+<p>The one validation not yet done, and how to do it.</p>
+<p><strong>1. Fetch the MAGs.</strong> <code>PRJNA1469852</code> holds the metagenome-assembled genomes
+the source study called <code>urdA</code>-positive and negative, per sample.</p>
+<p><strong>2. Reproduce their ground truth.</strong> Call genes on each MAG with Prodigal,
+score against their ImP-producer HMM, keep hits above 60% of the lowest-scoring
+model sequence, align with Clustal Omega and require Y or M at residue 373.</p>
+<p><strong>3. Run this pipeline</strong> over the matching raw metagenomes from
+<code>PRJNA1271016</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">for</span><span class="w"> </span>r1<span class="w"> </span><span class="k">in</span><span class="w"> </span>fastq/*_1.fastq.gz<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span>openbiota<span class="w"> </span>run<span class="w"> </span>--r1<span class="w"> </span><span class="s2">"</span><span class="nv">$r1</span><span class="s2">"</span><span class="w"> </span>--r2<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">r1</span><span class="p">/_1/_2</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>--out<span class="w"> </span>results/comparison
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">done</span>
+</code></pre></div>
+<p><strong>4. Build the confusion matrix</strong> against their per-sample calls, sweeping a
+threshold over both <code>copies_per_100_genomes</code> and
+<code>copies_per_100_genomes_residue_consistent</code>. The difference between those two
+ROC curves quantifies what the reference-side residue filter buys on real data
+rather than synthetic.</p>
+<p><strong>5. If plasma imidazole propionate is available</strong>, correlate it against the
+pipeline's output. Expect a weak relationship — that is the correct result, not
+a failure, and it is the point about gene carriage made above.</p>
+<p>Until this is done, accuracy is characterised against synthetic ground truth
+and against curated reference proteins, which is what the figures at the top of
+this file represent.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+  
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  <div class="md-copyright__highlight">
+    <span class="ob-foot__part">&copy; 2026 <a href="./../index.html">OpenBiota</a></span><span class="ob-foot__sep">&middot;</span>
+    <span class="ob-foot__part">Built for the good of humanity.</span><span class="ob-foot__sep">&middot;</span>
+    <span class="ob-foot__part">Free for noncommercial use</span><span class="ob-foot__sep">&middot;</span>
+    <span class="ob-foot__part">Research use only, not a diagnostic test</span>
+  </div>
+</div>
+      
+        <div class="md-social">
+  <a class="ob-code-link" href="https://github.com/openbiota-org/openbiota-gut-health-test" target="_blank" rel="noopener noreferrer" aria-label="OpenBiota on GitHub">
+    <svg class="icon icon-github" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="currentColor" stroke="none" d="M12 .75a11.25 11.25 0 0 0-3.558 21.923c.562.104.77-.244.77-.542 0-.267-.01-.974-.016-1.912-3.13.68-3.791-1.507-3.791-1.507-.512-1.301-1.25-1.647-1.25-1.647-1.023-.7.077-.686.077-.686 1.13.08 1.725 1.16 1.725 1.16 1.006 1.724 2.64 1.226 3.282.938.102-.73.394-1.227.716-1.51-2.499-.284-5.126-1.25-5.126-5.565 0-1.23.44-2.235 1.159-3.023-.116-.284-.502-1.428.11-2.976 0 0 .944-.302 3.094 1.155A10.787 10.787 0 0 1 12 6.18c.956.005 1.918.13 2.816.379 2.148-1.457 3.09-1.155 3.09-1.155.613 1.548.228 2.692.112 2.976.721.788 1.157 1.793 1.157 3.023 0 4.326-2.63 5.278-5.137 5.557.404.35.765 1.043.765 2.1 0 1.516-.013 2.738-.013 3.109 0 .3.204.65.774.541A11.251 11.251 0 0 0 12 .75Z"/></svg>
+    <span>Code</span>
+  </a>
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+  <div class="ob-mobile-actions" aria-label="Get the OpenBiota report">
+    <a class="ob-button ob-button--outline" href="./../index.html#sample-report">
+      <svg class="icon icon-stack" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 3h13v15H7zM4 6v15h13M10 8h7M10 12h7"/></svg>
+      <span>See an example</span>
+    </a>
+    <a class="ob-button ob-button--dark" href="./../index.html#get-report">
+      <svg class="icon icon-document" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
+      <span>Get Free Report</span>
+    </a>
+  </div>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.indexes", "content.code.copy", "content.action.edit", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

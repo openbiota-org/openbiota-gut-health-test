@@ -1,0 +1,193 @@
+name: fermentation
+description: >-
+  The routes behind the short-chain fatty acids, and the hydrogen and
+  sulfur chemistry that runs alongside them. Production and consumption of
+  a metabolite are measured separately and are never netted.
+metabolite: Fermentation routes and cross-feeding
+pathway: >-
+  sugars -> pyruvate -> acetate (pta, ackA), lactate (ldhA), succinate
+  (frdA) -> propionate and butyrate by several distinct routes
+category: metabolite
+
+extension: true
+
+targets:
+  - id: PTA
+    label: pta (phosphate acetyltransferase)
+    gene: pta
+    source: uniprot
+    query: '(protein_name:"Phosphate acetyltransferase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: ACSB
+    label: acsB (CO-methylating acetyl-CoA synthase)
+    gene: acsB
+    source: uniprot
+    query: '(protein_name:"CO-methylating acetyl-CoA synthase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 480
+    length_tolerance: 0.3
+
+  - id: COOS
+    label: cooS (carbon monoxide dehydrogenase)
+    gene: cooS
+    source: uniprot
+    query: '(protein_name:"Carbon monoxide dehydrogenase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: FHS
+    label: fhs (formate--tetrahydrofolate ligase)
+    gene: fhs
+    source: uniprot
+    query: '(protein_name:"Formate--tetrahydrofolate ligase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: LDHD
+    label: ldhA (D-lactate dehydrogenase)
+    gene: ldhA
+    source: uniprot
+    query: '(protein_name:"D-lactate dehydrogenase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: MUTB
+    label: mutB (methylmalonyl-CoA mutase)
+    gene: mutB
+    source: uniprot
+    query: '(protein_name:"Methylmalonyl-CoA mutase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: SCPA
+    label: scpA (propionyl-CoA:succinate CoA transferase)
+    gene: scpA
+    source: uniprot
+    query: '(protein_name:"Propionyl-CoA:succinate CoA transferase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 344
+    length_tolerance: 0.3
+
+  - id: PDUC2
+    label: pduC (propanediol dehydratase large subunit)
+    gene: pduC
+    source: uniprot
+    query: '(protein_name:"Propanediol dehydratase large subunit") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 222
+    length_tolerance: 0.3
+
+  - id: HYDA
+    label: hydA ([FeFe] hydrogenase)
+    gene: hydA
+    source: uniprot
+    query: '(protein_name:"Iron hydrogenase 1") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 200
+    length_tolerance: 0.3
+
+  - id: LDHL
+    label: ldhL (L-lactate dehydrogenase, the other stereoisomer)
+    gene: ldhL
+    source: uniprot
+    query: '(protein_name:"L-lactate dehydrogenase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: XFP
+    label: xfp (phosphoketolase, the heterolactic and bifid shunt route)
+    gene: xfp
+    source: uniprot
+    query: '(protein_name:"phosphoketolase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+
+  # Added so the L-lactate and succinate routes are searched rather than
+  # reported as never looked for. Context targets: they are not in the
+  # aggregate, so the panel's headline figure is unchanged.
+  - id: LDH
+    label: ldh (L-lactate dehydrogenase)
+    gene: ldh
+    source: uniprot
+    query: '(protein_name:"L-lactate dehydrogenase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: MDH
+    label: mdh (malate dehydrogenase)
+    gene: mdh
+    source: uniprot
+    query: '(protein_name:"Malate dehydrogenase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+aggregate: sum
+aggregate_from: [PTA, LDHD]
+aggregate_reason: >-
+  Phosphotransacetylase and D-lactate dehydrogenase, the committed steps
+  of the two commonest fermentation endpoints. Acetate kinase and fumarate
+  reductase are deliberately absent: the butyrate and imidazole-propionate
+  panels already carry them as decoys, and duplicating a target in a
+  shared database takes reads from the established reading rather than
+  adding one.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+citation: >-
+  Reichardt N. et al., "Phylogenetic distribution of three pathways for
+  propionate production within the human gut microbiota", ISME J
+  8:1323-1335 (2014), doi:10.1038/ismej.2014.14; Louis P., Flint H.J.,
+  Environ Microbiol 19:29-41 (2017), doi:10.1111/1462-2920.13589.
+
+interpretation:
+  what_it_is: >-
+    The specific routes your bacteria use to ferment carbohydrate into
+    acids and gases.
+  made_from: >-
+    Pyruvate and other products of carbohydrate fermentation
+  summary: >-
+    The existing butyrate, propionate, methane and sulfide readings say
+    how much capacity is present. These say by which chemistry.
+  evidence_detail: >-
+    Propionate is reached by three unrelated routes - succinate, acrylate
+    and propanediol - and a single propionate number cannot distinguish
+    them, which matters because they use different substrates. Acetate is
+    the case where a gene count misleads most easily: an AMP-forming
+    acetyl-CoA synthetase runs towards acetate assimilation rather than
+    formation, so finding it is evidence the community can consume
+    acetate, not make it, and it is excluded here. Hydrogen is shown as
+    production and consumption separately because a healthy community
+    makes a great deal of it and netting the two would hide both.
+  higher_means: context-dependent
+  evidence_strength: limited
+  implications:
+    higher: >-
+      More fermentation-route capacity than most samples carry, across
+      the acetate and lactate chemistry measured here. The individual
+      route readings show which specific chemistries are complete.
+    typical: >-
+      Mid-range fermentation route capacity, which is the usual finding
+      in an adult gut. The individual route readings show which
+      chemistries are complete and which are missing a step, and that
+      detail matters more than this total.
+    lower: >-
+      Fewer of these routes than most samples carry. The per-route
+      readings show which are incomplete and which genes were missing.
+  citation: >-
+    Reichardt N. et al., "Phylogenetic distribution of three pathways for
+    propionate production within the human gut microbiota", ISME J
+    8:1323-1335 (2014), doi:10.1038/ismej.2014.14; Louis P., Flint H.J.,
+    Environ Microbiol 19:29-41 (2017), doi:10.1111/1462-2920.13589.

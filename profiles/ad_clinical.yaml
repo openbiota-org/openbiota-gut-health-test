@@ -1,0 +1,302 @@
+name: ad_clinical
+version: 1.0.0
+spec_version: 3
+label: "Clinical Alzheimer's disease — stage-specific gut pattern"
+disease: alzheimers_disease
+task: clinical_ad_vs_normal_control
+family: alzheimers_continuum
+body_site: stool
+population: adult_chinese_cohort_derived
+status: research_beta
+evidence_maturity: P2
+
+summary: >-
+  The only stage in the Alzheimer's continuum with a species-level panel that
+  survives strict multiple-testing correction. Jia et al. profiled 476
+  participants across five stages of the continuum by faecal shotgun
+  sequencing and found over 10% of microbial species and gene families
+  significantly altered across progression, with cross-validated AUC around
+  0.80 and 0.75 in independent validation.
+
+  At q < 0.05 no species qualified for the three pre-clinical stages. Only
+  clinical AD has a strict species panel, which is why this profile scores and
+  the earlier stages lean on evidence types this pipeline cannot yet measure.
+  The directions below are findings in a Chinese staged cohort, not universal
+  Alzheimer's biology.
+
+references:
+  primary:
+    source: null
+    note: >-
+      The normal-control class in the source cohort is the only contrast, and
+      it is not matched on the vascular and metabolic comorbidity that
+      accompanies clinical Alzheimer's disease. A cognitively-normal
+      same-comorbidity contrast does not exist in public data.
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  metaad_strict_taxa:
+    label: "Jia 2025 strict species panel (q < 0.05)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: metaad_2025
+    maturity: P2
+    weight_in_combined: 1.0
+    note: >-
+      Species reaching q < 0.05 in clinical AD versus normal control. The
+      Alistipes features are one lineage and share a cluster, so six
+      correlated species count once toward coverage rather than six times.
+    sources: ["Jia 2025 Mol Psychiatry", "PRJCA022804 / CRA014435"]
+    features:
+      - name: Odoribacter_splanchnicus
+        level: species
+        direction: higher_in_case
+        w: 1.0
+        q: 0.5
+        s: 0.5
+        c: 1.0
+        sources: ["Jia 2025 Mol Psychiatry (simulator-supported)"]
+      - name: Barnesiella_viscericola
+        level: species
+        direction: higher_in_case
+        w: 1.0
+        q: 0.5
+        s: 0.6
+        c: 1.0
+        sources: ["Jia 2025 Mol Psychiatry (simulator-supported)"]
+      - name: Alistipes_finegoldii
+        level: species
+        direction: higher_in_case
+        cluster: alistipes_lineage
+        w: 1.0
+        q: 0.5
+        s: 0.4
+        c: 0.8
+        conflict_note: >-
+          Genus Alistipes direction varies by sex and neurological phenotype,
+          so only the named species carries a direction.
+        sources: ["Jia 2025 Mol Psychiatry (simulator-supported)"]
+      - name: Alistipes_timonensis
+        level: species
+        direction: higher_in_case
+        cluster: alistipes_lineage
+        w: 0.7
+        q: 0.5
+        s: 0.4
+        c: 0.8
+        note: >-
+          Stands in for the Alistipes clade members reported in the source
+          (A. communis, A. megaguti, A. senegalensis, A. ihumii) that the
+          reference catalogue does not resolve. The unresolved names are
+          recorded as missing rather than mapped onto a relative.
+        sources: ["Jia 2025 Mol Psychiatry (lineage cluster)"]
+      - name: Prevotella_bivia
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.4
+        s: 0.4
+        c: 0.7
+        note: >-
+          Weak stand-in for P. intermedia in the source panel where the
+          catalogue resolves the genus poorly; low weight accordingly.
+        sources: ["Jia 2025 Mol Psychiatry"]
+      - name: Streptococcus_infantis
+        level: species
+        direction: lower_in_case
+        cluster: streptococcus_lower
+        w: 0.5
+        q: 0.4
+        s: 0.3
+        c: 0.6
+        note: >-
+          The source reports S. ilei and S. rubneri lower in case; neither is
+          in the reference catalogue. This is a same-genus commensal placed
+          at low weight, and the two named species are recorded as missing.
+        sources: ["Jia 2025 Mol Psychiatry"]
+
+  metaad_ko:
+    label: "Jia 2025 KEGG orthologue panel"
+    type: direction_panel
+    evidence_type: PATH_ABUND
+    claim_level: genomic_capacity
+    study_group: metaad_2025
+    maturity: P2
+    note: >-
+      Eight KEGG orthologues from the same participants and the same stool
+      DNA as the species panel — one evidence group, not two replications.
+      This pipeline has no KO-level engine, so the module loads, declares
+      itself not computable, and says what would bind it.
+    sources: ["Jia 2025 Mol Psychiatry"]
+    features:
+      - {name: K00857, direction: higher_in_case}
+      - {name: K00876, direction: higher_in_case}
+      - {name: K01031, direction: higher_in_case}
+      - {name: K03179, direction: higher_in_case}
+      - {name: K11782, direction: higher_in_case}
+      - {name: K18285, direction: higher_in_case}
+      - {name: K20036, direction: higher_in_case}
+      - {name: K01754, direction: lower_in_case}
+
+  mechanism_lanes:
+    label: "Alzheimer's-relevant metabolite capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P1
+    note: >-
+      Mechanism, not stage classification. These are the existing gene-capacity
+      panels reporting pathways with documented routes into Alzheimer's
+      biology, scored separately and never fused into the stage score.
+      Secondary bile acids: elevated deoxycholic acid with reduced primary
+      bile acid, a ratio tracking cognitive decline, and DCA interacts with
+      nicastrin in the gamma-secretase complex. Butyrate drives GSK3-beta
+      acetylation at lysine 15, which regulates tau phosphorylation. TMA
+      capacity is elevated in cerebrospinal fluid in AD and MCI.
+      Indole-3-propionate interferes with amyloid-beta fibril formation.
+      Propionate carries a material direction conflict: Mendelian
+      randomisation associates higher production with increased AD likelihood
+      while its mitochondrial effects are protective.
+    sources:
+      - "Zhang 2023 Mol Psychiatry"
+      - "MahmoudianDehkordi 2019 Alzheimers Dement"
+      - "Vogt 2018 Alzheimers Res Ther"
+      - "Pappolla 2021 Neurobiol Dis"
+    features:
+      - name: bai
+        engine: diamond
+        direction: increased
+        w: 1.0
+        q: 0.8
+        s: 0.4
+        c: 0.9
+        sources: ["MahmoudianDehkordi 2019 Alzheimers Dement"]
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        w: 1.0
+        q: 0.8
+        s: 0.3
+        c: 0.9
+        sources: ["Zhang 2023 Mol Psychiatry"]
+      - name: cutc
+        engine: diamond
+        direction: increased
+        w: 0.8
+        q: 0.7
+        s: 0.4
+        c: 0.8
+        sources: ["Vogt 2018 Alzheimers Res Ther"]
+      - name: ipa
+        engine: diamond
+        direction: decreased
+        w: 0.7
+        q: 0.6
+        s: 0.4
+        c: 0.8
+        sources: ["Pappolla 2021 Neurobiol Dis"]
+      - name: propionate
+        engine: diamond
+        direction: increased
+        w: 0.5
+        q: 0.5
+        s: 0.3
+        c: 0.4
+        direction_conflict: material
+        conflict_note: >-
+          Mendelian randomisation associates higher propionate production with
+          increased Alzheimer's likelihood; documented mitochondrial effects
+          run the other way. Both directions are in the literature and this
+          feature is reported with the conflict shown rather than resolved.
+        sources: ["Mendelian randomisation, per Jia 2025 discussion"]
+
+  carrier_cross_check:
+    label: "Butyrate carriers (independent count)"
+    type: mechanism_lane
+    evidence_type: CARRIER_ABUNDANCE
+    claim_level: carrier_proxy
+    maturity: P1
+    note: >-
+      The summed abundance of organisms whose reference genomes carry the
+      butyrate pathway. Carriage is not production. Its value is as a second,
+      independent line on the same biology: genes counted one way, organisms
+      carrying them counted another. Agreement is a cross-evidence check;
+      disagreement means a broken map or an unusual community.
+    features:
+      - name: butyrate
+        engine: carrier
+        direction: decreased
+        w: 1.0
+        q: 0.8
+        s: 0.3
+        c: 0.9
+        sources: ["derived from the butyrate panel organism list"]
+
+unbound_sources:
+  - source: "AlzBiom — Front Neurosci 2022, PRJEB47976 (75 amyloid-positive AD, 100 controls)"
+    evidence_type: TAX_REL
+    note: >-
+      Same-site holdout cohort. Would bind as an independent study module once
+      its per-sample profiles are reprocessed onto this pipeline's catalogue.
+  - source: "Kang 2025 MARS/AGMP — PMC12221809, syn53071655 (n=232 with n=448 replication)"
+    evidence_type: TAX_REL
+    note: >-
+      The strongest cross-cohort replicated taxonomic log-ratio available for
+      Alzheimer's disease. Requires the ratio's numerator and denominator taxon
+      lists, which are in the supplement rather than the paper.
+  - source: "Jia 2025 locked model (METAAD_LOCKED_MODEL_V2)"
+    evidence_type: MODEL
+    note: >-
+      Pending a leakage-corrected reproduction with feature selection inside
+      cross-validation folds. Published performance is provisional until then,
+      and a frozen model does not erase the panel results.
+  - source: "Vemuganti 2026 Nat Commun — imidazole propionate / urdA carriage vs plasma ImP"
+    evidence_type: METAB
+    note: >-
+      urdA carriage related only weakly to plasma imidazole propionate across
+      294 samples, so the existing urdA panel stays an independent lane and is
+      not read as a metabolite concentration.
+
+confounders:
+  - name: Age
+    effect: "Large across the lifespan and confounded with the diagnosis itself"
+    handling: "Reference matched on age band where the stratum is large enough"
+  - name: Geography
+    effect: "The source cohort is Chinese; geography often exceeds the disease effect"
+    handling: "population_transportability reported; matched on country where possible"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Not a diagnosis, a risk estimate, or a screening result. Alzheimer's
+    disease is diagnosed clinically with cognitive assessment and, where
+    indicated, amyloid and tau biomarkers. A gut community resembling a
+    published Alzheimer's cohort says nothing about whether that is happening.
+  - >-
+    Derived from a Chinese staged cohort. Directions are source-cohort
+    findings; conflicting directions in other cohorts are held as separate
+    assertions rather than pooled into a consensus.
+  - >-
+    Four of the source panel's Alistipes species and both of its Streptococcus
+    species have no entry in the reference catalogue this pattern is scored
+    against. They are recorded as missing, which is why independent-cluster
+    coverage here is well below the raw feature count.
+
+effect_size_note: >-
+  Jia 2025: 476 participants across five stages (63 normal control, 82
+  subjective cognitive symptoms, 90 subjective cognitive decline, 119 mild
+  cognitive impairment, 122 clinical AD). Average cross-validation AUC 0.80,
+  0.75 in independent validation.
+
+citation: >-
+  Jia L, Ke Y, Zhao S, et al. Metagenomic analysis characterizes stage-specific
+  gut microbiota in Alzheimer's disease. Mol Psychiatry 2025;30:3951-3962,
+  doi:10.1038/s41380-025-02973-7; data PRJCA022804 / CRA014435 (NGDC), analysis
+  github.com/JiaLonghao1997/metaAD_analysis.

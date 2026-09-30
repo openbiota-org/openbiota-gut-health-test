@@ -1,0 +1,103 @@
+name: pcresol
+description: >-
+  p-Cresol production. hpdBCA is the glycyl-radical
+  4-hydroxyphenylacetate decarboxylase that converts the tyrosine catabolite
+  4-hydroxyphenylacetate to p-cresol. Only the large (catalytic) subunit hpdB
+  is screened.
+metabolite: p-Cresol / p-cresyl sulfate
+pathway: L-tyrosine -> 4-hydroxyphenylacetate -> p-cresol (hpdBCA)
+
+organisms:
+  - Clostridioides difficile
+  - Clostridium scatologenes
+  - Blautia hydrogenotrophica
+  - Olsenella uli
+  - Romboutsia lituseburensis
+
+targets:
+  # Only the large subunit. The unqualified name query returns a four-way mix
+  # of large subunit (~870 aa), small subunit hpdC (~85 aa), activase hpdA
+  # (~230 aa) and activating enzyme — a mixture whose median length is
+  # meaningless, which would silently corrupt the length normalisation.
+  # hpdC is too short to be a useful blastx target at 33-50 residues per read
+  # and the activase is a promiscuous radical-SAM enzyme, so both are excluded.
+  - id: HPDB
+    label: hpdB (4-hydroxyphenylacetate decarboxylase, large subunit)
+    gene: hpdB
+    source: uniprot
+    query: '(protein_name:"4-hydroxyphenylacetate decarboxylase large subunit") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.25
+
+decoys: []
+# hpdB is itself a member of the glycyl-radical enzyme family whose other
+# members (pflB, cutC, isethionate sulfite-lyase, glycerol dehydratase) are all
+# already in the shared database as targets or decoys of the `cutc` panel.
+# Because every panel is searched against one combined database, that
+# cross-panel competition is the specificity mechanism here and declaring the
+# same families again would only duplicate sequences.
+
+aggregate: sum
+aggregate_reason: single target gene
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+caveats:
+  - >-
+    The curated hpdB large-subunit reference set is small (tens of sequences),
+    so sensitivity depends on how close the donor's producers are to those
+    references. A low value is weak evidence of absence.
+  - >-
+    hpdB and cutC are both glycyl-radical enzymes and compete directly for
+    reads in the shared database. That competition is the intended behaviour:
+    it is what keeps cutC from absorbing p-cresol pathway reads.
+
+interpretation:
+  what_it_is: >-
+    p-Cresol, which the host converts to p-cresyl sulfate, a compound that
+    accumulates when kidney function declines.
+  made_from: Dietary tyrosine and phenylalanine
+  higher_means: adverse
+  evidence_strength: limited
+  summary: >-
+    p-Cresol interferes with mitochondrial energy metabolism and increases
+    production of damaging superoxide. It is enriched in people with diabetes
+    and obesity, and in animals it disrupts brain signalling.
+  cognitive_evidence: >-
+    p-Cresol modifies mitochondrial oxidative metabolism and increases
+    superoxide production. In mice, it induces autism-like social behaviour by
+    reducing the function of central dopamine neurons, and it alters NMDA
+    receptor subunit expression in the hippocampus and nucleus accumbens. No
+    direct study links p-cresol to Alzheimer's disease in humans, so the
+    connection rests on shared mechanisms rather than on evidence.
+  implications:
+    higher: >-
+      More of your gut bacteria can convert tyrosine into p-cresol than in most
+      people. p-Cresol interferes with mitochondrial energy metabolism and
+      raises superoxide production, and is enriched in people with diabetes and
+      obesity. It is also cleared by the kidneys, so it matters more if kidney
+      function is reduced. No study has linked it directly to Alzheimer's in
+      humans.
+    typical: >-
+      Your capacity to make p-cresol is unremarkable. This compound is cleared
+      by the kidneys, so it matters most when kidney function is reduced; at
+      typical capacity and normal kidney function there is little here to
+      note.
+    lower: >-
+      Fewer of your gut bacteria can convert tyrosine into p-cresol than in
+      most people, which is the favourable direction for a compound that
+      interferes with mitochondrial energy metabolism and raises superoxide
+      production.
+  citation: >-
+    Bermudez-Martin P. et al., Microbiome 9:157 (2021),
+    doi:10.1186/s40168-021-01103-z; Fromentin S. et al., Nat Med 28:303-314
+    (2022), doi:10.1038/s41591-022-01688-4
+
+citation: >-
+  Selmer T., Andrei P.I., "p-Hydroxyphenylacetate decarboxylase from
+  Clostridium difficile", Eur J Biochem 268:1363-1372 (2001),
+  doi:10.1046/j.1432-1327.2001.02001.x. p-Cresol and neurological outcomes:
+  Bermudez-Martin P. et al., Microbiome 9:157 (2021),
+  doi:10.1186/s40168-021-01103-z.

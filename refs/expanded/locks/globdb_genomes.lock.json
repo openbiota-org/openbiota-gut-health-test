@@ -1,0 +1,21 @@
+{
+  "source_id": "globdb_genomes",
+  "files": {
+    "globdb_r232/globdb_r232_genome_fasta.tar.gz": {
+      "url": "https://fileshare.lisc.univie.ac.at/globdb/globdb_r232/globdb_r232_genome_fasta.tar.gz",
+      "size": 292068313974,
+      "retrieved_at": "2026-09-27T04:58:44-07:00",
+      "sha256": "841469cc81acf47cd4917f15efd4f666c3b087d83b2a1c254abef628bdd64a5a",
+      "verified": true,
+      "publisher_checksum": "md5:c95ef3b3278b9f035e2089bd729b0b48",
+      "note": "272 GB one-time archive: GlobDB publishes no per-genome endpoint, and competitive confirmation of a GlobDB-native cluster needs its genome. Subsets are extracted on demand into globdb_r232/genomes/",
+      "downloader": "aria2c",
+      "verification": "publisher md5"
+    }
+  },
+  "release_id": "globdb_r232",
+  "taxonomy_release": "",
+  "license": "CC BY-SA 4.0",
+  "count_unit": "representative genome",
+  "source_count": 346233
+}

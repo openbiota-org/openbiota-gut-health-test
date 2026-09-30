@@ -1,0 +1,219 @@
+name: t1d
+version: 1.0.0
+spec_version: 3
+label: "Type 1 diabetes — gut pattern"
+disease: type_1_diabetes
+task: t1d_vs_control
+family: autoimmune
+body_site: stool
+population: mixed_european_pediatric_adult
+status: experimental
+evidence_maturity: P2
+
+summary: >-
+  Most type 1 diabetes microbiome work is in infants at genetic risk,
+  following them to seroconversion. Kostic et al. (DIABIMMUNE) found a drop
+  in diversity and a rise in inflammation-associated taxa in the year before
+  diagnosis; Vatanen et al. showed that Bacteroides-dominated Finnish and
+  Estonian infants carried immunologically silent hexa-acylated-LPS-poor
+  communities that failed to educate the immune system, unlike Russian
+  Karelian infants. The TEDDY study found Bifidobacterium and short-chain
+  fatty acid producers protective. Adult established-T1D cohorts show a
+  weaker pattern of butyrate-producer depletion.
+
+  An adult sample is far from the population these findings come from.
+
+references:
+  primary:
+    source: null
+    note: "Genetically at-risk non-converters are the right contrast and exist only in the infant cohorts."
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  vatanen_2018_teddy:
+    label: "Vatanen 2018 TEDDY (10,913 metagenomes, 783 infants)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: vatanen_2018
+    maturity: P3
+    weight_in_combined: 1.0
+    note: "The largest infant metagenomic cohort. Short-chain fatty acid producers and Bifidobacterium were protective; Streptococcus higher before islet autoimmunity."
+    sources: ["Vatanen T, et al. Nature 2018;562:589-594"]
+    features:
+      - name: Bifidobacterium_longum
+        level: species
+        direction: lower_in_case
+        cluster: bifidobacterium
+        w: 0.8
+        q: 0.8
+        s: 0.3
+        c: 0.8
+      - name: Bifidobacterium_breve
+        level: species
+        direction: lower_in_case
+        cluster: bifidobacterium
+        w: 0.5
+        q: 0.7
+        s: 0.3
+        c: 0.7
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: Streptococcus_salivarius
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.7
+        s: 0.3
+        c: 0.6
+        conflict_note: "Genus Streptococcus is on the conflicted list; species only."
+
+  kostic_2015_diabimmune:
+    label: "Kostic 2015 DIABIMMUNE seroconverters"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: diabimmune
+    maturity: P2
+    note: "33 infants, 4 progressed to T1D; a 25% drop in diversity before diagnosis."
+    sources: ["Kostic AD, et al. Cell Host Microbe 2015;17:260-273"]
+    features:
+      - name: Blautia_obeum
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.5
+        s: 0.4
+        c: 0.5
+        conflict_note: "Genus Blautia is on the conflicted list; species only."
+      - name: Ruminococcus_gnavus
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.6
+        s: 0.3
+        c: 0.6
+      - name: Streptococcus_mitis
+        level: species
+        direction: higher_in_case
+        w: 0.4
+        q: 0.5
+        s: 0.3
+        c: 0.5
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.6
+        s: 0.3
+        c: 0.7
+      - name: Eubacterium_rectale
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.6
+        s: 0.2
+        c: 0.7
+
+  ecology:
+    label: "Diversity before diagnosis"
+    type: direction_panel
+    evidence_type: ECO
+    claim_level: observed
+    study_group: diabimmune
+    maturity: P2
+    features:
+      - name: shannon
+        direction: decreased
+        w: 0.7
+        q: 0.6
+        s: 0.1
+        c: 0.7
+
+  functional:
+    label: "SCFA and LPS capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P2
+    note: "Butyrate and other SCFA producers protective in TEDDY; hexa-acylated LPS carriers are the Vatanen 2016 immune-education mechanism, running counter-intuitively — Bacteroides-dominant penta-acylated LPS communities were the at-risk ones."
+    sources: ["Vatanen T, et al. Cell 2016;165:842-853"]
+    features:
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        w: 0.8
+        q: 0.7
+        s: 0.2
+        c: 0.8
+
+  carriers:
+    label: "LPS immunogenicity carriers"
+    type: mechanism_lane
+    evidence_type: CARRIER_ABUNDANCE
+    claim_level: carrier_proxy
+    maturity: P2
+    features:
+      - name: hexa_lps
+        engine: carrier
+        direction: decreased
+        w: 0.6
+        q: 0.6
+        s: 0.5
+        c: 0.6
+        direction_conflict: material
+        conflict_note: "Lower hexa-LPS (more Bacteroides penta-LPS) marked at-risk Finnish infants — the opposite direction from every inflammatory disease in this library."
+      - name: butyrate
+        engine: carrier
+        direction: decreased
+        w: 0.6
+        q: 0.7
+        s: 0.2
+        c: 0.8
+
+confounders:
+  - name: Age
+    effect: "The evidence is from infants under three; an adult sample is out of distribution"
+    handling: "Out-of-distribution flagged when age is supplied and adult"
+  - name: Insulin and glycaemic control
+    effect: "Established T1D on insulin has its own metabolic effects on the gut"
+    handling: "Recorded when supplied"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Type 1 diabetes is diagnosed by glucose, autoantibodies and C-peptide.
+    This profile does not diagnose or predict it in anyone, and its
+    evidence base is infants, not adults.
+  - >-
+    The hexa-LPS direction here is reversed relative to every inflammatory
+    disease profile. That is the finding, not an error, and it means a
+    "healthy-looking" Bacteroides-dominant community scores toward T1D risk
+    in this one profile.
+
+effect_size_note: >-
+  TEDDY: 783 infants, 10,913 metagenomes. DIABIMMUNE: 33 infants, 4
+  progressors. Adult established-T1D cohorts are small and inconsistent.
+
+citation: >-
+  Vatanen T, et al. The human gut microbiome in early-onset type 1 diabetes
+  from the TEDDY study. Nature 2018;562:589-594; Kostic AD, et al. The dynamics
+  of the human infant gut microbiome in development and in progression toward
+  type 1 diabetes. Cell Host Microbe 2015;17:260-273; Vatanen T, et al.
+  Variation in microbiome LPS immunogenicity contributes to autoimmunity in
+  humans. Cell 2016;165:842-853.

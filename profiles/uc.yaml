@@ -1,0 +1,285 @@
+name: uc
+version: 1.0.0
+spec_version: 3
+label: "Ulcerative colitis — gut pattern"
+disease: ulcerative_colitis
+task: uc_vs_non_ibd
+family: ibd
+body_site: stool
+population: mixed_north_american_european_cohorts
+status: research_beta
+evidence_maturity: P3
+challenge_for: [crohns, crc]
+
+summary: >-
+  Ulcerative colitis shares most of its gut pattern with Crohn's disease —
+  butyrate-producer depletion, Ruminococcus gnavus and Escherichia coli
+  expansion — with a milder dysbiosis on average and without the oral-origin
+  taxa that mark Crohn's. Roseburia hominis and Faecalibacterium prausnitzii
+  depletion were shown in UC specifically by Machiels, and in both HMP2 and
+  PRISM the UC dysbiotic state was less frequent and less extreme than in CD.
+
+  Because the two IBD patterns overlap so heavily, the difference between
+  the uc and crohns scores on one sample is rarely meaningful. The ibd
+  composite profile is the one to read when the question is "IBD-like or
+  not"; these two exist so the library records what each disease's own
+  literature says.
+
+references:
+  primary:
+    source: curatedMetagenomicData
+    note: "HMP2 non-IBD symptomatic controls are the right contrast."
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  machiels_2014:
+    label: "Machiels 2014 Belgian UC cohort"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: machiels_2014
+    maturity: P3
+    weight_in_combined: 1.0
+    note: >-
+      127 UC patients, 87 controls, with quantitative PCR confirmation of
+      the two butyrate producers. The depletion was inversely correlated with
+      disease activity.
+    sources: ["Machiels K, et al. Gut 2014;63:1275-1283"]
+    features:
+      - name: Roseburia_hominis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 1.0
+        q: 0.9
+        s: 0.3
+        c: 0.9
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 1.0
+        q: 0.9
+        s: 0.2
+        c: 0.9
+
+  hmp2_2019:
+    label: "HMP2 IBDMDB — UC directions"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: hmp2_2019
+    maturity: P3
+    sources: ["Lloyd-Price J, et al. Nature 2019;569:655-662"]
+    features:
+      - name: Ruminococcus_gnavus
+        level: species
+        direction: higher_in_case
+        w: 0.9
+        q: 0.8
+        s: 0.3
+        c: 0.9
+      - name: Escherichia_coli
+        level: species
+        direction: higher_in_case
+        w: 0.7
+        q: 0.8
+        s: 0.3
+        c: 0.8
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.9
+        q: 0.9
+        s: 0.2
+        c: 0.9
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: Eubacterium_rectale
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: Akkermansia_muciniphila
+        level: species
+        direction: lower_in_case
+        w: 0.6
+        q: 0.6
+        s: 0.4
+        c: 0.6
+        direction_conflict: low
+        conflict_note: >-
+          Akkermansia is lower in UC in several cohorts but higher in others
+          with active mucosal inflammation. Kept at low weight.
+
+  franzosa_2019_prism:
+    label: "Franzosa 2019 PRISM — UC directions"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: franzosa_2019
+    maturity: P3
+    sources: ["Franzosa EA, et al. Nat Microbiol 2019;4:293-305"]
+    features:
+      - name: Ruminococcus_gnavus
+        level: species
+        direction: higher_in_case
+        w: 0.8
+        q: 0.8
+        s: 0.3
+        c: 0.9
+      - name: Escherichia_coli
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.7
+        s: 0.3
+        c: 0.8
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.8
+        q: 0.9
+        s: 0.2
+        c: 0.9
+      - name: Bacteroides_vulgatus
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.3
+        c: 0.6
+
+  ecology:
+    label: "Community ecology"
+    type: direction_panel
+    evidence_type: ECO
+    claim_level: observed
+    study_group: hmp2_2019
+    maturity: P3
+    features:
+      - name: shannon
+        direction: decreased
+        w: 0.6
+        q: 0.8
+        s: 0.1
+        c: 0.8
+
+  functional:
+    label: "Metabolite gene capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P3
+    note: >-
+      Butyrate capacity falls with the producers. H2S is mechanistically
+      specific to UC: sulfate-reducing bacteria and hydrogen sulfide impair
+      colonocyte butyrate oxidation, and sulfide is elevated in UC stool.
+    sources:
+      - "Roediger WE, et al. Gastroenterology 1993;104:802 (sulfide and colonocyte metabolism)"
+      - "Pitcher MC, Cummings JH. Gut 1996;39:1 (hydrogen sulphide and UC)"
+    features:
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        w: 1.0
+        q: 0.9
+        s: 0.2
+        c: 0.9
+      - name: h2s
+        engine: diamond
+        direction: increased
+        w: 0.7
+        q: 0.6
+        s: 0.4
+        c: 0.7
+      - name: bsh
+        engine: diamond
+        direction: decreased
+        w: 0.4
+        q: 0.6
+        s: 0.3
+        c: 0.6
+
+  carriers:
+    label: "Butyrate carriers and sulfate reducers"
+    type: mechanism_lane
+    evidence_type: CARRIER_ABUNDANCE
+    claim_level: carrier_proxy
+    maturity: P2
+    features:
+      - name: butyrate
+        engine: carrier
+        direction: decreased
+        w: 0.8
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: sulfate_reducers
+        engine: carrier
+        direction: increased
+        w: 0.6
+        q: 0.6
+        s: 0.4
+        c: 0.6
+
+cross_engine_checks:
+  - taxonomic_feature: Faecalibacterium_prausnitzii
+    functional_feature: butyrate
+    expect: concordant
+    on_disagreement: downgrade_confidence
+
+confounders:
+  - name: Disease activity
+    effect: "The butyrate-producer depletion tracks activity and can normalise in remission"
+    handling: "Recorded in the ledger when supplied"
+  - name: Mesalamine and immunosuppression
+    effect: "Treatment shifts composition toward controls"
+    handling: "Recorded when supplied"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Ulcerative colitis is diagnosed by colonoscopy and histology. This
+    profile cannot diagnose or exclude it, and it cannot reliably separate
+    UC from Crohn's disease.
+  - >-
+    Every direction here is shared with the general dysbiosis pattern. Read
+    it beside the shape analysis and the crohns and ibd scores.
+
+effect_size_note: >-
+  Machiels 2014: 127 UC, 87 controls. HMP2 and PRISM as in the crohns profile.
+  UC is separated from non-IBD less well than CD is in every cohort.
+
+citation: >-
+  Machiels K, et al. A decrease of the butyrate-producing species Roseburia
+  hominis and Faecalibacterium prausnitzii defines dysbiosis in patients with
+  ulcerative colitis. Gut 2014;63:1275-1283; Lloyd-Price J, et al. Nature
+  2019;569:655-662; Franzosa EA, et al. Nat Microbiol 2019;4:293-305.

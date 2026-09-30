@@ -1,0 +1,3244 @@
+# Machine-readable bacterial seed catalog.
+# Generated from specs/BUILD_SPEC_v05.0.md section 8.1 (BUILD_SPEC v05.0).
+# One record per organism/target named in the section 8.1 table. Semicolon-separated
+# organisms are separate seeds; explicitly named species complexes stay as one seed
+# with member seeds attached through parent_seed_id.
+schema_version: pathogens.seed.v1
+catalog_section: "8.1"
+seeds:
+  - seed_id: bacteria.salmonella_enterica
+    source_section: "8.1"
+    requested_name: Salmonella enterica
+    display_name: Salmonella enterica
+    aliases: []
+    group: bacteria
+    family: Salmonella
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition", "https://www.cdc.gov/yellow-book/hcp/preparing-international-travelers/travelers-diarrhea.html"]
+    note: >-
+      Established enteric. Species/group before serovar; no serotyping from
+      insufficient coverage.
+  - seed_id: bacteria.salmonella_enterica_subsp_enterica
+    source_section: "8.1"
+    requested_name: Salmonella enterica subsp. enterica
+    display_name: Salmonella enterica subsp. enterica
+    aliases: [Salmonella enterica subspecies I, S. enterica subsp. enterica, Salmonella subgroup I]
+    group: bacteria
+    family: Salmonella
+    interpretation_class: established_enteric
+    taxonomic_resolution: subspecies
+    parent_seed_id: bacteria.salmonella_enterica
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition", "https://www.cdc.gov/yellow-book/hcp/preparing-international-travelers/travelers-diarrhea.html"]
+    note: >-
+      One of the six S. enterica subspecies required by the spec row. Human
+      and warm-blooded-animal associated; contains the great majority of human
+      isolates including the typhoidal and nontyphoidal serovars. Report the
+      subspecies only with sufficient discriminating coverage; otherwise fall
+      back to the S. enterica species result rather than guessing.
+      Species/group before serovar; no serotyping from insufficient coverage.
+  - seed_id: bacteria.salmonella_enterica_subsp_salamae
+    source_section: "8.1"
+    requested_name: Salmonella enterica subsp. salamae
+    display_name: Salmonella enterica subsp. salamae
+    aliases: [Salmonella enterica subspecies II, S. enterica subsp. salamae, Salmonella subgroup II]
+    group: bacteria
+    family: Salmonella
+    interpretation_class: established_enteric
+    taxonomic_resolution: subspecies
+    parent_seed_id: bacteria.salmonella_enterica
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition", "https://www.cdc.gov/yellow-book/hcp/preparing-international-travelers/travelers-diarrhea.html"]
+    note: >-
+      One of the six S. enterica subspecies required by the spec row. Rarely
+      isolated from humans; cold-blooded-animal and environmental reservoirs
+      predominate. Report the subspecies only with sufficient discriminating
+      coverage; otherwise fall back to the S. enterica species result rather
+      than guessing. Species/group before serovar; no serotyping from
+      insufficient coverage.
+  - seed_id: bacteria.salmonella_enterica_subsp_arizonae
+    source_section: "8.1"
+    requested_name: Salmonella enterica subsp. arizonae
+    display_name: Salmonella enterica subsp. arizonae
+    aliases: [Salmonella enterica subspecies IIIa, S. enterica subsp. arizonae, Salmonella subgroup IIIa]
+    group: bacteria
+    family: Salmonella
+    interpretation_class: established_enteric
+    taxonomic_resolution: subspecies
+    parent_seed_id: bacteria.salmonella_enterica
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition", "https://www.cdc.gov/yellow-book/hcp/preparing-international-travelers/travelers-diarrhea.html"]
+    note: >-
+      One of the six S. enterica subspecies required by the spec row.
+      Reptile-associated; human infection is uncommon and usually in exposed
+      or immunocompromised people. Report the subspecies only with sufficient
+      discriminating coverage; otherwise fall back to the S. enterica species
+      result rather than guessing. Species/group before serovar; no serotyping
+      from insufficient coverage.
+  - seed_id: bacteria.salmonella_enterica_subsp_diarizonae
+    source_section: "8.1"
+    requested_name: Salmonella enterica subsp. diarizonae
+    display_name: Salmonella enterica subsp. diarizonae
+    aliases: [Salmonella enterica subspecies IIIb, S. enterica subsp. diarizonae, Salmonella subgroup IIIb]
+    group: bacteria
+    family: Salmonella
+    interpretation_class: established_enteric
+    taxonomic_resolution: subspecies
+    parent_seed_id: bacteria.salmonella_enterica
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition", "https://www.cdc.gov/yellow-book/hcp/preparing-international-travelers/travelers-diarrhea.html"]
+    note: >-
+      One of the six S. enterica subspecies required by the spec row.
+      Reptile-associated; human infection is uncommon and usually in exposed
+      or immunocompromised people. Report the subspecies only with sufficient
+      discriminating coverage; otherwise fall back to the S. enterica species
+      result rather than guessing. Species/group before serovar; no serotyping
+      from insufficient coverage.
+  - seed_id: bacteria.salmonella_enterica_subsp_houtenae
+    source_section: "8.1"
+    requested_name: Salmonella enterica subsp. houtenae
+    display_name: Salmonella enterica subsp. houtenae
+    aliases: [Salmonella enterica subspecies IV, S. enterica subsp. houtenae, Salmonella subgroup IV]
+    group: bacteria
+    family: Salmonella
+    interpretation_class: established_enteric
+    taxonomic_resolution: subspecies
+    parent_seed_id: bacteria.salmonella_enterica
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition", "https://www.cdc.gov/yellow-book/hcp/preparing-international-travelers/travelers-diarrhea.html"]
+    note: >-
+      One of the six S. enterica subspecies required by the spec row.
+      Cold-blooded-animal and environmental reservoirs; human isolation is
+      rare. Report the subspecies only with sufficient discriminating
+      coverage; otherwise fall back to the S. enterica species result rather
+      than guessing. Species/group before serovar; no serotyping from
+      insufficient coverage.
+  - seed_id: bacteria.salmonella_enterica_subsp_indica
+    source_section: "8.1"
+    requested_name: Salmonella enterica subsp. indica
+    display_name: Salmonella enterica subsp. indica
+    aliases: [Salmonella enterica subspecies VI, S. enterica subsp. indica, Salmonella subgroup VI]
+    group: bacteria
+    family: Salmonella
+    interpretation_class: established_enteric
+    taxonomic_resolution: subspecies
+    parent_seed_id: bacteria.salmonella_enterica
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition", "https://www.cdc.gov/yellow-book/hcp/preparing-international-travelers/travelers-diarrhea.html"]
+    note: >-
+      One of the six S. enterica subspecies required by the spec row. Rarely
+      isolated; least represented subspecies in public reference collections.
+      Report the subspecies only with sufficient discriminating coverage;
+      otherwise fall back to the S. enterica species result rather than
+      guessing. Species/group before serovar; no serotyping from insufficient
+      coverage.
+  - seed_id: bacteria.salmonella_enterica_serovar_typhi
+    source_section: "8.1"
+    requested_name: Salmonella enterica serovar Typhi
+    display_name: Salmonella enterica serovar Typhi
+    aliases: [Salmonella Typhi, S. enterica subsp. enterica serovar Typhi]
+    group: bacteria
+    family: Salmonella
+    interpretation_class: established_enteric
+    taxonomic_resolution: serovar
+    parent_seed_id: bacteria.salmonella_enterica_subsp_enterica
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT, blood_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition", "https://www.cdc.gov/yellow-book/hcp/preparing-international-travelers/travelers-diarrhea.html"]
+    note: >-
+      Part of the Typhi/Paratyphi/nontyphoidal serovar diversity named in the
+      spec row. Typhoidal serovar. Stool detection is not a diagnosis of
+      enteric fever; blood culture remains the reference standard and chronic
+      biliary carriage can shed without current illness. Species/group before
+      serovar; no serotyping from insufficient coverage. Serovar naming
+      requires validated typing evidence; report the species or the typhoidal
+      group when coverage is insufficient.
+  - seed_id: bacteria.salmonella_enterica_serovar_paratyphi_a
+    source_section: "8.1"
+    requested_name: Salmonella enterica serovar Paratyphi A
+    display_name: Salmonella enterica serovar Paratyphi A
+    aliases: [Salmonella Paratyphi A, S. enterica subsp. enterica serovar Paratyphi A]
+    group: bacteria
+    family: Salmonella
+    interpretation_class: established_enteric
+    taxonomic_resolution: serovar
+    parent_seed_id: bacteria.salmonella_enterica_subsp_enterica
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT, blood_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition", "https://www.cdc.gov/yellow-book/hcp/preparing-international-travelers/travelers-diarrhea.html"]
+    note: >-
+      Part of the Typhi/Paratyphi/nontyphoidal serovar diversity named in the
+      spec row. Typhoidal serovar; enteric fever presentation with the same
+      blood-culture reference standard. Species/group before serovar; no
+      serotyping from insufficient coverage. Serovar naming requires validated
+      typing evidence; report the species or the typhoidal group when coverage
+      is insufficient.
+  - seed_id: bacteria.salmonella_enterica_serovar_paratyphi_b
+    source_section: "8.1"
+    requested_name: Salmonella enterica serovar Paratyphi B
+    display_name: Salmonella enterica serovar Paratyphi B
+    aliases: [Salmonella Paratyphi B, S. enterica subsp. enterica serovar Paratyphi B]
+    group: bacteria
+    family: Salmonella
+    interpretation_class: established_enteric
+    taxonomic_resolution: serovar
+    parent_seed_id: bacteria.salmonella_enterica_subsp_enterica
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT, blood_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition", "https://www.cdc.gov/yellow-book/hcp/preparing-international-travelers/travelers-diarrhea.html"]
+    note: >-
+      Part of the Typhi/Paratyphi/nontyphoidal serovar diversity named in the
+      spec row. Typhoidal serovar; the Java (d-tartrate-positive) biovar
+      behaves as a gastroenteritis serovar and is not separable without
+      validated typing evidence. Species/group before serovar; no serotyping
+      from insufficient coverage. Serovar naming requires validated typing
+      evidence; report the species or the typhoidal group when coverage is
+      insufficient.
+  - seed_id: bacteria.salmonella_enterica_serovar_paratyphi_c
+    source_section: "8.1"
+    requested_name: Salmonella enterica serovar Paratyphi C
+    display_name: Salmonella enterica serovar Paratyphi C
+    aliases: [Salmonella Paratyphi C, S. enterica subsp. enterica serovar Paratyphi C]
+    group: bacteria
+    family: Salmonella
+    interpretation_class: established_enteric
+    taxonomic_resolution: serovar
+    parent_seed_id: bacteria.salmonella_enterica_subsp_enterica
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT, blood_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition", "https://www.cdc.gov/yellow-book/hcp/preparing-international-travelers/travelers-diarrhea.html"]
+    note: >-
+      Part of the Typhi/Paratyphi/nontyphoidal serovar diversity named in the
+      spec row. Typhoidal serovar; rare and geographically restricted, with
+      limited reference representation. Species/group before serovar; no
+      serotyping from insufficient coverage. Serovar naming requires validated
+      typing evidence; report the species or the typhoidal group when coverage
+      is insufficient.
+  - seed_id: bacteria.salmonella_enterica_nontyphoidal_serovars
+    resolution_name: Salmonella enterica
+    source_section: "8.1"
+    requested_name: Salmonella enterica nontyphoidal serovar diversity
+    display_name: "Salmonella enterica, nontyphoidal serovars"
+    aliases: [Salmonella enterica nontyphoidal serovar diversity, NTS, nontyphoidal Salmonella, Salmonella enterica non-typhoidal serovars]
+    group: bacteria
+    family: Salmonella
+    interpretation_class: established_enteric
+    taxonomic_resolution: group
+    parent_seed_id: bacteria.salmonella_enterica
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition", "https://www.cdc.gov/yellow-book/hcp/preparing-international-travelers/travelers-diarrhea.html"]
+    note: >-
+      Group-level target covering the nontyphoidal serovar diversity named in
+      the spec row (Enteritidis, Typhimurium, Newport and the long tail of
+      other serovars). Serovar diversity is preserved as a group rather than
+      expanded into fabricated per-serovar targets. Species/group before
+      serovar; no serotyping from insufficient coverage.
+  - seed_id: bacteria.salmonella_bongori
+    source_section: "8.1"
+    requested_name: Salmonella bongori
+    display_name: Salmonella bongori
+    aliases: []
+    group: bacteria
+    family: Salmonella
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Second Salmonella species, mainly cold-blooded-animal associated, with
+      rare documented human gastroenteritis. Established enteric family, but
+      keep the species distinct from S. enterica rather than collapsing the
+      genus. Species/group before serovar; no serotyping from insufficient
+      coverage.
+  - seed_id: bacteria.shigella_sonnei
+    source_section: "8.1"
+    requested_name: Shigella sonnei
+    display_name: Shigella sonnei
+    aliases: [S. sonnei]
+    group: bacteria
+    family: Shigella/EIEC
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition", "https://pmc.ncbi.nlm.nih.gov/articles/PMC8767346/", "https://www.cdc.gov/yellow-book/hcp/preparing-international-travelers/travelers-diarrhea.html"]
+    note: >-
+      Established enteric. Most common Shigella species in industrialised
+      settings; clonal and often multidrug resistant. Preserve the combined
+      Shigella/EIEC or E. coli/Shigella result when markers cannot resolve
+      further; Shigella sits inside the E. coli genomic species and ipaH is
+      not uniquely Shigella.
+  - seed_id: bacteria.shigella_flexneri
+    source_section: "8.1"
+    requested_name: Shigella flexneri
+    display_name: Shigella flexneri
+    aliases: [S. flexneri]
+    group: bacteria
+    family: Shigella/EIEC
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition", "https://pmc.ncbi.nlm.nih.gov/articles/PMC8767346/", "https://www.cdc.gov/yellow-book/hcp/preparing-international-travelers/travelers-diarrhea.html"]
+    note: >-
+      Established enteric. Predominant species in many endemic settings;
+      serotype diversity requires validated typing evidence. Preserve the
+      combined Shigella/EIEC or E. coli/Shigella result when markers cannot
+      resolve further; Shigella sits inside the E. coli genomic species and
+      ipaH is not uniquely Shigella.
+  - seed_id: bacteria.shigella_dysenteriae
+    source_section: "8.1"
+    requested_name: Shigella dysenteriae
+    display_name: Shigella dysenteriae
+    aliases: [S. dysenteriae]
+    group: bacteria
+    family: Shigella/EIEC
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition", "https://pmc.ncbi.nlm.nih.gov/articles/PMC8767346/", "https://www.cdc.gov/yellow-book/hcp/preparing-international-travelers/travelers-diarrhea.html"]
+    note: >-
+      Established enteric. Serotype 1 carries stx and is associated with
+      epidemic dysentery and haemolytic uraemic syndrome; assess stx evidence
+      independently of the species call. Preserve the combined Shigella/EIEC
+      or E. coli/Shigella result when markers cannot resolve further; Shigella
+      sits inside the E. coli genomic species and ipaH is not uniquely
+      Shigella.
+  - seed_id: bacteria.shigella_boydii
+    source_section: "8.1"
+    requested_name: Shigella boydii
+    display_name: Shigella boydii
+    aliases: [S. boydii]
+    group: bacteria
+    family: Shigella/EIEC
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition", "https://pmc.ncbi.nlm.nih.gov/articles/PMC8767346/", "https://www.cdc.gov/yellow-book/hcp/preparing-international-travelers/travelers-diarrhea.html"]
+    note: >-
+      Established enteric. Least common species; reference representation is
+      thinner than for sonnei and flexneri. Preserve the combined
+      Shigella/EIEC or E. coli/Shigella result when markers cannot resolve
+      further; Shigella sits inside the E. coli genomic species and ipaH is
+      not uniquely Shigella.
+  - seed_id: bacteria.shigella_eiec_combined_group
+    resolution_name: Escherichia coli
+    source_section: "8.1"
+    requested_name: combined Shigella/EIEC result
+    display_name: "Shigella/enteroinvasive Escherichia coli (combined group)"
+    aliases: [combined Shigella/EIEC result, Shigella/EIEC, E. coli/Shigella, Shigella-EIEC complex, Escherichia coli/Shigella unresolved]
+    group: bacteria
+    family: Shigella/EIEC
+    interpretation_class: established_enteric
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://pmc.ncbi.nlm.nih.gov/articles/PMC8767346/", "https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Default combined target that must be preserved when invasion-context
+      evidence supports the group but validated discriminatory markers do not
+      support a narrower Shigella species or EIEC call. This is the reportable
+      answer in the unresolved case, not a placeholder to be silently dropped,
+      and it must not be upgraded to a species by abundance.
+  - seed_id: bacteria.stec
+    resolution_name: Escherichia coli
+    source_section: "8.1"
+    requested_name: STEC
+    display_name: "Shiga toxin-producing Escherichia coli (STEC)"
+    aliases: [STEC, Shiga toxin-producing Escherichia coli, VTEC, verocytotoxin-producing E. coli, EHEC, enterohaemorrhagic E. coli]
+    group: bacteria
+    family: Diarrheagenic E. coli
+    interpretation_class: toxin_or_pathotype_dependent
+    taxonomic_resolution: pathotype
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    requires_determinants: true
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: pathotype_dependent_bacterium
+    confirmation_options: [clinical_stool_NAAT, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.cdc.gov/ecoli/php/technical-info/index.html", "https://www.fda.gov/food/laboratory-methods-food/bam-chapter-4a-diarrheagenic-escherichia-coli", "https://pmc.ncbi.nlm.nih.gov/articles/PMC5852171/"]
+    note: >-
+      Defined by stx1/stx2 family evidence with A/B subunit and subtype where
+      resolved. Do not require eae or O157: eae-negative and non-O157 STEC
+      exist. Unlinked stx is reported as Shiga-toxin gene DNA with the host
+      unresolved, including possible bacteriophage context; only credible E.
+      coli linkage supports the organism-trait statement. Trait-defined
+      target, not a separate species: the pathotype label requires appropriate
+      linked marker sets in one strain, and multiple marker sets in one
+      community are not a strain.
+  - seed_id: bacteria.etec
+    resolution_name: Escherichia coli
+    source_section: "8.1"
+    requested_name: ETEC
+    display_name: "Enterotoxigenic Escherichia coli (ETEC)"
+    aliases: [ETEC, enterotoxigenic Escherichia coli]
+    group: bacteria
+    family: Diarrheagenic E. coli
+    interpretation_class: toxin_or_pathotype_dependent
+    taxonomic_resolution: pathotype
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    requires_determinants: true
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: pathotype_dependent_bacterium
+    confirmation_options: [clinical_stool_NAAT, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.cdc.gov/ecoli/php/technical-info/index.html", "https://www.fda.gov/food/laboratory-methods-food/bam-chapter-4a-diarrheagenic-escherichia-coli", "https://www.cdc.gov/yellow-book/hcp/preparing-international-travelers/travelers-diarrhea.html"]
+    note: >-
+      Requires human-relevant eltA/eltB and/or estA/STa alleles. Do not treat
+      every est-like annotation as an enterotoxin and do not infer which
+      coexisting E. coli carries the gene. Trait-defined target, not a
+      separate species: the pathotype label requires appropriate linked marker
+      sets in one strain, and multiple marker sets in one community are not a
+      strain.
+  - seed_id: bacteria.epec
+    resolution_name: Escherichia coli
+    source_section: "8.1"
+    requested_name: EPEC
+    display_name: "Enteropathogenic Escherichia coli (EPEC)"
+    aliases: [EPEC, enteropathogenic Escherichia coli, typical EPEC, atypical EPEC]
+    group: bacteria
+    family: Diarrheagenic E. coli
+    interpretation_class: toxin_or_pathotype_dependent
+    taxonomic_resolution: pathotype
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    requires_determinants: true
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: pathotype_dependent_bacterium
+    confirmation_options: [clinical_stool_NAAT, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.cdc.gov/ecoli/php/technical-info/index.html", "https://www.fda.gov/food/laboratory-methods-food/bam-chapter-4a-diarrheagenic-escherichia-coli", "https://pmc.ncbi.nlm.nih.gov/articles/PMC5852171/"]
+    note: >-
+      Requires eae-associated evidence, with stx assessed independently;
+      typical EPEC additionally requires appropriate bfpA/EAF context. If stx
+      absence is unassessable, output EPEC-associated markers rather than a
+      definitive EPEC or atypical-EPEC strain. Trait-defined target, not a
+      separate species: the pathotype label requires appropriate linked marker
+      sets in one strain, and multiple marker sets in one community are not a
+      strain.
+  - seed_id: bacteria.eaec
+    resolution_name: Escherichia coli
+    source_section: "8.1"
+    requested_name: EAEC
+    display_name: "Enteroaggregative Escherichia coli (EAEC)"
+    aliases: [EAEC, EAggEC, enteroaggregative Escherichia coli]
+    group: bacteria
+    family: Diarrheagenic E. coli
+    interpretation_class: toxin_or_pathotype_dependent
+    taxonomic_resolution: pathotype
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    requires_determinants: true
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: pathotype_dependent_bacterium
+    confirmation_options: [clinical_stool_NAAT, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.cdc.gov/ecoli/php/technical-info/index.html", "https://www.fda.gov/food/laboratory-methods-food/bam-chapter-4a-diarrheagenic-escherichia-coli", "https://pmc.ncbi.nlm.nih.gov/articles/PMC5852171/"]
+    note: >-
+      Requires aggR, aatA, aaiC and supported adhesin/regulon context.
+      astA/EAST1 alone is insufficient. Preserve heterogeneous atypical
+      phenotypes and mixed-strain uncertainty instead of forcing a single
+      strain call. Trait-defined target, not a separate species: the pathotype
+      label requires appropriate linked marker sets in one strain, and
+      multiple marker sets in one community are not a strain.
+  - seed_id: bacteria.eiec
+    resolution_name: Escherichia coli
+    source_section: "8.1"
+    requested_name: EIEC
+    display_name: "Enteroinvasive Escherichia coli (EIEC)"
+    aliases: [EIEC, enteroinvasive E. coli, enteroinvasive Escherichia coli, Shigella/EIEC, E. coli/Shigella]
+    group: bacteria
+    family: Diarrheagenic E. coli
+    cross_listed_families: [Shigella/EIEC]
+    interpretation_class: toxin_or_pathotype_dependent
+    taxonomic_resolution: pathotype
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    requires_determinants: true
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: pathotype_dependent_bacterium
+    confirmation_options: [clinical_stool_NAAT, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.cdc.gov/ecoli/php/technical-info/index.html", "https://pmc.ncbi.nlm.nih.gov/articles/PMC8767346/", "https://www.fda.gov/food/laboratory-methods-food/bam-chapter-4a-diarrheagenic-escherichia-coli"]
+    note: >-
+      Single canonical seed for the organism named in both the Shigella/EIEC
+      row (as enteroinvasive E. coli) and the Diarrheagenic E. coli row (as
+      EIEC); the two spec rows are cross-listed rather than duplicated as
+      separate targets. Requires ipaH family and invasion-context evidence,
+      and defaults to the combined Shigella/EIEC group unless validated
+      discriminatory markers support the narrower call. ipaH is not uniquely
+      Shigella. Trait-defined target, not a separate species.
+  - seed_id: bacteria.daec
+    resolution_name: Escherichia coli
+    source_section: "8.1"
+    requested_name: DAEC
+    display_name: "Diffusely adherent Escherichia coli (DAEC)"
+    aliases: [DAEC, diffusely adherent Escherichia coli]
+    group: bacteria
+    family: Diarrheagenic E. coli
+    interpretation_class: toxin_or_pathotype_dependent
+    taxonomic_resolution: pathotype
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    requires_determinants: true
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: pathotype_dependent_bacterium
+    confirmation_options: [clinical_stool_NAAT, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://www.cdc.gov/ecoli/php/technical-info/index.html", "https://pmc.ncbi.nlm.nih.gov/articles/PMC5852171/"]
+    note: >-
+      Trait-defined and explicitly heterogeneous/uncertain in the spec:
+      afa/daa/dr adhesin evidence is supportive and exploratory, not
+      universally specific, and it is also carried by strains from healthy
+      carriers. Report as a marker-associated exploratory finding, never as an
+      established cause of the person's symptoms. Trait-defined target, not a
+      separate species: the pathotype label requires appropriate linked marker
+      sets in one strain, and multiple marker sets in one community are not a
+      strain.
+  - seed_id: bacteria.hybrid_diarrheagenic_escherichia_coli
+    resolution_name: Escherichia coli
+    source_section: "8.1"
+    requested_name: hybrid pathotypes
+    display_name: Hybrid diarrheagenic Escherichia coli pathotypes
+    aliases: [hybrid pathotypes, hybrid E. coli, STEC/ETEC hybrid, STEC/EAEC hybrid, hybrid diarrheagenic E. coli]
+    group: bacteria
+    family: Diarrheagenic E. coli
+    interpretation_class: toxin_or_pathotype_dependent
+    taxonomic_resolution: pathotype
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    requires_determinants: true
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: pathotype_dependent_bacterium
+    confirmation_options: [clinical_stool_NAAT, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.cdc.gov/ecoli/php/technical-info/index.html", "https://www.fda.gov/food/laboratory-methods-food/bam-chapter-4a-diarrheagenic-escherichia-coli", "https://pmc.ncbi.nlm.nih.gov/articles/PMC5852171/"]
+    note: >-
+      Hybrid pathotype target such as the STEC/EAEC and STEC/ETEC
+      combinations. Multiple marker sets in one community are not a hybrid
+      strain: within-strain linkage is required before any hybrid claim, and
+      unlinked marker sets are reported separately with the linkage gap
+      stated.
+  - seed_id: bacteria.escherichia_coli_commensal
+    resolution_name: Escherichia coli
+    pinned_accession: GCF_000005845.2
+    source_section: "8.1"
+    requested_name: Escherichia coli K-12 MG1655
+    display_name: Escherichia coli (commensal reference)
+    aliases: [Escherichia coli, Escherichia coli K-12, Escherichia coli MG1655]
+    group: bacteria
+    family: Other Escherichia
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: [NCBI, NCBI_RefSeq]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Installed as the competitor the Escherichia/Shigella rows were missing,
+      not as a finding. Ordinary gut Escherichia coli lives in most healthy
+      adults, and every Shigella species and diarrhoeagenic E. coli pathotype
+      is the same genomic species as it: GTDB R07-RS207 reclassified Shigella
+      as later heterotypic synonyms of E. coli, its earlier compromise having
+      renamed about 60% of E. coli genomes, K-12 among them, to "E. flexneri".
+      Without a commensal E. coli genome in the bundle, ordinary E. coli reads
+      had no correct home. Competitive alignment placed them on the nearest
+      available reference, which is a Shigella genome, and the k-mer ownership
+      pass never masked the sequence the two share, so shared regions were
+      credited as Shigella-specific. Detection here is expected and must never
+      be surfaced as an infection, a risk score or a treatment trigger; the
+      pathotype rows remain the only route to a diarrhoeagenic call and they
+      require their own virulence markers.
+  - seed_id: bacteria.escherichia_albertii
+    source_section: "8.1"
+    requested_name: Escherichia albertii
+    display_name: Escherichia albertii
+    aliases: [E. albertii, Hafnia alvei-like eae-positive isolates]
+    group: bacteria
+    family: Other Escherichia
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_NAAT, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.cdc.gov/ecoli/php/technical-info/index.html", "https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Emerging enteropathogen per the spec row. Routinely misidentified as E.
+      coli or as an EPEC/STEC-like organism because it carries eae and
+      sometimes stx, so species assignment and the pathotype marker call must
+      be reported separately. Do not fold E. albertii reads into an E. coli
+      pathotype result without species-level discriminating evidence.
+  - seed_id: bacteria.escherichia_fergusonii
+    source_section: "8.1"
+    requested_name: Escherichia fergusonii
+    display_name: Escherichia fergusonii
+    aliases: [E. fergusonii, Enteric group 10]
+    group: bacteria
+    family: Other Escherichia
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.cdc.gov/ecoli/php/technical-info/index.html"]
+    note: >-
+      Conditional opportunist per the spec row: found in stool of healthy
+      people and occasionally in extraintestinal infection, so detection alone
+      is not an enteric infection. Keep distinct from E. coli, with which it
+      is frequently confused by short-read classifiers.
+  - seed_id: bacteria.campylobacter_jejuni
+    source_section: "8.1"
+    requested_name: Campylobacter jejuni
+    display_name: Campylobacter jejuni
+    aliases: [C. jejuni, Campylobacter jejuni subsp. jejuni]
+    group: bacteria
+    family: Core Campylobacter
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT, clinical_stool_antigen]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition", "https://www.cdc.gov/yellow-book/hcp/preparing-international-travelers/travelers-diarrhea.html"]
+    note: >-
+      Established enteric. Leading bacterial cause of acute gastroenteritis;
+      post-infectious Guillain-Barre syndrome and reactive arthritis are
+      recognised sequelae. Preserve species complexes and unresolved species
+      pairs rather than forcing one species; Campylobacter genomes are small
+      and low-abundance shedding can leave a species call unresolved at
+      achievable depth.
+  - seed_id: bacteria.campylobacter_coli
+    source_section: "8.1"
+    requested_name: Campylobacter coli
+    display_name: Campylobacter coli
+    aliases: [C. coli]
+    group: bacteria
+    family: Core Campylobacter
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT, clinical_stool_antigen]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition", "https://www.cdc.gov/yellow-book/hcp/preparing-international-travelers/travelers-diarrhea.html"]
+    note: >-
+      Established enteric. Second most common human Campylobacter; C.
+      jejuni/C. coli reads are frequently unresolved and must then be reported
+      as the unresolved pair. Preserve species complexes and unresolved
+      species pairs rather than forcing one species; Campylobacter genomes are
+      small and low-abundance shedding can leave a species call unresolved at
+      achievable depth.
+  - seed_id: bacteria.campylobacter_upsaliensis
+    source_section: "8.1"
+    requested_name: Campylobacter upsaliensis
+    display_name: Campylobacter upsaliensis
+    aliases: [C. upsaliensis]
+    group: bacteria
+    family: Core Campylobacter
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT, clinical_stool_antigen]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition", "https://www.cdc.gov/yellow-book/hcp/preparing-international-travelers/travelers-diarrhea.html"]
+    note: >-
+      Established enteric. Underdetected by selective culture because it is
+      cephalothin-susceptible; dog and cat exposure is a common context.
+      Preserve species complexes and unresolved species pairs rather than
+      forcing one species; Campylobacter genomes are small and low-abundance
+      shedding can leave a species call unresolved at achievable depth.
+  - seed_id: bacteria.campylobacter_lari
+    source_section: "8.1"
+    requested_name: Campylobacter lari
+    display_name: Campylobacter lari
+    aliases: [C. lari, Campylobacter lari group, Campylobacter lari complex, UPTC]
+    group: bacteria
+    family: Core Campylobacter
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT, clinical_stool_antigen]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition", "https://www.cdc.gov/yellow-book/hcp/preparing-international-travelers/travelers-diarrhea.html"]
+    note: >-
+      Established enteric. C. lari is itself a complex (including C. lari
+      subsp. concheus and urease-positive thermophilic Campylobacter); retain
+      the complex-level result when members are unresolved. Preserve species
+      complexes and unresolved species pairs rather than forcing one species;
+      Campylobacter genomes are small and low-abundance shedding can leave a
+      species call unresolved at achievable depth.
+  - seed_id: bacteria.campylobacter_fetus
+    source_section: "8.1"
+    requested_name: Campylobacter fetus
+    display_name: Campylobacter fetus
+    aliases: [C. fetus]
+    group: bacteria
+    family: Expanded Campylobacter
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, blood_culture, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Expanded Campylobacter row: rare/conditional or uncertain enteric role,
+      interpreted in species-specific context rather than inheriting the C.
+      jejuni interpretation. Primarily an invasive/bacteraemic organism in
+      older and immunocompromised people, with subsp. fetus and subsp.
+      venerealis differing in host relevance. Stool detection cannot establish
+      bloodstream infection.
+  - seed_id: bacteria.campylobacter_hyointestinalis
+    source_section: "8.1"
+    requested_name: Campylobacter hyointestinalis
+    display_name: Campylobacter hyointestinalis
+    aliases: [C. hyointestinalis]
+    group: bacteria
+    family: Expanded Campylobacter
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Expanded Campylobacter row: rare/conditional or uncertain enteric role,
+      interpreted in species-specific context rather than inheriting the C.
+      jejuni interpretation. Rare human enteric isolate with animal (pig,
+      cattle) reservoirs; subsp. hyointestinalis is the human-relevant
+      lineage.
+  - seed_id: bacteria.campylobacter_concisus
+    source_section: "8.1"
+    requested_name: Campylobacter concisus
+    display_name: Campylobacter concisus
+    aliases: [C. concisus]
+    group: bacteria
+    family: Expanded Campylobacter
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Expanded Campylobacter row: rare/conditional or uncertain enteric role,
+      interpreted in species-specific context rather than inheriting the C.
+      jejuni interpretation. Oral-cavity commensal frequently recovered from
+      stool of both symptomatic and healthy people; genomospecies differ and
+      causality remains contested.
+  - seed_id: bacteria.campylobacter_curvus
+    source_section: "8.1"
+    requested_name: Campylobacter curvus
+    display_name: Campylobacter curvus
+    aliases: [C. curvus]
+    group: bacteria
+    family: Expanded Campylobacter
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Expanded Campylobacter row: rare/conditional or uncertain enteric role,
+      interpreted in species-specific context rather than inheriting the C.
+      jejuni interpretation. Oral/periodontal organism with occasional
+      gastroenteritis and abscess reports; enteric causality is not
+      established.
+  - seed_id: bacteria.campylobacter_ureolyticus
+    source_section: "8.1"
+    requested_name: Campylobacter ureolyticus
+    display_name: Campylobacter ureolyticus
+    aliases: [C. ureolyticus, Bacteroides ureolyticus]
+    group: bacteria
+    family: Expanded Campylobacter
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Expanded Campylobacter row: rare/conditional or uncertain enteric role,
+      interpreted in species-specific context rather than inheriting the C.
+      jejuni interpretation. Formerly Bacteroides ureolyticus; recovered from
+      diarrhoeal and non-diarrhoeal stool alike, so an enteric role is
+      unproven.
+  - seed_id: bacteria.campylobacter_showae
+    source_section: "8.1"
+    requested_name: Campylobacter showae
+    display_name: Campylobacter showae
+    aliases: [C. showae]
+    group: bacteria
+    family: Expanded Campylobacter
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Expanded Campylobacter row: rare/conditional or uncertain enteric role,
+      interpreted in species-specific context rather than inheriting the C.
+      jejuni interpretation. Oral organism, reported in colorectal-lesion
+      microbiota; not an established enteric pathogen.
+  - seed_id: bacteria.aliarcobacter_butzleri
+    source_section: "8.1"
+    requested_name: Arcobacter/Aliarcobacter butzleri
+    display_name: Aliarcobacter butzleri
+    aliases: [Arcobacter/Aliarcobacter butzleri, Arcobacter butzleri, Campylobacter butzleri]
+    group: bacteria
+    family: Arcobacter aliases
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Emerging/rare enteric target. Most frequently isolated species of the
+      group from human stool and the one with the strongest
+      emerging-enteropathogen evidence. One canonical seed carries both the
+      Arcobacter and Aliarcobacter names as aliases; the 2019 Aliarcobacter
+      reclassification and its subsequent contestation are resolved as
+      current-taxonomy aliases and must not be duplicated as a second genus
+      seed. Routine selective Campylobacter culture misses this group, so a
+      culture-negative history is not evidence against it.
+  - seed_id: bacteria.aliarcobacter_cryaerophilus
+    source_section: "8.1"
+    requested_name: Aliarcobacter cryaerophilus
+    display_name: Aliarcobacter cryaerophilus
+    aliases: [A. cryaerophilus, Arcobacter cryaerophilus, Campylobacter cryaerophilus]
+    group: bacteria
+    family: Arcobacter aliases
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Emerging/rare enteric target. Second most common human isolate;
+      historical clade 1/1B subdivisions are not reportable subspecies without
+      validated evidence. One canonical seed carries both the Arcobacter and
+      Aliarcobacter names as aliases; the 2019 Aliarcobacter reclassification
+      and its subsequent contestation are resolved as current-taxonomy aliases
+      and must not be duplicated as a second genus seed. Routine selective
+      Campylobacter culture misses this group, so a culture-negative history
+      is not evidence against it.
+  - seed_id: bacteria.aliarcobacter_skirrowii
+    source_section: "8.1"
+    requested_name: Aliarcobacter skirrowii
+    display_name: Aliarcobacter skirrowii
+    aliases: [A. skirrowii, Arcobacter skirrowii]
+    group: bacteria
+    family: Arcobacter aliases
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Emerging/rare enteric target. Rare human isolate with livestock
+      reservoirs; reference representation is thin. One canonical seed carries
+      both the Arcobacter and Aliarcobacter names as aliases; the 2019
+      Aliarcobacter reclassification and its subsequent contestation are
+      resolved as current-taxonomy aliases and must not be duplicated as a
+      second genus seed. Routine selective Campylobacter culture misses this
+      group, so a culture-negative history is not evidence against it.
+  - seed_id: bacteria.yersinia_enterocolitica
+    source_section: "8.1"
+    requested_name: Yersinia enterocolitica
+    display_name: Yersinia enterocolitica
+    aliases: [Y. enterocolitica]
+    group: bacteria
+    family: Yersinia
+    interpretation_class: toxin_or_pathotype_dependent
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    requires_determinants: true
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: pathotype_dependent_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Not every Y. enterocolitica strain is equivalent: biotype 1A lineages
+      are widely environmental and generally lack the pathogenic virulence
+      complement, so the species call must be paired with
+      species/lineage-specific ail, ystA and virF/yadA plasmid context before
+      a pathogenic-lineage statement. Other Yersinia species are retained as
+      competitors/background, not automatic human pathogen calls.
+  - seed_id: bacteria.yersinia_pseudotuberculosis
+    source_section: "8.1"
+    requested_name: Yersinia pseudotuberculosis
+    display_name: Yersinia pseudotuberculosis
+    aliases: [Y. pseudotuberculosis]
+    group: bacteria
+    family: Yersinia
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    requires_determinants: true
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: pathotype_dependent_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Rare enteric target presenting as mesenteric adenitis or
+      pseudoappendicitis. Pathogenic-lineage statements require inv, virF/yadA
+      and plasmid context, and the organism must be kept distinct from Y.
+      pestis, its close relative, which is not an enteric target. Other
+      Yersinia species remain competitors, not pathogen calls.
+  - seed_id: bacteria.vibrio_cholerae
+    source_section: "8.1"
+    requested_name: Vibrio cholerae
+    display_name: Vibrio cholerae
+    aliases: [V. cholerae]
+    group: bacteria
+    family: Vibrio
+    interpretation_class: toxin_or_pathotype_dependent
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    requires_determinants: true
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: pathotype_dependent_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      V. cholerae species alone is not cholera: environmental non-toxigenic
+      strains are common. ctxA/ctxB must be assessed independently of the
+      species call, tcpA is supportive rather than a toxin replacement, and
+      O1/O139 or other lineage claims require validated typing evidence.
+      Suspected cholera is a public-health notification event and needs
+      clinical confirmation.
+  - seed_id: bacteria.vibrio_parahaemolyticus
+    source_section: "8.1"
+    requested_name: Vibrio parahaemolyticus
+    display_name: Vibrio parahaemolyticus
+    aliases: [V. parahaemolyticus]
+    group: bacteria
+    family: Vibrio
+    interpretation_class: toxin_or_pathotype_dependent
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    requires_determinants: true
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: pathotype_dependent_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Pathotype-dependent: tdh/trh are the disease-associated markers, while
+      tlh is identification-associated and is not proof of toxigenicity. A
+      lack of marker reads cannot establish a harmless strain, because marker
+      regions may simply be unevaluable at the achieved depth.
+  - seed_id: bacteria.vibrio_mimicus
+    source_section: "8.1"
+    requested_name: Vibrio mimicus
+    display_name: Vibrio mimicus
+    aliases: [V. mimicus]
+    group: bacteria
+    family: Vibrio
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Enteric/pathotype-dependent member of the first five Vibrio targets in
+      the spec row. Sucrose-negative relative of V. cholerae that can carry
+      cholera-toxin genes; assess ctxA/ctxB independently of the species.
+      Seafood and brackish-water exposure history is interpretive context, not
+      confirmation.
+  - seed_id: bacteria.vibrio_fluvialis
+    source_section: "8.1"
+    requested_name: Vibrio fluvialis
+    display_name: Vibrio fluvialis
+    aliases: [V. fluvialis]
+    group: bacteria
+    family: Vibrio
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Enteric/pathotype-dependent member of the first five Vibrio targets in
+      the spec row. Recognised cause of secretory diarrhoea in endemic and
+      seafood-exposure settings. Seafood and brackish-water exposure history
+      is interpretive context, not confirmation.
+  - seed_id: bacteria.vibrio_furnissii
+    source_section: "8.1"
+    requested_name: Vibrio furnissii
+    display_name: Vibrio furnissii
+    aliases: [V. furnissii]
+    group: bacteria
+    family: Vibrio
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Enteric/pathotype-dependent member of the first five Vibrio targets in
+      the spec row. Rare enteric isolate, historically an aerogenic V.
+      fluvialis biovar. Seafood and brackish-water exposure history is
+      interpretive context, not confirmation.
+  - seed_id: bacteria.vibrio_vulnificus
+    source_section: "8.1"
+    requested_name: Vibrio vulnificus
+    display_name: Vibrio vulnificus
+    aliases: [V. vulnificus]
+    group: bacteria
+    family: Vibrio
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: extraintestinal_watch_bacterium
+    confirmation_options: [blood_culture, specialist_referral, clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      One of the last two Vibrio entries, which the spec flags for important
+      extraintestinal/seafood context rather than an enteric label. Primary
+      syndromes are wound infection and fulminant septicaemia after
+      raw-shellfish ingestion in people with liver disease or iron overload;
+      stool DNA cannot diagnose either and any clinical suspicion is a
+      same-day emergency. Stool reads may simply reflect recent seafood in the
+      diet, so this stays an unexpected-detection watch item and never enters
+      the infections-excluded denominator.
+  - seed_id: bacteria.vibrio_alginolyticus
+    source_section: "8.1"
+    requested_name: Vibrio alginolyticus
+    display_name: Vibrio alginolyticus
+    aliases: [V. alginolyticus]
+    group: bacteria
+    family: Vibrio
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: extraintestinal_watch_bacterium
+    confirmation_options: [blood_culture, specialist_referral, clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      One of the last two Vibrio entries, which the spec flags for important
+      extraintestinal/seafood context rather than an enteric label. Chiefly
+      wound, ear and eye infections after seawater exposure; enteric causation
+      is not established. Stool reads may simply reflect recent seafood in the
+      diet, so this stays an unexpected-detection watch item and never enters
+      the infections-excluded denominator.
+  - seed_id: bacteria.aeromonas_caviae
+    source_section: "8.1"
+    requested_name: Aeromonas caviae
+    display_name: Aeromonas caviae
+    aliases: [A. caviae]
+    group: bacteria
+    family: Aeromonas
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://wwwnc.cdc.gov/eid/article/9/5/02-0451_article", "https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Enteric/conditional Aeromonas target. Most commonly stool-isolated
+      species, including from asymptomatic carriers. Aeromonas species
+      discrimination is genuinely hard: 16S and even some housekeeping loci
+      misassign A. hydrophila, A. dhakensis and A. caviae, so report the genus
+      when species-level evidence is insufficient. Carriage occurs without
+      diarrhoea and causality is variable, so detection is a conditional
+      finding rather than an established cause.
+  - seed_id: bacteria.aeromonas_veronii
+    source_section: "8.1"
+    requested_name: Aeromonas veronii
+    display_name: Aeromonas veronii
+    aliases: [A. veronii]
+    group: bacteria
+    family: Aeromonas
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://wwwnc.cdc.gov/eid/article/9/5/02-0451_article", "https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Enteric/conditional Aeromonas target. Biovars sobria and veronii both
+      occur; sobria is the more frequent clinical isolate. Aeromonas species
+      discrimination is genuinely hard: 16S and even some housekeeping loci
+      misassign A. hydrophila, A. dhakensis and A. caviae, so report the genus
+      when species-level evidence is insufficient. Carriage occurs without
+      diarrhoea and causality is variable, so detection is a conditional
+      finding rather than an established cause.
+  - seed_id: bacteria.aeromonas_hydrophila
+    source_section: "8.1"
+    requested_name: Aeromonas hydrophila
+    display_name: Aeromonas hydrophila
+    aliases: [A. hydrophila]
+    group: bacteria
+    family: Aeromonas
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://wwwnc.cdc.gov/eid/article/9/5/02-0451_article", "https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Enteric/conditional Aeromonas target. Historically over-reported because
+      many isolates called A. hydrophila are in fact A. dhakensis. Aeromonas
+      species discrimination is genuinely hard: 16S and even some housekeeping
+      loci misassign A. hydrophila, A. dhakensis and A. caviae, so report the
+      genus when species-level evidence is insufficient. Carriage occurs
+      without diarrhoea and causality is variable, so detection is a
+      conditional finding rather than an established cause.
+  - seed_id: bacteria.aeromonas_dhakensis
+    source_section: "8.1"
+    requested_name: Aeromonas dhakensis
+    display_name: Aeromonas dhakensis
+    aliases: [A. dhakensis, Aeromonas aquariorum, Aeromonas hydrophila subsp. dhakensis]
+    group: bacteria
+    family: Aeromonas
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://wwwnc.cdc.gov/eid/article/9/5/02-0451_article", "https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Enteric/conditional Aeromonas target. Increasingly recognised as the
+      more virulent member of the A. hydrophila complex; formerly A.
+      aquariorum and A. hydrophila subsp. dhakensis. Aeromonas species
+      discrimination is genuinely hard: 16S and even some housekeeping loci
+      misassign A. hydrophila, A. dhakensis and A. caviae, so report the genus
+      when species-level evidence is insufficient. Carriage occurs without
+      diarrhoea and causality is variable, so detection is a conditional
+      finding rather than an established cause.
+  - seed_id: bacteria.aeromonas_jandaei
+    source_section: "8.1"
+    requested_name: Aeromonas jandaei
+    display_name: Aeromonas jandaei
+    aliases: [A. jandaei]
+    group: bacteria
+    family: Aeromonas
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://wwwnc.cdc.gov/eid/article/9/5/02-0451_article", "https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Enteric/conditional Aeromonas target. Uncommon clinical isolate with
+      occasional diarrhoeal and wound reports. Aeromonas species
+      discrimination is genuinely hard: 16S and even some housekeeping loci
+      misassign A. hydrophila, A. dhakensis and A. caviae, so report the genus
+      when species-level evidence is insufficient. Carriage occurs without
+      diarrhoea and causality is variable, so detection is a conditional
+      finding rather than an established cause.
+  - seed_id: bacteria.aeromonas_trota
+    source_section: "8.1"
+    requested_name: Aeromonas trota
+    display_name: Aeromonas trota
+    aliases: [A. trota]
+    group: bacteria
+    family: Aeromonas
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://wwwnc.cdc.gov/eid/article/9/5/02-0451_article", "https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Enteric/conditional Aeromonas target. Uncommon, ampicillin-susceptible
+      species reported from diarrhoeal stool. Aeromonas species discrimination
+      is genuinely hard: 16S and even some housekeeping loci misassign A.
+      hydrophila, A. dhakensis and A. caviae, so report the genus when
+      species-level evidence is insufficient. Carriage occurs without
+      diarrhoea and causality is variable, so detection is a conditional
+      finding rather than an established cause.
+  - seed_id: bacteria.aeromonas_schubertii
+    source_section: "8.1"
+    requested_name: Aeromonas schubertii
+    display_name: Aeromonas schubertii
+    aliases: [A. schubertii]
+    group: bacteria
+    family: Aeromonas
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://wwwnc.cdc.gov/eid/article/9/5/02-0451_article", "https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Enteric/conditional Aeromonas target. Predominantly soft-tissue and
+      wound associated; enteric role is not established. Aeromonas species
+      discrimination is genuinely hard: 16S and even some housekeeping loci
+      misassign A. hydrophila, A. dhakensis and A. caviae, so report the genus
+      when species-level evidence is insufficient. Carriage occurs without
+      diarrhoea and causality is variable, so detection is a conditional
+      finding rather than an established cause.
+  - seed_id: bacteria.plesiomonas_shigelloides
+    source_section: "8.1"
+    requested_name: Plesiomonas shigelloides
+    display_name: Plesiomonas shigelloides
+    aliases: [Aeromonas shigelloides, Vibrio shigelloides]
+    group: bacteria
+    family: Other enteric
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Rare recognised enteric target with freshwater, seafood and travel
+      context. It shares antigens with Shigella sonnei but is an unrelated
+      organism; do not merge it into the Shigella/EIEC group.
+  - seed_id: bacteria.edwardsiella_tarda
+    source_section: "8.1"
+    requested_name: Edwardsiella tarda
+    display_name: Edwardsiella tarda
+    aliases: [Edwardsiella anguillimortifera]
+    group: bacteria
+    family: Other enteric
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Rare recognised enteric target associated with freshwater fish and
+      reptile exposure; it also causes extraintestinal infection, so a stool
+      finding is not a diagnosis of either syndrome.
+  - seed_id: bacteria.providencia_alcalifaciens
+    source_section: "8.1"
+    requested_name: Providencia alcalifaciens
+    display_name: Providencia alcalifaciens
+    aliases: []
+    group: bacteria
+    family: Other enteric
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition", "https://www.cdc.gov/yellow-book/hcp/preparing-international-travelers/travelers-diarrhea.html"]
+    note: >-
+      Rare recognised enteric target implicated in travellers' and outbreak
+      diarrhoea, with invasion-associated strains; it is also found in stool
+      without symptoms, so interpret conservatively and keep it distinct from
+      the opportunistic Providencia species in the Other Enterobacterales row.
+  - seed_id: bacteria.laribacter_hongkongensis
+    source_section: "8.1"
+    requested_name: Laribacter hongkongensis
+    display_name: Laribacter hongkongensis
+    aliases: [Laribacter hongkongenesis]
+    group: bacteria
+    family: Other enteric
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1000416"]
+    note: >-
+      Rare recognised enteric target linked to community-acquired
+      gastroenteritis and travel, with freshwater fish reservoirs. Use the
+      Laribacter spelling and current taxonomy from the genome study rather
+      than the misspelling that circulates in secondary sources; reference and
+      clinical evidence are both limited.
+  - seed_id: bacteria.clostridioides_difficile
+    source_section: "8.1"
+    requested_name: Clostridioides difficile
+    display_name: Clostridioides difficile
+    aliases: [Clostridium difficile, C. difficile, C. diff, Peptoclostridium difficile]
+    group: bacteria
+    family: Toxin-dependent anaerobes
+    interpretation_class: toxin_or_pathotype_dependent
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    requires_determinants: true
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: pathotype_dependent_bacterium
+    confirmation_options: [clinical_toxin_immunoassay, clinical_stool_NAAT, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.cdc.gov/c-diff/hcp/diagnosis-testing/index.html"]
+    note: >-
+      Organism and toxin evidence stay separate: tcdB and tcdA are assessed
+      independently and cdtA/cdtB separately, major-toxin DNA implies genetic
+      potential rather than expressed toxin or CDI, and binary toxin does not
+      substitute for the major toxins. No disease from abundance alone.
+      Asymptomatic carriage is common in very young children - a large share
+      of healthy infants and toddlers under about two years carry toxigenic
+      strains - so results in that age band need age-aware interpretation and
+      must not be read as CDI; paediatric clinical assessment governs, not the
+      sequence.
+  - seed_id: bacteria.clostridium_perfringens
+    source_section: "8.1"
+    requested_name: Clostridium perfringens
+    display_name: Clostridium perfringens
+    aliases: [Clostridium welchii]
+    group: bacteria
+    family: Toxin-dependent anaerobes
+    interpretation_class: toxin_or_pathotype_dependent
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    requires_determinants: true
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: pathotype_dependent_bacterium
+    confirmation_options: [clinical_stool_culture, clinical_toxin_immunoassay, clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Common gut and environmental organism, so organism detection alone means
+      little: cpe carries the enterotoxin-associated potential, curated other
+      toxin families are assessed separately, and plc/cpa alone does not
+      establish food-poisoning potential. Toxinotype letters require the full
+      curated toxin gene complement, and no disease follows from abundance
+      alone.
+  - seed_id: bacteria.bacteroides_fragilis_etbf
+    resolution_name: Bacteroides fragilis
+    source_section: "8.1"
+    requested_name: enterotoxigenic Bacteroides fragilis
+    display_name: "Enterotoxigenic Bacteroides fragilis (ETBF)"
+    aliases: [enterotoxigenic Bacteroides fragilis, ETBF, bft-positive Bacteroides fragilis]
+    group: bacteria
+    family: Toxin-dependent anaerobes
+    interpretation_class: toxin_or_pathotype_dependent
+    taxonomic_resolution: pathotype
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    requires_determinants: true
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: pathotype_dependent_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://pmc.ncbi.nlm.nih.gov/articles/PMC4922554/"]
+    note: >-
+      Trait-defined target requiring bft-1/bft-2/bft-3 family evidence
+      together with credible B. fragilis linkage. B. fragilis abundance alone
+      is not ETBF, and B. fragilis is an ordinary member of the gut community;
+      keep this seed distinct from the Bacteroides fragilis group seed in the
+      anaerobic-pathobiont row.
+  - seed_id: bacteria.klebsiella_oxytoca_complex
+    resolution_name: Klebsiella oxytoca
+    source_section: "8.1"
+    requested_name: Klebsiella oxytoca complex
+    display_name: Klebsiella oxytoca complex
+    aliases: [K. oxytoca complex, Klebsiella oxytoca sensu lato]
+    group: bacteria
+    family: Antibiotic-associated Klebsiella
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.pnas.org/doi/10.1073/pnas.1819154116", "https://mibig.secondarymetabolites.org/go/BGC0000446.5"]
+    note: >-
+      Complex-level target retained whenever reads distinguish the complex but
+      not its members; if all reads distinguish the complex and not the
+      species, the complex is the result. Conditional organism detection:
+      toxin-associated antibiotic-associated haemorrhagic colitis requires
+      npsA/npsB/thdA locus context plus clinical evidence, and generic NRPS
+      homology is insufficient. The MIBiG BGC0000446.5 reference linked in the
+      spec is labelled complete but of questionable quality, so that
+      qualification travels with any locus claim.
+  - seed_id: bacteria.klebsiella_oxytoca
+    source_section: "8.1"
+    requested_name: Klebsiella oxytoca
+    display_name: Klebsiella oxytoca
+    aliases: [K. oxytoca]
+    group: bacteria
+    family: Antibiotic-associated Klebsiella
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    parent_seed_id: bacteria.klebsiella_oxytoca_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.pnas.org/doi/10.1073/pnas.1819154116", "https://mibig.secondarymetabolites.org/go/BGC0000446.5"]
+    note: >-
+      Named member of the Klebsiella oxytoca complex. Type species of the
+      complex and the classic organism of antibiotic-associated haemorrhagic
+      colitis. Conditional organism detection: toxin-associated
+      antibiotic-associated haemorrhagic colitis requires npsA/npsB/thdA locus
+      context plus clinical evidence, and generic NRPS homology is
+      insufficient. The MIBiG BGC0000446.5 reference linked in the spec is
+      labelled complete but of questionable quality, so that qualification
+      travels with any locus claim.
+  - seed_id: bacteria.klebsiella_michiganensis
+    source_section: "8.1"
+    requested_name: Klebsiella michiganensis
+    display_name: Klebsiella michiganensis
+    aliases: [K. michiganensis]
+    group: bacteria
+    family: Antibiotic-associated Klebsiella
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    parent_seed_id: bacteria.klebsiella_oxytoca_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.pnas.org/doi/10.1073/pnas.1819154116", "https://mibig.secondarymetabolites.org/go/BGC0000446.5"]
+    note: >-
+      Named member of the Klebsiella oxytoca complex. Frequently reported as
+      K. oxytoca by older methods; a large share of clinical 'K. oxytoca' is
+      in fact this species. Conditional organism detection: toxin-associated
+      antibiotic-associated haemorrhagic colitis requires npsA/npsB/thdA locus
+      context plus clinical evidence, and generic NRPS homology is
+      insufficient. The MIBiG BGC0000446.5 reference linked in the spec is
+      labelled complete but of questionable quality, so that qualification
+      travels with any locus claim.
+  - seed_id: bacteria.klebsiella_grimontii
+    source_section: "8.1"
+    requested_name: Klebsiella grimontii
+    display_name: Klebsiella grimontii
+    aliases: [K. grimontii]
+    group: bacteria
+    family: Antibiotic-associated Klebsiella
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    parent_seed_id: bacteria.klebsiella_oxytoca_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.pnas.org/doi/10.1073/pnas.1819154116", "https://mibig.secondarymetabolites.org/go/BGC0000446.5"]
+    note: >-
+      Named member of the Klebsiella oxytoca complex. Recently described
+      complex member also carrying the tilivalline/tilimycin locus in some
+      strains. Conditional organism detection: toxin-associated
+      antibiotic-associated haemorrhagic colitis requires npsA/npsB/thdA locus
+      context plus clinical evidence, and generic NRPS homology is
+      insufficient. The MIBiG BGC0000446.5 reference linked in the spec is
+      labelled complete but of questionable quality, so that qualification
+      travels with any locus claim.
+  - seed_id: bacteria.bacillus_cereus_sensu_lato
+    resolution_name: Bacillus cereus
+    source_section: "8.1"
+    requested_name: Bacillus cereus sensu lato
+    display_name: Bacillus cereus sensu lato
+    aliases: [Bacillus cereus group, B. cereus sensu lato, B. cereus s.l., Bacillus cereus complex]
+    group: bacteria
+    family: Food intoxication/toxicoinfection
+    interpretation_class: toxin_or_pathotype_dependent
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    requires_determinants: true
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: pathotype_dependent_bacterium
+    confirmation_options: [clinical_stool_culture, clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Retained at complex level: generic B. cereus-group reads cannot
+      establish a particular high-consequence species, because the group's
+      members - including B. anthracis, B. cytotoxicus and B. thuringiensis -
+      are nearly indistinguishable over most of the core genome at achievable
+      stool depth. Report the complex plus the taxonomic ambiguity, and never
+      promote group-level reads to a named high-consequence species without
+      validated discriminating evidence. Cereulide and diarrhoeal-toxin
+      capacity are assessed through the separate ces, nheABC, hbl and cytK
+      determinants with locus completeness stated. Genetic trait assessment
+      only: preformed-toxin illness may occur with no detectable organism DNA
+      in stool, so a negative result cannot exclude food intoxication, and
+      gene presence cannot establish that toxin was produced or ingested.
+  - seed_id: bacteria.staphylococcus_aureus
+    source_section: "8.1"
+    requested_name: Staphylococcus aureus
+    display_name: Staphylococcus aureus
+    aliases: [S. aureus]
+    group: bacteria
+    family: Food intoxication/toxicoinfection
+    interpretation_class: toxin_or_pathotype_dependent
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    requires_determinants: true
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: pathotype_dependent_bacterium
+    confirmation_options: [clinical_stool_culture, clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Intestinal and skin carriage is common, so organism detection is not
+      disease and not food poisoning. Enterotoxin capacity requires the
+      curated sea/seb/sec/sed/see families, which must be distinguished from
+      broad superantigen or adhesion annotations. Detection of S. aureus
+      alongside an unlinked mecA cannot be reported as MRSA: another
+      staphylococcus in the sample may carry the determinant. Genetic trait
+      assessment only: preformed-toxin illness may occur with no detectable
+      organism DNA in stool, so a negative result cannot exclude food
+      intoxication, and gene presence cannot establish that toxin was produced
+      or ingested.
+  - seed_id: bacteria.clostridium_botulinum
+    source_section: "8.1"
+    requested_name: Clostridium botulinum
+    display_name: Clostridium botulinum
+    aliases: [C. botulinum]
+    group: bacteria
+    family: Food intoxication/toxicoinfection
+    interpretation_class: toxin_or_pathotype_dependent
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    requires_determinants: true
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: pathotype_dependent_bacterium
+    confirmation_options: [specialist_referral, clinical_stool_culture, clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Species detection alone is insufficient: a curated bont family/allele
+      with relevant cluster context and strict near-neighbour/false-positive
+      checks is required, and unrelated protease homology does not count. C.
+      botulinum is a phenotypic grouping spanning four genomically distinct
+      lineages, so the species label itself needs care. Any supported signal
+      requires urgent clinical and public health confirmation; do not infer
+      expressed toxin, organism viability, or absence of intoxication from DNA
+      results. Genetic trait assessment only: preformed-toxin illness may
+      occur with no detectable organism DNA in stool, so a negative result
+      cannot exclude food intoxication, and gene presence cannot establish
+      that toxin was produced or ingested.
+  - seed_id: bacteria.clostridium_baratii
+    source_section: "8.1"
+    requested_name: neurotoxigenic C. baratii
+    display_name: "Clostridium baratii (neurotoxigenic)"
+    aliases: [neurotoxigenic C. baratii, neurotoxigenic Clostridium baratii, Clostridium baratii]
+    group: bacteria
+    family: Food intoxication/toxicoinfection
+    interpretation_class: toxin_or_pathotype_dependent
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    requires_determinants: true
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: pathotype_dependent_bacterium
+    confirmation_options: [specialist_referral, clinical_stool_culture, clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Neurotoxigenic-lineage target: the seed exists only for the
+      bont-carrying strains named in the spec row. Neurotoxigenic strains
+      carry a type F bont and have caused rapid-onset adult and infant
+      botulism; non-neurotoxigenic C. baratii is an ordinary and unremarkable
+      stool organism. Species detection alone is insufficient and strict
+      near-neighbour checks apply. Genetic trait assessment only:
+      preformed-toxin illness may occur with no detectable organism DNA in
+      stool, so a negative result cannot exclude food intoxication, and gene
+      presence cannot establish that toxin was produced or ingested.
+  - seed_id: bacteria.clostridium_butyricum
+    source_section: "8.1"
+    requested_name: neurotoxigenic C. butyricum
+    display_name: "Clostridium butyricum (neurotoxigenic)"
+    aliases: [neurotoxigenic C. butyricum, neurotoxigenic Clostridium butyricum, Clostridium butyricum]
+    group: bacteria
+    family: Food intoxication/toxicoinfection
+    interpretation_class: toxin_or_pathotype_dependent
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    requires_determinants: true
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: pathotype_dependent_bacterium
+    confirmation_options: [specialist_referral, clinical_stool_culture, clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Neurotoxigenic-lineage target: the seed exists only for the
+      bont-carrying strains named in the spec row. Neurotoxigenic strains
+      carry a type E bont, whereas non-neurotoxigenic C. butyricum is a common
+      commensal and is even used as a probiotic, so bont cluster linkage - not
+      the species call - carries all of the interpretive weight. Species
+      detection alone is insufficient and strict near-neighbour checks apply.
+      Genetic trait assessment only: preformed-toxin illness may occur with no
+      detectable organism DNA in stool, so a negative result cannot exclude
+      food intoxication, and gene presence cannot establish that toxin was
+      produced or ingested.
+  - seed_id: bacteria.listeria_monocytogenes
+    source_section: "8.1"
+    requested_name: Listeria monocytogenes
+    display_name: Listeria monocytogenes
+    aliases: [L. monocytogenes]
+    group: bacteria
+    family: Listeria
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [blood_culture, specialist_referral, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Enteric/conditional: stool DNA is not invasive listeriosis. Transient
+      faecal carriage after eating contaminated food occurs in healthy people,
+      while invasive disease is diagnosed from blood or cerebrospinal fluid
+      culture, not stool. Pregnancy, neonatal, elderly and immunocompromised
+      contexts make any clinical suspicion an urgent clinician decision
+      regardless of what the sequence shows.
+  - seed_id: bacteria.brachyspira_aalborgi
+    source_section: "8.1"
+    requested_name: Brachyspira aalborgi
+    display_name: Brachyspira aalborgi
+    aliases: []
+    group: bacteria
+    family: Intestinal spirochetes
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [endoscopy_with_biopsy, clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://journals.asm.org/doi/10.1128/jb.00272-19"]
+    note: >-
+      Conditional intestinal association: carriage can be entirely
+      asymptomatic, and human intestinal spirochetosis is a histological
+      diagnosis on colonic biopsy rather than a sequence result. Predominant
+      species in human intestinal spirochetosis in industrialised settings;
+      fastidious and very difficult to culture. Reference representation for
+      human Brachyspira is limited, so an unresolved genus-level result is a
+      legitimate output.
+  - seed_id: bacteria.brachyspira_pilosicoli
+    source_section: "8.1"
+    requested_name: Brachyspira pilosicoli
+    display_name: Brachyspira pilosicoli
+    aliases: [B. pilosicoli]
+    group: bacteria
+    family: Intestinal spirochetes
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [endoscopy_with_biopsy, clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://journals.asm.org/doi/10.1128/jb.00272-19"]
+    note: >-
+      Conditional intestinal association: carriage can be entirely
+      asymptomatic, and human intestinal spirochetosis is a histological
+      diagnosis on colonic biopsy rather than a sequence result. Zoonotic and
+      human colonisation, more common in some tropical and high-exposure
+      populations, with occasional bacteraemia in debilitated patients.
+      Reference representation for human Brachyspira is limited, so an
+      unresolved genus-level result is a legitimate output.
+  - seed_id: bacteria.helicobacter_pylori
+    source_section: "8.1"
+    requested_name: Helicobacter pylori
+    display_name: Helicobacter pylori
+    aliases: [H. pylori, Campylobacter pylori]
+    group: bacteria
+    family: Gastric Helicobacter
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [urea_breath_test_or_stool_antigen, endoscopy_with_biopsy, clinical_stool_antigen]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.frontiersin.org/journals/cellular-and-infection-microbiology/articles/10.3389/fcimb.2026.1759322/full", "https://wwwnc.cdc.gov/eid/article/31/6/24-1315_article"]
+    note: >-
+      Gastric rather than intestinal coloniser, with variable stool shedding,
+      so a negative stool sequencing result is weak evidence against
+      infection. The published clinical comparison of a 176-target DNA-based
+      stool assay recorded in this spec (Parks et al., February 2026; 22
+      targets compared across 510 stools) found clinical performance varied
+      substantially by target with especially poor H. pylori sensitivity - so
+      treat a non-detection here as uninformative and confirm with urea breath
+      test or stool antigen, or endoscopy where indicated. That published
+      assay's performance is cited as evidence about the specimen type, not
+      copied as this implementation's performance. Identification stays
+      independent of cagA/vacA and the absence of cagA does not imply absence
+      of H. pylori or benignity.
+  - seed_id: bacteria.helicobacter_suis
+    source_section: "8.1"
+    requested_name: Helicobacter suis
+    display_name: Helicobacter suis
+    aliases: [H. suis]
+    group: bacteria
+    family: Gastric Helicobacter
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [endoscopy_with_biopsy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://wwwnc.cdc.gov/eid/article/31/6/24-1315_article"]
+    note: >-
+      Zoonotic gastric Helicobacter with variable stool shedding. Most
+      frequent non-H. pylori gastric Helicobacter in humans; pig reservoir.
+      These species are frequently unresolvable from one another in stool, so
+      preserve the non-H. pylori gastric Helicobacter group result when member
+      evidence is insufficient, and never report one of them as H. pylori.
+  - seed_id: bacteria.helicobacter_heilmannii
+    source_section: "8.1"
+    requested_name: Helicobacter heilmannii
+    display_name: Helicobacter heilmannii sensu stricto
+    aliases: [H. heilmannii sensu stricto, Helicobacter heilmannii, Gastrospirillum hominis]
+    group: bacteria
+    family: Gastric Helicobacter
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [endoscopy_with_biopsy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://wwwnc.cdc.gov/eid/article/31/6/24-1315_article"]
+    note: >-
+      Zoonotic gastric Helicobacter with variable stool shedding. Cat and dog
+      reservoir; the historical 'H. heilmannii' label covered several species
+      and must not be reused as a species-level result. These species are
+      frequently unresolvable from one another in stool, so preserve the
+      non-H. pylori gastric Helicobacter group result when member evidence is
+      insufficient, and never report one of them as H. pylori.
+  - seed_id: bacteria.helicobacter_felis
+    source_section: "8.1"
+    requested_name: Helicobacter felis
+    display_name: Helicobacter felis
+    aliases: [H. felis]
+    group: bacteria
+    family: Gastric Helicobacter
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [endoscopy_with_biopsy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://wwwnc.cdc.gov/eid/article/31/6/24-1315_article"]
+    note: >-
+      Zoonotic gastric Helicobacter with variable stool shedding. Cat and dog
+      reservoir; rare human gastric colonisation. These species are frequently
+      unresolvable from one another in stool, so preserve the non-H. pylori
+      gastric Helicobacter group result when member evidence is insufficient,
+      and never report one of them as H. pylori.
+  - seed_id: bacteria.helicobacter_bizzozeronii
+    source_section: "8.1"
+    requested_name: Helicobacter bizzozeronii
+    display_name: Helicobacter bizzozeronii
+    aliases: [H. bizzozeronii]
+    group: bacteria
+    family: Gastric Helicobacter
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [endoscopy_with_biopsy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://wwwnc.cdc.gov/eid/article/31/6/24-1315_article"]
+    note: >-
+      Zoonotic gastric Helicobacter with variable stool shedding. Dog
+      reservoir; the only non-H. pylori gastric Helicobacter readily cultured
+      from human stomach so far. These species are frequently unresolvable
+      from one another in stool, so preserve the non-H. pylori gastric
+      Helicobacter group result when member evidence is insufficient, and
+      never report one of them as H. pylori.
+  - seed_id: bacteria.helicobacter_salomonis
+    source_section: "8.1"
+    requested_name: Helicobacter salomonis
+    display_name: Helicobacter salomonis
+    aliases: [H. salomonis]
+    group: bacteria
+    family: Gastric Helicobacter
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [endoscopy_with_biopsy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://wwwnc.cdc.gov/eid/article/31/6/24-1315_article"]
+    note: >-
+      Zoonotic gastric Helicobacter with variable stool shedding. Dog
+      reservoir; very rarely reported from humans and thinly represented in
+      references. These species are frequently unresolvable from one another
+      in stool, so preserve the non-H. pylori gastric Helicobacter group
+      result when member evidence is insufficient, and never report one of
+      them as H. pylori.
+  - seed_id: bacteria.non_pylori_gastric_helicobacter_group
+    resolution_name: Helicobacter
+    source_section: "8.1"
+    requested_name: non-H. pylori group
+    display_name: Non-Helicobacter pylori gastric Helicobacter group
+    aliases: [non-H. pylori group, NHPH, non-Helicobacter pylori helicobacters, Helicobacter heilmannii sensu lato]
+    group: bacteria
+    family: Gastric Helicobacter
+    interpretation_class: rare_enteric
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: enteric_bacterium
+    confirmation_options: [endoscopy_with_biopsy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://wwwnc.cdc.gov/eid/article/31/6/24-1315_article"]
+    note: >-
+      Group-level target that the spec requires be preserved when the
+      individual non-H. pylori gastric Helicobacter species cannot be
+      resolved. It is a reportable result in its own right, is not a stand-in
+      for H. pylori, and must not be collapsed into the H. pylori seed or
+      silently discarded.
+  - seed_id: bacteria.helicobacter_cinaedi
+    source_section: "8.1"
+    requested_name: Helicobacter cinaedi
+    display_name: Helicobacter cinaedi
+    aliases: [H. cinaedi, Campylobacter cinaedi]
+    group: bacteria
+    family: Enterohepatic Helicobacter
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [blood_culture, specialist_referral, clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://wwwnc.cdc.gov/eid/article/31/6/24-1315_article"]
+    note: >-
+      Conditional/rare enterohepatic Helicobacter: stool cannot establish
+      bloodstream infection, which requires blood culture with extended
+      incubation. Reported in bacteraemia and cellulitis, notably in
+      immunocompromised patients and men who have sex with men; extremely
+      slow-growing and routinely missed by standard culture.
+  - seed_id: bacteria.helicobacter_fennelliae
+    source_section: "8.1"
+    requested_name: Helicobacter fennelliae
+    display_name: Helicobacter fennelliae
+    aliases: [H. fennelliae, Campylobacter fennelliae]
+    group: bacteria
+    family: Enterohepatic Helicobacter
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [blood_culture, specialist_referral, clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://wwwnc.cdc.gov/eid/article/31/6/24-1315_article"]
+    note: >-
+      Conditional/rare enterohepatic Helicobacter: stool cannot establish
+      bloodstream infection, which requires blood culture with extended
+      incubation. Similar clinical niche to H. cinaedi, with proctocolitis and
+      occasional bacteraemia reports.
+  - seed_id: bacteria.tropheryma_whipplei
+    source_section: "8.1"
+    requested_name: Tropheryma whipplei
+    display_name: Tropheryma whipplei
+    aliases: [Tropheryma whippelii, "Whipple's disease bacillus"]
+    group: bacteria
+    family: Whipple organism
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [endoscopy_with_biopsy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://academic.oup.com/cid/article-abstract/47/5/659/296177"]
+    note: >-
+      Conditional carriage versus disease: a positive stool sequence is NOT
+      Whipple disease. Asymptomatic faecal carriage is documented in a
+      substantial minority of healthy adults and at much higher rates in
+      sewage workers and some high-prevalence populations, so stool positivity
+      has poor specificity for disease. Classic Whipple disease requires
+      duodenal biopsy with PAS-positive macrophages plus confirmatory PCR or
+      immunohistochemistry, interpreted by a specialist. Never emit a Whipple
+      disease label, and never recommend the prolonged antibiotic course on
+      the basis of a stool sequence.
+  - seed_id: bacteria.mycobacterium_tuberculosis_complex
+    resolution_name: Mycobacterium tuberculosis
+    source_section: "8.1"
+    requested_name: Mycobacterium tuberculosis complex
+    display_name: Mycobacterium tuberculosis complex
+    aliases: [MTBC, M. tuberculosis complex, Mycobacterium tuberculosis, Mycobacterium bovis, Mycobacterium africanum]
+    group: bacteria
+    family: Mycobacterial watch
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: extraintestinal_watch_bacterium
+    confirmation_options: [specialist_referral, endoscopy_with_biopsy]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, tissue_restricted, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Extraintestinal/rare intestinal watch target held at complex level,
+      since MTBC members are separated by a handful of markers that stool
+      depth rarely resolves. No intestinal-tuberculosis diagnosis comes from
+      stool: intestinal TB needs biopsy, culture and validated clinical
+      assessment, and any signal here is an immediate specialist and
+      public-health referral rather than a report line about gut infection.
+      Swallowed respiratory material is possible, so stool DNA can reflect
+      material transiting from the airway rather than intestinal infection.
+      This target is an unexpected-detection watch item and never counts
+      toward the infections-excluded denominator.
+  - seed_id: bacteria.mycobacterium_avium_complex
+    resolution_name: Mycobacterium avium
+    source_section: "8.1"
+    requested_name: Mycobacterium avium complex
+    display_name: Mycobacterium avium complex
+    aliases: [M. avium complex, MAC, Mycobacterium avium, Mycobacterium avium subsp. paratuberculosis, Mycobacterium intracellulare, Mycobacterium chimaera]
+    group: bacteria
+    family: Mycobacterial watch
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: extraintestinal_watch_bacterium
+    confirmation_options: [specialist_referral, endoscopy_with_biopsy, blood_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, tissue_restricted, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Extraintestinal/rare intestinal watch target held at complex level. No
+      disseminated-MAC diagnosis comes from stool: disseminated disease is
+      established by blood or tissue culture in an appropriate
+      immunocompromised context. MAC is also an ordinary water and soil
+      organism, so stool reads may reflect ingested environmental material or
+      food. Swallowed respiratory material is possible, so stool DNA can
+      reflect material transiting from the airway rather than intestinal
+      infection. This target is an unexpected-detection watch item and never
+      counts toward the infections-excluded denominator.
+  - seed_id: bacteria.nontuberculous_mycobacteria_curated
+    resolution_name: Mycobacterium
+    source_section: "8.1"
+    requested_name: curated clinically relevant nontuberculous mycobacteria
+    display_name: Curated clinically relevant nontuberculous mycobacteria
+    aliases: [curated clinically relevant nontuberculous mycobacteria, NTM, nontuberculous mycobacteria, MOTT, mycobacteria other than tuberculosis]
+    group: bacteria
+    family: Mycobacterial watch
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: extraintestinal_watch_bacterium
+    confirmation_options: [specialist_referral, endoscopy_with_biopsy]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, tissue_restricted, low_abundance, reference_absent]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Group-level watch target for the curated clinically relevant NTM named
+      in the spec row. Members are added only by documented human-infection
+      relevance plus a tested reference update, so this seed deliberately
+      stays a group rather than an invented species list, and unexpanded
+      members remain documented reference gaps. Most NTM are environmental
+      water and soil organisms whose presence in stool is usually ingestion or
+      colonisation, not infection. Swallowed respiratory material is possible,
+      so stool DNA can reflect material transiting from the airway rather than
+      intestinal infection. This target is an unexpected-detection watch item
+      and never counts toward the infections-excluded denominator.
+  - seed_id: bacteria.klebsiella_pneumoniae_complex
+    resolution_name: Klebsiella pneumoniae
+    source_section: "8.1"
+    requested_name: Klebsiella pneumoniae complex
+    display_name: Klebsiella pneumoniae complex
+    aliases: [K. pneumoniae complex, KpSC, Klebsiella pneumoniae species complex]
+    group: bacteria
+    family: K. pneumoniae complex
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Complex-level target retained when reads distinguish the complex but not
+      its members. Opportunistic colonisation/reservoir finding: gut carriage
+      is common and detection does not require eradication, no decolonisation
+      should be implied, and virulence or resistance traits can be added only
+      as separately linked determinant evidence.
+  - seed_id: bacteria.klebsiella_pneumoniae
+    source_section: "8.1"
+    requested_name: Klebsiella pneumoniae
+    display_name: Klebsiella pneumoniae
+    aliases: [K. pneumoniae]
+    group: bacteria
+    family: K. pneumoniae complex
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    parent_seed_id: bacteria.klebsiella_pneumoniae_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Named member of the K. pneumoniae complex. Type species and the dominant
+      clinical member, spanning both classical opportunist and hypervirulent
+      lineages. Opportunistic colonisation/reservoir finding: gut carriage is
+      common and detection does not require eradication, no decolonisation
+      should be implied, and virulence or resistance traits can be added only
+      as separately linked determinant evidence.
+  - seed_id: bacteria.klebsiella_quasipneumoniae
+    source_section: "8.1"
+    requested_name: Klebsiella quasipneumoniae
+    display_name: Klebsiella quasipneumoniae
+    aliases: [K. quasipneumoniae]
+    group: bacteria
+    family: K. pneumoniae complex
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    parent_seed_id: bacteria.klebsiella_pneumoniae_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Named member of the K. pneumoniae complex. Frequently reported as K.
+      pneumoniae by older identification methods; subsp. quasipneumoniae and
+      subsp. similipneumoniae are not separable without adequate coverage.
+      Opportunistic colonisation/reservoir finding: gut carriage is common and
+      detection does not require eradication, no decolonisation should be
+      implied, and virulence or resistance traits can be added only as
+      separately linked determinant evidence.
+  - seed_id: bacteria.klebsiella_variicola
+    source_section: "8.1"
+    requested_name: Klebsiella variicola
+    display_name: Klebsiella variicola
+    aliases: [K. variicola]
+    group: bacteria
+    family: K. pneumoniae complex
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    parent_seed_id: bacteria.klebsiella_pneumoniae_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Named member of the K. pneumoniae complex. Plant-associated and clinical
+      lineages both exist; commonly misidentified as K. pneumoniae.
+      Opportunistic colonisation/reservoir finding: gut carriage is common and
+      detection does not require eradication, no decolonisation should be
+      implied, and virulence or resistance traits can be added only as
+      separately linked determinant evidence.
+  - seed_id: bacteria.klebsiella_aerogenes
+    source_section: "8.1"
+    requested_name: Klebsiella aerogenes
+    display_name: Klebsiella aerogenes
+    aliases: [K. aerogenes, Enterobacter aerogenes, Aerobacter aerogenes, Klebsiella mobilis]
+    group: bacteria
+    family: K. pneumoniae complex
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Added by the spec row as 'plus K. aerogenes' and therefore deliberately
+      given no parent_seed_id: despite the genus name it is not a member of
+      the K. pneumoniae species complex, and it was formerly named
+      Enterobacter aerogenes. Preserve that renaming as an alias rather than
+      as a second target. Opportunistic colonisation/reservoir finding: gut
+      carriage is common and detection does not require eradication, no
+      decolonisation should be implied, and virulence or resistance traits can
+      be added only as separately linked determinant evidence.
+  - seed_id: bacteria.enterobacter_cloacae_complex
+    resolution_name: Enterobacter cloacae
+    source_section: "8.1"
+    requested_name: resolved E. cloacae-complex members
+    display_name: Enterobacter cloacae complex
+    aliases: [resolved E. cloacae-complex members, ECC, Enterobacter cloacae species complex, E. cloacae complex]
+    group: bacteria
+    family: Enterobacter complex
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Complex-level parent for the named members plus the additional resolved
+      E. cloacae-complex members referenced by the spec row; further members
+      attach to this seed through parent_seed_id as references and
+      distinguishing evidence support them, and unresolved members remain
+      documented coverage gaps rather than absent rows. Conditional
+      opportunist: gut carriage is ordinary, and E. cloacae-complex members
+      are poorly separated by short reads, so report the complex when member
+      evidence is insufficient.
+  - seed_id: bacteria.enterobacter_cloacae
+    source_section: "8.1"
+    requested_name: Enterobacter cloacae
+    display_name: Enterobacter cloacae
+    aliases: []
+    group: bacteria
+    family: Enterobacter complex
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    parent_seed_id: bacteria.enterobacter_cloacae_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Named E. cloacae-complex member. Type species of the complex;
+      historically the label applied to the whole complex. Conditional
+      opportunist: gut carriage is ordinary, and E. cloacae-complex members
+      are poorly separated by short reads, so report the complex when member
+      evidence is insufficient.
+  - seed_id: bacteria.enterobacter_hormaechei
+    source_section: "8.1"
+    requested_name: Enterobacter hormaechei
+    display_name: Enterobacter hormaechei
+    aliases: [E. hormaechei]
+    group: bacteria
+    family: Enterobacter complex
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    parent_seed_id: bacteria.enterobacter_cloacae_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Named E. cloacae-complex member. The most common clinical complex
+      member, previously reported as E. cloacae. Conditional opportunist: gut
+      carriage is ordinary, and E. cloacae-complex members are poorly
+      separated by short reads, so report the complex when member evidence is
+      insufficient.
+  - seed_id: bacteria.enterobacter_asburiae
+    source_section: "8.1"
+    requested_name: Enterobacter asburiae
+    display_name: Enterobacter asburiae
+    aliases: [E. asburiae]
+    group: bacteria
+    family: Enterobacter complex
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    parent_seed_id: bacteria.enterobacter_cloacae_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Named E. cloacae-complex member. Complex member with environmental and
+      clinical isolates. Conditional opportunist: gut carriage is ordinary,
+      and E. cloacae-complex members are poorly separated by short reads, so
+      report the complex when member evidence is insufficient.
+  - seed_id: bacteria.enterobacter_kobei
+    source_section: "8.1"
+    requested_name: Enterobacter kobei
+    display_name: Enterobacter kobei
+    aliases: [E. kobei]
+    group: bacteria
+    family: Enterobacter complex
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    parent_seed_id: bacteria.enterobacter_cloacae_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Named E. cloacae-complex member. Complex member, uncommon as a named
+      clinical report. Conditional opportunist: gut carriage is ordinary, and
+      E. cloacae-complex members are poorly separated by short reads, so
+      report the complex when member evidence is insufficient.
+  - seed_id: bacteria.enterobacter_ludwigii
+    source_section: "8.1"
+    requested_name: Enterobacter ludwigii
+    display_name: Enterobacter ludwigii
+    aliases: [E. ludwigii]
+    group: bacteria
+    family: Enterobacter complex
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    parent_seed_id: bacteria.enterobacter_cloacae_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Named E. cloacae-complex member. Complex member described from clinical
+      and plant-associated sources. Conditional opportunist: gut carriage is
+      ordinary, and E. cloacae-complex members are poorly separated by short
+      reads, so report the complex when member evidence is insufficient.
+  - seed_id: bacteria.enterobacter_roggenkampii
+    source_section: "8.1"
+    requested_name: Enterobacter roggenkampii
+    display_name: Enterobacter roggenkampii
+    aliases: [E. roggenkampii]
+    group: bacteria
+    family: Enterobacter complex
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    parent_seed_id: bacteria.enterobacter_cloacae_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Named E. cloacae-complex member. Recently named complex member.
+      Conditional opportunist: gut carriage is ordinary, and E.
+      cloacae-complex members are poorly separated by short reads, so report
+      the complex when member evidence is insufficient.
+  - seed_id: bacteria.citrobacter_freundii_complex
+    source_section: "8.1"
+    requested_name: Citrobacter freundii complex
+    display_name: Citrobacter freundii complex
+    aliases: [C. freundii complex, Citrobacter freundii, Citrobacter freundii sensu lato]
+    group: bacteria
+    family: Other Enterobacterales
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Retained at complex level, since C. freundii, C. braakii, C. werkmanii
+      and their relatives are not reliably separated at achievable stool
+      depth. Conditional opportunist: presence in stool is common and is not
+      an enteric infection; interpretation depends on clinical context and on
+      separately linked determinant evidence, not on abundance.
+  - seed_id: bacteria.citrobacter_koseri
+    source_section: "8.1"
+    requested_name: Citrobacter koseri
+    display_name: Citrobacter koseri
+    aliases: [C. koseri, Citrobacter diversus]
+    group: bacteria
+    family: Other Enterobacterales
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Notable for neonatal meningitis and brain abscess, which stool detection
+      cannot diagnose; formerly C. diversus. Conditional opportunist: presence
+      in stool is common and is not an enteric infection; interpretation
+      depends on clinical context and on separately linked determinant
+      evidence, not on abundance.
+  - seed_id: bacteria.serratia_marcescens
+    source_section: "8.1"
+    requested_name: Serratia marcescens
+    display_name: Serratia marcescens
+    aliases: [S. marcescens]
+    group: bacteria
+    family: Other Enterobacterales
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Environmental and healthcare-associated organism; low-level reads can
+      also reflect reagent or environmental contamination, so batch controls
+      matter. Conditional opportunist: presence in stool is common and is not
+      an enteric infection; interpretation depends on clinical context and on
+      separately linked determinant evidence, not on abundance.
+  - seed_id: bacteria.proteus_mirabilis
+    source_section: "8.1"
+    requested_name: Proteus mirabilis
+    display_name: Proteus mirabilis
+    aliases: [P. mirabilis]
+    group: bacteria
+    family: Other Enterobacterales
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Ordinary gut resident whose main clinical niche is urinary tract
+      infection and urolithiasis, not enteric disease. Conditional
+      opportunist: presence in stool is common and is not an enteric
+      infection; interpretation depends on clinical context and on separately
+      linked determinant evidence, not on abundance.
+  - seed_id: bacteria.proteus_vulgaris
+    source_section: "8.1"
+    requested_name: Proteus vulgaris
+    display_name: Proteus vulgaris
+    aliases: [P. vulgaris]
+    group: bacteria
+    family: Other Enterobacterales
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Gut and environmental organism; keep distinct from P. mirabilis and P.
+      penneri. Conditional opportunist: presence in stool is common and is not
+      an enteric infection; interpretation depends on clinical context and on
+      separately linked determinant evidence, not on abundance.
+  - seed_id: bacteria.proteus_penneri
+    source_section: "8.1"
+    requested_name: Proteus penneri
+    display_name: Proteus penneri
+    aliases: [P. penneri, Proteus vulgaris biogroup 1]
+    group: bacteria
+    family: Other Enterobacterales
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Formerly Proteus vulgaris biogroup 1; uncommon as a named clinical
+      isolate. Conditional opportunist: presence in stool is common and is not
+      an enteric infection; interpretation depends on clinical context and on
+      separately linked determinant evidence, not on abundance.
+  - seed_id: bacteria.morganella_morganii
+    source_section: "8.1"
+    requested_name: Morganella morganii
+    display_name: Morganella morganii
+    aliases: [M. morganii, Proteus morganii]
+    group: bacteria
+    family: Other Enterobacterales
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Gut resident and occasional urinary or wound pathogen; also a histamine
+      producer relevant to scombroid food poisoning rather than to infection.
+      Conditional opportunist: presence in stool is common and is not an
+      enteric infection; interpretation depends on clinical context and on
+      separately linked determinant evidence, not on abundance.
+  - seed_id: bacteria.providencia_rettgeri
+    source_section: "8.1"
+    requested_name: Providencia rettgeri
+    display_name: Providencia rettgeri
+    aliases: [P. rettgeri]
+    group: bacteria
+    family: Other Enterobacterales
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Chiefly urinary and healthcare-associated; often intrinsically multidrug
+      resistant. Conditional opportunist: presence in stool is common and is
+      not an enteric infection; interpretation depends on clinical context and
+      on separately linked determinant evidence, not on abundance.
+  - seed_id: bacteria.providencia_stuartii
+    source_section: "8.1"
+    requested_name: Providencia stuartii
+    display_name: Providencia stuartii
+    aliases: [P. stuartii]
+    group: bacteria
+    family: Other Enterobacterales
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Chiefly catheter-associated urinary infection in long-term care; not an
+      enteric pathogen call. Conditional opportunist: presence in stool is
+      common and is not an enteric infection; interpretation depends on
+      clinical context and on separately linked determinant evidence, not on
+      abundance.
+  - seed_id: bacteria.hafnia_alvei
+    source_section: "8.1"
+    requested_name: Hafnia alvei
+    display_name: Hafnia alvei
+    aliases: []
+    group: bacteria
+    family: Other Enterobacterales
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Hafnia enteric attribution is explicitly uncertain in the spec row.
+      Historically linked to diarrhoea, but several such reports were later
+      shown to be Escherichia albertii; assess E. albertii independently
+      before any enteric statement. Report as an uncertain-role finding, never
+      as a cause of diarrhoea.
+  - seed_id: bacteria.hafnia_paralvei
+    source_section: "8.1"
+    requested_name: Hafnia paralvei
+    display_name: Hafnia paralvei
+    aliases: [H. paralvei]
+    group: bacteria
+    family: Other Enterobacterales
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Hafnia enteric attribution is explicitly uncertain in the spec row.
+      Split from H. alvei and not separable from it without adequate
+      discriminating coverage. Report as an uncertain-role finding, never as a
+      cause of diarrhoea.
+  - seed_id: bacteria.cronobacter_sakazakii
+    source_section: "8.1"
+    requested_name: Cronobacter sakazakii
+    display_name: Cronobacter sakazakii
+    aliases: [C. sakazakii, Enterobacter sakazakii]
+    group: bacteria
+    family: Cronobacter
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinical_stool_culture, specialist_referral, blood_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      The species responsible for most neonatal meningitis and sepsis cases;
+      formerly Enterobacter sakazakii. Opportunist with neonatal/invasive
+      context and no universal stool infection label: powdered infant formula
+      and dry foods are the classic vehicles, so stool reads in an older child
+      or adult usually reflect dietary or environmental exposure. Invasive
+      neonatal disease is diagnosed from blood or cerebrospinal fluid, and any
+      neonatal context makes this an urgent clinician decision.
+  - seed_id: bacteria.cronobacter_malonaticus
+    source_section: "8.1"
+    requested_name: Cronobacter malonaticus
+    display_name: Cronobacter malonaticus
+    aliases: [C. malonaticus]
+    group: bacteria
+    family: Cronobacter
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinical_stool_culture, specialist_referral, blood_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Split from C. sakazakii; more often reported from adults. Opportunist
+      with neonatal/invasive context and no universal stool infection label:
+      powdered infant formula and dry foods are the classic vehicles, so stool
+      reads in an older child or adult usually reflect dietary or
+      environmental exposure. Invasive neonatal disease is diagnosed from
+      blood or cerebrospinal fluid, and any neonatal context makes this an
+      urgent clinician decision.
+  - seed_id: bacteria.cronobacter_turicensis
+    source_section: "8.1"
+    requested_name: Cronobacter turicensis
+    display_name: Cronobacter turicensis
+    aliases: [C. turicensis]
+    group: bacteria
+    family: Cronobacter
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinical_stool_culture, specialist_referral, blood_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Rare species with documented neonatal invasive infection. Opportunist
+      with neonatal/invasive context and no universal stool infection label:
+      powdered infant formula and dry foods are the classic vehicles, so stool
+      reads in an older child or adult usually reflect dietary or
+      environmental exposure. Invasive neonatal disease is diagnosed from
+      blood or cerebrospinal fluid, and any neonatal context makes this an
+      urgent clinician decision.
+  - seed_id: bacteria.pseudomonas_aeruginosa
+    source_section: "8.1"
+    requested_name: Pseudomonas aeruginosa
+    display_name: Pseudomonas aeruginosa
+    aliases: [P. aeruginosa]
+    group: bacteria
+    family: Nonfermenters
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Genuine gut colonisation occurs, especially after broad-spectrum
+      antibiotics and in intensive care, and the gut can act as a reservoir
+      for later infection elsewhere. Colonisation, environmental contamination
+      and infection must be distinguished: these organisms live in water and
+      on wet surfaces, low-level reads can come from kit, water or reagent
+      contamination and must be checked against batch controls, and gut
+      colonisation - common after antibiotics or in hospitalised patients - is
+      not an infection.
+  - seed_id: bacteria.acinetobacter_baumannii_calcoaceticus_complex
+    source_section: "8.1"
+    requested_name: Acinetobacter baumannii–calcoaceticus complex
+    display_name: Acinetobacter baumannii–calcoaceticus complex
+    aliases: [Acb complex, Acinetobacter calcoaceticus-baumannii complex, Acinetobacter baumannii, Acinetobacter nosocomialis, Acinetobacter pittii]
+    group: bacteria
+    family: Nonfermenters
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Retained at complex level because A. baumannii, A. nosocomialis, A.
+      pittii and A. calcoaceticus are not reliably separated at achievable
+      stool depth; report the complex plus the member gap rather than naming
+      A. baumannii by default. Colonisation, environmental contamination and
+      infection must be distinguished: these organisms live in water and on
+      wet surfaces, low-level reads can come from kit, water or reagent
+      contamination and must be checked against batch controls, and gut
+      colonisation - common after antibiotics or in hospitalised patients - is
+      not an infection.
+  - seed_id: bacteria.stenotrophomonas_maltophilia
+    source_section: "8.1"
+    requested_name: Stenotrophomonas maltophilia
+    display_name: Stenotrophomonas maltophilia
+    aliases: [Pseudomonas maltophilia, Xanthomonas maltophilia, S. maltophilia]
+    group: bacteria
+    family: Nonfermenters
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Ubiquitous water and plant-associated organism; it is a real opportunist
+      in immunocompromised and device-exposed patients but is also one of the
+      most common laboratory and water-borne contaminants. Colonisation,
+      environmental contamination and infection must be distinguished: these
+      organisms live in water and on wet surfaces, low-level reads can come
+      from kit, water or reagent contamination and must be checked against
+      batch controls, and gut colonisation - common after antibiotics or in
+      hospitalised patients - is not an infection.
+  - seed_id: bacteria.burkholderia_cepacia_complex
+    source_section: "8.1"
+    requested_name: Burkholderia cepacia complex
+    display_name: Burkholderia cepacia complex
+    aliases: [Bcc, B. cepacia complex, Burkholderia cenocepacia, Burkholderia multivorans, Pseudomonas cepacia]
+    group: bacteria
+    family: Nonfermenters
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Retained at complex level: the roughly twenty Bcc genomovars are not
+      separable at achievable stool depth, and the clinically weighty species
+      distinctions (notably B. cenocepacia in cystic fibrosis) therefore
+      cannot be asserted. It is also a well-known contaminant of aqueous
+      products and disinfectants. Colonisation, environmental contamination
+      and infection must be distinguished: these organisms live in water and
+      on wet surfaces, low-level reads can come from kit, water or reagent
+      contamination and must be checked against batch controls, and gut
+      colonisation - common after antibiotics or in hospitalised patients - is
+      not an infection.
+  - seed_id: bacteria.achromobacter_xylosoxidans
+    source_section: "8.1"
+    requested_name: Achromobacter xylosoxidans
+    display_name: Achromobacter xylosoxidans
+    aliases: [Alcaligenes xylosoxidans, Achromobacter xylosoxidans subsp. xylosoxidans]
+    group: bacteria
+    family: Nonfermenters
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, clinical_stool_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Water-associated opportunist of cystic fibrosis and immunocompromised
+      patients; frequently misidentified among Achromobacter species, so a
+      genus-level result is often the defensible one. Colonisation,
+      environmental contamination and infection must be distinguished: these
+      organisms live in water and on wet surfaces, low-level reads can come
+      from kit, water or reagent contamination and must be checked against
+      batch controls, and gut colonisation - common after antibiotics or in
+      hospitalised patients - is not an infection.
+  - seed_id: bacteria.enterococcus_faecalis
+    source_section: "8.1"
+    requested_name: Enterococcus faecalis
+    display_name: Enterococcus faecalis
+    aliases: []
+    group: bacteria
+    family: Enterococci
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Most abundant enterococcus in the healthy gut; acquired vanA/vanB, when
+      linked, is the reportable resistance event. Conditional opportunist and
+      an ordinary dominant member of the gut flora: detection is expected, not
+      a finding. Intrinsic and acquired AMR must be reported separately.
+  - seed_id: bacteria.enterococcus_faecium
+    source_section: "8.1"
+    requested_name: Enterococcus faecium
+    display_name: Enterococcus faecium
+    aliases: [E. faecium]
+    group: bacteria
+    family: Enterococci
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Hospital-adapted clade A1 lineages carry most acquired glycopeptide
+      resistance, but the species call alone does not identify the lineage.
+      Conditional opportunist and an ordinary dominant member of the gut
+      flora: detection is expected, not a finding. Intrinsic and acquired AMR
+      must be reported separately.
+  - seed_id: bacteria.enterococcus_gallinarum
+    source_section: "8.1"
+    requested_name: Enterococcus gallinarum
+    display_name: Enterococcus gallinarum
+    aliases: [E. gallinarum]
+    group: bacteria
+    family: Enterococci
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Carries the intrinsic, chromosomal vanC-1 operon: this must never be
+      reported as acquired glycopeptide resistance or as a VRE finding.
+      Conditional opportunist and an ordinary dominant member of the gut
+      flora: detection is expected, not a finding. Intrinsic and acquired AMR
+      must be reported separately.
+  - seed_id: bacteria.enterococcus_casseliflavus
+    source_section: "8.1"
+    requested_name: Enterococcus casseliflavus
+    display_name: Enterococcus casseliflavus
+    aliases: [E. casseliflavus]
+    group: bacteria
+    family: Enterococci
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Carries the intrinsic vanC-2/vanC-3 operon, with the same requirement to
+      separate intrinsic from acquired resistance. Conditional opportunist and
+      an ordinary dominant member of the gut flora: detection is expected, not
+      a finding. Intrinsic and acquired AMR must be reported separately.
+  - seed_id: bacteria.streptococcus_agalactiae
+    source_section: "8.1"
+    requested_name: Streptococcus agalactiae
+    display_name: Streptococcus agalactiae
+    aliases: [group B Streptococcus, GBS, S. agalactiae]
+    group: bacteria
+    family: Other Gram-positive opportunists
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Gastrointestinal and rectovaginal carriage is common and is the normal
+      reservoir; a stool finding is not neonatal or invasive GBS disease, and
+      it does not substitute for guideline-directed antenatal screening, which
+      uses its own specimen and timing. Conditional stool finding, not an
+      invasive-disease diagnosis: these organisms occur in normal gut flora
+      and their invasive syndromes are established by blood or tissue culture
+      with clinical assessment.
+  - seed_id: bacteria.streptococcus_anginosus_group
+    source_section: "8.1"
+    requested_name: Streptococcus anginosus group
+    display_name: Streptococcus anginosus group
+    aliases: [S. anginosus group, Streptococcus milleri group, Streptococcus anginosus, Streptococcus intermedius, Streptococcus constellatus, SAG]
+    group: bacteria
+    family: Other Gram-positive opportunists
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Group-level target as named in the spec row; S. anginosus, S.
+      intermedius and S. constellatus are members whose abscess-forming
+      tendencies differ but which are commonly unresolved from short reads.
+      Conditional stool finding, not an invasive-disease diagnosis: these
+      organisms occur in normal gut flora and their invasive syndromes are
+      established by blood or tissue culture with clinical assessment.
+  - seed_id: bacteria.streptococcus_gallolyticus_group
+    source_section: "8.1"
+    requested_name: Streptococcus gallolyticus group
+    display_name: Streptococcus gallolyticus group
+    aliases: [S. gallolyticus group, Streptococcus bovis group, Streptococcus gallolyticus, Streptococcus gallolyticus subsp. gallolyticus, Streptococcus infantarius]
+    group: bacteria
+    family: Other Gram-positive opportunists
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_Pathogen_Detection"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture, blood_culture, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Group-level target as named in the spec row, formerly the S. bovis
+      group. The recognised association between subsp. gallolyticus
+      bacteraemia or endocarditis and colorectal neoplasia can be cross-linked
+      as existing evidence, but a stool detection is not a cancer finding, not
+      an endocarditis finding, and not an indication for colonoscopy by
+      itself. Conditional stool finding, not an invasive-disease diagnosis:
+      these organisms occur in normal gut flora and their invasive syndromes
+      are established by blood or tissue culture with clinical assessment.
+  - seed_id: bacteria.clostridium_innocuum
+    source_section: "8.1"
+    requested_name: Clostridium innocuum
+    display_name: Clostridium innocuum
+    aliases: []
+    group: bacteria
+    family: Other Gram-positive opportunists
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Intrinsically vancomycin-resistant and increasingly reported in
+      antibiotic-associated diarrhoea, including after C. difficile treatment;
+      the intrinsic resistance must not be reported as an acquired
+      determinant. Conditional stool finding, not an invasive-disease
+      diagnosis: these organisms occur in normal gut flora and their invasive
+      syndromes are established by blood or tissue culture with clinical
+      assessment.
+  - seed_id: bacteria.clostridium_tertium
+    source_section: "8.1"
+    requested_name: Clostridium tertium
+    display_name: Clostridium tertium
+    aliases: [C. tertium]
+    group: bacteria
+    family: Other Gram-positive opportunists
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Aerotolerant clostridium reported in neutropenic bacteraemia and
+      enterocolitis; ordinary stool presence is unremarkable. Conditional
+      stool finding, not an invasive-disease diagnosis: these organisms occur
+      in normal gut flora and their invasive syndromes are established by
+      blood or tissue culture with clinical assessment.
+  - seed_id: bacteria.clostridium_septicum
+    source_section: "8.1"
+    requested_name: Clostridium septicum
+    display_name: Clostridium septicum
+    aliases: [C. septicum]
+    group: bacteria
+    family: Other Gram-positive opportunists
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [blood_culture, clinician_selected_stool_NAAT_or_culture, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, low_abundance]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Bacteraemia and neutropenic enterocolitis with a strong recognised
+      association with colonic neoplasia; that association is a
+      clinician-directed workup trigger only when there is a positive blood
+      culture and a clinical syndrome, never on a stool sequence alone.
+      Conditional stool finding, not an invasive-disease diagnosis: these
+      organisms occur in normal gut flora and their invasive syndromes are
+      established by blood or tissue culture with clinical assessment.
+  - seed_id: bacteria.bacteroides_fragilis_group
+    resolution_name: Bacteroides fragilis
+    source_section: "8.1"
+    requested_name: Bacteroides fragilis group
+    display_name: Bacteroides fragilis group
+    aliases: [B. fragilis group, Bacteroides fragilis, Bacteroides sensu stricto group]
+    group: bacteria
+    family: Anaerobic pathobionts
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://pmc.ncbi.nlm.nih.gov/articles/PMC4922554/"]
+    note: >-
+      Group-level target covering B. fragilis and its close relatives, which
+      are ordinary and often dominant gut anaerobes; they are also the
+      commonest anaerobes in intra-abdominal infection, which is a clinical
+      and not a stool-sequence diagnosis. The toxin-defined ETBF target is a
+      separate seed (bacteria.bacteroides_fragilis_etbf) and requires bft
+      family evidence with strain linkage; abundance here never implies it.
+      Existing ecological and disease associations can be cross-linked, but
+      ordinary detection is not a pathogen red flag: this organism belongs to
+      the normal gut or oral community and must not be surfaced as an
+      infection, a risk score or a treatment trigger.
+  - seed_id: bacteria.fusobacterium_nucleatum
+    source_section: "8.1"
+    requested_name: Fusobacterium nucleatum
+    display_name: Fusobacterium nucleatum
+    aliases: []
+    group: bacteria
+    family: Anaerobic pathobionts
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Oral commensal with a well-documented enrichment in colorectal cancer
+      tissue; the subspecies distinctions that carry most of that signal,
+      notably subsp. animalis, are usually unresolved from stool short reads.
+      Cross-link the mechanism literature without producing a cancer risk
+      statement. Existing ecological and disease associations can be
+      cross-linked, but ordinary detection is not a pathogen red flag: this
+      organism belongs to the normal gut or oral community and must not be
+      surfaced as an infection, a risk score or a treatment trigger.
+  - seed_id: bacteria.fusobacterium_necrophorum
+    source_section: "8.1"
+    requested_name: Fusobacterium necrophorum
+    display_name: Fusobacterium necrophorum
+    aliases: [F. necrophorum]
+    group: bacteria
+    family: Anaerobic pathobionts
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Best known for Lemierre syndrome and severe pharyngeal infection rather
+      than enteric disease; stool detection has no established enteric
+      meaning. Existing ecological and disease associations can be
+      cross-linked, but ordinary detection is not a pathogen red flag: this
+      organism belongs to the normal gut or oral community and must not be
+      surfaced as an infection, a risk score or a treatment trigger.
+  - seed_id: bacteria.parvimonas_micra
+    source_section: "8.1"
+    requested_name: Parvimonas micra
+    display_name: Parvimonas micra
+    aliases: [Peptostreptococcus micros, Micromonas micra]
+    group: bacteria
+    family: Anaerobic pathobionts
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Oral anaerobe, formerly Peptostreptococcus micros and Micromonas micra,
+      reported in colorectal-lesion microbiota and in occasional deep
+      infections. Existing ecological and disease associations can be
+      cross-linked, but ordinary detection is not a pathogen red flag: this
+      organism belongs to the normal gut or oral community and must not be
+      surfaced as an infection, a risk score or a treatment trigger.
+  - seed_id: bacteria.peptostreptococcus_anaerobius
+    source_section: "8.1"
+    requested_name: Peptostreptococcus anaerobius
+    display_name: Peptostreptococcus anaerobius
+    aliases: []
+    group: bacteria
+    family: Anaerobic pathobionts
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Normal-flora anaerobe with reported colorectal-neoplasia associations;
+      not an established enteric pathogen. Existing ecological and disease
+      associations can be cross-linked, but ordinary detection is not a
+      pathogen red flag: this organism belongs to the normal gut or oral
+      community and must not be surfaced as an infection, a risk score or a
+      treatment trigger.
+  - seed_id: bacteria.mediterraneibacter_gnavus
+    resolution_name: Mediterraneibacter gnavus
+    source_section: "8.1"
+    requested_name: Ruminococcus/Mediterraneibacter gnavus
+    display_name: Mediterraneibacter gnavus
+    aliases: [Ruminococcus/Mediterraneibacter gnavus, Ruminococcus gnavus, Blautia gnavus]
+    group: bacteria
+    family: Anaerobic pathobionts
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "NCBI_RefSeq"]
+    report_template_id: opportunistic_bacterium
+    confirmation_options: [clinician_selected_stool_NAAT_or_culture]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      The slash in the spec row is a renaming, so Ruminococcus gnavus and
+      Mediterraneibacter gnavus are aliases of one canonical organism, not two
+      targets. It is a common gut commensal with reported enrichment in
+      inflammatory bowel disease and an inflammatory glucorhamnan
+      polysaccharide; that is ecological context for the dysbiosis modules.
+      Existing ecological and disease associations can be cross-linked, but
+      ordinary detection is not a pathogen red flag: this organism belongs to
+      the normal gut or oral community and must not be surfaced as an
+      infection, a risk score or a treatment trigger.

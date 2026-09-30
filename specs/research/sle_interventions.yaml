@@ -1,0 +1,1262 @@
+# Research dossier: intervention evidence base for a systemic lupus
+# erythematosus (SLE) gut-microbiome report section.
+#
+# Scope and standard of proof
+# ---------------------------
+# Every entry below was checked against the primary source before being
+# written. `studied_in` records the highest evidence tier that actually
+# supports the entry, not the tier the authors' framing implies. Where the
+# literature is animal-only, the entry says so in the effect text as well as
+# in the field, so that the wording cannot be lifted into a report and read
+# as a human result.
+#
+# The dominant honest finding of this dossier is negative: the microbiome-
+# directed lupus literature is overwhelmingly murine, and the two human
+# trials that look positive rest on before/after comparisons inside one
+# treatment arm rather than on comparisons between arms. See
+# `overall_assessment` at the foot of this file.
+#
+# This is an evidence base, not a protocol. No entry is a recommendation and
+# no combination of entries is a regimen.
+
+version: 1
+condition: systemic_lupus_erythematosus
+
+safety_frame: >
+  Lupus is a serious autoimmune disease that damages organs, including the
+  kidneys, and it is treated with prescription medicines — most often
+  hydroxychloroquine, and depending on the case steroids, immunosuppressants
+  such as mycophenolate, or biologic drugs such as belimumab or anifrolumab.
+  Those medicines are the treatment. Nothing in this section is an
+  alternative to them, and nothing here should be used as a reason to reduce,
+  delay, stop or skip them, or to put off seeing your rheumatology team.
+  Stopping lupus treatment can lead to a flare and to permanent organ damage,
+  and that risk is real even if you feel well at the time. This section exists
+  for one narrower purpose: to set out, honestly, what researchers have
+  actually studied about diet, supplements and gut bacteria in lupus, and how
+  weak most of that evidence still is. Nearly all of it comes from mice, not
+  people. Where human trials exist they are small and short, and most measured
+  blood markers rather than whether anyone got better in the long run. One
+  important finding runs the other way: in lupus-prone mice a common probiotic
+  bacterium, Lactobacillus reuteri, made the disease worse, so the usual
+  assumption that a probiotic is harmless does not hold in lupus. Because many
+  lupus treatments suppress the immune system, live bacterial products carry a
+  real infection risk for some patients. Please treat everything in this
+  section as questions to raise with your own rheumatologist, who knows your
+  kidneys, your medicines and your history, rather than as steps to take on
+  your own.
+
+interventions:
+
+  # ------------------------------------------------------------------
+  # 1. Diet and microbiome-directed interventions studied in SLE
+  # ------------------------------------------------------------------
+
+  - intervention_id: sle_resistant_starch
+    name: Resistant starch (dietary)
+    category: diet
+    studied_in: animal_model
+    direction: benefit
+    what_was_measured: >
+      Abundance and translocation of Lactobacillus reuteri to internal organs,
+      plasmacytoid dendritic cell numbers, interferon-pathway gene signatures,
+      organ involvement and mortality. All in mice. No human clinical endpoint
+      was measured.
+    population: >
+      Toll-like receptor 7 (TLR7)-dependent mouse models of SLE, studied under
+      both specific-pathogen-free and gnotobiotic (germ-free-derived)
+      conditions. No humans were given resistant starch in this study. The
+      same paper separately observed faecal enrichment of Lactobacillus in a
+      subset of human SLE patients, which was an observation, not a trial.
+    effect: >
+      In these mice, a resistant-starch diet suppressed both the abundance and
+      the organ translocation of L. reuteri, an effect the authors traced to
+      short-chain fatty acids inhibiting the organism's growth. It also
+      lowered plasmacytoid dendritic cells and interferon-pathway activity, and
+      reduced organ involvement and death. This is a mouse result. Whether
+      eating resistant starch changes anything for a person with lupus has not
+      been tested.
+    dose_studied: >
+      Resistant-starch-supplemented mouse chow. No human dose has ever been
+      established or tested in lupus, so no human dose is stated here.
+    microbiome_relevance: >
+      Acts through the microbiome. This is one of the few entries where the
+      microbiome is the proposed mechanism rather than a measured side
+      observation: the benefit was attributed to short-chain fatty acids
+      suppressing a specific pathobiont.
+    citation_title: "A Diet-Sensitive Commensal Lactobacillus Strain Mediates TLR7-Dependent Systemic Autoimmunity"
+    citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6377154/"
+    caution: >
+      Mouse evidence only. Resistant starch is fermented in the colon and
+      commonly causes wind, bloating and cramping, which matters more if you
+      already have gut symptoms from lupus or from mycophenolate. It has no
+      demonstrated effect on lupus disease activity, autoantibodies or kidney
+      function in people, and it does not substitute for any lupus medicine.
+    clinician_required: true
+
+  - intervention_id: sle_mediterranean_diet
+    name: Mediterranean diet (adherence)
+    category: diet
+    studied_in: human_observational
+    direction: benefit
+    what_was_measured: >
+      SLEDAI-2K disease activity, SLICC/ACR and SDI damage accrual scores,
+      high-sensitivity CRP, homocysteine, and cardiovascular risk factors
+      including obesity, diabetes, hypertension and blood lipids. Diet was
+      measured by a 14-item adherence questionnaire. The microbiome was not
+      measured.
+    population: >
+      280 adults with SLE, mean age 46.9 years, in a single cross-sectional
+      study across several Spanish hospitals. Patients were on their usual
+      treatment; the study did not randomise or change anyone's diet.
+    effect: >
+      Greater reported adherence to a Mediterranean diet was associated with
+      lower disease activity and lower damage scores (both p <= 0.001), lower
+      hsCRP, and fewer cardiovascular risk factors. Because this is a
+      snapshot taken at one point in time, it cannot show that the diet caused
+      the lower disease activity. The reverse explanation is at least as
+      plausible: people with milder, better-controlled lupus and less fatigue
+      may find it easier to shop for and cook this way. The authors themselves
+      call for longitudinal studies.
+    dose_studied: >
+      Not a dose. Adherence scored 0-14 on a 14-item food-frequency
+      questionnaire; higher scores indicated greater adherence.
+    microbiome_relevance: >
+      Alongside the microbiome, not through it. This study did not sequence or
+      measure the gut microbiome at all. Any microbiome mechanism is inference
+      from other literature, not something this study supports.
+    citation_title: "Beneficial effect of Mediterranean diet on disease activity and cardiovascular risk in systemic lupus erythematosus patients: a cross-sectional study"
+    citation_url: "https://pubmed.ncbi.nlm.nih.gov/32594173/"
+    caution: >
+      Cross-sectional association only; direction of causation is unknown. A
+      Mediterranean-style diet is broadly sensible for cardiovascular health,
+      which matters in lupus because cardiovascular risk is genuinely raised.
+      That is a different and more defensible claim than saying it treats
+      lupus, which this study does not show. It is not a substitute for any
+      lupus medicine. Anyone with lupus nephritis may have specific dietary
+      restrictions on protein, potassium, phosphate or salt that override
+      general dietary advice.
+    clinician_required: true
+
+  - intervention_id: sle_vitamin_d
+    name: Vitamin D supplementation
+    category: nutrient
+    studied_in: human_rct
+    direction: benefit
+    what_was_measured: >
+      Pooled across trials: serum 25-hydroxyvitamin D status, composite
+      disease-activity scores, complement C3 and C4, erythrocyte
+      sedimentation rate, fatigue severity, and anti-double-stranded-DNA
+      antibody levels and positivity rates. Most of these are laboratory
+      surrogates rather than outcomes a patient would feel.
+    population: >
+      Meta-analysis of 10 randomised controlled trials with 847 participants
+      in total with SLE, searched to March 2025. Participants were on standard
+      lupus treatment; supplementation was studied as an add-on, not a
+      replacement. Individual trials were small.
+    effect: >
+      Vitamin D raised 25(OH)D levels substantially, as expected
+      (SMD 3.46, p < 0.001), and was associated with a moderate reduction in
+      disease activity (SMD -0.54, p < 0.001) and improvements in complement
+      C3 (MD 14.49, p = 0.03) and C4 (SMD 2.08, p = 0.04). Results were null
+      for erythrocyte sedimentation rate (p = 0.24), for fatigue severity
+      (p = 0.07) and for anti-dsDNA antibody levels (p = 0.82). The reviewers'
+      own conclusion is hedged: evidence for outcomes other than disease
+      activity and complement "remains inconsistent, warranting further
+      high-quality trials". Note also that the trials pooled here used
+      different doses, durations and activity indices.
+    dose_studied: >
+      Doses and durations varied across the 10 pooled trials and no single
+      regimen can be quoted for the pooled estimate. Individual doses reported
+      in this literature range from routine daily supplementation to weekly
+      high-dose cholecalciferol. A specific dose should come from the treating
+      clinician, not from this dossier.
+    microbiome_relevance: >
+      Alongside the microbiome, not through it. No trial in this meta-analysis
+      measured the gut microbiome. A dedicated search for vitamin D plus gut
+      microbiome in SLE returned no primary study. Vitamin D is included here
+      because it is the best-evidenced nutrient intervention in SLE, not
+      because it is microbiome-directed.
+    citation_title: "Effects of vitamin D supplementation on patients with systemic lupus erythematosus: A systematic review and meta-analysis"
+    citation_url: "https://pubmed.ncbi.nlm.nih.gov/41951148/"
+    caution: >
+      Vitamin D insufficiency is very common in lupus, partly because
+      patients are advised to avoid sun exposure and partly because steroids
+      affect bone. For that reason vitamin D is often already part of standard
+      rheumatology care, particularly for bone protection in people on
+      steroids — so this is frequently not a new intervention but a check on
+      one you may already be receiving. Vitamin D is fat-soluble and
+      accumulates; excessive intake causes raised blood calcium, which can
+      damage the kidneys. That risk is not theoretical in a disease that
+      already threatens the kidneys. Anyone with lupus nephritis, kidney
+      impairment, a history of kidney stones, sarcoidosis or raised calcium
+      needs blood levels checked and dosing supervised. It does not reduce the
+      need for hydroxychloroquine or any other lupus medicine.
+    clinician_required: true
+
+  - intervention_id: sle_omega3_pooled
+    name: Omega-3 fatty acids (pooled randomised evidence)
+    category: nutrient
+    studied_in: human_rct
+    direction: benefit
+    what_was_measured: >
+      SLE disease activity, pooled as standardised mean difference and then
+      re-expressed on the SLEDAI scale.
+    population: >
+      Meta-analysis of 5 randomised controlled trials in adults with SLE: 138
+      participants in treatment groups and 136 in comparison groups. Mean age
+      43 years; 80% or more female. Follow-up ranged from 12 to 52 weeks.
+      Participants remained on their immunosuppressive regimens.
+    effect: >
+      Omega-3 supplementation reduced disease activity by 0.33 standardised
+      units (95% CI -0.57 to -0.09), which the authors translate to 0.9 SLEDAI
+      points (95% CI -1.6 to -0.3) versus placebo. The reviewers graded this
+      as low-certainty evidence. A 0.9-point SLEDAI change is small; it is
+      near the granularity of the instrument itself and is not obviously
+      something a patient would notice. The honest reading is a small, real
+      but low-certainty average effect built from five small trials with
+      conflicting individual findings.
+    dose_studied: "All included trials used 3 g per day or less of omega-3 fatty acids; follow-up 12 to 52 weeks."
+    microbiome_relevance: >
+      Alongside the microbiome, not through it. None of the pooled trials
+      measured the gut microbiome. The proposed mechanism is direct
+      modulation of inflammatory lipid mediators.
+    citation_title: "Effect of omega-3 fatty acids on systemic lupus erythematosus disease activity: A systematic review and meta-analysis"
+    citation_url: "https://pubmed.ncbi.nlm.nih.gov/33131703/"
+    caution: >
+      Low-certainty evidence and a small effect size. Omega-3 at these doses
+      has a mild antiplatelet effect, which matters specifically in lupus:
+      many patients have antiphospholipid antibodies and are on warfarin, a
+      direct oral anticoagulant or aspirin, and some have low platelets from
+      the disease itself. That combination needs a clinician's judgement
+      before adding fish oil. It is an add-on studied on top of
+      immunosuppression, never instead of it.
+    clinician_required: true
+
+  - intervention_id: sle_krill_oil
+    name: Krill oil concentrate (omega-3)
+    category: nutrient
+    studied_in: human_rct
+    direction: "null"
+    what_was_measured: >
+      The primary endpoint was the red blood cell Omega-3 Index — a surrogate
+      measure of omega-3 status, not a measure of lupus. SLEDAI-2K disease
+      activity was a secondary observation.
+    population: >
+      78 adults with active SLE across multiple centres, randomised 39 per
+      group to krill oil concentrate or a vegetable-oil placebo for 24 weeks,
+      with an optional open-label extension to 48 weeks. Participants stayed
+      on standard therapy. Funded and co-authored by the krill oil
+      manufacturer.
+    effect: >
+      The supplement did what a supplement should: it corrected omega-3
+      deficiency, raising the Omega-3 Index from a mean 4.43% at baseline to
+      7.17% at 4 weeks and 8.05% at 24 weeks, with no change on placebo. On
+      lupus itself the trial was null — the paper states plainly that there
+      were no changes in disease activity in the study population overall. A
+      SLEDAI-2K reduction was seen only in a post-hoc subgroup with baseline
+      SLEDAI-2K of 9 or more, and that subgroup contained 9 patients per group.
+      A 9-versus-9 subgroup finding in an industry-funded trial that was null
+      overall is a hypothesis, not a result. The supplement was well tolerated
+      with no significant safety concerns.
+    dose_studied: "4 g per day krill oil concentrate for 24 weeks (randomised phase), versus vegetable-oil placebo."
+    microbiome_relevance: >
+      Not microbiome-related. The gut microbiome was not measured. Included
+      here because it is a null result on the clinical endpoint and null
+      results are evidence.
+    citation_title: "Correction of omega-3 fatty acid deficiency and improvement in disease activity in patients with systemic lupus erythematosus treated with krill oil concentrate: a multicentre, randomised, double-blind, placebo-controlled trial"
+    citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC11268053/"
+    caution: >
+      Correcting a laboratory index is not the same as treating lupus, and
+      this trial is a clean demonstration of that gap. Same antiplatelet and
+      anticoagulant interaction considerations as other omega-3 products.
+      Krill is a shellfish-derived product and is unsuitable for people with
+      shellfish allergy.
+    clinician_required: true
+
+  - intervention_id: sle_fish_oil_fatigue
+    name: Fish oil for fatigue and quality of life
+    category: nutrient
+    studied_in: human_rct
+    direction: "null"
+    what_was_measured: >
+      RAND Short Form-36 quality of life, Fatigue Severity Scale, SLEDAI,
+      Physician Global Assessment, and serum inflammatory mediators, at
+      baseline and 6 months.
+    population: >
+      50 adults with SLE recruited from outpatient clinics, randomised 1:1 to
+      fish oil or olive oil placebo. Only 32 completed the study — a 36% loss,
+      which materially weakens the result. Patients were on usual care.
+    effect: >
+      Mixed and largely null on the measures that matter most. Physician
+      Global Assessment improved in the fish oil group (p = 0.015), and
+      erythrocyte sedimentation rate fell (p = 0.008). But there was no clear
+      difference in the Fatigue Severity Scale (p = 0.350) or in SLEDAI
+      (p = 0.417), despite fatigue being the trial's stated motivation.
+      SF-36 energy/fatigue and emotional wellbeing showed only non-significant
+      trends (p = 0.092 and p = 0.070). So the trial did not demonstrate the
+      fatigue benefit it set out to find.
+    dose_studied: >
+      Fish oil versus olive oil placebo for 6 months. The specific EPA/DHA
+      content per day is not stated in the trial abstract and is not
+      reproduced here rather than guessed.
+    microbiome_relevance: >
+      Not microbiome-related. The gut microbiome was not measured.
+    citation_title: "Placebo-controlled randomized clinical trial of fish oil's impact on fatigue, quality of life, and disease activity in Systemic Lupus Erythematosus"
+    citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC4538741/"
+    caution: >
+      Small, with high attrition, and null on fatigue and on disease activity.
+      Reporting this as "fish oil helps lupus fatigue" would misstate it. Same
+      bleeding-risk considerations as other omega-3 products, which is
+      especially relevant with antiphospholipid antibodies or
+      thrombocytopenia.
+    clinician_required: true
+
+  - intervention_id: sle_dietary_sodium
+    name: Dietary sodium (salt) load
+    category: diet
+    studied_in: animal_model
+    direction: harm
+    what_was_measured: >
+      Lupus progression in mice: autoantibody production, proinflammatory
+      cytokines, splenomegaly and lymphadenopathy, renal histopathology, and
+      dendritic cell maturation and activation. In mice and in cell culture.
+    population: >
+      An induced murine lupus model in which bone-marrow-derived dendritic
+      cells were incubated with activated lymphocyte-derived DNA and
+      transferred into C57BL/6 recipient mice, plus in vitro work on dendritic
+      cells. No humans, and no human trial of salt restriction in lupus
+      exists.
+    effect: >
+      A high-salt diet markedly worsened lupus progression in this model, with
+      increased dendritic cell activation, more autoantibody and
+      proinflammatory cytokine production, more pronounced splenomegaly and
+      lymphadenopathy, and worse kidney lesions. The authors traced this to
+      p38 MAPK-STAT1 signalling in dendritic cells. Note carefully what this
+      does and does not show: it shows that excess salt worsened disease in a
+      mouse model. It does not show that restricting salt improves lupus in
+      people, which has not been tested.
+    dose_studied: >
+      High-salt mouse chow and NaCl in cell culture. No human sodium target
+      has been tested for lupus disease activity, so none is stated.
+    microbiome_relevance: >
+      Not through the microbiome in this study. The gut microbiome was not the
+      mechanism investigated or reported; the pathway described was dendritic
+      cell activation via p38 MAPK-STAT1. Salt-microbiome interactions
+      reported in other autoimmune and hypertension models were not
+      established here for lupus.
+    citation_title: "High salt diet accelerates the progression of murine lupus through dendritic cells via the p38 MAPK and STAT1 signaling pathways"
+    citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC7145808/"
+    caution: >
+      Animal evidence, and it is evidence about excess salt rather than
+      evidence for a salt-restriction treatment. Moderating salt intake is
+      already standard advice for anyone with high blood pressure, kidney
+      involvement or steroid-related fluid retention, all common in lupus, and
+      that advice stands on its own footing. Severe sodium restriction is not
+      harmless and should not be self-prescribed, particularly alongside
+      diuretics or ACE inhibitors.
+    clinician_required: true
+
+  - intervention_id: sle_retinoic_acid
+    name: All-trans retinoic acid (active vitamin A metabolite)
+    category: nutrient
+    studied_in: animal_model
+    direction: bidirectional
+    what_was_measured: >
+      Severity of glomerulonephritis, renal expression of the pro-fibrotic
+      protein laminin beta-1, bone-marrow conventional dendritic cell
+      activation, ICAM-1/LFA-1 interaction in the spleen, circulating and
+      renal autoantibody deposition, renal cytokine and chemokine expression,
+      gut permeability, and gut microbiota composition.
+    population: >
+      Pristane-induced murine lupus. Treatment was given either before lupus
+      induction (initiation phase) or after disease was established
+      (continuation phase). No human trial of retinoic acid for lupus disease
+      activity was found.
+    effect: >
+      The direction of effect reversed depending on when it was given, which
+      is why this entry is flagged bidirectional. Given before disease
+      induction, all-trans retinoic acid aggravated glomerulonephritis, with
+      increased renal laminin beta-1, activated conventional dendritic cells
+      and upregulated leukocyte trafficking. Given after disease was
+      established, it did not significantly alter glomerulonephritis severity
+      but did reduce circulating and renal autoantibody deposition and
+      suppressed renal proinflammatory cytokines and chemokines. The same
+      group had previously reported that all-trans retinoic acid exacerbated
+      pre-existing autoimmunity in lupus. Both timings reversed
+      pristane-induced leaky gut and shifted the microbiota similarly, which
+      led the authors to conclude the differing disease effects were
+      microbiota-independent.
+    dose_studied: >
+      All-trans retinoic acid administered to mice before or after pristane
+      induction. No human dose has been established for lupus and none is
+      stated here.
+    microbiome_relevance: >
+      Explicitly not through the microbiome. This is a useful negative
+      mechanistic result: retinoic acid changed gut permeability and
+      microbiota composition in the same direction at both timings, yet the
+      disease outcomes diverged, so the authors concluded the mechanism was
+      microbiota-independent. It is a caution against assuming that a
+      measurable microbiome shift explains a clinical change.
+    citation_title: "Retinoic Acid Exerts Disease Stage-Dependent Effects on Pristane-Induced Lupus"
+    citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC7103630/"
+    caution: >
+      This is the clearest example in the dossier of an intervention whose
+      direction depends entirely on context, and it made kidney disease worse
+      in one of the two timings tested. High-dose vitamin A and retinoids are
+      toxic to the liver, raise intracranial pressure and are powerfully
+      teratogenic — a decisive problem in a disease that predominantly affects
+      women of childbearing age. Retinoids must not be self-administered, and
+      high-dose vitamin A supplementation should not be inferred from this
+      work. Nothing here supports taking vitamin A for lupus.
+    clinician_required: true
+
+  # ------------------------------------------------------------------
+  # 2. Probiotics studied in SLE or lupus-prone models
+  # ------------------------------------------------------------------
+
+  - intervention_id: sle_lactobacillus_mixture_mrl_lpr
+    name: Five-strain Lactobacillus mixture (murine lupus nephritis)
+    category: probiotic
+    studied_in: animal_model
+    direction: benefit
+    what_was_measured: >
+      Renal function and proteinuria, kidney histopathology, survival,
+      circulating autoantibodies including IgG2a, gut barrier integrity
+      measured by FITC-dextran leakage and blood endotoxin, gut and
+      circulating IL-6 and IL-10, and the renal Treg-Th17 balance.
+    population: >
+      MRL/lpr lupus-prone mice, a classical model of lupus nephritis, dosed by
+      weekly oral gavage from 3 weeks of age. Key endpoints used 7 mice per
+      group. No humans.
+    effect: >
+      Increasing Lactobacillales improved renal function and prolonged
+      survival, reduced autoantibodies and proteinuria, reversed the "leaky"
+      gut, lowered IL-6 and raised IL-10, and skewed the renal Treg-Th17
+      balance towards Treg. Two findings must travel with this result. First,
+      the benefit was sex-dependent: it was present in female and castrated
+      male mice but absent in intact males, which the authors attribute to sex
+      hormones. Second — and this is the important one — L. reuteri and an
+      uncultured Lactobacillus species accounted for most of the observed
+      benefit here, whereas L. reuteri worsened disease in the TLR7-driven
+      model. The same species, opposite directions, different models. The
+      authors' own conclusion is that future studies are needed to determine
+      whether this replicates in humans.
+    dose_studied: >
+      Weekly oral gavage of a freshly cultured mixture of L. oris (F0423),
+      L. rhamnosus (LMS201), L. reuteri (CF48-3A), L. johnsonii (135-1-CHN)
+      and L. gasseri (JV-V03), obtained from BEI Resources, from 3 weeks of
+      age until dissection. Colony-forming units per gavage are not stated in
+      the openly available text and are not guessed here. No human dose exists.
+    microbiome_relevance: >
+      Acts through the microbiome by design — this was a deliberate
+      manipulation of gut community composition, with gut barrier function and
+      immune phenotype as the read-outs.
+    citation_title: "Control of lupus nephritis by changes of gut microbiota"
+    citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5505136/"
+    caution: >
+      Mouse evidence, strain-specific, and sex-dependent even within the
+      model. It must not be read as support for taking a Lactobacillus
+      product: the individual strains used here are research isolates, not
+      retail products, and one of the strains that drove the benefit in this
+      model drove harm in another. Live-microbe products carry infection risk
+      for immunosuppressed patients, which includes most people on lupus
+      treatment. See the `harms` section before drawing any conclusion from
+      this entry.
+    clinician_required: true
+
+  - intervention_id: sle_l_fermentum_cect5716
+    name: Lactobacillus fermentum CECT5716
+    category: probiotic
+    studied_in: animal_model
+    direction: benefit
+    what_was_measured: >
+      Lupus disease activity, blood pressure, cardiac and renal hypertrophy,
+      splenomegaly, lymphocyte populations in mesenteric lymph nodes, plasma
+      proinflammatory cytokines, endothelium-dependent vasodilatation of the
+      aorta, NADPH-oxidase-driven superoxide production, eNOS phosphorylation,
+      plasma LPS, and gut microbiota composition.
+    population: >
+      18-week-old female NZBWF1 lupus-prone mice versus NZW/LacJ controls,
+      treated for 15 weeks. No humans.
+    effect: >
+      This single strain reduced disease activity, blood pressure, cardiac and
+      renal hypertrophy and splenomegaly in the lupus mice, normalised
+      impaired endothelium-dependent vasodilatation, lowered plasma LPS
+      (consistent with improved gut barrier integrity) and increased gut
+      Bifidobacterium. The framing is largely cardiovascular — endothelial
+      dysfunction and blood pressure — rather than renal survival. This is a
+      mouse result in one strain in one model, and the paper's own title
+      describes prevention of vascular disorders, not treatment of lupus.
+    dose_studied: "5 x 10^8 colony-forming units per day for 15 weeks, in mice. No human dose has been tested in lupus."
+    microbiome_relevance: >
+      Acts through the microbiome. Gut microbiota composition shifted and
+      plasma LPS fell, suggesting a gut-barrier-mediated mechanism.
+    citation_title: "Lactobacillus fermentum CECT5716: a novel alternative for the prevention of vascular disorders in a mouse model of systemic lupus erythematosus"
+    citation_url: "https://pubmed.ncbi.nlm.nih.gov/31173526/"
+    caution: >
+      Animal evidence only, and prevention rather than treatment: dosing began
+      at 18 weeks of age in a model with a predictable disease course, which
+      has no equivalent in a person who already has diagnosed lupus. Strain-
+      specific and non-transferable to other Lactobacillus products. The
+      word "alternative" in the paper's title refers to a research strategy in
+      mice and must not be read as an alternative to lupus medication.
+    clinician_required: true
+
+  - intervention_id: sle_l_reuteri
+    name: Lactobacillus reuteri (in interferon-driven lupus)
+    category: probiotic
+    studied_in: animal_model
+    direction: harm
+    what_was_measured: >
+      Autoimmune manifestations, translocation of the organism to internal
+      organs confirmed by organ culture and 16S rDNA sequencing, plasmacytoid
+      dendritic cell numbers, and interferon signalling.
+    population: >
+      TLR7-dependent mouse models of SLE, under both specific-pathogen-free
+      and gnotobiotic conditions. Separately, the same paper found faecal
+      enrichment of Lactobacillus in a subset of human SLE patients.
+    effect: >
+      L. reuteri colonisation worsened autoimmune manifestations, notably
+      increasing plasmacytoid dendritic cells and interferon signalling, and
+      the organism translocated out of the gut into internal organs in a
+      TLR7-dependent manner. Interferon signalling is central to human lupus —
+      it is the pathway that anifrolumab was developed to block — so a
+      probiotic organism that amplifies it in an interferon-driven model is a
+      specific and biologically coherent concern rather than a curiosity. This
+      remains a mouse result; no human has been given L. reuteri in a lupus
+      trial to test it.
+    dose_studied: >
+      Experimental colonisation of mice. Not a dose that has any human
+      equivalent, and none is stated.
+    microbiome_relevance: >
+      Acts through the microbiome, in the harmful direction. This is the
+      single most important entry in the dossier for report safety.
+    citation_title: "A Diet-Sensitive Commensal Lactobacillus Strain Mediates TLR7-Dependent Systemic Autoimmunity"
+    citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6377154/"
+    caution: >
+      This directly contradicts the common assumption that Lactobacillus
+      supplementation is a safe default. L. reuteri is present in widely sold
+      retail probiotics and in at least one of the synbiotic products trialled
+      in SLE patients. Any report section that mentions probiotics in lupus
+      must carry this finding. It does not prove harm in humans, and it must
+      not be overstated into a claim that anyone taking L. reuteri is being
+      harmed — but it removes the basis for assuming safety, and the direction
+      of the uncertainty is unfavourable.
+    clinician_required: true
+
+  - intervention_id: sle_synbiotic_widhani
+    name: Synbiotic (L. helveticus R0052, B. infantis R0033, B. bifidum R0071 plus FOS)
+    category: probiotic
+    studied_in: human_rct
+    direction: not_estimable
+    what_was_measured: >
+      Faecal microbiota composition, hs-CRP, IL-6, IL-17 and SLEDAI-2K, at
+      baseline and after 60 days.
+    population: >
+      46 adults with SLE randomised 1:1, 23 to synbiotic and 23 to placebo,
+      double-blind. Patients taking more than 20 mg prednisone daily or
+      equivalent were excluded, so this does not speak to patients on higher
+      steroid doses. Participants continued standard treatment.
+    effect: >
+      Reported as positive, but the statistics do not support a between-group
+      claim, which is why this is marked not_estimable rather than benefit.
+      The headline findings are within-arm before-and-after comparisons: in
+      the synbiotic arm SLEDAI-2K fell from a median 14 to 8 (p < 0.001) and
+      IL-6 fell (p = 0.02), with no significant change in the placebo arm. But
+      the one clearly reported between-group comparison, the
+      Firmicutes:Bacteroidetes ratio, was not significant (p = 0.48).
+      Comparing each arm against its own baseline, rather than against the
+      other arm, is exactly the design that regression to the mean and
+      placebo response can produce. IL-17 did not change significantly.
+      Butyrate metabolism increased (p = 0.037) and amino sugar and nucleotide
+      sugar metabolism decreased (p = 0.040). A median SLEDAI of 14 at
+      baseline indicates highly active disease, so these were not
+      mildly affected patients.
+    dose_studied: >
+      One capsule daily for 60 days containing 3 x 10^9 CFU total, comprising
+      Lactobacillus helveticus R0052 60%, Bifidobacterium infantis R0033 20%
+      and Bifidobacterium bifidum R0071 20%, plus 80 mg
+      fructo-oligosaccharides. Placebo was Saccharum lactis.
+    microbiome_relevance: >
+      Acts through the microbiome by intent, and the microbiome was measured
+      as an outcome. Notably the composition endpoint that was compared
+      between arms did not reach significance.
+    citation_title: "Changes in Gut Microbiota and Systemic Inflammation after Synbiotic Supplementation in Patients with Systemic Lupus Erythematosus: A Randomized, Double-Blind, Placebo-Controlled Trial"
+    citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC9658918/"
+    caution: >
+      Small, 60 days long, and dependent on within-arm comparisons for its
+      positive findings. It excluded patients on more than 20 mg prednisone
+      daily, so it says nothing about patients on higher-dose steroids — who
+      are also those at greatest infection risk from live microbes. This
+      particular product does not contain L. reuteri, which distinguishes it
+      from the other SLE synbiotic trial. Live-microbe products require
+      clinician review in anyone immunosuppressed.
+    clinician_required: true
+
+  - intervention_id: sle_synbiotic_mirfeizi
+    name: Nine-strain synbiotic including L. reuteri, plus FOS
+    category: probiotic
+    studied_in: human_rct
+    direction: not_estimable
+    what_was_measured: >
+      IL-17A protein and mRNA levels, SLEDAI-2000 disease activity, and
+      inflammatory factors, before and after 2 months.
+    population: >
+      50 patients with SLE randomly assigned to standard therapy plus
+      synbiotic or standard therapy, described as randomised, double-blind and
+      placebo-controlled. All remained on standard therapy.
+    effect: >
+      As with the other SLE synbiotic trial, the reported effect is a
+      within-group comparison: IL-17A protein and mRNA and SLEDAI-2000 fell
+      significantly in the synbiotic group compared with its own baseline,
+      while the placebo group showed no significant change. No between-group
+      contrast is reported in the abstract, so a treatment effect cannot be
+      estimated from what is published there. Marked not_estimable for that
+      reason. The authors' framing is appropriately tentative — "shows
+      potential as an adjunctive therapeutic approach" with further research
+      needed on mechanism.
+    dose_studied: >
+      Synbiotic for 2 months containing Streptococcus thermophilus,
+      Lactobacillus acidophilus, L. casei, L. rhamnosus, L. salivarius,
+      L. reuteri, Bifidobacterium lactis, B. longum and B. bifidum, plus the
+      prebiotic fructo-oligosaccharides. Total CFU per dose is not stated in
+      the abstract and is not guessed here.
+    microbiome_relevance: >
+      Intended to act through the microbiome, but the gut microbiome was not
+      itself measured as an outcome — the endpoints were IL-17A and disease
+      activity. So this trial provides no evidence that the microbiome
+      changed at all.
+    citation_title: "Impact of synbiotics on disease activity in systemic lupus erythematosus: Results from a randomized clinical trial"
+    citation_url: "https://pubmed.ncbi.nlm.nih.gov/39437223/"
+    caution: >
+      Read this entry together with `sle_l_reuteri`. This product contains
+      Lactobacillus reuteri, the organism that worsened interferon-driven
+      disease in lupus-prone mice and that translocated out of the gut in that
+      model. The trial reports no safety signal over 2 months in 50 patients,
+      and that is reassuring as far as it goes, but 2 months in 50 people
+      cannot exclude an effect on a disease that flares over years, and the
+      trial did not measure interferon signalling. Small, short, within-arm
+      analysis, and live microbes in a population that is usually
+      immunosuppressed.
+    clinician_required: true
+
+  - intervention_id: sle_bifidobacterium_bifidum_exvivo
+    name: Bifidobacterium bifidum and Clostridia strains (SLE faecal microbiota, in vitro)
+    category: probiotic
+    studied_in: in_vitro
+    direction: benefit
+    what_was_measured: >
+      Lymphocyte activation and Th17 differentiation from naive CD4+
+      lymphocytes in culture, and the Th17/Th1 balance. Immunological
+      surrogates in cell culture — no clinical endpoint whatsoever.
+    population: >
+      In vitro cultures of microbiota isolated from stool samples of patients
+      with SLE, compared with healthy-control microbiota, plus ex vivo
+      analysis of patient blood samples.
+    effect: >
+      SLE-derived faecal microbiota promoted lymphocyte activation and Th17
+      differentiation more than healthy-control microbiota. Enriching the
+      SLE microbiota with a mixture of two Clostridia strains significantly
+      reduced the Th17/Th1 balance, and adding Bifidobacterium bifidum
+      LMG13195 prevented CD4+ lymphocyte over-activation. The authors frame
+      this as supporting "a possible therapeutic benefit" of probiotics
+      containing Treg-inducing strains. That is a hypothesis generated in a
+      dish. Nobody was treated and nothing clinical was measured.
+    dose_studied: >
+      In vitro enrichment of cultures. There is no dose, because this was not
+      administered to any animal or person.
+    microbiome_relevance: >
+      Directly microbiome-focused, but entirely in vitro. It measured what
+      SLE-derived bacteria do to immune cells in culture, which is a
+      mechanistic observation, not an effect on a host.
+    citation_title: "Th17 responses and natural IgM antibodies are related to gut microbiota composition in systemic lupus erythematosus patients"
+    citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC4820712/"
+    caution: >
+      Lowest evidence tier in this dossier. In vitro immune-cell responses
+      routinely fail to predict clinical effects, and this must not be
+      described to a patient as evidence that a Bifidobacterium product helps
+      lupus. Included for completeness and to document where the "probiotics
+      for lupus" idea originates.
+    clinician_required: true
+
+  # ------------------------------------------------------------------
+  # 3. Interventions targeting the specific taxa implicated
+  # ------------------------------------------------------------------
+
+  - intervention_id: sle_broad_antibiotics_and_vancomycin
+    name: Broad-spectrum oral antibiotics, and vancomycin alone (murine lupus)
+    category: drug
+    studied_in: animal_model
+    direction: benefit
+    what_was_measured: >
+      Systemic autoimmunity and kidney histopathology, IL-17-producing cells,
+      circulating IL-10, gut microbiota composition and functional pathways,
+      intestinal barrier function, and translocation of lipopolysaccharide
+      into the circulation.
+    population: >
+      MRL/lpr lupus-prone mice, with antibiotics given after disease onset.
+      No humans. There is no trial of antibiotics for lupus in people.
+    effect: >
+      In these mice, oral antibiotics given during active disease attenuated
+      SLE-like disease and kidney histopathology, decreased IL-17-producing
+      cells and raised circulating IL-10. They removed Lachnospiraceae and
+      increased the relative abundance of Lactobacillus. The effect was
+      reproduced with vancomycin alone, which reshaped the microbiota,
+      improved intestinal epithelial barrier function and prevented
+      lipopolysaccharide translocation into the circulation. This is animal
+      work. It is a mechanistic demonstration that the microbiota is a causal
+      lever in a mouse model, not a treatment finding.
+    dose_studied: >
+      Oral ampicillin, neomycin, vancomycin and metronidazole, or vancomycin
+      alone, in mice. No human dose is stated because antibiotics have not
+      been studied as a lupus treatment in humans.
+    microbiome_relevance: >
+      Acts through the microbiome. This is among the strongest causal evidence
+      that gut community composition influences lupus-like disease — but it is
+      causal evidence in mice.
+    citation_title: "Antibiotics ameliorate lupus-like symptoms in mice"
+    citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5651817/"
+    caution: >
+      This is animal work and must never be presented as a reason to seek or
+      take antibiotics for lupus. Doing so would be actively harmful:
+      antibiotics cause Clostridioides difficile infection, drive
+      antimicrobial resistance, and carry particular infection risks for
+      immunosuppressed patients. Oral vancomycin is a hospital-prescribed drug
+      for specific infections. Note also the internal tension with other
+      entries — the antibiotic benefit here was accompanied by an *increase*
+      in Lactobacillus, whereas Lactobacillus expansion is part of the
+      reported pattern in human SLE and L. reuteri drove harm in the TLR7
+      model. The taxa-level story does not resolve cleanly.
+    clinician_required: true
+
+  - intervention_id: sle_e_gallinarum_targeting
+    name: Antibiotic suppression and vaccination against Enterococcus gallinarum
+    category: procedure
+    studied_in: animal_model
+    direction: benefit
+    what_was_measured: >
+      Mortality, growth of E. gallinarum in tissues, pathogenic autoantibodies
+      and autoreactive T cells, and, in the vaccine experiments, autoantibody
+      induction and survival after pathobiont translocation.
+    population: >
+      Autoimmune-prone and monocolonised gnotobiotic mice. The human component
+      was observational and separate: E. gallinarum-specific DNA was recovered
+      from liver biopsies of autoimmune patients, and co-cultures with human
+      hepatocytes reproduced the murine findings. No human received the
+      antibiotic or the vaccine for this purpose.
+    effect: >
+      Translocation of E. gallinarum to the liver and other systemic tissues
+      triggered autoimmune responses in a predisposing genetic background.
+      Antibiotic treatment prevented mortality, suppressed tissue growth of
+      the organism and eliminated pathogenic autoantibodies and T cells. An
+      intramuscular vaccine targeting the pathobiont prevented the mortality
+      caused by translocation in monocolonised and autoimmune-prone mice. A
+      later study showed E. gallinarum can induce interferon-gamma+ Th17
+      differentiation and an IgG3 subclass switch of anti-RNA antibodies in
+      human as well as mouse cells, via TLR8, with anti-RNA autoantibody
+      titres correlating with disease activity in patients with SLE. The
+      interventions remain animal-only; only the immunological mechanism has
+      been shown to operate in human cells.
+    dose_studied: >
+      Antibiotic treatment and an intramuscular anti-pathobiont vaccine in
+      mice. The vaccine is a research tool that does not exist as a licensed
+      product, so no dose is stated.
+    microbiome_relevance: >
+      Acts through the microbiome, specifically by preventing gut-barrier
+      escape of one organism rather than by broadly reshaping the community.
+      This is the most mechanistically specific microbiome target in lupus.
+    citation_title: "Translocation of a gut pathobiont drives autoimmunity in mice and humans"
+    citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5959731/"
+    caution: >
+      No licensed intervention exists. There is no available vaccine against
+      E. gallinarum, no validated clinical test for its translocation, and no
+      evidence that suppressing it helps a person with lupus. A stool report
+      cannot detect translocation, because translocation is by definition the
+      organism leaving the gut — so detecting Enterococcus in stool does not
+      establish that this mechanism is active in any individual. This entry
+      should be used to explain a mechanism under investigation, never to
+      justify an action.
+    clinician_required: true
+
+  - intervention_id: sle_larazotide_zonulin_barrier
+    name: Larazotide acetate (zonulin antagonist) for Ruminococcus gnavus-induced barrier leak
+    category: drug
+    studied_in: animal_model
+    direction: benefit
+    what_was_measured: >
+      Intestinal permeability, translocation of the organism to mesenteric
+      lymph nodes, serum zonulin, serum IgG anti-R. gnavus cell-wall
+      lipoglycan antibodies, and anti-native-DNA autoantibodies.
+    population: >
+      Gnotobiotic and antibiotic-preconditioned C57BL/6 mice colonised with
+      individual Blautia (Ruminococcus) gnavus strains isolated either from
+      lupus patients or from healthy adults. No humans were treated.
+    effect: >
+      R. gnavus strains taken from lupus patients induced high intestinal
+      permeability — significantly greater in female than male mice — while
+      the healthy-donor species-type strain had little or no effect. This is
+      an important detail: the effect was strain-specific, not species-level,
+      so detecting "R. gnavus" does not identify the pathogenic version.
+      Permeability correlated with anti-lipoglycan and anti-DNA antibodies,
+      and was completely reversed by oral larazotide acetate, a specific
+      zonulin antagonist. Separately, human observational work found a roughly
+      5-fold greater representation of R. gnavus in SLE patients versus
+      controls, with anti-R. gnavus antibodies correlating directly with
+      SLEDAI and anti-native-DNA levels and inversely with complement C3 and
+      C4, and highest in active nephritis, validated in two independent
+      cohorts (see `sle_r_gnavus_association_url` note below).
+    dose_studied: >
+      Oral larazotide acetate in mice. Larazotide is an investigational
+      octapeptide, not a licensed medicine, and no dose has been studied in
+      lupus in humans.
+    microbiome_relevance: >
+      Acts alongside the microbiome rather than on it. Larazotide does not
+      change the bacteria; it blocks the host zonulin pathway that the
+      bacteria exploit. That distinction matters — it is a host-barrier
+      intervention against a microbial trigger.
+    citation_title: "Sex-dependent Lupus Blautia (Ruminococcus) gnavus strain induction of zonulin-mediated intestinal permeability and autoimmunity"
+    citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC9405438/"
+    caution: >
+      Animal evidence, and the drug is investigational and not approved for
+      any indication. The human R. gnavus data are observational and cannot
+      establish that the organism causes lupus rather than expanding
+      alongside active disease. Because the harmful effect was strain-specific,
+      a stool report that reports R. gnavus abundance cannot distinguish a
+      patient-derived pathogenic strain from a benign one, and should not be
+      read as identifying a treatable cause. There is no action a patient can
+      take from this entry.
+    clinician_required: true
+
+  - intervention_id: sle_faecal_microbiota_transplantation
+    name: Faecal microbiota transplantation (oral encapsulated, EXPLORER pilot)
+    category: procedure
+    studied_in: human_observational
+    direction: not_estimable
+    what_was_measured: >
+      Primary endpoint SLE Responder Index-4 at week 12; also SLEDAI-2K,
+      serum anti-dsDNA, microbiome composition, faecal short-chain fatty
+      acids, serum cytokines and lymphocyte phenotyping. Safety throughout.
+    population: >
+      20 patients with active SLE (SLEDAI at least 6), given oral
+      encapsulated faecal microbiome from healthy donors once weekly for three
+      consecutive weeks alongside standard treatment, followed for 12 weeks.
+      Single-arm and open-label — there was no control group and no blinding.
+    effect: >
+      No serious adverse events were observed. The SRI-4 response rate at week
+      12 was reported as 42.12%, with significant reductions in SLEDAI-2K and
+      serum anti-dsDNA compared with baseline, enrichment of short-chain-
+      fatty-acid-producing taxa, increased gut SCFAs, and reduced IL-6.
+      Marked not_estimable because a single-arm open-label design in 20
+      patients cannot separate a treatment effect from placebo response,
+      regression to the mean, or the effect of the standard treatment everyone
+      continued to receive. The authors' own language is suitably cautious:
+      FMT "might be a feasible, safe, and potentially effective therapy". This
+      is the only interventional human study that directly manipulates the
+      microbiome in SLE, and it is a 20-person uncontrolled pilot.
+    dose_studied: >
+      Oral encapsulated faecal microbiota from healthy donors, administered
+      once weekly for three consecutive weeks, with 12 weeks of follow-up.
+    microbiome_relevance: >
+      The most directly microbiome-targeted intervention studied in humans
+      with SLE. The microbiome was both the intervention and a measured
+      outcome, and the measured shifts were in the expected direction.
+    citation_title: "Safety and efficacy of fecal microbiota transplantation for treatment of systemic lupus erythematosus: An EXPLORER trial"
+    citation_url: "https://pubmed.ncbi.nlm.nih.gov/35690527/"
+    caution: >
+      Uncontrolled, unblinded, 20 patients, 12 weeks. FMT is investigational
+      for lupus and is not an available treatment; outside licensed
+      indications it is a research procedure requiring regulatory oversight.
+      It carries a documented risk of transmitting infection, which is a
+      serious concern in immunosuppressed patients. There is no route from
+      this report to FMT, and stool testing does not identify who might
+      respond — although the paper notes responders had distinct microbiota
+      signatures, that is a retrospective observation in 20 people, not a
+      validated predictor. Do not attempt any form of self-administered
+      faecal transfer; this is genuinely dangerous.
+    clinician_required: true
+
+# ----------------------------------------------------------------------
+# HARMS AND BIDIRECTIONAL FINDINGS
+#
+# This is the most important section of the dossier. A report that scores
+# resemblance to a lupus microbiome pattern and then suggests probiotics
+# would be giving advice that the animal literature actively contradicts.
+# ----------------------------------------------------------------------
+
+harms:
+
+  - what: "Lactobacillus reuteri in interferon-driven lupus"
+    evidence: animal_model
+    detail: >
+      In TLR7-dependent mouse models of SLE, colonisation with Lactobacillus
+      reuteri worsened autoimmune manifestations, increased plasmacytoid
+      dendritic cells and amplified interferon signalling, and the organism
+      translocated out of the gut into internal organs. Interferon is the
+      pathway that drives human lupus and the target of anifrolumab, so
+      amplifying it is the wrong direction. The same paper found faecal
+      enrichment of Lactobacillus in a subset of human SLE patients, which
+      means increased Lactobacillus may be part of the disease pattern rather
+      than a deficiency to be corrected. This matters for report design as
+      much as for advice: a low Lactobacillus reading in lupus must not be
+      framed as something to top up. L. reuteri is sold in retail probiotics
+      and is a component of one of the two synbiotics trialled in SLE
+      patients. Nothing here proves harm in humans, and it should not be
+      presented as if it does — but it destroys the assumption that a
+      Lactobacillus probiotic is a safe default in lupus, and the uncertainty
+      points the wrong way.
+    citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6377154/"
+
+  - what: "The same species, opposite directions: L. reuteri benefit in MRL/lpr versus harm in TLR7-driven disease"
+    evidence: animal_model
+    detail: >
+      This is the clearest bidirectionality in the lupus microbiome
+      literature and it concerns one organism. In MRL/lpr mice, a five-strain
+      Lactobacillus mixture improved renal function and survival, and
+      L. reuteri (strain CF48-3A) plus an uncultured Lactobacillus species
+      accounted for most of that benefit. In TLR7-dependent mice, L. reuteri
+      worsened disease and translocated to organs. Two credible groups,
+      opposite directions, same species. In MRL/lpr the benefit was also
+      sex-dependent — present in females and castrated males, absent in intact
+      males. The practical consequence is that species-level microbiome
+      readings cannot support a direction of advice in lupus at all: the sign
+      of the effect depends on strain, on the genetic driver of the disease
+      and on sex hormones, none of which a stool report determines. Any report
+      text that resolves this into a simple recommendation is
+      misrepresenting the evidence.
+    citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5505136/"
+
+  - what: "All-trans retinoic acid worsened kidney disease when given before disease onset"
+    evidence: animal_model
+    detail: >
+      In pristane-induced murine lupus, all-trans retinoic acid given before
+      induction aggravated glomerulonephritis, increasing renal pro-fibrotic
+      laminin beta-1, activating conventional dendritic cells and upregulating
+      leukocyte trafficking. Given after disease was established it did not
+      worsen glomerulonephritis and reduced autoantibody deposition. The same
+      group previously reported that it exacerbated pre-existing autoimmunity.
+      So the direction depends on timing, and one of the timings was harmful
+      to the kidney. Critically, both timings changed gut permeability and
+      microbiota composition in the same direction while producing opposite
+      disease outcomes, which led the authors to conclude the mechanism was
+      microbiota-independent. That is a warning against the reasoning this
+      whole report category invites: a measured microbiome improvement does
+      not imply a clinical improvement. Separately, retinoids are potently
+      teratogenic, which is a first-order concern in a disease that mainly
+      affects women of childbearing age.
+    citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC7103630/"
+
+  - what: "High dietary salt accelerated murine lupus"
+    evidence: animal_model
+    detail: >
+      A high-salt diet markedly worsened disease progression in an induced
+      murine lupus model, with increased dendritic cell activation,
+      autoantibodies, proinflammatory cytokines, splenomegaly,
+      lymphadenopathy and worse renal lesions, via p38 MAPK-STAT1 signalling.
+      Recorded as a harm from excess rather than as evidence for a
+      salt-restriction treatment, which has not been tested in people with
+      lupus. The gut microbiome was not the mechanism reported here, so
+      salt-microbiome findings from other disease models should not be
+      transplanted onto lupus.
+    citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC7145808/"
+
+  - what: "Live-microbe products in immunosuppressed patients: infection risk"
+    evidence: human_observational
+    detail: >
+      Genomic and epidemiological evidence has documented transmission of
+      bacteria from probiotic capsules to the bloodstream in intensive care
+      patients, with the blood isolates genomically matching the administered
+      probiotic strain. That study was in ICU patients, not lupus patients,
+      and it must not be overstated — it does not show that probiotics cause
+      bacteraemia in stable outpatients. Its relevance is that lupus treatment
+      routinely involves immunosuppression with steroids, mycophenolate or
+      biologics, and that live bacterial products are not risk-free in an
+      immunosuppressed host. The FDA has separately warned of invasive,
+      potentially fatal infection in preterm infants given live-microbe
+      probiotics, and notes that no probiotic is approved as a drug or
+      biologic. Any live-microbe content in a lupus report needs clinician
+      review before it is acted on, and this consideration applies to the two
+      human synbiotic trials above as well as to retail products.
+    citation_url: "https://pubmed.ncbi.nlm.nih.gov/31700189/"
+
+  - what: "Antibiotics as a lupus intervention: animal benefit that must not be acted on"
+    evidence: animal_model
+    detail: >
+      Oral broad-spectrum antibiotics, and vancomycin alone, attenuated
+      lupus-like disease in MRL/lpr mice by reshaping the gut microbiota and
+      restoring the gut barrier. This is listed under harms deliberately,
+      because it is the entry in this dossier most likely to be misread as
+      actionable. Taking antibiotics on the basis of a stool report would
+      expose a patient to Clostridioides difficile infection, antimicrobial
+      resistance and, in an immunosuppressed person, serious infection risk —
+      with no human evidence of benefit in lupus whatsoever. There is also an
+      internal inconsistency that undermines any taxa-level advice: the
+      antibiotic benefit in this model came with an *increase* in
+      Lactobacillus, while Lactobacillus expansion is reported in human SLE
+      and L. reuteri drove harm in the TLR7 model.
+    citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5651817/"
+
+# ----------------------------------------------------------------------
+# MEDICATION CONFOUNDS
+#
+# Almost every person with diagnosed lupus whose stool is sequenced is on
+# treatment. Treatment alters the microbiome. This means a lupus-pattern
+# resemblance score in a treated patient is partly a readout of their
+# prescription, and the report must say so rather than imply the pattern
+# reflects the disease alone.
+# ----------------------------------------------------------------------
+
+medication_confounds:
+
+  - drug: hydroxychloroquine
+    known_microbiome_effect: >
+      Not characterised at drug-specific resolution. A 2025 systematic review
+      of the gut microbiome in adult SLE states that SLE treatments including
+      hydroxychloroquine influence the microbiome, but no dedicated human
+      study establishes a specific hydroxychloroquine-associated signature in
+      SLE, and a targeted search found none. Claims about the direction or
+      size of a hydroxychloroquine effect on particular taxa are not currently
+      supportable.
+    reporting_implication: >
+      Hydroxychloroquine is taken by the large majority of people with lupus,
+      so in practice almost every lupus sample is a hydroxychloroquine-exposed
+      sample. Because its microbiome effect is uncharacterised, it cannot be
+      adjusted for or subtracted out. Any statement that a patient's profile
+      "resembles the lupus pattern" is therefore confounded by an
+      uncharacterised drug effect in an unknown direction, and the report must
+      state that rather than attribute the pattern to disease. Under no
+      circumstances should a microbiome finding be presented in a way that
+      could prompt someone to stop or reduce hydroxychloroquine — it reduces
+      flares and improves survival in lupus, and stopping it is one of the
+      clearest ways to come to harm.
+    citation_url: "https://pubmed.ncbi.nlm.nih.gov/40876561/"
+
+  - drug: prednisone_and_other_glucocorticoids
+    known_microbiome_effect: >
+      Documented as influential but not precisely characterised in SLE. The
+      same 2025 systematic review reports that corticosteroids influence the
+      microbiome in SLE. No specific dose-response relationship between
+      steroid exposure and named taxa in SLE is established. Indirectly
+      relevant: one of the two human SLE synbiotic trials excluded patients on
+      more than 20 mg prednisone daily or equivalent, so even the
+      interventional literature avoids the higher-steroid population rather
+      than characterising it.
+    reporting_implication: >
+      Steroid dose is a plausible confounder that varies enormously between
+      patients and over time within one patient, and it typically rises during
+      exactly the flares that a report might be trying to detect. A profile
+      taken during a flare reflects both the flare and the pulse of steroid
+      used to treat it, and these cannot be separated. Current and recent
+      steroid dose should be recorded alongside the sample and shown next to
+      any resemblance score. Serial samples taken across a changing steroid
+      dose should not be interpreted as showing disease change.
+    citation_url: "https://pubmed.ncbi.nlm.nih.gov/40876561/"
+
+  - drug: mycophenolate_mofetil
+    known_microbiome_effect: >
+      The best-characterised medication-microbiome interaction in lupus care,
+      and the direction is established. Mycophenolate mofetil alters gut
+      microbiota composition, selecting for bacteria expressing
+      beta-glucuronidase and upregulating gut beta-glucuronidase activity in
+      both mice and symptomatic humans. In mice, vancomycin eliminated the
+      beta-glucuronidase-expressing bacteria and prevented mycophenolate-
+      induced weight loss and colonic inflammation, identifying this as the
+      mechanism of the drug's gastrointestinal toxicity. A separate study in
+      17 female patients treated with mycophenolate for neuromyelitis optica
+      spectrum disorder, stratified by whether they had diarrhoea, plus a
+      vancomycin-treated mouse model, examined the same mechanism in patients.
+    reporting_implication: >
+      This is a genuine two-way confound and the most consequential one in the
+      dossier. Mycophenolate changes the microbiome in a specific, predictable
+      direction, so a treated patient's profile partly reflects their
+      immunosuppressant rather than their lupus, and beta-glucuronidase
+      activity in particular should be read as drug-associated in anyone on
+      mycophenolate rather than as an independent finding. It also runs the
+      other way: the drug's gut side effects are microbially mediated, so
+      gastrointestinal symptoms in a mycophenolate-treated patient may have a
+      microbiome explanation that belongs with their rheumatology or renal
+      team, not with a self-directed supplement. Nothing here supports taking
+      vancomycin — that was a mouse experiment establishing mechanism.
+    citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6685722/"
+
+  - drug: belimumab
+    known_microbiome_effect: >
+      Not characterised. A targeted search found no study of belimumab's
+      effect on the human or animal gut microbiome. This is an honest absence
+      of evidence, not a finding of no effect. Belimumab targets B-cell
+      activating factor and depletes B-cell survival signals, and because gut
+      IgA production is B-cell dependent there is a mechanistically plausible
+      route to microbiome change — but plausibility is not evidence and no
+      data exist.
+    reporting_implication: >
+      Record belimumab exposure but do not adjust for it or speculate about
+      its direction. A resemblance score in a belimumab-treated patient
+      carries an unquantified confound, and the report should say the effect
+      is unknown rather than imply the profile is drug-free. Given the
+      documented infection risk of live-microbe products in immunosuppressed
+      patients, any probiotic content must be gated on clinician review in
+      these patients.
+    citation_url: "https://pubmed.ncbi.nlm.nih.gov/40876561/"
+
+  - drug: anifrolumab
+    known_microbiome_effect: >
+      Not characterised. A targeted search found no study of anifrolumab's
+      effect on the gut microbiome. Absence of evidence, not evidence of
+      absence.
+    reporting_implication: >
+      There is a specific reason to record anifrolumab exposure even though
+      its microbiome effect is unknown. Anifrolumab blocks type I interferon
+      signalling, and the interferon pathway is precisely the axis by which
+      L. reuteri worsened disease in the TLR7-driven mouse model. Whether
+      blocking that pathway alters the relevance of any interferon-linked
+      microbiome finding is unknown and untested, so an interferon-related
+      interpretation must not be offered to a patient on this drug as if the
+      mouse mechanism carried over. Record the exposure, state the effect is
+      uncharacterised, and gate live-microbe content on clinician review as
+      for any immunosuppressed patient.
+    citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6377154/"
+
+# ----------------------------------------------------------------------
+# SUPPORTING REFERENCES (context, not intervention claims)
+# ----------------------------------------------------------------------
+
+supporting_references:
+  - sle_r_gnavus_association_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6585303/"
+    note: >
+      Azzouz et al., "Lupus nephritis is linked to disease-activity associated
+      expansions and immunity to a gut commensal". 61 female SLE patients in a
+      cross-sectional discovery cohort with validation in two independent
+      cohorts. Roughly 5-fold greater representation of Ruminococcus gnavus,
+      reduced species richness most pronounced at high SLEDAI, and anti-R.
+      gnavus antibodies correlating directly with SLEDAI and anti-native DNA
+      and inversely with C3 and C4, highest in active nephritis. Observational
+      — it identifies an association and a candidate mechanism, not an
+      intervention target. NYU has filed intellectual property related to this
+      work.
+  - sle_e_gallinarum_human_mechanism_url: "https://pubmed.ncbi.nlm.nih.gov/39908347/"
+    note: >
+      Gronke et al. 2025, Science Translational Medicine. E. gallinarum
+      induces human and mouse interferon-gamma+ Th17 differentiation and an
+      IgG3 switch of anti-RNA antibodies via TLR8; titres correlated with
+      disease activity in SLE patients. Establishes that the mouse mechanism
+      has a human cellular counterpart. Provides no intervention. Substantially
+      industry-affiliated (Roche).
+  - sle_microbiome_systematic_review_url: "https://pubmed.ncbi.nlm.nih.gov/40876561/"
+    note: >
+      2025 systematic review and narrative synthesis of the gut microbiome in
+      adult SLE. Reports reduced microbial richness, a frequently observed
+      lower Firmicutes/Bacteroidetes ratio, and enrichment of Enterococcus,
+      Lactobacillus and Ruminococcus gnavus, with correlations to disease
+      activity, flares and nephritis. Explicitly notes that SLE treatments
+      including hydroxychloroquine and corticosteroids influence the
+      microbiome, and that considerable heterogeneity exists across studies in
+      patient characteristics, methodology and taxa-level findings. Used here
+      for the medication-confound statements and for the overall assessment.
+
+# ----------------------------------------------------------------------
+# ENTRIES CONSIDERED AND DROPPED
+# ----------------------------------------------------------------------
+
+dropped_entries:
+  - candidate: "Hydroxychloroquine effect on gut bacteria from the Maier et al. non-antibiotic drug screen"
+    reason: >
+      Maier et al. 2018 (Nature) screened more than 1,000 marketed drugs
+      against 40 gut bacterial strains and is a real and relevant paper, but a
+      full-text search of it could not verify that chloroquine or
+      hydroxychloroquine was among the drugs tested. Using it to support a
+      hydroxychloroquine-microbiome claim would be citing a source that may
+      not discuss the drug. Dropped; hydroxychloroquine is recorded as "not
+      characterised" instead.
+  - candidate: "Salt-responsive gut Lactobacillus murinus as the mechanism for dietary sodium in lupus"
+    reason: >
+      The salt-microbiome link reported in other models concerns experimental
+      autoimmune encephalomyelitis and hypertension, not lupus. The lupus
+      salt paper attributes its effect to dendritic cell p38 MAPK-STAT1
+      signalling and does not establish a microbiome mechanism. Importing a
+      mechanism from a different disease would breach the requirement that
+      each source discusses the intervention in lupus or a lupus model.
+      Dropped as a mechanism; the lupus-specific salt harm is retained.
+  - candidate: "Probiotic safety in immunocompromise citation PMID 24463209"
+    reason: >
+      Checked because it appears in the repository's existing safety rules.
+      The source is a meta-analysis of L. reuteri DSM 17938 for acute
+      gastroenteritis in children and does not address probiotic safety in
+      immunocompromised patients. Not used here. The Yelin et al. 2019 ICU
+      probiotic-bacteraemia study and the FDA preterm-infant warning were used
+      for that point instead.
+  - candidate: "Dietary fibre as a distinct human intervention in SLE"
+    reason: >
+      No human trial of fibre supplementation with lupus clinical endpoints
+      was found. The only fibre-relevant lupus evidence is the resistant
+      starch arm of the TLR7 mouse work, which is recorded as
+      `sle_resistant_starch` at animal-model tier. A separate human fibre
+      entry would have implied evidence that does not exist.
+  - candidate: "Vitamin D acting through the gut microbiome in SLE"
+    reason: >
+      A targeted search for vitamin D plus gut microbiome in SLE returned no
+      primary study. The vitamin D entry is retained on its clinical-trial
+      evidence but is explicitly labelled as acting alongside the microbiome
+      rather than through it, and no microbiome mechanism is asserted.
+  - candidate: "Ruminococcus gnavus reduction as an intervention"
+    reason: >
+      R. gnavus expansion is a well-replicated observational association in
+      lupus nephritis, but no intervention has been shown to reduce it or to
+      improve lupus by reducing it. Kept as a supporting reference rather than
+      invented into an intervention entry. The nearest actual intervention is
+      larazotide acetate against the downstream barrier defect, in mice.
+
+# ----------------------------------------------------------------------
+# OVERALL ASSESSMENT
+# ----------------------------------------------------------------------
+
+overall_assessment:
+  is_there_a_microbiome_directed_intervention_with_adequate_human_evidence: false
+  summary: >
+    No. On the evidence assembled here, there is no microbiome-directed
+    intervention in lupus with human evidence strong enough to put in front of
+    a patient as something that will help their lupus. The truthful answer is
+    that standard medical care is the only thing that qualifies.
+  reasoning: >
+    The microbiome-directed lupus literature has three interventional strands
+    in humans and all three are weak. The two synbiotic randomised trials
+    (46 and 50 patients, 60 days each) report their positive findings as
+    within-arm before-and-after comparisons rather than between-arm contrasts;
+    where a between-arm comparison is reported it was not significant
+    (Firmicutes:Bacteroidetes, p = 0.48). That design cannot distinguish a
+    treatment effect from placebo response or regression to the mean,
+    particularly with baseline median SLEDAI-2K of 14. The FMT pilot is 20
+    patients, single-arm and open-label, alongside continued standard
+    treatment. None of these can support a claim to a patient. Everything
+    stronger in this field — resistant starch, the Lactobacillus mixture,
+    antibiotics and vancomycin, the E. gallinarum vaccine, larazotide — is
+    murine.
+  what_does_have_human_evidence: >
+    Two non-microbiome nutrient interventions do have genuine randomised human
+    evidence, and both are add-ons to treatment rather than microbiome-
+    directed: vitamin D (10 RCTs, 847 participants, moderate reduction in
+    disease activity, null for fatigue and anti-dsDNA levels) and omega-3
+    fatty acids (5 RCTs, 274 participants, 0.9 SLEDAI points, graded low
+    certainty by the reviewers). Both are small effects on top of proper
+    treatment. Vitamin D is in many cases already part of standard
+    rheumatology care, especially for bone protection on steroids. Neither
+    acts through the microbiome and neither was studied as a replacement for
+    anything.
+  most_important_finding: >
+    The bidirectionality of Lactobacillus. L. reuteri improved outcomes in
+    MRL/lpr mice and worsened interferon-driven disease in TLR7-dependent
+    mice, and Lactobacillus is reported as enriched in human SLE. The sign of
+    the effect depends on strain, disease driver and sex hormones — none of
+    which a stool report can determine. A naive "increase your Lactobacillus"
+    message in a lupus report would not merely be unsupported; it could point
+    in the harmful direction, and it could do so while looking like the
+    obvious inference from a low-Lactobacillus reading.
+  reporting_recommendation: >
+    A lupus section can honestly describe what has been studied, label almost
+    all of it as animal work, and carry the harm and bidirectionality findings
+    prominently. It should not offer a microbiome-directed action. Given that
+    nearly every sequenced lupus patient is on hydroxychloroquine, that
+    hydroxychloroquine's microbiome effect is uncharacterised, and that
+    mycophenolate demonstrably reshapes the microbiome and its
+    beta-glucuronidase activity, a resemblance score in a treated patient is
+    partly a readout of their prescription and should be presented with that
+    caveat attached rather than as a measure of their disease.

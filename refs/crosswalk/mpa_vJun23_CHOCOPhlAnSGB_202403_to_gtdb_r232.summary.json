@@ -1,0 +1,23 @@
+{
+  "database": "mpa_vJun23_CHOCOPhlAnSGB_202403",
+  "bridge_release": "r207",
+  "target_release": "r232",
+  "n_sgbs": 36333,
+  "relationships": {
+    "exact": 21908,
+    "parent": 7106,
+    "synonym": 6137,
+    "split": 305,
+    "unresolved": 788,
+    "merge": 89
+  },
+  "n_canonical_species": 28089,
+  "n_merge_groups": 44,
+  "input_fingerprint": "fe60c8acdd9a509f",
+  "inputs": [
+    "refs/crosswalk/upstream/mpa_vJun23_CHOCOPhlAnSGB_202403_SGB2GTDB_r207.tsv",
+    "refs/gtdb/r207/sp_clusters_r207.tsv",
+    "refs/gtdb/r232/genomes.slim.tsv.gz"
+  ],
+  "method": "bridge species -> member accessions of that species in the bridge release's sp_clusters -> the R232 species those accessions now carry; relationship typed from the distribution; a second R232 species holding >=5% (and >=2) of members makes a split; several SGBs on one R232 species make a merge"
+}

@@ -1,0 +1,374 @@
+name: sle
+version: 0.1.0
+spec_version: 3
+label: "Systemic lupus erythematosus — shared inflammatory gut pattern (not lupus-specific)"
+disease: systemic_lupus_erythematosus
+task: sle_vs_healthy
+family: autoimmune_inflammatory
+body_site: stool
+population: mixed_geography_treated_cohorts
+status: research_only
+evidence_maturity: P1
+challenge_for: [crohns, uc, ibd, csu, ra, celiac]
+
+summary: >-
+  Systemic lupus erythematosus is an autoimmune disease in which antibodies
+  attack the body's own tissues, most seriously the kidneys, and it is
+  diagnosed from clinical features together with blood autoantibody tests.
+  A twenty-five-study audit of the gut-microbiome literature was carried out
+  for this profile, and the honest result of that audit is that it does not
+  support a lupus-specific stool score. What is scored here is deliberately
+  narrower and deliberately named for what it is: the shared inflammatory
+  pattern that lupus cohorts have in common with several other conditions.
+
+  Two species-level directions have cross-geography, cross-platform support
+  and are the only taxonomic features scored. Streptococcus anginosus and
+  the closely related S. intermedius are raised — found by a Japanese
+  metagenome-wide association study of 47 patients against 203 controls and
+  corroborated in a Chinese amplicon cohort. Faecalibacterium is depleted,
+  reported at genus level in a Chinese amplicon cohort and in a
+  ninety-two-study systematic review. Both are pan-rheumatic: the same
+  review that found them concluded there is little evidence of disease
+  specificity for gut microbes in rheumatic disease, and a head-to-head
+  comparison could not separate lupus from primary Sjögren's syndrome from
+  stool at all, while oral samples could. An index built on these two
+  measures inflammation, not lupus, and it is labelled that way here.
+
+  Ruminococcus gnavus is the finding this profile is best known for, and it
+  is deliberately not scored. Its abundance is reported in the body of the
+  report with two caveats attached. The first is that the association is
+  strain-level: lupus-derived and healthy-derived strains colonise mice
+  equally well, and only the lupus strains cause the gut-permeability and
+  autoimmunity phenotype, with only nephritis-derived strains expressing the
+  lipoglycan that drives it. This pipeline measures the species accurately
+  and the species is not the question. The second is that it is a transient
+  bloom rather than a level, fluctuating greatly within the same patient
+  between samples, so a single stool specimen is one draw from a volatile
+  process: a low value means very little and a high one cannot be told apart
+  from ordinary carriage. R. gnavus elevation is also already scored as a
+  feature in fifteen other profiles in this library, which is the plainest
+  possible demonstration of how non-specific it is.
+
+  Two further limits are stated rather than worked around. The activity
+  signal failed where it had the most power: in the largest single cohort,
+  157 Korean patients against 50 controls, there was no significant
+  microbial difference by lupus-nephritis status and none by disease
+  activity. And medication moves these biomarkers as much as the disease
+  does. Proton pump inhibitors erased the diversity deficit entirely and
+  were the only significant explanatory variable for composition among
+  patients; hydroxychloroquine reduces Enterobacteriaceae; and in the one
+  large treatment-naive cohort the lupus-enriched species were reduced
+  after treatment. Nearly every real patient is taking at least one of
+  these drugs, so a treated person's reading is partly a readout of their
+  prescription. A high score is a research observation about community
+  composition. It does not diagnose lupus, and a low score in someone with
+  lupus does not argue against the diagnosis.
+
+references:
+  primary:
+    source: null
+    note: >-
+      No single reference cohort exists for this pattern. The two scored
+      directions come from different countries and different assays — a
+      Japanese shotgun cohort and Chinese amplicon cohorts — and there is no
+      published cohort in which both were measured together in the same
+      people. There is also no shotgun stool cohort from Africa or Latin
+      America anywhere in this literature, despite lupus being more prevalent
+      and more severe in people of African ancestry, so the population
+      transportability of every direction here is unestablished.
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  shared_inflammatory_species:
+    label: "Cross-platform species directions (inflammation-associated, not lupus-specific)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    assay_transport: amplicon_taxon_to_shotgun
+    study_group: sle_cross_platform
+    maturity: P1
+    weight_in_combined: 1.0
+    note: >-
+      The only two taxonomic directions in the audited literature with
+      support across more than one country and more than one sequencing
+      platform. Both are shared with other rheumatic and inflammatory
+      diseases, so both carry low specificity, and the module is named for
+      that rather than for lupus. The transport is declared as amplicon to
+      shotgun because the Faecalibacterium direction and one of the two
+      Streptococcus cohorts are 16S amplicon studies whose genus and species
+      labels are being carried onto shotgun measurements.
+    sources:
+      - "Tomofuji Y, et al. Ann Rheum Dis 2021;80:1575-1583 (47 SLE / 203 HC, shotgun, Japan)"
+      - "Li Y, et al. Clin Sci 2019 (40 SLE / 22 HC, 16S, China)"
+      - "Ling Z, et al. Front Immunol 2023 (30 SLE / 30 HC, 16S, China)"
+      - "Wang Y, et al. eBioMedicine 2022 (92 studies, 11,998 participants, systematic review)"
+    features:
+      - name: Streptococcus_anginosus
+        measured_as: Streptococcus_anginosus_group
+        mapping_reason: >-
+          S. anginosus and S. intermedius were both reported raised, and they
+          are members of the same closely related group that this pipeline's
+          profiler reports as a single clade. Scoring them as one slot is
+          what stops two names for overlapping measurements counting twice
+          toward the same evidence.
+        level: species
+        direction: increased
+        w: 0.6
+        q: 0.4
+        s: 0.2
+        c: 0.6
+        cluster: oral_origin_streptococci
+        note: >-
+          Raised in a Japanese metagenome-wide association study (47 patients,
+          203 controls) and corroborated in a Chinese amplicon cohort of 40
+          against 22, where it tracked disease activity. Effect size was not
+          quantified in either source and is deliberately not estimated here.
+          These are oral-origin organisms, and their enrichment in stool is a
+          generic marker of oral-to-gut translocation reported in colorectal
+          cancer, cirrhosis and inflammatory bowel disease, which is why
+          specificity is scored low.
+      - name: Faecalibacterium
+        level: genus
+        direction: decreased
+        w: 0.5
+        q: 0.3
+        s: 0.2
+        c: 0.7
+        direction_conflict: material
+        note: >-
+          Depleted at genus level in a Chinese amplicon cohort of 30 against
+          30 and in a systematic review of 92 studies, where the synthesis
+          was qualitative and not pooled numerically. Scored at genus because
+          that is the rank the evidence was reported at; no species-level
+          shotgun result for F. prausnitzii in lupus was found by the audit.
+          This is the single least specific depletion in the microbiome
+          literature — the same review reports it in rheumatoid arthritis and
+          Sjögren's syndrome — so it cannot support a lupus-specific reading.
+          The genus is flagged as a material direction conflict because a
+          Faecalibacterium aggregate spans species that do not move together:
+          the direction is only as good as the amplicon genus label it was
+          reported under, and this report says so rather than implying a
+          species-level depletion that no shotgun lupus cohort has shown.
+
+  rg_strain_lane:
+    label: "Ruminococcus gnavus lipoglycan strain typing (not computable here)"
+    type: mechanism_lane
+    evidence_type: STRAIN
+    claim_level: observed
+    assay_transport: native
+    study_group: silverman_azzouz_strain
+    maturity: P2
+    note: >-
+      The mechanism that makes R. gnavus interesting in lupus is strain-level
+      and this pipeline is species-level, so the module is declared and
+      reports as not computable rather than being quietly left out. Lupus-
+      derived strains induce zonulin-mediated gut permeability and
+      autoimmunity in mice while healthy-derived strains colonise just as
+      well and do not; only nephritis-derived strains express the
+      cell-membrane lipoglycan that acts through TLR2 to drive platelet
+      activation, neutrophil extracellular traps and kidney injury; and gut
+      abundance correlated with antibodies to only one of eight strains
+      tested. Answering the question this module poses needs strain-resolved
+      typing against a defined lipoglycan locus, which is a different
+      measurement from the species abundance reported elsewhere in this
+      report.
+    sources:
+      - "Silverman GJ, et al. Front Immunol 2022 (lupus- vs healthy-derived RG strains in mice)"
+      - "Azzouz DF, et al. Ann Rheum Dis 2023;82:1315 (longitudinal blooms; strain genomes; lipoglycan)"
+      - "Amarnani A, et al. Ann Rheum Dis 2026, doi:10.1016/j.ard.2026.03.002 (lipoglycan, TLR2, thromboinflammation)"
+    features:
+      - name: Ruminococcus_gnavus_lipoglycan_strains
+        level: strain
+        direction: increased
+        w: 1.0
+        q: 0.6
+        s: 0.7
+        c: 0.8
+        note: >-
+          The only feature in this profile with real lupus specificity, and
+          the one this assay cannot measure. It would bind if a strain-level
+          engine were added and a lipoglycan locus definition were frozen
+          alongside it.
+
+unbound_sources:
+  - source: "Xiang S, et al. Lupus Sci Med 2022 — family Ruminococcaceae depleted, SMD -0.49 (95% CI -0.84 to -0.15), 373 patients / 1,288 controls pooled across amplicon cohorts"
+    evidence_type: TAX_REL
+    note: >-
+      The only taxonomic finding in this entire literature to survive
+      Bonferroni correction in a meta-analysis, and it is not scorable here.
+      It is a family-level result, and this profile's schema scores species,
+      genus, strain and genome bins but not families — a family aggregate
+      spans organisms that move in opposite directions in the same samples,
+      which is precisely the problem with the R. gnavus and Ruminococcus
+      relationship. Recorded as the strongest evidence in the field rather
+      than converted into a score it cannot support.
+  - source: "Azzouz DF, et al. Ann Rheum Dis 2019;78:947-956 — Ruminococcus gnavus raised ~5.4-fold (1.35% +/- 2.01% vs 0.25% +/- 0.39%), 61 patients / 17 controls, 16S"
+    evidence_type: TAX_REL
+    note: >-
+      The founding observation, and not scored. It is a 16S amplicon study
+      whose species-level taxon table is uncorrected for multiple comparisons
+      at a p < 0.10 screening threshold, in 61 patients against 17 controls.
+      Species-level abundance cannot address the strain question that the same
+      group's later work showed to be the operative one, so the abundance is
+      reported in this report's body text with that caveat and contributes
+      nothing to any score.
+  - source: "Hevia A, et al. mBio 2014 — reduced Firmicutes/Bacteroidetes ratio, 20 patients / 20 controls, Spain"
+    evidence_type: ECO
+    note: >-
+      The origin of the lupus Firmicutes-to-Bacteroidetes claim, at zero
+      weight and kept only as historical context. The ratio did not replicate
+      in a US cohort, it is arithmetically dominated by two phyla that each
+      contain organisms moving in both directions, and it is not a quantity
+      this profile scores.
+  - source: "Azzouz DF, et al. Ann Rheum Dis 2023;82:1315 — temporal community instability greater in lupus than in health, independent of disease duration, sampling interval, activity range and medication"
+    evidence_type: ECO
+    note: >-
+      The most robust finding in the field and the one design the evidence
+      genuinely endorses, and it is unavailable to this report by
+      construction. It is a within-person variance measure needing at least
+      two and preferably three or more samples from the same person over
+      time. This report analyses one specimen, so instability cannot be
+      computed from it at all. Serial sampling would be a different product
+      rather than a better version of this score.
+  - source: "van der Meulen TA, et al. J Autoimmun 2019 — stool could not distinguish SLE from primary Sjögren's syndrome; oral samples could"
+    evidence_type: TAX_REL
+    note: >-
+      A direct specificity test, and the reason this profile is named for a
+      shared inflammatory pattern. The discriminating specimen in that study
+      was saliva, which this assay does not sequence.
+  - source: "Faecal calprotectin and albumin as barrier-dysfunction measures"
+    evidence_type: METAB
+    note: >-
+      Gut barrier dysfunction is the most consistently supported concept in
+      the lupus microbiome literature, and no sequencing measurement in this
+      report addresses it. Faecal calprotectin is the cheapest orthogonal
+      measurement that would add genuinely new information, and it binds only
+      if such a result is supplied.
+  - source: "Anti-dsDNA, anti-Sm, anti-ribosomal P, anti-lipoglycan IgG and anti-E. gallinarum IgG"
+    evidence_type: METAB
+    note: >-
+      The validated biomarkers in this literature are serological, and none
+      of them is measurable from stool DNA. This is the single most
+      informative thing this profile can tell a reader: the tests that
+      actually establish and monitor lupus are blood tests, and a stool
+      metagenome is not a substitute for or an approximation of any of them.
+
+confounders:
+  - name: Proton pump inhibitors
+    effect: "Erased the alpha-diversity deficit in lupus patients entirely and were the only significant explanatory variable for community composition among patients (Li 2022)"
+    handling: "Recorded in the ledger; no richness or diversity term is scored in this profile at all, and the absence is deliberate"
+  - name: Hydroxychloroquine
+    effect: "Reduces Enterobacteriaceae. Every patient in Azzouz 2023 and 12 of 16 in Toumi 2022 were taking it; its overall microbiome effect is not characterised"
+    handling: "Recorded in the ledger; assumed absent and stated when no medication list is supplied"
+  - name: Glucocorticoids and immunosuppressants
+    effect: "High-dose glucocorticoids alter Chao1 richness; mycophenolate selects for beta-glucuronidase-expressing bacteria, which will raise this report's beta-glucuronidase panel for pharmacological rather than disease reasons"
+    handling: "Recorded in the ledger; the beta-glucuronidase reading elsewhere in this report must not be read as a lupus finding in a treated patient"
+  - name: Treatment status
+    effect: "In the one large treatment-naive cohort the lupus-enriched species were reduced after treatment (Chen 2021), so a treated patient cannot be read against an untreated-cohort finding"
+    handling: "Recorded in the ledger; the profile is labelled as derived from mixed treated cohorts"
+  - name: Shared pan-rheumatic and inflammatory signal
+    effect: "Streptococcus enrichment with Faecalibacterium depletion is the generic rheumatic and inflammatory pattern; stool could not separate lupus from Sjögren's syndrome, and lupus overlaps inflammatory bowel disease"
+    handling: "Declared a specificity challenge for Crohn's disease, ulcerative colitis, inflammatory bowel disease, chronic hives, rheumatoid arthritis and coeliac disease so the competing patterns are scored side by side"
+  - name: Geography
+    effect: "Three primary shotgun stool cohorts exist in this field, two of them Chinese; no cohort from Africa or Latin America exists despite higher lupus prevalence and severity in people of African ancestry"
+    handling: "population_transportability reported; every direction is labelled as unestablished outside the sampled populations"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Lupus is diagnosed from clinical features together with blood
+    autoantibody tests, assessed by a clinician. Nothing in stool DNA makes
+    or excludes that diagnosis, and this score is not a probability of having
+    lupus. If you are worried about lupus, the tests that answer the question
+    are blood tests.
+  - >-
+    This profile is named for a shared inflammatory pattern rather than for
+    lupus, and that name is the finding. The systematic review that supplies
+    both scored directions concluded there is little evidence of disease
+    specificity for gut microbes in rheumatic disease. A head-to-head study
+    could not tell lupus from primary Sjögren's syndrome using stool, though
+    it could using oral samples. A high score here is equally consistent with
+    several other inflammatory conditions, which is why the competing
+    patterns are scored beside it.
+  - >-
+    Ruminococcus gnavus is the organism most associated with lupus in the
+    press and it is deliberately excluded from this score. The association is
+    strain-level: only lupus-derived strains cause the disease phenotype in
+    mice, only nephritis-derived strains make the lipoglycan that drives it,
+    and healthy-derived strains colonise just as well without causing it.
+    This test measures the species, not the strain. R. gnavus is also a
+    transient bloom rather than a stable level, and its elevation is already
+    a scored feature in fifteen other profiles in this library.
+  - >-
+    Disease activity cannot be read from this score. In the largest cohort
+    audited — 157 patients against 50 controls — there was no significant
+    microbial difference between patients with and without lupus nephritis,
+    and none between high and low disease activity. The activity
+    associations reported elsewhere come from cohorts of sixteen to
+    sixty-one people with largely uncorrected statistics.
+  - >-
+    In anyone already taking medication, this reading is partly a readout of
+    the prescription. Proton pump inhibitors erased the diversity deficit
+    altogether and explained community composition better than any clinical
+    variable. Nothing in this profile is a reason to start, stop or change
+    any lupus treatment, and no microbiome score authorises substituting a
+    supplement for immunosuppression.
+  - >-
+    No microbiome-directed intervention in lupus has human evidence strong
+    enough to recommend. Lactobacillus deserves specific mention because it
+    cuts both ways: a Lactobacillus mixture improved kidney function in one
+    mouse model of lupus, and L. reuteri worsened interferon-driven disease
+    in another while escaping the gut. Sex hormones, strain and disease
+    driver set which way it goes, and a stool report determines none of
+    them. Live-microbe products also carry a documented bacteraemia risk in
+    immunosuppressed people, which many lupus patients are.
+
+effect_size_note: >-
+  No pooled effect size is available for the scored pattern, because no
+  cohort has measured both directions together in the same people. The
+  individual sources are: Streptococcus anginosus and S. intermedius raised
+  in a Japanese metagenome-wide association study of 47 patients against 203
+  controls, with the effect not quantified in the source, and corroborated in
+  a Chinese amplicon cohort of 40 against 22; Faecalibacterium depleted at
+  genus level in a Chinese amplicon cohort of 30 against 30 and in a
+  qualitative synthesis across 92 studies and 11,998 participants. The one
+  taxonomic finding in the field to survive Bonferroni correction in
+  meta-analysis is a depletion of family Ruminococcaceae, standardised mean
+  difference -0.49 (95% CI -0.84 to -0.15) across 373 patients and 1,288
+  controls, and it is recorded as an unbound source because this profile does
+  not score families. Fourteen of the twenty-five audited studies are 16S
+  amplicon; three are primary shotgun stool cohorts, two of those Chinese.
+
+citation: >-
+  Tomofuji Y, Maeda Y, Oguro-Igashira E, et al. Metagenome-wide association
+  study revealed disease-specific landscape of the gut microbiome of systemic
+  lupus erythematosus in Japanese. Ann Rheum Dis 2021;80:1575-1583. Wang Y,
+  Wei J, Zhang W, et al. Gut dysbiosis in rheumatic diseases: a systematic
+  review and meta-analysis of 92 observational studies. eBioMedicine 2022.
+  Xiang S, Qu Y, Qian S, et al. Association between systemic lupus
+  erythematosus and disruption of gut microbiota: a meta-analysis. Lupus Sci
+  Med 2022. Azzouz DF, Omarbekova A, Heguy A, et al. Lupus nephritis is
+  linked to disease-activity associated expansions and immunity to a gut
+  commensal. Ann Rheum Dis 2019;78:947-956. Azzouz DF, Chen Z, Izmirly PM, et
+  al. Longitudinal gut microbiome analyses and blooms of pathogenic strains
+  during lupus disease flares. Ann Rheum Dis 2023;82:1315. Amarnani A, et al.
+  A pathogenic gut lipoglycan drives systemic thromboinflammation in lupus
+  nephritis. Ann Rheum Dis 2026, doi:10.1016/j.ard.2026.03.002. Silverman GJ,
+  et al. Front Immunol 2022. Park Y, Yang J, Son H, et al. Distinct gut
+  microbiome profiles in Korean systemic lupus erythematosus patients. J
+  Transl Med 2025. Li XB, Chu XJ, Cao NW, et al. Proton pump inhibitors
+  induce changes in the gut microbiome of systemic lupus erythematosus
+  patients. BMC Microbiol 2022. Chen BD, Jia XM, Xu JY, et al. An
+  autoimmunogenic and proinflammatory profile defined by the gut microbiota
+  of patients with untreated systemic lupus erythematosus. Arthritis
+  Rheumatol 2021. van der Meulen TA, Harmsen HJM, Vila AV, et al. Shared gut,
+  but distinct oral microbiota composition in primary Sjögren's syndrome and
+  systemic lupus erythematosus. J Autoimmun 2019. Ling Z, et al. Front
+  Immunol 2023. Hevia A, et al. mBio 2014. Full twenty-five-study audit with
+  per-finding directions, cohorts and verification notes:
+  specs/research/sle_evidence.yaml.

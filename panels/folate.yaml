@@ -1,0 +1,136 @@
+name: folate
+description: >-
+  Folate (vitamin B9) biosynthesis. folP (dihydropteroate synthase) and folK
+  (HPPK) mark the pterin branch of the de novo route. Unlike B12, bacterial
+  folate made in the colon is absorbed to a measurable degree by colonocytes,
+  which makes this one of the vitamin panels with a plausible host relevance.
+metabolite: Folate (vitamin B9)
+pathway: >-
+  GTP -> dihydroneopterin -> 6-hydroxymethyl-dihydropterin (folK) ->
+  dihydropteroate (folP) -> dihydrofolate (folC) -> tetrahydrofolate
+category: vitamin
+
+organisms:
+  - Bifidobacterium adolescentis
+  - Bifidobacterium longum
+  - Lactococcus lactis
+  - Bacteroides fragilis
+  - Faecalibacterium prausnitzii
+  - Escherichia coli
+
+extension: true
+
+targets:
+  - id: FOLP
+    label: folP (dihydropteroate synthase)
+    gene: folP
+    source: uniprot
+    query: '(protein_name:"dihydropteroate synthase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2500
+    length_tolerance: 0.25
+    note: >-
+      This is the sulfonamide target, which is why its annotation is
+      unusually good: it has been sequenced from resistant isolates for
+      decades.
+
+  - id: FOLK
+    label: folK (2-amino-4-hydroxy-6-hydroxymethyldihydropteridine pyrophosphokinase)
+    gene: folK
+    source: uniprot
+    query: '(protein_name:"2-amino-4-hydroxy-6-hydroxymethyldihydropteridine pyrophosphokinase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.30
+
+  - id: FOLC
+    label: folC (dihydrofolate synthase / folylpolyglutamate synthase)
+    gene: folC
+    source: uniprot
+    query: '(protein_name:"folylpolyglutamate synthase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.25
+    note: >-
+      folC is present in salvaging organisms too, so it marks folate
+      *handling* rather than de novo synthesis and is reported separately.
+
+decoys:
+  - id: PTERINBG
+    label: pterin-binding and TIM-barrel background
+    source: uniprot
+    query: '((protein_name:"methionine synthase") OR (protein_name:"dihydropteroate synthase-like protein") OR (protein_name:"cobalamin-independent methionine synthase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 2500
+    length_tolerance: 0.30
+
+  - id: MURLIG
+    label: Mur ligase background (folC fold)
+    source: uniprot
+    query: '((protein_name:"UDP-N-acetylmuramoyl-L-alanine--D-glutamate ligase") OR (protein_name:"UDP-N-acetylmuramoyl-tripeptide--D-alanyl-D-alanine ligase") OR (protein_name:"tetrahydrofolate synthase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 2500
+    length_tolerance: 0.25
+    note: "The Mur ligases share the folC fold and are present in every walled bacterium."
+
+aggregate: sum
+aggregate_from: [FOLP, FOLK]
+aggregate_reason: >-
+  folP and folK are consecutive steps in the de novo pterin branch and their
+  sum is the best available estimate of synthesis capacity. folC is excluded
+  because salvaging organisms carry it.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+caveats:
+  - >-
+    Colonic folate absorption is real but modest, and human folate status is
+    dominated by diet and, in fortified countries, by fortification. This
+    capacity measurement is not a folate level.
+  - >-
+    Bacteria that make folate also consume it. Net contribution to the host
+    depends on the balance, which gene presence cannot establish.
+  - >-
+    folP is the sulfonamide drug target, so its abundance also reflects the
+    community's exposure history to that antibiotic class.
+
+interpretation:
+  what_it_is: >-
+    The capacity of your gut bacteria to synthesise folate, which colonocytes
+    can absorb to a limited extent.
+  made_from: Built de novo by bacteria from GTP and para-aminobenzoate
+  higher_means: favourable
+  evidence_strength: limited
+  summary: >-
+    Bifidobacterium and several other gut genera synthesise folate, and unlike
+    B12 some of it is absorbed in the colon. The contribution to human folate
+    status is modest compared with diet.
+  evidence_detail: >-
+    Rossi et al. and Pompei et al. showed that Bifidobacterium strains raise
+    folate concentrations in the gut and in host plasma in rat models, and
+    human colonocytes do express a proton-coupled folate transporter capable
+    of absorbing bacterial folate. Magnusdottir et al.'s genome
+    reconstruction found folate biosynthesis in a larger share of gut genomes
+    than cobalamin. The realistic scale of the contribution is the honest
+    caveat: in a fortified food supply, dietary folate dominates, and no
+    trial has shown that manipulating bacterial folate synthesis changes
+    clinically relevant folate status in humans.
+  implications:
+    higher: >-
+      Your gut community has more folate synthesis capacity than most
+      people's, and unlike B12, some colonic folate is absorbed. This is a
+      mildly favourable feature of the community rather than a meaningful
+      contribution to your folate status, which diet dominates.
+    typical: >-
+      Your community's folate synthesis capacity sits in the middle of the reference range. Some colonic folate is absorbed, but diet supplies most of it, and this reading does not substitute for a blood measurement of folate status.
+    lower: >-
+      Less bacterial folate synthesis capacity than most people. This does not
+      indicate folate deficiency, which is a blood measurement.
+  citation: >-
+    Rossi M. et al., Nutrients 3:118-134 (2011), doi:10.3390/nu3010118;
+    Magnusdottir S. et al., Front Genet 6:148 (2015)
+
+citation: >-
+  Rossi M., Amaretti A., Raimondi S., "Folate production by probiotic
+  bacteria", Nutrients 3:118-134 (2011), doi:10.3390/nu3010118.

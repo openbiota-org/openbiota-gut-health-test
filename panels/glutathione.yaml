@@ -1,0 +1,119 @@
+name: glutathione
+description: >-
+  Bacterial glutathione synthesis, by the two-enzyme route or by the fused
+  single-enzyme version, with the recycling and breakdown enzymes measured
+  separately so that synthesis is not confused with turnover.
+metabolite: Glutathione synthesis
+pathway: >-
+  glutamate + cysteine -> gamma-glutamylcysteine (gshA) -> add glycine ->
+  glutathione (gshB); or both steps in one fused enzyme (gshF). Recycling
+  runs through glutathione reductase and breakdown through
+  gamma-glutamyltranspeptidase.
+category: detox
+
+extension: true
+
+targets:
+  - id: GSHA
+    label: gshA (glutamate--cysteine ligase, first step)
+    gene: gshA
+    source: uniprot
+    query: '(protein_name:"Glutamate--cysteine ligase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: GSHB
+    label: gshB (glutathione synthetase, second step)
+    gene: gshB
+    source: uniprot
+    query: '(protein_name:"Glutathione synthetase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: GSHF
+    label: gshF (fused bifunctional GshAB, both steps in one enzyme)
+    gene: gshF
+    source: uniprot
+    query: '(protein_name:"Glutathione biosynthesis bifunctional protein GshAB") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 549
+    length_tolerance: 0.3
+
+  - id: GOR
+    label: gor (glutathione reductase, recycling rather than synthesis)
+    gene: gor
+    source: uniprot
+    query: '(protein_name:"Glutathione reductase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: GGT
+    label: ggt (gamma-glutamyltranspeptidase, breakdown and salvage)
+    gene: ggt
+    source: uniprot
+    query: '(protein_name:"Gamma-glutamyltranspeptidase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+aggregate: sum
+aggregate_from: [GSHA, GSHB, GSHF]
+aggregate_reason: >-
+  Only synthesis is summed. Reductase recycles glutathione that already
+  exists and transpeptidase takes it apart; both are measured and shown
+  next to the synthesis reading, because a community that recycles heavily
+  is not the same as one that synthesises heavily, and adding them
+  together would hide that.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+citation: >-
+  Smirnova G.V., Oktyabrsky O.N., "Glutathione in bacteria", Biochemistry
+  (Moscow) 70:1199-1211 (2005), doi:10.1007/s10541-005-0248-3.
+
+interpretation:
+  what_it_is: >-
+    Your gut bacteria's capacity to make glutathione, the main
+    small-molecule antioxidant inside cells.
+  made_from: >-
+    glutamate, cysteine and glycine
+  summary: >-
+    Some gut bacteria synthesise glutathione. This counts those genes. It
+    is not a measurement of glutathione in you, and it is not a marker of
+    your own antioxidant status.
+  evidence_detail: >-
+    Bacterial glutathione synthesis is real but patchy: many gut anaerobes
+    lack the route entirely and import what they need, and the fused gshF
+    enzyme found in some Gram-positives does both steps at once, so a
+    search for the two-enzyme route alone will miss it. A 2026 study
+    described glutathione handling in Eubacterium rectale specifically.
+    What this cannot establish is any effect on your own glutathione: host
+    glutathione is made by your own cells from cysteine supply, and there
+    is no established route by which bacterial glutathione in the colon
+    becomes host glutathione in the liver.
+  higher_means: context-dependent
+  evidence_strength: preliminary
+  implications:
+    higher: >-
+      More bacterial glutathione synthesis capacity than most samples
+      carry. This says nothing about your own glutathione status, which
+      is made by your cells and is not measurable from a stool gene
+      count.
+    typical: >-
+      A mid-range amount of bacterial glutathione synthesis capacity,
+      similar to most samples. Many gut anaerobes import glutathione
+      rather than making it, so the synthesis reading is only part of
+      how a community handles it.
+    lower: >-
+      Less bacterial glutathione synthesis capacity than most samples
+      carry. Read this beside the recycling and breakdown readings, and
+      not as a statement about your own antioxidant status, which this
+      cannot measure.
+  citation: >-
+    Smirnova G.V., Oktyabrsky O.N., "Glutathione in bacteria",
+    Biochemistry (Moscow) 70:1199-1211 (2005),
+    doi:10.1007/s10541-005-0248-3.

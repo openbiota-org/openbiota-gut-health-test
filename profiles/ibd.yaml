@@ -1,0 +1,328 @@
+name: ibd
+version: 1.0.0
+spec_version: 3
+label: "Inflammatory bowel disease (composite) — gut pattern"
+disease: inflammatory_bowel_disease
+task: ibd_vs_non_ibd
+family: ibd
+body_site: stool
+population: mixed_north_american_european_cohorts
+status: production_candidate
+evidence_maturity: P3
+
+summary: >-
+  The composite IBD pattern: what Crohn's disease and ulcerative colitis
+  share. This is the profile validated against labelled cohorts in the
+  profile_validation file, because the public cohorts label IBD far more
+  often than they separate CD from UC. It scores the core replicated
+  directions — butyrate-producer depletion, Ruminococcus gnavus and
+  Escherichia coli expansion, diversity loss — and leaves the CD-specific
+  oral-origin taxa and the UC-specific sulfide story to the two
+  disease-specific profiles.
+
+  When this profile is high and the shape analysis reads specific, the sample
+  resembles the IBD dysbiotic state. When many profiles are high together it
+  is dysbiosis of some cause, and IBD is one of many.
+
+references:
+  primary:
+    source: curatedMetagenomicData
+    note: "HMP2 non-IBD symptomatic controls are the right contrast."
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  hmp2_2019:
+    label: "HMP2 IBDMDB core dysbiosis directions"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: hmp2_2019
+    maturity: P3
+    weight_in_combined: 1.0
+    sources: ["Lloyd-Price J, et al. Nature 2019;569:655-662"]
+    features:
+      - name: Ruminococcus_gnavus
+        level: species
+        direction: higher_in_case
+        w: 1.0
+        q: 0.9
+        s: 0.3
+        c: 0.9
+      - name: Escherichia_coli
+        level: species
+        direction: higher_in_case
+        w: 0.9
+        q: 0.9
+        s: 0.3
+        c: 0.9
+      - name: Ruminococcus_torques
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: Clostridium_bolteae
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 1.0
+        q: 0.9
+        s: 0.2
+        c: 0.9
+      - name: Roseburia_hominis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.8
+        q: 0.9
+        s: 0.3
+        c: 0.9
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.8
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: Eubacterium_rectale
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.8
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: Alistipes_putredinis
+        level: species
+        direction: lower_in_case
+        w: 0.6
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: Bifidobacterium_adolescentis
+        level: species
+        direction: lower_in_case
+        w: 0.6
+        q: 0.7
+        s: 0.3
+        c: 0.7
+
+  franzosa_2019_prism:
+    label: "Franzosa 2019 PRISM + Dutch validation"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: franzosa_2019
+    maturity: P3
+    sources: ["Franzosa EA, et al. Nat Microbiol 2019;4:293-305"]
+    features:
+      - name: Ruminococcus_gnavus
+        level: species
+        direction: higher_in_case
+        w: 0.9
+        q: 0.8
+        s: 0.3
+        c: 0.9
+      - name: Escherichia_coli
+        level: species
+        direction: higher_in_case
+        w: 0.8
+        q: 0.8
+        s: 0.3
+        c: 0.9
+      - name: Clostridium_bolteae
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.9
+        q: 0.9
+        s: 0.2
+        c: 0.9
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: Alistipes_shahii
+        level: species
+        direction: lower_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.7
+      - name: Eubacterium_eligens
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.7
+        s: 0.3
+        c: 0.7
+
+  hall_2017:
+    label: "Hall 2017 R. gnavus clade expansion"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: hall_2017
+    maturity: P3
+    note: >-
+      Longitudinal cohort identifying an IBD-specific R. gnavus clade with
+      strain-level expansion during flares. Strain resolution is not
+      available to this pipeline; the species direction is.
+    sources: ["Hall AB, et al. Genome Med 2017;9:103"]
+    features:
+      - name: Ruminococcus_gnavus
+        level: species
+        direction: higher_in_case
+        w: 1.0
+        q: 0.8
+        s: 0.3
+        c: 0.9
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.8
+        s: 0.2
+        c: 0.8
+
+  ecology:
+    label: "Community ecology"
+    type: direction_panel
+    evidence_type: ECO
+    claim_level: observed
+    study_group: hmp2_2019
+    maturity: P3
+    features:
+      - name: shannon
+        direction: decreased
+        w: 0.8
+        q: 0.9
+        s: 0.1
+        c: 0.9
+      - name: richness
+        direction: decreased
+        w: 0.6
+        q: 0.9
+        s: 0.1
+        c: 0.9
+
+  functional:
+    label: "Metabolite gene capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P3
+    features:
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        w: 1.0
+        q: 0.9
+        s: 0.2
+        c: 0.9
+      - name: bsh
+        engine: diamond
+        direction: decreased
+        w: 0.5
+        q: 0.7
+        s: 0.3
+        c: 0.7
+      - name: bai
+        engine: diamond
+        direction: decreased
+        w: 0.5
+        q: 0.7
+        s: 0.3
+        c: 0.7
+      - name: h2s
+        engine: diamond
+        direction: increased
+        w: 0.5
+        q: 0.6
+        s: 0.3
+        c: 0.6
+
+  carriers:
+    label: "Carrier cross-check"
+    type: mechanism_lane
+    evidence_type: CARRIER_ABUNDANCE
+    claim_level: carrier_proxy
+    maturity: P2
+    features:
+      - name: butyrate
+        engine: carrier
+        direction: decreased
+        w: 0.8
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: hexa_lps
+        engine: carrier
+        direction: increased
+        w: 0.6
+        q: 0.7
+        s: 0.3
+        c: 0.7
+
+cross_engine_checks:
+  - taxonomic_feature: Faecalibacterium_prausnitzii
+    functional_feature: butyrate
+    expect: concordant
+    on_disagreement: downgrade_confidence
+
+confounders:
+  - name: Disease activity
+    effect: "The dysbiotic state is intermittent; remission samples can look like controls"
+    handling: "Recorded in the ledger when supplied"
+  - name: Treatment
+    effect: "Anti-TNF, steroids and mesalamine shift composition toward controls"
+    handling: "Recorded when supplied"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    IBD is diagnosed by endoscopy, histology and imaging. This profile does
+    not diagnose or exclude it. Calprotectin is the stool test that matters
+    clinically, and it is a protein, not DNA.
+  - >-
+    This is the general dysbiosis pattern. Antibiotics, bowel preparation,
+    gastroenteritis, hospitalisation and low-fibre diets all produce it.
+
+effect_size_note: >-
+  Validated against labelled public cohorts; see profile_validation.json for
+  the measured AUROC and the empirical specificity across the library.
+
+citation: >-
+  Lloyd-Price J, et al. Nature 2019;569:655-662; Franzosa EA, et al. Nat
+  Microbiol 2019;4:293-305; Hall AB, et al. A novel Ruminococcus gnavus clade
+  enriched in inflammatory bowel disease patients. Genome Med 2017;9:103.

@@ -1,0 +1,2163 @@
+# Machine-readable determinant catalog: toxin/pathotype logic and AMR panel.
+# Generated from specs/BUILD_SPEC_v05.0.md sections 8.2 and 8.3 (BUILD_SPEC v05.0).
+# Gene families refer to curated experimentally characterised families/alleles with
+# exact reference records, not a substring match to an annotation. Community-level
+# co-occurrence never supplies strain linkage.
+schema_version: pathogens.determinant.v1
+catalog_section: "8.2,8.3"
+determinants:
+  - determinant_id: toxin.stx1
+    source_section: "8.2"
+    display_name: "Shiga toxin 1 (stx1)"
+    gene_family: stx1
+    kind: toxin
+    associated_seed_ids: [bacteria.stec]
+    subunits: [A, B]
+    subtype_resolution_optional: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Shiga-toxin-associated gene DNA detected; the carrying organism or
+      strain is unresolved, and bacteriophage context is possible.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/laboratory-methods-food/bam-chapter-4a-diarrheagenic-escherichia-coli", "https://www.cdc.gov/ecoli/php/technical-info/index.html"]
+    note: >-
+      Curated stx1 family with A/B subunit and subtype resolution where
+      coverage permits. Do not require eae or O157: eae-negative and non-O157
+      STEC exist. Only credible E. coli linkage supports the organism-trait
+      statement; stx genes are phage-encoded and are also carried by other
+      organisms including Shigella dysenteriae serotype 1 and some Escherichia
+      albertii strains. stx1 subtypes a/c/d exist; subtype naming needs
+      adequate allele coverage.
+  - determinant_id: toxin.stx2
+    source_section: "8.2"
+    display_name: "Shiga toxin 2 (stx2)"
+    gene_family: stx2
+    kind: toxin
+    associated_seed_ids: [bacteria.stec]
+    subunits: [A, B]
+    subtype_resolution_optional: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Shiga-toxin-associated gene DNA detected; the carrying organism or
+      strain is unresolved, and bacteriophage context is possible.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/laboratory-methods-food/bam-chapter-4a-diarrheagenic-escherichia-coli", "https://www.cdc.gov/ecoli/php/technical-info/index.html"]
+    note: >-
+      Curated stx2 family with A/B subunit and subtype resolution where
+      coverage permits. Do not require eae or O157: eae-negative and non-O157
+      STEC exist. Only credible E. coli linkage supports the organism-trait
+      statement; stx genes are phage-encoded and are also carried by other
+      organisms including Shigella dysenteriae serotype 1 and some Escherichia
+      albertii strains. stx2a and stx2d subtypes carry the strongest
+      haemolytic-uraemic-syndrome association, but subtype claims require
+      adequate allele coverage.
+  - determinant_id: toxin.elta
+    source_section: "8.2"
+    display_name: "Heat-labile enterotoxin A subunit (eltA)"
+    gene_family: eltA
+    kind: toxin
+    associated_seed_ids: [bacteria.etec]
+    subunits_assessed_separately: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Heat-labile-enterotoxin gene DNA detected; the carrying E. coli strain
+      is unresolved and cannot be attributed to any coexisting Escherichia
+      population.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/laboratory-methods-food/bam-chapter-4a-diarrheagenic-escherichia-coli"]
+    note: >-
+      Human-relevant curated eltA allele evidence, the catalytic A subunit of
+      LT. Assess eltA and eltB separately and report operon completeness; do
+      not treat an LT-like annotation as a human-relevant enterotoxin allele.
+  - determinant_id: toxin.eltb
+    source_section: "8.2"
+    display_name: "Heat-labile enterotoxin B subunit (eltB)"
+    gene_family: eltB
+    kind: toxin
+    associated_seed_ids: [bacteria.etec]
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Heat-labile-enterotoxin gene DNA detected; the carrying E. coli strain
+      is unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/laboratory-methods-food/bam-chapter-4a-diarrheagenic-escherichia-coli"]
+    note: >-
+      Human-relevant curated eltB allele evidence, the binding B subunit of
+      LT. It is closely related to cholera toxin B, so discriminate against
+      Vibrio ctxB rather than accepting a shared-family match.
+  - determinant_id: toxin.esta_sta
+    source_section: "8.2"
+    display_name: "Heat-stable enterotoxin ST (estA/STa)"
+    gene_family: estA/STa
+    kind: toxin
+    associated_seed_ids: [bacteria.etec]
+    human_relevant_allele_required: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Heat-stable-enterotoxin gene DNA detected; the carrying E. coli strain
+      is unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/laboratory-methods-food/bam-chapter-4a-diarrheagenic-escherichia-coli"]
+    note: >-
+      Human-relevant estA/STa alleles only. Do not treat every est-like
+      annotation as an enterotoxin: the porcine STb/estB and the human STh/STp
+      variants are distinct, the gene is very short, and short-read hits
+      therefore need exact curated allele matching rather than substring
+      similarity.
+  - determinant_id: pathotype_marker.eae
+    source_section: "8.2"
+    display_name: "Intimin (eae)"
+    gene_family: eae
+    kind: pathotype_marker
+    associated_seed_ids: [bacteria.epec, bacteria.stec]
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Intimin gene DNA detected; the carrying organism and pathotype are
+      unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/laboratory-methods-food/bam-chapter-4a-diarrheagenic-escherichia-coli", "https://www.cdc.gov/ecoli/php/technical-info/index.html", "https://pmc.ncbi.nlm.nih.gov/articles/PMC5852171/"]
+    note: >-
+      eae-associated evidence for the LEE attaching-and-effacing phenotype,
+      with stx assessed independently. If stx absence is unassessable, output
+      EPEC-associated markers rather than a definitive EPEC or atypical-EPEC
+      strain. eae is also carried by STEC and by Escherichia albertii, so it
+      is not by itself an EPEC call.
+  - determinant_id: pathotype_marker.bfpa
+    source_section: "8.2"
+    display_name: "Bundle-forming pilus A (bfpA)"
+    gene_family: bfpA
+    kind: pathotype_marker
+    associated_seed_ids: [bacteria.epec]
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Bundle-forming-pilus gene DNA detected; the carrying strain and its eae
+      status are unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/laboratory-methods-food/bam-chapter-4a-diarrheagenic-escherichia-coli"]
+    note: >-
+      Typical EPEC requires appropriate bfpA/EAF context linked to the same
+      strain as eae. bfpA alone is not a pathotype, and its absence supports
+      'atypical EPEC' only when the locus was actually evaluable.
+  - determinant_id: virulence_locus.eaf
+    source_section: "8.2"
+    display_name: "EPEC adherence factor plasmid (EAF)"
+    gene_family: EAF
+    kind: virulence_locus
+    associated_seed_ids: [bacteria.epec]
+    requires_locus_completeness: true
+    plasmid_context: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      EAF-plasmid-associated DNA detected; plasmid-to-chromosome linkage is
+      unresolved, so the host strain cannot be named.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/laboratory-methods-food/bam-chapter-4a-diarrheagenic-escherichia-coli"]
+    note: >-
+      EPEC adherence factor plasmid context, historically detected by the EAF
+      probe and carrying the bfp operon and perA regulator. Report locus
+      completeness; a plasmid replicon or fragment in a mixed community does
+      not establish which E. coli carries it.
+  - determinant_id: pathotype_marker.aggr
+    source_section: "8.2"
+    display_name: "AggR regulator (aggR)"
+    gene_family: aggR
+    kind: pathotype_marker
+    associated_seed_ids: [bacteria.eaec]
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      AggR-regulon gene DNA detected; the carrying E. coli strain is
+      unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/laboratory-methods-food/bam-chapter-4a-diarrheagenic-escherichia-coli", "https://pmc.ncbi.nlm.nih.gov/articles/PMC5852171/"]
+    note: >-
+      Master regulator of the AggR regulon and the most widely used EAEC
+      marker. Requires supported adhesin/regulon context in the same strain;
+      preserve heterogeneous atypical phenotypes and mixed-strain uncertainty.
+  - determinant_id: pathotype_marker.aata
+    source_section: "8.2"
+    display_name: "Dispersin transporter (aatA)"
+    gene_family: aatA
+    kind: pathotype_marker
+    associated_seed_ids: [bacteria.eaec]
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      EAEC plasmid marker DNA detected; the carrying E. coli strain is
+      unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/laboratory-methods-food/bam-chapter-4a-diarrheagenic-escherichia-coli", "https://pmc.ncbi.nlm.nih.gov/articles/PMC5852171/"]
+    note: >-
+      Plasmid-borne dispersin transport marker (the CVD432 probe target) used
+      with aggR and aaiC. A single marker is not a pathotype call; require an
+      appropriate linked marker set.
+  - determinant_id: pathotype_marker.aaic
+    source_section: "8.2"
+    display_name: "AaiC secreted protein (aaiC)"
+    gene_family: aaiC
+    kind: pathotype_marker
+    associated_seed_ids: [bacteria.eaec]
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      EAEC chromosomal-island marker DNA detected; the carrying E. coli strain
+      is unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/laboratory-methods-food/bam-chapter-4a-diarrheagenic-escherichia-coli", "https://pmc.ncbi.nlm.nih.gov/articles/PMC5852171/"]
+    note: >-
+      Chromosomal aai type-VI-secretion island marker, complementary to the
+      plasmid-borne aggR and aatA markers; discordant plasmid and chromosomal
+      markers in one community indicate mixed strains rather than one hybrid
+      strain.
+  - determinant_id: toxin.asta
+    source_section: "8.2"
+    display_name: "EAST1 heat-stable toxin (astA)"
+    gene_family: astA
+    kind: toxin
+    associated_seed_ids: [bacteria.eaec]
+    sufficient_alone: false
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      EAST1 toxin gene DNA detected; the carrying E. coli strain is
+      unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/laboratory-methods-food/bam-chapter-4a-diarrheagenic-escherichia-coli", "https://pmc.ncbi.nlm.nih.gov/articles/PMC5852171/"]
+    note: >-
+      astA/EAST1 alone is insufficient for an EAEC call and is explicitly not
+      sufficient alone: it occurs in EAEC, in other pathotypes and in
+      commensal E. coli. Report it only alongside aggR/aatA/aaiC regulon
+      context in the same strain.
+  - determinant_id: pathotype_marker.ipah
+    source_section: "8.2"
+    display_name: "Invasion plasmid antigen H (ipaH)"
+    gene_family: ipaH
+    kind: pathotype_marker
+    associated_seed_ids: [bacteria.eiec, bacteria.shigella_eiec_combined_group, bacteria.shigella_sonnei, bacteria.shigella_flexneri, bacteria.shigella_dysenteriae, bacteria.shigella_boydii]
+    multi_copy_target: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      ipaH family DNA detected; the carrying organism is unresolved between
+      Shigella species and enteroinvasive E. coli.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://pmc.ncbi.nlm.nih.gov/articles/PMC8767346/", "https://www.fda.gov/food/laboratory-methods-food/bam-chapter-4a-diarrheagenic-escherichia-coli"]
+    note: >-
+      ipaH family plus invasion-context evidence, defaulting to the combined
+      Shigella/EIEC group unless validated discriminatory markers support
+      narrower resolution. ipaH is not uniquely Shigella - EIEC carries it too
+      - and it is multi-copy, present on both the plasmid and the chromosome,
+      so copy number is not abundance.
+  - determinant_id: pathotype_marker.afa_daa_dr
+    source_section: "8.2"
+    display_name: "Afa/Dr adhesin family (afa/daa/dr)"
+    gene_family: afa/daa/dr
+    kind: pathotype_marker
+    associated_seed_ids: [bacteria.daec]
+    sufficient_alone: false
+    exploratory_only: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Afa/Dr adhesin gene DNA detected; the carrying E. coli strain is
+      unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.cdc.gov/ecoli/php/technical-info/index.html", "https://pmc.ncbi.nlm.nih.gov/articles/PMC5852171/"]
+    note: >-
+      afa/daa/dr adhesin evidence is supportive and exploratory, not
+      universally specific: the family is heterogeneous, overlaps
+      uropathogenic E. coli adhesins and occurs in strains from healthy
+      carriers. Report as an exploratory marker, never as an established cause
+      of diarrhoea.
+  - determinant_id: toxin.tcda
+    source_section: "8.2"
+    display_name: "Toxin A (tcdA)"
+    gene_family: tcdA
+    kind: toxin
+    associated_seed_ids: [bacteria.clostridioides_difficile]
+    requires_locus_completeness: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      tcdA major-toxin gene DNA detected; linkage to a C. difficile strain in
+      this sample is unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.cdc.gov/c-diff/hcp/diagnosis-testing/index.html"]
+    note: >-
+      Enterotoxin of the PaLoc, assessed independently of tcdB;
+      A-negative/B-positive strains are well described, so a tcdA-negative
+      result does not exclude a toxigenic strain. Major-toxin DNA implies
+      genetic potential, not expressed toxin and not C. difficile infection;
+      toxin detection in stool by immunoassay plus a compatible clinical
+      picture is what supports CDI. Asymptomatic carriage of toxigenic strains
+      is common, especially in children under about two years, so age-aware
+      interpretation is required.
+  - determinant_id: toxin.tcdb
+    source_section: "8.2"
+    display_name: "Toxin B (tcdB)"
+    gene_family: tcdB
+    kind: toxin
+    associated_seed_ids: [bacteria.clostridioides_difficile]
+    requires_locus_completeness: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      tcdB major-toxin gene DNA detected; linkage to a C. difficile strain in
+      this sample is unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.cdc.gov/c-diff/hcp/diagnosis-testing/index.html"]
+    note: >-
+      Cytotoxin of the PaLoc and the principal virulence factor, assessed
+      independently of tcdA. Major-toxin DNA implies genetic potential, not
+      expressed toxin and not C. difficile infection; toxin detection in stool
+      by immunoassay plus a compatible clinical picture is what supports CDI.
+      Asymptomatic carriage of toxigenic strains is common, especially in
+      children under about two years, so age-aware interpretation is required.
+  - determinant_id: toxin.cdta
+    source_section: "8.2"
+    display_name: "Binary toxin CDTa (cdtA)"
+    gene_family: cdtA
+    kind: toxin
+    associated_seed_ids: [bacteria.clostridioides_difficile]
+    substitutes_for_major_toxins: false
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      cdtA binary-toxin gene DNA detected; linkage to a C. difficile strain in
+      this sample is unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.cdc.gov/c-diff/hcp/diagnosis-testing/index.html"]
+    note: >-
+      Enzymatic component of the binary toxin CDT, encoded on the separate
+      CdtLoc. Reported separately from tcdA/tcdB, and binary toxin does not
+      substitute for the major toxins: a cdtA/cdtB-only result is not a
+      toxigenic C. difficile result. Binary-toxin genes are enriched in
+      lineages such as RT027/ST1, but ribotype claims need validated typing
+      evidence, not marker presence.
+  - determinant_id: toxin.cdtb
+    source_section: "8.2"
+    display_name: "Binary toxin CDTb (cdtB)"
+    gene_family: cdtB
+    kind: toxin
+    associated_seed_ids: [bacteria.clostridioides_difficile]
+    substitutes_for_major_toxins: false
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      cdtB binary-toxin gene DNA detected; linkage to a C. difficile strain in
+      this sample is unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.cdc.gov/c-diff/hcp/diagnosis-testing/index.html"]
+    note: >-
+      Binding component of the binary toxin CDT, encoded on the separate
+      CdtLoc. Reported separately from tcdA/tcdB, and binary toxin does not
+      substitute for the major toxins: a cdtA/cdtB-only result is not a
+      toxigenic C. difficile result. Binary-toxin genes are enriched in
+      lineages such as RT027/ST1, but ribotype claims need validated typing
+      evidence, not marker presence.
+  - determinant_id: toxin.cpe
+    source_section: "8.2"
+    display_name: "Clostridium perfringens enterotoxin (cpe)"
+    gene_family: cpe
+    kind: toxin
+    associated_seed_ids: [bacteria.clostridium_perfringens]
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      C. perfringens enterotoxin gene DNA detected; linkage to a C.
+      perfringens strain in this sample is unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      cpe carries the enterotoxin-associated potential for food-poisoning and
+      antibiotic-associated diarrhoea. Only a minority of C. perfringens
+      strains carry it, and chromosomal versus plasmid location differs by
+      syndrome. Gene presence is genetic potential, not expressed toxin:
+      food-poisoning diagnosis rests on enterotoxin detection in stool plus
+      epidemiology.
+  - determinant_id: toxin.plc_cpa
+    source_section: "8.2"
+    display_name: "Alpha-toxin phospholipase C (plc/cpa)"
+    gene_family: plc/cpa
+    kind: toxin
+    associated_seed_ids: [bacteria.clostridium_perfringens]
+    sufficient_alone: false
+    species_marker_not_pathotype: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Alpha-toxin gene DNA detected; linkage to a C. perfringens strain in
+      this sample is unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      plc/cpa alone does not establish food-poisoning potential and is
+      explicitly not sufficient alone: alpha-toxin is present in essentially
+      every C. perfringens strain, so it behaves as a species marker rather
+      than a pathotype marker. Curated other toxin families are assessed
+      separately.
+  - determinant_id: toxin.bft_1
+    source_section: "8.2"
+    display_name: "Bacteroides fragilis toxin isotype 1 (bft-1)"
+    gene_family: bft-1
+    kind: toxin
+    associated_seed_ids: [bacteria.bacteroides_fragilis_etbf]
+    requires_locus_completeness: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      bft-1 fragilysin gene DNA detected; linkage to a B. fragilis strain in
+      this sample is unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://pmc.ncbi.nlm.nih.gov/articles/PMC4922554/"]
+    note: >-
+      Curated bft-1 isotype of the fragilysin family, requiring credible B.
+      fragilis linkage on the same strain and the BfPAI locus context. B.
+      fragilis abundance alone is not ETBF, and the three isotypes are close
+      enough that isotype assignment needs adequate allele coverage rather
+      than a family-level match.
+  - determinant_id: toxin.bft_2
+    source_section: "8.2"
+    display_name: "Bacteroides fragilis toxin isotype 2 (bft-2)"
+    gene_family: bft-2
+    kind: toxin
+    associated_seed_ids: [bacteria.bacteroides_fragilis_etbf]
+    requires_locus_completeness: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      bft-2 fragilysin gene DNA detected; linkage to a B. fragilis strain in
+      this sample is unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://pmc.ncbi.nlm.nih.gov/articles/PMC4922554/"]
+    note: >-
+      Curated bft-2 isotype of the fragilysin family, requiring credible B.
+      fragilis linkage on the same strain and the BfPAI locus context. B.
+      fragilis abundance alone is not ETBF, and the three isotypes are close
+      enough that isotype assignment needs adequate allele coverage rather
+      than a family-level match.
+  - determinant_id: toxin.bft_3
+    source_section: "8.2"
+    display_name: "Bacteroides fragilis toxin isotype 3 (bft-3)"
+    gene_family: bft-3
+    kind: toxin
+    associated_seed_ids: [bacteria.bacteroides_fragilis_etbf]
+    requires_locus_completeness: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      bft-3 fragilysin gene DNA detected; linkage to a B. fragilis strain in
+      this sample is unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://pmc.ncbi.nlm.nih.gov/articles/PMC4922554/"]
+    note: >-
+      Curated bft-3 isotype of the fragilysin family, requiring credible B.
+      fragilis linkage on the same strain and the BfPAI locus context. B.
+      fragilis abundance alone is not ETBF, and the three isotypes are close
+      enough that isotype assignment needs adequate allele coverage rather
+      than a family-level match.
+  - determinant_id: toxin.ctxa
+    source_section: "8.2"
+    display_name: "Cholera toxin A subunit (ctxA)"
+    gene_family: ctxA
+    kind: toxin
+    associated_seed_ids: [bacteria.vibrio_cholerae, bacteria.vibrio_mimicus]
+    phage_encoded: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Cholera-toxin gene DNA detected; the carrying organism is unresolved and
+      CTXphi bacteriophage context is possible.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      ctxA is assessed independently from the species call: V. cholerae
+      species alone is not cholera and non-toxigenic environmental strains are
+      common. The locus is carried by the CTXphi prophage, so unlinked ctx is
+      phage-context DNA. O1/O139 or other lineage claims require validated
+      typing evidence. V. mimicus can also carry cholera-toxin genes.
+  - determinant_id: toxin.ctxb
+    source_section: "8.2"
+    display_name: "Cholera toxin B subunit (ctxB)"
+    gene_family: ctxB
+    kind: toxin
+    associated_seed_ids: [bacteria.vibrio_cholerae, bacteria.vibrio_mimicus]
+    phage_encoded: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Cholera-toxin gene DNA detected; the carrying organism is unresolved and
+      CTXphi bacteriophage context is possible.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      ctxB is assessed independently from the species call and from ctxA; the
+      classical and El Tor ctxB genotypes are distinguished only with adequate
+      allele coverage. ctxB is closely related to ETEC eltB, so discriminate
+      rather than accepting a shared-family match.
+  - determinant_id: pathotype_marker.tcpa
+    source_section: "8.2"
+    display_name: "Toxin-coregulated pilus A (tcpA)"
+    gene_family: tcpA
+    kind: pathotype_marker
+    associated_seed_ids: [bacteria.vibrio_cholerae]
+    sufficient_alone: false
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Toxin-coregulated-pilus gene DNA detected; the carrying V. cholerae
+      strain is unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      tcpA is supportive VPI colonisation-factor context, not a toxin
+      replacement: it cannot stand in for ctxA/ctxB, and its presence without
+      ctx does not make a toxigenic call. Classical and El Tor tcpA alleles
+      differ.
+  - determinant_id: toxin.tdh
+    source_section: "8.2"
+    display_name: "Thermostable direct haemolysin (tdh)"
+    gene_family: tdh
+    kind: toxin
+    associated_seed_ids: [bacteria.vibrio_parahaemolyticus]
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Thermostable-direct-haemolysin gene DNA detected; the carrying V.
+      parahaemolyticus strain is unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      tdh is a disease-associated marker (the Kanagawa phenomenon) carried in
+      two near identical copies on a pathogenicity island. A lack of marker
+      reads cannot establish a harmless strain, because the marker region may
+      simply be unevaluable at the achieved depth.
+  - determinant_id: toxin.trh
+    source_section: "8.2"
+    display_name: "TDH-related haemolysin (trh)"
+    gene_family: trh
+    kind: toxin
+    associated_seed_ids: [bacteria.vibrio_parahaemolyticus]
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      TDH-related-haemolysin gene DNA detected; the carrying V.
+      parahaemolyticus strain is unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      trh is the second disease-associated marker, found in tdh-negative
+      clinical strains, so tdh and trh are assessed together but reported
+      separately. Absence of both cannot establish a harmless strain.
+  - determinant_id: pathotype_marker.tlh
+    source_section: "8.2"
+    display_name: "Thermolabile haemolysin (tlh)"
+    gene_family: tlh
+    kind: pathotype_marker
+    associated_seed_ids: [bacteria.vibrio_parahaemolyticus]
+    identification_associated: true
+    sufficient_alone: false
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Thermolabile-haemolysin gene DNA detected; this is a species-associated
+      marker and the strain remains unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      tlh is identification-associated, not proof of toxigenicity: it is
+      present in essentially all V. parahaemolyticus including harmless
+      environmental strains, so it supports species identification only and
+      must never be displayed as a virulence or toxigenicity finding.
+  - determinant_id: pathotype_marker.ail
+    source_section: "8.2"
+    display_name: "Attachment invasion locus (ail)"
+    gene_family: ail
+    kind: pathotype_marker
+    associated_seed_ids: [bacteria.yersinia_enterocolitica]
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      ail gene DNA detected; the carrying Yersinia strain and its lineage are
+      unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Chromosomal attachment-invasion-locus marker restricted to pathogenic Y.
+      enterocolitica lineages and the most widely used pathogenic-lineage
+      marker. Do not use one generic homolog as a universal pathogenicity
+      test: species/lineage-specific alleles and plasmid context are required,
+      and biotype 1A environmental strains lack the pathogenic complement.
+  - determinant_id: toxin.ysta
+    source_section: "8.2"
+    display_name: "Yersinia heat-stable enterotoxin (ystA)"
+    gene_family: ystA
+    kind: toxin
+    associated_seed_ids: [bacteria.yersinia_enterocolitica]
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      ystA enterotoxin gene DNA detected; the carrying Yersinia strain is
+      unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Heat-stable enterotoxin of pathogenic Y. enterocolitica; ystB is the
+      biotype-1A-associated variant and must be discriminated rather than
+      pooled with ystA. Do not use one generic homolog as a universal
+      pathogenicity test: species/lineage-specific alleles and plasmid context
+      are required, and biotype 1A environmental strains lack the pathogenic
+      complement.
+  - determinant_id: pathotype_marker.inv
+    source_section: "8.2"
+    display_name: "Invasin (inv)"
+    gene_family: inv
+    kind: pathotype_marker
+    associated_seed_ids: [bacteria.yersinia_enterocolitica, bacteria.yersinia_pseudotuberculosis]
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Invasin gene DNA detected; the carrying Yersinia species and lineage are
+      unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Chromosomal invasin locus present in both Y. enterocolitica and Y.
+      pseudotuberculosis, with a functional/non-functional distinction between
+      lineages, so a sequence match alone is not a functional invasion claim.
+      Do not use one generic homolog as a universal pathogenicity test:
+      species/lineage-specific alleles and plasmid context are required, and
+      biotype 1A environmental strains lack the pathogenic complement.
+  - determinant_id: pathotype_marker.virf
+    source_section: "8.2"
+    display_name: "Virulence plasmid regulator (virF)"
+    gene_family: virF
+    kind: pathotype_marker
+    associated_seed_ids: [bacteria.yersinia_enterocolitica, bacteria.yersinia_pseudotuberculosis]
+    plasmid_context: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      pYV virulence-plasmid regulator DNA detected; plasmid-to-strain linkage
+      is unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Transcriptional activator carried on the pYV/pCD1 virulence plasmid. The
+      plasmid is readily lost on subculture and in the environment, so its
+      absence is not proof of an avirulent lineage and its presence in a mixed
+      community does not identify the host strain. Do not use one generic
+      homolog as a universal pathogenicity test: species/lineage-specific
+      alleles and plasmid context are required, and biotype 1A environmental
+      strains lack the pathogenic complement.
+  - determinant_id: pathotype_marker.yada
+    source_section: "8.2"
+    display_name: "Yersinia adhesin A (yadA)"
+    gene_family: yadA
+    kind: pathotype_marker
+    associated_seed_ids: [bacteria.yersinia_enterocolitica, bacteria.yersinia_pseudotuberculosis]
+    plasmid_context: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      pYV virulence-plasmid adhesin DNA detected; plasmid-to-strain linkage is
+      unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      pYV-encoded adhesin assessed together with virF as plasmid context; in
+      Y. pseudotuberculosis and Y. enterocolitica the alleles differ, and in
+      Y. pestis the homolog is a pseudogene, so allele-level discrimination is
+      required. Do not use one generic homolog as a universal pathogenicity
+      test: species/lineage-specific alleles and plasmid context are required,
+      and biotype 1A environmental strains lack the pathogenic complement.
+  - determinant_id: virulence_locus.ces_cluster
+    source_section: "8.2"
+    display_name: "Cereulide synthetase cluster (ces)"
+    gene_family: ces
+    kind: virulence_locus
+    associated_seed_ids: [bacteria.bacillus_cereus_sensu_lato]
+    requires_locus_completeness: true
+    plasmid_context: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Cereulide-synthetase gene DNA detected; the carrying B. cereus-group
+      member is unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      ces cluster for cereulide (emetic toxin) capacity, a plasmid-borne
+      multi-gene NRPS locus, so partial hits must be reported as incomplete
+      rather than as cereulide capacity. Cereulide is heat-stable and
+      preformed, so emetic illness can occur with no viable organism and no
+      detectable DNA in stool. Report locus completeness and taxonomic
+      ambiguity: generic B. cereus-group reads cannot establish a particular
+      high-consequence species, so the trait statement stays at complex level
+      unless validated discriminating evidence exists.
+  - determinant_id: toxin.nheabc
+    source_section: "8.2"
+    display_name: "Non-haemolytic enterotoxin Nhe (nheABC)"
+    gene_family: nheABC
+    kind: toxin
+    associated_seed_ids: [bacteria.bacillus_cereus_sensu_lato]
+    requires_locus_completeness: true
+    sufficient_alone: false
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Nhe enterotoxin gene DNA detected; the carrying B. cereus-group member
+      is unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      nheA/nheB/nheC three-component operon for diarrhoeal-toxin capacity. It
+      is present in the great majority of B. cereus-group strains including
+      harmless ones, so it is close to a group marker and is not sufficient
+      alone for a toxigenic claim; report operon completeness across all three
+      components. Report locus completeness and taxonomic ambiguity: generic
+      B. cereus-group reads cannot establish a particular high-consequence
+      species, so the trait statement stays at complex level unless validated
+      discriminating evidence exists.
+  - determinant_id: toxin.hbl
+    source_section: "8.2"
+    display_name: "Haemolysin BL operon (hbl)"
+    gene_family: hbl
+    kind: toxin
+    associated_seed_ids: [bacteria.bacillus_cereus_sensu_lato]
+    requires_locus_completeness: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Haemolysin-BL gene DNA detected; the carrying B. cereus-group member is
+      unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      hblCDA(B) operon for diarrhoeal-toxin capacity; report completeness of
+      the operon rather than a single component hit. Report locus completeness
+      and taxonomic ambiguity: generic B. cereus-group reads cannot establish
+      a particular high-consequence species, so the trait statement stays at
+      complex level unless validated discriminating evidence exists.
+  - determinant_id: toxin.cytk
+    source_section: "8.2"
+    display_name: "Cytotoxin K (cytK)"
+    gene_family: cytK
+    kind: toxin
+    associated_seed_ids: [bacteria.bacillus_cereus_sensu_lato]
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Cytotoxin-K gene DNA detected; the carrying B. cereus-group member is
+      unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      cytK alleles for diarrhoeal-toxin capacity, where cytK-1 (the B.
+      cytotoxicus allele associated with a fatal outbreak) is far more
+      cytotoxic than the widespread cytK-2. Allele-level resolution is
+      therefore required and a family-level hit must not be reported as
+      cytK-1. Report locus completeness and taxonomic ambiguity: generic B.
+      cereus-group reads cannot establish a particular high-consequence
+      species, so the trait statement stays at complex level unless validated
+      discriminating evidence exists.
+  - determinant_id: toxin.sea
+    source_section: "8.2"
+    display_name: "Staphylococcal enterotoxin A (sea)"
+    gene_family: sea
+    kind: toxin
+    associated_seed_ids: [bacteria.staphylococcus_aureus]
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Staphylococcal enterotoxin A gene DNA detected; the carrying
+      staphylococcal strain is unresolved and may be a coagulase-negative
+      species rather than S. aureus.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Curated sea enterotoxin family/allele. Distinguish true enterotoxins
+      from broad superantigen and adhesion annotations: the staphylococcal
+      superantigen family is large and cross-similar, and only experimentally
+      supported enterotoxin families belong here. Staphylococcal food
+      poisoning is caused by preformed heat-stable toxin, so illness can occur
+      without detectable organism DNA and gene presence never establishes that
+      toxin was produced or ingested.
+  - determinant_id: toxin.seb
+    source_section: "8.2"
+    display_name: "Staphylococcal enterotoxin B (seb)"
+    gene_family: seb
+    kind: toxin
+    associated_seed_ids: [bacteria.staphylococcus_aureus]
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Staphylococcal enterotoxin B gene DNA detected; the carrying
+      staphylococcal strain is unresolved and may be a coagulase-negative
+      species rather than S. aureus.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Curated seb enterotoxin family/allele. Distinguish true enterotoxins
+      from broad superantigen and adhesion annotations: the staphylococcal
+      superantigen family is large and cross-similar, and only experimentally
+      supported enterotoxin families belong here. Staphylococcal food
+      poisoning is caused by preformed heat-stable toxin, so illness can occur
+      without detectable organism DNA and gene presence never establishes that
+      toxin was produced or ingested.
+  - determinant_id: toxin.sec
+    source_section: "8.2"
+    display_name: "Staphylococcal enterotoxin C (sec)"
+    gene_family: sec
+    kind: toxin
+    associated_seed_ids: [bacteria.staphylococcus_aureus]
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Staphylococcal enterotoxin C gene DNA detected; the carrying
+      staphylococcal strain is unresolved and may be a coagulase-negative
+      species rather than S. aureus.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Curated sec enterotoxin family/allele. Distinguish true enterotoxins
+      from broad superantigen and adhesion annotations: the staphylococcal
+      superantigen family is large and cross-similar, and only experimentally
+      supported enterotoxin families belong here. Staphylococcal food
+      poisoning is caused by preformed heat-stable toxin, so illness can occur
+      without detectable organism DNA and gene presence never establishes that
+      toxin was produced or ingested.
+  - determinant_id: toxin.sed
+    source_section: "8.2"
+    display_name: "Staphylococcal enterotoxin D (sed)"
+    gene_family: sed
+    kind: toxin
+    associated_seed_ids: [bacteria.staphylococcus_aureus]
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Staphylococcal enterotoxin D gene DNA detected; the carrying
+      staphylococcal strain is unresolved and may be a coagulase-negative
+      species rather than S. aureus.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Curated sed enterotoxin family/allele. Distinguish true enterotoxins
+      from broad superantigen and adhesion annotations: the staphylococcal
+      superantigen family is large and cross-similar, and only experimentally
+      supported enterotoxin families belong here. Staphylococcal food
+      poisoning is caused by preformed heat-stable toxin, so illness can occur
+      without detectable organism DNA and gene presence never establishes that
+      toxin was produced or ingested.
+  - determinant_id: toxin.see
+    source_section: "8.2"
+    display_name: "Staphylococcal enterotoxin E (see)"
+    gene_family: see
+    kind: toxin
+    associated_seed_ids: [bacteria.staphylococcus_aureus]
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Staphylococcal enterotoxin E gene DNA detected; the carrying
+      staphylococcal strain is unresolved and may be a coagulase-negative
+      species rather than S. aureus.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Curated see enterotoxin family/allele. Distinguish true enterotoxins
+      from broad superantigen and adhesion annotations: the staphylococcal
+      superantigen family is large and cross-similar, and only experimentally
+      supported enterotoxin families belong here. Staphylococcal food
+      poisoning is caused by preformed heat-stable toxin, so illness can occur
+      without detectable organism DNA and gene presence never establishes that
+      toxin was produced or ingested.
+  - determinant_id: toxin.bont
+    source_section: "8.2"
+    display_name: "Botulinum neurotoxin family (bont)"
+    gene_family: bont
+    kind: toxin
+    associated_seed_ids: [bacteria.clostridium_botulinum, bacteria.clostridium_baratii, bacteria.clostridium_butyricum]
+    requires_locus_completeness: true
+    near_neighbour_checks_required: true
+    high_consequence_confirmation_required: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Botulinum-neurotoxin-associated gene DNA detected; the carrying organism
+      and toxin cluster context are unresolved, and this is not evidence of
+      expressed toxin or of botulism.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Curated bont family/allele with relevant cluster context (ha/orfX, ntnh)
+      and strict near-neighbour and false-positive checks. Species detection
+      alone and unrelated protease homology are insufficient; bont types A-H
+      differ, and neurotoxigenic C. baratii (type F) and C. butyricum (type E)
+      carry it outside C. botulinum. Any supported signal needs appropriate
+      urgent clinical and public health confirmation. Do not infer expressed
+      toxin, organism viability, or absence of intoxication from DNA results.
+  - determinant_id: virulence_locus.npsa
+    source_section: "8.2"
+    display_name: "Non-ribosomal peptide synthetase A (npsA)"
+    gene_family: npsA
+    kind: virulence_locus
+    associated_seed_ids: [bacteria.klebsiella_oxytoca_complex, bacteria.klebsiella_oxytoca, bacteria.klebsiella_michiganensis, bacteria.klebsiella_grimontii]
+    requires_locus_completeness: true
+    reference_quality_qualification: "MIBiG BGC0000446.5 / GenBank HG425356.1: completeness complete, quality questionable"
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      npsA biosynthetic-cluster DNA detected; the carrying Klebsiella strain
+      is unresolved and no colitis claim follows.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele", "MIBiG_BGC0000446.5"]
+    clinical_source_urls: ["https://www.pnas.org/doi/10.1073/pnas.1819154116", "https://mibig.secondarymetabolites.org/go/BGC0000446.5"]
+    note: >-
+      Adenylation-domain gene of the tilimycin/tilivalline NRPS. Generic NRPS
+      homology is insufficient: the surrounding
+      kleboxymycin/tilimycin/tilivalline locus context and completeness are
+      required. The MIBiG BGC0000446.5 reference links GenBank HG425356.1 and
+      is labelled completeness 'complete' but quality 'questionable'; that
+      qualification is preserved and the record must be validated against
+      primary evidence rather than treated as a perfect reference.
+      Antibiotic-associated haemorrhagic colitis additionally requires
+      clinical evidence; the locus alone is capacity, not disease.
+  - determinant_id: virulence_locus.npsb
+    source_section: "8.2"
+    display_name: "Non-ribosomal peptide synthetase B (npsB)"
+    gene_family: npsB
+    kind: virulence_locus
+    associated_seed_ids: [bacteria.klebsiella_oxytoca_complex, bacteria.klebsiella_oxytoca, bacteria.klebsiella_michiganensis, bacteria.klebsiella_grimontii]
+    requires_locus_completeness: true
+    reference_quality_qualification: "MIBiG BGC0000446.5 / GenBank HG425356.1: completeness complete, quality questionable"
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      npsB biosynthetic-cluster DNA detected; the carrying Klebsiella strain
+      is unresolved and no colitis claim follows.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele", "MIBiG_BGC0000446.5"]
+    clinical_source_urls: ["https://www.pnas.org/doi/10.1073/pnas.1819154116", "https://mibig.secondarymetabolites.org/go/BGC0000446.5"]
+    note: >-
+      Second NRPS gene of the biosynthetic cluster. Generic NRPS homology is
+      insufficient: the surrounding kleboxymycin/tilimycin/tilivalline locus
+      context and completeness are required. The MIBiG BGC0000446.5 reference
+      links GenBank HG425356.1 and is labelled completeness 'complete' but
+      quality 'questionable'; that qualification is preserved and the record
+      must be validated against primary evidence rather than treated as a
+      perfect reference. Antibiotic-associated haemorrhagic colitis
+      additionally requires clinical evidence; the locus alone is capacity,
+      not disease.
+  - determinant_id: virulence_locus.thda
+    source_section: "8.2"
+    display_name: "Threonine dehydrogenase (thdA)"
+    gene_family: thdA
+    kind: virulence_locus
+    associated_seed_ids: [bacteria.klebsiella_oxytoca_complex, bacteria.klebsiella_oxytoca, bacteria.klebsiella_michiganensis, bacteria.klebsiella_grimontii]
+    requires_locus_completeness: true
+    reference_quality_qualification: "MIBiG BGC0000446.5 / GenBank HG425356.1: completeness complete, quality questionable"
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      thdA biosynthetic-cluster DNA detected; the carrying Klebsiella strain
+      is unresolved and no colitis claim follows.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele", "MIBiG_BGC0000446.5"]
+    clinical_source_urls: ["https://www.pnas.org/doi/10.1073/pnas.1819154116", "https://mibig.secondarymetabolites.org/go/BGC0000446.5"]
+    note: >-
+      Dehydrogenase gene of the cluster, commonly used with npsA/npsB as the
+      marker set. Generic NRPS homology is insufficient: the surrounding
+      kleboxymycin/tilimycin/tilivalline locus context and completeness are
+      required. The MIBiG BGC0000446.5 reference links GenBank HG425356.1 and
+      is labelled completeness 'complete' but quality 'questionable'; that
+      qualification is preserved and the record must be validated against
+      primary evidence rather than treated as a perfect reference.
+      Antibiotic-associated haemorrhagic colitis additionally requires
+      clinical evidence; the locus alone is capacity, not disease.
+  - determinant_id: virulence_locus.iuc
+    source_section: "8.2"
+    display_name: "Aerobactin biosynthesis locus (iuc)"
+    gene_family: iuc
+    kind: virulence_locus
+    associated_seed_ids: [bacteria.klebsiella_pneumoniae_complex, bacteria.klebsiella_pneumoniae, bacteria.klebsiella_quasipneumoniae, bacteria.klebsiella_variicola]
+    requires_locus_completeness: true
+    sufficient_alone: false
+    plasmid_context: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      iuc virulence-locus DNA detected; the carrying Klebsiella strain and its
+      plasmid context are unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Aerobactin siderophore locus, the single most predictive hypervirulence
+      marker but still only a marker. A siderophore gene alone does not
+      establish hypervirulence or invasive disease; use appropriate
+      Kleborate-style analysis where possible and report locus completeness
+      with the host-linkage status.
+  - determinant_id: virulence_locus.iro
+    source_section: "8.2"
+    display_name: "Salmochelin biosynthesis locus (iro)"
+    gene_family: iro
+    kind: virulence_locus
+    associated_seed_ids: [bacteria.klebsiella_pneumoniae_complex, bacteria.klebsiella_pneumoniae, bacteria.klebsiella_quasipneumoniae, bacteria.klebsiella_variicola]
+    requires_locus_completeness: true
+    sufficient_alone: false
+    plasmid_context: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      iro virulence-locus DNA detected; the carrying Klebsiella strain and its
+      plasmid context are unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Salmochelin siderophore locus, frequently co-carried with iuc on
+      virulence plasmids. A siderophore gene alone does not establish
+      hypervirulence or invasive disease; use appropriate Kleborate-style
+      analysis where possible and report locus completeness with the
+      host-linkage status.
+  - determinant_id: virulence_locus.ybt
+    source_section: "8.2"
+    display_name: "Yersiniabactin biosynthesis locus (ybt)"
+    gene_family: ybt
+    kind: virulence_locus
+    associated_seed_ids: [bacteria.klebsiella_pneumoniae_complex, bacteria.klebsiella_pneumoniae, bacteria.klebsiella_quasipneumoniae, bacteria.klebsiella_variicola]
+    requires_locus_completeness: true
+    sufficient_alone: false
+    plasmid_context: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      ybt virulence-locus DNA detected; the carrying Klebsiella strain and its
+      plasmid context are unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Yersiniabactin ICEKp-borne locus, common in ordinary carriage isolates
+      and therefore weak evidence on its own. A siderophore gene alone does
+      not establish hypervirulence or invasive disease; use appropriate
+      Kleborate-style analysis where possible and report locus completeness
+      with the host-linkage status.
+  - determinant_id: virulence_locus.rmpa2
+    source_section: "8.2"
+    display_name: "Capsule regulator rmpA2 (rmpA2)"
+    gene_family: rmpA2
+    kind: virulence_locus
+    associated_seed_ids: [bacteria.klebsiella_pneumoniae_complex, bacteria.klebsiella_pneumoniae, bacteria.klebsiella_quasipneumoniae, bacteria.klebsiella_variicola]
+    requires_locus_completeness: true
+    sufficient_alone: false
+    plasmid_context: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      rmpA2 virulence-locus DNA detected; the carrying Klebsiella strain and
+      its plasmid context are unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Mucoid-phenotype regulator assessed with the surrounding rmp locus;
+      rmpA2 is frequently truncated by frameshift, so completeness matters. A
+      siderophore gene alone does not establish hypervirulence or invasive
+      disease; use appropriate Kleborate-style analysis where possible and
+      report locus completeness with the host-linkage status.
+  - determinant_id: virulence_locus.caga
+    source_section: "8.2"
+    display_name: "Cytotoxin-associated gene A (cagA)"
+    gene_family: cagA
+    kind: virulence_locus
+    associated_seed_ids: [bacteria.helicobacter_pylori]
+    requires_locus_completeness: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      cagA island DNA detected; linkage to an H. pylori strain in this sample
+      is unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.frontiersin.org/journals/cellular-and-infection-microbiology/articles/10.3389/fcimb.2026.1759322/full"]
+    note: >-
+      Identification of H. pylori stays independent from cagA/vacA. Resolve
+      the cag pathogenicity island and its EPIYA motif variants only with
+      adequate coverage, which stool metagenomes frequently do not provide.
+      Absence of cagA does not imply absence of H. pylori or benignity, and a
+      cagA result must never be turned into a gastric-cancer risk statement.
+  - determinant_id: toxin.vaca
+    source_section: "8.2"
+    display_name: "Vacuolating cytotoxin A (vacA)"
+    gene_family: vacA
+    kind: toxin
+    associated_seed_ids: [bacteria.helicobacter_pylori]
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      vacA gene DNA detected; linkage to an H. pylori strain in this sample is
+      unresolved.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.frontiersin.org/journals/cellular-and-infection-microbiology/articles/10.3389/fcimb.2026.1759322/full"]
+    note: >-
+      vacA is present in essentially all H. pylori strains, so only the s/i/m
+      region allele combinations carry interpretive weight, and those require
+      adequate coverage to resolve. Identification remains independent from
+      vacA typing, and stool shedding for this organism is variable and poorly
+      sensitive, so unresolved alleles are the expected outcome rather than a
+      failure.
+  - determinant_id: virulence_locus.clb_pks_island
+    source_section: "8.2"
+    display_name: "Colibactin pks island (clb)"
+    gene_family: clb/pks
+    kind: virulence_locus
+    associated_seed_ids: [bacteria.stec, bacteria.epec, bacteria.eaec, bacteria.klebsiella_pneumoniae, bacteria.klebsiella_pneumoniae_complex]
+    requires_locus_completeness: true
+    sufficient_alone: false
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      Colibactin (clb/pks) island DNA detected; the carrying organism is
+      unresolved between Escherichia and Klebsiella populations, so no
+      strain-level colibactin capacity can be stated.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.fda.gov/food/foodborne-pathogens/bad-bug-book-second-edition"]
+    note: >-
+      Single canonical seed for the clb/pks island, which the spec names in
+      both the K. pneumoniae virulence-associated loci row and the colibactin
+      capacity row; the two rows are covered by this one determinant rather
+      than duplicated. Requires island completeness plus host linkage - a
+      clbP-like hit alone is insufficient. Link to existing colorectal-cancer
+      mechanism literature without diagnosing cancer and without claiming any
+      measurement of toxin exposure.
+  - determinant_id: amr.blakpc
+    source_section: "8.3"
+    display_name: "KPC carbapenemase (blaKPC)"
+    gene_family: blaKPC
+    kind: amr
+    amr_class: carbapenemase
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      blaKPC resistance-associated gene DNA detected in the stool metagenome;
+      the carrying organism is unresolved, so no organism can be called
+      resistant and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Class A carbapenemase, usually Tn4401-borne on plasmids in
+      Enterobacterales. Prioritised carbapenemase family for display. Report
+      allele resolution and gene completeness; a partial or fragmentary match
+      is not a carbapenemase call, and additional curated carbapenemase
+      alleles beyond the prioritised families are screened from the installed
+      catalog. AMR cards state 'resistance-associated genetic determinant
+      detected' plus completeness, host linkage and validation status. They
+      must not label the person infected, the entire microbiome resistant, a
+      specific organism resistant without linkage, or a drug clinically
+      effective or ineffective without appropriate phenotypic evidence.
+  - determinant_id: amr.blandm
+    source_section: "8.3"
+    display_name: "NDM metallo-carbapenemase (blaNDM)"
+    gene_family: blaNDM
+    kind: amr
+    amr_class: carbapenemase
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      blaNDM resistance-associated gene DNA detected in the stool metagenome;
+      the carrying organism is unresolved, so no organism can be called
+      resistant and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Class B metallo-carbapenemase with broad plasmid host range across
+      Enterobacterales and Acinetobacter. Prioritised carbapenemase family for
+      display. Report allele resolution and gene completeness; a partial or
+      fragmentary match is not a carbapenemase call, and additional curated
+      carbapenemase alleles beyond the prioritised families are screened from
+      the installed catalog. AMR cards state 'resistance-associated genetic
+      determinant detected' plus completeness, host linkage and validation
+      status. They must not label the person infected, the entire microbiome
+      resistant, a specific organism resistant without linkage, or a drug
+      clinically effective or ineffective without appropriate phenotypic
+      evidence.
+  - determinant_id: amr.blavim
+    source_section: "8.3"
+    display_name: "VIM metallo-carbapenemase (blaVIM)"
+    gene_family: blaVIM
+    kind: amr
+    amr_class: carbapenemase
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      blaVIM resistance-associated gene DNA detected in the stool metagenome;
+      the carrying organism is unresolved, so no organism can be called
+      resistant and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Class B metallo-carbapenemase found in Enterobacterales and Pseudomonas.
+      Prioritised carbapenemase family for display. Report allele resolution
+      and gene completeness; a partial or fragmentary match is not a
+      carbapenemase call, and additional curated carbapenemase alleles beyond
+      the prioritised families are screened from the installed catalog. AMR
+      cards state 'resistance-associated genetic determinant detected' plus
+      completeness, host linkage and validation status. They must not label
+      the person infected, the entire microbiome resistant, a specific
+      organism resistant without linkage, or a drug clinically effective or
+      ineffective without appropriate phenotypic evidence.
+  - determinant_id: amr.blaimp
+    source_section: "8.3"
+    display_name: "IMP metallo-carbapenemase (blaIMP)"
+    gene_family: blaIMP
+    kind: amr
+    amr_class: carbapenemase
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      blaIMP resistance-associated gene DNA detected in the stool metagenome;
+      the carrying organism is unresolved, so no organism can be called
+      resistant and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Class B metallo-carbapenemase family with many divergent alleles
+      requiring allele-level curation. Prioritised carbapenemase family for
+      display. Report allele resolution and gene completeness; a partial or
+      fragmentary match is not a carbapenemase call, and additional curated
+      carbapenemase alleles beyond the prioritised families are screened from
+      the installed catalog. AMR cards state 'resistance-associated genetic
+      determinant detected' plus completeness, host linkage and validation
+      status. They must not label the person infected, the entire microbiome
+      resistant, a specific organism resistant without linkage, or a drug
+      clinically effective or ineffective without appropriate phenotypic
+      evidence.
+  - determinant_id: amr.blaoxa48like
+    source_section: "8.3"
+    display_name: "OXA-48-like carbapenemase (blaOXA-48-like)"
+    gene_family: blaOXA-48-like
+    kind: amr
+    amr_class: carbapenemase
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    not_all_alleles_are: carbapenemase
+    allele_resolution_required: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      blaOXA-48-like resistance-associated gene DNA detected in the stool
+      metagenome; the carrying organism is unresolved, so no organism can be
+      called resistant and no antibiotic can be called effective or
+      ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Class D carbapenem-hydrolysing oxacillinase group (OXA-48, OXA-181,
+      OXA-232 and relatives). Not every OXA allele is a carbapenemase: the OXA
+      family is huge and mostly comprises narrow-spectrum oxacillinases, so
+      only curated OXA-48-like and other validated carbapenem-hydrolysing
+      alleles may be displayed in the carbapenemase group, and allele-level
+      resolution is mandatory before that display. AMR cards state
+      'resistance-associated genetic determinant detected' plus completeness,
+      host linkage and validation status. They must not label the person
+      infected, the entire microbiome resistant, a specific organism resistant
+      without linkage, or a drug clinically effective or ineffective without
+      appropriate phenotypic evidence.
+  - determinant_id: amr.blactxm
+    source_section: "8.3"
+    display_name: "CTX-M extended-spectrum beta-lactamase (blaCTX-M)"
+    gene_family: blaCTX-M
+    kind: amr
+    amr_class: esbl_or_ampc
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      blaCTX-M resistance-associated gene DNA detected in the stool
+      metagenome; the carrying organism is unresolved, so no organism can be
+      called resistant and no antibiotic can be called effective or
+      ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      The dominant ESBL family worldwide, with CTX-M-15 and CTX-M-27 among the
+      most common alleles. Curated ESBL family: report the allele group where
+      coverage permits, and never convert the finding into a treatment
+      recommendation. AMR cards state 'resistance-associated genetic
+      determinant detected' plus completeness, host linkage and validation
+      status. They must not label the person infected, the entire microbiome
+      resistant, a specific organism resistant without linkage, or a drug
+      clinically effective or ineffective without appropriate phenotypic
+      evidence.
+  - determinant_id: amr.blashv
+    source_section: "8.3"
+    display_name: "SHV beta-lactamase (blaSHV)"
+    gene_family: blaSHV
+    kind: amr
+    amr_class: esbl_or_ampc
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    not_all_alleles_are: esbl
+    allele_resolution_required: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      blaSHV resistance-associated gene DNA detected in the stool metagenome;
+      the carrying organism is unresolved, so no organism can be called
+      resistant and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Not every TEM/SHV allele is ESBL: blaSHV-1 and relatives are
+      narrow-spectrum and blaSHV-1 is chromosomally intrinsic in Klebsiella
+      pneumoniae, so a bare family hit is expected rather than notable. Only
+      the appropriate curated ESBL subsets of this family may be displayed as
+      ESBL, which requires allele-level resolution of the relevant
+      substitutions; without that resolution report the family and state
+      explicitly that ESBL status is unresolved. AMR cards state
+      'resistance-associated genetic determinant detected' plus completeness,
+      host linkage and validation status. They must not label the person
+      infected, the entire microbiome resistant, a specific organism resistant
+      without linkage, or a drug clinically effective or ineffective without
+      appropriate phenotypic evidence.
+  - determinant_id: amr.blatem
+    source_section: "8.3"
+    display_name: "TEM beta-lactamase (blaTEM)"
+    gene_family: blaTEM
+    kind: amr
+    amr_class: esbl_or_ampc
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    not_all_alleles_are: esbl
+    allele_resolution_required: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      blaTEM resistance-associated gene DNA detected in the stool metagenome;
+      the carrying organism is unresolved, so no organism can be called
+      resistant and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Not every TEM/SHV allele is ESBL: blaTEM-1 and blaTEM-2 are ubiquitous
+      narrow-spectrum penicillinases; only specific substituted alleles are
+      ESBLs. Only the appropriate curated ESBL subsets of this family may be
+      displayed as ESBL, which requires allele-level resolution of the
+      relevant substitutions; without that resolution report the family and
+      state explicitly that ESBL status is unresolved. AMR cards state
+      'resistance-associated genetic determinant detected' plus completeness,
+      host linkage and validation status. They must not label the person
+      infected, the entire microbiome resistant, a specific organism resistant
+      without linkage, or a drug clinically effective or ineffective without
+      appropriate phenotypic evidence.
+  - determinant_id: amr.blacmy
+    source_section: "8.3"
+    display_name: "CMY plasmid-mediated AmpC (blaCMY)"
+    gene_family: blaCMY
+    kind: amr
+    amr_class: esbl_or_ampc
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    distinguish_intrinsic_mechanism: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      blaCMY resistance-associated gene DNA detected in the stool metagenome;
+      the carrying organism is unresolved, so no organism can be called
+      resistant and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Most common plasmid-mediated AmpC family, with blaCMY-2 predominating.
+      Curated plasmid-mediated AmpC. Distinguish acquired plasmid-mediated
+      AmpC from the intrinsic chromosomal ampC that many Enterobacterales
+      carry natively; other curated AmpC families are screened from the
+      installed catalog. AMR cards state 'resistance-associated genetic
+      determinant detected' plus completeness, host linkage and validation
+      status. They must not label the person infected, the entire microbiome
+      resistant, a specific organism resistant without linkage, or a drug
+      clinically effective or ineffective without appropriate phenotypic
+      evidence.
+  - determinant_id: amr.bladha
+    source_section: "8.3"
+    display_name: "DHA plasmid-mediated AmpC (blaDHA)"
+    gene_family: blaDHA
+    kind: amr
+    amr_class: esbl_or_ampc
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    distinguish_intrinsic_mechanism: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      blaDHA resistance-associated gene DNA detected in the stool metagenome;
+      the carrying organism is unresolved, so no organism can be called
+      resistant and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Plasmid-mediated inducible AmpC family. Curated plasmid-mediated AmpC.
+      Distinguish acquired plasmid-mediated AmpC from the intrinsic
+      chromosomal ampC that many Enterobacterales carry natively; other
+      curated AmpC families are screened from the installed catalog. AMR cards
+      state 'resistance-associated genetic determinant detected' plus
+      completeness, host linkage and validation status. They must not label
+      the person infected, the entire microbiome resistant, a specific
+      organism resistant without linkage, or a drug clinically effective or
+      ineffective without appropriate phenotypic evidence.
+  - determinant_id: amr.vana
+    source_section: "8.3"
+    display_name: "VanA glycopeptide resistance operon (vanA)"
+    gene_family: vanA
+    kind: amr
+    amr_class: glycopeptide
+    associated_seed_ids: [bacteria.enterococcus_faecalis, bacteria.enterococcus_faecium]
+    reportable_statement: resistance-associated genetic determinant detected
+    requires_locus_completeness: true
+    distinguish_intrinsic_mechanism: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      vanA resistance-associated gene DNA detected in the stool metagenome;
+      the carrying organism is unresolved, so no organism can be called
+      resistant and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      High-level vancomycin and teicoplanin resistance, usually Tn1546-borne.
+      Acquired multi-gene operon, so report operon completeness rather than a
+      single ligase hit. Distinguish acquired vanA/vanB from intrinsic
+      species-associated systems: vanC-1 in Enterococcus gallinarum and
+      vanC-2/vanC-3 in E. casseliflavus are chromosomal and intrinsic and must
+      never be reported as acquired glycopeptide resistance or as VRE.
+      Supported other van types are screened from the installed catalog. AMR
+      cards state 'resistance-associated genetic determinant detected' plus
+      completeness, host linkage and validation status. They must not label
+      the person infected, the entire microbiome resistant, a specific
+      organism resistant without linkage, or a drug clinically effective or
+      ineffective without appropriate phenotypic evidence.
+  - determinant_id: amr.vanb
+    source_section: "8.3"
+    display_name: "VanB glycopeptide resistance operon (vanB)"
+    gene_family: vanB
+    kind: amr
+    amr_class: glycopeptide
+    associated_seed_ids: [bacteria.enterococcus_faecalis, bacteria.enterococcus_faecium]
+    reportable_statement: resistance-associated genetic determinant detected
+    requires_locus_completeness: true
+    distinguish_intrinsic_mechanism: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      vanB resistance-associated gene DNA detected in the stool metagenome;
+      the carrying organism is unresolved, so no organism can be called
+      resistant and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Variable vancomycin resistance with teicoplanin usually retained; also
+      carried by some gut anaerobes. Acquired multi-gene operon, so report
+      operon completeness rather than a single ligase hit. Distinguish
+      acquired vanA/vanB from intrinsic species-associated systems: vanC-1 in
+      Enterococcus gallinarum and vanC-2/vanC-3 in E. casseliflavus are
+      chromosomal and intrinsic and must never be reported as acquired
+      glycopeptide resistance or as VRE. Supported other van types are
+      screened from the installed catalog. AMR cards state
+      'resistance-associated genetic determinant detected' plus completeness,
+      host linkage and validation status. They must not label the person
+      infected, the entire microbiome resistant, a specific organism resistant
+      without linkage, or a drug clinically effective or ineffective without
+      appropriate phenotypic evidence.
+  - determinant_id: amr.meca
+    source_section: "8.3"
+    display_name: "mecA methicillin resistance determinant (mecA)"
+    gene_family: mecA
+    kind: amr
+    amr_class: methicillin
+    associated_seed_ids: [bacteria.staphylococcus_aureus]
+    reportable_statement: resistance-associated genetic determinant detected
+    requires_locus_completeness: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      mecA DNA detected in the stool metagenome; the carrying organism is
+      unresolved. This does not establish MRSA: another staphylococcus in the
+      sample may carry the determinant, and Staphylococcus aureus plus
+      unlinked mecA cannot become MRSA.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      The classical SCCmec-borne PBP2a determinant, carried by S. aureus and
+      by many coagulase-negative staphylococci that are ordinary skin and gut
+      flora. Host linkage is mandatory before any MRSA statement. AMR cards
+      state 'resistance-associated genetic determinant detected' plus
+      completeness, host linkage and validation status. They must not label
+      the person infected, the entire microbiome resistant, a specific
+      organism resistant without linkage, or a drug clinically effective or
+      ineffective without appropriate phenotypic evidence.
+  - determinant_id: amr.mecc
+    source_section: "8.3"
+    display_name: "mecC methicillin resistance determinant (mecC)"
+    gene_family: mecC
+    kind: amr
+    amr_class: methicillin
+    associated_seed_ids: [bacteria.staphylococcus_aureus]
+    reportable_statement: resistance-associated genetic determinant detected
+    requires_locus_completeness: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      mecC DNA detected in the stool metagenome; the carrying organism is
+      unresolved. This does not establish MRSA: another staphylococcus in the
+      sample may carry the determinant, and Staphylococcus aureus plus
+      unlinked mecC cannot become MRSA.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Divergent mecA homolog (formerly mecALGA251) missed by some
+      mecA-specific assays, with livestock-associated context. Host linkage is
+      mandatory before any MRSA statement. AMR cards state
+      'resistance-associated genetic determinant detected' plus completeness,
+      host linkage and validation status. They must not label the person
+      infected, the entire microbiome resistant, a specific organism resistant
+      without linkage, or a drug clinically effective or ineffective without
+      appropriate phenotypic evidence.
+  - determinant_id: amr.mcr
+    source_section: "8.3"
+    display_name: "Mobile colistin resistance families (mcr)"
+    gene_family: mcr
+    kind: amr
+    amr_class: colistin
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    expression_not_established: true
+    distinguish_intrinsic_mechanism: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      mcr resistance-associated gene DNA detected in the stool metagenome; the
+      carrying organism is unresolved, so no organism can be called resistant
+      and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Plasmid-mediated phosphoethanolamine transferase families mcr-1 through
+      mcr-10 and relatives. The gene family alone does not establish
+      expression, and appropriate species-specific chromosomal mechanisms (for
+      example pmrAB and mgrB alterations) are separate and are not
+      interchangeable with mcr. Colistin phenotype cannot be inferred from
+      stool metagenomic DNA. AMR cards state 'resistance-associated genetic
+      determinant detected' plus completeness, host linkage and validation
+      status. They must not label the person infected, the entire microbiome
+      resistant, a specific organism resistant without linkage, or a drug
+      clinically effective or ineffective without appropriate phenotypic
+      evidence.
+  - determinant_id: amr.qnr
+    source_section: "8.3"
+    display_name: "Plasmid-mediated quinolone resistance (qnr)"
+    gene_family: qnr
+    kind: amr
+    amr_class: quinolone
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      qnr resistance-associated gene DNA detected in the stool metagenome; the
+      carrying organism is unresolved, so no organism can be called resistant
+      and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      qnrA/qnrB/qnrC/qnrD/qnrE/qnrS and relatives, which confer low-level
+      reduced susceptibility rather than full resistance and are often
+      chromosomal in some environmental genera. Curated allele families only.
+      AMR cards state 'resistance-associated genetic determinant detected'
+      plus completeness, host linkage and validation status. They must not
+      label the person infected, the entire microbiome resistant, a specific
+      organism resistant without linkage, or a drug clinically effective or
+      ineffective without appropriate phenotypic evidence.
+  - determinant_id: amr.aac6_ib_cr
+    source_section: "8.3"
+    display_name: "Aminoglycoside acetyltransferase variant (aac(6')-Ib-cr)"
+    gene_family: "aac(6')-Ib-cr"
+    kind: amr
+    amr_class: quinolone
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    allele_resolution_required: true
+    not_all_alleles_are: quinolone_active
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      aac(6')-Ib-cr resistance-associated gene DNA detected in the stool
+      metagenome; the carrying organism is unresolved, so no organism can be
+      called resistant and no antibiotic can be called effective or
+      ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Bifunctional variant that acetylates both fluoroquinolones and
+      aminoglycosides. Only the -cr variant, defined by two specific
+      substitutions, has quinolone activity, so allele-level discrimination
+      from ordinary aac(6')-Ib is mandatory and a family-level aac(6')-Ib hit
+      must not be reported here. AMR cards state 'resistance-associated
+      genetic determinant detected' plus completeness, host linkage and
+      validation status. They must not label the person infected, the entire
+      microbiome resistant, a specific organism resistant without linkage, or
+      a drug clinically effective or ineffective without appropriate
+      phenotypic evidence.
+  - determinant_id: amr.gyra
+    source_section: "8.3"
+    display_name: "DNA gyrase subunit A substitutions (gyrA)"
+    gene_family: gyrA
+    kind: amr
+    amr_class: quinolone
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    organism_specific_model: true
+    allele_resolution_required: true
+    position_coverage_required: true
+    core_gene_present_in_all_organisms: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      gyrA resistance-associated gene DNA detected in the stool metagenome;
+      the carrying organism is unresolved, so no organism can be called
+      resistant and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Organism-assigned mechanism only.
+      Quinolone-resistance-determining-region substitutions, canonically at
+      S83 and D87 in Escherichia coli, with different residues and numbering
+      in Salmonella, Campylobacter (T86) and other genera. These are
+      substitutions in an essential housekeeping gene that every organism in
+      the sample carries, so a sequence match is never by itself a resistance
+      finding: the substitution must be interpreted in the correct organism
+      and reference coordinate system, and only when position and allele
+      coverage permit. Report unresolved rather than guessing which community
+      member the read came from. AMR cards state 'resistance-associated
+      genetic determinant detected' plus completeness, host linkage and
+      validation status. They must not label the person infected, the entire
+      microbiome resistant, a specific organism resistant without linkage, or
+      a drug clinically effective or ineffective without appropriate
+      phenotypic evidence.
+  - determinant_id: amr.parc
+    source_section: "8.3"
+    display_name: "Topoisomerase IV subunit substitutions (parC)"
+    gene_family: parC
+    kind: amr
+    amr_class: quinolone
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    organism_specific_model: true
+    allele_resolution_required: true
+    position_coverage_required: true
+    core_gene_present_in_all_organisms: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      parC resistance-associated gene DNA detected in the stool metagenome;
+      the carrying organism is unresolved, so no organism can be called
+      resistant and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Organism-assigned mechanism only. Secondary target substitutions that
+      matter mainly alongside gyrA changes, again with organism-specific
+      positions. These are substitutions in an essential housekeeping gene
+      that every organism in the sample carries, so a sequence match is never
+      by itself a resistance finding: the substitution must be interpreted in
+      the correct organism and reference coordinate system, and only when
+      position and allele coverage permit. Report unresolved rather than
+      guessing which community member the read came from. AMR cards state
+      'resistance-associated genetic determinant detected' plus completeness,
+      host linkage and validation status. They must not label the person
+      infected, the entire microbiome resistant, a specific organism resistant
+      without linkage, or a drug clinically effective or ineffective without
+      appropriate phenotypic evidence.
+  - determinant_id: amr.erm
+    source_section: "8.3"
+    display_name: "Erm rRNA methyltransferases (erm)"
+    gene_family: erm
+    kind: amr
+    amr_class: macrolide_lincosamide
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      erm resistance-associated gene DNA detected in the stool metagenome; the
+      carrying organism is unresolved, so no organism can be called resistant
+      and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Curated allele families. ermA/ermB/ermC/ermF and relatives conferring
+      MLSb resistance; ermB and ermF are widespread in ordinary gut anaerobes,
+      so detection in stool is expected background. The healthy gut resistome
+      carries many of these genes without any clinical resistance question, so
+      display must stay a determinant statement rather than a resistance
+      conclusion. AMR cards state 'resistance-associated genetic determinant
+      detected' plus completeness, host linkage and validation status. They
+      must not label the person infected, the entire microbiome resistant, a
+      specific organism resistant without linkage, or a drug clinically
+      effective or ineffective without appropriate phenotypic evidence.
+  - determinant_id: amr.mef
+    source_section: "8.3"
+    display_name: "Mef macrolide efflux (mef)"
+    gene_family: mef
+    kind: amr
+    amr_class: macrolide_lincosamide
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      mef resistance-associated gene DNA detected in the stool metagenome; the
+      carrying organism is unresolved, so no organism can be called resistant
+      and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Curated allele families. mefA/mefE efflux determinants, typically
+      streptococcal and often on mobile elements with msrD. The healthy gut
+      resistome carries many of these genes without any clinical resistance
+      question, so display must stay a determinant statement rather than a
+      resistance conclusion. AMR cards state 'resistance-associated genetic
+      determinant detected' plus completeness, host linkage and validation
+      status. They must not label the person infected, the entire microbiome
+      resistant, a specific organism resistant without linkage, or a drug
+      clinically effective or ineffective without appropriate phenotypic
+      evidence.
+  - determinant_id: amr.mph
+    source_section: "8.3"
+    display_name: "Macrolide phosphotransferases (mph)"
+    gene_family: mph
+    kind: amr
+    amr_class: macrolide_lincosamide
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      mph resistance-associated gene DNA detected in the stool metagenome; the
+      carrying organism is unresolved, so no organism can be called resistant
+      and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Curated allele families. mphA/mphB/mphE inactivating enzymes, common in
+      Enterobacterales. The healthy gut resistome carries many of these genes
+      without any clinical resistance question, so display must stay a
+      determinant statement rather than a resistance conclusion. AMR cards
+      state 'resistance-associated genetic determinant detected' plus
+      completeness, host linkage and validation status. They must not label
+      the person infected, the entire microbiome resistant, a specific
+      organism resistant without linkage, or a drug clinically effective or
+      ineffective without appropriate phenotypic evidence.
+  - determinant_id: amr.lnu
+    source_section: "8.3"
+    display_name: "Lincosamide nucleotidyltransferases (lnu)"
+    gene_family: lnu
+    kind: amr
+    amr_class: macrolide_lincosamide
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      lnu resistance-associated gene DNA detected in the stool metagenome; the
+      carrying organism is unresolved, so no organism can be called resistant
+      and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Curated allele families. lnuA/lnuB and relatives, formerly named lin,
+      conferring lincosamide-only resistance. The healthy gut resistome
+      carries many of these genes without any clinical resistance question, so
+      display must stay a determinant statement rather than a resistance
+      conclusion. AMR cards state 'resistance-associated genetic determinant
+      detected' plus completeness, host linkage and validation status. They
+      must not label the person infected, the entire microbiome resistant, a
+      specific organism resistant without linkage, or a drug clinically
+      effective or ineffective without appropriate phenotypic evidence.
+  - determinant_id: amr.tet_efflux
+    source_section: "8.3"
+    display_name: "Tetracycline efflux pumps (tet efflux)"
+    gene_family: tet_efflux
+    kind: amr
+    amr_class: tetracycline
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    mechanism_separated: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      tet_efflux resistance-associated gene DNA detected in the stool
+      metagenome; the carrying organism is unresolved, so no organism can be
+      called resistant and no antibiotic can be called effective or
+      ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Tetracycline mechanisms are kept in separate curated families rather
+      than pooled into one tet result. tetA/tetB/tetC/tetK/tetL and relatives:
+      membrane-associated efflux determinants. Mechanism separation is
+      required because efflux, ribosomal protection and enzymatic inactivation
+      differ in spectrum and in clinical weight. AMR cards state
+      'resistance-associated genetic determinant detected' plus completeness,
+      host linkage and validation status. They must not label the person
+      infected, the entire microbiome resistant, a specific organism resistant
+      without linkage, or a drug clinically effective or ineffective without
+      appropriate phenotypic evidence.
+  - determinant_id: amr.tet_ribosomal_protection
+    source_section: "8.3"
+    display_name: "Tetracycline ribosomal protection proteins (tet RPP)"
+    gene_family: tet_ribosomal_protection
+    kind: amr
+    amr_class: tetracycline
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    mechanism_separated: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      tet_ribosomal_protection resistance-associated gene DNA detected in the
+      stool metagenome; the carrying organism is unresolved, so no organism
+      can be called resistant and no antibiotic can be called effective or
+      ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Tetracycline mechanisms are kept in separate curated families rather
+      than pooled into one tet result. tetM/tetO/tetS/tetW/tetQ and relatives:
+      ribosomal protection proteins, extremely common in commensal gut
+      anaerobes. Mechanism separation is required because efflux, ribosomal
+      protection and enzymatic inactivation differ in spectrum and in clinical
+      weight. AMR cards state 'resistance-associated genetic determinant
+      detected' plus completeness, host linkage and validation status. They
+      must not label the person infected, the entire microbiome resistant, a
+      specific organism resistant without linkage, or a drug clinically
+      effective or ineffective without appropriate phenotypic evidence.
+  - determinant_id: amr.tet_enzymatic
+    source_section: "8.3"
+    display_name: "Tetracycline-inactivating enzymes (tet enzymatic)"
+    gene_family: tet_enzymatic
+    kind: amr
+    amr_class: tetracycline
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    mechanism_separated: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      tet_enzymatic resistance-associated gene DNA detected in the stool
+      metagenome; the carrying organism is unresolved, so no organism can be
+      called resistant and no antibiotic can be called effective or
+      ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Tetracycline mechanisms are kept in separate curated families rather
+      than pooled into one tet result. tetX and the tet(X3)/tet(X4)
+      flavin-dependent monooxygenases, which also degrade tigecycline and are
+      therefore weighted differently from the other tet mechanisms. Mechanism
+      separation is required because efflux, ribosomal protection and
+      enzymatic inactivation differ in spectrum and in clinical weight. AMR
+      cards state 'resistance-associated genetic determinant detected' plus
+      completeness, host linkage and validation status. They must not label
+      the person infected, the entire microbiome resistant, a specific
+      organism resistant without linkage, or a drug clinically effective or
+      ineffective without appropriate phenotypic evidence.
+  - determinant_id: amr.aac
+    source_section: "8.3"
+    display_name: "Aminoglycoside acetyltransferases (aac)"
+    gene_family: aac
+    kind: amr
+    amr_class: aminoglycoside
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    allele_resolution_required: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      aac resistance-associated gene DNA detected in the stool metagenome; the
+      carrying organism is unresolved, so no organism can be called resistant
+      and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Curated allele-level families of aminoglycoside-modifying enzymes.
+      aac(3), aac(6') and relatives. Distinct from the bifunctional
+      aac(6')-Ib-cr quinolone determinant, which is reported separately.
+      Substrate profile depends on the specific allele, so family-level
+      detection cannot be mapped onto individual aminoglycosides. AMR cards
+      state 'resistance-associated genetic determinant detected' plus
+      completeness, host linkage and validation status. They must not label
+      the person infected, the entire microbiome resistant, a specific
+      organism resistant without linkage, or a drug clinically effective or
+      ineffective without appropriate phenotypic evidence.
+  - determinant_id: amr.aph
+    source_section: "8.3"
+    display_name: "Aminoglycoside phosphotransferases (aph)"
+    gene_family: aph
+    kind: amr
+    amr_class: aminoglycoside
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    allele_resolution_required: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      aph resistance-associated gene DNA detected in the stool metagenome; the
+      carrying organism is unresolved, so no organism can be called resistant
+      and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Curated allele-level families of aminoglycoside-modifying enzymes.
+      aph(3'), aph(2''), aph(6) and relatives, including the very widespread
+      aph(3')-Ia and the streptomycin determinants. Substrate profile depends
+      on the specific allele, so family-level detection cannot be mapped onto
+      individual aminoglycosides. AMR cards state 'resistance-associated
+      genetic determinant detected' plus completeness, host linkage and
+      validation status. They must not label the person infected, the entire
+      microbiome resistant, a specific organism resistant without linkage, or
+      a drug clinically effective or ineffective without appropriate
+      phenotypic evidence.
+  - determinant_id: amr.ant
+    source_section: "8.3"
+    display_name: "Aminoglycoside nucleotidyltransferases (ant)"
+    gene_family: ant
+    kind: amr
+    amr_class: aminoglycoside
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    allele_resolution_required: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      ant resistance-associated gene DNA detected in the stool metagenome; the
+      carrying organism is unresolved, so no organism can be called resistant
+      and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Curated allele-level families of aminoglycoside-modifying enzymes.
+      ant(2''), ant(4'), ant(3'') and relatives, historically also named aad.
+      Substrate profile depends on the specific allele, so family-level
+      detection cannot be mapped onto individual aminoglycosides. AMR cards
+      state 'resistance-associated genetic determinant detected' plus
+      completeness, host linkage and validation status. They must not label
+      the person infected, the entire microbiome resistant, a specific
+      organism resistant without linkage, or a drug clinically effective or
+      ineffective without appropriate phenotypic evidence.
+  - determinant_id: amr.arma
+    source_section: "8.3"
+    display_name: "16S rRNA methyltransferase ArmA (armA)"
+    gene_family: armA
+    kind: amr
+    amr_class: aminoglycoside
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    mechanism_separated: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      armA resistance-associated gene DNA detected in the stool metagenome;
+      the carrying organism is unresolved, so no organism can be called
+      resistant and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      16S rRNA methylase, reported separately from the modifying enzymes
+      because the mechanism and breadth differ. Confers resistance across
+      essentially all clinically used aminoglycosides including amikacin and
+      gentamicin. Breadth of the mechanism still does not license a phenotypic
+      or treatment statement from stool DNA. AMR cards state
+      'resistance-associated genetic determinant detected' plus completeness,
+      host linkage and validation status. They must not label the person
+      infected, the entire microbiome resistant, a specific organism resistant
+      without linkage, or a drug clinically effective or ineffective without
+      appropriate phenotypic evidence.
+  - determinant_id: amr.rmt
+    source_section: "8.3"
+    display_name: "16S rRNA methyltransferases (rmt)"
+    gene_family: rmt
+    kind: amr
+    amr_class: aminoglycoside
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    mechanism_separated: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      rmt resistance-associated gene DNA detected in the stool metagenome; the
+      carrying organism is unresolved, so no organism can be called resistant
+      and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      16S rRNA methylase, reported separately from the modifying enzymes
+      because the mechanism and breadth differ. rmtA through rmtH family of
+      ribosomal methylases with a similarly broad profile. Breadth of the
+      mechanism still does not license a phenotypic or treatment statement
+      from stool DNA. AMR cards state 'resistance-associated genetic
+      determinant detected' plus completeness, host linkage and validation
+      status. They must not label the person infected, the entire microbiome
+      resistant, a specific organism resistant without linkage, or a drug
+      clinically effective or ineffective without appropriate phenotypic
+      evidence.
+  - determinant_id: amr.sul
+    source_section: "8.3"
+    display_name: "Sulfonamide-resistant dihydropteroate synthases (sul)"
+    gene_family: sul
+    kind: amr
+    amr_class: sulfonamide_trimethoprim
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    distinguish_intrinsic_mechanism: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      sul resistance-associated gene DNA detected in the stool metagenome; the
+      carrying organism is unresolved, so no organism can be called resistant
+      and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Curated acquired family. sul1/sul2/sul3/sul4 acquired alternative
+      targets; sul1 is classically part of class 1 integrons. These acquired
+      genes must be distinguished from the intrinsic chromosomal
+      folate-pathway genes present in every organism in the sample. AMR cards
+      state 'resistance-associated genetic determinant detected' plus
+      completeness, host linkage and validation status. They must not label
+      the person infected, the entire microbiome resistant, a specific
+      organism resistant without linkage, or a drug clinically effective or
+      ineffective without appropriate phenotypic evidence.
+  - determinant_id: amr.dfr
+    source_section: "8.3"
+    display_name: "Trimethoprim-resistant dihydrofolate reductases (dfr)"
+    gene_family: dfr
+    kind: amr
+    amr_class: sulfonamide_trimethoprim
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    distinguish_intrinsic_mechanism: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      dfr resistance-associated gene DNA detected in the stool metagenome; the
+      carrying organism is unresolved, so no organism can be called resistant
+      and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Curated acquired family. dfrA and dfrB families, historically also
+      written dhfr, with many divergent acquired alleles. These acquired genes
+      must be distinguished from the intrinsic chromosomal folate-pathway
+      genes present in every organism in the sample. AMR cards state
+      'resistance-associated genetic determinant detected' plus completeness,
+      host linkage and validation status. They must not label the person
+      infected, the entire microbiome resistant, a specific organism resistant
+      without linkage, or a drug clinically effective or ineffective without
+      appropriate phenotypic evidence.
+  - determinant_id: amr.cfr
+    source_section: "8.3"
+    display_name: "Cfr 23S rRNA methyltransferase (cfr)"
+    gene_family: cfr
+    kind: amr
+    amr_class: oxazolidinone_phenicol
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    allele_resolution_required: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      cfr resistance-associated gene DNA detected in the stool metagenome; the
+      carrying organism is unresolved, so no organism can be called resistant
+      and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Appropriate curated family for the oxazolidinone/phenicol display group.
+      Confers the PhLOPSa phenotype spanning phenicols, lincosamides,
+      oxazolidinones, pleuromutilins and streptogramin A; cfr(B), cfr(C),
+      cfr(D) and cfr(E) variants exist and need allele-level curation. Because
+      linezolid is a last-line agent, oxazolidinone-relevant determinants
+      require particularly careful allele resolution and host linkage before
+      display, and cat/floR must not be presented as oxazolidinone resistance.
+      AMR cards state 'resistance-associated genetic determinant detected'
+      plus completeness, host linkage and validation status. They must not
+      label the person infected, the entire microbiome resistant, a specific
+      organism resistant without linkage, or a drug clinically effective or
+      ineffective without appropriate phenotypic evidence.
+  - determinant_id: amr.optra
+    source_section: "8.3"
+    display_name: "OptrA ABC-F ribosomal protection (optrA)"
+    gene_family: optrA
+    kind: amr
+    amr_class: oxazolidinone_phenicol
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    allele_resolution_required: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      optrA resistance-associated gene DNA detected in the stool metagenome;
+      the carrying organism is unresolved, so no organism can be called
+      resistant and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Appropriate curated family for the oxazolidinone/phenicol display group.
+      Transferable oxazolidinone and phenicol resistance, most often in
+      enterococci, frequently chromosomal or on plasmids. Because linezolid is
+      a last-line agent, oxazolidinone-relevant determinants require
+      particularly careful allele resolution and host linkage before display,
+      and cat/floR must not be presented as oxazolidinone resistance. AMR
+      cards state 'resistance-associated genetic determinant detected' plus
+      completeness, host linkage and validation status. They must not label
+      the person infected, the entire microbiome resistant, a specific
+      organism resistant without linkage, or a drug clinically effective or
+      ineffective without appropriate phenotypic evidence.
+  - determinant_id: amr.poxta
+    source_section: "8.3"
+    display_name: "PoxtA ABC-F ribosomal protection (poxtA)"
+    gene_family: poxtA
+    kind: amr
+    amr_class: oxazolidinone_phenicol
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    allele_resolution_required: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      poxtA resistance-associated gene DNA detected in the stool metagenome;
+      the carrying organism is unresolved, so no organism can be called
+      resistant and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Appropriate curated family for the oxazolidinone/phenicol display group.
+      Transferable phenicol, oxazolidinone and tetracycline resistance,
+      related to optrA. Because linezolid is a last-line agent,
+      oxazolidinone-relevant determinants require particularly careful allele
+      resolution and host linkage before display, and cat/floR must not be
+      presented as oxazolidinone resistance. AMR cards state
+      'resistance-associated genetic determinant detected' plus completeness,
+      host linkage and validation status. They must not label the person
+      infected, the entire microbiome resistant, a specific organism resistant
+      without linkage, or a drug clinically effective or ineffective without
+      appropriate phenotypic evidence.
+  - determinant_id: amr.cat
+    source_section: "8.3"
+    display_name: "Chloramphenicol acetyltransferases (cat)"
+    gene_family: cat
+    kind: amr
+    amr_class: oxazolidinone_phenicol
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    allele_resolution_required: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      cat resistance-associated gene DNA detected in the stool metagenome; the
+      carrying organism is unresolved, so no organism can be called resistant
+      and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Appropriate curated family for the oxazolidinone/phenicol display group.
+      Classical phenicol-inactivating enzymes, widespread in the commensal
+      resistome and not oxazolidinone-relevant. Because linezolid is a
+      last-line agent, oxazolidinone-relevant determinants require
+      particularly careful allele resolution and host linkage before display,
+      and cat/floR must not be presented as oxazolidinone resistance. AMR
+      cards state 'resistance-associated genetic determinant detected' plus
+      completeness, host linkage and validation status. They must not label
+      the person infected, the entire microbiome resistant, a specific
+      organism resistant without linkage, or a drug clinically effective or
+      ineffective without appropriate phenotypic evidence.
+  - determinant_id: amr.flor
+    source_section: "8.3"
+    display_name: "FloR phenicol efflux (floR)"
+    gene_family: floR
+    kind: amr
+    amr_class: oxazolidinone_phenicol
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    allele_resolution_required: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      floR resistance-associated gene DNA detected in the stool metagenome;
+      the carrying organism is unresolved, so no organism can be called
+      resistant and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Appropriate curated family for the oxazolidinone/phenicol display group.
+      Chloramphenicol and florfenicol efflux determinant with strong
+      veterinary and food-animal context. Because linezolid is a last-line
+      agent, oxazolidinone-relevant determinants require particularly careful
+      allele resolution and host linkage before display, and cat/floR must not
+      be presented as oxazolidinone resistance. AMR cards state
+      'resistance-associated genetic determinant detected' plus completeness,
+      host linkage and validation status. They must not label the person
+      infected, the entire microbiome resistant, a specific organism resistant
+      without linkage, or a drug clinically effective or ineffective without
+      appropriate phenotypic evidence.
+  - determinant_id: amr.rpob
+    source_section: "8.3"
+    display_name: "RNA polymerase beta subunit substitutions (rpoB)"
+    gene_family: rpoB
+    kind: amr
+    amr_class: other_mechanism
+    associated_seed_ids: []
+    reportable_statement: resistance-associated genetic determinant detected
+    organism_specific_model: true
+    allele_resolution_required: true
+    position_coverage_required: true
+    core_gene_present_in_all_organisms: true
+    requires_host_linkage: true
+    linkage_absent_statement: >-
+      rpoB resistance-associated gene DNA detected in the stool metagenome;
+      the carrying organism is unresolved, so no organism can be called
+      resistant and no antibiotic can be called effective or ineffective.
+    candidate_sources: ["NCBI_NDARO", "GenBank_characterised_allele"]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/"]
+    note: >-
+      Rifamycin-associated substitutions in an essential core gene carried by
+      every bacterium in the sample. Interpret only in the correct organism
+      and reference coordinate system - the canonical Mycobacterium
+      tuberculosis codon numbering does not transfer to other genera - and
+      only where position and allele coverage permit. A conserved rpoB match
+      is a taxonomic marker, not a resistance finding. Other curated
+      rifamycin, nitroimidazole and additional supported determinants are
+      screened from the installed catalog under the same constraints. AMR
+      cards state 'resistance-associated genetic determinant detected' plus
+      completeness, host linkage and validation status. They must not label
+      the person infected, the entire microbiome resistant, a specific
+      organism resistant without linkage, or a drug clinically effective or
+      ineffective without appropriate phenotypic evidence.

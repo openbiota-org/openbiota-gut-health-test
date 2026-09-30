@@ -1,0 +1,53 @@
+name: polyphenol_metabolisers
+label: "Polyphenol metabolisers (urolithin and equol)"
+category: function
+higher_means: favourable
+description: >-
+  Species that convert dietary polyphenols into their bioactive forms:
+  ellagitannins (pomegranate, walnuts, berries) to urolithins, and soy
+  daidzein to equol. Whether a person makes urolithin A or equol depends on
+  carrying these organisms, and roughly 30-50% of Western adults are equol
+  non-producers. Urolithin A improved muscle mitochondrial function in a
+  human trial; equol is the oestrogenic metabolite behind most of soy's
+  proposed cardiovascular and menopausal effects.
+
+summary: >-
+  The bacteria that turn compounds in pomegranate, berries, nuts and soy into
+  the forms your body can actually use. Whether you benefit from these foods
+  depends partly on whether you carry the converters, and a substantial share
+  of people do not.
+
+members:
+  - Gordonibacter pamelaeae
+  - Eggerthella lenta
+  - Adlercreutzia equolifaciens
+  - Slackia isoflavoniconvertens
+  - Slackia exigua
+
+unresolved:
+  - Gordonibacter urolithinfaciens
+  - Ellagibacter isourolithinifaciens
+  - Slackia equolifaciens
+  - Asaccharobacter celatus
+
+caveats:
+  - >-
+    Eggerthella lenta is a versatile metaboliser: it also inactivates the
+    heart drug digoxin via its cgr operon, and it is enriched in several
+    disease cohorts (rheumatoid arthritis, Parkinson's). It is counted here
+    for its urolithin activity, not as a health marker.
+  - >-
+    Presence of the converters does not guarantee the conversion happens at
+    a useful rate — the metabotype is determined by the whole community and
+    by diet, and the gene-level detail (the specific dehydroxylases) is
+    below the resolution of species-level profiling.
+  - >-
+    Low-abundance organisms. Absence in a shallow sample is weaker evidence
+    than absence in a deep one.
+
+citation: >-
+  Tomás-Barberán F.A., González-Sarrías A., García-Villalba R., et al.,
+  "Urolithins, the rescue of 'old' metabolites to understand a 'new' concept:
+  Metabotypes as a nexus among phenolic metabolism, microbiota dysbiosis, and
+  host health status", Mol Nutr Food Res 61:1500901 (2017),
+  doi:10.1002/mnfr.201500901; Andreux P.A. et al., Nat Metab 1:595-603 (2019).

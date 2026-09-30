@@ -1,0 +1,98 @@
+name: equol
+description: >-
+  The three-step reduction of daidzein to equol, measured from the
+  purified enzymes the chemistry was established with. General reductase
+  domains are not sufficient for this and are not used.
+metabolite: Equol formation
+pathway: >-
+  soy isoflavone daidzein -> dihydrodaidzein (daidzein reductase) ->
+  tetrahydrodaidzein (dihydrodaidzein reductase) -> equol
+  (tetrahydrodaidzein reductase)
+category: metabolite
+
+extension: true
+
+targets:
+  - id: DZNR
+    label: dznr (daidzein reductase, the committed first step, E1CIA4)
+    gene: dznr
+    source: uniprot
+    query: '(accession:E1CIA4) AND (taxonomy_id:2)'
+    min_identity: 80.0
+    max_sequences: 1
+    length_tolerance: 0.3
+
+  - id: DDR
+    label: ddr (dihydrodaidzein reductase, E7FL41)
+    gene: ddr
+    source: uniprot
+    query: '(accession:E7FL41) AND (taxonomy_id:2)'
+    min_identity: 80.0
+    max_sequences: 1
+    length_tolerance: 0.3
+
+  - id: TDR
+    label: tdr (tetrahydrodaidzein reductase, the final step, E7FL40)
+    gene: tdr
+    source: uniprot
+    query: '(accession:E7FL40) AND (taxonomy_id:2)'
+    min_identity: 80.0
+    max_sequences: 1
+    length_tolerance: 0.3
+
+aggregate: sum
+aggregate_from: [DZNR]
+aggregate_reason: >-
+  The committed first reduction is the reading. The two downstream
+  reductases are measured and shown as route detail, because the route is
+  one capability and summing its three steps would treat it as three.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+citation: >-
+  Schroder C. et al., "Identification and expression of genes involved in
+  the conversion of daidzein and genistein by the equol-forming bacterium
+  Slackia isoflavoniconvertens", Appl Environ Microbiol 79:3494-3502
+  (2013), doi:10.1128/AEM.03693-12.
+
+interpretation:
+  what_it_is: >-
+    Whether your gut bacteria carry the enzymes that turn the soy
+    isoflavone daidzein into equol.
+  made_from: >-
+    daidzein from soy foods
+  summary: >-
+    Roughly a third of people carry equol-producing bacteria. This
+    measures the published enzymes, and is not a measurement of equol.
+  evidence_detail: >-
+    The three reductases were purified and characterised, which is what
+    makes a specific detector possible; the specification is explicit that
+    aliases such as eqlA/B/C need strain-specific mapping and that a
+    general reductase domain is not evidence of this chemistry. One
+    reference sequence per step means low sensitivity by design, and a
+    diverged enzyme is reported as unresolved rather than transferred onto
+    this annotation. Equol producer status in the literature is defined by
+    measuring equol in urine after a soy challenge, which DNA cannot
+    substitute for.
+  higher_means: context-dependent
+  evidence_strength: preliminary
+  implications:
+    higher: >-
+      Reads map to the published equol enzymes. That is the gene being
+      present, not a measured equol response to soy, which is how
+      producer status is actually defined.
+    typical: >-
+      A mid-range amount of read evidence on the published enzymes.
+      Producer status is established by measuring equol in urine after a
+      soy challenge.
+    lower: >-
+      Little or no read evidence on the published enzymes. Around two
+      thirds of people are non-producers, so this is a common finding,
+      and the strict detector means a diverged enzyme would also read
+      this way.
+  citation: >-
+    Schroder C. et al., "Identification and expression of genes involved
+    in the conversion of daidzein and genistein by the equol-forming
+    bacterium Slackia isoflavoniconvertens", Appl Environ Microbiol
+    79:3494-3502 (2013), doi:10.1128/AEM.03693-12.

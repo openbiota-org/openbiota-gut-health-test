@@ -1,0 +1,223 @@
+name: bai
+description: >-
+  Secondary bile acid production by 7-alpha-dehydroxylation. The bai operon of
+  a small group of Clostridia converts the primary bile acids cholate and
+  chenodeoxycholate into deoxycholate (DCA) and lithocholate (LCA).
+metabolite: Secondary bile acids
+pathway: >-
+  cholate -> baiB ligase -> baiA dehydrogenase -> baiCD/baiH desaturases ->
+  baiE dehydratase -> baiF transferase -> deoxycholate
+
+organisms:
+  - Clostridium scindens
+  - Clostridium hylemonae
+  - Peptacetobacter (Clostridium) hiranonis
+  - Blautia producta
+  - Terrisporobacter glycolicus
+  - Extibacter muris
+
+targets:
+  # WARNING, verified the hard way. Do NOT query baiCD by the protein name
+  # "3-oxo-Delta(4,5)-steroid 5-beta-reductase":
+  #
+  #   * the comma inside "Delta(4,5)" breaks UniProt's boolean query parser, so
+  #     `... AND (taxonomy_id:2)` silently returns 3 hits instead of filtering
+  #     361 — a wrong number with no error;
+  #   * and those 361 hits are mostly PLANT progesterone 5-beta-reductases
+  #     (Arabidopsis VEP1, Digitalis), nothing to do with bile acids.
+  #
+  # The correct identity is 3-oxocholoyl-CoA 4-desaturase, ~639-645 aa, and it
+  # is annotated almost exclusively in genuine 7-alpha-dehydroxylating
+  # Clostridia. The reference set is tiny but it is *right*, which matters far
+  # more here than being large.
+  - id: BAICD
+    label: baiCD (3-oxocholoyl-CoA 4-desaturase)
+    gene: baiCD
+    source: uniprot
+    query: '((gene:baiCD) OR (protein_name:"3-oxocholoyl-CoA 4-desaturase")) AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 500
+    length_range: [550, 750]
+    note: >-
+      High-specificity marker for the operon. Length window excludes a handful
+      of short misannotations from non-bile-acid organisms.
+
+  - id: BAIH
+    label: baiH (7-beta-hydroxy-3-oxochol-24-oyl-CoA 4-desaturase)
+    gene: baiH
+    source: uniprot
+    query: '((gene:baiH) OR (protein_name:"7-beta-hydroxy-3-oxochol-24-oyl-CoA 4-desaturase")) AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 500
+    length_range: [560, 760]
+    note: The second high-specificity marker, paired with baiCD.
+
+  - id: BAIB
+    label: baiB (bile acid-coenzyme A ligase)
+    gene: baiB
+    source: uniprot
+    query: '((gene:baiB) OR (protein_name:"bile acid-coenzyme A ligase")) AND (taxonomy_id:2)'
+    min_identity: 65.0
+    max_sequences: 1000
+    length_tolerance: 0.20
+
+  - id: BAIF
+    label: baiF (bile acid CoA-transferase; also captures the baiK paralogue)
+    gene: baiF
+    source: uniprot
+    query: '((gene:baiF) OR (protein_name:"bile acid CoA-transferase") OR (protein_name:"bile acid-coenzyme A hydrolase")) AND (taxonomy_id:2)'
+    min_identity: 65.0
+    max_sequences: 500
+    length_tolerance: 0.20
+
+  - id: BAIE
+    label: baiE (bile acid 7-alpha-dehydratase)
+    gene: baiE
+    source: uniprot
+    query: '(protein_name:"bile acid 7-alpha-dehydratase") AND (taxonomy_id:2)'
+    # Raised, and excluded from the panel aggregate. The ~420 entries carrying
+    # this name are dominated by automated annotation of small NTF2-like
+    # proteins in organisms with no bile acid metabolism at all (Mannheimia,
+    # Flavobacterium, Nocardia, Novosphingobium). The name is not reliable.
+    min_identity: 75.0
+    max_sequences: 2000
+    length_tolerance: 0.30
+    note: >-
+      LOW SPECIFICITY. Reported for completeness but excluded from the panel
+      aggregate. Also short (~158 aa), so it intercepts roughly a quarter as
+      many reads per genome as a 600 aa target.
+
+  - id: BAIA
+    label: baiA (3-alpha-hydroxy bile acid-CoA-ester 3-dehydrogenase)
+    gene: baiA
+    source: uniprot
+    query: '((gene:baiA) OR (protein_name:"3alpha-hydroxy bile acid-CoA-ester 3-dehydrogenase")) AND (taxonomy_id:2)'
+    # baiA is a short-chain dehydrogenase/reductase, a fold with tens of
+    # thousands of unrelated bacterial members, so the floor is high and this
+    # entry is excluded from the panel aggregate.
+    min_identity: 75.0
+    max_sequences: 1000
+    length_tolerance: 0.20
+    note: >-
+      LOW SPECIFICITY (SDR fold). Reported for completeness but excluded from
+      the panel aggregate.
+
+decoys:
+  - id: SDRBG
+    label: short-chain dehydrogenase/reductase background (baiA fold)
+    source: uniprot
+    query: '((protein_name:"3-oxoacyl-[acyl-carrier-protein] reductase") OR (protein_name:"7-alpha-hydroxysteroid dehydrogenase") OR (protein_name:"3-alpha-hydroxysteroid dehydrogenase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 3000
+    length_tolerance: 0.25
+    note: >-
+      SDR-fold background including the hydroxysteroid dehydrogenases (hdhA,
+      hsdh) that oxidise the same substrates without 7-alpha-dehydroxylating
+      them. Carrying an hsdh gene is not secondary bile acid production.
+
+  - id: OYE
+    label: old-yellow-enzyme / NADH:flavin oxidoreductase background (baiCD/baiH fold)
+    source: uniprot
+    query: '((protein_name:"NADH:flavin oxidoreductase") OR (protein_name:"NADPH dehydrogenase") OR (protein_name:"2,4-dienoyl-CoA reductase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 3000
+    length_tolerance: 0.25
+
+# Operon-level aggregate over the two high-specificity desaturases only.
+# baiCD and baiH sit at one copy per positive genome, so the median across the
+# two is the per-genome estimate. baiE and baiA are reported but kept out of
+# the aggregate because their reference sets are dominated by automated
+# annotation of unrelated folds; including them would let annotation noise set
+# the headline number.
+aggregate: median
+aggregate_from: [BAICD, BAIH]
+aggregate_reason: >-
+  median of baiCD and baiH, the two markers whose UniProt annotation is
+  confined to genuine 7-alpha-dehydroxylating Clostridia; both sit at one copy
+  per positive genome. baiB, baiF, baiE and baiA are reported separately.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+caveats:
+  - >-
+    7-alpha-dehydroxylating Clostridia typically sit below 0.1% of the gut
+    community. Expect single-digit fragment counts, where Poisson noise
+    dominates and the normalised figure is not meaningfully precise. The
+    stability flag exists for exactly this panel.
+  - >-
+    The baiCD and baiH reference sets are very small (single digits) because
+    only a handful of genuine 7-alpha-dehydroxylators have been sequenced and
+    curated. Sensitivity is correspondingly limited: a zero here is weak
+    evidence of absence, not proof of it.
+  - >-
+    Detecting the bai operon shows the community can make secondary bile acids.
+    It says nothing about flux, which depends on primary bile acid delivery and
+    on colonic transit.
+  - >-
+    THIS IS THE LEAST RELIABLE PANEL IN THE TOOL, and the reason is structural
+    rather than fixable by tuning. Four references cannot cover a gene family,
+    so reads from abundant organisms carrying unrelated members of the same
+    protein fold land on them at 65-80% identity and are indistinguishable from
+    reads of a genuine congener. Watch the LOW-ID flag and the per-gene median
+    identity: a well-covered gene shows a median at or near 100% because a read
+    from a sequenced carrier matches its own reference exactly. Where the median
+    sits in the 60s, treat the value as an upper bound that may be one to three
+    orders of magnitude too high.
+  - >-
+    Concretely, in testing: baiE's only hits landed on a Phocaeicola reference
+    while Phocaeicola made up 18% of that sample's community, and baiF's hits
+    landed on an alkaliphilic soil Bacillus. Neither organism performs
+    7-alpha-dehydroxylation. Those are annotation-transfer artefacts, not
+    findings, which is why both genes are excluded from the panel aggregate.
+
+interpretation:
+  what_it_is: >-
+    Secondary bile acids, chiefly deoxycholic acid (DCA) and lithocholic acid
+    (LCA), made by bacteria reworking the bile acids your liver produces.
+  made_from: Liver-derived primary bile acids, after bacterial deconjugation
+  higher_means: adverse
+  evidence_strength: moderate
+  summary: >-
+    A large study of people with Alzheimer's disease found lower levels of the
+    liver's own primary bile acid and higher levels of the bacterially produced
+    secondary bile acid DCA, with the ratio between them tracking cognitive
+    decline.
+  cognitive_evidence: >-
+    MahmoudianDehkordi et al. reported reduced serum cholic acid and elevated
+    DCA and its glycine- and taurine-conjugated forms in people with
+    Alzheimer's disease compared with cognitively normal older adults. Bile
+    acids and their receptors are present in the brain, and DCA has been shown
+    to interact with nicastrin, a subunit of the gamma-secretase enzyme that
+    generates amyloid-beta. Not all secondary bile acids behave the same way:
+    tauroursodeoxycholic acid (TUDCA) inhibits amyloid-beta accumulation and
+    improves mitochondrial function.
+  implications:
+    higher: >-
+      More of your gut bacteria can convert your liver's bile acids into
+      secondary bile acids like DCA than in most people. A large study found
+      elevated DCA and reduced primary bile acid in people with Alzheimer's,
+      with the ratio tracking cognitive decline, and DCA interacts with a
+      subunit of the enzyme that generates amyloid-beta. Worth noting that not
+      all secondary bile acids act the same way — TUDCA is protective — and this
+      test cannot tell which ones dominate.
+    typical: >-
+      The organisms that perform this conversion are normally a very small
+      fraction of the gut, so modest numbers here are expected and yours are
+      unremarkable.
+    lower: >-
+      Fewer of your gut bacteria can make secondary bile acids than in most
+      people. Since elevated DCA is the direction reported in Alzheimer's
+      cohorts, low is the favourable direction — though secondary bile acids
+      also have normal physiological roles in fat absorption and immune
+      signalling.
+  citation: >-
+    MahmoudianDehkordi S. et al., Alzheimers Dement 15:76-92 (2019),
+    doi:10.1016/j.jalz.2018.07.217; Luan H. et al., Adv Biotechnol 1:7 (2023)
+
+citation: >-
+  Ridlon J.M., Kang D.J., Hylemon P.B., "Bile salt biotransformations by human
+  intestinal bacteria", J Lipid Res 47:241-259 (2006),
+  doi:10.1194/jlr.R500013-JLR200. Bile acids in Alzheimer's disease:
+  MahmoudianDehkordi S. et al., Alzheimers Dement 15:76-92 (2019),
+  doi:10.1016/j.jalz.2018.07.217.

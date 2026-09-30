@@ -1,0 +1,50 @@
+{
+  "source_id": "hrgm2",
+  "files": {
+    "supplements/hrgm2/HRGMv2_Cluster_metadata.tsv": {
+      "url": "https://zenodo.org/records/19480672/files/HRGMv2_Cluster_metadata.tsv?download=1",
+      "size": 1567256,
+      "retrieved_at": "2026-09-26T23:12:12-07:00",
+      "sha256": "1c370151173aa0fb837f934d77da51bcbd96785c6cedcce906a4409a0f1eb875",
+      "verified": true,
+      "publisher_checksum": null,
+      "note": "",
+      "verification": "size matched Content-Length; no publisher checksum published"
+    },
+    "supplements/hrgm2/HRGMv2_gtdbr220_results.tsv": {
+      "url": "https://zenodo.org/records/19480672/files/HRGMv2_gtdbr220_results.tsv?download=1",
+      "size": 1213235,
+      "retrieved_at": "2026-09-26T23:12:18-07:00",
+      "sha256": "555b98741da35bf9552b6aaa71aac755dc610774740131a16fff07efa0e9cbf6",
+      "verified": true,
+      "publisher_checksum": null,
+      "note": "",
+      "verification": "size matched Content-Length; no publisher checksum published"
+    },
+    "supplements/hrgm2/Dereplication_genomes_metadata.tsv": {
+      "url": "https://zenodo.org/records/19480672/files/Dereplication_genomes_metadata.tsv?download=1",
+      "size": 82857857,
+      "retrieved_at": "2026-09-26T23:13:07-07:00",
+      "sha256": "618968a7966c004d78eeb1f27f4dbeec1d30cfa63c0e38aa16a4b0f85e3f6b44",
+      "verified": true,
+      "publisher_checksum": null,
+      "note": "",
+      "verification": "size matched Content-Length; no publisher checksum published"
+    },
+    "supplements/hrgm2/HRGMv2_Rep_Genome.tar.gz": {
+      "url": "https://zenodo.org/records/19482781/files/HRGMv2_Rep_Genome.tar.gz?download=1",
+      "size": 3772220057,
+      "retrieved_at": "2026-09-26T23:36:41-07:00",
+      "sha256": "f88fef3ff9a1b8b2a16c9b669f40f413e104977e1e3922328eb34a427f35d87b",
+      "verified": true,
+      "publisher_checksum": null,
+      "note": "",
+      "verification": "size matched Content-Length; no publisher checksum published"
+    }
+  },
+  "release_id": "HRGMv2",
+  "taxonomy_release": "GTDB r220 (authors' assignment)",
+  "license": "CC BY 4.0 (Zenodo record 19482781)",
+  "count_unit": "species representative",
+  "source_count": 4824
+}

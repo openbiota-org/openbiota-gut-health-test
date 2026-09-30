@@ -1,0 +1,1499 @@
+# PICO evidence assertions (spec v04 §7.3–7.4). Every record names its source
+# (PMID/DOI/URL), design, population, comparator, outcome class, effect
+# direction and lane. Lane X records are against-evidence and are never
+# discarded because a supportive record exists. `proposition` says which of
+# the three independent propositions the record speaks to.
+assertions:
+  # ------------------------------------------------------------ Long COVID
+  - evidence_assertion_id: IE_SIM01_PACS_RCT_V1
+    protocol_ref: PROTOCOL_SIM01_PACS_6M_V1
+    source: {source_type: randomized_trial, pmid: 38071990, citation: "Lau RI et al. Lancet Infect Dis 2024;24:256 (RECOVERY, SIM01)", publication_status: peer_reviewed}
+    study: {design: "triple-blind placebo-controlled RCT, single centre (Hong Kong)", participants_randomized: 463, risk_of_bias: some_concerns, funding_and_conflicts: "investigators hold patents/commercial interest in SIM01"}
+    pico: {comparator: placebo, outcome: {name: "alleviation of individual PACS symptoms at 6 months", class: patient_reported, timepoint_days: 180}, effect: {direction: benefit, estimate: "higher alleviation rates for fatigue, memory loss, concentration difficulty, GI upset and general unwellness; adverse events similar"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: post-acute COVID-19 syndrome, microbiome_profile_alone_sufficient: false}
+    summary: "In 463 adults with clinically defined post-acute COVID-19 syndrome, six months of the exact SIM01 synbiotic improved several patient-reported symptoms versus placebo; immunocompromised, pregnant and breastfeeding people were excluded and the product's exact composition is proprietary."
+  - evidence_assertion_id: IE_STOP_FATIGUE_LONGCOVID_V1
+    protocol_ref: PROTOCOL_STOP_FATIGUE_V1
+    source: {source_type: randomized_trial, pmid: 39592468, citation: "STOP-FATIGUE trial (2024)", publication_status: peer_reviewed}
+    study: {design: "small randomized trial", risk_of_bias: some_concerns, funding_and_conflicts: "see source"}
+    pico: {comparator: placebo, outcome: {name: "fatigue score", class: patient_reported}, effect: {direction: benefit, estimate: "smaller trial; formulation-specific"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: Long COVID fatigue, microbiome_profile_alone_sufficient: false}
+    summary: "A smaller randomized trial (STOP-FATIGUE) of a different multistrain product reported reduced Long-COVID fatigue; it does not transfer to other products and the classifier does not predict response."
+  - evidence_assertion_id: IE_LONGCOVID_2026_MECHANISTIC_X_V1
+    intervention_ref: null
+    source: {source_type: observational_study, doi: 10.1007/s12602-026-11197-2, citation: "Zhang et al. Probiotics Antimicrob Proteins 2026 (11 two-year Long-COVID participants, mouse transfer)", publication_status: peer_reviewed}
+    study: {design: "11 cases vs 11 controls with fecal transfer to antibiotic-treated mice", risk_of_bias: high, funding_and_conflicts: "no public data or accession"}
+    pico: {comparator: unexposed controls, outcome: {name: "taxonomic/metabolomic directions and mouse phenotypes", class: mechanistic}, effect: {direction: not_estimable}}
+    lane: X
+    against_kind: conflicting
+    proposition: evidence_signal_associated_with_state
+    target_binding: {trigger_type: research_profile_resemblance, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "The 2026 two-year Long-COVID study is an 11-person mechanistic cohort with mouse transfer and no public data; its taxonomic directions are a candidate module, not evidence for any antimicrobial, probiotic or FMT treatment."
+
+  # ------------------------------------------------------------ alopecia
+  - evidence_assertion_id: IE_AA_BTHS_PILOT_RCT_V1
+    protocol_ref: PROTOCOL_AA_BTHS_24W_ADJUNCT_V1
+    source: {source_type: randomized_trial, url: "https://www.mdpi.com/2079-9284/11/4/119", citation: "Cosmetics 2024;11:119 — L. rhamnosus Bths-08 + B. longum Bths-06 adjunct pilot in alopecia areata", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled adjunct pilot", participants_randomized: 26, analysis_population: "19 completers", risk_of_bias: high, funding_and_conflicts: "industry"}
+    pico: {comparator: placebo (both arms intralesional triamcinolone), outcome: {name: "plaque area / SALT and other hair outcomes", class: patient_clinical, timepoint_days: 168}, effect: {direction: "null", estimate: "primary and other between-group hair outcomes not statistically significant; no gut microbiome change"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: alopecia areata, microbiome_profile_alone_sufficient: false}
+    summary: "A 26-person adjunct pilot of an exact two-strain probiotic with intralesional steroid found no statistically significant between-group hair outcomes and no gut microbiome change — hypothesis-generating, null on the primary endpoint."
+  - evidence_assertion_id: IE_AA_FMT_CASES_X_V1
+    protocol_ref: PROTOCOL_FMT_AA_CASE_V1
+    source: {source_type: case_report, pmid: 28932754, citation: "Rebello D et al. ACG Case Rep J 2017 (two alopecia universalis regrowth cases after FMT for CDI)", publication_status: peer_reviewed}
+    study: {design: "two incidental case reports", risk_of_bias: high}
+    pico: {comparator: none, outcome: {name: "hair regrowth", class: patient_clinical}, effect: {direction: not_estimable}}
+    lane: X
+    against_kind: conflicting
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: alopecia areata, microbiome_profile_alone_sufficient: false}
+    summary: "Two incidental hair-regrowth cases after FMT given for C. difficile infection are hypothesis-generating only; FMT for alopecia remains investigational under IND and is not a treatment route from this report."
+  - evidence_assertion_id: IE_AGA_DCN_RCT_V1
+    protocol_ref: PROTOCOL_AGA_DCN_16W_V1
+    source: {source_type: randomized_trial, pmid: 39275216, citation: "2024 RCT — L. plantarum DCn_07 + DCn_06 + L. pentosus DCn1_05 in androgenetic alopecia", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled", participants_randomized: 136, analysis_population: "115 completers", risk_of_bias: some_concerns, funding_and_conflicts: "industry/product-specific"}
+    pico: {comparator: placebo, outcome: {name: "hair-cycle endpoints (trichogram, density)", class: patient_clinical, timepoint_days: 112}, effect: {direction: mixed, estimate: "some endpoints significant, several nonsignificant"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: androgenetic alopecia, microbiome_profile_alone_sufficient: false}
+    summary: "One 16-week industry trial of an exact three-strain Lactiplantibacillus product in androgenetic alopecia reported mixed hair-cycle endpoints — several significant, several not. It does not transfer to any other probiotic and needs sex/age matching."
+
+  # ------------------------------------------------------------ Alzheimer / cognition
+  - evidence_assertion_id: IE_AD_PROBIOTIC_MILK_AKBARI_V1
+    protocol_ref: PROTOCOL_AD_MILK_12W_AKBARI_V1
+    source: {source_type: randomized_trial, pmid: 27891089, citation: "Akbari E et al. Front Aging Neurosci 2016;8:256", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind controlled", participants_randomized: 60, risk_of_bias: some_concerns}
+    pico: {comparator: plain milk, outcome: {name: "MMSE and metabolic markers", class: patient_clinical, timepoint_days: 84}, effect: {direction: benefit, estimate: "MMSE improved versus control"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: Alzheimer disease, microbiome_profile_alone_sufficient: false}
+    summary: "One 60-person 12-week trial of a four-organism probiotic milk reported MMSE and metabolic-marker changes in people with Alzheimer disease."
+  - evidence_assertion_id: IE_AD_PROBIOTIC_SEVERE_NULL_X_V1
+    source: {source_type: randomized_trial, url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6104449/", citation: "Agahi A et al. Front Neurol 2018 (severe AD, negative)", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled", risk_of_bias: some_concerns}
+    pico: {comparator: placebo, outcome: {name: "cognitive test scores", class: patient_clinical}, effect: {direction: "null"}}
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: Alzheimer disease, microbiome_profile_alone_sufficient: false}
+    summary: "A later trial in severe Alzheimer disease found no cognitive benefit from probiotics."
+  - evidence_assertion_id: IE_AD_PROBIOTIC_META_X_V1
+    source: {source_type: meta_analysis, pmid: 34957177, citation: "meta-analysis of probiotics in Alzheimer disease/MCI (2021)", publication_status: peer_reviewed}
+    study: {design: "systematic review / meta-analysis", risk_of_bias: not_assessed}
+    pico: {comparator: placebo, outcome: {name: "cognition", class: patient_clinical}, effect: {direction: mixed, estimate: "pooled evidence not robust"}}
+    lane: X
+    against_kind: conflicting
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: Alzheimer disease, microbiome_profile_alone_sufficient: false}
+    summary: "Conservative pooled analyses find the probiotic evidence in Alzheimer disease inconsistent and not robust."
+  - evidence_assertion_id: IE_AD_FMT_REVIEW_E_V1
+    source: {source_type: systematic_review, pmid: 36381829, citation: "review of FMT in Alzheimer disease (2022): animal experiments and human case literature", publication_status: peer_reviewed}
+    study: {design: "narrative/systematic review", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "cognition (animal and case-level)", class: mechanistic}, effect: {direction: not_estimable}}
+    lane: E
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: Alzheimer disease, microbiome_profile_alone_sufficient: false}
+    summary: "FMT in Alzheimer disease rests on animal experiments and human case reports; it is investigational and not a treatment route."
+  - evidence_assertion_id: IE_FINGER_RCT_V1
+    protocol_ref: PROTOCOL_FINGER_2Y_V1
+    source: {source_type: randomized_trial, pmid: 25771249, citation: "Ngandu T et al. Lancet 2015;385:2255 (FINGER)", publication_status: peer_reviewed}
+    study: {design: "randomized controlled, 2 years", participants_randomized: 1260, risk_of_bias: low}
+    pico: {comparator: general health advice, outcome: {name: "neuropsychological test battery composite", class: patient_clinical, timepoint_days: 730}, effect: {direction: benefit, estimate: "small but significant improvement in cognition"}}
+    lane: B
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: research_profile_resemblance, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "The FINGER trial showed that a two-year multidomain lifestyle programme (diet, exercise, cognitive training, vascular risk control) improved or maintained cognition in at-risk older adults — evidence independent of the microbiome."
+  - evidence_assertion_id: IE_MIND_NULL_X_V1
+    protocol_ref: PROTOCOL_MIND_3Y_V1
+    source: {source_type: randomized_trial, pmid: 37466280, citation: "Barnes LL et al. N Engl J Med 2023;389:602 (MIND diet)", publication_status: peer_reviewed}
+    study: {design: "randomized controlled, 3 years", participants_randomized: 604, risk_of_bias: low}
+    pico: {comparator: usual diet with mild caloric restriction, outcome: {name: "global cognition", class: patient_clinical, timepoint_days: 1095}, effect: {direction: "null", estimate: "no significant difference between groups"}}
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: research_profile_resemblance, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "The MIND-diet trial did not improve cognition more than a control diet with the same mild caloric restriction over three years."
+  - evidence_assertion_id: IE_MCI_PROBIOTIC_REVIEW_X_V1
+    source: {source_type: systematic_review, url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC11863739/", citation: "2024 evidence review — probiotics in mild cognitive impairment", publication_status: peer_reviewed}
+    study: {design: "review", risk_of_bias: not_assessed}
+    pico: {comparator: placebo, outcome: {name: "cognition", class: patient_clinical}, effect: {direction: mixed}}
+    lane: X
+    against_kind: conflicting
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: mild cognitive impairment, microbiome_profile_alone_sufficient: false}
+    summary: "Probiotic trials in mild cognitive impairment are small and inconsistent."
+
+  # ------------------------------------------------------------ IBS
+  - evidence_assertion_id: IE_MIMBB75_IBS_RCT_V1
+    protocol_ref: PROTOCOL_MIMBB75_IBS_8W_V1
+    source: {source_type: randomized_trial, pmid: 32277872, citation: "Andresen V et al. Lancet Gastroenterol Hepatol 2020;5:658", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled", participants_randomized: 443, risk_of_bias: low, funding_and_conflicts: "industry-funded"}
+    pico: {comparator: placebo, outcome: {name: "composite responder (≥30% abdominal pain reduction + adequate relief ≥4/8 weeks)", class: patient_reported, timepoint_days: 56}, effect: {direction: benefit, estimate: "34% vs 19% responders"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: IBS, microbiome_profile_alone_sufficient: false}
+    summary: "In 443 adults with diagnosed IBS, eight weeks of heat-inactivated B. bifidum MIMBb75 produced a composite response in 34% versus 19% on placebo. The product is non-viable and exact; it is not interchangeable with live B. bifidum and is not selected by stool abundance."
+  - evidence_assertion_id: IE_BINFANTIS_35624_IBS_RCT_V1
+    protocol_ref: PROTOCOL_BINFANTIS_35624_IBS_4W_V1
+    source: {source_type: randomized_trial, pmid: 16863564, citation: "Whorwell PJ et al. Am J Gastroenterol 2006;101:1581", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled, three dose arms", participants_randomized: 362, risk_of_bias: some_concerns, funding_and_conflicts: "industry"}
+    pico: {comparator: placebo, outcome: {name: "abdominal pain/discomfort and composite symptom score", class: patient_reported, timepoint_days: 28}, effect: {direction: benefit, estimate: "significant only at 10^8 CFU/day; not at 10^6 or 10^10"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: IBS, microbiome_profile_alone_sufficient: false}
+    summary: "In 362 women with IBS, B. infantis 35624 improved symptoms only at 10^8 CFU/day — not at a lower or a higher dose — illustrating that probiotic effects are strain- and dose-specific and do not generalise."
+  - evidence_assertion_id: IE_AGA_PROBIOTICS_GUIDELINE_X_V1
+    source: {source_type: guideline, pmid: 32531291, citation: "Su GL et al. AGA Clinical Practice Guideline on probiotics. Gastroenterology 2020;159:697", publication_status: issued_guidance}
+    study: {design: "guideline", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "guideline position", class: patient_clinical}, effect: {direction: not_estimable}}
+    lane: X
+    against_kind: guideline_against
+    guideline_position: trial_only
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "AGA 2020 recommends probiotics for Crohn's disease, ulcerative colitis and IBS only in the context of a clinical trial, and finds the evidence formulation- and indication-specific."
+  - evidence_assertion_id: IE_ACG_IBS_GUIDELINE_A_V1
+    source: {source_type: guideline, pmid: 33315591, citation: "Lacy BE et al. ACG Clinical Guideline: Management of IBS. Am J Gastroenterol 2021;116:17", publication_status: issued_guidance}
+    study: {design: "guideline", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "global IBS symptoms", class: patient_reported}, effect: {direction: benefit, estimate: "soluble fibre, peppermint oil and a limited low-FODMAP trial are suggested; probiotics are suggested against for global symptoms"}}
+    lane: A
+    guideline_position: conditional_for
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: IBS, microbiome_profile_alone_sufficient: false}
+    summary: "ACG 2021 suggests soluble fibre, peppermint oil and a limited dietitian-guided low-FODMAP trial for diagnosed IBS, suggests against probiotics for global symptoms, and lists rifaximin for global IBS-D symptoms after clinical diagnosis."
+  - evidence_assertion_id: IE_ACG_IBS_PROBIOTICS_AGAINST_X_V1
+    source: {source_type: guideline, pmid: 33315591, citation: "Lacy BE et al. ACG 2021 — suggests against probiotics for global IBS symptoms", publication_status: issued_guidance}
+    study: {design: "guideline", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "global IBS symptoms", class: patient_reported}, effect: {direction: not_estimable}}
+    lane: X
+    against_kind: guideline_against
+    guideline_position: conditional_against
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: IBS, microbiome_profile_alone_sufficient: false}
+    summary: "ACG 2021 suggests against probiotics for global IBS symptoms (very low quality of evidence)."
+  - evidence_assertion_id: IE_AGA_DIET_IBS_A_V1
+    protocol_ref: PROTOCOL_LOW_FODMAP_3PHASE_V1
+    source: {source_type: guideline, pmid: 35337654, citation: "Chey WD et al. AGA Clinical Practice Update on the role of diet in IBS. Gastroenterology 2022;162:1737", publication_status: issued_guidance}
+    study: {design: "clinical practice update", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "IBS symptoms", class: patient_reported}, effect: {direction: benefit, estimate: "limited low-FODMAP with restriction, reintroduction and personalisation under dietitian guidance"}}
+    lane: A
+    guideline_position: conditional_for
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: IBS, microbiome_profile_alone_sufficient: false}
+    summary: "The AGA diet update endorses a limited, dietitian-guided low-FODMAP diet (restrict, reintroduce, personalise) for diagnosed IBS and warns against indefinite restriction, eating-disorder risk and malnutrition."
+  - evidence_assertion_id: IE_LOW_FODMAP_HISTAMINE_MCINTOSH_V1
+    protocol_ref: PROTOCOL_LOW_FODMAP_3W_MCINTOSH_V1
+    source: {source_type: randomized_trial, pmid: 26976734, citation: "McIntosh K et al. Gut 2017;66:1241", publication_status: peer_reviewed}
+    study: {design: "randomized controlled", participants_randomized: 40, analysis_population: "37", risk_of_bias: some_concerns}
+    pico: {comparator: high-FODMAP diet, outcome: {name: "IBS-SSS and urinary histamine", class: patient_reported, timepoint_days: 21}, effect: {direction: benefit, estimate: "symptom improvement; urinary histamine reduced eightfold"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: IBS, microbiome_profile_alone_sufficient: false}
+    summary: "A three-week randomized low-FODMAP diet in diagnosed IBS improved symptoms and lowered urinary histamine — a diet effect in IBS, not a treatment for stool histamine genes."
+  - evidence_assertion_id: IE_HISTAMINE_IBS_DEPALMA_E_V1
+    source: {source_type: observational_study, pmid: 35895832, citation: "De Palma G et al. Sci Transl Med 2022;14:eabj1895", publication_status: peer_reviewed}
+    study: {design: "human subgroup + gnotobiotic mouse experiments", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "histamine-producing K. aerogenes and visceral hypersensitivity", class: mechanistic}, effect: {direction: not_estimable}}
+    lane: E
+    proposition: evidence_signal_associated_with_state
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "A high-urinary-histamine IBS subgroup and a K. aerogenes hdc variant were identified, with the causal treatment work done in mice."
+  - evidence_assertion_id: IE_RIFAXIMIN_IBSD_GUIDELINE_A_V1
+    protocol_ref: PROTOCOL_RIFAXIMIN_IBSD_V1
+    source: {source_type: guideline, pmid: 33315591, citation: "ACG 2021 — rifaximin for global IBS-D symptoms", publication_status: issued_guidance}
+    study: {design: "guideline", risk_of_bias: not_assessed}
+    pico: {comparator: placebo, outcome: {name: "global IBS-D symptoms", class: patient_reported, timepoint_days: 14}, effect: {direction: benefit}}
+    lane: A
+    guideline_position: strong_for
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: IBS-D, microbiome_profile_alone_sufficient: false}
+    summary: "ACG 2021 recommends rifaximin for global IBS-D symptoms in clinically diagnosed patients. It is not a treatment for organisms seen in shotgun data and is not triggered by any stool finding."
+
+  # ------------------------------------------------------------ IBD
+  - evidence_assertion_id: IE_AGA_FMT_2024_A_V1
+    protocol_ref: PROTOCOL_FMT_RCDI_AGA_V1
+    source: {source_type: guideline, pmid: 38395525, citation: "Peery AF et al. AGA Clinical Practice Guideline on fecal microbiota-based therapies. Gastroenterology 2024;166:409", publication_status: issued_guidance}
+    study: {design: "guideline (conditional, low certainty)", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "prevention of recurrent CDI", class: patient_clinical}, effect: {direction: benefit, estimate: "conditional recommendation for selected adults after standard antibiotics"}}
+    lane: A
+    guideline_position: conditional_for
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: recurrent C. difficile infection, microbiome_profile_alone_sufficient: false}
+    summary: "AGA 2024 conditionally supports fecal microbiota-based therapy to prevent recurrent C. difficile infection after standard antibiotics in selected immunocompetent or mildly/moderately immunocompromised adults, and recommends against it in severely immunocompromised adults."
+  - evidence_assertion_id: IE_AGA_FMT_2024_IBD_IBS_AGAINST_X_V1
+    source: {source_type: guideline, pmid: 38395525, citation: "AGA 2024 — against conventional FMT for Crohn's disease, ulcerative colitis, IBS and pouchitis outside trials", publication_status: issued_guidance}
+    study: {design: "guideline", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "disease remission", class: patient_clinical}, effect: {direction: not_estimable}}
+    lane: X
+    against_kind: guideline_against
+    guideline_position: conditional_against
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "AGA 2024 recommends against conventional FMT for Crohn's disease, ulcerative colitis, IBS and pouchitis except within a clinical trial."
+  - evidence_assertion_id: IE_UC_FMT_PARAMSOTHY_RCT_V1
+    protocol_ref: PROTOCOL_FMT_UC_PARAMSOTHY_8W_V1
+    source: {source_type: randomized_trial, pmid: 28214091, citation: "Paramsothy S et al. Lancet 2017;389:1218", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled", participants_randomized: 85, analysis_population: "81", risk_of_bias: low}
+    pico: {comparator: placebo enemas, outcome: {name: "steroid-free clinical remission with endoscopic remission or response at week 8", class: patient_clinical, timepoint_days: 56}, effect: {direction: benefit, estimate: "27% vs 8%"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: ulcerative colitis, microbiome_profile_alone_sufficient: false}
+    summary: "Intensive multidonor FMT achieved steroid-free clinical and endoscopic remission/response in 27% versus 8% with placebo in active ulcerative colitis — a positive trial signal that current guidelines still place in the trial-only category."
+  - evidence_assertion_id: IE_CDED_PEN_RCT_V1
+    protocol_ref: PROTOCOL_CDED_PEN_12W_V1
+    source: {source_type: randomized_trial, pmid: 31170412, citation: "Levine A et al. Gastroenterology 2019;157:440", publication_status: peer_reviewed}
+    study: {design: "randomized controlled, paediatric", participants_randomized: 78, risk_of_bias: some_concerns}
+    pico: {comparator: exclusive enteral nutrition, outcome: {name: "tolerance and corticosteroid-free remission at week 6/12", class: patient_clinical, timepoint_days: 84}, effect: {direction: benefit, estimate: "better tolerated; sustained remission more common at week 12"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: Crohn's disease, microbiome_profile_alone_sufficient: false}
+    summary: "In children with mild-to-moderate Crohn's disease, CDED + partial enteral nutrition was better tolerated than exclusive enteral nutrition and induced sustained remission in more patients at 12 weeks. This is guideline-care context for clinician-confirmed disease, not an action from a stool pattern."
+
+  # ------------------------------------------------------------ CRC / adenoma / PDAC
+  - evidence_assertion_id: IE_USPSTF_CRC_SCREENING_A_V1
+    protocol_ref: PROTOCOL_ROUTE_GENERIC_V1
+    source: {source_type: guideline, url: "https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/colorectal-cancer-screening", citation: "USPSTF 2021 colorectal cancer screening recommendation", publication_status: issued_guidance}
+    study: {design: "guideline", risk_of_bias: not_assessed}
+    pico: {comparator: no screening, outcome: {name: "CRC mortality", class: patient_clinical}, effect: {direction: benefit}}
+    lane: A
+    guideline_position: strong_for
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: research_profile_resemblance, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Colorectal cancer screening for adults 45–75 is an established, guideline-backed route. A stool microbiome pattern does not substitute for FIT or colonoscopy and does not change the recommended interval."
+  - evidence_assertion_id: IE_WCRF_CRC_PREVENTION_V1
+    source: {source_type: systematic_review, url: "https://www.wcrf.org/wp-content/uploads/2024/10/Colorectal-cancer-report.pdf", citation: "WCRF/AICR Continuous Update Project — colorectal cancer", publication_status: peer_reviewed}
+    study: {design: "systematic review of population evidence", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "CRC incidence", class: patient_clinical}, effect: {direction: benefit, estimate: "whole grains, fibre, physical activity protective; red/processed meat, alcohol, body fatness increase risk"}}
+    lane: D
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: research_profile_resemblance, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Population evidence links whole grains, dietary fibre and physical activity to lower colorectal cancer risk, and red/processed meat, alcohol and excess body weight to higher risk. This is general prevention evidence, not a microbiome-directed treatment."
+  - evidence_assertion_id: IE_CBM588_ADENOMA_RCT_V1
+    protocol_ref: PROTOCOL_CBM588_ADENOMA_V1
+    source: {source_type: randomized_trial, pmid: 41425719, citation: "CBM588 randomized trial in post-polypectomy adenoma (2025)", publication_status: peer_reviewed}
+    study: {design: "randomized controlled", risk_of_bias: some_concerns}
+    pico: {comparator: control, outcome: {name: "adenoma recurrence", class: patient_clinical}, effect: {direction: mixed, estimate: "early/conflicting"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: colorectal adenoma, microbiome_profile_alone_sufficient: false}
+    summary: "One randomized trial of the exact Clostridium butyricum MIYAIRI 588 product after polypectomy is early/conflicting evidence; generic C. butyricum is not a substitute and no surveillance interval changes."
+  - evidence_assertion_id: IE_ADENOMA_PROBIOTIC_META_X_V1
+    source: {source_type: meta_analysis, pmid: 38126945, citation: "2024 meta-analysis — probiotics and colorectal adenoma", publication_status: peer_reviewed}
+    study: {design: "meta-analysis", risk_of_bias: not_assessed}
+    pico: {comparator: placebo, outcome: {name: "adenoma recurrence", class: patient_clinical}, effect: {direction: mixed}}
+    lane: X
+    against_kind: conflicting
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: colorectal adenoma, microbiome_profile_alone_sufficient: false}
+    summary: "Pooled adenoma trials of assorted probiotics are heterogeneous and inconclusive."
+  - evidence_assertion_id: IE_FNUCLEATUM_PERIODONTAL_X_V1
+    source: {source_type: nonrandomized_study, pmid: 34887459, citation: "periodontal treatment lowered stool F. nucleatum in CRC patients (2021)", publication_status: peer_reviewed}
+    study: {design: "before-after", risk_of_bias: high}
+    pico: {comparator: none, outcome: {name: "stool F. nucleatum", class: microbiome_surrogate}, effect: {direction: benefit, estimate: "surrogate only; no cancer/community benefit shown"}}
+    lane: X
+    against_kind: conflicting
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: exact_microbiome_feature, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Periodontal treatment reduced stool F. nucleatum in CRC patients, but no trial shows that lowering it prevents cancer; screening remains conventional."
+  - evidence_assertion_id: IE_CRC_VIRULENCE_REVIEW_E_V1
+    source: {source_type: systematic_review, url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC10308883/", citation: "review — pks+ E. coli, ETBF and F. nucleatum in colorectal carcinogenesis (2023)", publication_status: peer_reviewed}
+    study: {design: "review", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "carcinogenesis mechanisms", class: mechanistic}, effect: {direction: not_estimable}}
+    lane: E
+    proposition: evidence_signal_associated_with_state
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Colibactin (pks), fragilysin (bft) and FadA are mechanistically linked to colorectal carcinogenesis, but no human RCT shows that eliminating these organisms prevents cancer. Carriage potential is not toxin expression or cancer."
+  - evidence_assertion_id: IE_PDAC_KARTAL_SIGNATURE_V1
+    source: {source_type: observational_study, pmid: 35260444, citation: "Kartal E et al. Gut 2022;71:1359", publication_status: peer_reviewed}
+    study: {design: "case-control discovery (Spain) + validation (Germany)", risk_of_bias: some_concerns, funding_and_conflicts: "patent disclosure"}
+    pico: {comparator: controls and chronic pancreatitis, outcome: {name: "AUROC of 27-species stool model", class: validated_biomarker}, effect: {direction: not_estimable, estimate: "AUROC up to 0.84; improved with CA19-9"}}
+    lane: D
+    proposition: evidence_signal_associated_with_state
+    target_binding: {trigger_type: research_profile_resemblance, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "A 27-species stool signature discriminated treatment-naive PDAC from controls (AUROC up to 0.84) in Spanish and German cohorts — disease-signature evidence only; not a screen and not a treatment target."
+  - evidence_assertion_id: IE_PDAC_NAGATA_SIGNATURE_V1
+    source: {source_type: observational_study, pmid: 35398347, citation: "Nagata N et al. Gastroenterology 2022;163:222", publication_status: peer_reviewed}
+    study: {design: "case-control (Japan) with external Spanish/German evaluation", risk_of_bias: some_concerns}
+    pico: {comparator: controls, outcome: {name: "AUROC of 30 gut species model", class: validated_biomarker}, effect: {direction: not_estimable, estimate: "AUROC ~0.78–0.82"}}
+    lane: D
+    proposition: evidence_signal_associated_with_state
+    target_binding: {trigger_type: research_profile_resemblance, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "An independent Japanese stool signature (30 species) reproduced PDAC discrimination in external European cohorts — signature evidence only."
+  - evidence_assertion_id: IE_NCI_PDAC_ROUTE_A_V1
+    protocol_ref: PROTOCOL_ROUTE_PDAC_V1
+    source: {source_type: reference_fact_sheet, url: "https://www.cancer.gov/types/pancreatic/patient/pancreatic-treatment-pdq", citation: "NCI PDQ — pancreatic cancer (patient version)", publication_status: issued_guidance}
+    study: {design: "patient information", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "clinical evaluation of symptoms", class: patient_clinical}, effect: {direction: not_estimable}}
+    lane: A
+    guideline_position: strong_for
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: symptom_phenotype, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Jaundice, unexplained weight loss or persistent upper abdominal/back pain warrant ordinary urgent clinical evaluation regardless of any stool score."
+
+  # ------------------------------------------------------------ metabolic
+  - evidence_assertion_id: IE_HIGH_FIBER_T2D_ZHAO_RCT_V1
+    protocol_ref: PROTOCOL_HIGH_FIBER_T2D_12W_V1
+    source: {source_type: randomized_trial, pmid: 29590046, citation: "Zhao L et al. Science 2018;359:1151", publication_status: peer_reviewed}
+    study: {design: "randomized controlled, open-label", participants_randomized: 43, risk_of_bias: some_concerns}
+    pico: {comparator: usual care (both arms acarbose), outcome: {name: "HbA1c and SCFA-producer ecology", class: validated_biomarker, timepoint_days: 84}, effect: {direction: benefit, estimate: "greater HbA1c reduction; selective promotion of acetate/butyrate producers"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: type 2 diabetes, microbiome_profile_alone_sufficient: false}
+    summary: "In 43 people with type 2 diabetes on acarbose, a 12-week high-fibre diet lowered HbA1c more than usual care and selectively promoted a small group of acetate/butyrate producers — a dietary trial in diagnosed diabetes, not a microbiome prescription."
+  - evidence_assertion_id: IE_FMT_LEAN_DONOR_VRIEZE_V1
+    protocol_ref: PROTOCOL_FMT_LEAN_DONOR_VRIEZE_V1
+    source: {source_type: randomized_trial, pmid: 22728514, citation: "Vrieze A et al. Gastroenterology 2012;143:913", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind", participants_randomized: 18, risk_of_bias: some_concerns}
+    pico: {comparator: autologous infusion, outcome: {name: "peripheral insulin sensitivity at 6 weeks", class: validated_biomarker, timepoint_days: 42}, effect: {direction: benefit, estimate: "improved insulin sensitivity; transient"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: metabolic syndrome, microbiome_profile_alone_sufficient: false}
+    summary: "Lean-donor duodenal FMT transiently improved insulin sensitivity in 18 men with metabolic syndrome."
+  - evidence_assertion_id: IE_FMT_LEAN_DONOR_KOOTTE_X_V1
+    protocol_ref: PROTOCOL_FMT_LEAN_DONOR_KOOTTE_V1
+    source: {source_type: randomized_trial, pmid: 28978426, citation: "Kootte RS et al. Cell Metab 2017;26:611", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind", participants_randomized: 38, risk_of_bias: some_concerns}
+    pico: {comparator: autologous infusion, outcome: {name: "insulin sensitivity at 6 and 18 weeks", class: validated_biomarker, timepoint_days: 126}, effect: {direction: mixed, estimate: "improvement at 6 weeks in responders only; lost by 18 weeks"}}
+    lane: X
+    against_kind: conflicting
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: metabolic syndrome, microbiome_profile_alone_sufficient: false}
+    summary: "The follow-up lean-donor FMT trial found a 6-week improvement only in a responder subset that disappeared by 18 weeks."
+  - evidence_assertion_id: IE_AKK_MUCT_DEPOMMIER_PILOT_V1
+    protocol_ref: PROTOCOL_AKK_MUCT_PASTEURISED_3M_V1
+    source: {source_type: randomized_trial, pmid: 31263284, citation: "Depommier C et al. Nat Med 2019;25:1096", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled exploratory pilot", participants_randomized: 40, analysis_population: "32", risk_of_bias: some_concerns, funding_and_conflicts: "authors hold patents; company founded"}
+    pico: {comparator: placebo, outcome: {name: "insulin sensitivity, insulinaemia, cholesterol (exploratory)", class: validated_biomarker, timepoint_days: 90}, effect: {direction: benefit, estimate: "improved insulin sensitivity and reduced insulinaemia/cholesterol; safe and well tolerated"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: insulin resistance / overweight, microbiome_profile_alone_sufficient: false}
+    summary: "In a 32-completer exploratory pilot, pasteurised A. muciniphila MucT (10^10 cells/day for three months) improved insulin sensitivity and lowered insulinaemia and cholesterol in overweight/obese insulin-resistant adults."
+  - evidence_assertion_id: IE_AKK_WST01_ZHANG2025_X_V1
+    protocol_ref: PROTOCOL_AKK_WST01_T2D_V1
+    source: {source_type: randomized_trial, pmid: 39879980, citation: "Zhang et al. 2025 — AKK-WST01 in obese type 2 diabetes", publication_status: peer_reviewed}
+    study: {design: "randomized placebo-controlled", risk_of_bias: some_concerns}
+    pico: {comparator: placebo, outcome: {name: "weight and HbA1c", class: validated_biomarker, timepoint_days: 84}, effect: {direction: "null", estimate: "no overall weight/HbA1c benefit; exploratory baseline-subgroup signals only"}}
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: type 2 diabetes, microbiome_profile_alone_sufficient: false}
+    summary: "A 2025 randomized trial of live A. muciniphila AKK-WST01 in obese type 2 diabetes found no overall weight or HbA1c benefit, only exploratory subgroup signals."
+  - evidence_assertion_id: IE_AKK_SUENAERT2026_NULL_X_V1
+    source: {source_type: randomized_trial, pmid: 42343233, citation: "Suenaert et al. 2026 — pasteurised A. muciniphila, primary insulin-sensitivity endpoint missed", publication_status: peer_reviewed}
+    study: {design: "randomized placebo-controlled", risk_of_bias: some_concerns}
+    pico: {comparator: placebo, outcome: {name: "insulin sensitivity (primary)", class: validated_biomarker}, effect: {direction: "null"}}
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: insulin resistance, microbiome_profile_alone_sufficient: false}
+    summary: "A 2026 pasteurised-Akkermansia trial missed its primary insulin-sensitivity endpoint."
+  - evidence_assertion_id: IE_AKK_MOUNT_WEIGHT_REGAIN_V1
+    source: {source_type: randomized_trial, pmid: 42120725, citation: "Mount et al. 2026 — pasteurised A. muciniphila after weight loss", publication_status: peer_reviewed}
+    study: {design: "randomized placebo-controlled", risk_of_bias: some_concerns}
+    pico: {comparator: placebo, outcome: {name: "weight regain after weight loss", class: patient_clinical}, effect: {direction: benefit}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: obesity after weight loss, microbiome_profile_alone_sufficient: false}
+    summary: "In a post-weight-loss protocol, pasteurised A. muciniphila reduced weight regain — an exact protocol result shown together with the null trials."
+  - evidence_assertion_id: IE_AKK_2026_OBESITY_RCT_V1
+    source: {source_type: randomized_trial, doi: 10.1038/s41591-026-04394-7, citation: "Nat Med 2026 — pasteurised Akkermansia in obesity", publication_status: peer_reviewed}
+    study: {design: "randomized placebo-controlled", risk_of_bias: some_concerns}
+    pico: {comparator: placebo, outcome: {name: "metabolic endpoints", class: validated_biomarker}, effect: {direction: mixed}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: obesity, microbiome_profile_alone_sufficient: false}
+    summary: "A 2026 randomized trial of the exact pasteurised Akkermansia product in obesity; endogenous Akkermansia abundance does not predict response and does not authorise an over-the-counter product."
+  - evidence_assertion_id: IE_FMT_ADOLESCENT_OBESITY_LEONG_X_V1
+    protocol_ref: PROTOCOL_FMT_OBESITY_ADOLESCENT_LEONG_V1
+    source: {source_type: randomized_trial, pmid: 33346848, citation: "Leong KSW et al. JAMA Netw Open 2020;3:e2030415 (Gut Bugs)", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled", participants_randomized: 87, risk_of_bias: low}
+    pico: {comparator: placebo capsules, outcome: {name: "BMI SDS at 6 weeks (primary)", class: patient_clinical, timepoint_days: 42}, effect: {direction: "null", estimate: "no BMI change; reduced android-to-gynoid fat ratio (secondary)"}}
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: obesity, microbiome_profile_alone_sufficient: false}
+    summary: "Encapsulated lean-donor FMT in 87 adolescents with obesity did not change BMI (primary endpoint null)."
+  - evidence_assertion_id: IE_FMT_MASLD_CRAVEN_X_V1
+    protocol_ref: PROTOCOL_FMT_MASLD_CRAVEN_V1
+    source: {source_type: randomized_trial, pmid: 32618656, citation: "Craven L et al. Am J Gastroenterol 2020;115:1055", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind", participants_randomized: 21, risk_of_bias: some_concerns}
+    pico: {comparator: autologous FMT, outcome: {name: "insulin resistance and hepatic fat", class: validated_biomarker, timepoint_days: 42}, effect: {direction: "null", estimate: "no change in insulin resistance or hepatic fat; small-intestinal permeability improved"}}
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: MASLD, microbiome_profile_alone_sufficient: false}
+    summary: "A 21-person FMT trial in NAFLD/MASLD did not improve insulin resistance or hepatic fat."
+  - evidence_assertion_id: IE_EASL_MASLD_2024_A_V1
+    protocol_ref: PROTOCOL_ROUTE_MASLD_V1
+    source: {source_type: guideline, pmid: 38851997, citation: "EASL-EASD-EASO Clinical Practice Guidelines on MASLD 2024", publication_status: issued_guidance}
+    study: {design: "guideline", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "risk stratification and management", class: patient_clinical}, effect: {direction: benefit}}
+    lane: A
+    guideline_position: strong_for
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: research_profile_resemblance, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "MASLD is assessed by metabolic risk and non-invasive fibrosis tests under EASL-EASD-EASO 2024 and AASLD guidance; a stool pattern does not stage fibrosis or choose therapy."
+  - evidence_assertion_id: IE_FMT_T1D_DEGROOT_V1
+    protocol_ref: PROTOCOL_FMT_T1D_DEGROOT_V1
+    source: {source_type: randomized_trial, pmid: 33106354, citation: "de Groot P et al. Gut 2021;70:92", publication_status: peer_reviewed}
+    study: {design: "randomized controlled", participants_randomized: 20, risk_of_bias: some_concerns}
+    pico: {comparator: allogenic FMT (autologous was the active comparator), outcome: {name: "stimulated C-peptide at 12 months", class: validated_biomarker, timepoint_days: 365}, effect: {direction: mixed, estimate: "autologous FMT preserved C-peptide better than allogenic"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: type 1 diabetes, microbiome_profile_alone_sufficient: false}
+    summary: "A 20-person trial in recent-onset type 1 diabetes found that autologous (own-stool) FMT preserved residual beta-cell function better than donor FMT — hypothesis-generating only."
+  - evidence_assertion_id: IE_ACG_CELIAC_2023_A_V1
+    protocol_ref: PROTOCOL_ROUTE_CELIAC_V1
+    source: {source_type: guideline, pmid: 36602836, citation: "Rubio-Tapia A et al. ACG Clinical Guidelines: Diagnosis and Management of Celiac Disease. Am J Gastroenterol 2023;118:59", publication_status: issued_guidance}
+    study: {design: "guideline", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "diagnosis and gluten-free diet", class: patient_clinical}, effect: {direction: benefit}}
+    lane: A
+    guideline_position: strong_for
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: celiac disease, microbiome_profile_alone_sufficient: false}
+    summary: "A gluten-free diet follows a proper clinical diagnosis (serology and biopsy while still eating gluten). Starting gluten avoidance from a microbiome pattern can impair the diagnostic tests."
+
+  # ------------------------------------------------------------ liver / renal
+  - evidence_assertion_id: IE_EASL_HE_2022_A_V1
+    protocol_ref: PROTOCOL_ROUTE_HE_V1
+    source: {source_type: guideline, pmid: 35724930, citation: "EASL Clinical Practice Guidelines on the management of hepatic encephalopathy. J Hepatol 2022;77:807", publication_status: issued_guidance}
+    study: {design: "guideline", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "HE recurrence", class: patient_clinical}, effect: {direction: benefit, estimate: "lactulose first line; rifaximin add-on for recurrence"}}
+    lane: A
+    guideline_position: strong_for
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: hepatic encephalopathy, microbiome_profile_alone_sufficient: false}
+    summary: "For clinician-confirmed cirrhosis with hepatic encephalopathy, lactulose and add-on rifaximin are guideline care. Stool urease genes do not diagnose hyperammonaemia or HE."
+  - evidence_assertion_id: IE_RIFAXIMIN_HE_BASS_RCT_V1
+    protocol_ref: PROTOCOL_RIFAXIMIN_HE_6M_BASS_V1
+    source: {source_type: randomized_trial, pmid: 20335583, citation: "Bass NM et al. N Engl J Med 2010;362:1071", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled", participants_randomized: 299, risk_of_bias: low, funding_and_conflicts: "industry-funded"}
+    pico: {comparator: placebo (>90% on lactulose), outcome: {name: "breakthrough HE episode", class: patient_clinical, timepoint_days: 180}, effect: {direction: benefit, estimate: "HR 0.42"}}
+    lane: B
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: hepatic encephalopathy, microbiome_profile_alone_sufficient: false}
+    summary: "Rifaximin 550 mg twice daily for six months reduced breakthrough hepatic encephalopathy (HR 0.42) in cirrhosis patients in remission, over 90% of whom were on lactulose. Diagnosis-dependent guideline care, never stool-urease treatment."
+  - evidence_assertion_id: IE_HE_PROBIOTIC_DHIMAN_RCT_V1
+    protocol_ref: PROTOCOL_HE_VSL3_6M_V1
+    source: {source_type: randomized_trial, pmid: 24246768, citation: "Dhiman RK et al. Gastroenterology 2014;147:1327", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled", participants_randomized: 130, risk_of_bias: some_concerns}
+    pico: {comparator: placebo, outcome: {name: "breakthrough HE and hospitalisation", class: patient_clinical, timepoint_days: 180}, effect: {direction: mixed, estimate: "fewer hospitalisations; breakthrough HE reduction not statistically significant"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: hepatic encephalopathy, microbiome_profile_alone_sufficient: false}
+    summary: "VSL#3 for six months in cirrhosis after an HE episode reduced hospitalisations, while the reduction in breakthrough HE was not statistically significant."
+  - evidence_assertion_id: IE_HE_PROBIOTIC_META_V1
+    source: {source_type: meta_analysis, pmid: 26561214, citation: "Saab S et al. Liver Int 2016 — probiotics in hepatic encephalopathy meta-analysis", publication_status: peer_reviewed}
+    study: {design: "meta-analysis", risk_of_bias: not_assessed}
+    pico: {comparator: placebo/no treatment, outcome: {name: "overt HE development", class: patient_clinical}, effect: {direction: benefit, estimate: "reduced progression to overt HE; low-quality trials"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: hepatic encephalopathy, microbiome_profile_alone_sufficient: false}
+    summary: "Meta-analysis suggests probiotics reduce progression to overt HE in cirrhosis, from low-quality trials; adjunct research evidence, not a substitute for guideline care."
+  - evidence_assertion_id: IE_FMT_HE_BAJAJ_PILOT_V1
+    protocol_ref: PROTOCOL_FMT_HE_BAJAJ_V1
+    source: {source_type: randomized_trial, pmid: 28586116, citation: "Bajaj JS et al. Hepatology 2017;66:1727", publication_status: peer_reviewed}
+    study: {design: "randomized open-label pilot", participants_randomized: 20, risk_of_bias: high}
+    pico: {comparator: standard of care, outcome: {name: "serious adverse events and HE recurrence", class: patient_clinical, timepoint_days: 150}, effect: {direction: benefit, estimate: "fewer SAEs and HE episodes in FMT arm"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: hepatic encephalopathy, microbiome_profile_alone_sufficient: false}
+    summary: "A 20-person open-label pilot of FMT after antibiotics in recurrent HE reported fewer serious adverse events and HE episodes — investigational only."
+  - evidence_assertion_id: IE_KDIGO_2024_A_V1
+    protocol_ref: PROTOCOL_ROUTE_KDIGO_V1
+    source: {source_type: guideline, pmid: 38490803, citation: "KDIGO 2024 Clinical Practice Guideline for the Evaluation and Management of CKD", publication_status: issued_guidance}
+    study: {design: "guideline", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "CKD progression and complications", class: patient_clinical}, effect: {direction: benefit}}
+    lane: A
+    guideline_position: strong_for
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: research_profile_resemblance, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "CKD is diagnosed and staged by eGFR and albuminuria and managed under KDIGO 2024; diet changes need eGFR, potassium, phosphorus and renal-dietitian review."
+  - evidence_assertion_id: IE_FMT_CKD_RCT_V1
+    protocol_ref: PROTOCOL_FMT_CKD_V1
+    source: {source_type: randomized_trial, pmid: 38674803, citation: "small randomized FMT trial in CKD (2024)", publication_status: peer_reviewed}
+    study: {design: "small randomized trial", risk_of_bias: some_concerns}
+    pico: {comparator: placebo, outcome: {name: "renal and uraemic-toxin markers", class: validated_biomarker}, effect: {direction: mixed}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: chronic kidney disease, microbiome_profile_alone_sufficient: false}
+    summary: "A small randomized FMT trial in CKD reported surrogate changes; investigational only."
+  - evidence_assertion_id: IE_CKD_BIOTICS_META_V1
+    source: {source_type: meta_analysis, pmid: 34640474, citation: "meta-analysis — probiotics/prebiotics/synbiotics in CKD (2021)", publication_status: peer_reviewed}
+    study: {design: "meta-analysis", risk_of_bias: not_assessed}
+    pico: {comparator: placebo, outcome: {name: "uraemic toxins and inflammatory markers", class: validated_biomarker}, effect: {direction: mixed, estimate: "surrogate improvements; heterogeneous"}}
+    lane: C
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: chronic kidney disease, microbiome_profile_alone_sufficient: false}
+    summary: "Pooled biotic trials in CKD show heterogeneous surrogate-marker changes without hard renal outcomes."
+  - evidence_assertion_id: IE_SYNERGY_CKD_ROSSI_V1
+    protocol_ref: PROTOCOL_SYNERGY_CKD_6W_V1
+    source: {source_type: randomized_trial, pmid: 26772193, citation: "Rossi M et al. Clin J Am Soc Nephrol 2016;11:223 (SYNERGY)", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled crossover", participants_randomized: 37, risk_of_bias: some_concerns}
+    pico: {comparator: placebo, outcome: {name: "serum p-cresyl sulfate and indoxyl sulfate", class: validated_biomarker, timepoint_days: 42}, effect: {direction: mixed, estimate: "PCS reduced; indoxyl sulfate unchanged"}}
+    lane: C
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: chronic kidney disease, microbiome_profile_alone_sufficient: false}
+    summary: "In 37 pre-dialysis CKD patients, six weeks of the SYNERGY synbiotic reduced serum p-cresyl sulfate but not indoxyl sulfate — surrogate evidence that applies only with established CKD and a measured serum PCS."
+  - evidence_assertion_id: IE_RS_CKD_HEADLEY_X_V1
+    protocol_ref: PROTOCOL_RS_CKD_16W_HEADLEY_V1
+    source: {source_type: randomized_trial, pmid: 39362281, citation: "Headley SA et al. 2024 — resistant starch in CKD", publication_status: peer_reviewed}
+    study: {design: "randomized controlled", risk_of_bias: some_concerns}
+    pico: {comparator: placebo, outcome: {name: "PCS, other uraemic toxins, vascular function, alpha diversity", class: validated_biomarker, timepoint_days: 112}, effect: {direction: mixed, estimate: "PCS lowered; other biomarkers/vascular function unchanged; several alpha-diversity metrics reduced"}}
+    lane: X
+    against_kind: conflicting
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: chronic kidney disease, microbiome_profile_alone_sufficient: false}
+    summary: "A 16-week resistant-starch CKD trial lowered p-cresyl sulfate but not other biomarkers or vascular function, and reduced several alpha-diversity metrics."
+  - evidence_assertion_id: IE_RS_CKD_REVIEW_V1
+    source: {source_type: systematic_review, pmid: 39444299, citation: "review — resistant starch in CKD (2024)", publication_status: peer_reviewed}
+    study: {design: "review", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "uraemic toxins", class: validated_biomarker}, effect: {direction: mixed}}
+    lane: D
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: chronic kidney disease, microbiome_profile_alone_sufficient: false}
+    summary: "Resistant-starch studies in CKD show mixed surrogate results."
+
+  # ------------------------------------------------------------ neuro / immune / psych / CV
+  - evidence_assertion_id: IE_PD_PROBIOTIC_CONSTIPATION_TAN_RCT_V1
+    protocol_ref: PROTOCOL_PD_CONSTIPATION_4W_TAN2021_V1
+    source: {source_type: randomized_trial, pmid: 33046607, citation: "Tan AH et al. Neurology 2021;96:e772", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled", participants_randomized: 72, risk_of_bias: low}
+    pico: {comparator: placebo, outcome: {name: "spontaneous bowel movements per week", class: patient_reported, timepoint_days: 28}, effect: {direction: benefit, estimate: "+1.0 SBM/week versus placebo"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: Parkinson disease with constipation, microbiome_profile_alone_sufficient: false}
+    summary: "In 72 people with Parkinson disease and constipation, four weeks of an exact multistrain probiotic increased spontaneous bowel movements. The endpoint was constipation — no motor or neuroprotective claim."
+  - evidence_assertion_id: IE_PD_FMT_CHENG_NULL_X_V1
+    protocol_ref: PROTOCOL_FMT_PD_CHENG_V1
+    source: {source_type: randomized_trial, pmid: 39073834, citation: "randomized FMT trial in Parkinson disease (2024) — no meaningful benefit", publication_status: peer_reviewed}
+    study: {design: "randomized placebo-controlled", risk_of_bias: some_concerns}
+    pico: {comparator: placebo, outcome: {name: "motor and non-motor scores", class: patient_clinical}, effect: {direction: "null"}}
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: Parkinson disease, microbiome_profile_alone_sufficient: false}
+    summary: "One randomized FMT trial in Parkinson disease found no meaningful clinical benefit."
+  - evidence_assertion_id: IE_PD_FMT_BRUGGEMAN_MOTOR_V1
+    protocol_ref: PROTOCOL_FMT_PD_BRUGGEMAN_V1
+    source: {source_type: randomized_trial, pmid: 38686220, citation: "Bruggeman A et al. eClinicalMedicine 2024 (GUT-PARFECT)", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled (autologous)", participants_randomized: 46, risk_of_bias: some_concerns}
+    pico: {comparator: autologous FMT, outcome: {name: "MDS-UPDRS motor score (off) at 12 months", class: patient_clinical, timepoint_days: 365}, effect: {direction: benefit, estimate: "modest motor improvement versus autologous"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: Parkinson disease, microbiome_profile_alone_sufficient: false}
+    summary: "A 46-person trial reported a modest motor-score improvement 12 months after a single donor FMT versus autologous — shown together with the null trial; FMT for Parkinson disease is investigational."
+  - evidence_assertion_id: IE_LEVODOPA_TDC_ASSOCIATION_D_V1
+    protocol_ref: PROTOCOL_ROUTE_LEVODOPA_V1
+    source: {source_type: observational_study, pmid: 30659181, citation: "van Kessel SP et al. Nat Commun 2019;10:310", publication_status: peer_reviewed}
+    study: {design: "human association + in vitro/rat", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "levodopa dose requirement vs jejunal tdc abundance", class: validated_biomarker}, effect: {direction: not_estimable, estimate: "positive correlation"}}
+    lane: D
+    proposition: evidence_signal_associated_with_state
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: levodopa therapy, microbiome_profile_alone_sufficient: false}
+    summary: "Bacterial tyrosine decarboxylase abundance correlated with levodopa dose requirement in Parkinson patients — a medication-context fact for the prescriber; there is no approved microbiome inhibitor or eradication protocol."
+  - evidence_assertion_id: IE_LEVODOPA_TDC_INHIBITION_E_V1
+    source: {source_type: observational_study, pmid: 31196984, citation: "Maini Rekdal V et al. Science 2019;364:eaau6323", publication_status: peer_reviewed}
+    study: {design: "in vitro and mouse", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "levodopa metabolism by E. faecalis TyrDC and its inhibition by AFMT", class: mechanistic}, effect: {direction: not_estimable}}
+    lane: E
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Inhibition of bacterial levodopa decarboxylation (AFMT) is mouse/preclinical evidence only."
+  - evidence_assertion_id: IE_MS_FMT_PILOT_V1
+    protocol_ref: PROTOCOL_FMT_MS_PILOT_V1
+    source: {source_type: nonrandomized_study, pmid: 35571974, citation: "FMT pilot in multiple sclerosis (2022), nine participants, terminated early", publication_status: peer_reviewed}
+    study: {design: "open-label pilot", participants_randomized: 9, risk_of_bias: high}
+    pico: {comparator: none, outcome: {name: "safety, microbiome and permeability markers", class: microbiome_surrogate}, effect: {direction: mixed}}
+    lane: D
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: multiple sclerosis, microbiome_profile_alone_sufficient: false}
+    summary: "A nine-person FMT pilot in MS, terminated early, reported safety and surrogate changes only — research-only."
+  - evidence_assertion_id: IE_MS_PROBIOTIC_TANKOU_V1
+    protocol_ref: PROTOCOL_MS_VSL3_2M_V1
+    source: {source_type: nonrandomized_study, url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6181139/", citation: "Tankou SK et al. Ann Neurol 2018;83:1147", publication_status: peer_reviewed}
+    study: {design: "open-label, MS and healthy controls", participants_randomized: 9, risk_of_bias: high}
+    pico: {comparator: pre-treatment, outcome: {name: "peripheral immune markers and microbiome", class: microbiome_surrogate, timepoint_days: 60}, effect: {direction: benefit, estimate: "reduced pro-inflammatory monocyte markers; reverted after stopping"}}
+    lane: D
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: multiple sclerosis, microbiome_profile_alone_sufficient: false}
+    summary: "VSL#3 for two months in a small open-label MS study shifted peripheral immune markers, which reverted after discontinuation — surrogate only."
+  - evidence_assertion_id: IE_MS_PROBIOTIC_2024_CROSSOVER_V1
+    source: {source_type: randomized_trial, url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC11470793/", citation: "2024 randomized crossover probiotic study in MS", publication_status: peer_reviewed}
+    study: {design: "randomized crossover", risk_of_bias: some_concerns}
+    pico: {comparator: placebo, outcome: {name: "immune/microbiome markers", class: microbiome_surrogate}, effect: {direction: mixed}}
+    lane: C
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: multiple sclerosis, microbiome_profile_alone_sufficient: false}
+    summary: "A 2024 randomized crossover probiotic study in MS reported surrogate immune and microbiome changes, not disease-activity outcomes."
+  - evidence_assertion_id: IE_PREDIMED_RCT_V1
+    protocol_ref: PROTOCOL_PREDIMED_V1
+    source: {source_type: randomized_trial, pmid: 29897866, citation: "Estruch R et al. N Engl J Med 2018;378:e34 (PREDIMED retraction and republication)", publication_status: corrected}
+    study: {design: "randomized controlled (republished after correction for randomisation irregularities)", participants_randomized: 7447, risk_of_bias: some_concerns}
+    pico: {comparator: low-fat diet advice, outcome: {name: "major cardiovascular events", class: patient_clinical, timepoint_days: 1750}, effect: {direction: benefit, estimate: "~30% relative reduction"}}
+    lane: B
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: research_profile_resemblance, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "The PREDIMED trial (republished after correction) found a Mediterranean diet with olive oil or nuts reduced major cardiovascular events by about 30% in high-risk adults — dietary-pattern evidence independent of the stool result."
+  - evidence_assertion_id: IE_RED_MEAT_TMAO_WANG_RCT_V1
+    protocol_ref: PROTOCOL_RED_MEAT_TMAO_4W_V1
+    source: {source_type: randomized_trial, pmid: 30535398, citation: "Wang Z et al. Eur Heart J 2019;40:583", publication_status: peer_reviewed}
+    study: {design: "randomized crossover controlled feeding", participants_randomized: 113, risk_of_bias: low}
+    pico: {comparator: white meat / non-meat protein, outcome: {name: "plasma and urine TMAO", class: validated_biomarker, timepoint_days: 28}, effect: {direction: benefit, estimate: "red meat raised plasma TMAO ~3-fold; reversed within 4 weeks of withdrawal"}}
+    lane: C
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Chronic red-meat feeding roughly tripled measured plasma TMAO and the effect reversed after switching protein source. This measured a metabolite, not gene capacity; it does not restrict essential choline."
+  - evidence_assertion_id: IE_TMAO_FEEDING_INCONSISTENT_X_V1
+    source: {source_type: systematic_review, pmid: 40419218, citation: "2025 review of dietary TMAO feeding studies", publication_status: peer_reviewed}
+    study: {design: "review", risk_of_bias: not_assessed}
+    pico: {comparator: various, outcome: {name: "plasma TMAO", class: validated_biomarker}, effect: {direction: mixed}}
+    lane: X
+    against_kind: conflicting
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Comparator-dependent feeding evidence on dietary TMAO is inconsistent."
+  - evidence_assertion_id: IE_TMAO_PROBIOTIC_META_NULL_X_V1
+    source: {source_type: meta_analysis, pmid: 35871952, citation: "meta-analysis of eight RCTs — probiotics and TMAO (2022)", publication_status: peer_reviewed}
+    study: {design: "meta-analysis", risk_of_bias: not_assessed}
+    pico: {comparator: placebo, outcome: {name: "plasma TMAO", class: validated_biomarker}, effect: {direction: "null"}}
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Eight randomized probiotic trials pooled show no reduction in plasma TMAO."
+  - evidence_assertion_id: IE_TMAO_PROBIOTIC_DIALYSIS_NULL_X_V1
+    source: {source_type: randomized_trial, pmid: 29651635, citation: "very-high-dose probiotic trial in dialysis — TMAO null (2018)", publication_status: peer_reviewed}
+    study: {design: "randomized", risk_of_bias: some_concerns}
+    pico: {comparator: placebo, outcome: {name: "plasma TMAO", class: validated_biomarker}, effect: {direction: "null"}}
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "A very-high-dose probiotic trial in dialysis patients did not lower TMAO."
+  - evidence_assertion_id: IE_DMB_ANIMAL_E_V1
+    source: {source_type: observational_study, pmid: 26687352, citation: "Wang Z et al. Cell 2015;163:1585 — DMB inhibition of TMA lyase in mice", publication_status: peer_reviewed}
+    study: {design: "mouse", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "TMAO and atherosclerosis in mice", class: mechanistic}, effect: {direction: not_estimable}}
+    lane: E
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "DMB inhibition of microbial TMA lyase is animal-only evidence."
+  - evidence_assertion_id: IE_RA_PROBIOTIC_ALIPOUR_V1
+    protocol_ref: PROTOCOL_RA_LCASEI01_8W_V1
+    source: {source_type: randomized_trial, pmid: 24673738, citation: "Alipour B et al. Int J Rheum Dis 2014;17:519", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled", participants_randomized: 46, risk_of_bias: some_concerns}
+    pico: {comparator: placebo, outcome: {name: "DAS28 and cytokines", class: patient_clinical, timepoint_days: 56}, effect: {direction: benefit}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: rheumatoid arthritis, microbiome_profile_alone_sufficient: false}
+    summary: "A 46-woman trial of L. casei 01 for eight weeks reported improved disease activity and cytokines in rheumatoid arthritis."
+  - evidence_assertion_id: IE_RA_PROBIOTIC_ZAMANI_V1
+    protocol_ref: PROTOCOL_RA_MULTI_8W_ZAMANI_V1
+    source: {source_type: randomized_trial, pmid: 27135916, citation: "Zamani B et al. Int J Rheum Dis 2016;19:869", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled", participants_randomized: 60, risk_of_bias: some_concerns}
+    pico: {comparator: placebo, outcome: {name: "DAS28, insulin, hs-CRP", class: patient_clinical, timepoint_days: 56}, effect: {direction: benefit}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: rheumatoid arthritis, microbiome_profile_alone_sufficient: false}
+    summary: "A 60-person three-organism probiotic trial reported improved DAS28 and metabolic markers in rheumatoid arthritis."
+  - evidence_assertion_id: IE_RA_PROBIOTIC_PINEDA_NULL_X_V1
+    protocol_ref: PROTOCOL_RA_GR1_RC14_3M_V1
+    source: {source_type: randomized_trial, pmid: 21629190, citation: "Pineda M de L et al. Med Sci Monit 2011;17:CR347", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled pilot", participants_randomized: 29, risk_of_bias: some_concerns}
+    pico: {comparator: placebo, outcome: {name: "ACR20 response", class: patient_clinical, timepoint_days: 90}, effect: {direction: "null"}}
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: rheumatoid arthritis, microbiome_profile_alone_sufficient: false}
+    summary: "A 29-person trial of L. rhamnosus GR-1 + L. reuteri RC-14 found no ACR20 benefit in rheumatoid arthritis."
+  - evidence_assertion_id: IE_RA_FMT_CASE_X_V1
+    source: {source_type: case_report, url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC7869316/", citation: "FMT case report in rheumatoid arthritis (2021)", publication_status: peer_reviewed}
+    study: {design: "case report", risk_of_bias: high}
+    pico: {comparator: none, outcome: {name: "disease activity", class: patient_clinical}, effect: {direction: not_estimable}}
+    lane: X
+    against_kind: conflicting
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: rheumatoid arthritis, microbiome_profile_alone_sufficient: false}
+    summary: "FMT in rheumatoid arthritis is case-report level and investigational."
+  - evidence_assertion_id: IE_AS_PROBIOTIC_JENKS_NULL_X_V1
+    protocol_ref: PROTOCOL_AS_PROBIOTIC_12W_V1
+    source: {source_type: randomized_trial, pmid: 20716665, citation: "Jenks K et al. J Rheumatol 2010;37:2118", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled", participants_randomized: 63, risk_of_bias: low}
+    pico: {comparator: placebo, outcome: {name: "BASFI and disease activity", class: patient_clinical, timepoint_days: 84}, effect: {direction: "null"}}
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: ankylosing spondylitis, microbiome_profile_alone_sufficient: false}
+    summary: "A 63-person randomized probiotic trial in ankylosing spondylitis found no benefit."
+  - evidence_assertion_id: IE_AS_FMT_CASE_X_V1
+    source: {source_type: case_report, pmid: 36911747, citation: "FMT case in ankylosing spondylitis (2023)", publication_status: peer_reviewed}
+    study: {design: "case report", risk_of_bias: high}
+    pico: {comparator: none, outcome: {name: "disease activity", class: patient_clinical}, effect: {direction: not_estimable}}
+    lane: X
+    against_kind: conflicting
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: ankylosing spondylitis, microbiome_profile_alone_sufficient: false}
+    summary: "FMT in ankylosing spondylitis is case-level and investigational."
+  - evidence_assertion_id: IE_PREMIER_RCT_V1
+    protocol_ref: PROTOCOL_PREMIER_6M_V1
+    source: {source_type: randomized_trial, pmid: 15385946, citation: "Appel LJ et al. JAMA 2003;289:2083 (PREMIER)", publication_status: peer_reviewed}
+    study: {design: "randomized controlled", participants_randomized: 810, risk_of_bias: low}
+    pico: {comparator: advice only, outcome: {name: "systolic blood pressure at 6 months", class: patient_clinical, timepoint_days: 180}, effect: {direction: benefit, estimate: "greater SBP reduction with established + DASH"}}
+    lane: B
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: research_profile_resemblance, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "The PREMIER trial showed a behavioural programme with the DASH dietary pattern lowered blood pressure in 810 adults — evidence independent of the stool result; hypertension itself requires repeated validated measurement."
+  - evidence_assertion_id: IE_FMT_HYPERTENSION_X_V1
+    protocol_ref: PROTOCOL_FMT_HYPERTENSION_V1
+    source: {source_type: randomized_trial, pmid: 40410854, citation: "randomized FMT trial in hypertension (2025)", publication_status: peer_reviewed}
+    study: {design: "randomized placebo-controlled", risk_of_bias: some_concerns}
+    pico: {comparator: placebo, outcome: {name: "blood pressure", class: patient_clinical}, effect: {direction: mixed, estimate: "transient or null over the trial duration"}}
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: hypertension, microbiome_profile_alone_sufficient: false}
+    summary: "A randomized FMT trial in hypertension found only transient or null blood-pressure effects."
+  - evidence_assertion_id: IE_MDD_PROBIOTIC_SCHAUB_RCT_V1
+    protocol_ref: PROTOCOL_MDD_VIVOMIXX_31D_V1
+    source: {source_type: randomized_trial, pmid: 35654766, citation: "Schaub AC et al. Transl Psychiatry 2022;12:227", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled add-on", participants_randomized: 60, analysis_population: "47", risk_of_bias: some_concerns}
+    pico: {comparator: placebo add-on, outcome: {name: "HAM-D depressive symptoms", class: patient_clinical, timepoint_days: 31}, effect: {direction: benefit, estimate: "greater symptom reduction; more Lactobacillus and altered putamen activity"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: major depressive disorder, microbiome_profile_alone_sufficient: false}
+    summary: "In 47 inpatients with major depression on antidepressants, 31 days of a high-dose eight-strain probiotic add-on reduced depressive symptoms more than placebo — a single exact-product trial as adjunct to treatment."
+  - evidence_assertion_id: IE_MDD_FMT_ESCITALOPRAM_NULL_X_V1
+    protocol_ref: PROTOCOL_FMT_MDD_ESCITALOPRAM_V1
+    source: {source_type: randomized_trial, pmid: 42309058, citation: "FMT plus escitalopram randomized trial in depression (2026) — remission null", publication_status: peer_reviewed}
+    study: {design: "randomized placebo-controlled", risk_of_bias: some_concerns}
+    pico: {comparator: placebo plus escitalopram, outcome: {name: "remission", class: patient_clinical}, effect: {direction: "null"}}
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: major depressive disorder, microbiome_profile_alone_sufficient: false}
+    summary: "FMT added to escitalopram did not improve remission in depression."
+  - evidence_assertion_id: IE_SMILES_RCT_V1
+    protocol_ref: PROTOCOL_SMILES_12W_V1
+    source: {source_type: randomized_trial, pmid: 28137247, citation: "Jacka FN et al. BMC Med 2017;15:23 (SMILES)", publication_status: peer_reviewed}
+    study: {design: "randomized controlled, single-blind", participants_randomized: 67, risk_of_bias: some_concerns}
+    pico: {comparator: social support, outcome: {name: "MADRS at 12 weeks", class: patient_clinical, timepoint_days: 84}, effect: {direction: benefit, estimate: "greater MADRS reduction; 32% vs 8% remission"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: major depressive disorder, microbiome_profile_alone_sufficient: false}
+    summary: "The SMILES trial found dietitian-supported Mediterranean-style dietary improvement reduced depressive symptoms as an adjunct in 67 adults with moderate–severe depression."
+  - evidence_assertion_id: IE_MECFS_BIOMAPAI_SIGNATURE_V1
+    source: {source_type: observational_study, url: "https://www.nature.com/articles/s41591-025-03788-3", citation: "BioMapAI — multi-omic ME/CFS classifier (Nat Med 2025)", publication_status: peer_reviewed}
+    study: {design: "multi-omic case-control classifier", risk_of_bias: some_concerns}
+    pico: {comparator: controls, outcome: {name: "classification accuracy", class: validated_biomarker}, effect: {direction: not_estimable}}
+    lane: D
+    proposition: evidence_signal_associated_with_state
+    target_binding: {trigger_type: research_profile_resemblance, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "BioMapAI is classifier evidence that ME/CFS microbiomes differ from controls; it is not a treatment target."
+  - evidence_assertion_id: IE_MECFS_PROBIOTIC_RAO_PILOT_V1
+    protocol_ref: PROTOCOL_MECFS_SHIROTA_8W_V1
+    source: {source_type: randomized_trial, url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC2664325/", citation: "Rao AV et al. Gut Pathog 2009;1:6", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled pilot", participants_randomized: 39, risk_of_bias: high}
+    pico: {comparator: placebo, outcome: {name: "Beck anxiety inventory", class: patient_reported, timepoint_days: 56}, effect: {direction: benefit, estimate: "anxiety symptoms reduced; small pilot"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: ME/CFS, microbiome_profile_alone_sufficient: false}
+    summary: "A 39-person pilot of L. casei Shirota in chronic fatigue syndrome reported reduced anxiety scores; small and unreplicated."
+  - evidence_assertion_id: IE_MECFS_FMT_PILOT_NULL_X_V1
+    protocol_ref: PROTOCOL_FMT_MECFS_V1
+    source: {source_type: randomized_trial, pmid: 37516837, citation: "randomized FMT pilot in ME/CFS (2023) — no symptom/QoL benefit", publication_status: peer_reviewed}
+    study: {design: "randomized placebo-controlled pilot", risk_of_bias: some_concerns}
+    pico: {comparator: placebo, outcome: {name: "fatigue and quality of life", class: patient_reported}, effect: {direction: "null"}}
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: ME/CFS, microbiome_profile_alone_sufficient: false}
+    summary: "A randomized FMT pilot in ME/CFS found no symptom or quality-of-life benefit."
+
+  # ------------------------------------------------------------ functional panels
+  - evidence_assertion_id: IE_RS2_VENKATARAMAN_V1
+    protocol_ref: PROTOCOL_RS2_TITRATION_V1
+    source: {source_type: nonrandomized_study, pmid: 27357127, citation: "Venkataraman A et al. Microbiome 2016;4:33", publication_status: peer_reviewed}
+    study: {design: "single-arm dietary intervention", participants_randomized: 20, risk_of_bias: high}
+    pico: {comparator: baseline, outcome: {name: "fecal butyrate", class: microbiome_surrogate, timepoint_days: 17}, effect: {direction: mixed, estimate: "butyrate rose only in baseline responders; R. bromii predicted response"}}
+    lane: D
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Titrated resistant potato starch (up to 48 g/day) raised fecal butyrate only in people who already carried the starch-degrader Ruminococcus bromii — a heterogeneous surrogate response, not a guaranteed correction."
+  - evidence_assertion_id: IE_AXOS_KJOLBAEK_X_V1
+    protocol_ref: PROTOCOL_AXOS_4W_V1
+    source: {source_type: randomized_trial, pmid: 30827722, citation: "Kjølbæk L et al. Clin Nutr 2020;39:67", publication_status: peer_reviewed}
+    study: {design: "randomized crossover", participants_randomized: 29, risk_of_bias: some_concerns}
+    pico: {comparator: polyunsaturated fat / control, outcome: {name: "metabolic markers and taxa", class: validated_biomarker, timepoint_days: 28}, effect: {direction: "null", estimate: "taxa changed; no metabolic-marker improvement"}}
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Four weeks of AXOS (10.4 g/day) shifted taxa without improving metabolic markers — a surrogate change with no clinical benefit."
+  - evidence_assertion_id: IE_WASTYK_HETEROGENEITY_V1
+    protocol_ref: PROTOCOL_WASTYK_10W_V1
+    source: {source_type: randomized_trial, pmid: 34256014, citation: "Wastyk HC et al. Cell 2021;184:4137", publication_status: peer_reviewed}
+    study: {design: "randomized, two-arm dietary", participants_randomized: 36, risk_of_bias: some_concerns}
+    pico: {comparator: high-fibre vs high-fermented-food, outcome: {name: "microbiome diversity and inflammatory markers", class: microbiome_surrogate, timepoint_days: 70}, effect: {direction: mixed, estimate: "fermented foods raised diversity and lowered inflammatory markers; fibre responses heterogeneous"}}
+    lane: C
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: ecological_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "In 36 healthy adults, ten weeks of high fermented-food intake increased diversity and lowered several inflammatory markers, while high-fibre responses depended on the baseline community — responses are heterogeneous."
+  - evidence_assertion_id: IE_IPE_CHAMBERS_RCT_V1
+    protocol_ref: PROTOCOL_IPE_24W_CHAMBERS_V1
+    source: {source_type: randomized_trial, pmid: 25500202, citation: "Chambers ES et al. Gut 2015;64:1744", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled", participants_randomized: 60, risk_of_bias: some_concerns}
+    pico: {comparator: inulin, outcome: {name: "weight gain and adiposity at 24 weeks", class: patient_clinical, timepoint_days: 168}, effect: {direction: benefit}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Inulin-propionate ester (10 g/day, 24 weeks) reduced weight gain versus inulin in 60 overweight adults — an experimental delivery ingredient, not a correction of stool propionate capacity."
+  - evidence_assertion_id: IE_IPE_IPREVENT_NULL_X_V1
+    protocol_ref: PROTOCOL_IPE_12M_IPREVENT_V1
+    source: {source_type: randomized_trial, pmid: 40663640, citation: "iPREVENT trial (2025) — inulin-propionate ester, 12 months", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled", participants_randomized: 270, risk_of_bias: low}
+    pico: {comparator: inulin/control, outcome: {name: "weight gain at 12 months", class: patient_clinical, timepoint_days: 365}, effect: {direction: "null", estimate: "adjusted difference favoured control"}}
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "The 270-person 12-month iPREVENT trial did not reduce weight gain with inulin-propionate ester; the adjusted difference favoured control."
+  - evidence_assertion_id: IE_BCAA_PEDERSEN_E_V1
+    source: {source_type: observational_study, pmid: 27409811, citation: "Pedersen HK et al. Nature 2016;535:376", publication_status: peer_reviewed}
+    study: {design: "human association + mouse", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "serum BCAA and insulin resistance", class: mechanistic}, effect: {direction: not_estimable}}
+    lane: E
+    proposition: evidence_signal_associated_with_state
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Microbial BCAA biosynthesis potential correlated with serum BCAA and insulin resistance in humans; the causal P. copri experiments were in mice. Protein or BCAA intake is never restricted from DNA."
+  - evidence_assertion_id: IE_IMP_KOH_E_V1
+    source: {source_type: observational_study, pmid: 32783890, citation: "Koh A et al. Cell 2020;183:1024 (imidazole propionate and metformin)", publication_status: peer_reviewed}
+    study: {design: "human association + mechanistic", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "imidazole propionate and metformin response", class: mechanistic}, effect: {direction: not_estimable}}
+    lane: E
+    proposition: evidence_signal_associated_with_state
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Imidazole propionate work on insulin signalling and metformin interference is mechanistic and observational; no trial treats it, and histidine or metformin are never altered from a stool panel."
+  - evidence_assertion_id: IE_BILE_ACID_DAVID_D_V1
+    protocol_ref: PROTOCOL_ANIMAL_PLANT_5D_V1
+    source: {source_type: nonrandomized_study, pmid: 24336217, citation: "David LA et al. Nature 2014;505:559", publication_status: peer_reviewed}
+    study: {design: "controlled feeding crossover", participants_randomized: 10, risk_of_bias: high}
+    pico: {comparator: plant-based diet, outcome: {name: "bile-tolerant taxa and fecal deoxycholate", class: microbiome_surrogate, timepoint_days: 5}, effect: {direction: mixed}}
+    lane: D
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Five days of an animal-based diet expanded bile-tolerant organisms and fecal deoxycholate relative to a plant-based diet in ten volunteers — a rapid surrogate shift, not disease treatment; bile-acid levels require targeted LC-MS."
+  - evidence_assertion_id: IE_LREUTERI_30242_YOGURT_V1
+    protocol_ref: PROTOCOL_LREUTERI_30242_YOGURT_V1
+    source: {source_type: randomized_trial, pmid: 22067612, citation: "Jones ML et al. Br J Nutr 2012;107:1505", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled", participants_randomized: 114, risk_of_bias: some_concerns, funding_and_conflicts: "industry"}
+    pico: {comparator: placebo yogurt, outcome: {name: "LDL cholesterol at 6 weeks", class: validated_biomarker, timepoint_days: 42}, effect: {direction: benefit, estimate: "LDL −8.9%"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: hypercholesterolaemia, microbiome_profile_alone_sufficient: false}
+    summary: "In hypercholesterolaemic adults, a yogurt with bile-salt-hydrolase-active L. reuteri NCIMB 30242 lowered LDL by about 9% over six weeks — an exact strain/product result for that phenotype only."
+  - evidence_assertion_id: IE_LREUTERI_30242_CAPSULE_V1
+    protocol_ref: PROTOCOL_LREUTERI_30242_CAPSULE_V1
+    source: {source_type: randomized_trial, pmid: 22990854, citation: "Jones ML et al. Eur J Clin Nutr 2012;66:1234", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled", participants_randomized: 127, risk_of_bias: some_concerns, funding_and_conflicts: "industry"}
+    pico: {comparator: placebo, outcome: {name: "LDL cholesterol at 9 weeks", class: validated_biomarker, timepoint_days: 63}, effect: {direction: benefit, estimate: "LDL −11.6%"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: hypercholesterolaemia, microbiome_profile_alone_sufficient: false}
+    summary: "Capsules of the same strain (2.9 × 10^9 CFU twice daily, nine weeks) lowered LDL by about 12% in a second trial. Total stool BSH gene capacity does not predict this and does not justify another strain."
+  - evidence_assertion_id: IE_LREUTERI_30242_SAFETY_V1
+    source: {source_type: randomized_trial, pmid: 22561556, citation: "Jones ML et al. — safety of L. reuteri NCIMB 30242 (2012)", publication_status: peer_reviewed}
+    study: {design: "safety analysis of RCT", risk_of_bias: some_concerns}
+    pico: {comparator: placebo, outcome: {name: "adverse events and clinical chemistry", class: validated_biomarker}, effect: {direction: "null", estimate: "no safety concerns identified"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: hypercholesterolaemia, microbiome_profile_alone_sufficient: false}
+    summary: "Safety analysis of the L. reuteri NCIMB 30242 trials found no safety signal."
+  - evidence_assertion_id: IE_B12_ODS_A_V1
+    protocol_ref: PROTOCOL_ROUTE_B12_V1
+    source: {source_type: reference_fact_sheet, url: "https://ods.od.nih.gov/factsheets/VitaminB12-HealthProfessional/", citation: "NIH Office of Dietary Supplements — Vitamin B12 fact sheet for health professionals", publication_status: issued_guidance}
+    study: {design: "reference", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "B12 status assessment and supplementation", class: validated_biomarker}, effect: {direction: benefit}}
+    lane: A
+    guideline_position: strong_for
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: suspected B12 deficiency, microbiome_profile_alone_sufficient: false}
+    summary: "Suspected B12 deficiency is confirmed with serum B12 and, when appropriate, methylmalonic acid; supplementation follows diet, malabsorption and clinical context. Colonic microbial B12 synthesis is not host bioavailability."
+  - evidence_assertion_id: IE_K2_ODS_A_V1
+    source: {source_type: reference_fact_sheet, url: "https://ods.od.nih.gov/factsheets/VitaminK-HealthProfessional/", citation: "NIH ODS — Vitamin K fact sheet", publication_status: issued_guidance}
+    study: {design: "reference", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "vitamin K status", class: validated_biomarker}, effect: {direction: not_estimable}}
+    lane: A
+    guideline_position: no_recommendation
+    proposition: evidence_signal_associated_with_state
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Gene capacity for menaquinone synthesis does not measure coagulation status or sufficiency; warfarin users need stable intake managed by their prescriber."
+  - evidence_assertion_id: IE_FOLATE_ODS_A_V1
+    source: {source_type: reference_fact_sheet, url: "https://ods.od.nih.gov/factsheets/Folate-HealthProfessional/", citation: "NIH ODS — Folate fact sheet", publication_status: issued_guidance}
+    study: {design: "reference", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "folate status", class: validated_biomarker}, effect: {direction: not_estimable}}
+    lane: A
+    guideline_position: no_recommendation
+    proposition: evidence_signal_associated_with_state
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Folate status is assessed by diet, medication, pregnancy and blood tests; high folic-acid intake can mask B12 deficiency. No folate dose follows from microbial genes."
+  - evidence_assertion_id: IE_RIBOGUT_RCT_V1
+    protocol_ref: PROTOCOL_RIBOGUT_2W_V1
+    source: {source_type: randomized_trial, pmid: 35943883, citation: "RIBOGUT trial (2022) — riboflavin 50 or 100 mg/day in healthy adults", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled", participants_randomized: 105, risk_of_bias: some_concerns}
+    pico: {comparator: placebo, outcome: {name: "F. prausnitzii abundance and fecal butyrate", class: microbiome_surrogate, timepoint_days: 14}, effect: {direction: mixed, estimate: "individual doses did not significantly raise F. prausnitzii; pooled groups had higher butyrate"}}
+    lane: C
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Two weeks of riboflavin (50 or 100 mg/day) in 105 healthy adults did not significantly increase F. prausnitzii at either dose; pooled groups showed higher butyrate — a surrogate result only."
+  - evidence_assertion_id: IE_RISEUP_NULL_X_V1
+    protocol_ref: PROTOCOL_RISEUP_3W_V1
+    source: {source_type: nonrandomized_study, pmid: 31873717, citation: "RISE-UP (2020) — riboflavin 100 mg/day in Crohn's disease", publication_status: peer_reviewed}
+    study: {design: "single-arm", participants_randomized: 70, risk_of_bias: high}
+    pico: {comparator: baseline, outcome: {name: "metagenomic diversity, taxonomy and pathways", class: microbiome_surrogate, timepoint_days: 21}, effect: {direction: "null"}}
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Three weeks of riboflavin 100 mg/day in Crohn's disease did not materially alter metagenomic diversity, taxonomy or pathways."
+  - evidence_assertion_id: IE_BIOTIN_ODS_A_V1
+    source: {source_type: reference_fact_sheet, url: "https://ods.od.nih.gov/factsheets/Biotin-HealthProfessional/", citation: "NIH ODS — Biotin fact sheet", publication_status: issued_guidance}
+    study: {design: "reference", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "biotin status", class: validated_biomarker}, effect: {direction: not_estimable}}
+    lane: A
+    guideline_position: no_recommendation
+    proposition: evidence_signal_associated_with_state
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Biotin deficiency is rare; high-dose supplements interfere with laboratory assays including troponin (FDA). No hair-loss or alopecia biotin suggestion follows from microbial genes."
+  - evidence_assertion_id: IE_BIOTIN_FDA_INTERFERENCE_X_V1
+    source: {source_type: regulatory_safety_communication, url: "https://www.fda.gov/medical-devices/in-vitro-diagnostics/biotin-interference-troponin-lab-tests-assays-subject-biotin-interference", citation: "FDA — biotin interference with troponin lab tests", publication_status: issued_guidance}
+    study: {design: "safety communication", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "assay interference", class: validated_biomarker}, effect: {direction: harm}}
+    lane: X
+    against_kind: harm_signal
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "FDA warns that high-dose biotin can cause falsely low troponin and other assay results."
+  - evidence_assertion_id: IE_BISMUTH_H2S_SUAREZ_D_V1
+    protocol_ref: PROTOCOL_BISMUTH_H2S_SUAREZ_V1
+    source: {source_type: nonrandomized_study, pmid: 9558280, citation: "Suarez FL et al. Gastroenterology 1998;114:923", publication_status: peer_reviewed}
+    study: {design: "single-arm in ten healthy adults", participants_randomized: 10, risk_of_bias: high}
+    pico: {comparator: baseline, outcome: {name: "ex-vivo fecal H2S release", class: microbiome_surrogate, timepoint_days: 7}, effect: {direction: benefit, estimate: ">95% reduction in fecal H2S release; no disease endpoint"}}
+    lane: D
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Bismuth subsalicylate (524 mg four times daily for 3–7 days) reduced ex-vivo fecal hydrogen-sulfide release in ten healthy adults — a surrogate with no disease endpoint and salicylate/bismuth safety gates."
+  - evidence_assertion_id: IE_4SURE_UC_MIXED_X_V1
+    protocol_ref: PROTOCOL_4SURE_8W_V1
+    source: {source_type: nonrandomized_study, pmid: 35451489, citation: "4-SURE diet open-label study in ulcerative colitis (2022)", publication_status: peer_reviewed}
+    study: {design: "open-label single-arm", participants_randomized: 28, risk_of_bias: high}
+    pico: {comparator: baseline, outcome: {name: "clinical response and fecal sulfide", class: patient_clinical, timepoint_days: 56}, effect: {direction: mixed, estimate: "some responded, some worsened"}}
+    lane: X
+    against_kind: conflicting
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: ulcerative colitis, microbiome_profile_alone_sufficient: false}
+    summary: "A small open-label eight-week sulfide-reducing diet in UC produced both responses and worsening — no basis for generic sulfur restriction."
+  - evidence_assertion_id: IE_METHANE_CONSENSUS_A_V1
+    protocol_ref: PROTOCOL_ROUTE_BREATH_METHANE_V1
+    source: {source_type: consensus_statement, pmid: 28323273, citation: "Rezaie A et al. Am J Gastroenterol 2017;112:775 — North American Consensus on breath testing", publication_status: issued_guidance}
+    study: {design: "consensus", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "breath methane ≥10 ppm as positive", class: validated_biomarker}, effect: {direction: not_estimable}}
+    lane: A
+    guideline_position: conditional_for
+    proposition: evidence_signal_associated_with_state
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Intestinal methanogen overgrowth is defined by a standardised breath test (methane ≥10 ppm), never by stool mcrA or methanogen abundance."
+  - evidence_assertion_id: IE_ACG_SIBO_A_V1
+    source: {source_type: guideline, pmid: 32023228, citation: "Pimentel M et al. ACG Clinical Guideline: Small Intestinal Bacterial Overgrowth. Am J Gastroenterol 2020;115:165", publication_status: issued_guidance}
+    study: {design: "guideline", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "SIBO/IMO diagnosis and treatment", class: patient_clinical}, effect: {direction: not_estimable}}
+    lane: A
+    guideline_position: conditional_for
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: symptom_phenotype, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "ACG 2020 recommends breath testing for symptomatic patients and antibiotics only for a positive test with symptoms; SIBO/IMO is never diagnosed from stool."
+  - evidence_assertion_id: IE_NEOMYCIN_RIFAXIMIN_IMO_RCT_V1
+    protocol_ref: PROTOCOL_NEOMYCIN_RIFAXIMIN_IMO_14D_V1
+    source: {source_type: randomized_trial, pmid: 24788320, citation: "Pimentel M et al. Dig Dis Sci 2014;59:1278", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind", participants_randomized: 31, risk_of_bias: some_concerns}
+    pico: {comparator: neomycin + placebo, outcome: {name: "constipation symptoms and breath methane", class: patient_reported, timepoint_days: 14}, effect: {direction: mixed, estimate: "improved constipation/bloating/straining, not pain"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: methane-positive IBS-C, microbiome_profile_alone_sufficient: false}
+    summary: "In 31 methane-positive IBS-C patients, neomycin plus rifaximin for 14 days improved some constipation symptoms but not pain — a clinician-only route after breath testing, never from stool."
+  - evidence_assertion_id: IE_GUS_WALLACE_E_V1
+    source: {source_type: observational_study, pmid: 21051639, citation: "Wallace BD et al. Science 2010;330:831", publication_status: peer_reviewed}
+    study: {design: "in vitro and mouse", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "irinotecan toxicity in mice with GUS inhibitor", class: mechanistic}, effect: {direction: not_estimable}}
+    lane: E
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Selective bacterial β-glucuronidase inhibitors protected mice from irinotecan toxicity — preclinical. No 'estrogen detox' or calcium-D-glucarate claim follows."
+  - evidence_assertion_id: IE_GUS_BHATT_E_V1
+    source: {source_type: observational_study, pmid: 32170007, citation: "Bhatt AP et al. PNAS 2020;117:7374", publication_status: peer_reviewed}
+    study: {design: "mouse", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "GUS inhibition and irinotecan", class: mechanistic}, effect: {direction: not_estimable}}
+    lane: E
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Further mouse work on GUS inhibition and irinotecan; oncology management is the clinical route."
+  - evidence_assertion_id: IE_OXABACT_EPHEX_NULL_X_V1
+    protocol_ref: PROTOCOL_OXABACT_EPHEX_52W_V1
+    source: {source_type: randomized_trial, pmid: 35552824, citation: "ePHex trial (2022) — Oxabact in primary hyperoxaluria", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled", risk_of_bias: low}
+    pico: {comparator: placebo, outcome: {name: "plasma oxalate at 52 weeks", class: validated_biomarker, timepoint_days: 364}, effect: {direction: "null", estimate: "colonised but missed primary endpoint"}}
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: primary hyperoxaluria, microbiome_profile_alone_sufficient: false}
+    summary: "Oxalobacter formigenes (Oxabact) colonised the gut but missed its plasma-oxalate endpoint after 52 weeks in primary hyperoxaluria."
+  - evidence_assertion_id: IE_OXALATE_PROBIOTIC_NULL_X_V1
+    protocol_ref: PROTOCOL_OXALATE_PROBIOTIC_NULL_V1
+    source: {source_type: randomized_trial, pmid: 34129232, citation: "randomized trial — Lactobacillus/Bifidobacterium probiotic and urinary oxalate (2021)", publication_status: peer_reviewed}
+    study: {design: "randomized placebo-controlled", risk_of_bias: some_concerns}
+    pico: {comparator: placebo, outcome: {name: "urinary oxalate", class: validated_biomarker}, effect: {direction: "null"}}
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: functional_capacity_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "A Lactobacillus/Bifidobacterium probiotic did not lower urinary oxalate."
+  - evidence_assertion_id: IE_OXALATE_DIET_LIESKE_V1
+    protocol_ref: PROTOCOL_CONTROLLED_OXALATE_DIET_V1
+    source: {source_type: randomized_trial, pmid: 20736987, citation: "Lieske JC et al. Kidney Int 2010;78:1178", publication_status: peer_reviewed}
+    study: {design: "randomized placebo-controlled with controlled diet", risk_of_bias: some_concerns}
+    pico: {comparator: probiotic, outcome: {name: "urinary oxalate", class: validated_biomarker}, effect: {direction: benefit, estimate: "controlled diet lowered urinary oxalate; probiotics did not"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: hyperoxaluric stone former, microbiome_profile_alone_sufficient: false}
+    summary: "In hyperoxaluric stone formers a controlled diet lowered urinary oxalate while probiotics did not."
+  - evidence_assertion_id: IE_AUA_STONES_A_V1
+    protocol_ref: PROTOCOL_ROUTE_STONES_V1
+    source: {source_type: guideline, url: "https://www.auanet.org/guidelines-and-quality/guidelines/medical-management-of-kidney-stones", citation: "AUA Guideline — Medical Management of Kidney Stones", publication_status: issued_guidance}
+    study: {design: "guideline", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "stone recurrence", class: patient_clinical}, effect: {direction: benefit}}
+    lane: A
+    guideline_position: strong_for
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: kidney stones, microbiome_profile_alone_sufficient: false}
+    summary: "Stone formers are evaluated with 24-hour urine and managed per AUA guidance; no Oxalobacter probiotic is recommended."
+  - evidence_assertion_id: IE_AASLD_HE_A_V1
+    source: {source_type: guideline, url: "https://www.aasld.org/practice-guidelines/hepatic-encephalopathy", citation: "AASLD practice guideline — hepatic encephalopathy", publication_status: issued_guidance}
+    study: {design: "guideline", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "HE management", class: patient_clinical}, effect: {direction: benefit}}
+    lane: A
+    guideline_position: strong_for
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: hepatic encephalopathy, microbiome_profile_alone_sufficient: false}
+    summary: "AASLD guidance for hepatic encephalopathy is diagnosis-dependent care, never stool-urease treatment."
+
+  # ------------------------------------------------------------ groups / species
+  - evidence_assertion_id: IE_DMP_NO_UNIVERSAL_CORE_V1
+    source: {source_type: observational_study, url: "https://www.nature.com/articles/s41586-022-04567-7", citation: "Gacesa R et al. Nature 2022;604:732 (Dutch Microbiome Project)", publication_status: peer_reviewed}
+    study: {design: "population cohort, n = 8208", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "determinants of microbiome composition", class: microbiome_surrogate}, effect: {direction: not_estimable}}
+    lane: D
+    proposition: evidence_signal_associated_with_state
+    target_binding: {trigger_type: ecological_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "In 8,208 Dutch participants, geography, age, stool form, medications and protocol shaped the microbiome and there was no universal healthy core. A low reading of 'reference-associated' taxa is a position, not a deficiency."
+  - evidence_assertion_id: IE_ZMORA_COLONISATION_V1
+    source: {source_type: nonrandomized_study, pmid: 30193112, citation: "Zmora N et al. Cell 2018;174:1388", publication_status: peer_reviewed}
+    study: {design: "human intervention with endoscopic sampling", risk_of_bias: some_concerns}
+    pico: {comparator: none, outcome: {name: "mucosal colonisation by 11-strain probiotic", class: microbiome_surrogate}, effect: {direction: mixed, estimate: "person-, strain- and region-specific colonisation"}}
+    lane: D
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: ecological_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "An 11-strain probiotic colonised the gut mucosa in a person-, strain- and region-specific way; stool abundance of probiotic species reflects transit as much as colonisation."
+  - evidence_assertion_id: IE_SUEZ_POST_ANTIBIOTIC_X_V1
+    source: {source_type: nonrandomized_study, pmid: 30193113, citation: "Suez J et al. Cell 2018;174:1406", publication_status: peer_reviewed}
+    study: {design: "human intervention after antibiotics", risk_of_bias: some_concerns}
+    pico: {comparator: spontaneous recovery / autologous FMT, outcome: {name: "native microbiome reconstitution", class: microbiome_surrogate}, effect: {direction: harm, estimate: "probiotics delayed native recovery; autologous FMT fastest"}}
+    lane: X
+    against_kind: harm_signal
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: ecological_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "After antibiotics, a multistrain probiotic delayed recovery of the native microbiome relative to doing nothing, while autologous FMT restored it fastest."
+  - evidence_assertion_id: IE_LIAO_ORAL_RELATIVE_V1
+    source: {source_type: observational_study, url: "https://www.nature.com/articles/s41564-024-01680-3", citation: "Liao C et al. Nat Microbiol 2024 — oral bacteria in stool track loss of gut biomass", publication_status: peer_reviewed}
+    study: {design: "longitudinal cohort with absolute quantification", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "oral taxa relative abundance vs gut biomass", class: microbiome_surrogate}, effect: {direction: not_estimable}}
+    lane: D
+    proposition: evidence_signal_associated_with_state
+    target_binding: {trigger_type: ecological_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Relative enrichment of oral bacteria in stool can arise because resident gut biomass falls, not because oral organisms invaded; absolute load and oral-health context are needed."
+  - evidence_assertion_id: IE_EQUOL_SETCHELL_V1
+    source: {source_type: nonrandomized_study, pmid: 16857839, citation: "Setchell KDR, Cole SJ. J Nutr 2006;136:2188", publication_status: peer_reviewed}
+    study: {design: "substrate challenge", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "equol-producer status by urinary S-equol:daidzein", class: validated_biomarker, timepoint_days: 3}, effect: {direction: not_estimable}}
+    lane: D
+    proposition: evidence_signal_associated_with_state
+    target_binding: {trigger_type: ecological_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Equol-producer status is defined by a soy challenge (2 × 250 mL soy milk/day for three days) and urinary S-equol:daidzein, not by the presence of a species."
+  - evidence_assertion_id: IE_UROLITHIN_STRAINS_INVITRO_E_V1
+    source: {source_type: observational_study, pmid: 36840624, citation: "urolithin-producing gut strains — in vitro characterisation (2023)", publication_status: peer_reviewed}
+    study: {design: "in vitro", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "urolithin production", class: mechanistic}, effect: {direction: not_estimable}}
+    lane: E
+    proposition: evidence_signal_associated_with_state
+    target_binding: {trigger_type: ecological_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Urolithin-producing strains remain in-vitro candidates; presence is not a functional result."
+  - evidence_assertion_id: IE_UROLITHIN_A_RCT_MIXED_V1
+    protocol_ref: PROTOCOL_UROLITHIN_A_4M_V1
+    source: {source_type: randomized_trial, pmid: 35050355, citation: "Liu S et al. JAMA Netw Open 2022;5:e2144279", publication_status: peer_reviewed}
+    study: {design: "randomized double-blind placebo-controlled", participants_randomized: 66, risk_of_bias: some_concerns, funding_and_conflicts: "industry (Amazentis)"}
+    pico: {comparator: placebo, outcome: {name: "6-minute walk and muscle ATP (primary); hand-grip endurance (secondary)", class: patient_clinical, timepoint_days: 120}, effect: {direction: mixed, estimate: "primary endpoints missed; secondary endurance improved"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: ecological_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Direct urolithin A (1,000 mg/day for four months) in adults 65–90 improved a secondary muscle-endurance measure but missed its primary walking and ATP endpoints; it bypasses rather than restores microbes."
+
+  # ------------------------------------------------------------ natural antimicrobials (§8.3, §15.6)
+  - evidence_assertion_id: IE_HERBAL_SIBO_CHEDID_X_V1
+    protocol_ref: PROTOCOL_HERBAL_SIBO_PAIRS_4W_V1
+    source: {source_type: nonrandomized_study, pmid: 24891990, citation: "Chedid V et al. Glob Adv Health Med 2014;3:16", publication_status: peer_reviewed}
+    study: {design: "retrospective, non-randomized, patient-choice chart review", participants_randomized: 104, risk_of_bias: high}
+    pico: {comparator: rifaximin 400 mg three times daily, outcome: {name: "lactulose breath test normalisation", class: validated_biomarker, timepoint_days: 28}, effect: {direction: "null", estimate: "46% herbal vs 34% rifaximin, not statistically significant; no stool-eradication or symptom endpoint"}}
+    lane: X
+    against_kind: conflicting
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: exact_microbiome_feature, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "The often-cited 2014 herbal SIBO report was a retrospective, non-randomized, patient-choice chart review with a breath-test endpoint (46% vs 34% normalisation, not significant). It does not establish that any botanical eradicates stool E. coli or Klebsiella."
+  - evidence_assertion_id: IE_BRIEF_SIBO_PROTOCOL_X_V1
+    source: {source_type: protocol, pmid: 36873985, citation: "BRIEF-SIBO trial protocol (2023)", publication_status: peer_reviewed}
+    study: {design: "protocol, no outcomes", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "none (protocol)", class: mechanistic}, effect: {direction: not_estimable}}
+    lane: X
+    against_kind: conflicting
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: exact_microbiome_feature, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "BRIEF-SIBO is a trial protocol, not outcome evidence."
+  - evidence_assertion_id: IE_BERBERINE_ETEC_1987_D_V1
+    protocol_ref: PROTOCOL_BERBERINE_ETEC_1987_V1
+    source: {source_type: randomized_trial, pmid: 3549923, citation: "Rabbani GH et al. J Infect Dis 1987;155:979", publication_status: peer_reviewed}
+    study: {design: "randomized controlled", risk_of_bias: some_concerns}
+    pico: {comparator: placebo, outcome: {name: "stool volume in acute ETEC/cholera diarrhoea", class: patient_clinical, timepoint_days: 1}, effect: {direction: benefit, estimate: "reduced stool volume in ETEC diarrhoea; not decolonisation"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: acute enterotoxigenic E. coli diarrhoea, microbiome_profile_alone_sufficient: false}
+    summary: "A 1987 trial of a single 400 mg berberine dose reduced stool volume in acute enterotoxigenic E. coli diarrhoea. It concerned acute secretory diarrhoea, not chronic decolonisation of stool E. coli."
+  - evidence_assertion_id: IE_BOTANICAL_INVITRO_E_V1
+    source: {source_type: systematic_review, url: "https://ods.od.nih.gov/factsheets/Garlic-HealthProfessional/", citation: "in-vitro and animal antimicrobial literature on oregano oil (carvacrol), allicin and Nigella sativa; NIH ODS garlic fact sheet for interactions", publication_status: peer_reviewed}
+    study: {design: "in vitro / animal", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "bacterial growth inhibition in culture or animals", class: mechanistic}, effect: {direction: not_estimable}}
+    lane: E
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: exact_microbiome_feature, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Oregano oil, allicin and black-seed antimicrobial findings are predominantly in-vitro or animal work (lane E). No human trial shows that they reduce stool E. coli or Klebsiella, and they carry anticoagulant, glucose-lowering, pregnancy and liver/kidney interaction cautions."
+  - evidence_assertion_id: IE_MULTI_INGREDIENT_NO_HUMAN_X_V1
+    source: {source_type: reference_fact_sheet, url: "https://www.fda.gov/food/dietary-supplements", citation: "FDA — dietary supplements are not reviewed for efficacy before sale", publication_status: issued_guidance}
+    study: {design: "regulatory fact", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "none", class: mechanistic}, effect: {direction: not_estimable}}
+    lane: X
+    against_kind: conflicting
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: exact_microbiome_feature, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Multi-ingredient botanical antimicrobial products (e.g. GI Microb-X) have no human trial for stool-pathobiont reduction; evidence cannot be split across ingredients and composition is not verified by any regulator before sale."
+  - evidence_assertion_id: IE_IDSA_DIARRHOEA_A_V1
+    protocol_ref: PROTOCOL_ROUTE_STOOL_PATHOGEN_V1
+    source: {source_type: guideline, pmid: 29053792, citation: "Shane AL et al. IDSA Clinical Practice Guidelines for the Diagnosis and Management of Infectious Diarrhea. Clin Infect Dis 2017;65:e45", publication_status: issued_guidance}
+    study: {design: "guideline", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "diagnosis and management of infectious diarrhoea", class: patient_clinical}, effect: {direction: not_estimable}}
+    lane: A
+    guideline_position: strong_for
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: symptom_phenotype, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Enteric pathogen findings are confirmed with clinical culture/PCR and managed per IDSA guidance when symptoms are present; antibiotic choice is a clinical decision, never a report output."
+  - evidence_assertion_id: IE_CDI_CARRIAGE_VS_DISEASE_V1
+    protocol_ref: PROTOCOL_ROUTE_CDI_TOXIN_V1
+    source: {source_type: systematic_review, pmid: 27158839, citation: "Smits WK et al. Nat Rev Dis Primers 2016;2:16020", publication_status: peer_reviewed}
+    study: {design: "primer", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "carriage vs infection", class: patient_clinical}, effect: {direction: not_estimable}}
+    lane: D
+    proposition: evidence_signal_associated_with_state
+    target_binding: {trigger_type: exact_microbiome_feature, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Asymptomatic C. difficile carriage is common; infection requires toxin production and a clinical picture. Species DNA in stool is not CDI, and testing is only indicated with compatible symptoms."
+  - evidence_assertion_id: IE_VOWST_LABEL_A_V1
+    protocol_ref: PROTOCOL_VOWST_LABEL_V1
+    source: {source_type: regulatory_label, url: "https://www.fda.gov/news-events/press-announcements/fda-approves-first-orally-administered-fecal-microbiota-product-prevention-recurrence-clostridioides", citation: "FDA approval — VOWST (fecal microbiota spores, live-brpk), April 2023", publication_status: current_label}
+    study: {design: "regulatory label", risk_of_bias: not_assessed}
+    pico: {comparator: placebo (ECOSPOR III), outcome: {name: "CDI recurrence at 8 weeks", class: patient_clinical, timepoint_days: 56}, effect: {direction: benefit, estimate: "12% vs 40% recurrence"}}
+    lane: A
+    guideline_position: strong_for
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: recurrent C. difficile infection, microbiome_profile_alone_sufficient: false}
+    summary: "VOWST is FDA-approved to prevent recurrence of C. difficile infection in adults ≥18 after antibacterial treatment. It does not treat active CDI and is never selected from a stool profile."
+  - evidence_assertion_id: IE_REBYOTA_LABEL_A_V1
+    protocol_ref: PROTOCOL_REBYOTA_LABEL_V1
+    source: {source_type: regulatory_label, url: "https://www.fda.gov/media/163587/download", citation: "REBYOTA (fecal microbiota, live-jslm) prescribing information", publication_status: current_label}
+    study: {design: "regulatory label", risk_of_bias: not_assessed}
+    pico: {comparator: placebo (PUNCH CD3), outcome: {name: "treatment success at 8 weeks", class: patient_clinical, timepoint_days: 56}, effect: {direction: benefit, estimate: "70.6% vs 57.5%"}}
+    lane: A
+    guideline_position: strong_for
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: recurrent C. difficile infection, microbiome_profile_alone_sufficient: false}
+    summary: "REBYOTA is FDA-approved to prevent recurrence of C. difficile infection in adults ≥18 after antibacterial treatment; it does not treat active CDI."
+  - evidence_assertion_id: IE_FDA_FMT_SAFETY_ALERTS_X_V1
+    source: {source_type: regulatory_safety_communication, url: "https://www.fda.gov/safety/medical-product-safety-information/fecal-microbiota-transplantation-safety-communication-risk-serious-adverse-reactions-due", citation: "FDA FMT safety communications: MDRO/ESBL (June 2019, incl. one death), EPEC/STEC (March–April 2020), SARS-CoV-2 (2020), mpox (August 2022)", publication_status: issued_guidance}
+    study: {design: "safety communications", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "transmission of infectious agents", class: patient_clinical}, effect: {direction: harm}}
+    lane: X
+    against_kind: harm_signal
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "FDA has documented transmission of multidrug-resistant organisms (including a death after ESBL E. coli), pathogenic E. coli, and warned about SARS-CoV-2 and mpox with FMT; donor testing, bookend testing and quarantine are required."
+  - evidence_assertion_id: IE_FDA_FMT_ENFORCEMENT_DISCRETION_A_V1
+    source: {source_type: regulatory_label, url: "https://www.fda.gov/media/86440/download", citation: "FDA enforcement policy regarding investigational new drug requirements for use of FMT to treat C. difficile infection not responsive to standard therapies (November 2022)", publication_status: issued_guidance}
+    study: {design: "regulatory policy", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "regulatory status", class: patient_clinical}, effect: {direction: not_estimable}}
+    lane: A
+    guideline_position: conditional_for
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: C. difficile infection not responding to standard therapy, microbiome_profile_alone_sufficient: false}
+    summary: "FDA's enforcement discretion covers only FMT for CDI not responding to standard therapy, with clinician-qualified donor/stool and informed consent describing investigational status. It does not authorise FMT for any other disease."
+  - evidence_assertion_id: IE_SGALLOLYTICUS_CRC_META_V1
+    protocol_ref: PROTOCOL_ROUTE_SGALLOLYTICUS_V1
+    source: {source_type: meta_analysis, pmid: 21960713, citation: "Boleij A et al. Clin Infect Dis 2011;53:870", publication_status: peer_reviewed}
+    study: {design: "meta-analysis", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "colorectal neoplasia after S. bovis/gallolyticus infection", class: patient_clinical}, effect: {direction: not_estimable}}
+    lane: D
+    proposition: evidence_signal_associated_with_state
+    target_binding: {trigger_type: exact_microbiome_feature, required_condition: S. gallolyticus bacteraemia, microbiome_profile_alone_sufficient: false}
+    summary: "S. gallolyticus bacteraemia or endocarditis is strongly associated with colorectal neoplasia and colonoscopy is standard after such an infection; stool detection alone is a screening reminder."
+  - evidence_assertion_id: IE_ORAL_HEALTH_ROUTE_V1
+    protocol_ref: PROTOCOL_ROUTE_ORAL_HEALTH_V1
+    source: {source_type: observational_study, pmid: 30747106, citation: "Schmidt TSB et al. eLife 2019;8:e42693 — extensive oral-to-gut transmission", publication_status: peer_reviewed}
+    study: {design: "cohort", risk_of_bias: not_assessed}
+    pico: {comparator: none, outcome: {name: "oral-gut transmission", class: microbiome_surrogate}, effect: {direction: not_estimable}}
+    lane: D
+    proposition: evidence_signal_associated_with_state
+    target_binding: {trigger_type: ecological_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Oral bacteria are routinely swallowed and detected in stool in healthy people; a higher share is more common with proton-pump inhibitors, low gut biomass and some diseases. Ordinary dental evaluation applies only if overdue or symptomatic."
+  - evidence_assertion_id: IE_PPI_ORAL_TAXA_V1
+    source: {source_type: observational_study, pmid: 26657899, citation: "Imhann F et al. Gut 2016;65:740", publication_status: peer_reviewed}
+    study: {design: "cohort", risk_of_bias: not_assessed}
+    pico: {comparator: non-users, outcome: {name: "oral taxa in stool with PPI use", class: microbiome_surrogate}, effect: {direction: not_estimable}}
+    lane: D
+    proposition: evidence_signal_associated_with_state
+    target_binding: {trigger_type: ecological_finding, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Proton-pump inhibitor use is the strongest medication correlate of oral-bacteria enrichment in stool."
+
+  # ============================================================= chronic urticaria (hives)
+  # Chronic urticaria is chronic hives. These records answer "what has been
+  # studied in people with hives", never "what this person should take". No
+  # pooled response rate may be computed across them: the populations
+  # (adults, children, refractory, treated), the products, the endpoints and
+  # the designs all differ, and several disagree with their own abstracts.
+  - evidence_assertion_id: IE_CU_PROBIOTIC_NETTIS_2016_V1
+    protocol_ref: PROTOCOL_CU_BIFIDERM_8W_ADJUNCT_V1
+    source: {source_type: nonrandomized_study, pmid: 27608474, citation: "Nettis E, et al. Eur Ann Allergy Clin Immunol 2016 (L. salivarius LS01 + B. breve BR03 in refractory chronic spontaneous urticaria)", publication_status: peer_reviewed}
+    study: {design: "uncontrolled open-label adjunct study, no comparator arm", participants_randomized: 0, analysis_population: "52 enrolled, 38 evaluated, 14 withdrawals", risk_of_bias: high, funding_and_conflicts: "see source"}
+    pico: {comparator: none, outcome: {name: "clinician-assessed improvement in hives at 8 weeks", class: patient_clinical, timepoint_days: 56}, effect: {direction: "null", estimate: "of 38 evaluated: 27 no improvement, 9 mild improvement, 1 significant, 1 complete; 11 of the 14 who withdrew also reported no improvement"}}
+    lane: D
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: chronic spontaneous urticaria (chronic hives), microbiome_profile_alone_sufficient: false}
+    summary: "In 38 evaluated adults with refractory chronic hives, this exact two-strain probiotic added to antihistamines left 27 unimproved, 9 mildly improved and 2 clearly better, with no control arm and heavy attrition. The honest reading of this study is mostly non-response, and quoting the single complete responder without the 27 is a misreading of it."
+  - evidence_assertion_id: IE_CU_PROBIOTIC_BI_2021_V1
+    protocol_ref: PROTOCOL_CU_YIMINGJIA_4W_PAEDIATRIC_V1
+    source: {source_type: randomized_trial, doi: 10.1186/s13223-021-00544-3, citation: "Bi X, et al. Allergy Asthma Clin Immunol 2021 (six-organism probiotic with desloratadine in children aged 6–12 with chronic urticaria; NCT03328897)", publication_status: peer_reviewed}
+    study: {design: "randomized placebo-controlled adjunct trial in children", participants_randomized: 213, analysis_population: "206 analysed (104 intervention / 102 placebo)", risk_of_bias: some_concerns, funding_and_conflicts: "product-specific; see source"}
+    pico: {comparator: placebo plus desloratadine, outcome: {name: "response, weal size and weal frequency at 4 weeks", class: patient_clinical, timepoint_days: 28}, effect: {direction: benefit, estimate: "response in 84 of 104 versus 63 of 102; weal-size and weal-frequency endpoints favoured the probiotic while several other symptom endpoints did not; the article's own percentage reporting is internally inconsistent"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: chronic urticaria (chronic hives) in a child, microbiome_profile_alone_sufficient: false}
+    summary: "The largest randomized trial in chronic hives was done in 206 children aged 6 to 12, and it favoured an exact six-organism product added to desloratadine on weal size and frequency but not on every symptom endpoint. Its bifidobacterial component is B. animalis LK011, not B. breve, it says nothing about adults, and it did not validate any stool profile."
+  - evidence_assertion_id: IE_CU_PROBIOTIC_ATEFI_2022_V1
+    protocol_ref: PROTOCOL_CU_LACTOCARE_8W_ADJUNCT_V1
+    source: {source_type: randomized_trial, doi: 10.23822/EurAnnACI.1764-1489.200, citation: "Atefi N, et al. Eur Ann Allergy Clin Immunol 2022 (LactoCare adjuvant in chronic urticaria; IRCT20190825044613N1)", publication_status: peer_reviewed}
+    study: {design: "randomized open-label adjunct trial, analyst blinded, no placebo and no patient blinding", participants_randomized: 52, analysis_population: "42 completers, 21 per arm", risk_of_bias: high, funding_and_conflicts: "see source"}
+    pico: {comparator: antihistamines alone, outcome: {name: "UAS7 disease activity at 8 weeks, with dermatology quality-of-life index secondary", class: patient_reported, timepoint_days: 56}, effect: {direction: "null", estimate: "UAS7 11 ± 11.4 versus 16.9 ± 13.5, between-group difference in disease activity not statistically significant; the secondary quality-of-life score favoured the probiotic arm"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: chronic urticaria (chronic hives), microbiome_profile_alone_sufficient: false}
+    summary: "An eight-week adjunct trial in 42 adults with chronic hives found no significant difference in disease activity and a favourable secondary quality-of-life score, with no placebo and no patient blinding. It is a null result on its main endpoint, not a positive placebo-controlled trial."
+  - evidence_assertion_id: IE_CU_PROBIOTIC_DABAGHZADEH_2023_V1
+    protocol_ref: PROTOCOL_CU_FEMILACT_8W_ADJUNCT_V1
+    source: {source_type: randomized_trial, doi: 10.22088/cjim.14.2.192, citation: "Dabaghzadeh F, et al. Caspian J Intern Med 2023 (Femilact with cetirizine in chronic urticaria; IRCT20110531006660N9)", publication_status: peer_reviewed}
+    study: {design: "blinded placebo-controlled randomized trial, mixed-age cohort", participants_randomized: 38, analysis_population: "38 analysed (20 / 18)", risk_of_bias: some_concerns, funding_and_conflicts: "product supplied by the manufacturer"}
+    pico: {comparator: placebo plus cetirizine, outcome: {name: "UAS7 at 8 weeks, with quality of life secondary", class: patient_reported, timepoint_days: 56}, effect: {direction: mixed, estimate: "UAS7 9.6 ± 6.4 versus 12.7 ± 8.1; the reported P = .036 is a main effect across repeated measurements rather than a verified final-visit contrast, and the quality-of-life comparison was null at P = .805"}}
+    lane: C
+    against_kind: null
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: chronic urticaria (chronic hives), microbiome_profile_alone_sufficient: false}
+    summary: "A 38-person placebo-controlled trial reported lower hive activity on a seven-organism synbiotic, but the significant figure is a main effect across visits rather than a final-visit difference, quality of life was unchanged, and the paper's own conclusion conflicts with its abstract wording. Recorded with that internal inconsistency attached."
+  - evidence_assertion_id: IE_CU_PROBIOTIC_CAN_2024_V1
+    protocol_ref: PROTOCOL_CU_LREUTERI_ATCC55730_4W_ADJUNCT_V1
+    source: {source_type: nonrandomized_study, doi: 10.4103/ds.DS-D-24-00136, citation: "Can PK, et al. Dermatol Sin 2024 (L. reuteri ATCC 55730 with ebastine in chronic spontaneous urticaria)", publication_status: peer_reviewed}
+    study: {design: "prospective non-randomized comparison, 30 per arm", participants_randomized: 0, analysis_population: "60", risk_of_bias: high, funding_and_conflicts: "see source"}
+    pico: {comparator: ebastine alone, outcome: {name: "treatment response, UAS7 and quality of life at 4 weeks", class: patient_clinical, timepoint_days: 28}, effect: {direction: benefit, estimate: "response in 25 of 30 versus 15 of 30, P = .006, with UAS7 and quality-of-life changes favouring the probiotic arm"}}
+    lane: D
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: chronic spontaneous urticaria (chronic hives), microbiome_profile_alone_sufficient: false}
+    summary: "The most favourable hives result in this set comes from a non-randomized study of one exact strain, L. reuteri ATCC 55730, added to ebastine in 60 adults. Because participants were not randomized it cannot be called a trial, and the evidence does not transfer to DSM 17938 or to any unspecified L. reuteri product."
+  - evidence_assertion_id: IE_CU_PROBIOTIC_GODSE_2025_X_V1
+    protocol_ref: PROTOCOL_CU_LACTOGUT_12W_ADJUNCT_V1
+    source: {source_type: randomized_trial, doi: 10.18231/j.ijced.2025.015, citation: "Godse K, et al. IP Indian J Clin Exp Dermatol 2025 (Lactogut adjunct in chronic spontaneous urticaria; CTRI/2023/06/054428)", publication_status: peer_reviewed}
+    study: {design: "double-blind placebo-controlled randomized trial", participants_randomized: 97, analysis_population: "87 analysed", risk_of_bias: some_concerns, funding_and_conflicts: "manufacturer-sponsored"}
+    pico: {comparator: placebo plus antihistamine, outcome: {name: "itch and urticaria control test at 12 weeks", class: patient_reported, timepoint_days: 84}, effect: {direction: "null", estimate: "the abstract's favourable itch claim rests on a baseline difference rather than a follow-up one, and no urticaria-control advantage was present"}}
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: chronic spontaneous urticaria (chronic hives), microbiome_profile_alone_sufficient: false}
+    summary: "The largest adult placebo-controlled probiotic trial in chronic hives is recorded as against-evidence: the itch difference its abstract highlights was present at baseline rather than at follow-up, hive control did not differ, and the study was manufacturer-sponsored. It is also not an all-bacterial product — it contains a live yeast."
+  - evidence_assertion_id: IE_CU_DIET_WAGNER_2017_V1
+    protocol_ref: PROTOCOL_CU_LOW_HISTAMINE_3W_V1
+    source: {source_type: nonrandomized_study, pmid: 27624921, citation: "Wagner N, et al. J Eur Acad Dermatol Venereol 2017 (low-histamine diet in chronic spontaneous urticaria with gastrointestinal symptoms)", publication_status: peer_reviewed}
+    study: {design: "uncontrolled dietary intervention", analysis_population: "56 patients", risk_of_bias: high}
+    pico: {comparator: none, outcome: {name: "urticaria activity score improvement after at least three weeks, with serum diamine oxidase measured", class: patient_reported, timepoint_days: 21}, effect: {direction: benefit, estimate: "34 of 56 met the improvement endpoint; diamine oxidase activity did not change"}}
+    lane: D
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: documented_symptom_context, required_condition: chronic hives with gastrointestinal symptoms, microbiome_profile_alone_sufficient: false}
+    summary: "In 56 people with chronic hives and gut symptoms, three or more weeks of a low-histamine diet improved symptom scores in about two-thirds, with no control group and no change in the enzyme the diet is usually justified by. It supports a time-limited, dietitian-supported diagnostic trial, not indefinite restriction, and it is not evidence that anything in the microbiome was corrected."
+  - evidence_assertion_id: IE_CU_DIET_SON_2018_V1
+    protocol_ref: null
+    source: {source_type: nonrandomized_study, doi: 10.5021/ad.2018.30.2.164, citation: "Son JH, et al. Ann Dermatol 2018 (four-week dietary intervention in chronic urticaria)", publication_status: peer_reviewed}
+    study: {design: "uncontrolled dietary study", analysis_population: "22 adults", risk_of_bias: high}
+    pico: {comparator: none, outcome: {name: "symptom improvement at 4 weeks", class: patient_reported, timepoint_days: 28}, effect: {direction: benefit, estimate: "improvement reported in a small uncontrolled group"}}
+    lane: D
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: documented_symptom_context, required_condition: chronic hives, microbiome_profile_alone_sufficient: false}
+    summary: "A 22-person uncontrolled four-week dietary study reported symptom improvement in chronic hives. With no comparator and no randomization it cannot establish efficacy, predict an individual's response, or justify permanent food avoidance."
+  - evidence_assertion_id: IE_CU_VITD_MONY_2020_V1
+    protocol_ref: PROTOCOL_ROUTE_VITAMIN_D_STATUS_V1
+    source: {source_type: randomized_trial, pmid: 31926152, citation: "Randomized placebo-controlled vitamin D supplementation in vitamin-D-deficient chronic urticaria (2020)", publication_status: peer_reviewed}
+    study: {design: "randomized placebo-controlled trial in laboratory-confirmed deficiency", participants_randomized: 120, risk_of_bias: some_concerns}
+    pico: {comparator: placebo, outcome: {name: "urticaria activity in people with confirmed vitamin D deficiency", class: patient_reported}, effect: {direction: benefit, estimate: "benefit reported in the deficient population studied"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: external_lab_abnormality, required_condition: laboratory-confirmed 25-hydroxyvitamin D deficiency with chronic hives, microbiome_profile_alone_sufficient: false}
+    summary: "One randomized trial in 120 people with chronic hives and laboratory-confirmed vitamin D deficiency reported benefit from supplementation. It applies only after a blood test shows deficiency — no stool measurement can establish vitamin D status, and no dose is generated here."
+  - evidence_assertion_id: IE_CU_HPYLORI_PAWLOWICZ_2018_V1
+    protocol_ref: PROTOCOL_ROUTE_HPYLORI_TEST_AND_TREAT_V1
+    source: {source_type: randomized_trial, url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5949544/", citation: "Placebo-controlled study of H. pylori eradication as add-on therapy in chronic urticaria (2018)", publication_status: peer_reviewed}
+    study: {design: "placebo-controlled add-on study", risk_of_bias: some_concerns}
+    pico: {comparator: placebo, outcome: {name: "urticaria course after eradication", class: patient_clinical}, effect: {direction: benefit, estimate: "temporary benefit reported"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: external_lab_abnormality, required_condition: clinically confirmed Helicobacter pylori infection with chronic hives, microbiome_profile_alone_sufficient: false}
+    summary: "Eradicating a confirmed H. pylori infection produced temporary improvement in hives in one placebo-controlled add-on study. It requires a positive clinical test — H. pylori lives in the stomach and is not what this stool report measures — and it is paired with a negative study that found no clear benefit."
+  - evidence_assertion_id: IE_CU_HPYLORI_VALSECCHI_1998_X_V1
+    protocol_ref: PROTOCOL_ROUTE_HPYLORI_TEST_AND_TREAT_V1
+    source: {source_type: nonrandomized_study, url: "https://medicaljournalssweden.se/actadv/article/view/14676", citation: "Valsecchi R, Pigatto P. Acta Derm Venereol 1998 (H. pylori eradication and urticaria course)", publication_status: peer_reviewed}
+    study: {design: "clinical follow-up study", risk_of_bias: high}
+    pico: {comparator: non-eradicated, outcome: {name: "urticaria course", class: patient_clinical}, effect: {direction: "null", estimate: "no clear improvement in the course of hives after eradication"}}
+    lane: X
+    against_kind: conflicting
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: external_lab_abnormality, required_condition: clinically confirmed Helicobacter pylori infection with chronic hives, microbiome_profile_alone_sufficient: false}
+    summary: "An earlier study found eradication did not clearly change the course of hives. It is retrieved next to the positive study so the picture is not presented as settled."
+  - evidence_assertion_id: IE_CU_ANTIMICROBIAL_STACK_X_V1
+    protocol_ref: null
+    source: {source_type: systematic_review, url: "https://pubmed.ncbi.nlm.nih.gov/?term=%28urticaria%29+AND+%28berberine+OR+allicin+OR+garlic+OR+oregano+OR+carvacrol+OR+%22Nigella+sativa%22+OR+%22black+seed%22+OR+berberis%29", citation: "Reproducible PubMed search for human evidence on taxon-selected antimicrobial supplement regimens (berberine, allicin, oregano oil, black seed oil, multi-herbal blends) in urticaria; run for this build, evidence checked to September 2026", publication_status: internal_audit}
+    study: {design: "evidence search returning no eligible human study", risk_of_bias: not_assessed}
+    pico: {comparator: null, outcome: {name: "hive activity or control", class: patient_reported}, effect: {direction: not_estimable, estimate: "no human study in chronic urticaria was located for any of these agents, whether selected by a stool result or not"}}
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: research_profile_resemblance, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "No human study supports berberine, allicin, oregano oil, black seed oil or commercial multi-herbal antimicrobial blends for chronic hives, and none supports choosing them from a stool result. Detecting E. coli, Klebsiella or R. gnavus in the hives panel is not an eradication indication, and no promise is made that suppressing an organism restores the commensals around it."
+  - evidence_assertion_id: IE_CU_FIBER_FERMENTED_X_V1
+    protocol_ref: null
+    source: {source_type: systematic_review, url: "https://pubmed.ncbi.nlm.nih.gov/?term=%28urticaria%29+AND+%28fiber+OR+fibre+OR+prebiotic+OR+%22fermented+food%22+OR+kefir+OR+sauerkraut+OR+%22resistant+starch%22%29", citation: "Reproducible PubMed search for human evidence on fibre, prebiotic or fermented-food selection in urticaria; run for this build, evidence checked to September 2026", publication_status: internal_audit}
+    study: {design: "evidence search returning no eligible response-selection rule", risk_of_bias: not_assessed}
+    pico: {comparator: null, outcome: {name: "hive activity or control", class: patient_reported}, effect: {direction: not_estimable}}
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: research_profile_resemblance, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Fibre, prebiotics and fermented foods have general dietary evidence but no validated rule for selecting them from a hives profile. Fermented foods in particular are not recommended to someone reporting food- or histamine-related reactions merely because the panel shows depleted fibre fermenters."
+  - evidence_assertion_id: IE_CU_FMT_WU_2023_V1
+    protocol_ref: PROTOCOL_FMT_CU_CASE_WU_V1
+    source: {source_type: case_report, pmid: 37077050, doi: 10.4103/singaporemedj.SMJ-2021-423, citation: "Wu Z, et al. Singapore Med J 2023 — faecal microbiota transplantation for chronic urticaria with recurrent abdominal pain and food allergy", publication_status: peer_reviewed}
+    study: {design: "single uncontrolled case report; full protocol not accessible in this audit", analysis_population: "1", risk_of_bias: high}
+    pico: {comparator: none, outcome: {name: "hives and abdominal pain after transplantation", class: patient_clinical}, effect: {direction: not_estimable, estimate: "not estimable from one uncontrolled case; dose, donor, delivery route and durability are not verified and are left empty rather than filled in from secondary summaries"}}
+    lane: X
+    against_kind: conflicting
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: chronic urticaria (chronic hives), microbiome_profile_alone_sufficient: false}
+    summary: "One genuine human case report of faecal microbiota transplantation in chronic hives with abdominal pain and food allergy exists. One uncontrolled case establishes nothing about efficacy, no controlled human trial in hives was located, and transplantation is not the only option for this condition — guideline antihistamine care is."
+  - evidence_assertion_id: IE_CU_FMT_ALLERGIC_REACTION_2026_X_V1
+    protocol_ref: null
+    source: {source_type: case_report, doi: 10.3389/fped.2026.1847568, citation: "Allergic reactions after faecal microbiota transplantation in two children with autism spectrum disorder (2026)", publication_status: peer_reviewed}
+    study: {design: "two case reports", analysis_population: "2", risk_of_bias: high}
+    pico: {comparator: none, outcome: {name: "new allergic reactions after transplantation", class: patient_clinical}, effect: {direction: harm, estimate: "two reported reactions; no denominator, so no incidence can be estimated"}}
+    lane: X
+    against_kind: harm_signal
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: research_profile_resemblance, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Two children developed allergic reactions after faecal microbiota transplantation given for an unrelated indication. This is adverse-event context for anyone considering transplantation for an allergic condition; it is not an incidence rate, it does not confirm the authors' proposed mechanism, and it does not validate food-IgG testing."
+  - evidence_assertion_id: IE_CU_SCFA_LG1_PRECLINICAL_E_V1
+    protocol_ref: null
+    source: {source_type: observational_study, doi: 10.1111/1751-7915.70316, citation: "Wang et al. Microb Biotechnol 2026 (35 untreated CSU vs 21 HC, 16S and blood metabolomics; LG-1 strain treatment in mice) with Zhu 2024 short-chain fatty acid and bacterial mouse experiments", publication_status: peer_reviewed}
+    study: {design: "human amplicon association plus mouse intervention", analysis_population: "56 humans; mice for all intervention work", risk_of_bias: high}
+    pico: {comparator: untreated mice, outcome: {name: "mast-cell and skin outcomes in mice; taxonomic and metabolite associations in humans", class: mechanistic}, effect: {direction: not_estimable}}
+    lane: E
+    proposition: evidence_intervention_changes_signal
+    target_binding: {trigger_type: research_profile_resemblance, required_condition: null, microbiome_profile_alone_sufficient: false}
+    summary: "Short-chain fatty acid and single-strain (LG-1) treatments for hives have only been given to mice. The human half of this work is a 16S association study with blood metabolomics; no human dose, product or response can be extrapolated from the animal experiments, and the isolate genome deposited alongside it is not patient stool data."
+  - evidence_assertion_id: IE_CU_GUIDELINE_2026_V1
+    protocol_ref: PROTOCOL_ROUTE_URTICARIA_CARE_V1
+    source: {source_type: guideline, doi: 10.1111/all.70210, citation: "Zuberbier T, et al. International guideline for the definition, classification, diagnosis and management of urticaria. Allergy 2026", publication_status: peer_reviewed}
+    study: {design: "international consensus guideline", risk_of_bias: not_assessed}
+    pico: {comparator: null, outcome: {name: "diagnosis and management of urticaria (hives)", class: patient_clinical}, effect: {direction: benefit, estimate: "second-generation H1 antihistamines first line, with specialist escalation for hives that persist"}}
+    lane: A
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: urticaria (hives), microbiome_profile_alone_sufficient: false}
+    summary: "The current international guideline is the actual care pathway for hives: a second-generation H1 antihistamine first, then specialist assessment and guideline escalation if the hives persist. It is a clinician-directed route, not a stool-profile-directed algorithm, and this report does not generate a drug ladder from a microbiome score."
+
+  # ------------------------------------------- inflammatory skin disease (v4.2)
+  - evidence_assertion_id: IE_PSO_PROBIOTIC_ADJUNCT_RCT_V1
+    protocol_ref: PROTOCOL_PSO_PROBIOTIC_12W_ADJUNCT_V1
+    source: {source_type: randomized_trial, doi: 10.2340/00015555-3305, citation: "Navarro-Lopez V et al. Acta Derm Venereol 2019;99:1078", publication_status: peer_reviewed}
+    study: {design: "12-week randomized placebo-controlled adjunct trial, both arms on topical treatment", participants_randomized: 90, risk_of_bias: some_concerns, funding_and_conflicts: "probiotic supplied by manufacturer; see source"}
+    pico: {comparator: "placebo plus the same topical treatment", outcome: {name: "PASI75, meaning at least 75% improvement in the Psoriasis Area and Severity Index", class: patient_clinical, timepoint_days: 84}, effect: {direction: benefit, estimate: "66.7% versus 41.9% reached at least 75% improvement"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: plaque psoriasis, microbiome_profile_alone_sufficient: false}
+    summary: "In 90 adults with plaque psoriasis, adding one exact three-strain probiotic to topical treatment for 12 weeks raised the proportion reaching at least 75% improvement from 41.9% to 66.7%. The endpoint is that 75% threshold, despite looser wording in the abstract. This is evidence about that formulation as an add-on to topical therapy; it is not evidence that a stool profile predicts who responds, that other probiotic blends work, or that treatment normalises any organism measured in this report."
+  - evidence_assertion_id: IE_PSO_PROBIOTIC_RELAPSE_FOLLOWUP_X_V1
+    protocol_ref: PROTOCOL_PSO_PROBIOTIC_12W_ADJUNCT_V1
+    source: {source_type: observational_study, doi: 10.2340/00015555-3305, citation: "Navarro-Lopez V et al. Acta Derm Venereol 2019;99:1078, post-trial follow-up", publication_status: peer_reviewed}
+    study: {design: "post-trial relapse follow-up outside the original protocol", risk_of_bias: high, funding_and_conflicts: "see source"}
+    pico: {comparator: placebo arm, outcome: {name: "relapse after the trial ended", class: patient_clinical}, effect: {direction: not_estimable, estimate: "reported outside the prespecified protocol, so it does not carry the trial's design guarantees"}}
+    lane: X
+    against_kind: conflicting
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: plaque psoriasis, microbiome_profile_alone_sufficient: false}
+    summary: "The relapse follow-up reported after this trial was not part of the original protocol. It is kept as a caution about how far the result extends, not as an additional benefit claim, and trial adverse-event reporting does not establish universal safety."
+  - evidence_assertion_id: IE_SEBD_ST11_DANDRUFF_RCT_V1
+    protocol_ref: PROTOCOL_ST11_DANDRUFF_56D_V1
+    source: {source_type: randomized_trial, pmid: 28789559, citation: "Reygagne P et al. Benef Microbes 2017;8:671 (ST11)", publication_status: peer_reviewed}
+    study: {design: "randomized placebo-controlled trial in 60 adult men aged 18-60", participants_randomized: 60, risk_of_bias: some_concerns, funding_and_conflicts: "Nestle strain; see source"}
+    pico: {comparator: placebo, outcome: {name: "dandruff severity, erythema and scalp measures", class: patient_clinical, timepoint_days: 56}, effect: {direction: benefit, estimate: "improvement in dandruff and scalp measures"}}
+    lane: C
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: dandruff, microbiome_profile_alone_sufficient: false}
+    summary: "Oral ST11 for 56 days improved dandruff and scalp measures in 60 adult men. The phenotype studied was dandruff and the microbiome outcome was measured on the scalp, not in stool. It is related to seborrheic dermatitis rather than proven for it, it does not establish a gut signature, and strain identity matters: other paracasei strains and fermented foods do not inherit this result."
+  - evidence_assertion_id: IE_SEBD_TOPICAL_PROBIOTIC_PILOT_V1
+    protocol_ref: PROTOCOL_SEBD_TOPICAL_7D_V1
+    source: {source_type: nonrandomized_study, doi: 10.1038/s41598-024-53016-0, citation: "Scientific Reports 2024;14 (topical oily suspension in seborrheic dermatitis)", publication_status: peer_reviewed}
+    study: {design: "single-arm topical pilot in 25 patients over one week", participants_randomized: 25, risk_of_bias: high, funding_and_conflicts: "see source"}
+    pico: {comparator: none, outcome: {name: "skin lesion and skin microbiome measures", class: patient_clinical, timepoint_days: 7}, effect: {direction: benefit, estimate: "single-arm, one week, no control group"}}
+    lane: B
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: seborrheic dermatitis, microbiome_profile_alone_sufficient: false}
+    summary: "Twenty-five people with seborrheic dermatitis applied a two-strain oily suspension to the skin for one week in a single-arm pilot. It is applied to the skin, not swallowed: it is not an oral regimen, not a stool intervention, and it does not justify antifungal or antibiotic treatment of the gut."
+  - evidence_assertion_id: IE_SEBD_NO_STOOL_SIGNATURE_X_V1
+    intervention_ref: null
+    source: {source_type: observational_study, url: "https://repo.dma.dp.ua/5151/", citation: "Odintsova/Dyudyun 2019 stool culture series; Zhu 2024 Mendelian randomization; Solomakha 2026 clinical series", publication_status: peer_reviewed}
+    study: {design: "stool bacterial culture without per-subject values, genetically instrumented associations, and a clinical series with no sequencing", risk_of_bias: high, funding_and_conflicts: "no reusable sequencing accession reported"}
+    pico: {comparator: "healthy controls where described", outcome: {name: "stool-DNA disease signature", class: mechanistic}, effect: {direction: not_estimable, estimate: "no adequately specified stool-DNA signature exists at this cutoff"}}
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_signal_associated_with_state
+    target_binding: {trigger_type: clinician_confirmed_condition, required_condition: seborrheic dermatitis, microbiome_profile_alone_sufficient: false}
+    summary: "The gut evidence for seborrheic dermatitis is bacterial culture counts with an unexplained denominator, genetically instrumented associations rather than measured cases, and a clinical series without sequencing. Culture counts of living organisms do not convert into DNA relative abundance, and a reported 60% dysbiosis figure is not a screening prevalence or a cutoff. No score is computed, and that is not a negative test."

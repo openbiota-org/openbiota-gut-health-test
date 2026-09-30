@@ -1,0 +1,278 @@
+# Species interpretation registry — health-associated taxa (spec v04 §6.5).
+#
+# Polarity is what the human literature has ASSOCIATED a higher level with;
+# it is not a healthy-gut checklist and no species here is "required". A low
+# reading is reported as "relatively low versus the reference", never as a
+# deficiency. evidence_state records whether any curated human intervention
+# evidence exists for the species itself (it lives in the intervention
+# registry; nothing here is a treatment record).
+species_interpretations:
+  - species: Faecalibacterium_prausnitzii
+    polarity: health_associated
+    evidence_state: human_association_only
+    guilds: [butyrate]
+    summary: >
+      One of the most abundant butyrate producers in adult stool. Reduced relative abundance is
+      one of the most replicated findings in Crohn's disease and ulcerative colitis, and lower
+      levels are reported across several inflammatory and metabolic conditions. It is also
+      simply variable between healthy people and across countries; a low level alone is not a
+      diagnosis and no product restores the species itself.
+    assertions:
+      - direction: lower
+        statement: Reduced F. prausnitzii is associated with Crohn's disease and with post-operative recurrence; the isolate had anti-inflammatory effects in vitro and in mouse colitis.
+        citation: "Sokol H et al. PNAS 2008;105:16731. PMID 18936492"
+      - direction: lower
+        statement: A 2017 review consolidates lower F. prausnitzii across IBD, IBS, obesity, coeliac disease and colorectal cancer cohorts, with phylogroup-dependent patterns.
+        citation: "Lopez-Siles M et al. ISME J 2017;11:841. PMID 28072420"
+    tags: [butyrate_producer, ibd_depleted]
+    last_reviewed: "2026-09-07"
+
+  - species: Eubacterium_rectale
+    polarity: health_associated
+    evidence_state: human_association_only
+    guilds: [butyrate]
+    summary: >
+      A dominant butyrate producer of the Lachnospiraceae with distinct population structure
+      across continents. Lower relative abundance is reported in IBD and some metabolic
+      cohorts; abundance also tracks fermentable-fibre intake.
+    assertions:
+      - direction: lower
+        statement: Genomic epidemiology of E. rectale across 6,000+ metagenomes shows geographically structured subspecies and depletion in Western disease cohorts.
+        citation: "Karcher N et al. Genome Biol 2020;21:138. PMID 32819434"
+      - direction: any
+        statement: Major butyrate producers (Faecalibacterium, Eubacterium rectale, Roseburia, Anaerostipes, Coprococcus) and the butyryl-CoA:acetate CoA-transferase route are reviewed as the dominant route of colonic butyrate formation.
+        citation: "Louis P, Flint HJ. Environ Microbiol 2017;19:29. PMID 27928878"
+    tags: [butyrate_producer]
+    last_reviewed: "2026-09-07"
+
+  - species: Roseburia_intestinalis
+    polarity: health_associated
+    evidence_state: human_association_only
+    guilds: [butyrate]
+    summary: >
+      Butyrate-producing, flagellated Lachnospiraceae member; lower relative abundance is
+      reported in ulcerative colitis, type 2 diabetes and atherosclerosis cohorts. Presence and
+      level vary widely between healthy adults.
+    assertions:
+      - direction: lower
+        statement: Review of Roseburia spp. as butyrate producers associated with lower levels in IBD, obesity, T2D and cardiovascular cohorts.
+        citation: "Tamanai-Shacoori Z et al. Future Microbiol 2017;12:157. PMID 28139139"
+    tags: [butyrate_producer]
+    last_reviewed: "2026-09-07"
+
+  - species: Roseburia_hominis
+    polarity: health_associated
+    evidence_state: human_association_only
+    guilds: [butyrate]
+    summary: Butyrate producer; reduced in ulcerative colitis cohorts alongside F. prausnitzii.
+    assertions:
+      - direction: lower
+        statement: R. hominis and F. prausnitzii were both reduced in UC and inversely correlated with disease activity.
+        citation: "Machiels K et al. Gut 2014;63:1275. PMID 24021287"
+    tags: [butyrate_producer]
+    last_reviewed: "2026-09-07"
+
+  - species: Roseburia_inulinivorans
+    polarity: health_associated
+    evidence_state: human_association_only
+    guilds: [butyrate]
+    summary: Butyrate and propionate producer using inulin and fucose; grouped with the Roseburia butyrate producers.
+    assertions:
+      - direction: lower
+        statement: Roseburia spp. as butyrate producers associated with lower levels across inflammatory and metabolic disease cohorts.
+        citation: "Tamanai-Shacoori Z et al. Future Microbiol 2017;12:157. PMID 28139139"
+    tags: [butyrate_producer]
+    last_reviewed: "2026-09-07"
+
+  - species: Roseburia_faecis
+    polarity: health_associated
+    evidence_state: human_association_only
+    guilds: [butyrate]
+    summary: Butyrate-producing Roseburia species commonly detected in adult stool.
+    assertions:
+      - direction: lower
+        statement: Roseburia spp. reviewed as butyrate producers depleted in disease cohorts.
+        citation: "Tamanai-Shacoori Z et al. Future Microbiol 2017;12:157. PMID 28139139"
+    tags: [butyrate_producer]
+    last_reviewed: "2026-09-07"
+
+  - species: Anaerostipes_hadrus
+    polarity: health_associated
+    evidence_state: human_association_only
+    guilds: [butyrate]
+    summary: Butyrate producer that also converts lactate and acetate to butyrate; part of the core butyrate-producing set of adult stool.
+    assertions:
+      - direction: any
+        statement: Anaerostipes is among the principal butyrate producers using the butyryl-CoA:acetate CoA-transferase route.
+        citation: "Louis P, Flint HJ. Environ Microbiol 2017;19:29. PMID 27928878"
+    tags: [butyrate_producer]
+    last_reviewed: "2026-09-07"
+
+  - species: Eubacterium_hallii
+    polarity: health_associated
+    evidence_state: human_association_only
+    guilds: [butyrate]
+    summary: Butyrate and propionate producer that consumes lactate; a versatile member of the core adult community.
+    assertions:
+      - direction: any
+        statement: E. hallii converts lactate and acetate to butyrate and produces propionate from 1,2-propanediol; reviewed among core butyrate producers.
+        citation: "Louis P, Flint HJ. Environ Microbiol 2017;19:29. PMID 27928878"
+    tags: [butyrate_producer]
+    last_reviewed: "2026-09-07"
+
+  - species: Coprococcus_eutactus
+    polarity: health_associated
+    evidence_state: human_association_only
+    guilds: [butyrate]
+    summary: Butyrate producer; with Dialister, Coprococcus was depleted in depression cohorts in a large population study.
+    assertions:
+      - direction: lower
+        statement: Coprococcus and Dialister were consistently depleted in depression after correcting for antidepressants in the Flemish Gut Flora Project and LifeLines DEEP.
+        citation: "Valles-Colomer M et al. Nat Microbiol 2019;4:623. PMID 30718848"
+    tags: [butyrate_producer]
+    last_reviewed: "2026-09-07"
+
+  - species: Coprococcus_comes
+    polarity: health_associated
+    evidence_state: human_association_only
+    guilds: [butyrate]
+    summary: Butyrate-producing Coprococcus species; the genus was depleted in depression cohorts.
+    assertions:
+      - direction: lower
+        statement: Coprococcus spp. depleted in depression in two independent population cohorts.
+        citation: "Valles-Colomer M et al. Nat Microbiol 2019;4:623. PMID 30718848"
+    tags: [butyrate_producer]
+    last_reviewed: "2026-09-07"
+
+  - species: Coprococcus_catus
+    polarity: health_associated
+    evidence_state: human_association_only
+    guilds: [butyrate]
+    summary: Butyrate and propionate producer of the Lachnospiraceae.
+    assertions:
+      - direction: any
+        statement: C. catus produces butyrate and propionate (acrylate pathway); reviewed among core SCFA producers.
+        citation: "Louis P, Flint HJ. Environ Microbiol 2017;19:29. PMID 27928878"
+    tags: [butyrate_producer]
+    last_reviewed: "2026-09-07"
+
+  - species: Ruminococcus_bromii
+    polarity: health_associated
+    evidence_state: human_association_only
+    summary: >
+      Keystone degrader of resistant starch: it breaks down starch granules other species
+      cannot, feeding the wider community. Its baseline level predicted who responded to a
+      resistant-starch feeding trial with a butyrate rise.
+    assertions:
+      - direction: any
+        statement: R. bromii is a keystone species for resistant starch degradation in the human colon.
+        citation: "Ze X et al. ISME J 2012;6:1535. PMID 22343308"
+      - direction: any
+        statement: Faecal butyrate rose with resistant potato starch only in baseline responders, and R. bromii predicted response.
+        citation: "Venkataraman A et al. Microbiome 2016;4:33. PMID 27357127"
+        claim: intervention_context
+    tags: [resistant_starch_degrader]
+    last_reviewed: "2026-09-07"
+
+  - species: Eubacterium_eligens
+    polarity: health_associated
+    evidence_state: human_association_only
+    summary: Pectin-degrading Lachnospiraceae member associated with plant-rich diets and favourable cardiometabolic markers in a large deep-phenotyped cohort.
+    assertions:
+      - direction: higher
+        statement: E. eligens was among the species most associated with healthy plant-based diet indices and favourable cardiometabolic markers in PREDICT 1.
+        citation: "Asnicar F et al. Nat Med 2021;27:321. PMID 33432175"
+    tags: [fibre_associated]
+    last_reviewed: "2026-09-07"
+
+  - species: Bifidobacterium_adolescentis
+    polarity: health_associated
+    evidence_state: human_association_only
+    guilds: [probiotics]
+    summary: >
+      The dominant adult Bifidobacterium; degrades resistant starch and fructo-oligosaccharides.
+      Higher with fibre and lower in some Western disease cohorts. Its level says nothing about
+      any probiotic product, which are strain-specific.
+    assertions:
+      - direction: any
+        statement: Review of Bifidobacterium ecology in the human gut, including B. adolescentis as the predominant adult species and its carbohydrate repertoire.
+        citation: "O'Callaghan A, van Sinderen D. Front Microbiol 2016;7:925. PMID 27379055"
+    tags: [bifidobacteria]
+    last_reviewed: "2026-09-07"
+
+  - species: Bifidobacterium_longum
+    polarity: health_associated
+    evidence_state: human_association_only
+    guilds: [probiotics]
+    summary: Widespread across life stages (subspecies infantis in infants, longum in adults). Endogenous level does not indicate whether any B. longum-containing product would colonise or help.
+    assertions:
+      - direction: any
+        statement: Review of Bifidobacterium species distribution across the human lifespan.
+        citation: "O'Callaghan A, van Sinderen D. Front Microbiol 2016;7:925. PMID 27379055"
+    tags: [bifidobacteria]
+    last_reviewed: "2026-09-07"
+
+  - species: Bifidobacterium_bifidum
+    polarity: health_associated
+    evidence_state: human_association_only
+    guilds: [probiotics]
+    summary: Mucin-utilising Bifidobacterium; depleted in the PDAC signature of Kartal et al. The heat-inactivated strain MIMBb75 has IBS trial evidence, which does not transfer to the species.
+    assertions:
+      - direction: lower
+        statement: B. bifidum was among species depleted in pancreatic ductal adenocarcinoma stool in Spanish discovery and German validation cohorts.
+        citation: "Kartal E et al. Gut 2022;71:1359. PMID 35260444"
+    tags: [bifidobacteria]
+    last_reviewed: "2026-09-07"
+
+  - species: Bifidobacterium_pseudocatenulatum
+    polarity: health_associated
+    evidence_state: human_association_only
+    guilds: [probiotics]
+    summary: Common adult Bifidobacterium species; reviewed with the genus.
+    assertions:
+      - direction: any
+        statement: Review of Bifidobacterium species in the human gut.
+        citation: "O'Callaghan A, van Sinderen D. Front Microbiol 2016;7:925. PMID 27379055"
+    tags: [bifidobacteria]
+    last_reviewed: "2026-09-07"
+
+  - species: Christensenella_minuta
+    polarity: health_associated
+    evidence_state: human_association_only
+    summary: The most heritable taxon in a twin study, enriched in lean individuals; reduced adiposity gain when given to germ-free mice. Human intervention evidence is absent.
+    assertions:
+      - direction: higher
+        statement: Christensenellaceae were the most heritable taxon and enriched in low-BMI twins; C. minuta reduced weight gain in recipient mice.
+        citation: "Goodrich JK et al. Cell 2014;159:789. PMID 25417156"
+    tags: [lean_associated]
+    last_reviewed: "2026-09-07"
+
+  - species: Butyrivibrio_crossotus
+    polarity: health_associated
+    evidence_state: human_association_only
+    guilds: [butyrate]
+    summary: Butyrate producer of the Lachnospiraceae, part of the curated butyrate set.
+    assertions:
+      - direction: any
+        statement: Butyrivibrio among butyrate-producing Firmicutes reviewed by Louis and Flint.
+        citation: "Louis P, Flint HJ. Environ Microbiol 2017;19:29. PMID 27928878"
+    tags: [butyrate_producer]
+    last_reviewed: "2026-09-07"
+
+  - species: Oxalobacter_formigenes
+    polarity: health_associated
+    evidence_state: curated_human_action_evidence
+    summary: >
+      Specialist oxalate degrader. Colonisation has been associated with lower recurrent kidney
+      stone risk, but the Oxabact live-biotherapeutic trial missed its primary plasma-oxalate
+      endpoint, so nondetection is inform-only and never a probiotic recommendation.
+    assertions:
+      - direction: presence
+        statement: O. formigenes colonisation was associated with a lower risk of recurrent calcium oxalate stones.
+        citation: "Kaufman DW et al. J Am Soc Nephrol 2008;19:1197. PMID 18322162"
+      - direction: presence
+        statement: The Oxabact (O. formigenes) trial in primary hyperoxaluria colonised the gut but did not meet its plasma-oxalate endpoint at 52 weeks.
+        citation: "Hoppe B et al. Pediatr Nephrol 2022 (ePHex). PMID 35552824"
+        claim: intervention_context
+    tags: [oxalate_degrader]
+    last_reviewed: "2026-09-07"

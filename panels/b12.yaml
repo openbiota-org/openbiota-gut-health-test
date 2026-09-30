@@ -1,0 +1,147 @@
+name: b12
+description: >-
+  Vitamin B12 (cobalamin) biosynthesis. cbiA/cobB (cobyrinic acid
+  a,c-diamide synthase) and cobalamin-5'-phosphate synthase (cobS) mark the
+  de novo anaerobic route. Gut bacteria are substantial B12 producers, but
+  almost all of it is made and consumed in the colon, distal to the ileal
+  receptors that absorb it.
+metabolite: Vitamin B12 (cobalamin)
+pathway: >-
+  anaerobic corrin ring synthesis (cbiA and the cbi operon) -> adenosyl-
+  cobinamide -> cobalamin (cobS, cobalamin-5'-phosphate synthase)
+category: vitamin
+
+organisms:
+  - Bacteroides fragilis
+  - Prevotella copri
+  - Faecalibacterium prausnitzii
+  - Bifidobacterium animalis
+  - Akkermansia muciniphila
+  - Klebsiella pneumoniae
+
+extension: true
+
+targets:
+  - id: CBIA
+    label: cbiA / cobB (cobyrinic acid a,c-diamide synthase)
+    gene: cbiA
+    source: uniprot
+    query: '((protein_name:"cobyrinate a,c-diamide synthase") OR (protein_name:"cobyrinic acid a,c-diamide synthase")) AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.25
+
+  - id: COBS
+    label: cobS (adenosylcobinamide-GDP ribazoletransferase)
+    gene: cobS
+    source: uniprot
+    query: '(protein_name:"adenosylcobinamide-GDP ribazoletransferase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 1500
+    length_tolerance: 0.30
+
+  - id: BTUB
+    label: btuB (cobalamin outer membrane transporter — uptake, not synthesis)
+    gene: btuB
+    source: uniprot
+    query: '(protein_name:"vitamin B12 transporter BtuB") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 1500
+    length_tolerance: 0.25
+    note: >-
+      Deliberately included as a separate target, not folded into the
+      aggregate. Many gut organisms are B12 *auxotrophs* that compete for it
+      rather than producing it, and the ratio of transporter to synthase
+      capacity is the more honest reading of what the community does with B12.
+
+decoys:
+  - id: AMIDOLIG
+    label: ATP-grasp amidoligase background (cbiA fold)
+    source: uniprot
+    query: '((protein_name:"cobyric acid synthase") OR (protein_name:"glutamine-dependent NAD(+) synthetase") OR (protein_name:"asparagine synthetase B")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 2500
+    length_tolerance: 0.30
+
+  - id: TONBBG
+    label: TonB-dependent receptor background (btuB fold)
+    source: uniprot
+    query: '(protein_name:"TonB-dependent receptor") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 4000
+    length_tolerance: 0.25
+    note: >-
+      Bacteroides genomes carry dozens of TonB-dependent receptors for
+      polysaccharide uptake. Without this decoy, btuB would read as enormous
+      in any Bacteroides-rich community.
+
+aggregate: sum
+aggregate_from: [CBIA, COBS]
+aggregate_reason: >-
+  cbiA and cobS mark early and late steps of the same de novo pathway, so
+  their sum estimates synthesis capacity. btuB is uptake and is excluded.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+caveats:
+  - >-
+    The most important caveat in the vitamin panels: B12 made by colonic
+    bacteria is largely not available to you. Human B12 absorption happens in
+    the ileum, upstream of where most gut bacteria live and where most
+    bacterial B12 is made. This measures what your community can make for
+    itself, not what you absorb.
+  - >-
+    Bacterial cobalamin analogues (corrinoids) outnumber true cobalamin in the
+    gut and many are inactive or antagonistic in human metabolism. Gene
+    presence does not distinguish them.
+  - >-
+    Your B12 status is measured with a blood test (serum B12, and methylmalonic
+    acid or holotranscobalamin if that is equivocal). Nothing here substitutes
+    for it.
+
+interpretation:
+  what_it_is: >-
+    The capacity of your gut bacteria to build vitamin B12 from scratch, and
+    separately their capacity to compete for it.
+  made_from: Built de novo by bacteria from small precursors; not from diet
+  higher_means: unclear
+  reader_direction: favourable
+  direction_note: >-
+    Bacterial B12 made in the colon is poorly absorbed, so the benefit is small, but there is no harm in more of it.
+  evidence_strength: limited
+  summary: >-
+    Gut bacteria are prolific B12 producers, but they make it in the colon,
+    below the point where humans absorb it, and most of it is consumed by
+    other bacteria. Higher synthesis capacity is a feature of the community,
+    not a contribution to your B12 status.
+  evidence_detail: >-
+    Degnan et al. established that most human gut bacteria either synthesise
+    corrinoids or scavenge them, and that corrinoid competition is a genuine
+    structuring force in the community. Magnusdottir et al. reconstructed
+    B-vitamin biosynthesis across 256 gut genomes and found only about 40%
+    could make cobalamin de novo. The absorption argument is settled anatomy:
+    intrinsic-factor-mediated uptake occurs in the terminal ileum, while the
+    bulk of bacterial synthesis happens distal to it. Where bacterial B12
+    does matter is between bacteria — corrinoid availability shapes which
+    species can grow.
+  implications:
+    higher: >-
+      Your gut community has more B12 synthesis capacity than most people's.
+      This is a statement about your bacteria, not about you: colonic B12 is
+      largely not absorbed. If you want to know your B12 status, a blood test
+      answers that directly.
+    typical: >-
+      Your community's B12 synthesis capacity sits in the middle of the reference range. The result says nothing about your B12 status: the bacteria that make it live in the colon, past where B12 is absorbed, and a blood test is the only way to know.
+    lower: >-
+      Less bacterial B12 synthesis capacity than most people. This does not
+      indicate B12 deficiency, which is a blood measurement.
+  citation: >-
+    Degnan P.H. et al., Cell Metab 20:769-778 (2014),
+    doi:10.1016/j.cmet.2014.10.002; Magnusdottir S. et al., Front Genet 6:148
+    (2015), doi:10.3389/fgene.2015.00148
+
+citation: >-
+  Degnan P.H., Taga M.E., Goodman A.L., "Vitamin B12 as a modulator of gut
+  microbial ecology", Cell Metab 20:769-778 (2014),
+  doi:10.1016/j.cmet.2014.10.002.

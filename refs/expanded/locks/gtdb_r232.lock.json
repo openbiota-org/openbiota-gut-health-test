@@ -1,0 +1,80 @@
+{
+  "source_id": "gtdb_r232",
+  "files": {
+    "gtdb/r232/ar53_taxonomy_r232.tsv.gz": {
+      "url": "https://data.gtdb.ecogenomic.org/releases/release232/232.0/ar53_taxonomy_r232.tsv.gz",
+      "size": 311583,
+      "retrieved_at": "2026-09-26T23:11:10-07:00",
+      "sha256": "53c71cf120662c527ade15fa3994550f0012fdc0f37b2f32b0ca0eaa17424f84",
+      "verified": true,
+      "publisher_checksum": "md5:9fa569a0804c46e4ba8dcd85a5bc5240",
+      "note": "",
+      "verification": "publisher md5"
+    },
+    "gtdb/r232/bac120_taxonomy_r232.tsv.gz": {
+      "url": "https://data.gtdb.ecogenomic.org/releases/release232/232.0/bac120_taxonomy_r232.tsv.gz",
+      "size": 9886191,
+      "retrieved_at": "2026-09-26T23:11:12-07:00",
+      "sha256": "d565d92730db443cd394a4b685ea682fe3691a3a1da3713804bbef2025d2cc71",
+      "verified": true,
+      "publisher_checksum": "md5:807e3221f5553142eb0544ce3247d079",
+      "note": "",
+      "verification": "publisher md5"
+    },
+    "gtdb/r232/ar53_metadata_r232.tsv.gz": {
+      "url": "https://data.gtdb.ecogenomic.org/releases/release232/232.0/ar53_metadata_r232.tsv.gz",
+      "size": 7015869,
+      "retrieved_at": "2026-09-26T23:11:11-07:00",
+      "sha256": "d6ddc0f95d269a6e31af8329e0c3c2af0d90d5dad48f5b3e9d820f340951d8c3",
+      "verified": true,
+      "publisher_checksum": "md5:0f51fe6f01b4ccbf0d9bab6c07df87af",
+      "note": "",
+      "verification": "publisher md5"
+    },
+    "gtdb/r232/VERSION.txt": {
+      "url": "https://data.gtdb.ecogenomic.org/releases/release232/232.0/VERSION.txt",
+      "size": 29,
+      "retrieved_at": "2026-09-26T23:11:16-07:00",
+      "sha256": "7aaa7dca8b101daaab5635cad0895051ff427223292b04913f8791ad8c53d591",
+      "verified": true,
+      "publisher_checksum": null,
+      "note": "",
+      "verification": "size matched Content-Length; no publisher checksum published"
+    },
+    "gtdb/r232/MD5SUM.txt": {
+      "url": "https://data.gtdb.ecogenomic.org/releases/release232/232.0/MD5SUM.txt",
+      "size": 5482,
+      "retrieved_at": "2026-09-26T23:11:16-07:00",
+      "sha256": "a5c2cc52b7d319e70bb678bbe52acc6d4a697dde8f6e130b2ce39e706ba8939d",
+      "verified": true,
+      "publisher_checksum": null,
+      "note": "",
+      "verification": "size matched Content-Length; no publisher checksum published"
+    },
+    "gtdb/r232/sp_clusters_r232.tsv": {
+      "url": "https://data.gtdb.ecogenomic.org/releases/release232/232.0/auxillary_files/sp_clusters_r232.tsv",
+      "size": 51465830,
+      "retrieved_at": "2026-09-26T23:11:21-07:00",
+      "sha256": "96414cdc04addaac0280593f3d32a7c8c30cbc2aa498a9fee81886e478ec9fc9",
+      "verified": true,
+      "publisher_checksum": null,
+      "note": "species clusters with ANI radii",
+      "verification": "size matched Content-Length; no publisher checksum published"
+    },
+    "gtdb/r232/bac120_metadata_r232.tsv.gz": {
+      "url": "https://data.gtdb.ecogenomic.org/releases/release232/232.0/bac120_metadata_r232.tsv.gz",
+      "size": 289043801,
+      "retrieved_at": "2026-09-26T23:11:35-07:00",
+      "sha256": "1650d3164666e5839c20ee15d82511909a5bbd5269035a7b564b9048dd777893",
+      "verified": true,
+      "publisher_checksum": "md5:0ba4237077b65cfc5556e1d8be797485",
+      "note": "",
+      "verification": "publisher md5"
+    }
+  },
+  "release_id": "R232",
+  "taxonomy_release": "GTDB R232",
+  "license": "CC BY-SA 4.0",
+  "count_unit": "genome",
+  "source_count": 901341
+}

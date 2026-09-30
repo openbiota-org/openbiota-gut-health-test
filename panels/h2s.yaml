@@ -1,0 +1,188 @@
+name: h2s
+description: >-
+  Hydrogen sulfide production. Two routes are screened: dissimilatory sulfate
+  reduction (dsrA, the alpha subunit of dissimilatory sulfite reductase,
+  carried by Desulfovibrio and Bilophila) and cysteine degradation
+  (cysteine desulfhydrase / cystathionine gamma-lyase, carried much more
+  broadly). Taurine respiration by Bilophila wadsworthia is a third route and
+  is covered indirectly by dsrA.
+metabolite: Hydrogen sulfide (H2S)
+pathway: >-
+  sulfate -> APS (sat) -> sulfite (aprAB) -> sulfide (dsrAB); and
+  L-cysteine -> H2S + pyruvate + NH3 (cysteine desulfhydrase / CGL)
+category: gas
+
+organisms:
+  - Desulfovibrio piger
+  - Desulfovibrio desulfuricans
+  - Bilophila wadsworthia
+  - Fusobacterium nucleatum
+  - Escherichia coli
+  - Salmonella enterica
+
+extension: true
+
+targets:
+  # dsrA is the specific marker. Gene-name search is unusable: `gene:dsrA`
+  # returns a mixture of the sulfite reductase and unrelated "dsr" proteins
+  # from the sulfur-oxidising Dsr system, which runs the reaction backwards.
+  # The recommended protein name is precise and the length is tight (~430 aa).
+  - id: DSRA
+    label: dsrA (dissimilatory sulfite reductase, alpha subunit)
+    gene: dsrA
+    source: uniprot
+    query: '(protein_name:"dissimilatory sulfite reductase alpha") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.25
+
+  - id: ASRA
+    label: asrA / anaerobic sulfite reductase
+    gene: asrA
+    source: uniprot
+    query: '(protein_name:"anaerobic sulfite reductase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 1500
+    length_tolerance: 0.30
+
+  # The cysteine route. Cystathionine gamma-lyase is the enzyme with the
+  # cleanest annotation; it is the same activity the H2S literature attributes
+  # to gut Fusobacterium and Enterobacteriaceae.
+  - id: CGL
+    label: cystathionine gamma-lyase / cysteine desulfhydrase
+    gene: cgl
+    source: uniprot
+    query: '((protein_name:"cystathionine gamma-lyase") OR (protein_name:"cysteine desulfhydrase")) AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2500
+    length_tolerance: 0.25
+
+
+  # The taurine route to sulfide, so it is searched rather than reported as
+  # never looked for. Context targets: the aggregate is still DSRA and ASRA.
+  - id: TPA
+    label: tpa (taurine--pyruvate aminotransferase)
+    gene: tpa
+    source: uniprot
+    query: '(protein_name:"Taurine--pyruvate aminotransferase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 800
+    length_tolerance: 0.3
+
+  - id: ISL
+    label: isl (isethionate sulfite-lyase, IslA)
+    gene: isl
+    source: uniprot
+    query: '(protein_name:"Isethionate sulfite-lyase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 200
+    # A glycyl-radical enzyme, and the eight bacterial entries for it run
+    # from the catalytic subunit to much longer fusions. A 30% window round
+    # the median dropped all eight, so the window is set from the family's
+    # own range instead of a fraction of its middle.
+    length_range: [300, 1200]
+
+decoys:
+  # The assimilatory pathway makes sulfide for biosynthesis, not for
+  # excretion, and is present in most bacteria. Without it in the decoy set
+  # the panel would score every genome positive.
+  - id: CYSI
+    label: cysI / assimilatory sulfite reductase (hemoprotein beta)
+    source: uniprot
+    query: '((protein_name:"sulfite reductase (NADPH) hemoprotein beta-component") OR (protein_name:"assimilatory sulfite reductase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 3000
+    length_tolerance: 0.30
+    note: >-
+      The single most important decoy here. Assimilatory sulfite reduction is
+      near-universal and shares the siroheme fold with dsrA.
+
+  # No decoy for the reverse-acting Dsr of sulfur oxidisers (Allochromatium,
+  # Chlorobium): UniProt annotates those proteins with the same name as the
+  # reductive enzyme, so a name query cannot separate them, and the organisms
+  # are phototrophs that do not live in the gut. Restricting dsrA's own query
+  # to bacteria and reading it beside the sulfate-reducer taxon group is the
+  # check that remains.
+
+  - id: PLPBG
+    label: PLP-dependent transsulfuration background (CGL fold)
+    source: uniprot
+    query: '((protein_name:"cystathionine beta-lyase") OR (protein_name:"cystathionine gamma-synthase") OR (protein_name:"O-acetylhomoserine aminocarboxypropyltransferase") OR (protein_name:"methionine gamma-lyase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 3000
+    length_tolerance: 0.25
+    note: >-
+      The transsulfuration family is large and closely related; CGL cannot be
+      separated from it at read level without this competition.
+
+aggregate: sum
+aggregate_from: [DSRA, ASRA]
+aggregate_reason: >-
+  The headline number is the dissimilatory route only. CGL is reported
+  separately and deliberately excluded from the aggregate: cysteine
+  desulfhydration is carried by a large fraction of the gut community and
+  including it would swamp the specific sulfate-reducer signal that the
+  ulcerative colitis and colorectal literature is actually about.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+caveats:
+  - >-
+    Gene capacity is not gas production. H2S output depends on dietary sulfate
+    and sulfur amino acid intake, on transit time, and on how fast colonocytes
+    oxidise sulfide back to thiosulfate — none of which is in the DNA.
+  - >-
+    Sulfide is not simply harmful. At low concentrations it is a signalling
+    molecule and a colonocyte energy substrate; the adverse direction in the
+    literature refers to sustained high luminal concentrations.
+  - >-
+    The CGL entry captures a broad enzyme family and should be read as
+    "capacity exists somewhere in this community", not as an attribution.
+
+interpretation:
+  what_it_is: >-
+    Hydrogen sulfide, a gas made by bacteria that breathe sulfate or break
+    down sulfur-containing amino acids.
+  made_from: Dietary sulfate (preservatives, some drinking water), red meat, eggs, cruciferous vegetables
+  higher_means: context-dependent
+  reader_direction: adverse
+  direction_note: >-
+    Hydrogen sulfide stops colon cells burning butyrate and is raised in ulcerative colitis; a trace is normal signalling, a high reading is not.
+  evidence_strength: moderate
+  summary: >-
+    Hydrogen sulfide impairs the ability of colon cells to burn butyrate for
+    energy, and     higher sulfide has been reported in ulcerative colitis. It is
+    also a normal signalling molecule at lower concentrations, so this is a
+    direction to notice rather than a hazard reading.
+  evidence_detail: >-
+    Roediger and colleagues showed that sulfide blocks butyrate oxidation in
+    isolated colonocytes, which is the mechanism most often invoked for the
+    ulcerative colitis association; Pitcher and Cummings measured higher
+    faecal sulfide in active UC. Sulfate-reducing bacteria are also enriched
+    in colorectal cancer cohorts, and hydrogen sulfide is genotoxic at
+    colonic concentrations. Against that, sulfide at physiological levels is
+    a signalling molecule with documented anti-inflammatory effects, and
+    Desulfovibrio is a normal member of most healthy adult communities. The
+    literature supports "sustained excess is adverse", not "sulfide is bad".
+  implications:
+    higher: >-
+      Your gut carries more sulfide-producing capacity than most people's,
+      largely from sulfate-reducing bacteria. Sustained high sulfide interferes
+      with how colon cells use butyrate, and higher levels have been reported
+      in ulcerative colitis. Dietary sulfate and sulfur-rich protein are the
+      raw material.
+    typical: >-
+      Your sulfide-producing capacity is unremarkable. Some is normal and
+      useful — sulfide is a signalling molecule in the gut wall.
+    lower: >-
+      Less sulfide-producing capacity than most people, meaning fewer sulfate-reducing bacteria and related pathways. Some sulfide is a normal signalling molecule in the gut wall, so this is not a deficiency; it reflects less of a diet-responsive niche and nothing here needs acting on.
+  citation: >-
+    Pitcher MC, Cummings JH, Gut 39:1-4 (1996); Roediger WE et al.,
+    Gastroenterology 104:802-809 (1993); Carbonero F et al., Nat Rev
+    Gastroenterol Hepatol 9:504-518 (2012)
+
+citation: >-
+  Carbonero F., Benefiel A.C., Alizadeh-Ghamsari A.H., Gaskins H.R.,
+  "Microbial pathways in colonic sulfur metabolism and links with health and
+  disease", Front Physiol 3:448 (2012), doi:10.3389/fphys.2012.00448.

@@ -1,0 +1,143 @@
+name: dopamine
+description: >-
+  Bacterial tyrosine decarboxylase (tyrDC), which converts L-tyrosine to
+  tyramine and — importantly for anyone on Parkinson's medication — converts
+  L-DOPA to dopamine in the gut lumen before it can be absorbed. The same
+  enzyme family also produces the trace amine tyramine, which is the more
+  likely everyday product.
+metabolite: Dopamine (from L-DOPA) and tyramine (from tyrosine)
+pathway: >-
+  L-tyrosine -> tyramine + CO2 (tyrDC); L-DOPA -> dopamine + CO2 (tyrDC, the
+  same active site); dopamine -> m-tyramine (Eggerthella lenta Dadh)
+category: neuroactive
+
+organisms:
+  - Enterococcus faecalis
+  - Enterococcus faecium
+  - Lactobacillus brevis
+  - Eggerthella lenta
+  - Staphylococcus epidermidis
+
+extension: true
+
+targets:
+  - id: TYRDC
+    label: tyrDC (tyrosine decarboxylase)
+    gene: tyrDC
+    source: uniprot
+    query: '(protein_name:"tyrosine decarboxylase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.25
+    note: >-
+      The single relevant residue is E. faecalis TyrDC position 458: the
+      Maini Rekdal work showed that a tyrosine there permits L-DOPA
+      decarboxylation while a phenylalanine restricts the enzyme to tyrosine.
+      A read fragment cannot be assigned to that position reliably, so this
+      panel measures the enzyme family and not the L-DOPA-competent subset.
+
+  - id: DADH
+    label: Dadh (dopamine dehydroxylase, Eggerthella lenta)
+    gene: dadh
+    source: uniprot
+    query: '((protein_name:"dopamine dehydroxylase") OR (protein_name:"molybdenum-dependent dopamine dehydroxylase")) AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 500
+    length_tolerance: 0.30
+    note: >-
+      Very small reference set. Expect this entry to be reference-limited
+      rather than a real zero.
+
+decoys:
+  # Without the wider group II PLP decarboxylase family, tyrDC cannot be
+  # separated from glutamate and histidine decarboxylases at read level.
+  - id: PLPDC2
+    label: group II PLP decarboxylase background
+    source: uniprot
+    query: '((protein_name:"glutamate decarboxylase") OR (protein_name:"histidine decarboxylase") OR (protein_name:"aromatic-L-amino-acid decarboxylase") OR (protein_name:"lysine decarboxylase") OR (protein_name:"ornithine decarboxylase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 3000
+    length_tolerance: 0.25
+    note: >-
+      Includes aromatic-L-amino-acid decarboxylase deliberately: it is the
+      closest annotation to tyrDC and the one most likely to absorb genuine
+      tyrDC reads. That makes this panel conservative rather than generous,
+      which is the right direction for a finding with a medication implication.
+
+  - id: MODEP
+    label: molybdopterin-dependent oxidoreductase background (Dadh fold)
+    source: uniprot
+    query: '((protein_name:"xanthine dehydrogenase molybdopterin binding subunit") OR (protein_name:"aldehyde oxidoreductase") OR (protein_name:"4-hydroxybenzoyl-CoA reductase subunit alpha")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 2000
+    length_tolerance: 0.30
+
+aggregate: sum
+aggregate_from: [TYRDC]
+aggregate_reason: >-
+  tyrDC alone carries the headline. Dadh acts on dopamine after it is formed
+  and is a different step, reported separately.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+caveats:
+  - >-
+    This is not a dopamine level and has nothing to say about mood, motivation
+    or reward. Bacterial dopamine made in the colon does not cross the
+    blood-brain barrier.
+  - >-
+    The clinically meaningful use of this measurement is in people taking
+    levodopa for Parkinson's disease, where gut tyrDC decarboxylates the drug
+    before absorption and higher carriage predicts a higher required dose.
+    That is a documented pharmacological interaction, and it is a conversation
+    with a neurologist, not an action to take from a stool report.
+  - >-
+    Read-level search cannot distinguish the L-DOPA-competent TyrDC variant
+    from the tyrosine-only variant, so this number overstates the
+    levodopa-relevant capacity.
+
+interpretation:
+  what_it_is: >-
+    A bacterial enzyme that decarboxylates tyrosine to tyramine, and L-DOPA to
+    dopamine, in the gut.
+  made_from: Dietary tyrosine; and levodopa, if taken as medication
+  higher_means: context-dependent
+  evidence_strength: moderate
+  summary: >-
+    Gut bacterial tyrosine decarboxylase converts levodopa into dopamine in the
+    intestine, where it cannot reach the brain. Higher carriage is associated
+    with needing a higher levodopa dose in Parkinson's disease. In people not
+    taking levodopa, this mostly reflects tyramine-producing capacity.
+  evidence_detail: >-
+    van Kessel et al. showed that Enterococcus faecalis tyrDC decarboxylates
+    levodopa in the gut, that carbidopa (the standard peripheral inhibitor)
+    does not block the bacterial enzyme, and that tyrDC abundance in stool
+    correlated with the levodopa dose Parkinson's patients required. Maini
+    Rekdal et al. independently identified the same enzyme and the single
+    active-site residue that determines whether it accepts L-DOPA, and found
+    a small molecule that inhibits it. This is one of the best-characterised
+    drug-microbiome interactions known. It says nothing about brain dopamine:
+    dopamine made in the colon does not cross the blood-brain barrier, which
+    is the entire reason levodopa is given rather than dopamine itself.
+  implications:
+    higher: >-
+      Your gut carries more tyrosine decarboxylase capacity than most people's.
+      If you take levodopa, this is the enzyme that decarboxylates it in the
+      gut before absorption, and higher carriage has been associated with
+      needing a higher dose — worth mentioning to your neurologist, not worth
+      acting on alone. If you do not take levodopa, this mainly reflects
+      capacity to make tyramine from dietary tyrosine.
+    typical: >-
+      Your tyrosine decarboxylase capacity sits in the middle of the reference range. This enzyme makes tyramine from dietary tyrosine and, in people taking levodopa, breaks the drug down before absorption; at a typical level neither effect stands out from the population.
+    lower: >-
+      Less tyrosine decarboxylase capacity than most people. For someone taking levodopa this would be the favourable direction — less gut breakdown of the drug — and for anyone else it mainly means less bacterial tyramine production from dietary protein. Nothing follows from it.
+  citation: >-
+    van Kessel S.P. et al., Nat Commun 10:310 (2019),
+    doi:10.1038/s41467-019-08294-y; Maini Rekdal V. et al., Science
+    364:eaau6323 (2019), doi:10.1126/science.aau6323
+
+citation: >-
+  van Kessel S.P., Frye A.K., El-Gendy A.O., et al., "Gut bacterial tyrosine
+  decarboxylases restrict levels of levodopa in the treatment of Parkinson's
+  disease", Nat Commun 10:310 (2019), doi:10.1038/s41467-019-08294-y.

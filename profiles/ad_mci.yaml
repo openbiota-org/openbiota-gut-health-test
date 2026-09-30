@@ -1,0 +1,189 @@
+name: ad_mci
+version: 1.0.0
+spec_version: 3
+label: "Mild cognitive impairment — gut pattern"
+disease: alzheimers_disease
+task: mci_vs_normal_control
+family: alzheimers_continuum
+body_site: stool
+population: east_asian_cohort_derived
+status: experimental
+evidence_maturity: P2
+
+summary: >-
+  Mild cognitive impairment is a different prediction task from clinical
+  Alzheimer's disease and is scored separately rather than folded into it. In
+  the staged Chinese cohort no species reached q < 0.05 at this stage, so the
+  strict panel that carries clinical AD does not exist here. What does exist
+  is an independent Taiwanese cohort of 119 MCI against 320 normal controls,
+  which is what this profile scores, plus the source cohort's exploratory
+  q < 0.25 set reported as a sensitivity result and never called validated.
+
+  The MCI stage is where the microbiome signal is smallest across the
+  Alzheimer's continuum, so this score is read as supporting context for the
+  clinical-stage pattern rather than on its own.
+
+references:
+  primary:
+    source: null
+    note: >-
+      Cognitively-normal controls are the only contrast, unmatched on the
+      vascular and metabolic comorbidity that accompanies cognitive decline.
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  fan_2025_taiwan:
+    label: "Fan 2025 Taiwan MCI cohort"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: fan_2025
+    maturity: P2
+    note: >-
+      119 MCI against 320 normal controls, an independent cohort from the
+      staged Chinese one. Used for direction and contradiction testing:
+      where it disagrees with the staged cohort, both assertions are kept.
+    sources: ["Fan 2025, PMC12123878, PRJNA1258384"]
+    features:
+      - name: Bacteroides_fragilis
+        level: species
+        direction: higher_in_case
+        w: 0.7
+        q: 0.6
+        s: 0.3
+        c: 0.7
+        sources: ["Fan 2025 PMC12123878"]
+      - name: Ruminococcus_gnavus
+        level: species
+        direction: higher_in_case
+        w: 0.7
+        q: 0.6
+        s: 0.3
+        c: 0.7
+        note: >-
+          Also enriched in inflammatory bowel disease and long COVID cohorts,
+          hence low specificity.
+        sources: ["Fan 2025 PMC12123878"]
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        w: 0.8
+        q: 0.6
+        s: 0.2
+        c: 0.8
+        conflict_note: >-
+          Genus Faecalibacterium is on the conflicted list; species only.
+        note: >-
+          The least specific finding in the microbiome literature. Depleted in
+          IBD, after antibiotics, on low-fibre diets and in general ill health.
+        sources: ["Fan 2025 PMC12123878"]
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.5
+        s: 0.2
+        c: 0.7
+        sources: ["Fan 2025 PMC12123878"]
+      - name: Eubacterium_rectale
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.5
+        s: 0.2
+        c: 0.7
+        sources: ["Fan 2025 PMC12123878"]
+
+  metaad_relaxed_mci:
+    label: "Jia 2025 exploratory set (q < 0.25) — sensitivity only"
+    type: sensitivity_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    study_group: metaad_2025
+    maturity: P1
+    note: >-
+      The staged cohort's relaxed q < 0.25 set for this stage. Reported as a
+      sensitivity result, never as validated, and never fused into the score.
+      At strict correction no species qualified for MCI at all, which is the
+      more important fact about this stage.
+    sources: ["Jia 2025 Mol Psychiatry (relaxed set)"]
+    features:
+      - name: Odoribacter_splanchnicus
+        level: species
+        direction: higher_in_case
+        w: 0.4
+        q: 0.3
+        s: 0.4
+        c: 0.5
+      - name: Alistipes_finegoldii
+        level: species
+        direction: higher_in_case
+        cluster: alistipes_lineage
+        w: 0.4
+        q: 0.3
+        s: 0.4
+        c: 0.5
+
+  metaad_ko_mci:
+    label: "Jia 2025 KEGG orthologue panel, MCI stage"
+    type: direction_panel
+    evidence_type: PATH_ABUND
+    claim_level: genomic_capacity
+    study_group: metaad_2025
+    maturity: P2
+    note: >-
+      With no strict species panel at this stage, the KO panel is where the
+      staged cohort's MCI signal actually lives — and this pipeline cannot
+      measure it, so the module is reported as unbound.
+    features:
+      - {name: K00857, direction: higher_in_case}
+      - {name: K01031, direction: higher_in_case}
+      - {name: K01754, direction: lower_in_case}
+
+unbound_sources:
+  - source: "Longitudinal normal-to-MCI — PMC12112180, PRJEB85717"
+    evidence_type: TAX_REL
+    note: "Hypothesis-only until external validation; not bound as a scoring module."
+  - source: "Longitudinal MCI-to-AD — PMC10855790"
+    evidence_type: TAX_REL
+    note: "Hypothesis-only until external validation."
+
+confounders:
+  - name: Age
+    effect: "Large across the lifespan and confounded with the diagnosis"
+    handling: "Reference matched on age band where the stratum is large enough"
+  - name: Geography
+    effect: "Both source cohorts are East Asian"
+    handling: "population_transportability reported"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Not a diagnosis or a risk estimate. Mild cognitive impairment is a
+    clinical determination made with cognitive testing.
+  - >-
+    At strict multiple-testing correction, no species distinguished this stage
+    in the largest staged cohort. This profile scores because an independent
+    cohort supports a direction, not because the signal is strong.
+  - >-
+    Three of the five scored features are butyrate-producer depletion or
+    R. gnavus enrichment, which appear in most gut disease cohorts. Read this
+    score beside the general dysbiosis index and the shape analysis.
+
+effect_size_note: >-
+  Fan 2025: 119 MCI, 320 normal controls, Taiwan. Jia 2025: 119 MCI within a
+  476-participant staged cohort; no species reached q < 0.05 at this stage.
+
+citation: >-
+  Fan et al. 2025, PMC12123878, data PRJNA1258384; Jia L, Ke Y, Zhao S, et al.
+  Metagenomic analysis characterizes stage-specific gut microbiota in
+  Alzheimer's disease. Mol Psychiatry 2025;30:3951-3962,
+  doi:10.1038/s41380-025-02973-7.

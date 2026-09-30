@@ -1,0 +1,46 @@
+name: methanogens
+label: "Methanogens (archaea)"
+category: function
+higher_means: context-dependent
+reader_direction: adverse
+direction_note: >-
+  Methane slows the gut down. High methanogen carriage is one of the firmest associations with constipation-predominant IBS, though many people with high levels have normal bowels.
+description: >-
+  The archaea that consume hydrogen and produce methane. Not bacteria — a
+  separate domain of life, and the only archaea present in most human guts.
+  They sit at the end of the fermentation chain, and by removing hydrogen
+  they let the upstream fermenters work faster. Methanobrevibacter smithii
+  accounts for nearly all of it.
+
+summary: >-
+  The methane-producing archaea in your gut. Roughly a third to a half of
+  adults carry them in quantity and the rest carry almost none — this is a
+  normal split, not a spectrum of health. Methane slows intestinal transit,
+  and high carriage is consistently associated with constipation.
+
+members:
+  - Methanobrevibacter smithii
+  - Methanosphaera stadtmanae
+  - Methanobrevibacter woesei
+
+unresolved:
+  - Methanomassiliicoccus luminyensis
+
+caveats:
+  - >-
+    Bimodal by nature. A near-zero reading is the normal state for a large
+    fraction of healthy adults and means the hydrogen goes elsewhere —
+    typically to acetogens or sulfate reducers instead.
+  - >-
+    Carriage is partly heritable and increases with age and with slow
+    transit, so cause and effect run both ways with constipation.
+  - >-
+    This group should agree closely with the methane gene panel: almost all
+    gut methanogenesis capacity is M. smithii, so a disagreement means a
+    broken map rather than an interesting community.
+
+citation: >-
+  Hansen E.E., Lozupone C.A., Rey F.E., et al., "Pan-genome of the dominant
+  human gut-associated archaeon, Methanobrevibacter smithii", PNAS 108
+  Suppl 1:4599-4606 (2011); Triantafyllou K. et al., J Neurogastroenterol
+  Motil 20:31-40 (2014).

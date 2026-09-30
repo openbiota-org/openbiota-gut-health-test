@@ -1,0 +1,121 @@
+{
+  "built_at": "2026-09-27T00:01:29-07:00",
+  "backbone": {
+    "gtdb": "R232",
+    "globdb": "r232",
+    "n_globdb_representatives": 346233,
+    "n_uhgg_v1_genomes_in_gtdb": 4249
+  },
+  "quality_policy": {
+    "min_completeness": 50.0,
+    "max_contamination": 10.0
+  },
+  "clustering_rule": {
+    "ani": 95.0,
+    "af_shorter": 65.0,
+    "chaining": "none"
+  },
+  "sources": {
+    "uhgg_v2.0.2": {
+      "source": "uhgg_v2.0.2",
+      "n_representatives": 4744,
+      "categories": {
+        "already_represented": 4163,
+        "new_cluster": 111,
+        "additional_strain_reference": 0,
+        "better_reference": 0,
+        "unresolved_mapping": 470,
+        "excluded_quality": 0
+      },
+      "methods": {
+        "accession": 4025,
+        "globdb_rep": 111,
+        "name_match": 138,
+        "none": 470
+      },
+      "n_genomes_in_catalogue": 289232,
+      "n_species": 4744
+    },
+    "hrgm2": {
+      "source": "hrgm2",
+      "n_representatives": 4824,
+      "categories": {
+        "already_represented": 4100,
+        "new_cluster": 472,
+        "additional_strain_reference": 0,
+        "better_reference": 0,
+        "unresolved_mapping": 252,
+        "excluded_quality": 0
+      },
+      "methods": {
+        "assembly_walk": 4088,
+        "globdb_rep": 472,
+        "none": 252,
+        "name_match": 12
+      },
+      "n_rep_genomes_on_disk": 4824
+    },
+    "humgut2": {
+      "source": "humgut2",
+      "n_representatives": 31225,
+      "categories": {
+        "already_represented": 30301,
+        "new_cluster": 0,
+        "additional_strain_reference": 0,
+        "better_reference": 0,
+        "unresolved_mapping": 924,
+        "excluded_quality": 0
+      },
+      "methods": {
+        "assembly_walk": 24579,
+        "name_match": 2831,
+        "accession": 2891,
+        "none": 924
+      },
+      "n_clusters95": 6914,
+      "count_unit": "genome (not species)"
+    },
+    "hrom": {
+      "source": "hrom",
+      "n_representatives": 5113,
+      "categories": {
+        "already_represented": 1858,
+        "new_cluster": 0,
+        "additional_strain_reference": 0,
+        "better_reference": 0,
+        "unresolved_mapping": 3255,
+        "excluded_quality": 0
+      },
+      "methods": {
+        "assembly_walk": 1622,
+        "none": 3255,
+        "name_match": 236
+      },
+      "n_gut_oral_shared": 5071
+    },
+    "elgg": {
+      "source": "elgg",
+      "n_representatives": 2172,
+      "categories": {
+        "already_represented": 591,
+        "new_cluster": 0,
+        "additional_strain_reference": 1152,
+        "better_reference": 0,
+        "unresolved_mapping": 429,
+        "excluded_quality": 0
+      },
+      "methods": {
+        "accession": 591,
+        "none": 145,
+        "ani": 1436
+      },
+      "n_mags": 1436,
+      "ani_run": true,
+      "n_same_species_as_hrgm2_rep": 1162,
+      "n_boundary": 146,
+      "rule": "ANI>=95.0 and AF(shorter)>=65.0; skani skani 0.3.2"
+    }
+  },
+  "rescue_panel": "refs/expanded/reconciliation/rescue_panel.tsv",
+  "note": "counts are per source and are not summed; GlobDB already consolidates UHGG, HRGM2 and mOTUs"
+}

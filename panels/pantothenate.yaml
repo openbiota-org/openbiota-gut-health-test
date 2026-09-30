@@ -1,0 +1,110 @@
+name: pantothenate
+description: >-
+  Pantothenate synthesis from both of its branches. Pantoate and
+  beta-alanine are made separately and joined by pantothenate synthetase.
+  Downstream use of pantothenate to make coenzyme A is consumption, not a
+  second route to production, and is deliberately not counted.
+metabolite: Vitamin B5 (pantothenate)
+pathway: >-
+  pantoate (panB, panE) + beta-alanine (panD) -> panC -> pantothenate
+category: vitamin
+
+extension: true
+
+targets:
+  - id: PANC
+    label: panC (pantothenate synthetase)
+    gene: panC
+    source: uniprot
+    query: '(protein_name:"Pantothenate synthetase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: PANB
+    label: panB (ketopantoate hydroxymethyltransferase)
+    gene: panB
+    source: uniprot
+    query: '(protein_name:"3-methyl-2-oxobutanoate hydroxymethyltransferase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: PAND
+    label: panD (aspartate 1-decarboxylase)
+    gene: panD
+    source: uniprot
+    query: '(protein_name:"Aspartate 1-decarboxylase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: PANE
+    label: panE (ketopantoate reductase)
+    gene: panE
+    source: uniprot
+    query: '(protein_name:"2-dehydropantoate 2-reductase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: PANF
+    label: panF (pantothenate symporter, uptake not synthesis)
+    gene: panF
+    source: uniprot
+    query: '(protein_name:"Sodium/pantothenate symporter") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 1776
+    length_tolerance: 0.3
+
+aggregate: sum
+aggregate_from: [PANC, PANB, PAND]
+aggregate_reason: >-
+  Both branches and the ligase that joins them. A community with only one
+  branch makes an intermediate and stops.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+citation: >-
+  Magnusdottir S., Ravcheev D., de Crecy-Lagard V., Thiele I., Front Genet
+  6:148 (2015), doi:10.3389/fgene.2015.00148.
+
+interpretation:
+  what_it_is: >-
+    Whether your bacteria can build pantothenate from both of its
+    branches, rather than only use the vitamin once it exists.
+  made_from: >-
+    Built de novo from pantoate and beta-alanine, joined by pantothenate
+    synthetase
+  summary: >-
+    Pantothenate is the precursor of coenzyme A, so the enzymes that
+    consume it are universal and the enzymes that make it are not. Only
+    the making is counted here.
+  evidence_detail: >-
+    Every living cell needs coenzyme A, so counting the consuming step
+    would turn every organism into a producer; coaA is deliberately absent
+    from this panel for that reason. Magnusdottir and colleagues found
+    pantothenate synthesis in roughly half the gut genomes they
+    reconstructed, with the beta-alanine branch the more commonly missing
+    of the two, which is why that branch is measured on its own as well as
+    in the total.
+  higher_means: favourable
+  evidence_strength: limited
+  implications:
+    higher: >-
+      More complete pantothenate routes than most samples carry, with
+      both the pantoate and beta-alanine branches present along with the
+      ligase that joins them into the finished vitamin.
+    typical: >-
+      Mid-range pantothenate synthesis capacity, which is the usual
+      finding. About half of gut species can build it from both branches
+      and the rest take up what is already available, so a middling
+      value reflects the ordinary division of labour.
+    lower: >-
+      Fewer complete routes here. Pantothenate is widespread in food and
+      deficiency is rare, so this is a statement about your bacteria
+      rather than about you.
+  citation: >-
+    Magnusdottir S., Ravcheev D., de Crecy-Lagard V., Thiele I., Front
+    Genet 6:148 (2015), doi:10.3389/fgene.2015.00148.

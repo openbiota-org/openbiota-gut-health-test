@@ -1,0 +1,138 @@
+name: bglucuronidase
+description: >-
+  Bacterial beta-glucuronidase (GUS), which cleaves the glucuronide group
+  that the liver attaches to drugs, hormones and toxins for excretion. When
+  gut bacteria remove it, the compound is reactivated in the lumen and
+  reabsorbed. This is the enterohepatic recycling route for oestrogen and the
+  mechanism behind irinotecan's dose-limiting gut toxicity.
+metabolite: Deconjugated glucuronides (oestrogens, drug metabolites, bilirubin)
+pathway: >-
+  compound-glucuronide + H2O -> compound + D-glucuronic acid (GUS,
+  glycoside hydrolase family 2)
+category: detox
+
+organisms:
+  - Escherichia coli
+  - Clostridium perfringens
+  - Bacteroides fragilis
+  - Bacteroides uniformis
+  - Faecalibacterium prausnitzii
+  - Roseburia hominis
+
+extension: true
+
+targets:
+  # GH2 beta-glucuronidase has a clean recommended protein name and a tight
+  # ~600 aa length. The critical problem is not the name but the family:
+  # beta-galactosidase (lacZ) is the same GH2 fold at the same length and is
+  # present in a large fraction of gut genomes, so the decoy below is what
+  # makes this panel mean anything.
+  - id: GUS
+    label: GUS (beta-glucuronidase, GH2)
+    gene: gus
+    source: uniprot
+    query: '(protein_name:"beta-glucuronidase") AND (taxonomy_id:2)'
+    min_identity: 65.0
+    max_sequences: 2500
+    length_tolerance: 0.25
+    note: >-
+      Identity threshold raised to 65% (most panels use 60%) because the
+      nearest neighbour in sequence space, beta-galactosidase, is both
+      abundant and functionally different.
+
+decoys:
+  - id: LACZ
+    label: lacZ / beta-galactosidase and the wider GH2 family
+    source: uniprot
+    query: '((protein_name:"beta-galactosidase") OR (protein_name:"beta-mannosidase") OR (protein_name:"exo-beta-D-glucosaminidase")) AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 4000
+    length_tolerance: 0.25
+    note: >-
+      The decisive decoy. Beta-galactosidase is one of the most abundant
+      enzymes in the gut metagenome and shares the GH2 TIM-barrel with GUS.
+      A GUS panel without it reports the lactose-digesting capacity of the
+      community as drug-reactivation capacity.
+
+  - id: GHBG
+    label: broad glycoside hydrolase background
+    source: uniprot
+    query: '((protein_name:"beta-glucosidase") OR (protein_name:"alpha-L-arabinofuranosidase") OR (protein_name:"beta-xylosidase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 3000
+    length_tolerance: 0.30
+
+aggregate: sum
+aggregate_reason: "Single target; the aggregate is the GUS value itself."
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+# GUS is a paralog-rich family: a single Bacteroides genome commonly carries
+# two to four GUS enzymes of different structural classes (Pollet et al. 2017
+# found 279 GUS across 139 HMP genomes), so 100-200 copies per 100 genomes is
+# ordinary biology, not cross-family capture. The plausibility ceiling scales
+# by this figure.
+expected_copies_per_genome: 3
+
+caveats:
+  - >-
+    GUS enzymes are structurally diverse and their activity on any given
+    substrate varies enormously between loop classes. The Redinbo group
+    showed that FMN-binding-loop GUS enzymes are the ones that reactivate
+    irinotecan efficiently, and read-level search cannot resolve loop class.
+    This is total GUS capacity, not substrate-specific activity.
+  - >-
+    The oestrogen recycling claim ("estrobolome") is widely repeated and
+    thinly evidenced in humans. GUS activity does deconjugate oestrogen
+    glucuronides in vitro; whether the variation between healthy people
+    changes circulating oestrogen enough to matter is not established.
+  - >-
+    Nothing here should be read as a reason to change any medication.
+
+interpretation:
+  what_it_is: >-
+    A bacterial enzyme that reverses one of the liver's main routes for
+    getting rid of drugs, hormones and toxins.
+  made_from: Glucuronide conjugates made by your own liver
+  higher_means: context-dependent
+  reader_direction: adverse
+  direction_note: >-
+    Reactivates toxins, hormones and drugs the liver had tagged for excretion; raised in colorectal-cancer cohorts and the cause of irinotecan gut toxicity.
+  evidence_strength: moderate
+  summary: >-
+    Your liver tags compounds with glucuronic acid to excrete them. Gut
+    bacterial beta-glucuronidase removes that tag, sending the compound back
+    into circulation. This is well established for the chemotherapy drug
+    irinotecan and is the proposed route for oestrogen recycling.
+  evidence_detail: >-
+    The best-evidenced case is irinotecan: bacterial GUS reactivates the
+    inactive SN-38G metabolite in the gut, producing the dose-limiting
+    diarrhoea, and Wallace et al. showed that a selective bacterial GUS
+    inhibitor prevented that toxicity in mice without harming the bacteria.
+    Pollet et al. mapped GUS diversity across the human gut and showed that
+    loop structure, not abundance, governs which substrates an enzyme
+    processes. The oestrogen story rests mostly on in vitro deconjugation and
+    on correlational studies; it is plausible and popular, and it is not
+    established that between-person GUS variation changes circulating
+    hormone levels in a way that matters.
+  implications:
+    higher: >-
+      Your gut carries more beta-glucuronidase capacity than most people's,
+      meaning more capacity to reverse the liver's glucuronide tagging and
+      send compounds back into circulation. What that means depends entirely
+      on what you are exposed to — it is well characterised for one
+      chemotherapy drug and speculative for hormones.
+    typical: >-
+      Your beta-glucuronidase capacity sits in the middle of the reference range. Some is universal — every gut community carries it — and it is part of how the gut recycles the liver's tagged compounds, including bile and hormones.
+    lower: >-
+      Less beta-glucuronidase capacity than most people, meaning less capacity to un-tag glucuronidated compounds and return them to circulation. This has no established significance in healthy people; it would matter chiefly for the handling of specific drugs such as irinotecan.
+  citation: >-
+    Wallace B.D. et al., Science 330:831-835 (2010),
+    doi:10.1126/science.1191175; Pollet R.M. et al., Structure 25:967-977
+    (2017), doi:10.1016/j.str.2017.05.003
+
+citation: >-
+  Wallace B.D., Wang H., Lane K.T., et al., "Alleviating cancer drug toxicity
+  by inhibiting a bacterial enzyme", Science 330:831-835 (2010),
+  doi:10.1126/science.1191175.

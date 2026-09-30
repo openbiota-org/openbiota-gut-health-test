@@ -1,0 +1,40 @@
+{
+  "source_id": "sgb_bridges",
+  "files": {
+    "crosswalk/upstream/mpa_vJun23_CHOCOPhlAnSGB_202403_SGB2GTDB_r207.tsv": {
+      "url": "https://raw.githubusercontent.com/biobakery/MetaPhlAn/master/metaphlan/utils/mpa_vJun23_CHOCOPhlAnSGB_202403_SGB2GTDB_r207.tsv",
+      "size": 4751735,
+      "retrieved_at": "2026-09-26T23:23:35-07:00",
+      "sha256": "79bb603521c29bfbcb0d553c56ba46c6d267ccdc8d5d88208c76895be55d26ce",
+      "verified": true,
+      "publisher_checksum": null,
+      "note": "the correct bridge for the installed Jun23 database (the repo had been applying the Jan25/R220 file)",
+      "verification": "size matched Content-Length; no publisher checksum published"
+    },
+    "crosswalk/upstream/mpa_vJan25_CHOCOPhlAnSGB_202503_SGB2GTDB_r220.tsv": {
+      "url": "https://raw.githubusercontent.com/biobakery/MetaPhlAn/master/metaphlan/utils/mpa_vJan25_CHOCOPhlAnSGB_202503_SGB2GTDB_r220.tsv",
+      "size": 7497489,
+      "retrieved_at": "2026-09-26T23:23:35-07:00",
+      "sha256": "037947d047f48719359905c63a0ba51ae0e12cbfae15d8fda02c2e82524313c2",
+      "verified": true,
+      "publisher_checksum": null,
+      "note": "kept only to reproduce and audit the historical misuse",
+      "verification": "size matched Content-Length; no publisher checksum published"
+    },
+    "crosswalk/upstream/mpa_vJan26_CHOCOPhlAnSGB_202605_SGB2GTDB_r226.tsv": {
+      "url": "https://raw.githubusercontent.com/biobakery/MetaPhlAn/master/metaphlan/utils/mpa_vJan26_CHOCOPhlAnSGB_202605_SGB2GTDB_r226.tsv",
+      "size": 9076291,
+      "retrieved_at": "2026-09-26T23:23:35-07:00",
+      "sha256": "a7a198208ac4a0eb2f6b1b2030b68f8920d548093cc7b2c8af2faf4209395b0f",
+      "verified": true,
+      "publisher_checksum": null,
+      "note": "upstream SGB->GTDB bridge for the Jan26 database; an intermediate step, never a label",
+      "verification": "size matched Content-Length; no publisher checksum published"
+    }
+  },
+  "release_id": "MetaPhlAn utils @ master 2026-09",
+  "taxonomy_release": "GTDB R226",
+  "license": "MIT (MetaPhlAn)",
+  "count_unit": "",
+  "source_count": null
+}

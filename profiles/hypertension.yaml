@@ -1,0 +1,191 @@
+name: hypertension
+version: 1.0.0
+spec_version: 3
+label: "Hypertension — gut pattern"
+disease: hypertension
+task: hypertension_vs_normotensive
+family: cardiometabolic
+body_site: stool
+population: chinese_cohort_derived
+status: experimental
+evidence_maturity: P2
+challenge_for: [acvd, obesity, t2d]
+
+summary: >-
+  Li et al. shotgun-sequenced 196 Chinese participants across normotension,
+  pre-hypertension and hypertension and found reduced gene richness with
+  Prevotella and Klebsiella enrichment, and faecal transplant from
+  hypertensive humans raised blood pressure in germ-free mice. The
+  mechanistic story is short-chain fatty acids acting on the Olfr78 and
+  GPR41 receptors in the kidney and vasculature (Pluznick 2013), which makes
+  butyrate and propionate capacity the lanes worth reading.
+
+  Salt intake, adiposity and antihypertensive drugs all shape the gut, and
+  the pattern is not separable from the metabolic-syndrome pattern.
+
+references:
+  primary:
+    source: null
+    note: "Normotensive controls matched on BMI and salt intake do not exist in public shotgun data."
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  li_2017:
+    label: "Li 2017 Chinese hypertension shotgun (196)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: li_2017
+    maturity: P2
+    weight_in_combined: 1.0
+    sources: ["Li J, et al. Microbiome 2017;5:14"]
+    features:
+      - name: Prevotella_copri
+        level: species
+        direction: higher_in_case
+        w: 0.7
+        q: 0.6
+        s: 0.3
+        c: 0.6
+        conflict_note: "Genus Prevotella is on the conflicted list; species only. Prevotella-dominant enterotype was the hypertension-associated one in this cohort."
+      - name: Klebsiella_pneumoniae
+        level: species
+        direction: higher_in_case
+        w: 0.7
+        q: 0.6
+        s: 0.4
+        c: 0.7
+      - name: Enterobacter_cloacae_complex
+        level: species
+        direction: higher_in_case
+        w: 0.4
+        q: 0.5
+        s: 0.4
+        c: 0.5
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.6
+        s: 0.2
+        c: 0.7
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.6
+        s: 0.3
+        c: 0.7
+      - name: Bacteroides_uniformis
+        level: species
+        direction: lower_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.6
+      - name: Oscillibacter_sp_57_20
+        level: species
+        direction: lower_in_case
+        w: 0.4
+        q: 0.5
+        s: 0.4
+        c: 0.5
+      - name: Butyrivibrio_crossotus
+        level: species
+        direction: lower_in_case
+        w: 0.4
+        q: 0.5
+        s: 0.5
+        c: 0.5
+
+  ecology:
+    label: "Gene richness"
+    type: direction_panel
+    evidence_type: ECO
+    claim_level: observed
+    study_group: li_2017
+    maturity: P2
+    features:
+      - name: richness
+        direction: decreased
+        w: 0.7
+        q: 0.6
+        s: 0.1
+        c: 0.7
+      - name: shannon
+        direction: decreased
+        w: 0.5
+        q: 0.6
+        s: 0.1
+        c: 0.7
+
+  functional:
+    label: "SCFA and TMA capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P2
+    note: "SCFAs lower blood pressure through GPR41 and raise it through Olfr78, with a net hypotensive effect in animal models (Pluznick 2013). TMAO is associated with hypertension in meta-analyses. Capacities, not plasma levels."
+    sources:
+      - "Pluznick JL, et al. PNAS 2013;110:4410"
+      - "Ge X, et al. Adv Nutr 2020;11:66 (TMAO and hypertension meta-analysis)"
+    features:
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        w: 0.8
+        q: 0.6
+        s: 0.2
+        c: 0.7
+      - name: propionate
+        engine: diamond
+        direction: decreased
+        w: 0.6
+        q: 0.6
+        s: 0.3
+        c: 0.6
+      - name: cutc
+        engine: diamond
+        direction: increased
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.6
+
+confounders:
+  - name: Salt intake
+    effect: "High salt depletes Lactobacillus and raises TH17 in mice and humans (Wilck 2017); not measurable from stool"
+    handling: "Recorded in the ledger when supplied"
+  - name: Adiposity
+    effect: "Hypertension and obesity travel together"
+    handling: "BMI recorded; obesity is a challenge set"
+  - name: Antihypertensives
+    effect: "ACE inhibitors and calcium channel blockers have documented microbiome effects"
+    handling: "Recorded when supplied"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Blood pressure is measured with a cuff. It is cheap and definitive.
+    This profile adds nothing to that measurement.
+  - >-
+    The pattern is the metabolic-syndrome pattern plus a Prevotella
+    enterotype signal that is diet- and geography-dependent.
+
+effect_size_note: >-
+  Li 2017: 41 healthy, 56 pre-hypertensive, 99 hypertensive, Chinese, with
+  germ-free mouse transfer.
+
+citation: >-
+  Li J, et al. Gut microbiota dysbiosis contributes to the development of
+  hypertension. Microbiome 2017;5:14; Pluznick JL, et al. Olfactory receptor
+  responding to gut microbiota-derived signals plays a role in renin secretion
+  and blood pressure regulation. PNAS 2013;110:4410.

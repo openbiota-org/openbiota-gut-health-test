@@ -1,0 +1,1528 @@
+schema_version: openbiota.new-panels/1.0
+spec_version: 0.8.3
+panels:
+- name: thiamine
+  metabolite: Vitamin B1 (thiamine)
+  category: vitamin
+  higher_means: favourable
+  evidence_strength: limited
+  description: 'Thiamine synthesis. The thiazole and pyrimidine rings are built separately
+    and joined by thiamine phosphate synthase, so all three are measured: either ring on its
+    own makes an intermediate and stops.'
+  pathway: thiazole (thiG) + hydroxymethylpyrimidine (thiC) -> thiE -> thiamine phosphate
+  targets:
+  - id: THIE
+    gene: thiE
+    label: thiE (thiamine phosphate synthase)
+    query: Thiamine phosphate synthase
+    n_uniprot: 26160
+  - id: THIC
+    gene: thiC
+    label: thiC (phosphomethylpyrimidine synthase)
+    query: Phosphomethylpyrimidine synthase
+    n_uniprot: 11962
+  - id: THID
+    gene: thiD
+    label: thiD (phosphomethylpyrimidine kinase)
+    query: Phosphomethylpyrimidine kinase
+    n_uniprot: 7548
+  - id: THIM
+    gene: thiM
+    label: thiM (hydroxyethylthiazole kinase)
+    query: Hydroxyethylthiazole kinase
+    n_uniprot: 5952
+  - id: THIG
+    gene: thiG
+    label: thiG (thiazole synthase)
+    query: Thiazole synthase
+    n_uniprot: 9000
+  - id: THIH
+    gene: thiH
+    label: thiH (2-iminoacetate synthase)
+    query: 2-iminoacetate synthase
+    n_uniprot: 2265
+  - id: THIS
+    gene: thiS
+    label: thiS (sulfur carrier protein)
+    query: Sulfur carrier protein ThiS
+    n_uniprot: 13407
+  - id: THIB
+    gene: thiB
+    n_uniprot: 1535
+    label: thiB (thiamine-binding protein, uptake not synthesis)
+    query: Thiamine-binding periplasmic protein
+  - id: THIP
+    gene: thiP
+    n_uniprot: 1952
+    label: thiP (thiamine transport permease, uptake not synthesis)
+    query: Thiamine transport system permease
+  - id: THIQ
+    gene: thiQ
+    n_uniprot: 614
+    label: thiQ (thiamine import ATP-binding, uptake not synthesis)
+    query: Thiamine import ATP-binding protein
+  aggregate_from:
+  - THIE
+  - THIC
+  - THIG
+  aggregate_reason: The coupling step and both rings. Their sum tracks complete synthesis
+    better than any one, and the salvage kinases are reported separately because salvage is
+    not synthesis.
+  what_it_is: Your gut bacteria's capacity to build thiamine from scratch, rather than only
+    take in thiamine that is already there.
+  made_from: Built de novo by bacteria from a thiazole ring and a pyrimidine ring, joined
+    by thiamine phosphate synthase
+  summary: Most gut species cannot make thiamine and depend on the ones that can. This counts
+    how much of your community carries the complete route.
+  evidence_detail: 'Magnusdottir and colleagues reconstructed B-vitamin synthesis across gut
+    genomes and found thiamine synthesis in a minority of them, with most species depending
+    on what others make or on what arrives in food. That makes thiamine one of the clearer
+    cases of cross-feeding in the gut, and it is why the two rings and their coupling step
+    are counted separately: a community can carry the branches without the synthase that joins
+    them. What this cannot tell you is your thiamine status. Dietary thiamine is absorbed
+    in the small intestine, upstream of where most of this synthesis happens, and deficiency
+    is a clinical diagnosis rather than a stool one.'
+  implications:
+    higher: More of your bacteria carry a complete route to thiamine than in most samples.
+      The colon absorbs little of what they make, so the likeliest consequence is within the
+      community, where thiamine-dependent species have a nearer source.
+    typical: Your community's thiamine synthesis capacity sits in the middle of the reference
+      range. Most gut species cannot make thiamine and rely on the ones that can, so a middling
+      value is the ordinary arrangement rather than a shortfall.
+    lower: Fewer complete thiamine routes than most people carry. This says nothing about
+      your vitamin B1 status, which comes from food and is absorbed before the colon.
+  citation: Magnusdottir S., Ravcheev D., de Crecy-Lagard V., Thiele I., "Systematic genome
+    assessment of B-vitamin biosynthesis suggests co-operation among gut microbes", Front
+    Genet 6:148 (2015), doi:10.3389/fgene.2015.00148.
+- name: niacin
+  metabolite: Vitamin B3 (niacin and NAD precursors)
+  category: vitamin
+  higher_means: favourable
+  evidence_strength: limited
+  description: NAD synthesis by the de-novo aspartate route, kept apart from nicotinamide
+    salvage. Salvaging an intact pyridine ring is not the same as building one, and the two
+    reach NAD by different chemistry.
+  pathway: aspartate -> quinolinate (nadB, nadA) -> NaMN (nadC) -> NAD
+  targets:
+  - id: NADA
+    gene: nadA
+    label: nadA (quinolinate synthase)
+    query: Quinolinate synthase
+    n_uniprot: 15076
+  - id: NADB
+    gene: nadB
+    label: nadB (L-aspartate oxidase)
+    query: L-aspartate oxidase
+    n_uniprot: 13959
+  - id: NADC
+    gene: nadC
+    label: nadC (nicotinate-nucleotide pyrophosphorylase)
+    query: Nicotinate-nucleotide pyrophosphorylase [carboxylating]
+    n_uniprot: 13255
+  - id: NADD
+    gene: nadD
+    label: nadD (nicotinate-nucleotide adenylyltransferase)
+    query: Nicotinate-nucleotide adenylyltransferase
+    n_uniprot: 18873
+  - id: NADE
+    gene: nadE
+    label: nadE (NAD synthetase)
+    query: NAD synthetase
+    n_uniprot: 476
+  - id: PNCA
+    gene: pncA
+    n_uniprot: 16636
+    max_sequences: 2500
+    label: pncA (nicotinamidase, salvage not synthesis)
+    query: Nicotinamidase
+  - id: PNCB
+    gene: pncB
+    n_uniprot: 15379
+    max_sequences: 2500
+    label: pncB (nicotinate phosphoribosyltransferase, salvage)
+    query: Nicotinate phosphoribosyltransferase
+  - id: PNUC
+    gene: pnuC
+    n_uniprot: 6977
+    max_sequences: 2500
+    label: pnuC (nicotinamide riboside transporter, uptake)
+    query: Nicotinamide riboside transporter
+  decoys:
+  - id: NADSALV
+    label: nicotinamide and nicotinate salvage
+    query_or:
+    - Nicotinamidase
+    - Nicotinate phosphoribosyltransferase
+    note: Salvage recovers a ring that already exists and is close to universal. Holding it
+      out of the target set is what makes this a de-novo measurement rather than a census.
+  aggregate_from:
+  - NADA
+  - NADB
+  - NADC
+  aggregate_reason: Three consecutive steps of one obligate route from aspartate. Their sum
+    is steadier than any one of them.
+  what_it_is: Whether your bacteria can build the niacin ring from aspartate, as distinct
+    from recycling nicotinamide that already exists.
+  made_from: Built de novo from aspartate through quinolinate, or salvaged from nicotinamide
+  summary: The de-novo route and the salvage route both end at NAD. This measures the first
+    and deliberately excludes the second.
+  evidence_detail: 'A gene count that pooled the two routes would report almost every community
+    as a producer, because salvage is close to universal. Rodionov and colleagues mapped both
+    across gut genomes and found the de-novo route much less common, which is why the salvage
+    enzymes are held out as a decoy set here rather than counted as production. Niacin is
+    also one of the vitamins where host and bacterial supply are hard to separate: your own
+    cells make NAD from tryptophan, and colonic absorption of bacterial niacin is limited.'
+  implications:
+    higher: More of your bacteria carry the aspartate route to the niacin ring than in most
+      samples. They are building the ring rather than recycling one.
+    typical: Your community's de-novo niacin capacity is mid-range, which is the usual finding.
+      Most gut bacteria salvage nicotinamide rather than building the ring from aspartate,
+      and this reading deliberately does not count that salvage.
+    lower: Fewer bacteria here carry the de-novo route. They can still salvage nicotinamide,
+      and your own niacin status depends on diet and on tryptophan rather than on this.
+  citation: Rodionov D.A. et al., "Micronutrient requirements and sharing capabilities of
+    the human gut microbiome", Front Microbiol 10:1316 (2019), doi:10.3389/fmicb.2019.01316.
+- name: pantothenate
+  metabolite: Vitamin B5 (pantothenate)
+  category: vitamin
+  higher_means: favourable
+  evidence_strength: limited
+  description: Pantothenate synthesis from both of its branches. Pantoate and beta-alanine
+    are made separately and joined by pantothenate synthetase. Downstream use of pantothenate
+    to make coenzyme A is consumption, not a second route to production, and is deliberately
+    not counted.
+  pathway: pantoate (panB, panE) + beta-alanine (panD) -> panC -> pantothenate
+  targets:
+  - id: PANC
+    gene: panC
+    label: panC (pantothenate synthetase)
+    query: Pantothenate synthetase
+    n_uniprot: 15329
+  - id: PANB
+    gene: panB
+    label: panB (ketopantoate hydroxymethyltransferase)
+    query: 3-methyl-2-oxobutanoate hydroxymethyltransferase
+    n_uniprot: 16547
+  - id: PAND
+    gene: panD
+    label: panD (aspartate 1-decarboxylase)
+    query: Aspartate 1-decarboxylase
+    n_uniprot: 12006
+  - id: PANE
+    gene: panE
+    label: panE (ketopantoate reductase)
+    query: 2-dehydropantoate 2-reductase
+    n_uniprot: 18311
+  - id: PANF
+    gene: panF
+    n_uniprot: 1776
+    label: panF (pantothenate symporter, uptake not synthesis)
+    query: Sodium/pantothenate symporter
+  aggregate_from:
+  - PANC
+  - PANB
+  - PAND
+  aggregate_reason: Both branches and the ligase that joins them. A community with only one
+    branch makes an intermediate and stops.
+  what_it_is: Whether your bacteria can build pantothenate from both of its branches, rather
+    than only use the vitamin once it exists.
+  made_from: Built de novo from pantoate and beta-alanine, joined by pantothenate synthetase
+  summary: Pantothenate is the precursor of coenzyme A, so the enzymes that consume it are
+    universal and the enzymes that make it are not. Only the making is counted here.
+  evidence_detail: Every living cell needs coenzyme A, so counting the consuming step would
+    turn every organism into a producer; coaA is deliberately absent from this panel for that
+    reason. Magnusdottir and colleagues found pantothenate synthesis in roughly half the gut
+    genomes they reconstructed, with the beta-alanine branch the more commonly missing of
+    the two, which is why that branch is measured on its own as well as in the total.
+  implications:
+    higher: More complete pantothenate routes than most samples carry, with both the pantoate
+      and beta-alanine branches present along with the ligase that joins them into the finished
+      vitamin.
+    typical: Mid-range pantothenate synthesis capacity, which is the usual finding. About
+      half of gut species can build it from both branches and the rest take up what is already
+      available, so a middling value reflects the ordinary division of labour.
+    lower: Fewer complete routes here. Pantothenate is widespread in food and deficiency is
+      rare, so this is a statement about your bacteria rather than about you.
+  citation: Magnusdottir S., Ravcheev D., de Crecy-Lagard V., Thiele I., Front Genet 6:148
+    (2015), doi:10.3389/fgene.2015.00148.
+- name: b6
+  metabolite: Vitamin B6 (pyridoxal phosphate)
+  category: vitamin
+  higher_means: favourable
+  evidence_strength: limited
+  description: Both documented routes to vitamin B6, treated as alternatives. The DXP-independent
+    route is the common bacterial one; the DXP-dependent route is found in Escherichia coli
+    and its relatives. Either complete route is enough.
+  pathway: pdxS with pdxT (DXP-independent), or pdxA with pdxJ (DXP-dependent) -> pyridoxal
+    5-phosphate
+  targets:
+  - id: PDXS
+    gene: pdxS
+    label: pdxS (PLP synthase
+    synthase subunit): null
+    query: Pyridoxal 5'-phosphate synthase subunit PdxS
+    n_uniprot: 6388
+  - id: PDXT
+    gene: pdxT
+    label: pdxT (PLP synthase
+    glutaminase subunit): null
+    query: Pyridoxal 5'-phosphate synthase subunit PdxT
+    n_uniprot: 5961
+  - id: PDXA
+    gene: pdxA
+    label: pdxA (4-hydroxythreonine-4-phosphate dehydrogenase)
+    query: 4-hydroxythreonine-4-phosphate dehydrogenase
+    n_uniprot: 13631
+  - id: PDXJ
+    gene: pdxJ
+    label: pdxJ (pyridoxine 5-phosphate synthase)
+    query: Pyridoxine 5'-phosphate synthase
+    n_uniprot: 9769
+  - id: PDXH
+    gene: pdxH
+    n_uniprot: 11770
+    max_sequences: 2500
+    label: pdxH (pyridoxine 5'-phosphate oxidase, salvage)
+    query: Pyridoxine/pyridoxamine 5'-phosphate oxidase
+  - id: PDXK
+    gene: pdxK
+    n_uniprot: 7832
+    max_sequences: 2500
+    label: pdxK (pyridoxal kinase, salvage)
+    query: Pyridoxal kinase
+  aggregate_from:
+  - PDXS
+  - PDXA
+  aggregate_reason: One marker from each alternative route, summed because either route produces
+    the vitamin. The partner subunits are reported separately so that an incomplete route
+    stays visible as incomplete.
+  what_it_is: Whether your bacteria carry either of the two known routes to vitamin B6.
+  made_from: Built de novo by one of two unrelated routes, DXP-dependent or DXP-independent
+  summary: Two unrelated chemistries reach the same vitamin. Requiring both would call almost
+    every community unable to make B6; accepting one isolated subunit would call almost all
+    of them able to.
+  evidence_detail: The DXP-independent route, a PdxS synthase working with its PdxT glutaminase,
+    is the one most bacteria use; the DXP-dependent route through PdxA and PdxJ is found in
+    Escherichia coli and its relatives. They are alternatives, so both are measured and the
+    partner subunits are shown separately. Pyridoxal phosphate is the cofactor for most amino-acid
+    chemistry in the cell, which is why the capacity is common without being universal.
+  implications:
+    higher: More of your bacteria carry a complete B6 route than in most samples, by one or
+      other of the two chemistries.
+    typical: Your community's B6 synthesis capacity sits in the middle of the reference range.
+      Pyridoxal phosphate is the cofactor for most amino-acid chemistry in a cell, so the
+      capacity to make it is common without being universal, and a middling value is the ordinary
+      finding.
+    lower: Fewer complete B6 routes here than in most samples. Your own B6 status comes from
+      diet and is absorbed before the colon.
+  citation: Rodionov D.A. et al., Front Microbiol 10:1316 (2019), doi:10.3389/fmicb.2019.01316;
+    Fitzpatrick T.B. et al., Biochem J 407:1-13 (2007), doi:10.1042/BJ20070765.
+- name: carbohydrates
+  metabolite: Dietary fibre and carbohydrate breakdown
+  category: substrate
+  higher_means: favourable
+  evidence_strength: limited
+  description: The enzymes your gut bacteria use to open dietary carbohydrates. Each substrate
+    is reported as its own reading in the functions section, with how specific the evidence
+    is, because an enzyme family that acts on a whole class of molecules is not evidence about
+    one member of it.
+  pathway: dietary polysaccharide -> backbone-cleaving enzyme + side-chain and linkage-specific
+    enzymes -> oligosaccharides -> uptake and fermentation
+  targets:
+  - id: CELL
+    gene: celA
+    label: cellulase (endo-beta-1,4-glucanase)
+    query: Cellulase
+    n_uniprot: 11608
+  - id: ENDOGLUC
+    gene: celB
+    label: endoglucanase
+    query: Endoglucanase
+    n_uniprot: 9450
+  - id: BGLUC
+    gene: bglA
+    label: beta-glucosidase
+    query: Beta-glucosidase
+    n_uniprot: 43102
+  - id: AMYA
+    gene: amyA
+    label: alpha-amylase
+    query: Alpha-amylase
+    n_uniprot: 25422
+  - id: PULA
+    gene: pulA
+    label: pullulanase (debranching)
+    query: Pullulanase
+    n_uniprot: 5010
+  - id: GLUCOAMY
+    gene: gluA
+    label: glucoamylase
+    query: Glucoamylase
+    n_uniprot: 2857
+  - id: AGLUC
+    gene: aglA
+    label: alpha-glucosidase
+    query: Alpha-glucosidase
+    n_uniprot: 22425
+  - id: OGLUC
+    gene: malL
+    label: oligo-1,6-glucosidase
+    query: Oligo-1,6-glucosidase
+    n_uniprot: 2200
+  - id: CHIA
+    gene: chiA
+    label: chitinase
+    query: Chitinase
+    n_uniprot: 23033
+  - id: CHID
+    gene: chiD
+    label: chitin deacetylase
+    query: Chitin deacetylase
+    n_uniprot: 7401
+  - id: NAGZ
+    gene: nagZ
+    label: beta-N-acetylhexosaminidase
+    query: Beta-N-acetylhexosaminidase
+    n_uniprot: 31114
+  - id: PGAL
+    gene: pgl
+    label: polygalacturonase
+    query: Polygalacturonase
+    n_uniprot: 1805
+  - id: PECL
+    gene: pelA
+    label: pectate lyase
+    query: Pectate lyase
+    n_uniprot: 20051
+  - id: PECE
+    gene: pme
+    label: pectinesterase
+    query: Pectinesterase
+    n_uniprot: 4271
+  - id: RHAMG
+    gene: rgl
+    label: rhamnogalacturonase
+    query: Rhamnogalacturonase
+    n_uniprot: 1703
+  - id: SACA
+    gene: sacA
+    label: beta-fructofuranosidase (fructan)
+    query: Beta-fructofuranosidase
+    n_uniprot: 5229
+  - id: LEVA
+    gene: levB
+    label: levanase
+    query: Levanase
+    n_uniprot: 613
+  - id: BGAL
+    gene: lacZ
+    label: beta-galactosidase
+    query: Beta-galactosidase
+    n_uniprot: 35169
+  - id: AGAL
+    gene: melA
+    label: alpha-galactosidase
+    query: Alpha-galactosidase
+    n_uniprot: 20962
+  - id: XYLB
+    gene: xylB
+    label: xylan 1,4-beta-xylosidase
+    query: Xylan 1,4-beta-xylosidase
+    n_uniprot: 2993
+  - id: XYNA
+    gene: xynA
+    label: endo-1,4-beta-xylanase
+    query: Endo-1,4-beta-xylanase
+    n_uniprot: 4276
+  - id: ABFA
+    gene: abfA
+    label: alpha-N-arabinofuranosidase
+    query: Alpha-N-arabinofuranosidase
+    n_uniprot: 1914
+  - id: AXE
+    gene: axe
+    label: acetyl xylan esterase
+    query: Acetyl xylan esterase
+    n_uniprot: 1483
+  - id: FAE
+    gene: fae
+    label: feruloyl esterase
+    query: Feruloyl esterase
+    n_uniprot: 3779
+  - id: LICH
+    gene: licB
+    label: licheninase (beta-1,3-1,4-glucanase)
+    query: Licheninase
+    n_uniprot: 330
+  - id: BG13
+    gene: glcA
+    label: glucan endo-1,3-beta-D-glucosidase
+    query: Glucan endo-1,3-beta-D-glucosidase
+    n_uniprot: 1470
+  - id: MANB
+    gene: manB
+    label: mannan endo-1,4-beta-mannosidase
+    query: Mannan endo-1,4-beta-mannosidase
+    n_uniprot: 2678
+  - id: MANA
+    gene: manA
+    label: beta-mannosidase
+    query: Beta-mannosidase
+    n_uniprot: 8496
+  aggregate_from:
+  - AMYA
+  - BGAL
+  - XYNA
+  - PGAL
+  aggregate_reason: 'One backbone enzyme from each of four unrelated substrate classes - starch,
+    galactoside, xylan and pectin. The sum is a breadth measure and is deliberately not a
+    total of all the enzymes: the per-substrate readings in the functions section are where
+    specificity is judged.'
+  what_it_is: The breadth of dietary carbohydrates your gut bacteria carry enzymes for, across
+    starch, pectin, xylan and galactoside chemistry.
+  made_from: Dietary fibre, resistant starch and other carbohydrates reaching the colon
+  summary: Fourteen individual fibre and starch readings are built from these enzymes in the
+    functions section. This panel is their shared evidence and a breadth summary; the specificity
+    judgement happens per substrate.
+  evidence_detail: 'A carbohydrate-active enzyme family usually acts on a class of molecules
+    rather than on one, so a family alone answers a broader question than the one a reader
+    asks. GH13 supports general amylolysis but not resistant starch in particular; a beta-galactosidase
+    is carried by every lactose-using organism and does not establish galactooligosaccharide
+    use. The per-substrate readings therefore state whether the evidence is substrate-specific
+    or only class-level, and a gene shared between two substrates appears on both cards and
+    is counted once in any total. What none of this measures is how much fibre you eat: it
+    is the capacity to use what arrives.'
+  implications:
+    higher: Your community carries enzymes for a wider range of dietary carbohydrates than
+      most samples. Breadth of this kind travels with dietary variety, and it means fewer
+      fibres pass through unused.
+    typical: Mid-range breadth of carbohydrate-active enzymes, which is the usual finding
+      in an adult gut. The individual substrate readings in this section are more informative
+      than the total, because they say which fibres in particular your community can open.
+    lower: 'Fewer carbohydrate-active enzyme families than most samples carry. That can follow
+      a narrow diet, and it is capacity rather than intake: adding a fibre nothing here can
+      open would not help.'
+  citation: 'Drula E. et al., "The carbohydrate-active enzyme database: functions and literature",
+    Nucleic Acids Res 50:D571-D577 (2022), doi:10.1093/nar/gkab1045; Zheng J. et al., "dbCAN3",
+    Nucleic Acids Res 51:W115-W121 (2023), doi:10.1093/nar/gkad328.'
+  expected_copies_per_genome: 2
+- name: fermentation
+  metabolite: Fermentation routes and cross-feeding
+  category: metabolite
+  higher_means: context-dependent
+  evidence_strength: limited
+  description: The routes behind the short-chain fatty acids, and the hydrogen and sulfur
+    chemistry that runs alongside them. Production and consumption of a metabolite are measured
+    separately and are never netted.
+  pathway: sugars -> pyruvate -> acetate (pta, ackA), lactate (ldhA), succinate (frdA) ->
+    propionate and butyrate by several distinct routes
+  targets:
+  - id: PTA
+    gene: pta
+    label: pta (phosphate acetyltransferase)
+    query: Phosphate acetyltransferase
+    n_uniprot: 13306
+  - id: ACSB
+    gene: acsB
+    label: acsB (CO-methylating acetyl-CoA synthase)
+    query: CO-methylating acetyl-CoA synthase
+    n_uniprot: 480
+  - id: COOS
+    gene: cooS
+    label: cooS (carbon monoxide dehydrogenase)
+    query: Carbon monoxide dehydrogenase
+    n_uniprot: 21470
+  - id: FHS
+    gene: fhs
+    label: fhs (formate--tetrahydrofolate ligase)
+    query: Formate--tetrahydrofolate ligase
+    n_uniprot: 7453
+  - id: LDHD
+    gene: ldhA
+    label: ldhA (D-lactate dehydrogenase)
+    query: D-lactate dehydrogenase
+    n_uniprot: 5639
+  - id: MUTB
+    gene: mutB
+    label: mutB (methylmalonyl-CoA mutase)
+    query: Methylmalonyl-CoA mutase
+    n_uniprot: 19630
+  - id: SCPA
+    gene: scpA
+    label: scpA (propionyl-CoA:succinate CoA transferase)
+    query: Propionyl-CoA:succinate CoA transferase
+    n_uniprot: 344
+  - id: PDUC2
+    gene: pduC
+    label: pduC (propanediol dehydratase large subunit)
+    query: Propanediol dehydratase large subunit
+    n_uniprot: 222
+  - id: HYDA
+    gene: hydA
+    label: hydA ([FeFe] hydrogenase)
+    query: Iron hydrogenase 1
+    n_uniprot: 157
+  - id: LDHL
+    gene: ldhL
+    n_uniprot: 16623
+    label: ldhL (L-lactate dehydrogenase, the other stereoisomer)
+    query: L-lactate dehydrogenase
+  - id: XFP
+    gene: xfp
+    n_uniprot: 6384
+    label: xfp (phosphoketolase, the heterolactic and bifid shunt route)
+    query: phosphoketolase
+  aggregate_from:
+  - PTA
+  - LDHD
+  aggregate_reason: 'Phosphotransacetylase and D-lactate dehydrogenase, the committed steps
+    of the two commonest fermentation endpoints. Acetate kinase and fumarate reductase are
+    deliberately absent: the butyrate and imidazole-propionate panels already carry them as
+    decoys, and duplicating a target in a shared database takes reads from the established
+    reading rather than adding one.'
+  what_it_is: The specific routes your bacteria use to ferment carbohydrate into acids and
+    gases.
+  made_from: Pyruvate and other products of carbohydrate fermentation
+  summary: The existing butyrate, propionate, methane and sulfide readings say how much capacity
+    is present. These say by which chemistry.
+  evidence_detail: 'Propionate is reached by three unrelated routes - succinate, acrylate
+    and propanediol - and a single propionate number cannot distinguish them, which matters
+    because they use different substrates. Acetate is the case where a gene count misleads
+    most easily: an AMP-forming acetyl-CoA synthetase runs towards acetate assimilation rather
+    than formation, so finding it is evidence the community can consume acetate, not make
+    it, and it is excluded here. Hydrogen is shown as production and consumption separately
+    because a healthy community makes a great deal of it and netting the two would hide both.'
+  implications:
+    higher: More fermentation-route capacity than most samples carry, across the acetate and
+      lactate chemistry measured here. The individual route readings show which specific chemistries
+      are complete.
+    typical: Mid-range fermentation route capacity, which is the usual finding in an adult
+      gut. The individual route readings show which chemistries are complete and which are
+      missing a step, and that detail matters more than this total.
+    lower: Fewer of these routes than most samples carry. The per-route readings show which
+      are incomplete and which genes were missing.
+  citation: Reichardt N. et al., "Phylogenetic distribution of three pathways for propionate
+    production within the human gut microbiota", ISME J 8:1323-1335 (2014), doi:10.1038/ismej.2014.14;
+    Louis P., Flint H.J., Environ Microbiol 19:29-41 (2017), doi:10.1111/1462-2920.13589.
+- name: nitrogen
+  metabolite: Protein and nitrogen metabolism
+  category: metabolite
+  higher_means: context-dependent
+  evidence_strength: limited
+  description: 'Protein and amino-acid handling: peptide uptake, amino-acid fermentation including
+    Stickland pairs, branched-chain fatty acid formation, and the non-urease routes to ammonia.
+    Urease keeps its own reading.'
+  pathway: protein -> peptides (peptidases, transport) -> amino acids -> fermentation to branched-chain
+    fatty acids, ammonia and aromatic precursors
+  targets:
+  - id: PEPT
+    gene: pepT
+    label: pepT (tripeptide aminopeptidase)
+    query: Peptidase T
+    n_uniprot: 7197
+  - id: DPPA
+    gene: dppA
+    label: dppA (periplasmic dipeptide transport)
+    query: Periplasmic dipeptide transport protein
+    n_uniprot: 672
+  - id: GRDA
+    gene: grdA
+    label: grdA (glycine reductase selenoprotein A)
+    query: Glycine reductase complex selenoprotein A
+    n_uniprot: 203
+  - id: PRDA
+    gene: prdA
+    label: prdA (D-proline reductase)
+    query: D-proline reductase
+    n_uniprot: 1150
+  - id: ILVE
+    gene: ilvE
+    label: ilvE (branched-chain aminotransferase)
+    query: Branched-chain-amino-acid aminotransferase
+    n_uniprot: 24611
+  - id: BKDA
+    gene: bkdA
+    label: bkdA (2-oxoisovalerate dehydrogenase alpha)
+    query: 2-oxoisovalerate dehydrogenase subunit alpha
+    n_uniprot: 5448
+  - id: GDHA
+    gene: gdhA
+    label: gdhA (glutamate dehydrogenase)
+    query: Glutamate dehydrogenase
+    n_uniprot: 30401
+  - id: ASPA
+    gene: aspA
+    label: aspA (aspartate ammonia-lyase)
+    query: Aspartate ammonia-lyase
+    n_uniprot: 8318
+  - id: ANSA
+    gene: ansA
+    label: ansA (asparaginase)
+    query: Asparaginase
+    n_uniprot: 24319
+  - id: PORA
+    gene: porA
+    label: porA (indolepyruvate ferredoxin oxidoreductase)
+    query: Indolepyruvate ferredoxin oxidoreductase
+    n_uniprot: 7647
+  - id: PADI
+    gene: padI
+    label: padI (phenylacetate-CoA ligase)
+    query: Phenylacetate-CoA ligase
+    n_uniprot: 5795
+  aggregate_from:
+  - PEPT
+  - ILVE
+  - GDHA
+  aggregate_reason: 'Peptide cleavage, branched-chain transamination and glutamate dehydrogenase:
+    one marker each from the three arms of protein handling. The near-universal housekeeping
+    peptidases are deliberately excluded, because a total containing them would track biomass.'
+  what_it_is: How much of your community is set up to ferment protein rather than carbohydrate.
+  made_from: Dietary and host protein reaching the colon
+  summary: Protein fermentation produces branched-chain fatty acids, ammonia and phenolic
+    compounds, which is a different chemistry from fibre fermentation and generally a less
+    favourable one.
+  evidence_detail: 'Generic peptidase abundance is not a measurement of dietary protein digestion:
+    every organism carries peptidases for its own protein turnover, so a raw count tracks
+    how many organisms are present. The informative markers are the ones specific to fermenting
+    amino acids for energy - Stickland reductases, branched-chain dehydrogenases - and those
+    are what this counts. Protein breakdown, branched-chain amino acid synthesis and branched-chain
+    amino acid fermentation are three different things, and this report keeps three separate
+    readings for them.'
+  implications:
+    higher: More protein-fermentation capacity than most samples. This chemistry yields branched-chain
+      fatty acids, ammonia and phenols rather than butyrate, and it rises when fermentable
+      fibre runs short.
+    typical: Mid-range protein-fermentation capacity, which is the usual finding. This chemistry
+      rises when fermentable fibre runs short, so it is worth reading beside the carbohydrate
+      breadth reading rather than on its own.
+    lower: Less protein-fermentation capacity than most samples carry. Protein fermentation
+      yields branched-chain fatty acids, ammonia and phenols rather than butyrate, so less
+      of it is generally the more favourable direction.
+  citation: 'Diether N.E., Willing B.P., "Microbial fermentation of dietary protein: an important
+    factor in diet-microbe-host interaction", Microorganisms 7:19 (2019), doi:10.3390/microorganisms7010019.'
+- name: gababreak
+  metabolite: GABA breakdown
+  category: neuroactive
+  higher_means: context-dependent
+  evidence_strength: limited
+  description: 'GABA degradation past the aminotransferase the GABA panel already measures.
+    Degradation and production are shown side by side and are never subtracted: a difference
+    between two percentiles is not a flux.'
+  pathway: GABA -> succinate semialdehyde (gabT) -> succinate (gabD) -> TCA cycle
+  targets:
+  - id: GABD
+    gene: gabD
+    label: gabD (succinate-semialdehyde dehydrogenase)
+    query: Succinate-semialdehyde dehydrogenase [NADP(+)]
+    n_uniprot: 4265
+  - id: ABFH
+    gene: abfH
+    label: abfH (4-hydroxybutyrate dehydrogenase)
+    query: 4-hydroxybutyrate dehydrogenase
+    n_uniprot: 514
+  aggregate_from:
+  - GABD
+  aggregate_reason: Succinate-semialdehyde dehydrogenase is the committed step of GABA degradation
+    and is what this panel adds. The aminotransferase before it is already measured by the
+    GABA panel, and duplicating it would take that panel's reads rather than add a reading.
+  what_it_is: Your gut bacteria's capacity to break GABA down, shown beside their capacity
+    to make it.
+  made_from: GABA made by other bacteria or arriving in fermented food
+  summary: The existing GABA panel measures production. This measures degradation. They are
+    separate readings and are never subtracted from each other.
+  evidence_detail: 'A community that both makes and breaks down GABA is not a community with
+    no GABA, which is why these are reported side by side rather than netted. Neither number
+    is a GABA concentration, and neither says anything about GABA reaching your brain: the
+    blood-brain barrier is not permeable to it, so any gut-brain effect runs through other
+    routes such as the vagus nerve or the enteric nervous system.'
+  implications:
+    higher: More GABA-degrading capacity than most samples. Shown beside your GABA production
+      reading, which is a separate measurement.
+    typical: Mid-range GABA degradation capacity. This is shown beside your GABA production
+      reading, which is a separate measurement over different genes; the two are never subtracted
+      from one another.
+    lower: 'Less GABA-degrading capacity than most samples carry. Read this beside your GABA
+      production reading rather than on its own: neither number is a GABA concentration, and
+      the two are not netted.'
+  citation: Strandwitz P. et al., "GABA-modulating bacteria of the human gut microbiota",
+    Nat Microbiol 4:396-403 (2019), doi:10.1038/s41564-018-0307-3.
+- name: mucinlps
+  metabolite: Mucin glycans and lipid A
+  category: detox
+  higher_means: context-dependent
+  evidence_strength: limited
+  description: Enzymes for foraging mucin glycans, and the lipid A machinery behind the endotoxin
+    structure. Mucin foraging is physiological; capacity is not an image of an eroded barrier.
+  pathway: mucin glycan -> sialidase, fucosidase and sulfatase -> released sugars; separately,
+    lipid A biosynthesis and its modifications
+  targets:
+  - id: NANH
+    gene: nanH
+    label: nanH (exo-alpha-sialidase)
+    query: Exo-alpha-sialidase
+    n_uniprot: 12041
+  - id: FUCA
+    gene: fucA
+    label: fucA (alpha-L-fucosidase)
+    query: Alpha-L-fucosidase
+    n_uniprot: 15705
+  - id: SULF
+    gene: sulf
+    label: sulfatase
+    query: Arylsulfatase
+    n_uniprot: 27328
+  - id: LPXA
+    gene: lpxA
+    label: lpxA (UDP-GlcNAc acyltransferase)
+    query: UDP-N-acetylglucosamine acyltransferase
+    n_uniprot: 7137
+  - id: LPXC
+    gene: lpxC
+    label: lpxC (UDP-3-O-acyl-GlcNAc deacetylase)
+    query: UDP-3-O-acyl-N-acetylglucosamine deacetylase
+    n_uniprot: 10001
+  - id: LPXL
+    gene: lpxL
+    label: lpxL (lauroyl acyltransferase)
+    query: Lipid A biosynthesis lauroyl acyltransferase
+    n_uniprot: 2588
+  - id: HDHA
+    gene: hdhA
+    label: hdhA (7-alpha-hydroxysteroid dehydrogenase)
+    query: 7-alpha-hydroxysteroid dehydrogenase
+    n_uniprot: 766
+  aggregate_from:
+  - NANH
+  - FUCA
+  - LPXA
+  aggregate_reason: Two mucin-foraging enzymes and one lipid A marker. They are summed only
+    as a breadth measure; the mucin and lipid A readings are judged separately because they
+    answer unrelated questions.
+  what_it_is: Capacity to forage the mucus layer's sugars, and to build the lipid A core of
+    endotoxin.
+  made_from: Host mucin glycans; bacterial outer-membrane biosynthesis
+  summary: Mucin foraging is a normal part of how a gut community makes its living. These
+    genes do not resolve an endotoxin structure or measure barrier damage.
+  evidence_detail: Mucin-foraging organisms are ordinary residents and the mucus layer is
+    continuously renewed, so carrying these enzymes is physiological rather than damaging;
+    the question of barrier integrity needs a measurement this test does not make. For lipid
+    A, the immune effect depends on how many acyl chains the finished molecule carries, and
+    one modification gene does not resolve that structure. Total Gram-negative abundance resolves
+    it even less. Where the structure cannot be determined the gene evidence is shown with
+    its uncertainty rather than converted into an endotoxin figure.
+  implications:
+    higher: More mucin-foraging and lipid A capacity than most samples. Foraging capacity
+      is not barrier damage, and lipid A genes are not an endotoxin level.
+    typical: Mid-range capacity for mucin foraging and lipid A synthesis, which is the usual
+      finding. Mucin-foraging organisms are ordinary residents of a healthy gut and this is
+      not a measure of barrier damage.
+    lower: Less mucin-foraging and lipid A capacity than most samples carry. Mucin foragers
+      are ordinary residents, so a lower reading here is a description of your community rather
+      than a sign of a healthier barrier.
+  citation: Tailford L.E. et al., "Mucin glycan foraging in the human gut microbiome", Front
+    Genet 6:81 (2015), doi:10.3389/fgene.2015.00081.
+  expected_copies_per_genome: 2
+- name: glucosinolate
+  metabolite: Glucosinolate to isothiocyanate conversion
+  category: detox
+  higher_means: context-dependent
+  evidence_strength: limited
+  description: The characterised bacterial route from glucosinolate to isothiocyanate, measured
+    against the Bacteroides thetaiotaomicron locus itself rather than against an enzyme family.
+    The reference set is three sequences because the reaction is described in one organism,
+    and the identity floor is high for the same reason.
+  pathway: glucosinolate -> isothiocyanate (BT2158 with BT2156 or BT2157)
+  targets:
+  - id: BTGSL
+    gene: BT2158
+    label: BT2158 with BT2156/BT2157 (glucosinolate conversion)
+    query_raw: ((gene:BT2158) OR (gene:BT2156) OR (gene:BT2157))
+    n_uniprot: 3
+    min_identity: 85.0
+    max_sequences: 50
+  decoys: []
+  aggregate_from:
+  - BTGSL
+  aggregate_reason: One locus, one reading. The three genes are summed because the in-vitro
+    core is BT2158 together with either BT2156 or BT2157.
+  what_it_is: Whether the characterised bacterial enzymes for converting glucosinolates to
+    isothiocyanates are present in your sample.
+  made_from: Glucosinolates from broccoli, rocket and other cruciferous vegetables
+  summary: Measured against the B. thetaiotaomicron locus itself at a high identity floor,
+    because this route is described in one organism rather than carried by an enzyme family.
+  evidence_detail: 'Three reference sequences is the right size for a reaction characterised
+    in a single organism, and the high identity floor is what keeps a distant homolog from
+    matching; the consequence is that this under-calls rather than over-calls. This bacterial
+    route is not plant myrosinase, which is an enzyme of the vegetable and is destroyed by
+    cooking, and it is not the only bacterial route described. A gene finding is also not
+    a conversion: whether you actually produce isothiocyanates is settled by a substrate challenge
+    with metabolomics, which can be imported beside this.'
+  implications:
+    higher: The characterised enzymes are present at a higher level than in most samples.
+      That is capacity rather than a demonstrated conversion, and a substrate challenge is
+      what would settle it.
+    typical: Mid-range presence of these enzymes against this reference. The route is carried
+      by particular strains rather than being widespread, so a middling value is the ordinary
+      finding.
+    lower: Little or none of the characterised enzymes here. With only three reference sequences
+      for a strain-specific reaction, a low value is weak evidence of absence rather than
+      proof of it.
+  citation: Liou C.S. et al., "A metabolic pathway for activation of dietary glucosinolates
+    by a human gut symbiont", Cell 180:717-728 (2020), doi:10.1016/j.cell.2020.01.023.
+- name: urate
+  metabolite: Urate degradation
+  category: detox
+  higher_means: context-dependent
+  evidence_strength: preliminary
+  description: The anaerobic route by which gut bacteria break urate down, which is chemically
+    different from the oxygen-requiring uricase most textbooks describe. Uricase and purine
+    salvage are measured here too, and reported separately, because they are different reactions
+    with different products.
+  pathway: urate -> xanthine (xanthine dehydrogenase running reductively, XdhABC) -> purine
+    fermentation -> glycine -> acetate and CO2. The oxygen-requiring route through uricase
+    to allantoin is a separate chemistry and is counted separately.
+  targets:
+  - id: XDHA
+    gene: xdhA
+    n_uniprot: 3641
+    label: xdhA (xanthine dehydrogenase, molybdenum-binding subunit)
+    query_raw: (protein_name:"xanthine dehydrogenase" AND protein_name:"molybdenum")
+  - id: XDHB
+    gene: xdhB
+    n_uniprot: 2833
+    label: xdhB (xanthine dehydrogenase, FAD-binding subunit)
+    query_raw: (protein_name:"Xanthine dehydrogenase" AND protein_name:"FAD")
+  - id: XDHC
+    gene: xdhC
+    n_uniprot: 1609
+    label: xdhC (xanthine dehydrogenase, iron-sulfur subunit)
+    query_raw: (protein_name:"Xanthine dehydrogenase" AND protein_name:"iron-sulfur")
+  - id: UOX
+    gene: uox
+    n_uniprot: 3556
+    label: uox / uricase (oxygen-requiring, reported separately)
+    query: Urate oxidase
+  - id: HPT
+    gene: hpt
+    n_uniprot: 13770
+    label: hpt (purine salvage, not degradation, reported separately)
+    query: Hypoxanthine phosphoribosyltransferase
+  aggregate_from:
+  - XDHA
+  - XDHB
+  - XDHC
+  aggregate_reason: Only the three xanthine dehydrogenase subunits are summed. Uricase needs
+    oxygen, which the colon does not have much of, and purine salvage recycles purines rather
+    than degrading them; both are measured and shown, but adding them to an anaerobic degradation
+    score would make it mean nothing.
+  what_it_is: Your gut bacteria's capacity to break urate down without oxygen, using the route
+    described in the 2023 work on bacterial purine handling.
+  made_from: urate arriving from host purine turnover and from purine-rich food
+  summary: Gut bacteria can degrade urate anaerobically. This is a count of the genes for
+    that route. It is not a serum urate measurement and does not diagnose or rule out gout.
+  evidence_detail: 'Two 2023 studies showed that gut bacteria degrade urate anaerobically
+    and that this contributes to whole-body purine handling in mice, with human cohort association.
+    The route runs through xanthine and purine fermentation to short-chain fatty acids, and
+    it is not the uricase reaction: uricase requires molecular oxygen and most gut anaerobes
+    do not use it. What is measured here is gene capacity in stool. Serum urate is set mostly
+    by renal excretion and host production, and no gene count here can substitute for a blood
+    test or explain an individual''s urate level.'
+  implications:
+    higher: More of the anaerobic urate-degrading route than most samples carry. The mouse
+      work associates this route with lower host urate, but nothing here measures your urate,
+      and the human evidence is association rather than effect.
+    typical: A mid-range amount of the anaerobic urate-degrading route, which is what most
+      samples in the reference set carry. This is gene capacity in stool and says nothing
+      about your blood urate level, which is set mostly by the kidneys.
+    lower: 'Less of the anaerobic urate-degrading route than most samples carry. This is not
+      a cause of high urate and not a reason to change anything: host production and renal
+      excretion dominate urate handling, and this route is a recent finding.'
+  citation: Liu Y. et al., "Gut microbial DNA and purine degradation", Cell 186:3400-3413
+    (2023), doi:10.1016/j.cell.2023.06.010; Kasahara K. et al., "Gut bacterial metabolism
+    contributes to host global purine homeostasis", Cell Host Microbe 31:1038-1053 (2023),
+    doi:10.1016/j.chom.2023.05.011.
+- name: putrescine
+  metabolite: Putrescine formation
+  category: metabolite
+  higher_means: context-dependent
+  evidence_strength: limited
+  description: 'Capacity to form putrescine, by either of the two routes bacteria use: decarboxylating
+    ornithine directly, or going through agmatine. Polyamines are required for normal gut
+    epithelial renewal and are also produced in excess in some disease states, so the direction
+    of this reading depends entirely on context.'
+  pathway: ornithine -> putrescine (speC), or arginine -> agmatine -> putrescine by agmatinase
+    (speB), or arginine -> agmatine -> N-carbamoylputrescine -> putrescine by the deiminase
+    route (aguA, aguB)
+  targets:
+  - id: SPEC
+    gene: speC
+    n_uniprot: 5922
+    label: speC (ornithine decarboxylase)
+    query: Ornithine decarboxylase
+  - id: SPEB
+    gene: speB
+    n_uniprot: 13217
+    label: speB (agmatinase)
+    query: Agmatinase
+  - id: AGUA
+    gene: aguA
+    n_uniprot: 7753
+    label: aguA (agmatine deiminase)
+    query: Agmatine deiminase
+  - id: AGUB
+    gene: aguB
+    n_uniprot: 2883
+    label: aguB (N-carbamoylputrescine amidase)
+    query: N-carbamoylputrescine amidase
+  aggregate_from:
+  - SPEC
+  - SPEB
+  - AGUB
+  aggregate_reason: The three reactions that actually release putrescine are summed. The deiminase
+    step before aguB is measured and shown but not added, because counting both steps of the
+    same two-step route would count one organism's single capacity twice. An organism carrying
+    two independent routes does contribute twice here, which is a count of reactions, not
+    of organisms.
+  what_it_is: How much capacity your gut bacteria have to make putrescine, the smallest of
+    the polyamines.
+  made_from: arginine and ornithine from dietary and host protein
+  summary: Polyamines are needed for the constant renewal of the gut lining, and are also
+    elevated in some disease states. A higher or lower reading is not good or bad on its own.
+  evidence_detail: Putrescine, spermidine and spermine are required for cell proliferation,
+    and the gut epithelium renews itself every few days, so a supply matters. The same chemistry
+    is implicated in tumour biology, and bacterial polyamine production has been associated
+    with colorectal cancer tissue in observational work. Stable-isotope and multi-omics work
+    in 2025 traced polyamine flux in gut communities and found production and consumption
+    happening simultaneously in the same sample, which is why this reading is presented as
+    capacity rather than as an amount, and why its direction is context-dependent rather than
+    favourable or adverse.
+  implications:
+    higher: More putrescine-forming capacity than most samples. Polyamines support gut lining
+      renewal and are also elevated in some disease states, so this reading does not point
+      in a single direction on its own.
+    typical: A mid-range amount of putrescine-forming capacity, similar to most samples in
+      the reference set. Polyamine capacity is read alongside the spermidine and agmatine
+      readings rather than interpreted as a good or bad number by itself.
+    lower: Less putrescine-forming capacity than most samples carry. Host cells make polyamines
+      as well, so a lower bacterial capacity is not a deficiency, and this is a gene count
+      rather than a measured polyamine concentration.
+  citation: Nakamura A. et al., "Symbiotic polyamine metabolism regulates epithelial proliferation
+    and macrophage differentiation in the colon", Nat Commun 12:2105 (2021), doi:10.1038/s41467-021-22212-1.
+- name: agmatine
+  metabolite: Agmatine formation
+  category: neuroactive
+  higher_means: context-dependent
+  evidence_strength: limited
+  description: Arginine decarboxylation to agmatine, which is both the entry point to the
+    polyamine routes and a neuroactive compound in its own right. It is kept separate from
+    putrescine because the two have different downstream fates.
+  pathway: arginine -> agmatine + CO2 (arginine decarboxylase)
+  targets:
+  - id: ADIA
+    gene: adiA
+    n_uniprot: 8332
+    label: adiA / speA (arginine decarboxylase, both the acid-resistance and biosynthetic
+      enzymes)
+    query: Arginine decarboxylase
+  aggregate_from:
+  - ADIA
+  aggregate_reason: One reaction, one target. The acid-resistance decarboxylase and the biosynthetic
+    one are both named arginine decarboxylase in the sequence databases and are not separated
+    here; splitting them by name alone would produce two readings that are really one.
+  what_it_is: Capacity to turn arginine into agmatine, which feeds the polyamine routes and
+    has its own activity in the nervous system.
+  made_from: arginine from dietary and host protein
+  summary: Agmatine is a polyamine precursor and a neuroactive molecule. This counts the gene
+    for making it; it is not a measurement of agmatine.
+  evidence_detail: Arginine decarboxylase is also part of how several gut bacteria survive
+    stomach acid, consuming a proton with each decarboxylation, so a high reading can reflect
+    acid resistance rather than a deliberate investment in polyamine production. Agmatine
+    itself binds imidazoline and alpha-2 adrenergic receptors and has been studied in animal
+    models of pain and mood, but the doses used in those studies are pharmacological and bear
+    no relation to what gut bacteria produce. Nothing here measures agmatine reaching your
+    circulation or your brain.
+  implications:
+    higher: More arginine decarboxylase capacity than most samples carry. This enzyme also
+      serves acid resistance, so a higher reading is not by itself evidence of more polyamine
+      or neuroactive signalling.
+    typical: A mid-range amount of arginine decarboxylase capacity, which is what most samples
+      carry. Read it beside the putrescine and spermidine readings, since agmatine is the
+      entry point to both of those routes.
+    lower: Less arginine decarboxylase capacity than most samples carry. Ornithine decarboxylation
+      is an independent route to putrescine that does not pass through agmatine, so this does
+      not mean the polyamine routes are closed.
+  citation: 'Piletz J.E. et al., "Agmatine: clinical applications after 100 years in translation",
+    Drug Discov Today 18:880-893 (2013), doi:10.1016/j.drudis.2013.05.017.'
+- name: spermidine
+  metabolite: Spermidine formation
+  category: metabolite
+  higher_means: context-dependent
+  evidence_strength: limited
+  description: 'Both routes to spermidine: the textbook aminopropyltransferase route, and
+    the carboxyspermidine route that most gut Bacteroidetes actually use and that is missing
+    from pathway databases built around the textbook one.'
+  pathway: putrescine + decarboxylated S-adenosylmethionine -> spermidine (speE, with speD
+    supplying the aminopropyl donor); or putrescine + aspartate semialdehyde -> carboxyspermidine
+    -> spermidine (the carboxyspermidine dehydrogenase and decarboxylase route)
+  targets:
+  - id: SPEE
+    gene: speE
+    n_uniprot: 22919
+    label: speE (spermidine synthase)
+    query: Spermidine synthase
+  - id: SPED
+    gene: speD
+    n_uniprot: 3443
+    label: speD (S-adenosylmethionine decarboxylase, the aminopropyl donor)
+    query: S-adenosylmethionine decarboxylase
+  - id: CASDH
+    gene: casDH
+    n_uniprot: 417
+    label: casDH (carboxyspermidine / carboxynorspermidine dehydrogenase)
+    query_raw: (protein_name:"Carboxyspermidine dehydrogenase" OR protein_name:"Carboxynorspermidine
+      dehydrogenase")
+  - id: CASDC
+    gene: casDC
+    n_uniprot: 3552
+    label: casDC (carboxyspermidine / carboxynorspermidine decarboxylase)
+    query_raw: (protein_name:"Carboxyspermidine decarboxylase" OR protein_name:"Carboxynorspermidine
+      decarboxylase")
+  aggregate_from:
+  - SPEE
+  - CASDC
+  aggregate_reason: The two committed spermidine-forming steps are summed, one from each route.
+    The donor enzyme speD and the dehydrogenase before casDC are measured and shown as route
+    detail, but adding them would count a single organism's single capacity twice over.
+  what_it_is: Capacity to make spermidine, counted over both of the routes bacteria actually
+    use rather than only the one in the textbooks.
+  made_from: putrescine, with either S-adenosylmethionine or aspartate semialdehyde
+  summary: Spermidine has been studied for autophagy and healthy ageing. This reading is the
+    genetic capacity of your bacteria to produce it, not a spermidine level.
+  evidence_detail: Most gut Bacteroidetes make spermidine through carboxyspermidine rather
+    than through the aminopropyltransferase route, and a 2023 study described a further variant
+    running through carboxyaminopropylagmatine. A pipeline that looks only for spermidine
+    synthase therefore reports an absence where the capacity is present, which is why both
+    routes are counted here. Spermidine's association with autophagy and longevity comes largely
+    from model organisms and from observational human diet data; supplement trials in humans
+    are small and mixed, and none of that work measured bacterial gene capacity of the kind
+    reported here.
+  implications:
+    higher: More spermidine-forming capacity than most samples carry, counted across both
+      routes. This is gene capacity, not a spermidine measurement, and the longevity literature
+      on spermidine is mostly from model organisms.
+    typical: A mid-range amount of spermidine-forming capacity across both routes, similar
+      to most samples in the reference set. Dietary spermidine from wheat germ, soy and aged
+      cheese contributes independently of anything bacteria make.
+    lower: Less spermidine-forming capacity than most samples carry. Host cells and food both
+      supply spermidine, so this is not a deficiency, and no supplement recommendation follows
+      from a gene count in stool.
+  citation: Hanfrey C.C. et al., "Alternative spermidine biosynthetic route is critical for
+    growth of Campylobacter jejuni and is the dominant polyamine pathway in human gut microbiota",
+    J Biol Chem 286:43301-43312 (2011), doi:10.1074/jbc.M111.307835.
+- name: glutathione
+  metabolite: Glutathione synthesis
+  category: detox
+  higher_means: context-dependent
+  evidence_strength: preliminary
+  description: Bacterial glutathione synthesis, by the two-enzyme route or by the fused single-enzyme
+    version, with the recycling and breakdown enzymes measured separately so that synthesis
+    is not confused with turnover.
+  pathway: glutamate + cysteine -> gamma-glutamylcysteine (gshA) -> add glycine -> glutathione
+    (gshB); or both steps in one fused enzyme (gshF). Recycling runs through glutathione reductase
+    and breakdown through gamma-glutamyltranspeptidase.
+  targets:
+  - id: GSHA
+    gene: gshA
+    n_uniprot: 24985
+    label: gshA (glutamate--cysteine ligase, first step)
+    query: Glutamate--cysteine ligase
+  - id: GSHB
+    gene: gshB
+    n_uniprot: 8864
+    label: gshB (glutathione synthetase, second step)
+    query: Glutathione synthetase
+  - id: GSHF
+    gene: gshF
+    n_uniprot: 549
+    label: gshF (fused bifunctional GshAB, both steps in one enzyme)
+    query: Glutathione biosynthesis bifunctional protein GshAB
+  - id: GOR
+    gene: gor
+    n_uniprot: 5268
+    label: gor (glutathione reductase, recycling rather than synthesis)
+    query: Glutathione reductase
+  - id: GGT
+    gene: ggt
+    n_uniprot: 3077
+    label: ggt (gamma-glutamyltranspeptidase, breakdown and salvage)
+    query: Gamma-glutamyltranspeptidase
+  aggregate_from:
+  - GSHA
+  - GSHB
+  - GSHF
+  aggregate_reason: Only synthesis is summed. Reductase recycles glutathione that already
+    exists and transpeptidase takes it apart; both are measured and shown next to the synthesis
+    reading, because a community that recycles heavily is not the same as one that synthesises
+    heavily, and adding them together would hide that.
+  what_it_is: Your gut bacteria's capacity to make glutathione, the main small-molecule antioxidant
+    inside cells.
+  made_from: glutamate, cysteine and glycine
+  summary: Some gut bacteria synthesise glutathione. This counts those genes. It is not a
+    measurement of glutathione in you, and it is not a marker of your own antioxidant status.
+  evidence_detail: 'Bacterial glutathione synthesis is real but patchy: many gut anaerobes
+    lack the route entirely and import what they need, and the fused gshF enzyme found in
+    some Gram-positives does both steps at once, so a search for the two-enzyme route alone
+    will miss it. A 2026 study described glutathione handling in Eubacterium rectale specifically.
+    What this cannot establish is any effect on your own glutathione: host glutathione is
+    made by your own cells from cysteine supply, and there is no established route by which
+    bacterial glutathione in the colon becomes host glutathione in the liver.'
+  implications:
+    higher: More bacterial glutathione synthesis capacity than most samples carry. This says
+      nothing about your own glutathione status, which is made by your cells and is not measurable
+      from a stool gene count.
+    typical: A mid-range amount of bacterial glutathione synthesis capacity, similar to most
+      samples. Many gut anaerobes import glutathione rather than making it, so the synthesis
+      reading is only part of how a community handles it.
+    lower: Less bacterial glutathione synthesis capacity than most samples carry. Read this
+      beside the recycling and breakdown readings, and not as a statement about your own antioxidant
+      status, which this cannot measure.
+  citation: Smirnova G.V., Oktyabrsky O.N., "Glutathione in bacteria", Biochemistry (Moscow)
+    70:1199-1211 (2005), doi:10.1007/s10541-005-0248-3.
+- name: ethanol
+  metabolite: Microbial ethanol formation
+  category: metabolite
+  higher_means: context-dependent
+  evidence_strength: preliminary
+  description: Bacterial ethanol formation, centred on the bifunctional enzyme identified
+    in the high-alcohol-producing Klebsiella work, together with the ethanolamine route that
+    is a separate chemistry sharing part of the same space.
+  pathway: acetyl-CoA -> acetaldehyde -> ethanol, both steps by the bifunctional adhE; pyruvate
+    -> acetaldehyde -> ethanol via pyruvate decarboxylase and an alcohol dehydrogenase; ethanolamine
+    -> acetaldehyde + ammonia via the ethanolamine ammonia-lyase route
+  targets:
+  - id: ADHE
+    gene: adhE
+    n_uniprot: 3947
+    label: adhE (bifunctional aldehyde-alcohol dehydrogenase)
+    query: Aldehyde-alcohol dehydrogenase
+  - id: ADHP
+    gene: adhP
+    n_uniprot: 286
+    label: adhP (alcohol dehydrogenase, propanol-preferring)
+    query: Alcohol dehydrogenase, propanol-preferring
+  - id: PDC
+    gene: pdc
+    n_uniprot: 761
+    label: pdc (pyruvate decarboxylase)
+    query: Pyruvate decarboxylase
+  - id: EUTB
+    gene: eutB
+    n_uniprot: 50
+    label: eutB (ethanolamine ammonia-lyase, heavy subunit)
+    query_raw: (protein_name:"Ethanolamine ammonia-lyase" AND protein_name:"heavy")
+    max_sequences: 200
+  - id: EUTC
+    gene: eutC
+    n_uniprot: 28
+    label: eutC (ethanolamine ammonia-lyase, light subunit)
+    query_raw: (protein_name:"Ethanolamine ammonia-lyase" AND protein_name:"light")
+    max_sequences: 200
+  aggregate_from:
+  - ADHE
+  aggregate_reason: Only adhE is summed into the panel value. It is the bifunctional enzyme
+    the high-alcohol-producing Klebsiella work identifies, and it performs both steps from
+    acetyl-CoA to ethanol on its own. The others are different chemistries that can end at
+    the same molecule, and they are reported individually rather than folded into one number
+    that would no longer mean ethanol from adhE.
+  what_it_is: Capacity of your gut bacteria to produce ethanol, and the separate ethanolamine
+    route that produces acetaldehyde.
+  made_from: dietary sugars, and ethanolamine from cell membrane turnover
+  summary: Some gut bacteria make ethanol. High-producing strains have been linked to fatty
+    liver disease in specific studies. This is a gene count and does not diagnose anything.
+  evidence_detail: 'The clearest evidence concerns particular high-alcohol-producing Klebsiella
+    pneumoniae strains found in people with non-alcoholic fatty liver disease, where colonising
+    mice with those strains produced liver changes. That is a strain-level finding: carrying
+    adhE is ordinary and most bacteria that carry it are not high producers, so this reading
+    cannot identify auto-brewery syndrome or fatty liver. Acetaldehyde, the intermediate,
+    is the genotoxic part of this chemistry. A separate reading for acetaldehyde disposal
+    is deliberately not given, because the aldehyde dehydrogenase family is not substrate-specific
+    enough for a count over it to mean acetaldehyde rather than any other aldehyde.'
+  implications:
+    higher: More ethanol-forming gene capacity than most samples carry. Carrying adhE is common
+      and is not the same as being a high-producing strain, which is what the fatty liver
+      disease studies identified.
+    typical: A mid-range amount of ethanol-forming gene capacity, similar to most samples
+      in the reference set. Endogenous ethanol production is normal at low levels and this
+      reading does not estimate how much is produced.
+    lower: Less ethanol-forming gene capacity than most samples carry. This is a count of
+      genes rather than a measurement of ethanol, and no clinical conclusion about liver health
+      follows from it in either direction.
+  citation: Yuan J. et al., "Fatty liver disease caused by high-alcohol-producing Klebsiella
+    pneumoniae", Cell Metab 30:675-688 (2019), doi:10.1016/j.cmet.2019.08.018.
+- name: p9
+  metabolite: P9 protein (experimental)
+  category: metabolite
+  higher_means: context-dependent
+  evidence_strength: preliminary
+  description: One Akkermansia muciniphila protein with experimental evidence for an effect
+    on GLP-1 secretion, detected from the exact sequence that was tested rather than from
+    the species. The protease family it belongs to competes against it here instead of counting
+    towards it.
+  pathway: Amuc_1631, a carboxyl-terminal protease of the peptidase S41A family, reported
+    to act on a host receptor in cell and mouse experiments
+  targets:
+  - id: P9
+    gene: Amuc_1631
+    n_uniprot: 1
+    max_sequences: 1
+    min_identity: 85.0
+    label: P9 / Amuc_1631 (the exact experimentally tested sequence)
+    query_raw: (accession:B2UM07)
+  decoys:
+  - id: S41A
+    label: the wider carboxyl-terminal protease family this protein belongs to
+    query_or:
+    - Carboxyl-terminal processing protease
+    - Tail-specific protease
+    - Carboxyl-terminal protease
+    max_sequences: 2500
+    note: 'P9 belongs to the peptidase S41A family, so its relatives are the most likely source
+      of a false match. They are counted here, against the target rather than with it: a homolog
+      of a protease family is not the protein that was tested.'
+  - id: WRONGID
+    label: Amuc_1831, the identifier this protein is sometimes confused with
+    query_raw: (accession:B2UN38) OR (protein_name:"Four helix bundle protein")
+    max_sequences: 800
+    note: 'Amuc_1831 is a 98-residue four helix bundle protein against P9''s 748 residues,
+      and belongs to no protease family. It has been cited for P9 in error, so it is searched
+      for separately: a read that belongs to it lands here and not on the target.'
+  aggregate_from:
+  - P9
+  aggregate_reason: One target, because the specification requires this detector to be the
+    experimentally tested sequence. The family and the misattributed identifier are measured
+    as competitors and are never added in.
+  what_it_is: Whether the reads carry the exact Akkermansia protein that was tested in the
+    GLP-1 experiments, as opposed to something in the same family.
+  made_from: not a metabolite; this is a bacterial protein-coding gene
+  summary: A single protein with preclinical evidence. Finding its gene is a long way from
+    a hormone response, and this is not comparable to a GLP-1 medication.
+  evidence_detail: 'The protein was purified and tested in cell and mouse work, where it increased
+    GLP-1 secretion through a host receptor. That is experimental evidence about a protein,
+    not about a person: what this screen can say is whether reads map to the tested sequence
+    at high identity. Detection is deliberately strict. One reference sequence means a diverged
+    version in another strain will not reach the identity floor, and is reported as unresolved
+    rather than counted, because transferring a functional annotation onto a divergent homolog
+    is exactly the error the specification forbids here. Neither secretion nor any GLP-1 level
+    is measured by these reads.'
+  implications:
+    higher: Reads map to the experimentally tested sequence. That is a gene being present,
+      not a protein being made or secreted, and it says nothing about your own GLP-1 or about
+      GLP-1 medication.
+    typical: A mid-range amount of read evidence on the tested sequence, read beside the family
+      competition shown with it. Neither number is a hormone level, and the evidence for an
+      effect is preclinical.
+    lower: Little or no read evidence on the exact tested sequence. Because the detector is
+      one sequence, a diverged version in another strain would also read this way, so this
+      is not evidence that no such protein is present.
+  citation: Yoon H.S. et al., "Akkermansia muciniphila secretes a protein P9 that improves
+    glucose homeostasis", Nat Microbiol 6:563-573 (2021), doi:10.1038/s41564-021-00880-5.
+- name: peptides
+  metabolite: Peptide uptake
+  category: metabolite
+  higher_means: context-dependent
+  evidence_strength: limited
+  description: Capacity to take whole peptides in, which is a separate capability from cutting
+    proteins up outside the cell. An organism can do either without the other, and the two
+    are measured separately for that reason.
+  pathway: extracellular peptides -> ABC oligopeptide transport (oppABCDF) or proton-coupled
+    di- and tripeptide transport (dtpT) -> intracellular peptides; branched-chain amino acids
+    enter by their own carriers
+  targets:
+  - id: OPPA
+    gene: oppA
+    n_uniprot: 3343
+    label: oppA (oligopeptide-binding protein, the ABC system's receptor)
+    query: Oligopeptide-binding protein
+  - id: OPPB
+    gene: oppB
+    n_uniprot: 11380
+    max_sequences: 2500
+    label: oppB (oligopeptide transport permease)
+    query: Oligopeptide transport system permease
+  - id: OPPD
+    gene: oppD
+    n_uniprot: 3591
+    label: oppD (oligopeptide transport ATP-binding subunit)
+    query: Oligopeptide transport ATP-binding
+  - id: DTPT
+    gene: dtpT
+    n_uniprot: 915
+    label: dtpT (proton-coupled di- and tripeptide transporter)
+    query: Di-/tripeptide transporter
+  - id: LIVK
+    gene: livK
+    n_uniprot: 164
+    label: livK (leucine-binding protein)
+    query: Leucine-specific-binding protein
+  - id: BRNQ
+    gene: brnQ
+    n_uniprot: 32
+    max_sequences: 200
+    label: brnQ (branched-chain amino acid carrier)
+    query: Branched-chain amino acid transport system 2 carrier
+  aggregate_from:
+  - OPPA
+  - DTPT
+  aggregate_reason: 'The two independent uptake systems are summed: the ABC oligopeptide receptor
+    and the proton-coupled di- and tripeptide transporter. The other oppABCDF subunits are
+    measured and shown as route detail, because adding every subunit would count one transporter
+    four times.'
+  what_it_is: How much capacity your gut bacteria have to import peptides whole, rather than
+    breaking them down outside the cell first.
+  made_from: peptides from dietary and host protein
+  summary: Taking peptides in is a different capability from cutting proteins up. This is
+    the uptake side, and it is a gene count rather than a rate.
+  evidence_detail: 'Peptide transport is how most gut bacteria actually acquire amino acids:
+    importing a short peptide costs less than making each residue, and the transporters are
+    among the most highly expressed genes in gut isolates. What this cannot tell you is how
+    much dietary protein reaches your colon. That is set by how much you eat and how well
+    your small intestine digests it, and a transporter count in stool speaks to neither. Nor
+    does high uptake capacity mean more protein fermentation: the same peptides can be built
+    into bacterial protein instead, which is the opposite outcome.'
+  implications:
+    higher: More peptide-uptake capacity than most samples carry. That can mean peptides are
+      being used for growth rather than fermented, so it does not point in a single direction
+      on its own.
+    typical: A mid-range amount of peptide-uptake capacity, which is what most samples carry.
+      Read it beside the protein-fermentation reading rather than on its own, since the same
+      peptides can go either way.
+    lower: Less peptide-uptake capacity than most samples carry. Bacteria can also take in
+      free amino acids and make their own, so this is not a limit on the community's nitrogen
+      supply.
+  citation: Detmers F.J., Lanfermeijer F.C., Poolman B., "Peptides and ATP binding cassette
+    peptide transporters", Res Microbiol 152:245-258 (2001), doi:10.1016/s0923-2508(01)01196-2.
+- name: urolithin
+  metabolite: Urolithin A formation
+  category: metabolite
+  higher_means: context-dependent
+  evidence_strength: preliminary
+  description: 'The 9-dehydroxylation that turns urolithin C into urolithin A, measured from
+    the three proteins of the ucd operon as published, not from gene symbols: searching the
+    symbols returns a fungal protein of the same name.'
+  pathway: ellagitannins from pomegranate, walnuts and berries -> ellagic acid -> urolithin
+    C -> urolithin A, the last step by the UcdCFO dehydroxylase of Enterocloster species
+  targets:
+  - id: UCDO
+    gene: ucdO
+    n_uniprot: 1
+    max_sequences: 1
+    min_identity: 80.0
+    source: literal
+    label: ucdO (the dehydroxylase catalytic subunit, XNL98362.1)
+    query_literal: extension/ucd_operon.json#ucdO
+  - id: UCDC
+    gene: ucdC
+    n_uniprot: 1
+    max_sequences: 1
+    min_identity: 80.0
+    source: literal
+    label: ucdC (operon subunit, XNL98360.1, partial CDS)
+    query_literal: extension/ucd_operon.json#ucdC
+  - id: UCDF
+    gene: ucdF
+    n_uniprot: 1
+    max_sequences: 1
+    min_identity: 80.0
+    source: literal
+    label: ucdF (operon subunit, XNL98361.1)
+    query_literal: extension/ucd_operon.json#ucdF
+  aggregate_from:
+  - UCDO
+  aggregate_reason: The catalytic subunit is the reading. The other two subunits of the operon
+    are measured and shown as route detail; summing all three would count one enzyme three
+    times.
+  what_it_is: Whether your gut bacteria carry the enzyme that makes urolithin A from the urolithin
+    C produced earlier in the pathway.
+  made_from: ellagitannins in pomegranate, walnuts, raspberries and strawberries
+  summary: Only some people's microbiomes make urolithin A. This measures the published enzyme
+    for the final step; it is not a urolithin measurement.
+  evidence_detail: 'The enzyme responsible was identified in 2025 as a dehydroxylase encoded
+    by an operon in gut Enterocloster species, and this panel holds the three proteins from
+    that record rather than a gene-symbol search, which returns an unrelated fungal protein.
+    Detection is strict: one reference sequence per subunit means a diverged version in another
+    strain will not reach the identity floor, and is reported as unresolved rather than counted.
+    Carrying the gene is also not the same as being a urolithin producer, which the specification
+    is explicit about: that is established by measuring urolithin after an ellagitannin challenge,
+    not from DNA.'
+  implications:
+    higher: Reads map to the published dehydroxylase. The gene is present, which is not the
+      same as a measured urolithin A response to pomegranate or walnuts.
+    typical: A mid-range amount of read evidence on the published enzyme. Whether you produce
+      urolithin A is established by measuring it after an ellagitannin challenge, which is
+      a different test from this one.
+    lower: Little or no read evidence on the published enzyme. Because the detector is the
+      exact sequence, a diverged version in another strain would read the same way, so this
+      is not proof that the capacity is absent.
+  citation: Pidgeon R., Mitchell S., Shamash M., et al., "Diet-derived urolithin A is produced
+    by a dehydroxylase encoded by human gut Enterocloster species", GenBank PQ855390.1 (2025).
+- name: equol
+  metabolite: Equol formation
+  category: metabolite
+  higher_means: context-dependent
+  evidence_strength: preliminary
+  description: The three-step reduction of daidzein to equol, measured from the purified enzymes
+    the chemistry was established with. General reductase domains are not sufficient for this
+    and are not used.
+  pathway: soy isoflavone daidzein -> dihydrodaidzein (daidzein reductase) -> tetrahydrodaidzein
+    (dihydrodaidzein reductase) -> equol (tetrahydrodaidzein reductase)
+  targets:
+  - id: DZNR
+    gene: dznr
+    n_uniprot: 1
+    max_sequences: 1
+    min_identity: 80.0
+    label: dznr (daidzein reductase, the committed first step, E1CIA4)
+    query_raw: (accession:E1CIA4)
+  - id: DDR
+    gene: ddr
+    n_uniprot: 1
+    max_sequences: 1
+    min_identity: 80.0
+    label: ddr (dihydrodaidzein reductase, E7FL41)
+    query_raw: (accession:E7FL41)
+  - id: TDR
+    gene: tdr
+    n_uniprot: 1
+    max_sequences: 1
+    min_identity: 80.0
+    label: tdr (tetrahydrodaidzein reductase, the final step, E7FL40)
+    query_raw: (accession:E7FL40)
+  aggregate_from:
+  - DZNR
+  aggregate_reason: The committed first reduction is the reading. The two downstream reductases
+    are measured and shown as route detail, because the route is one capability and summing
+    its three steps would treat it as three.
+  what_it_is: Whether your gut bacteria carry the enzymes that turn the soy isoflavone daidzein
+    into equol.
+  made_from: daidzein from soy foods
+  summary: Roughly a third of people carry equol-producing bacteria. This measures the published
+    enzymes, and is not a measurement of equol.
+  evidence_detail: The three reductases were purified and characterised, which is what makes
+    a specific detector possible; the specification is explicit that aliases such as eqlA/B/C
+    need strain-specific mapping and that a general reductase domain is not evidence of this
+    chemistry. One reference sequence per step means low sensitivity by design, and a diverged
+    enzyme is reported as unresolved rather than transferred onto this annotation. Equol producer
+    status in the literature is defined by measuring equol in urine after a soy challenge,
+    which DNA cannot substitute for.
+  implications:
+    higher: Reads map to the published equol enzymes. That is the gene being present, not
+      a measured equol response to soy, which is how producer status is actually defined.
+    typical: A mid-range amount of read evidence on the published enzymes. Producer status
+      is established by measuring equol in urine after a soy challenge.
+    lower: Little or no read evidence on the published enzymes. Around two thirds of people
+      are non-producers, so this is a common finding, and the strict detector means a diverged
+      enzyme would also read this way.
+  citation: Schroder C. et al., "Identification and expression of genes involved in the conversion
+    of daidzein and genistein by the equol-forming bacterium Slackia isoflavoniconvertens",
+    Appl Environ Microbiol 79:3494-3502 (2013), doi:10.1128/AEM.03693-12.

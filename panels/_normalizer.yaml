@@ -1,0 +1,44 @@
+# Built-in normaliser — included in every run, not a per-panel entry.
+#
+# rpoB (DNA-directed RNA polymerase subunit beta) is a universal, single-copy
+# bacterial gene. Dividing a length-corrected target rate by a length-corrected
+# rpoB rate yields "copies per bacterial genome", which buys three properties:
+#
+#   1. depth independence   — samples of different size are comparable
+#   2. gene-length correction — a 1200 aa target is comparable to a 400 aa one
+#   3. host-read cancellation — human reads carry no bacterial rpoB, so they
+#      inflate neither numerator nor denominator; no host filtering is needed
+#
+# The reference set is restricted to UniProt-reviewed (Swiss-Prot) entries.
+# Reviewed rpoB spans every major bacterial phylum and is annotation-clean,
+# which matters here because a fragmentary or misannotated reference would
+# distort the mean reference length in the denominator. Unreviewed rpoB adds
+# ~23,000 mostly redundant entries with no sensitivity gain: rpoB is conserved
+# enough (70-95% aa identity within a phylum) that translated search finds
+# gut taxa through their reviewed relatives.
+#
+# The explicit length_range excludes fragments and rules out rpoC (subunit
+# beta-prime) leaking in through name-based matching.
+
+description: >-
+  rpoB — DNA-directed RNA polymerase subunit beta. Universal single-copy
+  bacterial gene used to convert raw fragment counts into bacterial genome
+  equivalents.
+
+citation: >-
+  Case R.J. et al., "Use of 16S rRNA and rpoB genes as molecular markers for
+  microbial ecology studies", Appl Environ Microbiol 73:278-288 (2007).
+  doi:10.1128/AEM.01177-06
+
+normalizer:
+  id: RPOB
+  label: rpoB (RNA polymerase beta subunit)
+  gene: rpoB
+  source: uniprot
+  query: '(gene:rpoB) AND (taxonomy_id:2) AND (reviewed:true)'
+  # Permissive on identity: undercounting the denominator would inflate every
+  # panel at once. rpoB is conserved, so 50% translated identity over >=25 aa
+  # is a safe floor.
+  min_identity: 50.0
+  max_sequences: 4000
+  length_range: [1000, 1500]

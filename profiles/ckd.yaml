@@ -1,0 +1,278 @@
+name: ckd
+version: 1.0.0
+spec_version: 3
+label: "Chronic kidney disease — gut pattern"
+disease: chronic_kidney_disease
+task: ckd_vs_healthy
+family: cardiometabolic
+body_site: stool
+population: mixed_chinese_european_cohorts
+status: research_beta
+evidence_maturity: P2
+challenge_for: [t2d, hypertension, cirrhosis]
+
+summary: >-
+  Kidney failure changes the gut chemically before it changes it
+  ecologically: urea diffuses into the colon and is hydrolysed to ammonia by
+  bacterial urease, raising luminal pH and selecting for urease-, uricase-
+  and indole- and p-cresol-forming organisms (Wong 2014). Those uraemic
+  toxins — indoxyl sulfate and p-cresyl sulfate — are made by gut bacteria
+  from tryptophan and tyrosine and accumulate as filtration falls. Ren et al.
+  and Wang et al. shotgun cohorts show Enterobacteriaceae and oral-origin
+  taxa enriched with butyrate producers depleted, and the pattern tracks
+  eGFR stage.
+
+  Phosphate binders, potassium restriction and the low-protein renal diet
+  each reshape the gut.
+
+references:
+  primary:
+    source: null
+    note: "Controls with the same diet restriction and medication burden do not exist in public data."
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  ren_2020:
+    label: "Ren 2020 Chinese CKD shotgun"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: ren_2020
+    maturity: P2
+    weight_in_combined: 1.0
+    sources: ["Ren Z, et al. Front Cell Infect Microbiol 2020;10:5"]
+    features:
+      - name: Escherichia_coli
+        level: species
+        direction: higher_in_case
+        w: 0.8
+        q: 0.7
+        s: 0.3
+        c: 0.8
+      - name: Klebsiella_pneumoniae
+        level: species
+        direction: higher_in_case
+        w: 0.7
+        q: 0.6
+        s: 0.4
+        c: 0.7
+      - name: Enterococcus_faecalis
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.6
+        s: 0.4
+        c: 0.6
+      - name: Streptococcus_salivarius
+        level: species
+        direction: higher_in_case
+        cluster: oral_origin
+        w: 0.5
+        q: 0.6
+        s: 0.3
+        c: 0.6
+        conflict_note: "Genus Streptococcus is on the conflicted list; species only."
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.8
+        q: 0.7
+        s: 0.2
+        c: 0.8
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.7
+        s: 0.3
+        c: 0.7
+      - name: Eubacterium_rectale
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.7
+        s: 0.2
+        c: 0.7
+
+  wang_2020_esrd:
+    label: "Wang 2020 end-stage renal disease shotgun + metabolomics"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: wang_2020
+    maturity: P2
+    note: "223 ESRD, 69 controls; uraemic toxin production traced to specific species, with faecal transfer raising toxins in mice."
+    sources: ["Wang X, et al. Gut 2020;69:2131-2142"]
+    features:
+      - name: Eggerthella_lenta
+        level: species
+        direction: higher_in_case
+        w: 0.7
+        q: 0.7
+        s: 0.5
+        c: 0.7
+        note: "A p-cresol and indole producer enriched in ESRD."
+      - name: Flavonifractor_plautii
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.6
+        s: 0.5
+        c: 0.6
+      - name: Alistipes_shahii
+        level: species
+        direction: higher_in_case
+        w: 0.4
+        q: 0.6
+        s: 0.4
+        c: 0.5
+        direction_conflict: low
+        conflict_note: "Higher in ESRD here; lower in most inflammatory cohorts. Genus Alistipes is on the conflicted list; species only."
+      - name: Fusobacterium_nucleatum
+        level: species
+        direction: higher_in_case
+        w: 0.4
+        q: 0.6
+        s: 0.3
+        c: 0.5
+      - name: Prevotella_copri
+        level: species
+        direction: lower_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.3
+        c: 0.6
+        conflict_note: "Genus Prevotella is on the conflicted list; species only."
+      - name: Roseburia_hominis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.7
+        s: 0.3
+        c: 0.7
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.7
+        s: 0.2
+        c: 0.8
+
+  functional:
+    label: "Uraemic toxin and metabolite capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P2
+    note: >-
+      Urease is the defining CKD gut enzyme: urea to ammonia, luminal pH up.
+      Tryptophanase (indole, hence indoxyl sulfate) and p-cresol formation
+      are the uraemic toxin routes; the indole panel's direction is up here
+      even though indole-3-propionate — a different product — is protective.
+      Butyrate falls. TMAO rises as renal clearance falls and is a
+      cardiovascular risk factor in CKD.
+    sources:
+      - "Wong J, et al. Am J Nephrol 2014;39:230"
+      - "Tang WHW, et al. Circ Res 2015;116:448 (TMAO in CKD)"
+    features:
+      - name: urease
+        engine: diamond
+        direction: increased
+        w: 1.0
+        q: 0.7
+        s: 0.5
+        c: 0.8
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        w: 0.7
+        q: 0.7
+        s: 0.2
+        c: 0.7
+      - name: cutc
+        engine: diamond
+        direction: increased
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.6
+      - name: ipa
+        engine: diamond
+        direction: decreased
+        w: 0.4
+        q: 0.5
+        s: 0.3
+        c: 0.5
+
+  carriers:
+    label: "Oral-origin and hexa-LPS carriers"
+    type: mechanism_lane
+    evidence_type: CARRIER_ABUNDANCE
+    claim_level: carrier_proxy
+    maturity: P2
+    features:
+      - name: hexa_lps
+        engine: carrier
+        direction: increased
+        w: 0.6
+        q: 0.6
+        s: 0.3
+        c: 0.6
+      - name: oral_origin
+        engine: carrier
+        direction: increased
+        w: 0.5
+        q: 0.6
+        s: 0.3
+        c: 0.6
+      - name: butyrate
+        engine: carrier
+        direction: decreased
+        w: 0.6
+        q: 0.7
+        s: 0.2
+        c: 0.7
+
+confounders:
+  - name: Renal diet
+    effect: "Low-protein, low-potassium diets remove fruit, vegetables and fibre; that alone depletes butyrate producers"
+    handling: "Recorded in the ledger when supplied"
+  - name: Phosphate binders and iron
+    effect: "Sevelamer and oral iron shift the community"
+    handling: "Recorded when supplied"
+  - name: Diabetes and hypertension
+    effect: "The two leading causes of CKD each have their own pattern"
+    handling: "t2d and hypertension are challenge sets"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Kidney function is measured by eGFR and urine albumin. Both are cheap
+    blood and urine tests. This profile adds nothing to them.
+  - >-
+    The renal diet produces most of this pattern on its own.
+
+effect_size_note: >-
+  Wang 2020: 223 ESRD, 69 controls, shotgun with metabolomics. Ren 2020:
+  Chinese CKD cohort with stage-tracking.
+
+citation: >-
+  Wang X, et al. Aberrant gut microbiota alters host metabolome and impacts
+  renal failure in humans and rodents. Gut 2020;69:2131-2142; Ren Z, et al.
+  Alterations of the human gut microbiome in chronic kidney disease. Front
+  Cell Infect Microbiol 2020;10:5; Wong J, et al. Expansion of urease- and
+  uricase-containing, indole- and p-cresol-forming and contraction of
+  short-chain fatty acid-producing intestinal microbiota in ESRD. Am J Nephrol
+  2014;39:230.

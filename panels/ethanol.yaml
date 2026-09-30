@@ -1,0 +1,123 @@
+name: ethanol
+description: >-
+  Bacterial ethanol formation, centred on the bifunctional enzyme
+  identified in the high-alcohol-producing Klebsiella work, together with
+  the ethanolamine route that is a separate chemistry sharing part of the
+  same space.
+metabolite: Microbial ethanol formation
+pathway: >-
+  acetyl-CoA -> acetaldehyde -> ethanol, both steps by the bifunctional
+  adhE; pyruvate -> acetaldehyde -> ethanol via pyruvate decarboxylase and
+  an alcohol dehydrogenase; ethanolamine -> acetaldehyde + ammonia via the
+  ethanolamine ammonia-lyase route
+category: metabolite
+
+extension: true
+
+targets:
+  - id: ADHE
+    label: adhE (bifunctional aldehyde-alcohol dehydrogenase)
+    gene: adhE
+    source: uniprot
+    query: '(protein_name:"Aldehyde-alcohol dehydrogenase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: ADHP
+    label: adhP (alcohol dehydrogenase, propanol-preferring)
+    gene: adhP
+    source: uniprot
+    query: '(protein_name:"Alcohol dehydrogenase, propanol-preferring") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 286
+    length_tolerance: 0.3
+
+  - id: PDC
+    label: pdc (pyruvate decarboxylase)
+    gene: pdc
+    source: uniprot
+    query: '(protein_name:"Pyruvate decarboxylase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 761
+    length_tolerance: 0.3
+
+  - id: EUTB
+    label: eutB (ethanolamine ammonia-lyase, heavy subunit)
+    gene: eutB
+    source: uniprot
+    query: '(protein_name:"Ethanolamine ammonia-lyase" AND protein_name:"heavy") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 200
+    length_tolerance: 0.3
+
+  - id: EUTC
+    label: eutC (ethanolamine ammonia-lyase, light subunit)
+    gene: eutC
+    source: uniprot
+    query: '(protein_name:"Ethanolamine ammonia-lyase" AND protein_name:"light") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 200
+    length_tolerance: 0.3
+
+aggregate: sum
+aggregate_from: [ADHE]
+aggregate_reason: >-
+  Only adhE is summed into the panel value. It is the bifunctional enzyme
+  the high-alcohol-producing Klebsiella work identifies, and it performs
+  both steps from acetyl-CoA to ethanol on its own. The others are
+  different chemistries that can end at the same molecule, and they are
+  reported individually rather than folded into one number that would no
+  longer mean ethanol from adhE.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+citation: >-
+  Yuan J. et al., "Fatty liver disease caused by high-alcohol-producing
+  Klebsiella pneumoniae", Cell Metab 30:675-688 (2019),
+  doi:10.1016/j.cmet.2019.08.018.
+
+interpretation:
+  what_it_is: >-
+    Capacity of your gut bacteria to produce ethanol, and the separate
+    ethanolamine route that produces acetaldehyde.
+  made_from: >-
+    dietary sugars, and ethanolamine from cell membrane turnover
+  summary: >-
+    Some gut bacteria make ethanol. High-producing strains have been
+    linked to fatty liver disease in specific studies. This is a gene
+    count and does not diagnose anything.
+  evidence_detail: >-
+    The clearest evidence concerns particular high-alcohol-producing
+    Klebsiella pneumoniae strains found in people with non-alcoholic fatty
+    liver disease, where colonising mice with those strains produced liver
+    changes. That is a strain-level finding: carrying adhE is ordinary and
+    most bacteria that carry it are not high producers, so this reading
+    cannot identify auto-brewery syndrome or fatty liver. Acetaldehyde,
+    the intermediate, is the genotoxic part of this chemistry. A separate
+    reading for acetaldehyde disposal is deliberately not given, because
+    the aldehyde dehydrogenase family is not substrate-specific enough for
+    a count over it to mean acetaldehyde rather than any other aldehyde.
+  higher_means: context-dependent
+  evidence_strength: preliminary
+  implications:
+    higher: >-
+      More ethanol-forming gene capacity than most samples carry.
+      Carrying adhE is common and is not the same as being a
+      high-producing strain, which is what the fatty liver disease
+      studies identified.
+    typical: >-
+      A mid-range amount of ethanol-forming gene capacity, similar to
+      most samples in the reference set. Endogenous ethanol production
+      is normal at low levels and this reading does not estimate how
+      much is produced.
+    lower: >-
+      Less ethanol-forming gene capacity than most samples carry. This
+      is a count of genes rather than a measurement of ethanol, and no
+      clinical conclusion about liver health follows from it in either
+      direction.
+  citation: >-
+    Yuan J. et al., "Fatty liver disease caused by high-alcohol-producing
+    Klebsiella pneumoniae", Cell Metab 30:675-688 (2019),
+    doi:10.1016/j.cmet.2019.08.018.

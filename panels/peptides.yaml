@@ -1,0 +1,123 @@
+name: peptides
+description: >-
+  Capacity to take whole peptides in, which is a separate capability from
+  cutting proteins up outside the cell. An organism can do either without
+  the other, and the two are measured separately for that reason.
+metabolite: Peptide uptake
+pathway: >-
+  extracellular peptides -> ABC oligopeptide transport (oppABCDF) or
+  proton-coupled di- and tripeptide transport (dtpT) -> intracellular
+  peptides; branched-chain amino acids enter by their own carriers
+category: metabolite
+
+extension: true
+
+targets:
+  - id: OPPA
+    label: oppA (oligopeptide-binding protein, the ABC system's receptor)
+    gene: oppA
+    source: uniprot
+    query: '(protein_name:"Oligopeptide-binding protein") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: OPPB
+    label: oppB (oligopeptide transport permease)
+    gene: oppB
+    source: uniprot
+    query: '(protein_name:"Oligopeptide transport system permease") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 2500
+    length_tolerance: 0.3
+
+  - id: OPPD
+    label: oppD (oligopeptide transport ATP-binding subunit)
+    gene: oppD
+    source: uniprot
+    query: '(protein_name:"Oligopeptide transport ATP-binding") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: DTPT
+    label: dtpT (proton-coupled di- and tripeptide transporter)
+    gene: dtpT
+    source: uniprot
+    query: '(protein_name:"Di-/tripeptide transporter") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 915
+    length_tolerance: 0.3
+
+  - id: LIVK
+    label: livK (leucine-binding protein)
+    gene: livK
+    source: uniprot
+    query: '(protein_name:"Leucine-specific-binding protein") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 200
+    length_tolerance: 0.3
+
+  - id: BRNQ
+    label: brnQ (branched-chain amino acid carrier)
+    gene: brnQ
+    source: uniprot
+    query: '(protein_name:"Branched-chain amino acid transport system 2 carrier") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 200
+    length_tolerance: 0.3
+
+aggregate: sum
+aggregate_from: [OPPA, DTPT]
+aggregate_reason: >-
+  The two independent uptake systems are summed: the ABC oligopeptide
+  receptor and the proton-coupled di- and tripeptide transporter. The
+  other oppABCDF subunits are measured and shown as route detail, because
+  adding every subunit would count one transporter four times.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+citation: >-
+  Detmers F.J., Lanfermeijer F.C., Poolman B., "Peptides and ATP binding
+  cassette peptide transporters", Res Microbiol 152:245-258 (2001),
+  doi:10.1016/s0923-2508(01)01196-2.
+
+interpretation:
+  what_it_is: >-
+    How much capacity your gut bacteria have to import peptides whole,
+    rather than breaking them down outside the cell first.
+  made_from: >-
+    peptides from dietary and host protein
+  summary: >-
+    Taking peptides in is a different capability from cutting proteins up.
+    This is the uptake side, and it is a gene count rather than a rate.
+  evidence_detail: >-
+    Peptide transport is how most gut bacteria actually acquire amino
+    acids: importing a short peptide costs less than making each residue,
+    and the transporters are among the most highly expressed genes in gut
+    isolates. What this cannot tell you is how much dietary protein
+    reaches your colon. That is set by how much you eat and how well your
+    small intestine digests it, and a transporter count in stool speaks to
+    neither. Nor does high uptake capacity mean more protein fermentation:
+    the same peptides can be built into bacterial protein instead, which
+    is the opposite outcome.
+  higher_means: context-dependent
+  evidence_strength: limited
+  implications:
+    higher: >-
+      More peptide-uptake capacity than most samples carry. That can
+      mean peptides are being used for growth rather than fermented, so
+      it does not point in a single direction on its own.
+    typical: >-
+      A mid-range amount of peptide-uptake capacity, which is what most
+      samples carry. Read it beside the protein-fermentation reading
+      rather than on its own, since the same peptides can go either way.
+    lower: >-
+      Less peptide-uptake capacity than most samples carry. Bacteria can
+      also take in free amino acids and make their own, so this is not a
+      limit on the community's nitrogen supply.
+  citation: >-
+    Detmers F.J., Lanfermeijer F.C., Poolman B., "Peptides and ATP binding
+    cassette peptide transporters", Res Microbiol 152:245-258 (2001),
+    doi:10.1016/s0923-2508(01)01196-2.

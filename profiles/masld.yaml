@@ -1,0 +1,255 @@
+name: masld
+version: 1.0.0
+spec_version: 3
+label: "Metabolic dysfunction-associated steatotic liver disease — gut pattern"
+disease: masld
+task: masld_vs_healthy
+family: liver
+body_site: stool
+population: mixed_us_european_cohorts
+status: research_beta
+evidence_maturity: P2
+challenge_for: [cirrhosis, obesity, t2d]
+
+summary: >-
+  Fatty liver disease (formerly NAFLD) is common enough that its gut pattern
+  is well sampled, and confounded enough by adiposity and diabetes that the
+  pattern is hard to attribute. Loomba et al. built a shotgun signature for
+  advanced fibrosis in biopsy-proven patients — Escherichia coli and
+  Bacteroides vulgatus higher, Eubacterium rectale lower — and Hoyles et al.
+  linked hepatic steatosis in non-diabetic obese women to low gene richness
+  and higher branched-chain amino acid and aromatic amino acid biosynthesis
+  potential. Endogenous ethanol production by Klebsiella pneumoniae strains
+  is a reproducible mechanism in a subset of patients (Yuan 2019).
+
+  Obesity and T2D are mutual challenge sets because most MASLD patients have
+  one or both.
+
+references:
+  primary:
+    source: null
+    note: "BMI-matched controls without steatosis exist in Hoyles but not as public per-sample profiles."
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  loomba_2017:
+    label: "Loomba 2017 biopsy-proven NAFLD (fibrosis signature)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: loomba_2017
+    maturity: P2
+    weight_in_combined: 1.0
+    note: "86 biopsy-proven patients, 72 mild/moderate and 14 advanced fibrosis. Directions are advanced-versus-mild; the E. coli direction replicates in the Boursier and Zhu cohorts."
+    sources: ["Loomba R, et al. Cell Metab 2017;25:1054-1062"]
+    features:
+      - name: Escherichia_coli
+        level: species
+        direction: higher_in_case
+        w: 0.9
+        q: 0.7
+        s: 0.3
+        c: 0.8
+      - name: Bacteroides_vulgatus
+        level: species
+        direction: higher_in_case
+        w: 0.8
+        q: 0.7
+        s: 0.3
+        c: 0.7
+      - name: Eubacterium_rectale
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.8
+        q: 0.7
+        s: 0.2
+        c: 0.8
+      - name: Blautia_obeum
+        level: species
+        direction: lower_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.6
+
+  hoyles_2018:
+    label: "Hoyles 2018 FLORINASH non-diabetic obese women"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: hoyles_2018
+    maturity: P2
+    note: "105 obese non-diabetic women with liver biopsy; steatosis tracked low gene richness and specific species."
+    sources: ["Hoyles L, et al. Nat Med 2018;24:1070-1080"]
+    features:
+      - name: Escherichia_coli
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.6
+        s: 0.3
+        c: 0.6
+        note: "Hoyles reported Proteobacteria and E. coli-associated gene families higher with steatosis."
+      - name: Eubacterium_eligens
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.6
+        s: 0.4
+        c: 0.7
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.6
+        s: 0.2
+        c: 0.7
+
+  yuan_2019_ethanol:
+    label: "Yuan 2019 high-alcohol-producing Klebsiella"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: yuan_2019
+    maturity: P2
+    note: "60% of a Chinese NAFLD cohort carried high-alcohol-producing K. pneumoniae strains versus 6% of controls; the strain phenotype is not resolvable here, so the species direction is kept at low weight."
+    sources: ["Yuan J, et al. Cell Metab 2019;30:675-688"]
+    features:
+      - name: Klebsiella_pneumoniae
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.6
+        s: 0.4
+        c: 0.5
+        note: "The finding is a strain phenotype (ethanol production), not species abundance."
+
+  ecology:
+    label: "Gene richness"
+    type: direction_panel
+    evidence_type: ECO
+    claim_level: observed
+    study_group: hoyles_2018
+    maturity: P2
+    features:
+      - name: richness
+        direction: decreased
+        w: 0.8
+        q: 0.7
+        s: 0.1
+        c: 0.8
+      - name: shannon
+        direction: decreased
+        w: 0.5
+        q: 0.7
+        s: 0.1
+        c: 0.8
+
+  functional:
+    label: "Metabolite gene capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P2
+    note: >-
+      BCAA and aromatic amino acid biosynthesis potential higher with
+      steatosis (Hoyles). Secondary bile acids (DCA) are elevated in NASH
+      and drive FXR antagonism; the bai direction is up. Butyrate falls with
+      the producers. Hexa-LPS carriers rise with Enterobacteriaceae and
+      supply the endotoxin that drives hepatic inflammation.
+    features:
+      - name: bcaa
+        engine: diamond
+        direction: increased
+        w: 0.8
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: bai
+        engine: diamond
+        direction: increased
+        w: 0.6
+        q: 0.6
+        s: 0.3
+        c: 0.6
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        w: 0.7
+        q: 0.7
+        s: 0.2
+        c: 0.8
+      - name: urda
+        engine: diamond
+        direction: increased
+        w: 0.4
+        q: 0.5
+        s: 0.4
+        c: 0.5
+
+  carriers:
+    label: "Hexa-LPS carriers"
+    type: mechanism_lane
+    evidence_type: CARRIER_ABUNDANCE
+    claim_level: carrier_proxy
+    maturity: P2
+    features:
+      - name: hexa_lps
+        engine: carrier
+        direction: increased
+        w: 0.7
+        q: 0.7
+        s: 0.3
+        c: 0.7
+      - name: butyrate
+        engine: carrier
+        direction: decreased
+        w: 0.6
+        q: 0.7
+        s: 0.2
+        c: 0.8
+
+confounders:
+  - name: Adiposity
+    effect: "Most MASLD cohorts are obese; obesity has its own ecological pattern"
+    handling: "BMI recorded in the ledger; obesity profile is a challenge set"
+  - name: Type 2 diabetes and metformin
+    effect: "Half of MASLD patients have T2D; metformin reshapes the community"
+    handling: "Recorded when supplied"
+  - name: Alcohol
+    effect: "Alcohol-related liver disease overlaps and must be excluded clinically"
+    handling: "Recorded when supplied"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Steatotic liver disease is diagnosed by imaging or elastography and
+    staged by biopsy or fibrosis scores. This profile does none of that.
+  - >-
+    The pattern is largely the obesity and metabolic-syndrome pattern. A
+    high score in someone with obesity is expected and not informative about
+    the liver.
+
+effect_size_note: >-
+  Loomba 2017: 86 biopsy-proven; 37-species signature for advanced fibrosis
+  with AUC 0.936 in discovery, not externally validated. Hoyles 2018: 105
+  women, biopsy-staged.
+
+citation: >-
+  Loomba R, et al. Gut microbiome-based metagenomic signature for non-invasive
+  detection of advanced fibrosis in human nonalcoholic fatty liver disease.
+  Cell Metab 2017;25:1054-1062; Hoyles L, et al. Molecular phenomics and
+  metagenomics of hepatic steatosis in non-diabetic obese women. Nat Med
+  2018;24:1070-1080; Yuan J, et al. Fatty liver disease caused by high-alcohol-
+  producing Klebsiella pneumoniae. Cell Metab 2019;30:675-688.

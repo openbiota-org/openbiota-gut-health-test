@@ -1,0 +1,218 @@
+name: celiac
+version: 1.0.0
+spec_version: 3
+label: "Coeliac disease — gut pattern"
+disease: celiac_disease
+task: celiac_vs_control
+family: autoimmune
+body_site: stool
+population: mixed_european_cohorts
+status: experimental
+evidence_maturity: P2
+
+summary: >-
+  Coeliac disease has a confounder built into its treatment: the gluten-free
+  diet removes most wheat-derived fermentable substrate and depletes
+  Bifidobacterium and butyrate producers on its own (De Palma 2009, Bonder
+  2016). Untreated coeliac shows Proteobacteria and Bacteroides expansion
+  with Bifidobacterium loss; treated coeliac looks like a gluten-free
+  healthy person. The most specific finding is functional — the CELIAC
+  Disease Genomic, Environmental, Microbiome and Metabolomic (CDGEMM) infant
+  study and the Leonard 2021 prospective cohort found changes in
+  carbohydrate-active enzyme and tryptophan metabolism before onset — which
+  is why the CAZy module is declared even though this pipeline cannot
+  compute it.
+
+  Gluten-free diet status is the one thing needed to read this profile, and
+  the confounder ledger will say whether it was supplied.
+
+references:
+  primary:
+    source: null
+    note: "Gluten-free non-coeliac controls are the right contrast for treated patients and are rare in public data."
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  leonard_2021_cdgemm:
+    label: "Leonard 2021 CDGEMM prospective infants"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: cdgemm
+    maturity: P2
+    weight_in_combined: 1.0
+    note: "Ten infants who developed coeliac disease matched to ten who did not, shotgun over time; species and pathway shifts preceded onset."
+    sources: ["Leonard MM, et al. PNAS 2021;118:e2020322118"]
+    features:
+      - name: Dialister_invisus
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.5
+        s: 0.5
+        c: 0.6
+      - name: Parabacteroides_distasonis
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.5
+        s: 0.4
+        c: 0.5
+      - name: Bacteroides_vulgatus
+        level: species
+        direction: lower_in_case
+        w: 0.5
+        q: 0.5
+        s: 0.3
+        c: 0.5
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.6
+        s: 0.2
+        c: 0.7
+
+  untreated_pattern:
+    label: "Untreated coeliac consensus (16S, multiple cohorts)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    assay_transport: amplicon_taxon_to_shotgun
+    study_group: untreated_consensus
+    maturity: P2
+    note: "Directions reported consistently in untreated coeliac across Collado 2009, Di Cagno 2011, Nistal 2012 and the Wacklin duodenal studies. Bifidobacterium loss is shared with the gluten-free diet."
+    sources:
+      - "Collado MC, et al. J Clin Pathol 2009;62:264"
+      - "Nistal E, et al. Inflamm Bowel Dis 2012;18:649"
+      - "Wacklin P, et al. Am J Gastroenterol 2014;109:1933"
+    features:
+      - name: Bifidobacterium_longum
+        level: species
+        direction: lower_in_case
+        cluster: bifidobacterium
+        w: 0.8
+        q: 0.6
+        s: 0.3
+        c: 0.7
+        mapping_confidence: medium
+      - name: Bifidobacterium_adolescentis
+        level: species
+        direction: lower_in_case
+        cluster: bifidobacterium
+        w: 0.6
+        q: 0.6
+        s: 0.3
+        c: 0.7
+        mapping_confidence: medium
+      - name: Escherichia_coli
+        level: species
+        direction: higher_in_case
+        w: 0.7
+        q: 0.6
+        s: 0.3
+        c: 0.7
+        mapping_confidence: medium
+      - name: Bacteroides_fragilis
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.5
+        s: 0.3
+        c: 0.6
+        mapping_confidence: medium
+      - name: Clostridium_bolteae
+        level: species
+        direction: higher_in_case
+        w: 0.4
+        q: 0.5
+        s: 0.4
+        c: 0.5
+        mapping_confidence: low
+      - name: Lactobacillus_ruminis
+        level: species
+        direction: lower_in_case
+        w: 0.4
+        q: 0.5
+        s: 0.4
+        c: 0.5
+        mapping_confidence: low
+
+  cazy_module:
+    label: "Carbohydrate-active enzyme shifts before onset"
+    type: direction_panel
+    evidence_type: CAZY
+    claim_level: genomic_capacity
+    study_group: cdgemm
+    maturity: P2
+    note: "CDGEMM found glycoside hydrolase family changes before coeliac onset. Requires a CAZy-annotated engine (run_dbcan or eggNOG CAZy); declared unbound so the report can say the most specific coeliac evidence is not measurable here."
+    sources: ["Leonard MM, et al. PNAS 2021;118:e2020322118"]
+    features:
+      - {name: GH13_subfamily_shift, direction: higher_in_case}
+      - {name: GH43_shift, direction: lower_in_case}
+
+  functional:
+    label: "Metabolite gene capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P2
+    note: "Tryptophan metabolism toward indoles (AhR ligands) was reduced before onset in CDGEMM and in Lamas 2020 coeliac patients; butyrate falls with Bifidobacterium and producers."
+    sources: ["Lamas B, et al. Sci Transl Med 2020;12:eaba0624"]
+    features:
+      - name: ipa
+        engine: diamond
+        direction: decreased
+        w: 0.8
+        q: 0.6
+        s: 0.5
+        c: 0.7
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        w: 0.6
+        q: 0.6
+        s: 0.2
+        c: 0.7
+
+confounders:
+  - name: Gluten-free diet
+    effect: "Depletes Bifidobacterium and butyrate producers on its own; treated coeliac is confounded by its treatment"
+    handling: "Recorded in the ledger when supplied; the profile cannot separate diet from disease"
+  - name: Age
+    effect: "The prospective evidence is infants; the untreated consensus is mostly children"
+    handling: "Out-of-distribution flagged when adult"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Coeliac disease is diagnosed by tissue transglutaminase serology and
+    duodenal biopsy. This profile does not diagnose it, and a stool DNA
+    pattern is irrelevant to whether someone should eat gluten.
+  - >-
+    A gluten-free diet produces this pattern in people without coeliac
+    disease. A high score in someone avoiding gluten is expected.
+  - >-
+    The most specific pre-onset finding (CAZy families) is declared but not
+    computable here.
+
+effect_size_note: >-
+  CDGEMM: 10 cases, 10 matched controls, longitudinal. Untreated 16S
+  cohorts: 20-50 each. Effects modest and diet-confounded.
+
+citation: >-
+  Leonard MM, et al. Microbiome signatures of progression toward celiac
+  disease onset in at-risk children in a longitudinal prospective cohort
+  study. PNAS 2021;118:e2020322118; Lamas B, et al. Aryl hydrocarbon receptor
+  ligand production by the gut microbiota is decreased in celiac disease
+  leading to intestinal inflammation. Sci Transl Med 2020;12:eaba0624; Wacklin
+  P, et al. Altered duodenal microbiota composition in celiac disease patients
+  suffering from persistent symptoms on a long-term gluten-free diet. Am J
+  Gastroenterol 2014;109:1933.

@@ -1,0 +1,204 @@
+name: mecfs
+version: 0.2.0
+label: "ME/CFS-like gut microbiome similarity"
+disease: me_cfs
+task: mecfs_vs_healthy
+family: post_infectious
+body_site: stool
+population: us_adult_cohorts
+status: research_only
+evidence_maturity: P2
+duration_dependent: true
+challenge_for: [longcovid, ibs]
+
+summary: >-
+  The best-evidenced profile in this set. Two cohorts from different research
+  groups, published simultaneously in the same journal, found the same core
+  pattern: reduced abundance of the major butyrate-producing species
+  Faecalibacterium prausnitzii and Eubacterium rectale, reduced microbial
+  butyrate-synthesis capacity, and — crucially — confirmation by measured
+  short-chain fatty acids and qPCR rather than DNA inference alone. Low
+  F. prausnitzii tracked more severe fatigue.
+
+  The pattern depends on how long someone has been ill. Xiong et al. found
+  short-term patients (under 4 years) had marked microbial dysbiosis while
+  long-term patients (over 10 years) had largely resolved microbial
+  dysbiosis yet retained metabolic and clinical abnormalities. A low
+  taxonomic score in someone ill for more than a decade is therefore
+  consistent with the published pattern, not evidence against it.
+
+strata:
+  - name: short_term
+    label: "Short-term (ill < 4 years)"
+    criterion: "illness_duration_years < 4"
+    note: >-
+      Marked microbial dysbiosis expected. The taxonomic module is most
+      informative in this stratum.
+  - name: long_term
+    label: "Long-term (ill > 10 years)"
+    criterion: "illness_duration_years > 10"
+    note: >-
+      Microbial dysbiosis largely resolved in the published cohort; metabolic
+      and clinical abnormalities persist. A near-typical taxonomic module does
+      not argue against the pattern here. Functional and plasma-metabolite
+      findings carry the signal in this stratum, and only the first is
+      measurable from stool.
+
+references:
+  primary:
+    source: null
+    note: >-
+      No recovered-ME/CFS or same-exposure contrast group exists in the
+      published cohorts. Healthy controls (n=91 Guo; n=79 Xiong) are the only
+      comparison available, so syndrome-specific signal cannot be separated
+      from a general post-illness or low-activity signal.
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  taxonomic:
+    weight_in_combined: 0.50
+    note: >-
+      Species-level only. Genus Faecalibacterium is on the conflicted list —
+      it has been reported higher in a cohort where F. prausnitzii was lower —
+      so only the species is used.
+    features:
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: decreased
+        w: 1.0
+        q: 1.0
+        s: 0.5
+        c: 1.0
+        conflict_note: >-
+          Genus Faecalibacterium conflicts across cohorts; species only.
+        sources: ["Guo 2023 Cell Host Microbe", "Xiong 2023 Cell Host Microbe"]
+        note: >-
+          Replicated in both independent cohorts. Correlated with fatigue
+          severity in Guo et al. Low specificity: also depleted in IBD, after
+          antibiotics, and with low-fibre diets.
+      - name: Eubacterium_rectale
+        level: species
+        direction: decreased
+        w: 1.0
+        q: 0.7
+        s: 0.6
+        c: 1.0
+        sources: ["Guo 2023 Cell Host Microbe"]
+        note: >-
+          The second major butyrate producer reported depleted. Reported in
+          one of the two cohorts, so cohort independence is reduced.
+      - name: Roseburia_intestinalis
+        level: species
+        direction: decreased
+        w: 0.6
+        q: 0.6
+        s: 0.5
+        c: 0.9
+        sources: ["Guo 2023 Cell Host Microbe (network analysis)"]
+        note: >-
+          A butyrate producer implicated by co-abundance network disturbance
+          rather than direct differential abundance; weighted down accordingly.
+      - name: Coprococcus_comes
+        level: species
+        direction: decreased
+        w: 0.5
+        q: 0.6
+        s: 0.5
+        c: 0.9
+        sources: ["Guo 2023 Cell Host Microbe (network analysis)"]
+
+  functional:
+    weight_in_combined: 0.35
+    note: >-
+      Reuses the existing gene-capacity panels. Butyrate is the direct
+      functional counterpart of the taxonomic claim and carries the most
+      important cross-engine check in the tool.
+    features:
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        w: 1.0
+        q: 1.0
+        s: 0.5
+        c: 1.0
+        sources: ["Guo 2023 Cell Host Microbe", "Xiong 2023 Cell Host Microbe"]
+        note: >-
+          Reduced microbial butyrate biosynthesis, confirmed by reduced plasma
+          butyrate in Xiong et al. Measured here as but + buk gene capacity.
+      - name: propionate
+        engine: diamond
+        direction: decreased
+        w: 0.4
+        q: 0.6
+        s: 0.4
+        c: 0.8
+        sources: ["Xiong 2023 Cell Host Microbe (SCFA panel)"]
+        note: >-
+          Part of the broader short-chain fatty acid deficit reported; a
+          smaller and less replicated effect than butyrate.
+
+  ecological:
+    weight_in_combined: 0.15
+    note: >-
+      Deliberately low weight. Diversity findings conflict across cohorts and
+      shift with diet, travel and antibiotics far more readily than any
+      disease signal.
+    features:
+      - name: shannon_diversity
+        direction: decreased
+        w: 0.5
+        q: 0.7
+        s: 0.2
+        c: 0.6
+        sources: ["Guo 2023 Cell Host Microbe"]
+
+cross_engine_checks:
+  - taxonomic_feature: Faecalibacterium_prausnitzii
+    functional_feature: butyrate
+    expect: concordant
+    on_disagreement: downgrade_confidence
+    note: >-
+      The taxonomic module claims butyrate-producer depletion; the but/buk
+      gene panel measures butyrate capacity directly. Two independent
+      measurements of the same biology. If they disagree, something is wrong
+      in the pipeline, the sample, or both.
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_reads_lt: 500000
+
+caveats:
+  - >-
+    Do not read the 90% accuracy figure from the 2025 BioMapAI paper alongside
+    this profile. That figure came from integrating metagenomics with plasma
+    metabolomics, immune-cell profiling and blood tests; microbiome data alone
+    best predicted gastrointestinal, emotional and sleep symptoms
+    specifically. A stool-only tool cannot reproduce it.
+  - >-
+    Butyrate-producer depletion is one of the least specific findings in the
+    microbiome literature. It appears in inflammatory bowel disease, after
+    antibiotics, with low-fibre diets, and in general ill health. A high
+    score here should be read beside the dysbiosis anchor.
+  - >-
+    If illness duration is unknown, both strata are reported and confidence
+    is reduced, because the expected pattern differs between them and they
+    must not be averaged.
+
+effect_size_note: >-
+  Guo et al.: 106 cases, 91 controls, geographically diverse US sites. Xiong
+  et al.: 75 short-term and 79 long-term patients against 79 controls.
+  Effects at the species level were moderate and consistent between the two
+  cohorts; the qPCR and plasma-metabolite confirmation is what sets this
+  profile apart from most microbiome disease associations.
+
+citation: >-
+  Guo C, Che X, Briese T, et al. Deficient butyrate-producing capacity in the
+  gut microbiome is associated with bacterial network disturbances and fatigue
+  symptoms in ME/CFS. Cell Host Microbe 2023;31:288-304,
+  doi:10.1016/j.chom.2023.01.004. Xiong R, Gunter C, Fleming E, et al.
+  Multi-omics of gut microbiome-host interactions in short- and long-term
+  ME/CFS patients. Cell Host Microbe 2023;31:273-287,
+  doi:10.1016/j.chom.2023.01.001; data PRJNA878603, code
+  github.com/ohlab/MECFS_2021.

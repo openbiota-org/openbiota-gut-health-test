@@ -1,0 +1,1217 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Free, open-source software that turns raw shotgun stool-metagenome reads into a readable, evidence-linked gut health report.">
+      
+      
+        <meta name="author" content="OpenBiota contributors">
+      
+      
+        <link rel="canonical" href="https://openbiota.com/docs/install.html">
+      
+      
+        <link rel="prev" href="quickstart.html">
+      
+      
+        <link rel="next" href="usage.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="images/openbiota-mark.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Installation - OpenBiota Gut Health Test</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/openbiota.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#installation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+<header class="md-header ob-header" data-md-component="header">
+  <nav class="md-header__inner ob-header__inner" aria-label="Header">
+    <a href="./../index.html" class="ob-brand" aria-label="OpenBiota home" data-md-component="logo">
+      <img src="images/openbiota-logo.svg" alt="OpenBiota" width="166" height="38">
+    </a>
+    <nav class="ob-nav" aria-label="OpenBiota">
+      <a href="./../index.html#report">The report</a>
+      <a href="./../index.html#technology">The science</a>
+      <a href="./../index.html#story">The reason</a>
+    </nav>
+    <div class="ob-actions">
+      <a class="ob-button ob-button--quiet" href="./../index.html#sample-report">
+        <svg class="icon icon-stack" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 3h13v15H7zM4 6v15h13M10 8h7M10 12h7"/></svg>
+        <span>See an example</span>
+      </a>
+      <a class="ob-button ob-button--dark" href="./../index.html#get-report">
+        <svg class="icon icon-document" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
+        <span>Free Gut Report</span>
+      </a>
+    </div>
+    <label class="md-header__button md-icon ob-drawer" for="__drawer" aria-label="Open navigation">
+      <svg class="icon icon-menu" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </label>
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="OpenBiota Gut Health Test" class="md-nav__button md-logo" aria-label="OpenBiota Gut Health Test" data-md-component="logo">
+      
+  <img src="images/openbiota-mark.svg" alt="logo">
+
+    </a>
+    OpenBiota Gut Health Test
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/openbiota-org/openbiota-gut-health-test" title="Go to repository" class="md-source" data-md-component="source" target="_blank" rel="noopener noreferrer">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quickstart.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="install.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#macos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        macOS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="macOS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apple-silicon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Apple Silicon
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linux
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From source
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python package
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#first-run-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First-run setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="First-run setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-two-profiler-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The two profiler environments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-full-organism-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The full organism detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardware-and-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hardware and runtime
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifying-the-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifying the install
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Input data
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="usage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="output.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reading the report
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="method.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Method
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="panels.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metabolite pathways
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="profiles.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Disease patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fmt.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FMT donor matching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="expanded_detection.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Organism detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="measured_capability.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Measured capability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="validation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="testing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="attribution.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#macos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        macOS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="macOS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apple-silicon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Apple Silicon
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linux
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From source
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python package
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#first-run-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First-run setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="First-run setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-two-profiler-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The two profiler environments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-full-organism-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The full organism detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardware-and-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hardware and runtime
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifying-the-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifying the install
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Input data
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/openbiota-org/openbiota-gut-health-test/edit/main/docs/INSTALL.md" title="Edit this page" class="md-content__button md-icon" rel="edit noopener noreferrer" target="_blank">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Python</td>
+<td>3.11 or newer</td>
+</tr>
+<tr>
+<td>DIAMOND</td>
+<td>2.x, installed natively</td>
+</tr>
+<tr>
+<td>Disk</td>
+<td>~25 GB for the core reference data, cohort downloads and results; ~1.3 TB more for the full organism detection (see below)</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>8 GB minimum; <code>--block-size 8</code> wants ~48 GB, lower it if you have less</td>
+</tr>
+<tr>
+<td>Part B</td>
+<td>Bowtie2, MetaPhlAn 3.1 in <code>.venv-mpa3</code> (species scoring lane)</td>
+</tr>
+<tr>
+<td>Optional</td>
+<td>fastp (read QC and trimming); MetaPhlAn 4.1 in <code>.venv-mpa4</code> (extended SGB catalogue, ~25 GB database); SRA toolkit (<code>openbiota cohort</code>); reportlab + matplotlib (PDF report)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="macos">macOS<a class="headerlink" href="#macos" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>brew<span class="w"> </span>install<span class="w"> </span>diamond
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>brew<span class="w"> </span>install<span class="w"> </span>sratoolkit<span class="w">          </span><span class="c1"># optional, for openbiota cohort</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>make<span class="w"> </span>setup
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>make<span class="w"> </span>doctor
+</code></pre></div>
+<h3 id="apple-silicon">Apple Silicon<a class="headerlink" href="#apple-silicon" title="Permanent link">&para;</a></h3>
+<p>Install DIAMOND <strong>natively</strong>. Bioconda's <code>osx-64</code> package runs under Rosetta
+and costs roughly 2×.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>brew<span class="w"> </span>install<span class="w"> </span>diamond<span class="w">             </span><span class="c1"># arm64 native</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1"># or, if the formula is unavailable:</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>brew<span class="w"> </span>install<span class="w"> </span>brewsci/bio/diamond
+</code></pre></div>
+<p><code>openbiota doctor</code> reports the DIAMOND binary's architecture and warns when it does
+not match the host. The runtime also warns if the Python process itself is
+running translated.</p>
+<p>Last resort only:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nv">CONDA_SUBDIR</span><span class="o">=</span>osx-64<span class="w"> </span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>bioconda<span class="w"> </span>diamond
+</code></pre></div>
+<hr />
+<h2 id="linux">Linux<a class="headerlink" href="#linux" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Debian / Ubuntu</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>diamond-aligner
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># or conda</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>bioconda<span class="w"> </span>diamond<span class="w"> </span>sra-tools
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>.venv/bin/pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s1">'.[dev]'</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>.venv/bin/openbiota<span class="w"> </span>doctor
+</code></pre></div>
+<hr />
+<h2 id="from-source">From source<a class="headerlink" href="#from-source" title="Permanent link">&para;</a></h2>
+<p>If no package is available:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/bbuchfink/diamond
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">cd</span><span class="w"> </span>diamond<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>cmake<span class="w"> </span>..<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>make<span class="w"> </span>-j<span class="s2">"</span><span class="k">$(</span>nproc<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>install
+</code></pre></div>
+<hr />
+<h2 id="python-package">Python package<a class="headerlink" href="#python-package" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>make<span class="w"> </span>setup<span class="w">                                  </span><span class="c1"># creates .venv, installs editable</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># or manually</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>python3.13<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>.venv/bin/pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s1">'.[dev]'</span>
+</code></pre></div>
+<p>Dependencies are deliberately minimal: <strong>PyYAML</strong> for the pathway files, plus
+<strong>reportlab</strong> and <strong>matplotlib</strong> for the PDF. Everything else is standard
+library. <code>pytest</code> and <code>ruff</code> for development.</p>
+<p>If reportlab is missing, the run still completes and simply skips the PDF.</p>
+<hr />
+<h2 id="first-run-setup">First-run setup<a class="headerlink" href="#first-run-setup" title="Permanent link">&para;</a></h2>
+<p>Three one-off builds, all cached afterwards:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>make<span class="w"> </span>build-db<span class="w">      </span><span class="c1"># ~16 min — fetches reference protein sets from UniProt</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>make<span class="w"> </span>cohort<span class="w">        </span><span class="c1"># ~10 min — builds percentile ranges from public metagenomes</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>make<span class="w"> </span>validate<span class="w">      </span><span class="c1"># ~5 min  — measures sensitivity, specificity, accuracy</span>
+</code></pre></div>
+<p>Or all of it plus a screen of <code>./fastq</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>make<span class="w"> </span>all
+</code></pre></div>
+<p><code>build-db</code> needs network access to <code>rest.uniprot.org</code>. <code>cohort</code> needs access to
+NCBI SRA or <code>ftp.sra.ebi.ac.uk</code>. <code>validate</code> needs
+<code>api.ncbi.nlm.nih.gov/datasets</code>. Once cached, runs are fully offline.</p>
+<h3 id="the-two-profiler-environments">The two profiler environments<a class="headerlink" href="#the-two-profiler-environments" title="Permanent link">&para;</a></h3>
+<p>MetaPhlAn 3 and 4 cannot share a Python environment, so each gets its own,
+found automatically by <code>openbiota run</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv-mpa3<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>.venv-mpa3/bin/pip<span class="w"> </span>install<span class="w"> </span><span class="s1">'metaphlan==3.1.0'</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv-mpa4<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>.venv-mpa4/bin/pip<span class="w"> </span>install<span class="w"> </span><span class="s1">'metaphlan&gt;=4.1'</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>.venv-mpa4/bin/metaphlan<span class="w"> </span>--install<span class="w"> </span>--index<span class="w"> </span>mpa_vJun23_CHOCOPhlAnSGB_202403<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span>--bowtie2db<span class="w"> </span>refs/metaphlan4_db<span class="w">        </span><span class="c1"># ~25 GB, one-off</span>
+</code></pre></div>
+<p>Version 3 is the <em>scoring</em> lane — the reference cohort and the GMWI2 index were
+built with it. Version 4 is the <em>extended catalogue</em>: it names roughly twice as
+many organisms and is reported in full, but is never scored against a cohort
+profiled with a different catalogue. If it is not installed the report simply
+omits that section; <code>--no-extended-catalogue</code> skips it explicitly.</p>
+<p><code>fastp</code> comes from Homebrew (<code>brew install fastp</code>) or conda. Without it the
+QC gates that depend on it (duplication, Q30, adapter content, insert size)
+read <code>unknown</code> and the run continues.</p>
+<h3 id="the-full-organism-detection">The full organism detection<a class="headerlink" href="#the-full-organism-detection" title="Permanent link">&para;</a></h3>
+<p>The report's organism list pools nine detection methods (MetaPhlAn 4 Jan26,
+GlobDB r232 by sylph, mOTUs 4, Kraken 2 against UHGG and against a locally
+built gut rescue panel, SingleM, targeted assembly, competitive read mapping,
+StrainPhlAn 4). Their tools and references are installed and locked in four
+steps, all resumable:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>make<span class="w"> </span>tools-expanded<span class="w">       </span><span class="c1"># every pinned tool (sylph, mOTUs, Kraken 2, SingleM, metaSPAdes,</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">                          </span><span class="c1"># bowtie2, samtools, aria2, seqkit, MetaPhlAn 4.2 in .venv-mpa42)</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>make<span class="w"> </span>refs-expanded<span class="w">        </span><span class="c1"># every reference release, checksummed and locked (~200 GB)</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>make<span class="w"> </span>refs-globdb-genomes<span class="w">  </span><span class="c1"># the GlobDB r232 genome archive, 292 GB compressed, ~1 TB unpacked</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>make<span class="w"> </span>expansion<span class="w">            </span><span class="c1"># crosswalks to GTDB R232, supplement reconciliation, the rescue panel</span>
+</code></pre></div>
+<p>Budget about 1.3 TB of disk for all of it and a fast connection for the
+first fetch (files over 1 GB are downloaded with parallel range requests).
+Every tool version and every reference file is pinned by checksum under
+<code>refs/expanded/</code>, and <code>make refs-expanded</code> never downloads a file whose lock
+already verifies. <code>refs/MANIFEST.md</code> lists what is on disk and the command
+that rebuilds each part. Without these installed a run still produces the
+report from the core lanes and states which methods did not run.
+<a href="expanded_detection.html">docs/EXPANDED_DETECTION.md</a> describes the lanes.</p>
+<h3 id="hardware-and-runtime">Hardware and runtime<a class="headerlink" href="#hardware-and-runtime" title="Permanent link">&para;</a></h3>
+<p>Measured on a 32-core Apple Silicon workstation with 192 GB of memory and
+an NVMe drive, one 8-million-pair sample at a time:</p>
+<table>
+<thead>
+<tr>
+<th>stage</th>
+<th>time</th>
+<th>notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>core report (Part A and B, MetaPhlAn 3 and 4)</td>
+<td>~35 min</td>
+<td>30 threads</td>
+</tr>
+<tr>
+<td>the nine detection lanes</td>
+<td>+35 min</td>
+<td>most of it MetaPhlAn Jan26, SingleM and the two Kraken panels; every lane is cached on the reads</td>
+</tr>
+<tr>
+<td>competitive confirmation</td>
+<td>+15-20 min</td>
+<td>one Bowtie2 alignment against the candidates and their relatives; cached on reads, genomes and operating points</td>
+</tr>
+<tr>
+<td>strain placement</td>
+<td>+5-40 min</td>
+<td>per clade, cached; a first run on a new sample places every eligible organism</td>
+</tr>
+<tr>
+<td>model-assisted simulation</td>
+<td>+45-60 min</td>
+<td>linear programmes on the community model; cached on the community</td>
+</tr>
+<tr>
+<td>PDF</td>
+<td>~15 s</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Two samples run comfortably side by side on that machine. Every run records
+its own peak memory in <code>results.json</code> (<code>run.resources</code>): on these samples
+the pipeline process peaks at 12-14 GB and the largest child process
+(the Kraken 2 lane with the UHGG database loaded) at ~19 GB, so 32 GB of
+memory is a comfortable minimum for the full detection and 8 GB is enough
+for the core report. Disk: ~25 GB for the core references, ~1.3 TB with the
+full organism detection installed, and 4-9 GB of results per sample
+(<code>openbiota prune</code> removes the regenerable intermediates).</p>
+<hr />
+<h2 id="verifying-the-install">Verifying the install<a class="headerlink" href="#verifying-the-install" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>make<span class="w"> </span>doctor
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>openbiota 1.1.0
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>python              3.13.2
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>platform            Darwin/x86_64, Intel(R) Xeon(R) W-3245 CPU @ 3.20GHz
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>cpus                32 logical
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>memory              192.0GB
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>diamond             diamond version 2.2.6
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>                    /usr/local/bin/diamond [x86_64]
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>PyYAML              6.0.3
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>panels              9 panels, 36 reference entries
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>inputs              sample 'A02'
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>                    R1: A02_1.fastq.gz (566.2MB, gzip)
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>                    R2: A02_2.fastq.gz (584.5MB, gzip)
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>OK
+</code></pre></div>
+<p>Then:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>make<span class="w"> </span><span class="nb">test</span><span class="w">          </span><span class="c1"># unit tests, no network or FASTQ needed</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>make<span class="w"> </span>smoke<span class="w">         </span><span class="c1"># 17 s end-to-end on 100k read pairs</span>
+</code></pre></div>
+<hr />
+<h2 id="input-data">Input data<a class="headerlink" href="#input-data" title="Permanent link">&para;</a></h2>
+<p>Paired FASTQ in <code>./fastq</code>, gzipped or not:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>fastq/
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>├── SAMPLE_1.fastq.gz
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>└── SAMPLE_2.fastq.gz
+</code></pre></div>
+<p><code>NAME_R1</code> / <code>NAME_R2</code> naming works too. No preprocessing is needed or wanted —
+no trimming, no adapter removal, no host filtering. See
+<a href="method.html">METHOD.md</a> for why host filtering is unnecessary rather than
+merely optional.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+  
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  <div class="md-copyright__highlight">
+    <span class="ob-foot__part">&copy; 2026 <a href="./../index.html">OpenBiota</a></span><span class="ob-foot__sep">&middot;</span>
+    <span class="ob-foot__part">Built for the good of humanity.</span><span class="ob-foot__sep">&middot;</span>
+    <span class="ob-foot__part">Free for noncommercial use</span><span class="ob-foot__sep">&middot;</span>
+    <span class="ob-foot__part">Research use only, not a diagnostic test</span>
+  </div>
+</div>
+      
+        <div class="md-social">
+  <a class="ob-code-link" href="https://github.com/openbiota-org/openbiota-gut-health-test" target="_blank" rel="noopener noreferrer" aria-label="OpenBiota on GitHub">
+    <svg class="icon icon-github" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="currentColor" stroke="none" d="M12 .75a11.25 11.25 0 0 0-3.558 21.923c.562.104.77-.244.77-.542 0-.267-.01-.974-.016-1.912-3.13.68-3.791-1.507-3.791-1.507-.512-1.301-1.25-1.647-1.25-1.647-1.023-.7.077-.686.077-.686 1.13.08 1.725 1.16 1.725 1.16 1.006 1.724 2.64 1.226 3.282.938.102-.73.394-1.227.716-1.51-2.499-.284-5.126-1.25-5.126-5.565 0-1.23.44-2.235 1.159-3.023-.116-.284-.502-1.428.11-2.976 0 0 .944-.302 3.094 1.155A10.787 10.787 0 0 1 12 6.18c.956.005 1.918.13 2.816.379 2.148-1.457 3.09-1.155 3.09-1.155.613 1.548.228 2.692.112 2.976.721.788 1.157 1.793 1.157 3.023 0 4.326-2.63 5.278-5.137 5.557.404.35.765 1.043.765 2.1 0 1.516-.013 2.738-.013 3.109 0 .3.204.65.774.541A11.251 11.251 0 0 0 12 .75Z"/></svg>
+    <span>Code</span>
+  </a>
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+  <div class="ob-mobile-actions" aria-label="Get the OpenBiota report">
+    <a class="ob-button ob-button--outline" href="./../index.html#sample-report">
+      <svg class="icon icon-stack" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 3h13v15H7zM4 6v15h13M10 8h7M10 12h7"/></svg>
+      <span>See an example</span>
+    </a>
+    <a class="ob-button ob-button--dark" href="./../index.html#get-report">
+      <svg class="icon icon-document" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
+      <span>Get Free Report</span>
+    </a>
+  </div>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.indexes", "content.code.copy", "content.action.edit", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

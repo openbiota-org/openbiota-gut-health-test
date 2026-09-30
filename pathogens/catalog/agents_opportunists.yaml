@@ -1,0 +1,2315 @@
+version: 1
+lane: opportunists
+
+# Framing for this lane, which applies to every entry below.
+#
+# Almost every organism in this file is a normal or common inhabitant of the
+# human gut, mouth or skin, or a widespread environmental bacterium that passes
+# through the bowel. Finding one in a stool sequencing result is, on its own,
+# not a diagnosis and usually not even a surprise. These organisms cause trouble
+# in specific circumstances: a weakened immune system, recent broad-spectrum
+# antibiotics, abdominal surgery, an indwelling catheter or line, chemotherapy,
+# advanced liver or kidney disease, or a breach in the bowel wall that lets them
+# reach the bloodstream. Outside those circumstances they generally sit quietly.
+#
+# Sequencing measures DNA. It cannot tell a living organism from a dead one, it
+# cannot reliably tell a passenger swallowed with food from a resident, and
+# relative abundance in a single stool sample is a poor measure of absolute
+# quantity. For most organisms here no validated "too much" threshold exists.
+# Where that is the case, the entry says so plainly rather than inventing one.
+#
+# Where the honest answer is that there is no good reason to try to remove the
+# organism, the entry carries an empty `agents` list and a `no_agents_reason`.
+# That is a deliberate answer, not a gap in the research.
+
+organisms:
+
+  # ---------------------------------------------------------------------------
+  # Gram-negative opportunists: environmental non-fermenters
+  # ---------------------------------------------------------------------------
+
+  bacteria.achromobacter_xylosoxidans:
+    display_name: Achromobacter xylosoxidans
+    what_it_is: >
+      A Gram-negative bacterium that lives in soil, water and damp surfaces,
+      including taps, sinks, humidifiers and hospital equipment. It is a
+      water-and-soil organism rather than a natural member of the gut community.
+    why_it_matters: >
+      In people with healthy lungs and a healthy immune system it causes no
+      disease. Its recognised role is as a hospital-acquired and cystic-fibrosis
+      pathogen, where it colonises the airways and occasionally the bloodstream
+      through intravenous lines. It is naturally resistant to many antibiotics,
+      which is why it matters when it does cause an infection. It is not a cause
+      of diarrhoea, and a stool detection is not an airway or bloodstream
+      infection.
+    normal_carriage: >
+      It is not a normal gut resident, but it is extremely common in the
+      environment and is regularly swallowed in tap water and on raw produce, so
+      transient passage through the bowel is unremarkable. Reviews of this
+      organism and its close relative Stenotrophomonas maltophilia describe them
+      as ubiquitous environmental bacteria whose usual human reservoir is the
+      respiratory tract, not the intestine. No population estimate for healthy
+      faecal carriage exists, largely because nobody has considered it worth
+      measuring.
+    overgrowth_signal: >
+      There is no established abundance threshold, and sequencing cannot supply
+      one. What would make a finding meaningful is clinical context rather than a
+      number: cystic fibrosis or another chronic lung disease, a central venous
+      line, neutropenia, or a current unexplained fever. In that situation the
+      relevant specimen is sputum or blood, assessed by a clinician, not stool.
+      In a well person, a low-level stool signal is best read as environmental
+      passage.
+    agents:
+      - name: Manuka honey
+        kind: food
+        evidence_tier: in_vitro
+        effect: >
+          Achromobacter xylosoxidans appears in the published list of species
+          whose growth manuka honey inhibits in culture. The activity is
+          attributed mainly to methylglyoxal, at honey concentrations of several
+          per cent by weight. This is laboratory growth inhibition only; there
+          are no human data on eating honey and this organism, and no evidence
+          that it clears carriage anywhere in the body.
+        dose_studied: "not established for this organism; in vitro inhibition occurs at roughly 3-25% honey by weight"
+        reaches_gut: >
+          Honey sugars are absorbed in the small intestine, and methylglyoxal is
+          reactive and partly consumed on the way, so the concentration reaching
+          the colon is far below the several-per-cent used in culture. Treat gut
+          delivery as an unresolved weakness of this agent rather than an
+          established strength.
+        citation_title: "On the antibacterial effects of manuka honey: mechanistic insights"
+        citation_url: "https://doi.org/10.2147/RRB.S75754"
+        caution: >
+          Honey is a concentrated sugar and will raise blood glucose; unsuitable
+          in poorly controlled diabetes and unhelpful if weight is a concern.
+          Never give honey of any kind to an infant under twelve months because
+          of the risk of infant botulism. Honey does not treat a lung or
+          bloodstream infection with this organism, and should not delay
+          antibiotic advice if you are unwell.
+
+  bacteria.burkholderia_cepacia_complex:
+    display_name: Burkholderia cepacia complex
+    what_it_is: >
+      A group of closely related Gram-negative bacteria found in soil, water,
+      plant roots and occasionally in contaminated liquids such as mouthwashes
+      and disinfectants. They are best known as plant-associated organisms.
+    why_it_matters: >
+      For most people these bacteria are harmless. Their serious reputation
+      comes almost entirely from cystic fibrosis and chronic granulomatous
+      disease, where they can establish transmissible and difficult-to-treat
+      lung infection. They are intrinsically resistant to many antibiotics. They
+      are not established causes of gastroenteritis, and detecting them in stool
+      is not evidence of lung infection or of any infection at all.
+    normal_carriage: >
+      Not a normal gut resident, but very widespread in the environment and
+      regularly ingested on unwashed vegetables and in untreated water, so brief
+      appearance in stool is expected background. There is no meaningful figure
+      for healthy faecal carriage. Risk is concentrated in a small, well-defined
+      group of people with cystic fibrosis or specific inherited immune defects,
+      who are usually already under specialist care.
+    overgrowth_signal: >
+      No validated stool threshold exists and sequencing cannot establish one.
+      This finding acquires significance only alongside cystic fibrosis, chronic
+      granulomatous disease, or an unexplained respiratory or bloodstream illness
+      being investigated by a clinician, in which case sputum or blood culture is
+      the appropriate test. In everyone else, a stool signal without symptoms
+      should be treated as incidental.
+    agents:
+      - name: Allicin (crushed raw garlic, aqueous garlic extract)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Pure allicin and aqueous garlic extract inhibited and killed 38
+          clinical Burkholderia cepacia complex isolates in culture, including
+          three Burkholderia cenocepacia strains, with allicin minimum inhibitory
+          concentrations of 8-62 micrograms per millilitre. The mechanism is
+          chemical modification of essential bacterial cysteine residues. This is
+          culture work only; there are no human data.
+        dose_studied: "not established in humans; in vitro minimum inhibitory concentrations of 8-62 micrograms per millilitre of allicin"
+        reaches_gut: >
+          Allicin forms when raw garlic is crushed and does survive into the
+          upper gut, but it reacts rapidly with glutathione and other thiols in
+          the gut wall and blood, so very little intact allicin gets far. The
+          same paper's authors and later work note this poor bioavailability
+          explicitly. Colonic delivery in active form should therefore be treated
+          as doubtful, not assumed. Aged or cooked garlic contains little or no
+          allicin.
+        citation_title: "Garlic Revisited: Antimicrobial Activity of Allicin-Containing Garlic Extracts against Burkholderia cepacia Complex"
+        citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC4249831/"
+        caution: >
+          Garlic thins the blood and can interact with warfarin, clopidogrel and
+          other anticoagulants and antiplatelet drugs; stop it before planned
+          surgery. It commonly causes heartburn, reflux and wind, and can worsen
+          symptoms in irritable bowel syndrome because it is high in fructans.
+          It does not treat cystic fibrosis lung infection and must never replace
+          prescribed antibiotics.
+      - name: Manuka honey
+        kind: food
+        evidence_tier: in_vitro
+        effect: >
+          Manuka honey inhibited all 55 Burkholderia clinical isolates from
+          cystic fibrosis patients at 7% or less by weight, with a mean minimum
+          inhibitory concentration of 4.6%, making Burkholderia somewhat more
+          honey-susceptible than Pseudomonas aeruginosa in the same study. It
+          also acted synergistically or additively with tobramycin and colistin.
+          Culture work only; no human outcome data.
+        dose_studied: "not established in humans; in vitro minimum inhibitory concentration around 4.6% honey by weight"
+        reaches_gut: >
+          Poorly. Honey sugars are absorbed in the small intestine and the active
+          methylglyoxal is diluted and chemically consumed en route, so colonic
+          concentrations fall well short of the several-per-cent used in the
+          laboratory. State this as a limitation of the agent.
+        citation_title: "A demonstration of the susceptibility of clinical isolates obtained from cystic fibrosis patients to manuka honey"
+        citation_url: "https://doi.org/10.1007/s00203-015-1091-6"
+        caution: >
+          High in sugar, so unsuitable if diabetes is poorly controlled. Never
+          give honey to infants under twelve months because of infant botulism
+          risk. This study tested honey in a test tube against airway isolates;
+          it is not evidence that eating honey affects the lungs or the gut, and
+          it is no substitute for specialist cystic fibrosis care.
+
+  bacteria.stenotrophomonas_maltophilia:
+    display_name: Stenotrophomonas maltophilia
+    what_it_is: >
+      A Gram-negative bacterium that lives in water, soil and plants, and that
+      thrives on damp hospital surfaces, ventilator tubing and intravenous
+      catheters. It is an environmental organism, not a natural gut species.
+    why_it_matters: >
+      It very rarely troubles healthy people. It matters as a hospital-acquired
+      pathogen in those who are immunosuppressed, on ventilators, or who have
+      central venous lines, where it can cause pneumonia and bloodstream
+      infection with a high mortality; it also causes chronic airway infection in
+      cystic fibrosis. It is intrinsically resistant to many antibiotics
+      including carbapenems, which is the main reason it is watched. It is not a
+      recognised cause of diarrhoea, and a stool sequence is not an infection.
+    normal_carriage: >
+      It is not part of the normal gut flora. It is, however, everywhere in the
+      environment, including drinking water, bottled water, salads and raw milk,
+      so it is swallowed regularly and passing detection in stool is
+      unremarkable. Historically it and Achromobacter were regarded as harmless
+      commensals; they are now recognised as opportunists in intensive care
+      populations specifically, not in the community.
+    overgrowth_signal: >
+      No stool abundance threshold has been validated for this organism, and
+      metagenomic sequencing cannot create one. Meaning comes from context: a
+      current hospital admission, a central line, neutropenia, cystic fibrosis,
+      or an unexplained fever or pneumonia. In those situations blood or sputum
+      culture, ordered by a clinician, is the test that counts. In a well person
+      at home, a low-level stool signal is very likely environmental passage or
+      dead DNA.
+    agents:
+      - name: EGCG (green tea catechin)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Epigallocatechin gallate inhibited 18 clinical Stenotrophomonas
+          maltophilia isolates in culture, with minimum inhibitory concentrations
+          of 4-256 micrograms per millilitre, by blocking the bacterium's
+          dihydrofolate reductase. It was synergistic with sulfamethoxazole in 17
+          of 18 isolates. This is entirely test-tube work; there is no human
+          evidence that drinking green tea affects this organism anywhere in the
+          body.
+        dose_studied: "not established in humans; in vitro minimum inhibitory concentrations of 4-256 micrograms per millilitre"
+        reaches_gut: >
+          EGCG is very poorly absorbed, so most of an oral dose travels through
+          the small intestine into the colon, where gut bacteria metabolise it.
+          Colonic exposure to EGCG and its breakdown products is therefore
+          plausible. Whether the surviving concentration approaches the
+          inhibitory range above is unknown.
+        citation_title: "Antifolate Activity of Epigallocatechin Gallate against Stenotrophomonas maltophilia"
+        citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC1168674/"
+        caution: >
+          Brewed green tea is safe for most people, but concentrated green tea
+          extracts have caused liver injury and should be avoided if you have
+          liver disease. EGCG reduces iron absorption, which matters in anaemia.
+          It interacts with several drugs, notably nadolol and possibly
+          warfarin. Because it works by blocking a folate enzyme, be cautious if
+          you take methotrexate or are pregnant. It does not treat pneumonia or
+          bloodstream infection.
+      - name: Honeydew honey and manuka honey
+        kind: food
+        evidence_tier: in_vitro
+        effect: >
+          Both honeys inhibited all 20 multidrug-resistant Stenotrophomonas
+          maltophilia isolates taken from cancer patients, at 6.25-17.5% by
+          weight for honeydew honey and 7.5-22.5% for manuka. Honeydew honey was
+          the more active of the two. Growth inhibition in broth only; no human
+          treatment data.
+        dose_studied: "not established in humans; in vitro minimum inhibitory concentrations of roughly 6-22% honey by weight"
+        reaches_gut: >
+          Weakly. The sugars are absorbed high in the gut and the active
+          components are diluted many-fold before the colon, so realistic
+          colonic concentrations are well below the 6-22% needed in culture.
+          This is a genuine limitation.
+        citation_title: "Honeydew honey as a potent antibacterial agent in eradication of multi-drug resistant Stenotrophomonas maltophilia isolates from cancer patients"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/20882522/"
+        caution: >
+          Concentrated sugar; avoid in poorly controlled diabetes. Never give
+          honey to a child under twelve months. These were laboratory tests on
+          blood and airway isolates from immunosuppressed patients; honey is not
+          a treatment for infection in such patients and must never delay
+          hospital care.
+
+  bacteria.pseudomonas_aeruginosa:
+    display_name: Pseudomonas aeruginosa
+    what_it_is: >
+      A Gram-negative bacterium found in soil, water, plumbing, plugholes, damp
+      cloths and moist surfaces generally. It is one of the most adaptable
+      bacteria known and is a frequent, usually harmless, passenger through the
+      human bowel.
+    why_it_matters: >
+      In healthy people it causes little more than the occasional mild
+      swimmer's ear or hot-tub rash. It becomes dangerous in specific settings:
+      burns, ventilators, central lines, chemotherapy-induced neutropenia and
+      cystic fibrosis, where it forms antibiotic-tolerant biofilms in the
+      airways. In the gut it can expand after broad-spectrum antibiotics and, in
+      severely immunosuppressed people, translocate into the bloodstream. It is
+      not a cause of ordinary diarrhoea in a healthy adult, and a stool
+      detection alone is not an infection.
+    normal_carriage: >
+      Intestinal carriage in healthy people is common but intermittent. Culture
+      studies of healthy volunteers report faecal carriage of about 8% in Spain,
+      about 4% across ten Chinese provinces, and 4.8% in Rome, 12.0% in Rotterdam
+      and 28.6% in Jakarta in a recent three-city study; older reviews quote a
+      range of roughly 0-24% depending on method and population. Carriage rises
+      to around 10% in intensive care inpatients. In short, finding it in stool
+      is ordinary.
+    overgrowth_signal: >
+      No stool abundance threshold has been validated, and sequencing cannot
+      establish one from a single sample. The features that would make a finding
+      worth acting on are clinical: recent broad-spectrum antibiotics with a
+      marked drop in gut diversity, chemotherapy or neutropenia, a central line,
+      cystic fibrosis, or fever and illness now. In those circumstances blood or
+      sputum culture directed by a clinician is what establishes infection. In a
+      well person, treat it as environmental passage.
+    agents:
+      - name: Garlic (macerated garlic oil capsules)
+        kind: botanical
+        evidence_tier: human_rct
+        effect: >
+          In the only randomised controlled trial of a quorum-sensing inhibitor
+          in people, 34 cystic fibrosis patients with chronic Pseudomonas
+          aeruginosa infection took 656 mg daily of macerated garlic oil or olive
+          oil for eight weeks. Garlic was well tolerated but produced no
+          statistically significant benefit in lung function, weight or clinical
+          score; the authors described a non-significant suggestion of
+          improvement worth testing in a larger trial. This is honest negative
+          or inconclusive human evidence, and it concerns the lungs, not the gut.
+        dose_studied: "656 mg macerated garlic oil once daily for 8 weeks (34 randomised, 26 analysed)"
+        reaches_gut: >
+          Garlic sulphur compounds pass through the stomach and small intestine
+          and their metabolites reach the colon, which is why garlic measurably
+          alters the gut microbiota. The active allicin fraction is largely
+          consumed by reaction with thiols before absorption, so how much active
+          compound reaches the colon at useful concentration is unknown.
+        citation_title: "Garlic as an inhibitor of Pseudomonas aeruginosa quorum sensing in cystic fibrosis - a pilot randomized controlled trial"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/20306535/"
+        caution: >
+          Garlic has antiplatelet activity and can interact with warfarin,
+          clopidogrel, aspirin and DOACs; stop it well before surgery. Five of
+          thirteen people in the garlic arm reported minor adverse effects.
+          Garlic is high in fructans and commonly worsens bloating, wind and
+          reflux, particularly in irritable bowel syndrome. It did not improve
+          lung outcomes in this trial and is not a treatment for Pseudomonas
+          infection.
+      - name: Lactoferrin (bovine)
+        kind: nutrient
+        evidence_tier: in_vitro
+        effect: >
+          Lactoferrin prevented Pseudomonas aeruginosa from forming biofilms in
+          flow-cell culture at 20 micrograms per millilitre, below the
+          concentration that kills or slows growth. It does this by chelating
+          iron, which makes the bacteria keep twitching across the surface
+          instead of settling into clusters. It did not break down biofilms that
+          had already formed. Culture work only; no human data on gut carriage.
+        dose_studied: "not established in humans; in vitro anti-biofilm effect at 20 micrograms per millilitre"
+        reaches_gut: >
+          Partly. Lactoferrin is a protein and is substantially digested by
+          pepsin and pancreatic enzymes, but it is unusually acid-resistant for a
+          protein and a measurable fraction, plus its active lactoferricin
+          fragments, survives into the intestine. Enteric-coated preparations
+          improve this. Delivery to the colon in intact, iron-binding form is
+          partial and not quantified.
+        citation_title: "A component of innate immunity prevents bacterial biofilm development"
+        citation_url: "https://doi.org/10.1038/417552a"
+        caution: >
+          Bovine lactoferrin is a milk protein and is unsuitable if you have a
+          cow's-milk protein allergy. Because it works by withholding iron, it is
+          a poor choice if you are being treated for iron-deficiency anaemia, and
+          it may reduce absorption of iron supplements taken at the same time.
+          It prevents new biofilm in a laboratory model; it does not clear
+          established Pseudomonas infection anywhere.
+      - name: Curcumin (turmeric)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          At concentrations below those that inhibit growth, curcumin blocked
+          biofilm formation by Pseudomonas aeruginosa PAO1 and disrupted mature
+          biofilms, and reduced quorum-sensing-dependent traits including
+          alginate and exopolysaccharide production and swimming and swarming
+          motility. It also increased susceptibility to conventional
+          antibiotics. Inhibited biofilm in culture; no human data.
+        dose_studied: "not established; sub-inhibitory concentrations in vitro"
+        reaches_gut: >
+          Well. Curcumin is very poorly absorbed and heavily metabolised in the
+          gut wall and liver, so the great majority of an oral dose stays in the
+          intestinal lumen and reaches the colon. The usual complaint about
+          curcumin's bioavailability is precisely why it is a plausible agent for
+          organisms in the gut rather than in the blood. Note that piperine or
+          phospholipid formulations sold to raise blood levels work against this,
+          by removing curcumin from the lumen.
+        citation_title: "Inhibition of biofilm development of uropathogens by curcumin - an anti-quorum sensing agent from Curcuma longa"
+        citation_url: "https://doi.org/10.1016/j.foodchem.2012.08.002"
+        caution: >
+          Curcumin can worsen gallbladder pain and should be avoided in
+          gallstones or bile-duct obstruction. It has mild antiplatelet activity
+          and interacts with warfarin and other anticoagulants. High-dose
+          curcumin and turmeric supplements have caused liver injury in a small
+          number of people; stop if you develop jaundice, dark urine or right
+          upper abdominal pain. It reduces biofilm and signalling in a dish; it
+          does not treat infection.
+      - name: Manuka honey
+        kind: food
+        evidence_tier: in_vitro
+        effect: >
+          Manuka honey inhibited all 56 Pseudomonas aeruginosa isolates from
+          cystic fibrosis patients at 10% or less by weight, mean minimum
+          inhibitory concentration 7.3%, and combined synergistically or
+          additively with tobramycin and colistin to lower the antibiotic
+          concentration needed. Growth inhibition in culture only; there are no
+          human treatment data.
+        dose_studied: "not established in humans; in vitro minimum inhibitory concentration around 7.3% honey by weight"
+        reaches_gut: >
+          Poorly. Honey's sugars are absorbed in the small intestine and its
+          methylglyoxal is reactive and progressively consumed, so the colon sees
+          concentrations far below the several per cent needed in the laboratory.
+          Treat this as an acknowledged weakness of the agent.
+        citation_title: "A demonstration of the susceptibility of clinical isolates obtained from cystic fibrosis patients to manuka honey"
+        citation_url: "https://doi.org/10.1007/s00203-015-1091-6"
+        caution: >
+          Concentrated sugar, so unsuitable if diabetes is poorly controlled and
+          unhelpful if you are managing weight. Never give honey to an infant
+          under twelve months because of infant botulism. These are laboratory
+          results with airway isolates and say nothing about eating honey.
+
+  # ---------------------------------------------------------------------------
+  # Gram-negative opportunists: Enterobacterales
+  # ---------------------------------------------------------------------------
+
+  bacteria.klebsiella_variicola:
+    display_name: Klebsiella variicola
+    what_it_is: >
+      A member of the Klebsiella pneumoniae family of Gram-negative gut bacteria,
+      originally described from plants and now recognised as a frequent human gut
+      coloniser. Routine laboratory methods often report it simply as Klebsiella
+      pneumoniae, so it has been under-recognised rather than rare.
+    why_it_matters: >
+      In the gut it is usually a quiet resident. It matters because gut carriage
+      of Klebsiella is a recognised risk factor for later infection elsewhere,
+      chiefly urinary tract infection, pneumonia and bloodstream infection, and
+      those infections happen almost entirely in hospital or in people who are
+      immunosuppressed, catheterised or recently treated with antibiotics. This
+      species also carries antibiotic-resistance genes that can spread to other
+      gut bacteria. It is not a cause of ordinary diarrhoea, and a stool sequence
+      is not an infection.
+    normal_carriage: >
+      Common and normal. In a population study of 2,975 adults over 40 in Norway,
+      16.3% carried Klebsiella pneumoniae species-complex organisms in their
+      stool without symptoms; reported community carriage across studies runs
+      from about 5-35% in Western countries and 19-88% in parts of Asia. Carriage
+      is intermittent, not permanent, and the strains found in healthy guts are
+      mostly diverse and non-resistant. In the Norwegian study only 5.2% of
+      isolates carried acquired resistance genes.
+    overgrowth_signal: >
+      No validated stool threshold exists and one metagenomic sample cannot
+      establish absolute quantity. What raises concern is direction and context,
+      not a single figure: a large Klebsiella fraction alongside a clear
+      collapse in overall diversity after broad-spectrum antibiotics, in someone
+      who is neutropenic, catheterised, in hospital, or has inflammatory bowel
+      disease. Reported risk factors for carriage are ordinary things: age over
+      60, recent travel to Asia or Greece, proton pump inhibitors, non-steroidal
+      anti-inflammatories and recent antibiotics. Any suspicion of actual
+      infection needs urine or blood culture, not stool sequencing.
+    agents:
+      - name: Berberine (Coptis chinensis, goldenseal, barberry)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Berberine inhibited extended-spectrum beta-lactamase-producing
+          Enterobacterales in culture, including Klebsiella pneumoniae, at a
+          minimum inhibitory concentration of around 0.75 mg per millilitre;
+          whole Coptis chinensis extract was more active than berberine alone at
+          equivalent berberine content, implying other plant compounds
+          contribute. Be clear about the strength of this: berberine's activity
+          against Gram-negative bacteria is weak, and other work puts its
+          minimum inhibitory concentration against many Gram-negatives above 128
+          micrograms per millilitre. Inhibited growth in culture; no human data
+          on Klebsiella carriage.
+        dose_studied: "not established; in vitro minimum inhibitory concentration around 0.75 mg per millilitre"
+        reaches_gut: >
+          Very well. Berberine's oral bioavailability is under 1%, so almost all
+          of a dose remains in the gut lumen; faecal berberine concentrations of
+          2,600-2,800 micrograms per gram have been measured after oral dosing in
+          animals. Its known effects on the microbiota are thought to be
+          luminal for this reason. Gut delivery is the strong part of the case
+          for berberine; potency against Klebsiella is the weak part.
+        citation_title: "Ultrasound-Assisted Extraction: Unlocking the Antibacterial Potential of Coptis chinensis Franch. Against ESBL-Producing Enterobacterales"
+        citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC12654438/"
+        caution: >
+          Do not take berberine in pregnancy or while breastfeeding, and never
+          give it to a newborn: it displaces bilirubin from albumin and can cause
+          kernicterus. It inhibits CYP3A4, CYP2D6 and P-glycoprotein, so it
+          interacts with many prescription medicines including ciclosporin,
+          statins, some anticoagulants and metformin. It lowers blood glucose,
+          which can compound diabetes medication. It commonly causes cramping,
+          wind and altered stools. It does not eradicate Klebsiella from the gut
+          and there is no evidence it prevents any Klebsiella infection.
+      - name: Oregano oil (carvacrol and thymol)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Origanum vulgare essential oil inhibited carbapenem-resistant
+          Klebsiella pneumoniae at 0.059% by volume and reduced viable counts
+          within four hours, faster than gentamicin in the same experiment. This
+          is a test-tube result against the closely related type species of the
+          same complex; there are no human data and none specifically on
+          Klebsiella variicola.
+        dose_studied: "not established in humans; in vitro minimum inhibitory concentration 0.059% by volume"
+        reaches_gut: >
+          Only in the right formulation. Free oregano oil is largely absorbed in
+          the stomach and upper small intestine and is also strongly irritant
+          there, so an ordinary capsule delivers little to the colon.
+          Enteric-coated or delayed-release preparations are designed to release
+          lower down and are the only sensible way to attempt colonic delivery.
+          Even then the concentration achieved at the colonic mucosa is unknown.
+        citation_title: "Origanum vulgare L. essential oil inhibits the growth of carbapenem-resistant gram-negative bacteria"
+        citation_url: "https://doi.org/10.1590/0037-8682-0502-2018"
+        caution: >
+          Undiluted oregano oil burns mucous membranes; never take it neat.
+          Carvacrol was toxic to all three human cell lines tested in one study
+          at concentrations above 31 micrograms per millilitre, so this is not a
+          harmless plant extract. Avoid in pregnancy. It has antiplatelet effects
+          and may add to anticoagulants, and it can lower blood glucose. It is
+          non-selective and will suppress beneficial gut anaerobes alongside the
+          target, so prolonged use is not sensible.
+      - name: Dietary fibre and resistant starch
+        kind: food
+        evidence_tier: animal
+        effect: >
+          In mice, loss of butyrate-producing gut bacteria after antibiotics
+          reduced signalling through the colonocyte butyrate sensor PPAR-gamma,
+          which raised luminal nitrate and oxygen and allowed the dysbiotic
+          expansion of Enterobacteriaceae. Restoring that signalling suppressed
+          the expansion. This is the best mechanistic account of why a
+          fibre-fed, butyrate-rich colon resists Enterobacteriaceae overgrowth.
+          The organisms studied were Escherichia and Salmonella, which are in the
+          same family as Klebsiella but are not the same genus; extension to
+          Klebsiella is inference, not measurement, and the work is in mice.
+        dose_studied: "not established as a supplement dose; the general adult fibre target is 30 g per day"
+        reaches_gut: >
+          By definition. Fermentable fibre and resistant starch are not absorbed
+          in the small intestine; reaching the colon and being fermented there
+          into butyrate is the whole mechanism. This is the only agent in this
+          entry whose gut delivery is not in doubt.
+        citation_title: "Microbiota-activated PPAR-gamma signaling inhibits dysbiotic Enterobacteriaceae expansion"
+        citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5642957/"
+        caution: >
+          Increase fibre slowly; rapid increases cause bloating, wind and
+          discomfort, and can be poorly tolerated in irritable bowel syndrome.
+          Avoid loading fibre if you have a known bowel stricture, active
+          inflammatory bowel disease or a history of obstruction without
+          discussing it with your clinician first. This is a way of making the
+          colon less hospitable to Enterobacteriaceae over time; it is not an
+          antibiotic and will not clear an established infection.
+      - name: Multi-strain probiotic (eight-strain preparation)
+        kind: probiotic
+        evidence_tier: human_rct
+        effect: >
+          A randomised placebo-controlled trial in 80 adults with at least three
+          months of gut carriage of extended-spectrum beta-lactamase-producing
+          Enterobacteriaceae gave an eight-strain probiotic at 9 x 10^11 live
+          bacteria twice daily for two months. Eradication at one year was 12.5%
+          on probiotic and 5% on placebo, which was not statistically significant
+          (odds ratio 2.71, 95% confidence interval 0.49-14.9). This agent is
+          listed because it is the best direct human test of trying to
+          decolonise resistant Klebsiella and relatives from the gut, and the
+          honest result is that it did not work.
+        dose_studied: "9 x 10^11 live bacteria twice daily for 2 months"
+        reaches_gut: >
+          Yes, for the delivery vehicle. Commercial probiotic sachets are
+          formulated so that viable organisms reach the intestine, and the trial
+          confirmed the intervention was deliverable and tolerated. Reaching the
+          gut, however, is clearly not sufficient: the organisms arrived and the
+          resistant Enterobacteriaceae stayed.
+        citation_title: "Probiotics for intestinal decolonization of ESBL-producing Enterobacteriaceae: a randomized, placebo-controlled clinical trial"
+        citation_url: "https://doi.org/10.1016/j.cmi.2019.08.019"
+        caution: >
+          The trial excluded people who were immunosuppressed, and that
+          exclusion is the main safety point: live probiotics have caused
+          bloodstream infection in profoundly immunosuppressed people and in
+          those with central venous lines, so they should not be taken in those
+          circumstances without medical advice. Set expectations accordingly:
+          this preparation did not clear resistant Enterobacteriaceae, and gut
+          carriage in a well person does not need clearing.
+
+  bacteria.klebsiella_aerogenes:
+    display_name: Klebsiella aerogenes
+    what_it_is: >
+      A Gram-negative gut bacterium formerly called Enterobacter aerogenes and
+      reclassified into Klebsiella. It lives in the intestines of humans and
+      animals and in soil and water.
+    why_it_matters: >
+      It is a hospital opportunist rather than a gut pathogen. It causes urinary
+      tract, wound, line-associated and respiratory infections, almost entirely
+      in people who are already unwell, catheterised or recently given
+      antibiotics, and it readily develops resistance to cephalosporins during
+      treatment. It is not an established cause of diarrhoea. Finding it in
+      stool is not an infection and does not require treatment in a well person.
+    normal_carriage: >
+      Yes, it is a normal if minor gut inhabitant. Klebsiella and Enterobacter
+      species together are carried in the stool of roughly 40% of infants at
+      discharge from neonatal units, and adult intestinal carriage is common
+      enough that the intestine is regarded as the usual source of the
+      organism in hospital-acquired infection. There is no figure suggesting a
+      healthy adult should be concerned about carriage.
+    overgrowth_signal: >
+      No stool threshold has been validated and sequencing cannot supply one.
+      The pattern that would matter is a large Enterobacterales fraction with
+      markedly reduced diversity after broad-spectrum antibiotics, in someone who
+      is neutropenic, catheterised or hospitalised. Suspected infection is
+      established by urine, blood or wound culture ordered by a clinician, not by
+      a stool sequence.
+    agents:
+      - name: Oregano oil (carvacrol and thymol)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Oregano oil produced an 18 mm zone of growth inhibition against
+          Enterobacter aerogenes, the former name of this species, in a
+          disc-diffusion screen of Gram-negative bacilli, and inhibited
+          Klebsiella pneumoniae at 0.059% by volume in a separate broth study.
+          Purified carvacrol and thymol inhibit a broad range of bacteria at
+          125-250 micrograms per millilitre. Inhibited growth in culture only;
+          there are no human data.
+        dose_studied: "not established in humans; in vitro minimum inhibitory concentrations for carvacrol and thymol of 125-250 micrograms per millilitre"
+        reaches_gut: >
+          Only if formulated for it. Plain oregano oil is absorbed and diluted in
+          the upper gut, and is irritant to the stomach, so a standard capsule
+          delivers little to the colon. Enteric-coated preparations are intended
+          to release further down and are the only reasonable attempt at colonic
+          delivery; the concentration actually achieved there is unknown.
+        citation_title: "Carvacrol and Thymol, a Synergistic Antimicrobial Activity Against Bacterial and Candida Species"
+        citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC12541891/"
+        caution: >
+          Never swallow undiluted oregano oil. In the cited study carvacrol was
+          cytotoxic to all three human cell lines tested above 31 micrograms per
+          millilitre and thymol to two of three, so the margin between
+          antibacterial and cell-damaging concentrations is narrow. Avoid in
+          pregnancy. It may add to anticoagulants and to glucose-lowering drugs.
+          It is indiscriminate and will suppress beneficial anaerobes too.
+      - name: Cinnamaldehyde (cinnamon bark)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Trans-cinnamaldehyde inhibited and killed drug-resistant
+          Enterobacteriaceae, including Klebsiella pneumoniae and Enterobacter
+          cloacae, at around 625 micrograms per millilitre, with viable counts
+          falling within the first hour at bactericidal concentrations, and acted
+          synergistically with gentamicin against Escherichia coli and
+          Enterobacter. The isolates tested were relatives in the same family
+          rather than Klebsiella aerogenes itself. Inhibited growth in culture;
+          no human data.
+        dose_studied: "not established in humans; in vitro minimum inhibitory concentration around 625 micrograms per millilitre"
+        reaches_gut: >
+          Incompletely. Cinnamaldehyde is absorbed in the small intestine and
+          rapidly oxidised to cinnamic acid, so a plain oil or powder delivers
+          only a fraction to the colon. Enteric-coated or encapsulated forms
+          would be needed to make colonic delivery plausible, and even then the
+          achieved concentration has not been measured in people.
+        citation_title: "Antibacterial effectiveness of trans-cinnamaldehyde against foodborne Enterobacteriaceae and its adjuvant effect with gentamicin"
+        citation_url: "https://doi.org/10.1007/s42770-024-01282-5"
+        caution: >
+          Use Ceylon cinnamon rather than cassia if taking it regularly: cassia
+          is high in coumarin, which is hepatotoxic in sustained doses. Cinnamon
+          may lower blood glucose and add to diabetes medication. Cinnamaldehyde
+          is a common contact allergen and irritates the mouth and stomach. It
+          is not a treatment for any Klebsiella infection.
+      - name: Dietary fibre and resistant starch
+        kind: food
+        evidence_tier: animal
+        effect: >
+          In mice, depletion of butyrate-producing bacteria by antibiotics
+          reduced butyrate signalling through colonocyte PPAR-gamma, increased
+          luminal oxygen and nitrate, and permitted Enterobacteriaceae to expand;
+          restoring that signalling prevented the expansion. This explains why a
+          well-fermented, butyrate-rich colon resists Enterobacterales
+          overgrowth. The bacteria measured were Escherichia and Salmonella,
+          same family as Klebsiella but not the same genus, and the work is in
+          mice.
+        dose_studied: "not established as a supplement dose; the general adult fibre target is 30 g per day"
+        reaches_gut: >
+          Yes, unequivocally. Fermentable fibre is not absorbed in the small
+          intestine; arriving in the colon and being fermented to butyrate is the
+          mechanism itself.
+        citation_title: "Microbiota-activated PPAR-gamma signaling inhibits dysbiotic Enterobacteriaceae expansion"
+        citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5642957/"
+        caution: >
+          Build up gradually; sudden increases cause bloating and wind and are
+          often poorly tolerated in irritable bowel syndrome. Discuss with a
+          clinician before loading fibre if you have a bowel stricture, active
+          inflammatory bowel disease or previous obstruction. This shifts the
+          ecology of the colon slowly; it is not an antimicrobial.
+
+  bacteria.enterobacter_hormaechei:
+    display_name: Enterobacter hormaechei
+    what_it_is: >
+      A Gram-negative bacterium of the Enterobacter cloacae complex. It lives in
+      the human and animal intestine and in soil, water and on plants. Ordinary
+      laboratory identification frequently reports it just as Enterobacter
+      cloacae, so it is more common than its name suggests.
+    why_it_matters: >
+      It is a gut commensal that behaves as an opportunist. It is the most
+      frequently identified hospital pathogen of the Enterobacter cloacae
+      complex, causing bloodstream, urinary, biliary and wound infections in
+      people who are already unwell, and it commonly carries
+      extended-spectrum beta-lactamase and carbapenemase genes. Almost all of
+      that burden is in hospitals. It is not a recognised cause of diarrhoea in a
+      healthy adult, and a stool detection is not an infection.
+    normal_carriage: >
+      Common and normal. In an analysis of 12,238 gut metagenomes from around
+      the world, Enterobacteriaceae were present in 66% of samples, and
+      Escherichia coli, Klebsiella pneumoniae and Enterobacter hormaechei were
+      the three most prevalent species of the family across age groups, health
+      states and continents. This species is among the ordinary background
+      inhabitants of the healthy human gut.
+    overgrowth_signal: >
+      No validated abundance threshold exists, and a single metagenomic sample
+      cannot establish absolute load. A finding becomes worth discussing if a
+      large Enterobacterales share coincides with a clear loss of diversity after
+      broad-spectrum antibiotics, particularly in someone neutropenic,
+      catheterised or in hospital. Suspected infection is confirmed by blood,
+      urine or wound culture directed by a clinician.
+    agents:
+      - name: Cinnamaldehyde (cinnamon bark)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Trans-cinnamaldehyde inhibited and killed drug-resistant Enterobacter
+          cloacae, of which Enterobacter hormaechei is a member species, at
+          around 625 micrograms per millilitre, and combined synergistically with
+          gentamicin against Enterobacter cloacae isolates. A separate study of
+          multidrug-resistant Enterobacteriaceae including an Enterobacter
+          cloacae isolate found minimum inhibitory concentrations of
+          0.015-0.031%. Inhibited growth in culture; no human data on gut
+          carriage.
+        dose_studied: "not established in humans; in vitro minimum inhibitory concentration around 625 micrograms per millilitre"
+        reaches_gut: >
+          Incompletely. Cinnamaldehyde is absorbed in the small intestine and
+          quickly oxidised to cinnamic acid, so ordinary cinnamon powder or oil
+          delivers only a fraction to the colon. Enteric-coated or encapsulated
+          forms would be required for plausible colonic delivery, and the
+          concentration reached there has not been measured in people.
+        citation_title: "Antibacterial effectiveness of trans-cinnamaldehyde against foodborne Enterobacteriaceae and its adjuvant effect with gentamicin"
+        citation_url: "https://doi.org/10.1007/s42770-024-01282-5"
+        caution: >
+          Prefer Ceylon cinnamon over cassia for regular use, because cassia is
+          high in hepatotoxic coumarin. Cinnamon can lower blood glucose and add
+          to the effect of diabetes medication. Cinnamaldehyde is a frequent
+          contact allergen and irritates the mouth and stomach. It is not a
+          treatment for Enterobacter infection and will not clear gut carriage.
+      - name: Dietary fibre and resistant starch
+        kind: food
+        evidence_tier: animal
+        effect: >
+          In mice, the loss of butyrate-producing bacteria after antibiotics
+          reduced colonocyte PPAR-gamma signalling, raised luminal oxygen and
+          nitrate, and allowed Enterobacteriaceae to expand; restoring the
+          signalling suppressed it. This is the mechanistic reason a
+          fibre-fermenting colon holds Enterobacterales down. The species
+          measured were Escherichia and Salmonella, family relatives of
+          Enterobacter rather than the same genus, and the work is in mice.
+        dose_studied: "not established as a supplement dose; the general adult fibre target is 30 g per day"
+        reaches_gut: >
+          Yes. Fermentable fibre and resistant starch pass the small intestine
+          undigested; colonic fermentation to butyrate is the mechanism.
+        citation_title: "Microbiota-activated PPAR-gamma signaling inhibits dysbiotic Enterobacteriaceae expansion"
+        citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5642957/"
+        caution: >
+          Increase gradually to limit bloating and wind, which can be marked in
+          irritable bowel syndrome. Seek advice before increasing fibre if you
+          have a bowel stricture, active inflammatory bowel disease or previous
+          obstruction. This changes colonic ecology over weeks; it is not an
+          antimicrobial and treats nothing acutely.
+
+  bacteria.enterobacter_ludwigii:
+    display_name: Enterobacter ludwigii
+    what_it_is: >
+      A Gram-negative bacterium of the Enterobacter cloacae complex, described
+      relatively recently and found on plant roots, in soil and water, and in the
+      human and animal intestine.
+    why_it_matters: >
+      Like its close relatives it is a gut commensal that occasionally behaves as
+      a hospital opportunist, causing line-associated, urinary and wound
+      infections in people who are already unwell, and it can carry
+      beta-lactamase resistance genes. There is very little species-specific
+      disease literature, which is itself informative: it is not a recognised
+      cause of gastrointestinal illness. A stool detection is not an infection.
+    normal_carriage: >
+      It is a normal, minor member of the gut community. Enterobacter species are
+      part of the ordinary Enterobacteriaceae background found in about two-thirds
+      of healthy adult gut metagenomes worldwide. No species-specific healthy
+      carriage rate has been published for Enterobacter ludwigii, and its absence
+      reflects a lack of clinical concern rather than rarity. Note also that
+      species within the Enterobacter cloacae complex are hard to separate from
+      short sequencing reads, so a species-level call here carries real
+      uncertainty.
+    overgrowth_signal: >
+      No threshold exists and sequencing cannot generate one. What matters is
+      whether a large Enterobacterales share sits alongside collapsed diversity
+      after broad-spectrum antibiotics, in a person who is immunosuppressed,
+      catheterised or in hospital. Actual infection is diagnosed by culture from
+      the relevant site, arranged by a clinician.
+    agents:
+      - name: Cinnamaldehyde (cinnamon bark)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Trans-cinnamaldehyde inhibited and killed drug-resistant Enterobacter
+          cloacae, the type species of the complex to which Enterobacter
+          ludwigii belongs, at around 625 micrograms per millilitre, and was
+          synergistic with gentamicin against those isolates. The tested organism
+          is a close congener, not this species. Inhibited growth in culture; no
+          human data.
+        dose_studied: "not established in humans; in vitro minimum inhibitory concentration around 625 micrograms per millilitre"
+        reaches_gut: >
+          Incompletely. Absorption in the small intestine and rapid oxidation to
+          cinnamic acid mean plain cinnamon delivers only a fraction to the
+          colon; enteric-coated forms are needed for a plausible attempt, and the
+          concentration achieved in the human colon is unmeasured.
+        citation_title: "Antibacterial effectiveness of trans-cinnamaldehyde against foodborne Enterobacteriaceae and its adjuvant effect with gentamicin"
+        citation_url: "https://doi.org/10.1007/s42770-024-01282-5"
+        caution: >
+          Use Ceylon rather than cassia cinnamon for sustained intake because of
+          cassia's coumarin content and liver toxicity. It can lower blood
+          glucose and add to diabetes medication. Cinnamaldehyde is a common
+          contact allergen and a mucosal irritant. It does not treat infection.
+      - name: Dietary fibre and resistant starch
+        kind: food
+        evidence_tier: animal
+        effect: >
+          In mice, antibiotic-driven loss of butyrate producers reduced
+          colonocyte PPAR-gamma signalling, increased luminal oxygen and nitrate
+          and let Enterobacteriaceae expand; restoring the signal prevented that.
+          The organisms measured were Escherichia and Salmonella, same family as
+          Enterobacter but a different genus, and the model is murine.
+        dose_studied: "not established as a supplement dose; the general adult fibre target is 30 g per day"
+        reaches_gut: >
+          Yes. Fermentable fibre reaches the colon by definition and is fermented
+          there to butyrate.
+        citation_title: "Microbiota-activated PPAR-gamma signaling inhibits dysbiotic Enterobacteriaceae expansion"
+        citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5642957/"
+        caution: >
+          Increase slowly to limit bloating and wind. Get advice first if you
+          have a stricture, active inflammatory bowel disease or previous bowel
+          obstruction. It is a slow ecological measure, not a treatment.
+
+  bacteria.enterobacter_roggenkampii:
+    display_name: Enterobacter roggenkampii
+    what_it_is: >
+      A Gram-negative bacterium of the Enterobacter cloacae complex, named in
+      2019, found in the human gut and in environmental sources such as water and
+      plants.
+    why_it_matters: >
+      It behaves like the rest of its complex: a gut resident that can become an
+      opportunist in hospital, contributing to line, urinary and wound infections
+      in people who are already unwell, sometimes carrying carbapenemase genes.
+      There is almost no species-specific disease literature. It is not a
+      recognised gastrointestinal pathogen, and a stool sequence is not an
+      infection.
+    normal_carriage: >
+      A normal minor gut inhabitant, within the Enterobacteriaceae background
+      present in about 66% of healthy adult gut metagenomes globally. No
+      species-specific healthy carriage figure has been published, because the
+      species is new and has not been considered worth surveying in well people.
+      Species within this complex are also difficult to resolve from short
+      sequencing reads, so a species-level identification should be read with
+      caution.
+    overgrowth_signal: >
+      No validated threshold, and sequencing cannot establish absolute
+      abundance. Concern would come from a high Enterobacterales share with
+      markedly reduced diversity after broad-spectrum antibiotics in someone
+      neutropenic, catheterised or hospitalised. Infection is diagnosed by
+      culture of the affected site, not by stool.
+    agents:
+      - name: Cinnamaldehyde (cinnamon bark)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Trans-cinnamaldehyde inhibited and killed drug-resistant Enterobacter
+          cloacae, the type species of the complex containing Enterobacter
+          roggenkampii, at around 625 micrograms per millilitre, with synergy
+          against those isolates when combined with gentamicin. The organism
+          tested is a close relative within the same complex, not this species.
+          Inhibited growth in culture; no human data.
+        dose_studied: "not established in humans; in vitro minimum inhibitory concentration around 625 micrograms per millilitre"
+        reaches_gut: >
+          Incompletely. Small-intestinal absorption and rapid conversion to
+          cinnamic acid limit colonic delivery from ordinary cinnamon;
+          enteric-coated forms are needed for any realistic attempt and the
+          resulting colonic concentration is unknown.
+        citation_title: "Antibacterial effectiveness of trans-cinnamaldehyde against foodborne Enterobacteriaceae and its adjuvant effect with gentamicin"
+        citation_url: "https://doi.org/10.1007/s42770-024-01282-5"
+        caution: >
+          Prefer Ceylon cinnamon to cassia for regular use because of cassia's
+          coumarin content and hepatotoxicity. It can lower blood glucose and
+          compound diabetes medication. Cinnamaldehyde is a frequent contact
+          allergen and irritates mucous membranes. It treats no infection.
+      - name: Dietary fibre and resistant starch
+        kind: food
+        evidence_tier: animal
+        effect: >
+          In mice, loss of butyrate-producing bacteria after antibiotics reduced
+          colonocyte PPAR-gamma signalling, raised luminal oxygen and nitrate and
+          allowed Enterobacteriaceae expansion, which restoring the signal
+          prevented. Measured on Escherichia and Salmonella, family relatives of
+          Enterobacter rather than the same genus, in mice.
+        dose_studied: "not established as a supplement dose; the general adult fibre target is 30 g per day"
+        reaches_gut: >
+          Yes. Reaching and being fermented in the colon is the mechanism.
+        citation_title: "Microbiota-activated PPAR-gamma signaling inhibits dysbiotic Enterobacteriaceae expansion"
+        citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5642957/"
+        caution: >
+          Increase gradually; abrupt increases cause bloating and wind and are
+          often poorly tolerated in irritable bowel syndrome. Take advice first
+          if you have a bowel stricture, active inflammatory bowel disease or
+          previous obstruction. Slow ecological measure, not an antimicrobial.
+
+  bacteria.citrobacter_freundii_complex:
+    display_name: Citrobacter freundii complex
+    what_it_is: >
+      A group of closely related Gram-negative bacteria that live in the human
+      and animal intestine and in soil, water and sewage. Routine laboratories
+      report them as a complex because the member species are hard to
+      distinguish.
+    why_it_matters: >
+      These are ordinary gut bacteria that occasionally cause opportunistic
+      infection: urinary tract infections, wound and line infections, and rarely
+      bloodstream infection, chiefly in newborns, the elderly and people who are
+      immunosuppressed or catheterised. The complex can carry inducible
+      beta-lactamase and acquired resistance genes. It is not an established
+      cause of diarrhoea. A stool detection in a well person is not an infection
+      and needs no treatment.
+    normal_carriage: >
+      Yes, Citrobacter is a normal minor member of the gut flora, part of the
+      Enterobacteriaceae background found in roughly two-thirds of healthy adult
+      gut metagenomes. Detection is expected rather than notable. No published
+      figure identifies a healthy-carriage level that should worry anyone.
+    overgrowth_signal: >
+      There is no validated stool threshold and sequencing cannot establish one.
+      A finding becomes worth mentioning to a clinician if a large
+      Enterobacterales fraction accompanies collapsed diversity after
+      broad-spectrum antibiotics, in a newborn, an elderly person, or someone
+      immunosuppressed or catheterised. Suspected infection is confirmed by urine
+      or blood culture, not by stool sequencing.
+    agents:
+      - name: Berberine (Coptis chinensis, goldenseal, barberry)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Berberine inhibited extended-spectrum beta-lactamase-producing
+          Enterobacterales in culture, with Citrobacter freundii and Citrobacter
+          braakii among the species tested directly, at berberine minimum
+          inhibitory concentrations around 0.75 mg per millilitre; whole Coptis
+          chinensis extract was more active than the equivalent berberine
+          content alone. Set expectations honestly: this is a high concentration,
+          and other work reports berberine minimum inhibitory concentrations
+          above 128 micrograms per millilitre for Citrobacter freundii, so
+          activity is weak. Inhibited growth in culture; no human data.
+        dose_studied: "not established; in vitro minimum inhibitory concentration around 0.75 mg per millilitre"
+        reaches_gut: >
+          Very well. Berberine's oral bioavailability is below 1%, so almost all
+          of an oral dose stays in the lumen and is recoverable from faeces at
+          milligram-per-gram concentrations in animal studies. Colonic exposure
+          is the strong part of the case; potency against Citrobacter is the weak
+          part.
+        citation_title: "Ultrasound-Assisted Extraction: Unlocking the Antibacterial Potential of Coptis chinensis Franch. Against ESBL-Producing Enterobacterales"
+        citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC12654438/"
+        caution: >
+          Avoid in pregnancy and breastfeeding, and never give it to a newborn:
+          berberine displaces bilirubin and can cause kernicterus. It inhibits
+          CYP3A4, CYP2D6 and P-glycoprotein and so interacts with many
+          medicines, including ciclosporin, statins and some anticoagulants. It
+          lowers blood glucose and can compound diabetes treatment. Cramping and
+          loose stools are common. It will not eradicate Citrobacter from the
+          gut.
+      - name: Oregano oil (carvacrol and thymol)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Oregano oil produced the largest inhibition zone of any organism tested
+          against Citrobacter species, 24.0 mm, in a disc-diffusion screen of
+          eleven genera of Gram-negative bacilli. Purified carvacrol and thymol
+          inhibit a broad panel of bacteria at 125-250 micrograms per millilitre.
+          Note this was genus-level identification in the screening paper, not a
+          complex-level or species-level result. Inhibited growth in culture; no
+          human data.
+        dose_studied: "not established in humans; in vitro minimum inhibitory concentrations for carvacrol and thymol of 125-250 micrograms per millilitre"
+        reaches_gut: >
+          Only with the right formulation. Plain oregano oil is absorbed in the
+          stomach and upper small intestine and irritates them, so little
+          reaches the colon. Enteric-coated or delayed-release preparations are
+          the only reasonable route, and the colonic concentration achieved is
+          unmeasured.
+        citation_title: "Carvacrol and Thymol, a Synergistic Antimicrobial Activity Against Bacterial and Candida Species"
+        citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC12541891/"
+        caution: >
+          Never take undiluted oregano oil. Carvacrol was cytotoxic to all three
+          human cell lines tested above 31 micrograms per millilitre in the cited
+          study, so the safety margin is narrow. Avoid in pregnancy. It may add
+          to anticoagulants and glucose-lowering drugs. It is non-selective and
+          suppresses beneficial gut anaerobes as well as the target, so extended
+          courses are unwise.
+      - name: Dietary fibre and resistant starch
+        kind: food
+        evidence_tier: animal
+        effect: >
+          In mice, antibiotic depletion of butyrate-producing bacteria reduced
+          colonocyte PPAR-gamma signalling, raised luminal oxygen and nitrate and
+          allowed Enterobacteriaceae to expand; restoring the signal suppressed
+          it. This is the mechanism by which a fibre-fermenting colon keeps
+          Enterobacterales in check. The organisms measured were Escherichia and
+          Salmonella, in the same family as Citrobacter but a different genus,
+          and the work is in mice.
+        dose_studied: "not established as a supplement dose; the general adult fibre target is 30 g per day"
+        reaches_gut: >
+          Yes. Fermentable fibre is not absorbed in the small intestine; colonic
+          fermentation to butyrate is the mechanism itself.
+        citation_title: "Microbiota-activated PPAR-gamma signaling inhibits dysbiotic Enterobacteriaceae expansion"
+        citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5642957/"
+        caution: >
+          Increase gradually to limit bloating and wind, which can be
+          significant in irritable bowel syndrome. Seek advice first if you have
+          a bowel stricture, active inflammatory bowel disease or a history of
+          obstruction. It works slowly on the ecology of the colon and treats
+          nothing acutely.
+
+  bacteria.citrobacter_koseri:
+    display_name: Citrobacter koseri
+    what_it_is: >
+      A Gram-negative bacterium of the intestine, also found in water and
+      sewage. It was formerly called Citrobacter diversus.
+    why_it_matters: >
+      In adults it is a low-grade opportunist causing urinary tract, wound and
+      occasional bloodstream infections, mostly in people who are elderly,
+      catheterised or immunosuppressed. Its one genuinely serious association is
+      in newborns, where it has a particular and well-recognised tendency to
+      cause meningitis and brain abscess; that is a neonatal problem, not an
+      adult one, and it is diagnosed from blood and cerebrospinal fluid, never
+      from stool. It is not an established cause of diarrhoea in adults, and a
+      stool detection in a well adult is not an infection.
+    normal_carriage: >
+      Yes, it is a normal minor gut inhabitant, part of the Enterobacteriaceae
+      background present in about two-thirds of healthy adult gut metagenomes.
+      Detection in stool is unremarkable. No healthy-carriage figure exists that
+      would justify concern in a well adult.
+    overgrowth_signal: >
+      No validated threshold exists and sequencing cannot produce one. Context
+      does the work: a large Enterobacterales share with markedly reduced
+      diversity after broad-spectrum antibiotics, in someone elderly,
+      catheterised or immunosuppressed. In a newborn, any suspicion of infection
+      is a medical emergency assessed by blood and cerebrospinal fluid culture,
+      not by stool sequencing.
+    agents:
+      - name: Berberine (Coptis chinensis, goldenseal, barberry)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Berberine inhibited extended-spectrum beta-lactamase-producing
+          Enterobacterales in culture, including Citrobacter freundii and
+          Citrobacter braakii, at around 0.75 mg per millilitre. This is
+          genus-level evidence: Citrobacter koseri itself was not tested, and the
+          concentration required is high, with other work putting berberine's
+          minimum inhibitory concentration against Citrobacter freundii above 128
+          micrograms per millilitre. Inhibited growth of related species in
+          culture; no human data.
+        dose_studied: "not established; in vitro minimum inhibitory concentration around 0.75 mg per millilitre against related Citrobacter species"
+        reaches_gut: >
+          Very well. Oral bioavailability under 1% means nearly all of a dose
+          stays in the gut lumen and is recovered in faeces at
+          milligram-per-gram concentrations in animal work. Delivery is the
+          strong part of the argument; potency against Citrobacter is not.
+        citation_title: "Ultrasound-Assisted Extraction: Unlocking the Antibacterial Potential of Coptis chinensis Franch. Against ESBL-Producing Enterobacterales"
+        citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC12654438/"
+        caution: >
+          Never give berberine to a newborn or take it in pregnancy or while
+          breastfeeding: it displaces bilirubin from albumin and can cause
+          kernicterus. This warning matters especially here, because the
+          organism's serious associations are neonatal. It inhibits CYP3A4,
+          CYP2D6 and P-glycoprotein and interacts with many prescription drugs.
+          It lowers blood glucose. Cramping and loose stools are common. It will
+          not eradicate Citrobacter and does not prevent neonatal disease.
+      - name: Dietary fibre and resistant starch
+        kind: food
+        evidence_tier: animal
+        effect: >
+          In mice, loss of butyrate-producing bacteria after antibiotics reduced
+          colonocyte PPAR-gamma signalling, increased luminal oxygen and nitrate,
+          and permitted Enterobacteriaceae to expand; restoring the signal
+          prevented that expansion. The species measured were Escherichia and
+          Salmonella, family relatives of Citrobacter rather than the same genus,
+          and the work is in mice.
+        dose_studied: "not established as a supplement dose; the general adult fibre target is 30 g per day"
+        reaches_gut: >
+          Yes. Fermentable fibre passes the small intestine undigested and is
+          fermented to butyrate in the colon, which is the mechanism.
+        citation_title: "Microbiota-activated PPAR-gamma signaling inhibits dysbiotic Enterobacteriaceae expansion"
+        citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5642957/"
+        caution: >
+          Increase slowly to limit bloating and wind. Discuss with a clinician
+          first if you have a bowel stricture, active inflammatory bowel disease
+          or a history of obstruction. It shifts colonic ecology gradually and is
+          not a treatment for infection.
+
+  bacteria.proteus_mirabilis:
+    display_name: Proteus mirabilis
+    what_it_is: >
+      A Gram-negative gut bacterium that swims and swarms energetically and
+      produces urease, an enzyme that splits urea and raises local pH. It is a
+      normal but minor resident of the human intestine and is also found in soil
+      and water.
+    why_it_matters: >
+      Its main clinical role is outside the gut, in the urinary tract, where its
+      urease raises urine pH and drives the formation of struvite stones and
+      encrusted catheter biofilms; it is a leading cause of complicated and
+      catheter-associated urinary infection. In the bowel it is a low-abundance
+      resident that is enriched in inflammation: it was found in 65.9% of people
+      with ulcerative colitis against 3.3% of healthy controls in one study. That
+      is an association with inflammation, not proof that the organism caused it.
+      It is not an established cause of ordinary infectious diarrhoea, and a
+      stool detection is not a urinary infection.
+    normal_carriage: >
+      Yes, but at low levels. Proteus species make up less than 0.05% of the gut
+      microbiota of healthy people, and PCR-based faecal detection in healthy
+      controls has been reported at around 3%. So it belongs in the healthy gut,
+      but as a small minority; the gut is the reservoir from which urinary
+      infections are seeded.
+    overgrowth_signal: >
+      No validated stool threshold exists and sequencing cannot establish
+      absolute quantity. The context that makes a finding meaningful is an
+      indwelling urinary catheter, recurrent urinary tract infections, known
+      struvite stones, or established inflammatory bowel disease. Even then, the
+      test that matters for urinary disease is a urine culture, not a stool
+      sequence. In a well person with no urinary symptoms, a low-level stool
+      signal is ordinary carriage.
+    agents:
+      - name: Cranberry A-type proanthocyanidins
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          A2-type cranberry proanthocyanidins reduced adhesion of Proteus
+          mirabilis to bladder epithelial cells by up to 75%, and reduced
+          motility and urease activity. This is an anti-adhesion and
+          anti-virulence effect rather than killing, measured on cultured cells;
+          there are no human data showing it reduces Proteus in stool or urine.
+        dose_studied: "not established; in vitro anti-adhesion assays on the HT1376 bladder cell line"
+        reaches_gut: >
+          Proanthocyanidins are large, poorly absorbed polyphenols, so most of an
+          oral dose passes intact through the small intestine into the colon,
+          where gut bacteria break them down. Colonic exposure is therefore
+          plausible. Whether the concentration is enough to affect adhesion in
+          the bowel is unknown, and the cited work concerned bladder cells.
+        citation_title: "Anti-Adhesion Activity of A2-type Proanthocyanidins (a Cranberry Major Component) on Uropathogenic E. coli and P. mirabilis Strains"
+        citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC4790394/"
+        caution: >
+          Cranberry can raise the INR in people taking warfarin and should be
+          discussed with your anticoagulation clinic. It is high in oxalate, so
+          avoid large regular doses if you form calcium-oxalate kidney stones.
+          Cranberry juice is acidic and can worsen reflux, and juices are high in
+          sugar. It reduces sticking and virulence in a laboratory model; it does
+          not kill the organism and it does not treat an active urinary
+          infection.
+      - name: Cranberry powder (whole fruit)
+        kind: food
+        evidence_tier: in_vitro
+        effect: >
+          Cranberry powder inhibited swimming and swarming motility and
+          swarmer-cell differentiation in Proteus mirabilis HI4320, and reduced
+          expression of the flagellin gene flaA, the flagellar master regulator
+          flhD, and the urease accessory gene ureD. It did not inhibit growth, so
+          this is virulence suppression rather than killing. Culture work only;
+          no human data.
+        dose_studied: "not established; a range of cranberry-powder concentrations in vitro"
+        reaches_gut: >
+          Reasonably. The active polyphenols are poorly absorbed and travel to
+          the colon largely intact, where the resident bacteria metabolise them.
+          Colonic exposure is plausible; the concentration achieved and whether
+          it suppresses these genes in a living bowel is unknown.
+        citation_title: "Cranberry impairs selected behaviors essential for virulence in Proteus mirabilis HI4320"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/23750959/"
+        caution: >
+          May increase the INR on warfarin; discuss it if you are
+          anticoagulated. High oxalate content makes it a poor choice for
+          calcium-oxalate stone formers. Acidic and can aggravate reflux; whole
+          powders and juices are high in sugar. Note the same literature reports
+          that the anti-swarming effect fades over longer exposures and that
+          cranberry may increase biofilm formation under some conditions, so the
+          picture is not uniformly favourable.
+      - name: Curcumin (turmeric)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          At concentrations below those inhibiting growth, curcumin inhibited
+          biofilm formation by Proteus mirabilis and disrupted mature biofilms,
+          and reduced quorum-sensing-dependent traits including exopolysaccharide
+          production and swimming and swarming motility. It also increased the
+          organisms' susceptibility to conventional antibiotics. Inhibited
+          biofilm and signalling in culture; no human data.
+        dose_studied: "not established; sub-inhibitory concentrations in vitro"
+        reaches_gut: >
+          Well. Curcumin has very poor oral bioavailability and is extensively
+          metabolised in the gut wall and liver, so the bulk of an oral dose
+          remains in the lumen and reaches the colon. Formulations designed to
+          raise blood levels, such as those with piperine or phospholipids, work
+          against this by pulling curcumin out of the lumen.
+        citation_title: "Inhibition of biofilm development of uropathogens by curcumin - an anti-quorum sensing agent from Curcuma longa"
+        citation_url: "https://doi.org/10.1016/j.foodchem.2012.08.002"
+        caution: >
+          Avoid in gallstones or bile-duct obstruction, as curcumin stimulates
+          gallbladder contraction. It has mild antiplatelet activity and
+          interacts with warfarin and other anticoagulants. High-dose turmeric
+          and curcumin supplements have caused liver injury in a small number of
+          people; stop and seek advice if you develop jaundice, dark urine or
+          right upper abdominal pain. It suppresses biofilm in a dish and does
+          not treat urinary infection.
+      - name: Dietary fibre and resistant starch
+        kind: food
+        evidence_tier: animal
+        effect: >
+          In mice, antibiotic-driven loss of butyrate-producing bacteria reduced
+          colonocyte PPAR-gamma signalling, raised luminal oxygen and nitrate,
+          and permitted Enterobacteriaceae to expand; restoring the signalling
+          suppressed the expansion. This is the mechanistic basis for expecting a
+          fibre-fermenting, butyrate-rich colon to hold Proteus at its normal low
+          share. The organisms measured were Escherichia and Salmonella, in the
+          same family as Proteus but not the same genus, and the work is in mice.
+        dose_studied: "not established as a supplement dose; the general adult fibre target is 30 g per day"
+        reaches_gut: >
+          Yes. Fermentable fibre and resistant starch are not absorbed in the
+          small intestine; arriving in the colon and being fermented to butyrate
+          is the mechanism.
+        citation_title: "Microbiota-activated PPAR-gamma signaling inhibits dysbiotic Enterobacteriaceae expansion"
+        citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5642957/"
+        caution: >
+          Build up slowly; rapid increases cause bloating and wind and are often
+          poorly tolerated in irritable bowel syndrome. Take advice before
+          increasing fibre if you have a bowel stricture, active inflammatory
+          bowel disease or a history of obstruction. This is a slow ecological
+          measure and treats nothing acutely.
+
+  bacteria.serratia_marcescens:
+    display_name: Serratia marcescens
+    what_it_is: >
+      A Gram-negative bacterium found in soil, water, plumbing and damp surfaces,
+      recognisable in the laboratory because many strains make a red pigment. It
+      passes through the human bowel and is a familiar hospital-environment
+      organism.
+    why_it_matters: >
+      In healthy people it is essentially harmless. It matters as a
+      hospital-acquired pathogen, particularly in neonatal units and intensive
+      care, where it causes line-associated bloodstream infection, pneumonia and
+      urinary infection, often traced to contaminated equipment or solutions. It
+      carries an inducible beta-lactamase and is intrinsically resistant to
+      several antibiotics. It is not a recognised cause of diarrhoea in a healthy
+      adult, and finding it in stool is not an infection.
+    normal_carriage: >
+      It is not a major gut resident, but it is a very common environmental
+      organism in water and on damp surfaces, so it is repeatedly swallowed and
+      brief appearance in stool is expected background. No meaningful figure for
+      healthy faecal carriage has been published, which reflects a lack of
+      clinical interest rather than rarity.
+    overgrowth_signal: >
+      No validated stool threshold exists and sequencing cannot establish one.
+      The relevant context is a current hospital admission, a central venous
+      line, a urinary catheter, neonatal care or neutropenia, together with signs
+      of illness. In that case blood, urine or sputum culture arranged by a
+      clinician establishes infection. In a well person at home, treat a
+      low-level stool signal as environmental passage.
+    agents:
+      - name: Oregano oil (carvacrol and thymol)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Origanum vulgare essential oil inhibited carbapenemase-producing
+          Serratia marcescens at 0.059% by volume and reduced viable counts
+          within four hours, faster than gentamicin in the same experiment.
+          Purified carvacrol and thymol inhibit a broad bacterial panel at
+          125-250 micrograms per millilitre. Inhibited growth in culture only;
+          there are no human data.
+        dose_studied: "not established in humans; in vitro minimum inhibitory concentration 0.059% by volume"
+        reaches_gut: >
+          Only in a suitable formulation. Free oregano oil is absorbed and
+          diluted in the stomach and upper small intestine and irritates them, so
+          an ordinary capsule delivers little to the colon. Enteric-coated or
+          delayed-release preparations are the only reasonable route, and the
+          concentration reached in the colon has not been measured in people.
+        citation_title: "Origanum vulgare L. essential oil inhibits the growth of carbapenem-resistant gram-negative bacteria"
+        citation_url: "https://doi.org/10.1590/0037-8682-0502-2018"
+        caution: >
+          Never swallow undiluted oregano oil; it burns mucous membranes.
+          Carvacrol has been shown to be cytotoxic to human cell lines above 31
+          micrograms per millilitre, so the therapeutic margin is narrow. Avoid
+          in pregnancy. It may add to anticoagulants and to glucose-lowering
+          drugs. Being non-selective, it suppresses beneficial gut anaerobes as
+          well as the target, so long courses are unwise. It does not treat a
+          line or bloodstream infection.
+      - name: Curcumin (turmeric)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          At sub-inhibitory concentrations curcumin inhibited biofilm formation
+          by Serratia marcescens and disrupted mature biofilms, and reduced
+          quorum-sensing-dependent behaviours including exopolysaccharide
+          production and swimming and swarming motility, while increasing
+          antibiotic susceptibility. Inhibited biofilm and signalling in culture;
+          no human data.
+        dose_studied: "not established; sub-inhibitory concentrations in vitro"
+        reaches_gut: >
+          Well. Curcumin is very poorly absorbed and heavily metabolised on first
+          pass, so most of an oral dose stays in the intestinal lumen and reaches
+          the colon. Enhanced-absorption formulations using piperine or
+          phospholipids work against this by reducing luminal exposure.
+        citation_title: "Inhibition of biofilm development of uropathogens by curcumin - an anti-quorum sensing agent from Curcuma longa"
+        citation_url: "https://doi.org/10.1016/j.foodchem.2012.08.002"
+        caution: >
+          Avoid if you have gallstones or bile-duct obstruction. It has mild
+          antiplatelet activity and interacts with warfarin and other
+          anticoagulants. High-dose curcumin and turmeric supplements have caused
+          liver injury in a small number of people; stop if you develop jaundice,
+          dark urine or right upper abdominal pain. This is biofilm and
+          signalling suppression in a dish, not treatment of infection.
+
+  bacteria.hafnia_alvei:
+    display_name: Hafnia alvei
+    what_it_is: >
+      A Gram-negative bacterium of the Enterobacterales, found in the intestines
+      of humans and animals, in soil, water, sewage and a wide range of foods
+      including dairy and meat. It is also used deliberately in some fermented
+      cheeses.
+    why_it_matters: >
+      Very little. It was historically reported as a cause of diarrhoea, but
+      several of those reports were later shown to involve Escherichia albertii
+      misidentified as Hafnia, so the enteric attribution is genuinely
+      uncertain and the catalogue classifies it as an uncertain-role organism.
+      Rare opportunistic infections have been described in people who are
+      severely immunosuppressed or have advanced liver disease. In a well person
+      a stool detection carries no established clinical meaning at all, and it
+      must not be read as a cause of diarrhoea.
+    normal_carriage: >
+      Yes. It is a recognised commensal of the human intestine and is
+      widespread in the food supply, so ingestion and faecal detection are
+      routine. No population figure has been established, largely because
+      nobody has considered carriage worth surveying. One species of the genus,
+      Hafnia alvei HA4597, is sold as a food supplement and has been given to
+      healthy volunteers in trials, which is a reasonable indication of how
+      benign the organism is generally regarded to be.
+    overgrowth_signal: >
+      There is no threshold and no way for sequencing to define one for an
+      organism whose disease-causing role is unsettled. If there is diarrhoea, the
+      more useful step is to assess Escherichia albertii and the established
+      enteric pathogens independently, because historical Hafnia diarrhoea
+      reports have repeatedly turned out to be that organism instead. Persistent
+      symptoms warrant a clinician-directed stool test, not action against this
+      finding.
+    agents: []
+    no_agents_reason: >
+      There is no reason to try to remove this organism and attempting to would
+      be unwise. It is an ordinary gut and food commensal whose ability to cause
+      intestinal disease is not established, and one species of the genus is
+      itself sold as a probiotic supplement. In-vitro data do exist showing that
+      berberine and Coptis chinensis extract inhibit Hafnia alvei in culture, but
+      publishing that as a recommendation would invert the honest reading of this
+      finding, which is that nothing needs doing. Broad-spectrum botanical
+      antimicrobials taken to suppress a harmless commensal carry real costs:
+      they are non-selective, they suppress beneficial anaerobes, and they can
+      reduce the very colonisation resistance that keeps genuine pathogens out.
+      If you have ongoing diarrhoea, the right response is a clinician-directed
+      stool investigation looking for established causes, including Escherichia
+      albertii, not treatment aimed at Hafnia.
+
+  # ---------------------------------------------------------------------------
+  # Gram-positive opportunists
+  # ---------------------------------------------------------------------------
+
+  bacteria.enterococcus_faecalis:
+    display_name: Enterococcus faecalis
+    what_it_is: >
+      A Gram-positive bacterium and one of the most consistently present members
+      of the normal human gut community. It colonises the intestine within days
+      of birth and stays for life. Some strains are used as probiotics and in
+      food fermentation.
+    why_it_matters: >
+      As a gut resident it contributes to normal gut function, including
+      regulating intestinal pH and producing vitamins. It becomes a problem only
+      when it gets somewhere it should not be: it is a common cause of urinary
+      tract infection, and of line-associated bloodstream infection, endocarditis
+      and intra-abdominal infection in people who are hospitalised,
+      immunosuppressed, or have had abdominal or cardiac surgery. The genuinely
+      reportable event is not the organism itself but acquired vancomycin
+      resistance, vanA or vanB, if that is linked to the organism, because it
+      narrows treatment options and can spread. Detection of the organism in
+      stool is expected, not a finding.
+    normal_carriage: >
+      Essentially universal, and it should be read that way. Enterococcus
+      faecalis is one of the two most abundant enterococci in human faeces,
+      present at roughly 10^5 to 10^7 organisms per gram of stool and making up
+      about 1% of the adult gut community. It was detected in over 75% of faecal
+      samples in one survey and in 65% of healthy Portuguese adults in another.
+      Finding it is the normal result. A reader should finish this entry
+      understanding that its presence says nothing about whether they are ill.
+    overgrowth_signal: >
+      No meaningful threshold exists for an organism this ubiquitous, and one
+      stool metagenome cannot establish absolute abundance. A very high
+      enterococcal share alongside a collapse in overall diversity is a recognised
+      pattern after broad-spectrum antibiotics or in critical illness, and in
+      hospitalised patients it can precede bloodstream infection, but that is a
+      hospital observation and not something a stool sequence in a well person
+      establishes. Invasive infection is diagnosed by blood or urine culture with
+      clinical assessment. The one result here that genuinely changes management
+      is a linked acquired vancomycin-resistance gene, which is reported
+      separately and is a matter for a clinician.
+    agents: []
+    no_agents_reason: >
+      This is a dominant, lifelong member of the normal gut community, present in
+      the great majority of healthy people at substantial numbers, and there is
+      no reason to try to remove it. Attempting to would be unwise on two
+      counts. First, it cannot realistically be achieved: enterococci are
+      intrinsically tolerant of bile, acid and a wide range of antimicrobials,
+      which is precisely why they persist. Second, the attempt does harm.
+      Antibiotic pressure aimed at enterococci is the best-documented way of
+      selecting for vancomycin-resistant strains, and broad-spectrum botanical
+      antimicrobials are non-selective: they suppress the beneficial anaerobes
+      that provide colonisation resistance, and the reliable consequence of
+      losing those anaerobes is that enterococci and Enterobacteriaceae expand,
+      not shrink. There is no human trial showing that any supplement usefully
+      reduces Enterococcus faecalis in a healthy gut, and no evidence that doing
+      so would benefit anyone. If invasive enterococcal infection is suspected,
+      that is a clinical matter requiring blood or urine culture and prescribed
+      treatment.
+
+  bacteria.enterococcus_faecium:
+    display_name: Enterococcus faecium
+    what_it_is: >
+      A Gram-positive bacterium that is a normal member of the human gut
+      community, alongside its relative Enterococcus faecalis. It is also
+      widespread in animals, food and the environment.
+    why_it_matters: >
+      In the gut it is an ordinary resident. Its clinical importance is almost
+      entirely about antibiotic resistance: hospital-adapted lineages of this
+      species are the main cause of vancomycin-resistant enterococcal infection,
+      and gut carriage of a resistant strain is a recognised risk factor for
+      later bloodstream infection in hospitalised and immunosuppressed people.
+      The organism itself is not the issue; the resistance genes it may carry
+      are, and those are reported separately. Detection in stool is expected and
+      is not an infection.
+    normal_carriage: >
+      Very common and normal. Enterococcus faecium is one of the two dominant
+      enterococci in human faeces, typically at 10^4 to 10^5 organisms per gram,
+      and was detected in 100% of faecal samples in one quantitative survey and
+      in 47% of healthy Portuguese adults in another using culture. Enterococci
+      as a genus make up around 1% of the adult gut community. Presence is the
+      normal state of affairs.
+    overgrowth_signal: >
+      No abundance threshold has been validated and a single stool metagenome
+      cannot establish absolute numbers. The pattern that carries real meaning in
+      hospital medicine is domination of the gut by enterococci with collapsed
+      diversity after broad-spectrum antibiotics, in a person who is neutropenic,
+      has a central line, or has had a transplant; that is a clinical judgement,
+      not something a stool sequence in a well person can make. What genuinely
+      changes management is a linked acquired vanA or vanB resistance gene,
+      reported separately, and even then it indicates colonisation rather than
+      infection: spontaneous clearance is common, with almost 60% of colonised
+      geriatric patients clearing within four weeks in one study.
+    agents:
+      - name: Lacticaseibacillus rhamnosus GG
+        kind: probiotic
+        evidence_tier: human_rct
+        effect: >
+          Six placebo-controlled randomised trials in 167 people tested this
+          strain for clearing vancomycin-resistant Enterococcus faecium from the
+          gut of carriers. The pooled result was inconclusive, and the review
+          concluded there is insufficient evidence to support using it for that
+          purpose, with low overall quality of evidence, inconsistency between
+          trials and small sample sizes. Individual trials disagree: a paediatric
+          trial found the carrier state lost in 20 of 32 children on the
+          probiotic against 7 of 29 on placebo, but the effect was temporary, and
+          adult and geriatric trials found no effect at all, with high
+          spontaneous clearance in both arms. This agent is listed because it is
+          the best direct human evidence on the question, and the honest answer
+          is that it has not been shown to work.
+        dose_studied: "2.5 x 10^9 to 2 x 10^10 colony-forming units daily for 2-4 weeks across the included trials"
+        reaches_gut: >
+          Yes. This is among the best-characterised probiotic strains for gastric
+          acid and bile tolerance, and trials confirmed increased faecal
+          Lactobacillus counts during supplementation, so the organism does
+          arrive and establish transiently. Arriving is evidently not sufficient:
+          the strain reached the gut and the resistant enterococci mostly
+          remained.
+        citation_title: "Lacticaseibacillus rhamnosus GG Versus Placebo for Eradication of Vancomycin-Resistant Enterococcus faecium in Intestinal Carriers: A Systematic Review and Meta-Analysis"
+        citation_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC10673360/"
+        caution: >
+          No adverse events attributable to the probiotic were reported in the
+          included trials, but live probiotics have caused bloodstream infection
+          in profoundly immunosuppressed people and in those with central venous
+          lines or damaged heart valves, so they should not be taken in those
+          situations without medical advice. Be clear about what this is for:
+          there is no reason to take it to reduce ordinary, non-resistant
+          Enterococcus faecium, which is a normal gut inhabitant. Even for
+          confirmed vancomycin-resistant carriage in a well person, colonisation
+          often clears on its own and does not itself require treatment.
+
+  bacteria.enterococcus_gallinarum:
+    display_name: Enterococcus gallinarum
+    what_it_is: >
+      A Gram-positive bacterium of the intestine, originally described from
+      poultry and also a normal minor inhabitant of the human gut. It naturally
+      carries a chromosomal gene cluster called vanC that gives it built-in
+      low-level resistance to vancomycin.
+    why_it_matters: >
+      Rarely, and mostly in hospital. It causes occasional bloodstream, urinary
+      and surgical-wound infections, particularly in people with hepatobiliary
+      disease or blood cancers, and its intrinsic vancomycin resistance limits
+      treatment choices when that happens. There is a separate and much-discussed
+      research strand showing that in mice genetically predisposed to
+      autoimmunity this organism can cross the gut wall and drive autoimmune
+      responses, with related findings in some patients with lupus and autoimmune
+      hepatitis. That work is about translocation in a susceptible host, not
+      about carriage. It is important to be plain: gut carriage of this organism
+      is not a diagnosis of autoimmune disease, is not a marker of autoimmune
+      risk, and there is no test that turns a stool detection into either.
+    normal_carriage: >
+      Yes, it is a normal minor gut inhabitant. One quantitative survey of human
+      faecal specimens detected Enterococcus gallinarum in 33% of samples. Its
+      vanC gene is intrinsic and species-defining, not acquired, so it must not
+      be reported or read as an acquired vancomycin-resistance event; that
+      distinction matters because acquired vanA and vanB carry entirely different
+      infection-control implications.
+    overgrowth_signal: >
+      No stool threshold has been validated and sequencing cannot generate one.
+      Nothing about the amount detected makes this organism more or less
+      significant in a well person. The circumstances in which it becomes
+      clinically relevant are hepatobiliary disease, haematological malignancy,
+      neutropenia or an intravascular line, together with signs of infection, and
+      in those circumstances blood culture assessed by a clinician is what
+      establishes it. The mouse translocation work offers no threshold that can
+      be applied to a human stool result.
+    agents: []
+    no_agents_reason: >
+      There is no reason to try to remove this organism and attempting to would
+      be unwise. It is an ordinary low-abundance member of the normal gut
+      community, found in about a third of healthy people, and no supplement,
+      botanical or probiotic has been shown in humans to reduce it or to produce
+      any benefit by doing so. The autoimmunity research that gives this species
+      its profile used vancomycin or a targeted vaccine in genetically
+      predisposed mice; neither is a supplement, neither is available or
+      appropriate for a person with an incidental stool finding, and the
+      mechanism at issue is translocation across the gut wall rather than the
+      quantity present in the lumen. Taking broad-spectrum botanical
+      antimicrobials to chase a commensal is counterproductive here in
+      particular: they are non-selective, they suppress the beneficial anaerobes
+      that maintain the gut barrier and colonisation resistance, and a weakened
+      barrier is precisely the condition that the translocation literature
+      identifies as the problem. If you have an autoimmune condition, that is a
+      matter for your specialist, and this finding does not change its
+      management.
+
+  bacteria.streptococcus_agalactiae:
+    display_name: Streptococcus agalactiae
+    what_it_is: >
+      A Gram-positive bacterium also known as group B Streptococcus, or GBS. Its
+      natural home in humans is the lower bowel and rectum, from which it
+      spreads to the vagina and urethra.
+    why_it_matters: >
+      In adults who are not pregnant it is usually silent, though it can cause
+      urinary tract, skin and soft-tissue infection, and occasionally bloodstream
+      infection or endocarditis in people who are elderly, diabetic or
+      immunosuppressed; invasive disease in non-pregnant adults has been rising.
+      Its major significance is in pregnancy: carriage in the vagina or rectum at
+      the time of birth can be passed to the baby and cause early-onset neonatal
+      infection, which is why maternity services screen for it or use
+      risk-based intrapartum antibiotics. That is the one context in which
+      reducing carriage has a recognised clinical purpose. Even so, a stool
+      sequencing result is not the test maternity care uses, and it does not
+      replace a rectovaginal swab or change intrapartum antibiotic decisions,
+      which are made by the maternity team.
+    normal_carriage: >
+      Common and normal. A systematic review of 98 studies and 43,112 healthy
+      non-pregnant people found the rectum to be the commonest colonised site,
+      with a pooled prevalence of 19%, rising to 26% in adults when selective
+      culture methods were used; overall adult colonisation was 16%. A study of
+      336 non-pregnant adults in Portugal found 31.8% carriage across sites,
+      including men. Carriage is intermittent rather than permanent. Roughly one
+      in five healthy adults carries this organism in the rectum and is
+      completely well.
+    overgrowth_signal: >
+      No stool abundance threshold exists and sequencing cannot establish one;
+      indeed for this organism the amount detected is not the clinically relevant
+      variable at all, because neonatal risk depends on carriage status at the
+      time of delivery, assessed by culture of a rectovaginal swab in late
+      pregnancy. The contexts that make a finding worth raising with a clinician
+      are current pregnancy, recurrent urinary tract infection, poorly controlled
+      diabetes with skin or soft-tissue infection, or an unexplained fever in an
+      elderly or immunosuppressed person. In a well non-pregnant adult, this is
+      ordinary carriage.
+    agents:
+      - name: Lactobacillus rhamnosus GR-1 with Lactobacillus reuteri RC-14
+        kind: probiotic
+        evidence_tier: human_rct
+        effect: >
+          In a randomised controlled trial, 110 pregnant women at 35-37 weeks who
+          were culture-positive for group B Streptococcus in both vagina and
+          rectum took two probiotic or two placebo capsules nightly until
+          delivery. Cultures converted from positive to negative in 42.9% of the
+          probiotic group against 18.0% of the placebo group (p = 0.007). This
+          result has not been reliably replicated: a later four-strain trial found
+          63.6% against 77.8% persisting positivity, which was not statistically
+          significant, and a multicentre trial of 267 low-risk pregnant women
+          found no difference in rectovaginal swab positivity or in antibiotic
+          administration. So the effect is real in one trial and absent in others.
+        dose_studied: "two capsules nightly from 35-37 weeks of gestation until delivery"
+        reaches_gut: >
+          Yes. These are acid- and bile-tolerant strains selected for oral
+          delivery, and the trial's design depends on oral dosing reaching the
+          lower bowel and rectum, which is the reservoir from which vaginal
+          colonisation is replenished. Reduced rectal as well as vaginal culture
+          positivity is the direct evidence that the strains acted at the
+          intended site.
+        citation_title: "Oral Lactobacillus rhamnosus GR-1 and Lactobacillus reuteri RC-14 to reduce Group B Streptococcus colonization in pregnant women: A randomized controlled trial"
+        citation_url: "https://doi.org/10.1016/j.tjog.2016.06.003"
+        caution: >
+          This is worth considering only in pregnancy, and only in discussion
+          with your midwife or obstetrician. It absolutely does not replace group
+          B Streptococcus screening or intrapartum antibiotic prophylaxis:
+          reducing carriage in the weeks before birth is not the same as being
+          negative at delivery, and the trial evidence is inconsistent. Outside
+          pregnancy there is no reason to try to reduce this organism, which is
+          normal rectal flora in about one in five healthy adults. Live
+          probiotics should not be taken by people who are profoundly
+          immunosuppressed, have a central venous line, or have damaged heart
+          valves without medical advice.
+
+  bacteria.streptococcus_anginosus_group:
+    display_name: Streptococcus anginosus group
+    what_it_is: >
+      A group of three closely related Gram-positive bacteria, Streptococcus
+      anginosus, Streptococcus constellatus and Streptococcus intermedius. They
+      are normal inhabitants of the mouth and throat, and are found along the
+      upper digestive tract and in the bowel. They were long lumped together with
+      other mouth streptococci as the viridans group.
+    why_it_matters: >
+      These are normal mouth bacteria with a particular tendency, when they get
+      into deep tissue, to form abscesses: dental and peritonsillar abscesses,
+      empyema and lung abscess, liver and brain abscess, and occasionally
+      bloodstream infection and endocarditis. Those events follow dental
+      infection, aspiration, bowel perforation or surgery, not the ordinary
+      presence of the organism in the gut. There is an epidemiological
+      association between Streptococcus anginosus and gastric cancer, and one
+      study found its faecal abundance 22 times higher in gastric-cancer patients
+      than controls, while noting no comparable enrichment in colorectal
+      adenoma, colorectal cancer or inflammatory bowel disease. Association is
+      not causation, and a stool detection is not a cancer finding, not an
+      abscess finding, and not an indication for any investigation on its own.
+    normal_carriage: >
+      Yes. These are commonly found in the mucosal membranes of the mouth in
+      healthy people and are considered part of the normal microbiome of the
+      upper respiratory, digestive and reproductive tracts. Streptococcus
+      anginosus becomes more abundant in the mouth with age, increasing after 60.
+      Swallowed saliva carries mouth bacteria into the gut continuously, at the
+      order of a litre a day, so faecal detection of mouth streptococci is
+      expected in well people and is a poor guide to anything. Recent dental
+      work, gum disease or dry mouth all raise the amount swallowed.
+    overgrowth_signal: >
+      No stool abundance threshold has been validated and sequencing cannot
+      establish one; a substantial part of any signal is likely to be swallowed
+      saliva rather than a gut population, which sequencing cannot distinguish.
+      The circumstances that make these organisms clinically relevant are an
+      abscess or a positive blood culture with a clinical syndrome, established
+      by a clinician on tissue, pus or blood. Persistent unexplained fever, night
+      sweats, weight loss or localised pain warrant medical assessment on their
+      own merits, irrespective of this finding.
+    agents: []
+    no_agents_reason: >
+      There is no reason to try to remove these organisms and attempting to would
+      be unwise. They are ordinary members of the healthy mouth and throat
+      community that arrive in the gut continuously in swallowed saliva; a stool
+      detection largely reflects that transit rather than a gut infection, and
+      reducing it would achieve nothing because the source is the mouth and the
+      mouth is meant to be colonised. No supplement, botanical or probiotic has
+      been shown in humans to reduce this group in the gut, and no evidence
+      suggests any benefit from doing so. Broad-spectrum botanical antimicrobials
+      taken against a commensal are non-selective and suppress the beneficial
+      anaerobes that provide colonisation resistance, which is a real cost for no
+      demonstrated gain. If you want to act usefully on the ecology behind this
+      finding, ordinary dental and gum care reduces the oral reservoir, and that
+      is a sensible thing to do for its own sake. If you have an abscess, fever
+      or a specific symptom, that needs a clinician, not a supplement.
+
+  bacteria.streptococcus_gallolyticus_group:
+    display_name: Streptococcus gallolyticus group
+    what_it_is: >
+      A group of Gram-positive bacteria, formerly called the Streptococcus bovis
+      group, that live in the human and animal intestine. It includes
+      Streptococcus gallolyticus subspecies gallolyticus and Streptococcus
+      infantarius.
+    why_it_matters: >
+      Please read this section with a clinician in mind. In the gut these are
+      ordinary flora. But bloodstream infection or endocarditis caused by
+      Streptococcus gallolyticus subspecies gallolyticus has a long-established
+      and strong association with colorectal tumours, and it is standard practice
+      to arrange a colonoscopy in that situation. In one comparative study,
+      colorectal neoplasia was found in 49.8% of patients with Streptococcus
+      gallolyticus bacteraemia, and in 91.4% of those cases the tumour was occult,
+      meaning it had caused no symptoms and would otherwise have been missed.
+      That is why the recommendation exists. It is equally important to be clear
+      about what it does not cover: that recommendation applies to a positive
+      blood culture with a clinical illness, not to a DNA sequence in stool. A
+      stool detection is not a cancer finding and is not by itself a reason for
+      colonoscopy. If you have had a positive blood culture with this organism,
+      or if you have endocarditis, unexplained fever, anaemia, rectal bleeding, a
+      change in bowel habit or unexplained weight loss, see a doctor about it, and
+      say that this organism was detected. Follow national bowel-screening
+      invitations regardless of this result.
+    normal_carriage: >
+      Yes, these organisms occur in normal gut flora, which is why a stool
+      detection has poor specificity for anything. The catalogue records this
+      explicitly: the recognised cancer association attaches to invasive disease
+      established by blood or tissue culture, not to faecal carriage. Published
+      carriage estimates vary widely by method and population and none supports
+      treating detection in a well person as abnormal.
+    overgrowth_signal: >
+      No stool abundance threshold has been validated, and sequencing cannot
+      establish one; there is no quantity of this organism in stool that
+      constitutes evidence of a tumour or of invasive infection. What changes
+      management is a positive blood culture with a clinical syndrome, or the
+      presence of bowel symptoms or anaemia that merit investigation in their own
+      right. Note also that the cancer signal is concentrated in one subspecies,
+      Streptococcus gallolyticus subspecies gallolyticus, and short stool reads
+      usually cannot resolve subspecies, so the finding is reported at group
+      level and is correspondingly less specific.
+    agents: []
+    no_agents_reason: >
+      There is no reason to try to remove this organism and attempting to would
+      be unwise, and it would also be a distraction from the only action that
+      matters here. These are normal gut flora, no supplement or probiotic has
+      been shown in humans to reduce them, and there is no evidence whatsoever
+      that reducing faecal carriage alters the risk of colorectal neoplasia or of
+      endocarditis. Presenting a supplement list against this finding risks the
+      serious harm of substituting something ineffective for the appropriate
+      response. The appropriate response is clinical: discuss the finding with a
+      doctor, particularly if you have had a positive blood culture with this
+      organism, endocarditis, unexplained fever, iron-deficiency anaemia, rectal
+      bleeding, a change in bowel habit or unexplained weight loss, and take up
+      national bowel-screening invitations when they arrive. Those steps have
+      demonstrated value; suppressing a commensal does not.
+
+  bacteria.clostridium_innocuum:
+    display_name: Clostridium innocuum
+    what_it_is: >
+      An anaerobic, spore-forming Gram-positive bacterium and a normal member of
+      the intestinal flora. Its name means harmless, given in 1962 because it
+      showed no virulence in animal models.
+    why_it_matters: >
+      Its reputation has been revised. It is now recognised as an intrinsically
+      vancomycin-resistant opportunist that can cause bloodstream infection,
+      intra-abdominal abscess and endocarditis in immunocompromised patients, and
+      reports from Taiwan describe an antibiotic-associated diarrhoeal illness
+      clinically indistinguishable from Clostridioides difficile infection. It
+      has also been linked to worse outcomes in inflammatory bowel disease. Two
+      qualifications matter greatly for reading a stool result. First, that
+      disease burden is described in hospitalised, antibiotic-exposed and
+      immunosuppressed patients, and the organism's pathogenic mechanism remains
+      largely unknown. Second, it produces no known toxin, so unlike
+      Clostridioides difficile there is no toxin test that separates disease from
+      carriage. Its practical importance in someone who is unwell is that oral
+      vancomycin will not treat it, which is a reason for accurate laboratory
+      identification, not for self-treatment.
+    normal_carriage: >
+      Yes. It has been identified as part of the normal intestinal flora since it
+      was first described, and reviews describe it as a relatively benign gut
+      organism that causes rare systemic infection in people with significant
+      comorbidities. In a large Taiwanese study, it was recovered by anaerobic
+      culture from 5.5% of 2,471 stool samples submitted from patients suspected
+      of having Clostridioides difficile infection, that is from a selected,
+      symptomatic, antibiotic-exposed hospital population rather than from
+      healthy people. There is no comparable healthy-population figure, and in a
+      well person detection should be read as ordinary carriage.
+    overgrowth_signal: >
+      No abundance threshold has been validated, and sequencing cannot establish
+      one; there is no toxin marker to fall back on either, so a stool sequence
+      cannot separate carriage from disease for this organism at all. What would
+      make the finding matter is clinical: new or persistent diarrhoea after
+      antibiotics, especially if oral vancomycin for presumed Clostridioides
+      difficile has not worked; abdominal pain with fever; or the finding in
+      someone with inflammatory bowel disease, a solid tumour, chronic kidney
+      disease or recent intensive care. Those situations need a doctor and an
+      anaerobic stool culture or targeted identification, because treatment
+      choice depends on knowing the organism.
+    agents: []
+    no_agents_reason: >
+      There is no supplement, botanical, probiotic or food with any published
+      evidence against Clostridium innocuum, in culture or in people, and
+      inventing one would be worse than useless here. The organism is a normal
+      gut inhabitant that requires nothing in a well person. When it does cause
+      illness, the decision that matters is a prescribing one, because it is
+      intrinsically resistant to vancomycin and susceptibility to metronidazole
+      and piperacillin-tazobactam is what treatment relies on; the reported
+      30-day mortality among infected patients in one case-control study was
+      14.5%. Self-treating diarrhoea with botanicals in that setting risks delay,
+      and delay is the main modifiable harm. Faecal microbiota transplantation has
+      been tried in a seven-patient pilot study for refractory infection in
+      inflammatory bowel disease, but that is a hospital procedure under
+      investigation, not a supplement, and it is not applicable to an incidental
+      finding. If you have persistent diarrhoea after antibiotics, particularly
+      if vancomycin has not helped, see a doctor and mention this result.
+
+  bacteria.clostridium_septicum:
+    display_name: Clostridium septicum
+    what_it_is: >
+      An anaerobic, spore-forming Gram-positive bacterium found in soil and in
+      the intestines of humans and animals. It is a recognised, if uncommon,
+      member of normal gut flora.
+    why_it_matters: >
+      Please raise this finding with a doctor. In the gut this organism is
+      ordinarily quiet, but when it enters the bloodstream it causes a rapidly
+      progressive and often fatal illness, including spontaneous gas gangrene
+      without any injury and neutropenic enterocolitis, and it has one of the
+      strongest known bacterium-to-cancer associations in medicine. A review of
+      162 published cases found an associated malignancy in 81% of patients: 34%
+      colon carcinoma and 40% a blood cancer. In a comparative study, colorectal
+      neoplasia was present in 43.1% of patients with Clostridium septicum
+      bacteraemia, occult in 73.7% of those, usually an invasive carcinoma in the
+      right colon. The standard clinical response to a positive blood culture is
+      therefore colonoscopy to look for an occult bowel tumour, and evaluation for
+      blood cancer if the bowel is clear, and that is a recommendation you should
+      know about. But be equally clear on the limit: that recommendation is
+      triggered by a positive blood culture together with a clinical syndrome,
+      not by DNA in stool. A stool detection is not a cancer finding and is not by
+      itself a reason for colonoscopy. Tell a doctor about this result, and tell
+      them urgently if you also have fever, severe or sudden abdominal pain,
+      unexplained anaemia, rectal bleeding, a change in bowel habit, unexplained
+      weight loss, or are having chemotherapy. Take up national bowel-screening
+      invitations regardless.
+    normal_carriage: >
+      Yes, it occurs in normal gut flora, which is exactly why a stool detection
+      has poor specificity. The catalogue records this directly: the recognised
+      colonic-neoplasia association is a clinician-directed workup trigger only
+      when there is a positive blood culture and a clinical syndrome, never on a
+      stool sequence alone. No healthy-population carriage figure has been
+      established; carriage is regarded as uncommon but unremarkable, and the
+      overwhelming majority of people who carry it never develop disease.
+    overgrowth_signal: >
+      No abundance threshold has been validated and sequencing cannot establish
+      one. There is no quantity of this organism in stool that constitutes
+      evidence of cancer or of invasive infection, and it would be wrong to
+      suggest otherwise. Significance comes entirely from clinical events: a
+      positive blood culture, an acute abdomen, gas in soft tissue, neutropenic
+      fever, or bowel symptoms and anaemia that merit investigation on their own
+      terms. Because deaths in septicaemia often occur within the first 24 hours
+      if treatment is delayed, sudden severe illness with this finding in the
+      background is an emergency and should be treated as one.
+    agents: []
+    no_agents_reason: >
+      There is no reason to attempt self-treatment here, and doing so would be
+      actively dangerous. No supplement, botanical, probiotic or food has any
+      published evidence against Clostridium septicum in people, and the organism
+      is normal gut flora requiring nothing in a well person. The value of this
+      finding is entirely as a prompt to a clinical conversation, and offering a
+      list of things to take would undermine exactly that. When this organism
+      causes disease it does so fast, and it is managed with intravenous
+      antibiotics and often surgery; the modifiable harm is delay. The
+      appropriate action is to tell a doctor that this organism was detected,
+      seek urgent medical attention for fever with severe abdominal pain or a
+      rapidly spreading skin infection, and follow national bowel-screening
+      invitations.
+
+  bacteria.clostridium_tertium:
+    display_name: Clostridium tertium
+    what_it_is: >
+      An unusual anaerobic Gram-positive bacterium that also tolerates oxygen,
+      which makes laboratories mistake it for Bacillus or Lactobacillus. It
+      colonises the gastrointestinal tract of humans and animals and is
+      considered a gut commensal. It produces no exotoxin.
+    why_it_matters: >
+      Rarely, and almost always in one specific setting. Its recognised role is
+      bloodstream infection in neutropenic patients with blood cancers,
+      particularly during chemotherapy-induced gut mucosal injury, where it can
+      cause neutropenic enterocolitis. In people who are not neutropenic,
+      bacteraemia with this organism is rare and its significance is debated;
+      when it does occur it has repeatedly turned out to be a marker of an
+      underlying bowel problem such as diverticular perforation, Crohn's disease
+      or cirrhosis, so it prompts a search for gut pathology rather than being
+      treated as the whole story. It is described as not very virulent, and it
+      produces no toxin. It is not a cause of ordinary diarrhoea, and a stool
+      detection is not an infection.
+    normal_carriage: >
+      Yes, it is a commensal of the human gastrointestinal tract. No
+      healthy-population prevalence figure has been established, which reflects
+      how little clinical concern it attracts in well people rather than rarity.
+      In a well person, detection in stool is unremarkable.
+    overgrowth_signal: >
+      No abundance threshold has been validated and sequencing cannot establish
+      one. Since the organism makes no toxin, there is also no toxin test to fall
+      back on. The context that gives it meaning is neutropenia, current or
+      recent chemotherapy, a blood cancer, cirrhosis, or symptoms suggesting a
+      breach in the bowel such as severe localised abdominal pain with fever.
+      Diagnosis in those situations is by blood culture with clinical assessment,
+      not by stool sequencing, and it matters clinically because this organism is
+      resistant to ceftazidime, cefepime and other expanded-spectrum
+      cephalosporins that are standard empirical choices in neutropenic fever.
+    agents: []
+    no_agents_reason: >
+      There is no supplement, botanical, probiotic or food with published
+      evidence against Clostridium tertium, and there is no reason to try to
+      remove it: it is an ordinary gut commensal with no toxin and low
+      virulence, and in a well person the finding requires nothing. Where the
+      organism does cause illness, the important point is a prescribing one,
+      because the standard empirical antibiotics used for neutropenic fever do
+      not cover it, so accurate identification changes treatment. Self-treating
+      with botanicals in that situation would risk delay in someone who can
+      deteriorate quickly. If you are neutropenic, on chemotherapy, or have a
+      blood cancer or cirrhosis and develop fever or severe abdominal pain, seek
+      medical attention promptly and mention this result so that the antibiotic
+      choice can take it into account.
+
+  bacteria.listeria_monocytogenes:
+    display_name: Listeria monocytogenes
+    what_it_is: >
+      A Gram-positive bacterium widespread in soil, water, silage and food
+      processing environments. It contaminates ready-to-eat foods such as soft
+      cheeses, cold meats, smoked fish and pre-prepared salads, and unusually for
+      a foodborne organism it grows slowly even at refrigerator temperature.
+    why_it_matters: >
+      Please discuss this finding with a doctor if you are pregnant, over 65, or
+      immunosuppressed. For most healthy adults, swallowing this organism causes
+      nothing at all, or a self-limiting gastroenteritis. Its danger is
+      concentrated in three groups: in pregnancy it can cross the placenta and
+      cause miscarriage, stillbirth or severe neonatal infection, often while the
+      mother has only mild flu-like symptoms; in people who are immunosuppressed
+      or over 65 it can cause bloodstream infection and meningitis, with high
+      mortality. Invasive listeriosis is a medical emergency treated with
+      intravenous ampicillin, usually with gentamicin. It is important to hold
+      both halves of this together: the disease is serious, and a stool DNA
+      detection in a well person is not that disease. Faecal carriage is common
+      and listeriosis is rare, and the Austrian study below made the arithmetic
+      explicit: with a carriage rate of at least 0.8% and a listeriosis incidence
+      of 0.16 per 100,000 per year, the chance of carriage becoming listeriosis
+      appears very low. Even so, if you are pregnant, immunosuppressed or elderly,
+      tell a doctor about this result, and seek medical advice promptly for fever,
+      severe headache, neck stiffness, confusion or, in pregnancy, any flu-like
+      illness.
+    normal_carriage: >
+      More common than most people expect. Culture-based studies of healthy
+      adults generally find under 1%: in 505 healthy Austrian volunteers the
+      organism was cultured from 0.2% and detected by immunomagnetic separation in
+      0.8%, with 3.6% positive by PCR. DNA-based methods find considerably more:
+      Listeria monocytogenes was detected by PCR in 10% of stool samples from a
+      cohort of 900 healthy asymptomatic French donors, and in about 5% of human
+      stool metagenomes. So roughly one in ten healthy people may show a DNA
+      signal. Note that DNA-based detection cannot distinguish live organisms
+      from dead ones swallowed with food, and this screen is DNA-based.
+    overgrowth_signal: >
+      No abundance threshold has been validated and sequencing cannot establish
+      one, nor can it distinguish transient food-borne DNA from actual
+      colonisation. Two things change the reading, and neither is a number:
+      symptoms and susceptibility. The same French study found the organism in
+      20.8% of stools from people with diarrhoea against 10% of healthy donors, so
+      symptoms shift the interpretation somewhat, but carriage remains common in
+      both. Susceptibility is what matters most: pregnancy, age over 65,
+      corticosteroids, chemotherapy, transplantation, HIV, cirrhosis or dialysis.
+      Invasive disease is diagnosed by blood or cerebrospinal fluid culture, never
+      by stool.
+    agents: []
+    no_agents_reason: >
+      There is no reason to attempt self-treatment of this finding, and doing so
+      would be unwise. In a healthy adult, a DNA signal reflects common,
+      self-limiting carriage or dead organisms swallowed with food, and needs no
+      action beyond ordinary food hygiene. In the groups at real risk, pregnancy,
+      immunosuppression and older age, invasive listeriosis is a medical emergency
+      requiring intravenous ampicillin, and there is no botanical, probiotic or
+      nutrient with any human evidence of preventing or treating it. In-vitro data
+      exist showing that eugenol and clove oil, carvacrol and thymol disrupt
+      Listeria membranes in culture, and those compounds are genuinely used as
+      food preservatives, but presenting them as a personal protocol would
+      substitute something untested for urgent care in exactly the people who can
+      least afford the delay, and that is the wrong trade. The measures with
+      actual evidence behind them are preventive and dietary, and worth following
+      if you are pregnant or immunosuppressed: avoid unpasteurised and mould-ripened
+      soft cheeses, pâté, cold-smoked fish, pre-prepared salads and reheated
+      leftovers, observe use-by dates, and keep the refrigerator below 5 degrees
+      Celsius. If you are pregnant, over 65 or immunosuppressed, tell a doctor
+      about this finding.
+
+  bacteria.brachyspira_pilosicoli:
+    display_name: Brachyspira pilosicoli
+    what_it_is: >
+      A spiral-shaped bacterium, a spirochaete, that attaches by one end to the
+      lining of the large bowel. Under the microscope a dense fringe of these
+      organisms on the surface of a colonic biopsy is what pathologists call
+      intestinal spirochaetosis. It also infects pigs and birds.
+    why_it_matters: >
+      Whether it causes human disease is genuinely unsettled, and the honest
+      summary is that opinion is divided. Most people found to have intestinal
+      spirochaetosis on biopsy have no symptoms and the finding is incidental;
+      some authors regard the organism as a harmless commensal. Others point to
+      chronic watery diarrhoea and abdominal pain that improve on treatment: in a
+      German series of 209 patients with spirochaetosis, 51% had diarrhoea and
+      46% abdominal pain, and in a decade-long series of 175 cases nearly
+      two-thirds were symptomatic, leading those authors to conclude it is a
+      pathogenic infection of low virulence. Children and immunosuppressed people
+      are more likely to be symptomatic. If you have persistent watery diarrhoea,
+      abdominal pain or rectal bleeding alongside this finding, see a doctor: the
+      established treatment is prescription metronidazole, typically 500 mg three
+      times daily, with roughly 84% clinical or histological response, and
+      diagnosis is properly made on colonic biopsy rather than on stool DNA.
+      Asymptomatic people are usually observed without treatment.
+    normal_carriage: >
+      Carriage without symptoms is well documented and, in some populations,
+      common. Intestinal spirochaetosis is found in about 1% of colonic biopsy
+      specimens overall, 2-7% in Western countries, up to 34% in lower-income
+      countries and up to 54% in men who have sex with men and in people living
+      with HIV. In a Japanese series of 5,265 consecutive colorectal biopsies,
+      spirochaetosis was present in 1.7% of HIV-negative patients, though in most
+      of those the species was Brachyspira aalborgi rather than this one; this
+      species was the one found in all three HIV-positive cases. So a detection
+      in a well person is consistent with quiet colonisation.
+    overgrowth_signal: >
+      No stool abundance threshold has been validated, and sequencing cannot
+      establish one; because the organism attaches to the mucosal surface, stool
+      DNA is also a poor proxy for how much is actually adherent to the colon.
+      What changes the reading is symptoms and susceptibility: chronic watery
+      diarrhoea, abdominal pain, rectal bleeding, weight loss, immunosuppression,
+      HIV, or childhood. The definitive assessment is histology of a colonic
+      biopsy, which shows the characteristic basophilic fringe, with silver
+      staining or immunohistochemistry to confirm. That requires a clinician.
+    agents: []
+    no_agents_reason: >
+      There is no supplement, botanical, probiotic or food with any published
+      evidence against Brachyspira pilosicoli, in culture or in people, so any
+      list here would be invented. The decision this finding actually calls for is
+      binary and clinical: if you have no symptoms, the usual and appropriate
+      course is observation without treatment; if you have chronic watery
+      diarrhoea, abdominal pain or rectal bleeding, the treatment with evidence
+      behind it is prescription metronidazole, and diagnosis is confirmed on
+      colonic biopsy. Neither of those is something a supplement contributes to.
+      Attempting botanical self-treatment would risk months of unresolved
+      diarrhoea that a short prescription course usually settles, and would leave
+      other causes of persistent diarrhoea uninvestigated. Take this finding to a
+      doctor if you have symptoms.
+
+  bacteria.tropheryma_whipplei:
+    display_name: Tropheryma whipplei
+    what_it_is: >
+      A slow-growing bacterium that is spread from person to person by the
+      faecal-oral route and is found in sewage. It is the organism behind
+      Whipple's disease, a rare condition in which it accumulates in the lining of
+      the small intestine.
+    why_it_matters: >
+      Please read this carefully, because the gap between carriage and disease is
+      unusually wide here. Classic Whipple's disease is a serious illness, causing
+      chronic diarrhoea, fat malabsorption, severe weight loss, joint pain that
+      often precedes the bowel symptoms by years, and sometimes heart or
+      neurological involvement; untreated it can be fatal, and treatment is a
+      prolonged specialist antibiotic course. But it is genuinely rare, of the
+      order of one case per million people per year, while carriage of the
+      organism is thousands of times more common, so the overwhelming majority of
+      people who carry it will never develop it. A positive stool sequence is
+      emphatically not a diagnosis of Whipple's disease. The diagnosis requires
+      duodenal biopsy at endoscopy showing PAS-positive macrophages, plus
+      confirmatory PCR or immunohistochemistry, interpreted by a specialist. See a
+      doctor about this finding, and say that the organism was detected in stool,
+      particularly if you have chronic diarrhoea, unexplained weight loss,
+      persistent joint pain, or malabsorption. Do not start or request the
+      prolonged antibiotic course on the basis of a stool result.
+    normal_carriage: >
+      Asymptomatic carriage is well documented and, in some groups, frequent. In
+      France the prevalence in stool from the general adult population is
+      estimated at about 3-4%. It rises with exposure: 12-26% among sewage
+      workers, with a clear gradient by job, highest in those cleaning
+      underground sewers; 12.9% among homeless people in Marseille shelters; and
+      38% among relatives of patients with Whipple's disease or of chronic
+      carriers. It is higher still in parts of Africa, 17% of adults and 75% of
+      children under five in rural Senegal, and 9.7% of adults and 40% of young
+      children in rural Gabon. Seroprevalence in France is around 50%. Carriage
+      can persist for years: in one follow-up the same strain was carried for
+      seven years without disease. Since Whipple's disease has never been reported
+      in sewage workers or homeless people, the groups with the highest carriage,
+      something other than mere carriage must be required for disease.
+    overgrowth_signal: >
+      Bacterial load does differ between carriage and disease, and this is one of
+      the few organisms in this lane where quantity carries any signal at all:
+      the stool load is significantly lower in asymptomatic carriers than in
+      patients with Whipple's disease. But sequencing cannot deliver a validated
+      threshold, and no cut-off exists that would let a stool result stand in for
+      a biopsy. What changes the reading is symptoms: chronic diarrhoea, steatorrhoea,
+      progressive weight loss, migratory joint pain, fever, lymph node swelling, or
+      neurological or cardiac symptoms. The definitive test is duodenal biopsy
+      with histology and confirmatory PCR, arranged and interpreted by a
+      specialist.
+    agents: []
+    no_agents_reason: >
+      There is no supplement, botanical, probiotic or food with any published
+      evidence against Tropheryma whipplei, in culture or in people, and it would
+      be irresponsible to list one. This organism sits at both extremes at once:
+      asymptomatic carriage is common and needs nothing, while genuine Whipple's
+      disease is a serious multi-system illness requiring a specialist-directed
+      antibiotic course, historically beginning with intravenous therapy and
+      continuing for a year or more, with lifelong follow-up because relapse,
+      particularly in the central nervous system, is a recognised problem.
+      Nothing available over a counter contributes to either scenario, and
+      self-treatment would risk delaying a diagnosis that depends on duodenal
+      biopsy. Take this finding to a doctor, especially if you have chronic
+      diarrhoea, malabsorption, unexplained weight loss or persistent joint pain,
+      and let them decide whether endoscopy is warranted.
+
+  # ---------------------------------------------------------------------------
+  # Uncertain-role anaerobes: common in healthy people
+  # ---------------------------------------------------------------------------
+
+  bacteria.fusobacterium_nucleatum:
+    display_name: Fusobacterium nucleatum
+    what_it_is: >
+      An anaerobic Gram-negative bacterium whose natural home is the human mouth,
+      where it is one of the ordinary residents of dental plaque and the gum
+      margin. It reaches the gut in swallowed saliva.
+    why_it_matters: >
+      In the mouth it is a normal commensal that contributes to plaque and, in
+      excess, to gum disease. It has become well known for a different reason:
+      it is consistently enriched in colorectal cancer tissue, and mechanistic
+      work shows it can adhere to and signal through colonic epithelial cells.
+      Several qualifications need stating plainly, because this is where a
+      reader is most likely to become frightened without cause. The enrichment
+      is an association measured in people who already have cancer, and does not
+      establish that the organism causes it or that carriage predicts it. Most of
+      the cancer signal is carried by a specific sublineage, Fusobacterium
+      nucleatum subspecies animalis clade C2, and short stool sequencing reads
+      generally cannot resolve subspecies, so this result is reported at species
+      level and is correspondingly non-specific. Most importantly, stool
+      detection has been tested directly as a predictor and failed: a study of
+      185 primary-care patients concluded that detecting this organism's DNA in
+      stool does not predict progression of colorectal neoplasia. A detection here
+      is not a cancer finding, not a risk score, and not a reason for
+      investigation on its own. Follow national bowel-screening invitations as
+      normal, and see a doctor about bowel symptoms on their own merits.
+    normal_carriage: >
+      Yes, and this is the key point. It is a normal member of the healthy human
+      mouth, and around 80 of 135 sequenced strains in one study came from healthy
+      oral cavities. In stool it is found in healthy people at rates that vary
+      widely with method: 4.8% of 619 healthy stool metagenomes in one large
+      analysis, 4 of 57 age-matched healthy controls in a New Zealand study, and
+      45.78% of 498 randomly sampled Southern Chinese adults using a
+      high-sensitivity multiplex PCR. Higher-sensitivity methods find it in a
+      large minority of well people. Detection in a healthy person is a normal
+      result.
+    overgrowth_signal: >
+      No abundance threshold has been validated, and sequencing cannot establish
+      one; nor can it separate a gut population from the continuous arrival of
+      mouth bacteria in swallowed saliva, which is substantial. Recent dental
+      work, gum disease and poor oral hygiene all increase the amount swallowed
+      and therefore the stool signal, with no bowel implication whatsoever. Even
+      in research use the species-level signal underperforms: only the C2 animalis
+      sublineage was significantly increased in cancer stool in one analysis, and
+      species-level stool detection did not predict neoplastic progression in
+      primary care. There is no quantity that makes this finding actionable.
+    agents: []
+    no_agents_reason: >
+      There is no reason to try to remove this organism and attempting to would
+      be unwise. It is a normal inhabitant of the healthy mouth that arrives in
+      the gut continuously in swallowed saliva; a stool signal substantially
+      reflects that transit, and suppressing it in the colon would not change the
+      source. No human trial has shown that any supplement, botanical or
+      probiotic reduces this organism in the gut, and none has shown any benefit
+      from doing so, including any effect on colorectal cancer risk. Suggesting
+      otherwise would convert an ordinary finding into a false alarm and invite
+      people to take non-selective botanical antimicrobials indefinitely, which
+      suppresses the beneficial anaerobes that maintain colonisation resistance
+      and the colonic mucus barrier. If you want to act sensibly on the ecology
+      behind this finding, ordinary dental and gum care reduces the oral
+      reservoir, and a fibre-rich diet supports the butyrate-producing anaerobes
+      that keep the colonic barrier intact; both are worth doing anyway and
+      neither is aimed at eradicating anything. Take up bowel-screening
+      invitations, and take bowel symptoms to a doctor on their own merits.
+
+  bacteria.fusobacterium_necrophorum:
+    display_name: Fusobacterium necrophorum
+    what_it_is: >
+      An anaerobic Gram-negative bacterium found naturally in the human throat and
+      tonsils, and in the gastrointestinal and genitourinary tracts. It also
+      causes disease in cattle and sheep.
+    why_it_matters: >
+      Its serious association is with the throat, not the gut. It is the principal
+      cause of Lemierre's syndrome, in which a tonsillitis or sore throat in a
+      previously healthy adolescent or young adult progresses to infected clotting
+      of the internal jugular vein and septic spread to the lungs. That
+      condition is genuinely dangerous but genuinely rare, estimated at around 3
+      to 6 cases per million people per year overall, and roughly 14 per million
+      among 14 to 24 year olds. Carriage in the throat, by contrast, is common. It
+      has no established role in bowel disease, and a stool detection is not a
+      throat infection, not Lemierre's syndrome and not an indication for
+      antibiotics. Existing guidance is explicit that routinely looking for this
+      organism in throat swabs, or prescribing antibiotics for an uncomplicated
+      sore throat because it is present, is not recommended, because there is no
+      evidence of benefit.
+    normal_carriage: >
+      Yes, and commonly, in the throat. In a community-based study of 217 healthy
+      16 to 25 year olds it was detected in 20 of 217 by PCR and 8 of 217 by
+      culture, and reported asymptomatic throat carriage across studies runs
+      roughly 7-21%. In the gut it is much less common: one survey of 498
+      randomly sampled adults found it in 0.60% of faecal samples, against 45.78%
+      for Fusobacterium nucleatum, so it is an infrequent and low-level stool
+      finding. Given that swallowed saliva continuously carries throat bacteria
+      into the bowel, a low stool signal in a person with normal throat carriage
+      is exactly what would be expected.
+    overgrowth_signal: >
+      No abundance threshold has been validated and sequencing cannot establish
+      one. Nor is quantity the relevant variable: Lemierre's syndrome is an acute
+      clinical event, not a consequence of gradually accumulating colonisation,
+      and it is diagnosed by blood culture together with imaging of the internal
+      jugular vein. Nothing in a stool result predicts it. What warrants medical
+      attention is a clinical picture: a sore throat that worsens after several
+      days rather than settling, with high fever, rigors, one-sided neck pain or
+      swelling, difficulty swallowing or breathlessness. That needs urgent
+      assessment regardless of any stool finding.
+    agents: []
+    no_agents_reason: >
+      There is no reason to try to remove this organism and attempting to would be
+      unwise. It is a normal inhabitant of the healthy human throat, present in
+      something like one in ten to one in five well young adults, and it appears
+      in stool at low levels largely because saliva is swallowed. It has no
+      established role in bowel disease, so there is nothing in the gut to treat.
+      No supplement, botanical or probiotic has been shown in humans to reduce it
+      at either site, and no benefit from doing so has been demonstrated; the
+      systematic review evidence does not even support antibiotics for its
+      presence in an uncomplicated sore throat. Taking broad-spectrum botanical
+      antimicrobials against a commensal on the strength of an incidental stool
+      finding carries real costs, because they are non-selective and suppress the
+      beneficial anaerobes that provide colonisation resistance, for no
+      demonstrated gain. The one thing worth knowing is clinical: if a sore throat
+      gets worse rather than better after several days, especially with high fever
+      or one-sided neck pain and swelling, seek medical attention promptly.
+
+  bacteria.parvimonas_micra:
+    display_name: Parvimonas micra
+    what_it_is: >
+      A very small anaerobic Gram-positive bacterium, previously named
+      Peptostreptococcus micros and then Micromonas micra. It is a normal
+      low-abundance resident of the gum margin, the airways, the gut and
+      sometimes the urogenital tract.
+    why_it_matters: >
+      In its usual niches it is an ordinary commensal. It behaves as a pathobiont
+      in two circumstances. In the mouth it is one of the predominant species in
+      periodontitis lesions and infected root canals, and it appears in
+      polymicrobial wound, skin and bone infections and occasional deep abscesses.
+      Separately, it is found more abundantly in the stool and colonic tissue of
+      people with colorectal cancer than in controls, and laboratory work shows it
+      can adhere to colonic cancer cell lines and alter their signalling and DNA
+      methylation. Read that carefully: the abundance difference is measured in
+      people who already have cancer, and it does not establish that the organism
+      causes cancer or that carriage predicts it. A stool detection is not a
+      cancer finding, not a risk score and not an indication for investigation on
+      its own. Follow bowel-screening invitations as normal, and take bowel
+      symptoms to a doctor on their own merits.
+    normal_carriage: >
+      Yes. It is described as a Gram-positive commensal normally present at low
+      abundance in the subgingival cavity, the respiratory system, the
+      gastrointestinal tract and sometimes urogenital mucosa, and it has been
+      observed in biofilm-like structures on the colonic mucosa of healthy
+      subjects as well as of cancer patients. No precise healthy-population
+      prevalence figure has been established, partly because it is fastidious and
+      hard to culture, but the literature is consistent that low-level presence in
+      healthy people is normal. Because it is primarily a mouth organism, gum
+      disease and swallowed saliva raise the stool signal without any bowel
+      implication.
+    overgrowth_signal: >
+      No abundance threshold has been validated, and sequencing cannot establish
+      one. It also cannot distinguish a colonic population from the continuous
+      arrival of mouth bacteria in saliva, which for an oral organism like this
+      one is a substantial confounder. The research use of this organism is as one
+      component of multi-marker stool panels in cancer screening studies, always
+      combined with other markers and a faecal immunochemical test, and never as
+      a standalone result; a single species reading from one sample carries none
+      of that context. There is no quantity that makes this finding actionable in
+      an individual.
+    agents: []
+    no_agents_reason: >
+      There is no reason to try to remove this organism and attempting to would be
+      unwise. It is a normal low-abundance commensal of the mouth, airway and gut,
+      and its appearance in stool substantially reflects swallowed saliva rather
+      than a gut infection, so suppressing it in the colon would not address the
+      source. No human trial has shown that any supplement, botanical or probiotic
+      reduces it, and none has shown any benefit from reducing it, including any
+      effect on colorectal cancer risk. Offering a protocol here would turn an
+      ordinary result into an unfounded alarm and encourage indefinite use of
+      non-selective botanical antimicrobials, which suppress the beneficial
+      anaerobes maintaining colonisation resistance and the mucus barrier. Two
+      things are genuinely worth doing and neither is an eradication attempt:
+      look after your gums and teeth, since periodontitis is where this organism
+      genuinely causes trouble and it is also the reservoir feeding the stool
+      signal; and eat enough fermentable fibre to support the butyrate-producing
+      anaerobes that keep the colonic barrier healthy.
+
+  bacteria.peptostreptococcus_anaerobius:
+    display_name: Peptostreptococcus anaerobius
+    what_it_is: >
+      An anaerobic Gram-positive bacterium found in the normal flora of the mouth,
+      the gut and the female genital tract. It is a familiar component of
+      polymicrobial anaerobic infections when it escapes those sites.
+    why_it_matters: >
+      In its usual niches it is an ordinary commensal, and it appears in
+      polymicrobial abscesses, dental and soft-tissue infections when tissue is
+      breached. It has attracted attention because it is more abundant in the
+      stool and colonic tissue of people with colorectal cancer than in controls,
+      and in mice it increased colonic tumour numbers when given repeatedly by
+      gavage at high dose; a surface protein has been described that binds an
+      integrin overexpressed on colorectal cancer cells and activates
+      proliferative signalling. The framing matters. Those mouse experiments used
+      10^8 organisms daily for ten weeks in animals genetically primed to develop
+      tumours, which bears no relation to ordinary human carriage, and the human
+      abundance difference is measured in people who already have cancer. A stool
+      detection is not a cancer finding, not a risk score and not an indication for
+      investigation on its own. Follow bowel-screening invitations as normal, and
+      take bowel symptoms to a doctor on their own merits.
+    normal_carriage: >
+      Yes. It is part of the normal anaerobic flora of the mouth, gut and genital
+      tract, and it is regularly recovered from healthy people. No precise
+      healthy-population prevalence figure has been established, partly because it
+      is a fastidious anaerobe that is hard to culture and quantify. The
+      literature is consistent that low-level carriage is normal and that this
+      organism, along with Parvimonas micra and Fusobacterium nucleatum, is
+      frequently found in mucosal biopsies from healthy controls as well as from
+      tumours. As a partly oral organism, gum disease and swallowed saliva raise
+      the stool signal with no bowel implication.
+    overgrowth_signal: >
+      No abundance threshold has been validated and sequencing cannot establish
+      one, nor can it separate a colonic population from swallowed oral bacteria.
+      Where this species is used in research it forms part of a multi-marker stool
+      panel alongside Fusobacterium nucleatum, Parvimonas micra and a faecal
+      immunochemical test, evaluated at population level in screening studies;
+      that is a very different thing from a single species reading in one person's
+      sample, and the panel context is exactly what a lone result lacks. There is
+      no quantity that makes this finding actionable in an individual.
+    agents: []
+    no_agents_reason: >
+      There is no reason to try to remove this organism and attempting to would be
+      unwise. It is a normal member of the anaerobic flora of the mouth, gut and
+      genital tract, and its presence in stool is an expected background finding
+      rather than evidence of infection or of cancer. No human trial has shown
+      that any supplement, botanical or probiotic reduces it, and none has shown
+      any benefit from reducing it. The animal tumour data involved daily
+      high-dose gavage into genetically susceptible mice and provide no basis for
+      acting on an incidental human carriage result. Presenting a protocol here
+      would manufacture alarm from an ordinary finding and encourage indefinite use
+      of non-selective botanical antimicrobials, which suppress the beneficial
+      anaerobes that maintain colonisation resistance and the colonic mucus
+      barrier, at real cost and no demonstrated benefit. If you want to act on the
+      ecology sensibly, look after your gums and teeth and eat enough fermentable
+      fibre to support butyrate-producing anaerobes. Take bowel symptoms and
+      screening invitations seriously in their own right.

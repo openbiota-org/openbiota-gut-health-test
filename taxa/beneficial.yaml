@@ -1,0 +1,61 @@
+name: beneficial
+label: "Health-associated core species"
+category: beneficial
+higher_means: favourable
+description: >-
+  Species repeatedly found more abundant in healthy adults than in disease
+  cohorts across independent studies — the organisms that Gupta et al.'s
+  Gut Microbiome Health Index (GMHI) weighted as "health-prevalent" from
+  4,347 shotgun metagenomes spanning 12 diseases. Most are obligate anaerobes
+  that ferment fibre to short-chain fatty acids. This group is the closest
+  thing in the report to a single "good bacteria" reading.
+
+summary: >-
+  The organisms that healthy people consistently have more of. Most ferment
+  fibre into short-chain fatty acids, most are oxygen-intolerant, and most
+  are lost first when the gut is disturbed. This reading tracks the "core"
+  of a well-functioning adult community.
+
+members:
+  - Faecalibacterium prausnitzii
+  - Eubacterium rectale
+  - Roseburia intestinalis
+  - Roseburia hominis
+  - Roseburia inulinivorans
+  - Coprococcus eutactus
+  - Coprococcus comes
+  - Coprococcus catus
+  - Anaerostipes hadrus
+  - Eubacterium hallii
+  - Eubacterium eligens
+  - Eubacterium ventriosum
+  - Eubacterium siraeum
+  - Alistipes putredinis
+  - Alistipes shahii
+  - Bacteroides cellulosilyticus
+  - Bifidobacterium adolescentis
+  - Bifidobacterium longum
+  - Akkermansia muciniphila
+  - Lachnospiraceae bacterium 2 1 46FAA
+  - Odoribacter splanchnicus
+  - Butyrivibrio crossotus
+  - Oscillibacter sp 57 20
+  - Ruminococcus bromii
+  - Ruminococcus lactaris
+
+caveats:
+  - >-
+    "Health-associated" is a statistical description of who carries more, not
+    a mechanism, and the set was derived from mostly Western industrialised
+    cohorts. Some members (Akkermansia in particular) reverse direction in
+    specific diseases, which is why disease profiles score species individually
+    while this group provides the overview.
+  - >-
+    This group overlaps heavily with the butyrate-producer group by design:
+    fibre fermenters are health-associated because fibre fermentation is what
+    a healthy colon does.
+
+citation: >-
+  Gupta V.K., Kim M., Bakshi U., et al., "A predictive index for health status
+  using species-level gut microbiome profiling", Nat Commun 11:4635 (2020),
+  doi:10.1038/s41467-020-18476-8.

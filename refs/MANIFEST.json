@@ -1,0 +1,347 @@
+{
+ "written_at": "2026-09-30T03:21:40-07:00",
+ "total_bytes": 1374679648807,
+ "total_gb": 1374.68,
+ "n_lock_covered_files": 46,
+ "lock_problems": [],
+ "consumed_archives": [
+  "metaphlan4_db/mpa_vJan26_CHOCOPhlAnSGB_202605.md5: archive consumed by its installer; index present",
+  "metaphlan4_db/mpa_vJan26_CHOCOPhlAnSGB_202605.tar: archive consumed by its installer; index present"
+ ],
+ "entries": [
+  {
+   "path": "refs/age",
+   "bytes": 6867847,
+   "gb": 0.01,
+   "files": 12,
+   "category": "age model artefacts",
+   "rebuild": "scripts/train_*",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/age.bak_rclr",
+   "bytes": 5789368,
+   "gb": 0.01,
+   "files": 5,
+   "category": "superseded age model artefacts (backup; not read)",
+   "rebuild": "none",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/bacdive",
+   "bytes": 37483464,
+   "gb": 0.04,
+   "files": 884,
+   "category": "BacDive API v2 response cache",
+   "rebuild": "refilled on demand",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/cache",
+   "bytes": 243338676,
+   "gb": 0.24,
+   "files": 541,
+   "category": "fast-load caches (regenerable)",
+   "rebuild": "automatic",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/cmd",
+   "bytes": 23070881,
+   "gb": 0.02,
+   "files": 64,
+   "category": "curatedMetagenomicData profiles + ExperimentHub index (scoring cohort)",
+   "rebuild": "openbiota taxonomic-cohort",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/cohort",
+   "bytes": 9881387461,
+   "gb": 9.88,
+   "files": 736,
+   "category": "pathway reference cohort work dir (reads deleted after use)",
+   "rebuild": "openbiota cohort",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/cohort_random",
+   "bytes": 146459727670,
+   "gb": 146.46,
+   "files": 664,
+   "category": "pathway reference cohort, uniform-random sampling work dir (retained reads; regenerable)",
+   "rebuild": "openbiota cohort --sampling random",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/crosswalk",
+   "bytes": 26493514,
+   "gb": 0.03,
+   "files": 9,
+   "category": "derived from GTDB/GlobDB/MetaPhlAn bridges",
+   "rebuild": "make expansion-crosswalks",
+   "locked_files": 3
+  },
+  {
+   "path": "refs/ctnpc",
+   "bytes": 2105650,
+   "gb": 0.0,
+   "files": 5,
+   "category": "references",
+   "rebuild": "make refs-ctnpc",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/db",
+   "bytes": 5533427669,
+   "gb": 5.53,
+   "files": 126,
+   "category": "built databases",
+   "rebuild": "make build-db",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/decoys",
+   "bytes": 6405495745,
+   "gb": 6.41,
+   "files": 4,
+   "category": "food/background genomes",
+   "rebuild": "make substrate-refs",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/expanded",
+   "bytes": 22794312,
+   "gb": 0.02,
+   "files": 31,
+   "category": "locks + reconciliation (derived)",
+   "rebuild": "make refs-expanded; make expansion",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/expansion_cohort",
+   "bytes": 1913466,
+   "gb": 0.0,
+   "files": 103,
+   "category": "profiled locally from public reads; manifest inside each cohort file",
+   "rebuild": "make expansion-cohorts",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/genomes",
+   "bytes": 6708414884,
+   "gb": 6.71,
+   "files": 17915,
+   "category": "cache of reference genomes fetched on demand (NCBI/UHGG/GlobDB); each has a .source sidecar",
+   "rebuild": "refilled on demand by openbiota.expansion.genomes",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/globdb_r232",
+   "bytes": 584085929900,
+   "gb": 584.09,
+   "files": 346262,
+   "category": "downloaded (locked); genomes/ unpacked from the archive",
+   "rebuild": "make refs-expanded; make refs-globdb-genomes",
+   "locked_files": 5
+  },
+  {
+   "path": "refs/gtdb",
+   "bytes": 485809563,
+   "gb": 0.49,
+   "files": 13,
+   "category": "downloaded (locked)",
+   "rebuild": "make refs-expanded",
+   "locked_files": 10
+  },
+  {
+   "path": "refs/host",
+   "bytes": 6515047622,
+   "gb": 6.52,
+   "files": 8,
+   "category": "GRCh38 + PhiX bowtie2 host index",
+   "rebuild": "openbiota build-host-index",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/kraken2",
+   "bytes": 31046948062,
+   "gb": 31.05,
+   "files": 19,
+   "category": "downloaded (locked) publisher Kraken2/Bracken database",
+   "rebuild": "make refs-expanded",
+   "locked_files": 8
+  },
+  {
+   "path": "refs/metaphlan4_db",
+   "bytes": 91404572546,
+   "gb": 91.4,
+   "files": 217,
+   "category": "downloaded by MetaPhlAn (Jan26 + Jun23 indexes); marker dump and clade caches derived",
+   "rebuild": "make refs-expanded (metaphlan --install); caches rebuild on first use",
+   "locked_files": 5
+  },
+  {
+   "path": "refs/metaphlan_db",
+   "bytes": 3447749519,
+   "gb": 3.45,
+   "files": 11,
+   "category": "downloaded by MetaPhlAn 3 (scoring lane)",
+   "rebuild": "make setup",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/micom",
+   "bytes": 10148276797,
+   "gb": 10.15,
+   "files": 2904,
+   "category": "AGORA2 model library + community/LP caches",
+   "rebuild": "make extension-refs",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/motus",
+   "bytes": 15252364516,
+   "gb": 15.25,
+   "files": 15,
+   "category": "downloaded (locked), unpacked",
+   "rebuild": "make refs-expanded",
+   "locked_files": 1
+  },
+  {
+   "path": "refs/mycobiome",
+   "bytes": 226072692256,
+   "gb": 226.07,
+   "files": 3540,
+   "category": "mycobiome references",
+   "rebuild": "make mycobiome-refs",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/nii",
+   "bytes": 0,
+   "gb": 0.0,
+   "files": 0,
+   "category": "references",
+   "rebuild": "make setup",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/panels",
+   "bytes": 22696581,
+   "gb": 0.02,
+   "files": 23,
+   "category": "built DIAMOND panel databases",
+   "rebuild": "make build-db",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/pathogens",
+   "bytes": 128437357597,
+   "gb": 128.44,
+   "files": 1456,
+   "category": "pathogen target references",
+   "rebuild": "make refs-strain",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/reference_cohort_samples.json",
+   "bytes": 116522,
+   "gb": 0.0,
+   "files": 1,
+   "category": "pathway cohort sample table",
+   "rebuild": "openbiota cohort",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/reference_ranges.json",
+   "bytes": 128780,
+   "gb": 0.0,
+   "files": 1,
+   "category": "pathway reference ranges",
+   "rebuild": "openbiota cohort",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/reference_ranges.prefix600k.json",
+   "bytes": 33938,
+   "gb": 0.0,
+   "files": 1,
+   "category": "superseded pathway ranges (prefix sampling; kept for audit)",
+   "rebuild": "none",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/singlem",
+   "bytes": 21555961766,
+   "gb": 21.56,
+   "files": 793,
+   "category": "downloaded (locked) GlobDB metapackage",
+   "rebuild": "make refs-expanded",
+   "locked_files": 1
+  },
+  {
+   "path": "refs/strain_refs.lock.json",
+   "bytes": 7674,
+   "gb": 0.0,
+   "files": 1,
+   "category": "lock",
+   "rebuild": "make strain-tools-lock",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/supplements",
+   "bytes": 19624381432,
+   "gb": 19.62,
+   "files": 7008,
+   "category": "supplement references",
+   "rebuild": "make substrate-refs",
+   "locked_files": 11
+  },
+  {
+   "path": "refs/sylph",
+   "bytes": 51328549656,
+   "gb": 51.33,
+   "files": 19,
+   "category": "downloaded GTDB R232 sylph database",
+   "rebuild": "make genome-lane",
+   "locked_files": 2
+  },
+  {
+   "path": "refs/taxonomic_cohort.json",
+   "bytes": 13906331,
+   "gb": 0.01,
+   "files": 1,
+   "category": "scoring cohort matrix (curatedMetagenomicData, MetaPhlAn 3)",
+   "rebuild": "openbiota taxonomic-cohort",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/taxonomic_cohort_manifest.json",
+   "bytes": 1794,
+   "gb": 0.0,
+   "files": 1,
+   "category": "scoring cohort manifest",
+   "rebuild": "openbiota taxonomic-cohort",
+   "locked_files": 0
+  },
+  {
+   "path": "refs/validation",
+   "bytes": 9878805348,
+   "gb": 9.88,
+   "files": 111,
+   "category": "validation fixtures",
+   "rebuild": "openbiota validate",
+   "locked_files": 0
+  }
+ ],
+ "install": [
+  "make tools-expanded",
+  "make refs-expanded",
+  "make expansion",
+  "make refs-globdb-genomes",
+  "make expansion-cohorts",
+  "scripts/fetch_expanded_refs.py --status",
+  "scripts/refs_manifest.py --check"
+ ],
+ "note": "sizes and counts from file metadata; checksums are in refs/expanded/locks. Directories marked derived or cache are regenerable and need not be archived; everything else is either locked-downloadable or profiled from public reads with the recipe recorded in its own manifest."
+}

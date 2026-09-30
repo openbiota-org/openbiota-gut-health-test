@@ -1,0 +1,633 @@
+# Genus-level classification and description, for organisms the species
+# registry does not name.
+#
+# Why this exists. A stool sample carries 150-250 organisms. The species
+# registry (taxa/interpretations/) covers 113 of them with cited, per-species
+# prose; the rest - most of the long tail, and every unnamed bin - would
+# otherwise be unclassified. Most of what is known about an uncultured
+# Blautia or an unnamed Gemmiger is what is known about the genus, so that is
+# the honest level to speak at. Every entry here is marked genus-level when
+# it is used, and a species entry always wins over it.
+#
+# Classes. Four, in this report's own words:
+#   beneficial   - higher levels are associated with better outcomes in the
+#                  human literature; typical members produce butyrate, other
+#                  short-chain fatty acids, or support the mucus layer.
+#   opportunist  - normally present at low levels; expansion is associated
+#                  with inflammation, infection or dysbiosis. Not a pathogen
+#                  label: a pathogen is a specific organism doing a specific
+#                  thing, and that is the pathogen screen's job.
+#   conditional  - cuts both ways. Helpful at typical levels or in the right
+#                  company, associated with problems when expanded or in a
+#                  disturbed community. Most of the gut is this.
+#   unknown      - not enough human evidence to say. Stated as such.
+#
+# `concern_when` is the direction that would raise a flag: "high" for an
+# opportunist, "low" for a beneficial organism, "high" for a conditional
+# one (expansion is the reported problem), none for unknown.
+#
+# Sources are the same body of literature the species registry cites; genus
+# statements are kept general and hedged accordingly.
+
+genera:
+  # ---- Bacteroidetes ------------------------------------------------------ #
+  - genus: Bacteroides
+    class: conditional
+    concern_when: high
+    description: >
+      Among the most abundant gut genera. Break down complex dietary fibre and host glycans and
+      produce propionate; a normal, dominant part of a Western-diet gut. Several species are
+      also opportunists outside the gut, and some strains carry an enterotoxin, so expansion in
+      an unstable community is watched rather than welcomed.
+  - genus: Phocaeicola
+    class: conditional
+    concern_when: high
+    description: >
+      Until 2019 these were classed as Bacteroides, and P. vulgatus and P. dorei are often the
+      single most abundant organisms in adult stool. Fibre degraders and propionate producers;
+      strain-dependent associations with both metabolic health and inflammation.
+  - genus: Parabacteroides
+    class: conditional
+    concern_when: high
+    description: >
+      Common fibre degraders, closely related to Bacteroides. P. distasonis has been reported
+      protective in some metabolic studies and expanded in others; read at the species level
+      where possible.
+  - genus: Alistipes
+    class: conditional
+    concern_when: high
+    description: >
+      Bile-tolerant organisms more common with a higher-fat, higher-protein diet. Reported both
+      protective (some liver and cardiovascular cohorts) and expanded in depression and colorectal
+      cancer cohorts; species and context matter.
+  - genus: Prevotella
+    class: conditional
+    concern_when: high
+    description: >
+      Dominant in fibre-rich, plant-based diets and rare in Western guts. Associated with good
+      glucose handling in some cohorts and with inflammatory arthritis in others, with the
+      specific clade mattering a great deal.
+  - genus: Segatella
+    class: conditional
+    concern_when: high
+    description: >
+      Formerly Prevotella copri: a complex of related clades, dominant in plant-rich diets. The
+      arthritis association attaches to particular clades and populations, not to the group.
+  - genus: Barnesiella
+    class: beneficial
+    concern_when: low
+    description: >
+      Associated with resistance to colonisation by antibiotic-resistant Enterococcus in both
+      mice and people, and with a more diverse community.
+  - genus: Odoribacter
+    class: beneficial
+    concern_when: low
+    description: >
+      Butyrate producer; lower levels reported in inflammatory bowel disease and in some
+      hypertension cohorts.
+  - genus: Butyricimonas
+    class: beneficial
+    concern_when: low
+    description: >
+      Butyrate producer of the Bacteroidetes; depletion reported in multiple sclerosis and IBD
+      cohorts.
+  - genus: Paraprevotella
+    class: conditional
+    concern_when: none
+    description: >
+      Fibre degrader related to Prevotella; little condition-specific evidence.
+  - genus: Coprobacter
+    class: conditional
+    concern_when: none
+    description: >
+      A minor Bacteroidetes genus with limited human evidence.
+
+  # ---- Firmicutes: butyrate producers and Lachnospiraceae ------------------ #
+  - genus: Faecalibacterium
+    class: beneficial
+    concern_when: low
+    description: >
+      The archetypal beneficial gut bacterium: one of the largest butyrate producers, with
+      anti-inflammatory effects shown in cells and animals. Reduced in Crohn's disease more
+      consistently than almost any other organism, and lower across many inflammatory and
+      metabolic conditions.
+  - genus: Roseburia
+    class: beneficial
+    concern_when: low
+    description: >
+      Butyrate producers that thrive on dietary fibre. Lower levels reported in ulcerative colitis,
+      type 2 diabetes and atherosclerosis cohorts.
+  - genus: Anaerostipes
+    class: beneficial
+    concern_when: low
+    description: >
+      Convert lactate and acetate into butyrate, which keeps lactate from accumulating and feeds
+      the colon lining. Lower in some inflammatory cohorts.
+  - genus: Anaerobutyricum
+    class: beneficial
+    concern_when: low
+    description: >
+      Formerly Eubacterium hallii: converts lactate to butyrate and produces propionate from a
+      sugar alcohol; supplementation improved insulin sensitivity in an animal model.
+  - genus: Agathobacter
+    class: beneficial
+    concern_when: low
+    description: >
+      Formerly Eubacterium rectale, one of the most abundant butyrate producers in adult stool;
+      abundance tracks fermentable-fibre intake and is lower in Western disease cohorts.
+  - genus: Agathobaculum
+    class: beneficial
+    concern_when: low
+    description: >
+      Butyrate producer; A. butyriciproducens has been studied as a next-generation probiotic in
+      animal models.
+  - genus: Coprococcus
+    class: beneficial
+    concern_when: low
+    description: >
+      Butyrate producers repeatedly associated with better quality-of-life measures and lower in
+      depression cohorts; C. catus and C. eutactus especially.
+  - genus: Lachnospira
+    class: beneficial
+    concern_when: low
+    description: >
+      Pectin degraders producing acetate and the precursors of butyrate; associated with
+      plant-rich diets and lower in some asthma and IBD cohorts.
+  - genus: Eubacterium
+    class: conditional
+    concern_when: none
+    description: >
+      A catch-all genus that has been progressively split up. Several members are butyrate
+      producers and health-associated; others have little evidence. Read the species where
+      named.
+  - genus: Butyrivibrio
+    class: beneficial
+    concern_when: low
+    description: >
+      Fibre-degrading butyrate producers; more prominent in high-fibre diets.
+  - genus: Subdoligranulum
+    class: beneficial
+    concern_when: low
+    description: >
+      Butyrate producer closely related to Faecalibacterium; lower in obesity and metabolic
+      disease cohorts.
+  - genus: Gemmiger
+    class: beneficial
+    concern_when: low
+    description: >
+      Butyrate producer related to Faecalibacterium, reported lower in IBD and obesity cohorts.
+      Several members are known only from genomes and carry placeholder names.
+  - genus: Fusicatenibacter
+    class: beneficial
+    concern_when: low
+    description: >
+      Butyrate producer reported lower in ulcerative colitis and depression cohorts.
+  - genus: Blautia
+    class: conditional
+    concern_when: high
+    description: >
+      One of the most abundant gut genera, producing acetate and some members butyrate. Reported
+      protective against visceral fat and some infections, but also expanded in obesity, type 2
+      diabetes and IBS cohorts. A common sign of a Western diet rather than a problem in itself.
+  - genus: Dorea
+    class: conditional
+    concern_when: high
+    description: >
+      Gas producers (hydrogen, carbon dioxide) that break down mucus-associated sugars. Expanded
+      in IBS and some multiple sclerosis cohorts; lower in others. Contributes to bloating when
+      abundant.
+  - genus: Mediterraneibacter
+    class: conditional
+    concern_when: high
+    description: >
+      Formerly Ruminococcus gnavus and R. torques: mucus degraders that are normal residents at
+      low levels but among the most consistently expanded organisms in Crohn's disease, and
+      producers of an inflammatory polysaccharide. Level matters more than presence.
+  - genus: Ruminococcus
+    class: conditional
+    concern_when: none
+    description: >
+      Now a narrower genus centred on R. bromii, the keystone degrader of resistant starch, which
+      is beneficial. Other former members have been moved out and are read under their new names.
+  - genus: Lacrimispora
+    class: conditional
+    concern_when: none
+    description: >
+      Formerly part of Clostridium cluster XIVa; limited condition-specific evidence.
+  - genus: Enterocloster
+    class: opportunist
+    concern_when: high
+    description: >
+      Formerly Clostridium bolteae, C. clostridioforme and relatives: bile-tolerant organisms
+      expanded in autism-spectrum and IBD cohorts and occasionally isolated from infections.
+  - genus: Clostridium
+    class: conditional
+    concern_when: high
+    description: >
+      A large and much-split genus. Most gut members are harmless fermenters; a few named species
+      (C. perfringens, C. difficile) are pathogens and are handled by the pathogen screen. Unnamed
+      members are read as neutral residents.
+  - genus: Flavonifractor
+    class: conditional
+    concern_when: high
+    description: >
+      Break down dietary flavonoids such as quercetin; expanded in depression and some IBD
+      cohorts, lower in others.
+  - genus: Oscillibacter
+    class: conditional
+    concern_when: none
+    description: >
+      Common valerate producers of the Oscillospiraceae, associated with leanness in some cohorts;
+      several members are known only from genomes.
+  - genus: Eisenbergiella
+    class: conditional
+    concern_when: high
+    description: >
+      Butyrate-producing Lachnospiraceae; expanded in some IBS and IBD cohorts.
+  - genus: Hungatella
+    class: opportunist
+    concern_when: high
+    description: >
+      Formerly Clostridium hathewayi; produces trimethylamine, the precursor of TMAO, and is
+      expanded in several cardiometabolic and IBD cohorts.
+  - genus: Sellimonas
+    class: conditional
+    concern_when: high
+    description: >
+      A Lachnospiraceae genus reported expanded after gut disturbance and in some IBD cohorts;
+      limited evidence.
+  - genus: Faecalicatena
+    class: conditional
+    concern_when: none
+    description: >
+      Lachnospiraceae members formerly in Ruminococcus; limited human evidence.
+  - genus: Anaerotignum
+    class: conditional
+    concern_when: high
+    description: >
+      Lactate fermenters producing propionate; A. lactatifermentans is reported expanded in some
+      IBD cohorts.
+  - genus: Faecalibacillus
+    class: conditional
+    concern_when: none
+    description: >
+      Recently described Erysipelotrichaceae members; limited human evidence.
+  - genus: Holdemanella
+    class: conditional
+    concern_when: high
+    description: >
+      Erysipelotrichaceae member expanded in some obesity and IBS cohorts and lower in others.
+  - genus: Erysipelatoclostridium
+    class: opportunist
+    concern_when: high
+    description: >
+      E. ramosum is expanded in obesity and metabolic-disease cohorts and can translocate across
+      a damaged lining; a low-level resident that is watched when it expands.
+  - genus: Intestinimonas
+    class: beneficial
+    concern_when: low
+    description: >
+      Produces butyrate from both sugars and amino acids; lower in some metabolic cohorts.
+  - genus: Lawsonibacter
+    class: conditional
+    concern_when: none
+    description: >
+      Butyrate-producing Oscillospiraceae with limited condition-specific evidence.
+  - genus: Monoglobus
+    class: beneficial
+    concern_when: low
+    description: >
+      Pectin specialist; more abundant on plant-rich diets.
+  - genus: Phascolarctobacterium
+    class: beneficial
+    concern_when: low
+    description: >
+      Consumes succinate and produces propionate; associated with a healthier metabolic profile
+      and lower in some IBD cohorts.
+  - genus: Dialister
+    class: conditional
+    concern_when: high
+    description: >
+      Propionate producers; reported lower in ankylosing spondylitis and depression, expanded in
+      some periodontal and IBS contexts.
+  - genus: Veillonella
+    class: conditional
+    concern_when: high
+    description: >
+      Lactate consumers common in the mouth; in stool, expansion often reflects oral organisms
+      reaching the gut, and is reported in IBD, cirrhosis and after proton-pump inhibitor use.
+  - genus: Megasphaera
+    class: conditional
+    concern_when: none
+    description: >
+      Lactate-consuming propionate and butyrate producers; more common in non-Western populations.
+  - genus: Turicibacter
+    class: conditional
+    concern_when: none
+    description: >
+      Bile-acid modifiers that influence host fat metabolism in animal models; human evidence is
+      mixed.
+  - genus: Catenibacterium
+    class: conditional
+    concern_when: none
+    description: >
+      Erysipelotrichaceae member more common in non-Western populations; limited human evidence.
+  - genus: Holdemania
+    class: conditional
+    concern_when: none
+    description: >
+      Minor Erysipelotrichaceae member with limited evidence.
+  - genus: Romboutsia
+    class: conditional
+    concern_when: none
+    description: >
+      Common resident reported protective in some colorectal-cancer cohorts and expanded in others.
+  - genus: Intestinibacter
+    class: conditional
+    concern_when: none
+    description: >
+      Formerly Clostridium bartlettii; reported lower after metformin, otherwise limited evidence.
+  - genus: Terrisporobacter
+    class: conditional
+    concern_when: none
+    description: >
+      Spore-former in the Peptostreptococcaceae; limited human evidence.
+
+  # ---- Lactic acid bacteria and probiotics --------------------------------- #
+  - genus: Bifidobacterium
+    class: beneficial
+    concern_when: low
+    description: >
+      Dominant in breastfed infants and a stable minority in adults. Produce acetate and lactate,
+      degrade human milk oligosaccharides and some fibres, and are among the best-studied
+      probiotic organisms. Lower levels reported across many conditions.
+  - genus: Lactobacillus
+    class: beneficial
+    concern_when: low
+    description: >
+      The classic probiotic genus, now split into 25 genera. Usually a minor part of adult stool;
+      transient with fermented food or supplements.
+  - genus: Lactiplantibacillus
+    class: beneficial
+    concern_when: low
+    description: >
+      Formerly Lactobacillus plantarum: a common fermented-food and probiotic organism, usually
+      transient in stool.
+  - genus: Lacticaseibacillus
+    class: beneficial
+    concern_when: low
+    description: >
+      Formerly Lactobacillus casei, paracasei and rhamnosus: widely used probiotic species,
+      usually transient in stool.
+  - genus: Limosilactobacillus
+    class: beneficial
+    concern_when: low
+    description: >
+      Formerly Lactobacillus reuteri and fermentum: probiotic species with human trial evidence
+      for several outcomes; usually transient.
+  - genus: Ligilactobacillus
+    class: beneficial
+    concern_when: low
+    description: >
+      Formerly Lactobacillus salivarius and ruminis; salivarius is a common probiotic, ruminis a
+      resident.
+  - genus: Streptococcus
+    class: conditional
+    concern_when: high
+    description: >
+      Mostly oral and dairy organisms. S. thermophilus arrives with yoghurt and is harmless;
+      expansion of oral streptococci in stool is reported in IBD, cirrhosis and after acid
+      suppression, and a few species are pathogens handled by the screen.
+  - genus: Lactococcus
+    class: conditional
+    concern_when: none
+    description: >
+      Dairy-fermentation organisms, transient in stool.
+  - genus: Leuconostoc
+    class: conditional
+    concern_when: none
+    description: >
+      Fermented-food organisms, transient in stool.
+  - genus: Pediococcus
+    class: conditional
+    concern_when: none
+    description: >
+      Fermented-food and probiotic organisms, transient in stool.
+  - genus: Weissella
+    class: conditional
+    concern_when: none
+    description: >
+      Fermented-food organisms, transient in stool.
+
+  # ---- Actinobacteria ------------------------------------------------------- #
+  - genus: Collinsella
+    class: conditional
+    concern_when: high
+    description: >
+      Common residents that alter bile acids and cholesterol handling; expanded in rheumatoid
+      arthritis, atherosclerosis and type 2 diabetes cohorts and reduced by fibre.
+  - genus: Eggerthella
+    class: opportunist
+    concern_when: high
+    description: >
+      E. lenta metabolises drugs including digoxin, is expanded in several autoimmune cohorts,
+      and is an occasional cause of bloodstream infection; normally a low-level resident.
+  - genus: Adlercreutzia
+    class: beneficial
+    concern_when: low
+    description: >
+      Converts the soy isoflavone daidzein to equol, the more active form; associated with
+      plant-rich diets.
+  - genus: Gordonibacter
+    class: beneficial
+    concern_when: low
+    description: >
+      Converts ellagic acid from berries and nuts to urolithins, which have anti-inflammatory
+      activity in trials.
+  - genus: Slackia
+    class: beneficial
+    concern_when: low
+    description: >
+      Equol producers; S. isoflavoniconvertens especially.
+  - genus: Senegalimassilia
+    class: conditional
+    concern_when: none
+    description: >
+      Recently described Coriobacteriia member; limited human evidence.
+  - genus: Enorma
+    class: conditional
+    concern_when: none
+    description: >
+      Coriobacteriia member with limited human evidence.
+  - genus: Olsenella
+    class: conditional
+    concern_when: high
+    description: >
+      Oral and gut lactate producers; expansion in stool sometimes reflects oral organisms.
+  - genus: Atopobium
+    class: conditional
+    concern_when: high
+    description: >
+      Oral and vaginal organisms; in stool, usually minor.
+
+  # ---- Verrucomicrobia, Proteobacteria and others --------------------------- #
+  - genus: Akkermansia
+    class: beneficial
+    concern_when: low
+    description: >
+      A. muciniphila lives in the mucus layer and helps maintain it; higher levels are associated
+      with metabolic health, and a pasteurised preparation improved insulin sensitivity in a
+      human trial. Very high levels alongside low fibre intake are a different picture.
+  - genus: Escherichia
+    class: opportunist
+    concern_when: high
+    description: >
+      E. coli is a universal low-level resident with strains ranging from harmless to pathogenic.
+      Expansion of the whole genus marks a disturbed, oxygen-tolerant community and is one of the
+      most consistent signs of inflammation. Pathogenic strains are the pathogen screen's job.
+  - genus: Klebsiella
+    class: opportunist
+    concern_when: high
+    description: >
+      Normally absent or trace; expansion is reported in IBD, primary sclerosing cholangitis and
+      after antibiotics, and the genus carries important antibiotic resistance.
+  - genus: Enterobacter
+    class: opportunist
+    concern_when: high
+    description: >
+      Hospital-associated Enterobacteriaceae; expansion in stool marks disturbance and carries
+      resistance risk.
+  - genus: Citrobacter
+    class: opportunist
+    concern_when: high
+    description: >
+      Enterobacteriaceae normally at trace levels; expansion is associated with inflammation.
+  - genus: Proteus
+    class: opportunist
+    concern_when: high
+    description: >
+      Urease-producing Enterobacteriaceae; expansion reported in Crohn's disease and after
+      surgery.
+  - genus: Enterococcus
+    class: opportunist
+    concern_when: high
+    description: >
+      Low-level residents that bloom after antibiotics; E. faecium carries vancomycin
+      resistance and is a hospital pathogen. Expansion in stool predicts bloodstream infection
+      in immunocompromised patients.
+  - genus: Haemophilus
+    class: opportunist
+    concern_when: high
+    description: >
+      Respiratory-tract organisms; in stool, expansion reflects disturbance and is reported in
+      IBD and IBS cohorts.
+  - genus: Sutterella
+    class: conditional
+    concern_when: high
+    description: >
+      Bile-tolerant Proteobacteria common in healthy adults; expanded in some autism and IBD
+      cohorts, with mixed evidence.
+  - genus: Parasutterella
+    class: conditional
+    concern_when: high
+    description: >
+      Common resident involved in bile-acid handling; expanded in some IBD and obesity cohorts.
+  - genus: Duodenibacillus
+    class: conditional
+    concern_when: none
+    description: >
+      Recently described Sutterellaceae member; limited human evidence.
+  - genus: Bilophila
+    class: opportunist
+    concern_when: high
+    description: >
+      B. wadsworthia produces hydrogen sulfide from taurine and blooms on a high-fat,
+      animal-protein diet; expansion promotes inflammation in animal models and is reported in IBD.
+  - genus: Desulfovibrio
+    class: opportunist
+    concern_when: high
+    description: >
+      Sulfate-reducing bacteria producing hydrogen sulfide; expanded in ulcerative colitis and
+      Parkinson's disease cohorts.
+  - genus: Fusobacterium
+    class: opportunist
+    concern_when: high
+    description: >
+      Oral organisms; F. nucleatum is enriched in colorectal cancer tissue and stool more
+      consistently than any other organism and is normally absent from healthy stool.
+  - genus: Methanobrevibacter
+    class: conditional
+    concern_when: high
+    description: >
+      The main gut methanogen (an archaeon, not a bacterium). Methane slows transit and is
+      associated with constipation-predominant IBS; also associated with leanness and a
+      diverse community.
+  - genus: Methanosphaera
+    class: conditional
+    concern_when: none
+    description: >
+      Minor gut methanogen; limited human evidence.
+  - genus: Candidatus
+    class: unknown
+    concern_when: none
+    description: >
+      A provisional prefix for organisms known only from genomes; the specific lineage is given
+      in the name that follows it.
+
+  # ---- Family- and phylum-level placeholders -------------------------------- #
+  # The older catalogue names some organisms only to family or phylum
+  # ("Lachnospiraceae bacterium ...", "Firmicutes bacterium CAG ..."). These
+  # are real detections with no genus; the family is what is known.
+  - genus: Lachnospiraceae
+    class: conditional
+    concern_when: none
+    description: >
+      A member of the Lachnospiraceae not yet assigned to a genus. The family is dominated by
+      fibre fermenters and butyrate producers and is a normal, abundant part of adult stool.
+  - genus: Oscillospiraceae
+    class: conditional
+    concern_when: none
+    description: >
+      A member of the Oscillospiraceae (formerly Ruminococcaceae) not yet assigned to a genus;
+      the family includes Faecalibacterium and many fibre degraders and is associated with
+      leanness and diversity.
+  - genus: Ruminococcaceae
+    class: conditional
+    concern_when: none
+    description: >
+      A member of the Ruminococcaceae not yet assigned to a genus; the family is rich in fibre
+      degraders and butyrate producers.
+  - genus: Clostridiaceae
+    class: conditional
+    concern_when: none
+    description: >
+      A member of the Clostridiaceae not yet assigned to a genus; most gut members are harmless
+      fermenters.
+  - genus: Erysipelotrichaceae
+    class: conditional
+    concern_when: high
+    description: >
+      A member of the Erysipelotrichaceae not yet assigned to a genus; the family is expanded in
+      several metabolic-disease cohorts.
+  - genus: Eubacteriaceae
+    class: conditional
+    concern_when: none
+    description: >
+      A member of the Eubacteriaceae not yet assigned to a genus; the family includes several
+      butyrate producers.
+  - genus: Firmicutes
+    class: unknown
+    concern_when: none
+    description: >
+      An organism placed only in the phylum Firmicutes (Bacillota), known from assembled genomes;
+      too little is known to characterise it further.
+  - genus: Bacteroidales
+    class: unknown
+    concern_when: none
+    description: >
+      An organism placed only in the order Bacteroidales, known from assembled genomes.
+  - genus: Clostridiales
+    class: unknown
+    concern_when: none
+    description: >
+      An organism placed only in the order Clostridiales, known from assembled genomes.

@@ -1,0 +1,225 @@
+name: butyrate
+description: >-
+  Butyrate production via the two terminal routes: butyryl-CoA:acetate
+  CoA-transferase (but, the dominant route in the human colon) and butyrate
+  kinase (buk).
+metabolite: Butyrate (SCFA)
+pathway: >-
+  acetyl-CoA -> butyryl-CoA -> butyrate, terminated either by
+  butyryl-CoA:acetate CoA-transferase (but) or by
+  phosphotransbutyrylase/butyrate kinase (ptb-buk)
+
+organisms:
+  - Faecalibacterium prausnitzii
+  - Roseburia intestinalis
+  - Eubacterium rectale
+  - Anaerostipes hadrus
+  - Coprococcus catus
+  - Clostridium butyricum
+
+# POSITIVE CONTROL. Butyrate producers are abundant and well-behaved in any
+# healthy stool metagenome. If this panel returns near zero, the pipeline is
+# broken — check the rpoB denominator and the DIAMOND database before reading
+# anything into the other panels.
+targets:
+  - id: BUT
+    label: but (butyryl-CoA:acetate CoA-transferase)
+    gene: but
+    source: uniprot
+    query: '(protein_name:"butyryl-CoA:acetate CoA-transferase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.25
+    # The dominant colonic route: butyryl-CoA:acetate CoA-transferase activity
+    # was present in all 38 human faecal butyrate producers tested, where
+    # butyrate kinase was present in only 4 (Louis 2004 PMID 15028694). The
+    # family-IV CoA transferases are still promiscuous, so the eight
+    # Bacteroidota references in this set — Rikenella microfusus took 271 of
+    # this sample's 1,195 but-fragments at 79% identity — are demoted with the
+    # same rule as buk.
+    scope:
+      exclude_inferred: true
+      exclude_phyla: [Bacteroidota]
+      reason: >-
+        Family-IV CoA transferases act on several acyl-CoA substrates and
+        Bacteroidota do not synthesise butyrate, so a Bacteroidota "but"
+        reference measures a related transferase rather than butyrogenic
+        capacity (Vital 2014 PMID 24757212, Louis 2004 PMID 15028694).
+
+  - id: BUK
+    label: buk (butyrate kinase)
+    gene: buk
+    source: uniprot
+    query: '(protein_name:"butyrate kinase") AND (taxonomy_id:2)'
+    # Raised above the panel floor: butyrate kinase and acetate kinase are
+    # homologous members of the ASKHA superfamily and acetate kinase is much
+    # more widespread.
+    min_identity: 60.0
+    max_sequences: 3000
+    length_tolerance: 0.20
+    # buk is the *minor* colonic route and the one where name-based reference
+    # sets go wrong. Of 2,496 UniProt proteins matching "butyrate kinase" in
+    # bacteria, 2,338 are named "Probable butyrate kinase ... (Branched-chain
+    # carboxylic acid kinase)" — a rule-inferred call on a fold shared with the
+    # branched-chain carboxylic acid kinases, which the butyrate-marker
+    # literature singles out as the classic false positive. 238 of them sit in
+    # Bacteroidota, which culture work shows do not synthesise butyrate; in a
+    # Bacteroidota-dominated stool those references would otherwise carry the
+    # panel. They stay in the database as background so the reads that belong
+    # to them are attributed, not reassigned to a distant true buk.
+    scope:
+      exclude_inferred: true
+      exclude_name_contains: ["branched-chain"]
+      exclude_phyla: [Bacteroidota]
+      reason: >-
+        Rule-inferred "probable butyrate kinase" annotations and the
+        branched-chain carboxylic acid kinases share the ASKHA fold with buk
+        but not the pathway, and Bacteroidota are not butyrate producers
+        (Vital 2013 PMID 24451334, Vital 2014 PMID 24757212, Louis 2004
+        PMID 15028694).
+
+
+  # The lactate-utilisation complex, so the lactate-to-butyrate cross-feeding
+  # route is searched. Context targets; the aggregate is still BUT alone.
+  - id: LCTA
+    label: lctA (lactate utilisation protein A)
+    gene: lctA
+    source: uniprot
+    query: '(protein_name:"Lactate utilization protein A") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 1200
+    length_tolerance: 0.3
+
+  - id: LCTB
+    label: lctB (lactate utilisation protein B)
+    gene: lctB
+    source: uniprot
+    query: '(protein_name:"Lactate utilization protein B") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 2200
+    length_tolerance: 0.3
+
+  - id: LCTC
+    label: lctC (lactate utilisation protein C)
+    gene: lctC
+    source: uniprot
+    query: '(protein_name:"Lactate utilization protein C") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 2800
+    length_tolerance: 0.3
+
+decoys:
+  - id: ACKA
+    label: ackA (acetate kinase)
+    gene: ackA
+    source: uniprot
+    query: '(protein_name:"acetate kinase") AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 3000
+    length_tolerance: 0.20
+    note: Close homolog of butyrate kinase and near-universal, so a mandatory decoy.
+
+  - id: HBCOAT
+    label: 4-hydroxybutyrate CoA-transferase and related CoA-transferases
+    source: uniprot
+    query: '((protein_name:"4-hydroxybutyrate CoA-transferase") OR (protein_name:"glutaconate CoA-transferase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 2000
+    length_tolerance: 0.30
+    note: Family IV CoA-transferase background for the `but` target.
+
+aggregate: sum
+aggregate_from: [BUT]
+aggregate_reason: >-
+  The headline is `but` alone. Butyryl-CoA:acetate CoA-transferase is the
+  terminal step in essentially every human colonic butyrate producer —
+  activity in 38 of 38 faecal isolates, against butyrate kinase in 4 of 38
+  (Louis 2004) — so `but` is both the sensitive and the specific marker.
+  Summing the two would let the broadly distributed, largely rule-inferred
+  `buk` family dominate the panel: in this pipeline's own reference sets buk
+  contributes an order of magnitude more sequences than but, and before the
+  scope rules were added it supplied two thirds of the matched fragments in a
+  Bacteroidota-rich sample whose characterised butyrate producers were
+  depleted. `buk` is still measured and reported beside `but` as the minor
+  route.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+caveats:
+  - >-
+    High-abundance, well-behaved panel. Used as the pipeline positive control;
+    a near-zero result here means the run is invalid, not that the donor lacks
+    butyrate producers.
+  - >-
+    Gene capacity is not production. Butyrate output depends on fermentable
+    fibre reaching the colon, so a community with the genes on a low-fibre
+    diet makes little of it. Neither does this panel see butyrate arriving
+    from outside the community: oral butyrate and butyrate esters are
+    absorbed as the compound and add no genes, so they cannot raise this
+    reading.
+  - >-
+    This panel counts genes wherever they sit in the community, including in
+    organisms that are not themselves the well-characterised butyrate
+    producers. The butyrate-producer taxon group counts those species
+    directly. The two therefore answer different questions and can disagree;
+    where they do, the report reports both and explains the split rather than
+    averaging them.
+
+interpretation:
+  what_it_is: >-
+    Butyrate, a short-chain fatty acid and the main energy source for the cells
+    lining the colon.
+  made_from: Dietary fibre fermented by gut bacteria
+  higher_means: favourable
+  evidence_strength: moderate
+  summary: >-
+    Butyrate is the most consistently beneficial gut metabolite in this panel.
+    It strengthens the gut barrier, reduces inflammation, and improves
+    mitochondrial function in neurons. People with Alzheimer's disease tend to
+    have fewer butyrate-producing bacteria in their stool.
+  cognitive_evidence: >-
+    A specific molecular route from butyrate to tau pathology has now been
+    described: butyrate drives acetylation of GSK3-beta at lysine 15, which
+    regulates its inhibitory phosphorylation at serine 9 and in turn changes
+    how much tau gets phosphorylated. In the same work, transplanting gut
+    bacteria from Alzheimer's model mice into healthy mice produced dysbiosis,
+    tau phosphorylation and cognitive impairment — and giving those mice
+    Lactobacillus and Bifidobacterium reversed it. Separately, butyrate
+    improves neuronal mitochondrial function, restored memory function in the
+    APP/PS1 mouse model, and ameliorates diabetes-related cognitive impairment
+    by restoring Parkin-mediated mitophagy. In humans, stool from people with
+    Alzheimer's shows reduced short-chain-fatty-acid producers, and carriers of
+    the APOE E4 risk allele specifically show lower abundance of
+    butyrate-producing bacteria alongside enrichment of pro-inflammatory
+    genera.
+  implications:
+    higher: >-
+      Your gut has more butyrate-producing capacity than most people, which is
+      the favourable direction. Butyrate feeds your colon lining, dampens
+      inflammation, and in animal work restores memory function and improves
+      neuronal mitochondrial function. This capacity is fibre-dependent — the
+      bacteria are there, but they need fermentable fibre to work with.
+    typical: >-
+      Butyrate is the most consistently beneficial metabolite in this panel,
+      and your capacity to produce it sits squarely in the normal range. Worth
+      knowing that capacity is only half the story — these bacteria need
+      fermentable fibre to actually make butyrate.
+    lower: >-
+      Fewer of your gut bacteria carry the butyrate-producing genes than in
+      most people, which is the less favourable direction here. Reduced
+      numbers of these bacteria are reported in stool from people with
+      Alzheimer's disease, and APOE E4 carriers show lower abundance of them
+      specifically. Dietary fibre is the main lever on this population.
+  citation: >-
+    Zhang Y. et al., Mol Psychiatry 28:4421-4437 (2023),
+    doi:10.1038/s41380-023-02216-7; Sepulveda-Rivera V. et al., Sci Rep
+    15:28505 (2025), doi:10.1038/s41598-025-13262-2; Cho J.H. et al., Autophagy
+    20:1505-1522 (2024), doi:10.1080/15548627.2023.2274205
+
+citation: >-
+  Vital M., Howe A.C., Tiedje J.M., "Revealing the bacterial butyrate synthesis
+  pathways by analyzing (meta)genomic data", mBio 5:e00889-14 (2014),
+  doi:10.1128/mBio.00889-14. Also Kircher B. et al., "Predicting butyrate- and
+  propionate-forming bacteria of gut microbiota from sequencing data", Gut
+  Microbes 14:2149019 (2022), doi:10.1080/19490976.2022.2149019.

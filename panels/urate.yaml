@@ -1,0 +1,126 @@
+name: urate
+description: >-
+  The anaerobic route by which gut bacteria break urate down, which is
+  chemically different from the oxygen-requiring uricase most textbooks
+  describe. Uricase and purine salvage are measured here too, and reported
+  separately, because they are different reactions with different
+  products.
+metabolite: Urate degradation
+pathway: >-
+  urate -> xanthine (xanthine dehydrogenase running reductively, XdhABC)
+  -> purine fermentation -> glycine -> acetate and CO2. The
+  oxygen-requiring route through uricase to allantoin is a separate
+  chemistry and is counted separately.
+category: detox
+
+extension: true
+
+targets:
+  - id: XDHA
+    label: xdhA (xanthine dehydrogenase, molybdenum-binding subunit)
+    gene: xdhA
+    source: uniprot
+    query: '(protein_name:"xanthine dehydrogenase" AND protein_name:"molybdenum") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: XDHB
+    label: xdhB (xanthine dehydrogenase, FAD-binding subunit)
+    gene: xdhB
+    source: uniprot
+    query: '(protein_name:"Xanthine dehydrogenase" AND protein_name:"FAD") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 2833
+    length_tolerance: 0.3
+
+  - id: XDHC
+    label: xdhC (xanthine dehydrogenase, iron-sulfur subunit)
+    gene: xdhC
+    source: uniprot
+    query: '(protein_name:"Xanthine dehydrogenase" AND protein_name:"iron-sulfur") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 1609
+    length_tolerance: 0.3
+
+  - id: UOX
+    label: uox / uricase (oxygen-requiring, reported separately)
+    gene: uox
+    source: uniprot
+    query: '(protein_name:"Urate oxidase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: HPT
+    label: hpt (purine salvage, not degradation, reported separately)
+    gene: hpt
+    source: uniprot
+    query: '(protein_name:"Hypoxanthine phosphoribosyltransferase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+aggregate: sum
+aggregate_from: [XDHA, XDHB, XDHC]
+aggregate_reason: >-
+  Only the three xanthine dehydrogenase subunits are summed. Uricase needs
+  oxygen, which the colon does not have much of, and purine salvage
+  recycles purines rather than degrading them; both are measured and
+  shown, but adding them to an anaerobic degradation score would make it
+  mean nothing.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+citation: >-
+  Liu Y. et al., "Gut microbial DNA and purine degradation", Cell
+  186:3400-3413 (2023), doi:10.1016/j.cell.2023.06.010; Kasahara K. et
+  al., "Gut bacterial metabolism contributes to host global purine
+  homeostasis", Cell Host Microbe 31:1038-1053 (2023),
+  doi:10.1016/j.chom.2023.05.011.
+
+interpretation:
+  what_it_is: >-
+    Your gut bacteria's capacity to break urate down without oxygen, using
+    the route described in the 2023 work on bacterial purine handling.
+  made_from: >-
+    urate arriving from host purine turnover and from purine-rich food
+  summary: >-
+    Gut bacteria can degrade urate anaerobically. This is a count of the
+    genes for that route. It is not a serum urate measurement and does not
+    diagnose or rule out gout.
+  evidence_detail: >-
+    Two 2023 studies showed that gut bacteria degrade urate anaerobically
+    and that this contributes to whole-body purine handling in mice, with
+    human cohort association. The route runs through xanthine and purine
+    fermentation to short-chain fatty acids, and it is not the uricase
+    reaction: uricase requires molecular oxygen and most gut anaerobes do
+    not use it. What is measured here is gene capacity in stool. Serum
+    urate is set mostly by renal excretion and host production, and no
+    gene count here can substitute for a blood test or explain an
+    individual's urate level.
+  higher_means: context-dependent
+  evidence_strength: preliminary
+  implications:
+    higher: >-
+      More of the anaerobic urate-degrading route than most samples
+      carry. The mouse work associates this route with lower host urate,
+      but nothing here measures your urate, and the human evidence is
+      association rather than effect.
+    typical: >-
+      A mid-range amount of the anaerobic urate-degrading route, which
+      is what most samples in the reference set carry. This is gene
+      capacity in stool and says nothing about your blood urate level,
+      which is set mostly by the kidneys.
+    lower: >-
+      Less of the anaerobic urate-degrading route than most samples
+      carry. This is not a cause of high urate and not a reason to
+      change anything: host production and renal excretion dominate
+      urate handling, and this route is a recent finding.
+  citation: >-
+    Liu Y. et al., "Gut microbial DNA and purine degradation", Cell
+    186:3400-3413 (2023), doi:10.1016/j.cell.2023.06.010; Kasahara K. et
+    al., "Gut bacterial metabolism contributes to host global purine
+    homeostasis", Cell Host Microbe 31:1038-1053 (2023),
+    doi:10.1016/j.chom.2023.05.011.

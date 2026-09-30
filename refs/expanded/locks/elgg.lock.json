@@ -1,0 +1,20 @@
+{
+  "source_id": "elgg",
+  "files": {
+    "supplements/elgg/ELGG_representatives_2172.zip": {
+      "url": "https://zenodo.org/records/6969520/files/ELGG_representatives_2172.zip?download=1",
+      "size": 1587031082,
+      "retrieved_at": "2026-09-26T23:23:12-07:00",
+      "sha256": "48c6ec7d7cf663507e229dc2e199be81d5ddf1368c63121961de67133abae917",
+      "verified": true,
+      "publisher_checksum": null,
+      "note": "early-life discovery cohort; sequence coverage only, not a paediatric reference interval",
+      "verification": "size matched Content-Length; no publisher checksum published"
+    }
+  },
+  "release_id": "ELGG (Zenodo 6969520)",
+  "taxonomy_release": "",
+  "license": "CC BY 4.0 (Zenodo record 6969520)",
+  "count_unit": "species representative",
+  "source_count": 2172
+}

@@ -1,0 +1,183 @@
+name: adenoma
+version: 1.0.0
+spec_version: 3
+label: "Colorectal adenoma — gut pattern"
+disease: colorectal_adenoma
+task: adenoma_vs_control
+family: colorectal
+body_site: stool
+population: mixed_international_cohorts
+status: research_beta
+evidence_maturity: P3
+challenge_for: [crc]
+
+summary: >-
+  Adenoma is the precursor lesion for most colorectal cancer, and the
+  interesting finding is a negative one: the strong CRC stool signature —
+  Fusobacterium nucleatum, Parvimonas micra, Peptostreptococcus stomatis,
+  Gemella — is weak or absent in adenoma. Both large cross-cohort
+  meta-analyses (Wirbel 2019, Thomas 2019) found adenoma barely separable
+  from controls by stool metagenomics, with AUCs around 0.5-0.6. That makes
+  adenoma the right challenge set for the CRC profile: a CRC score that is
+  also high in adenoma is reading general dysbiosis rather than cancer.
+
+  The modest adenoma-associated directions that do replicate are here, with
+  low weights, because that is what the evidence supports.
+
+references:
+  primary:
+    source: curatedMetagenomicData
+    note: "Colonoscopy-negative controls in the same cohorts are the right contrast and exist in Zeller, Feng and Thomas."
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  feng_2015:
+    label: "Feng 2015 Austrian adenoma / carcinoma shotgun"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: feng_2015
+    maturity: P3
+    weight_in_combined: 1.0
+    note: "156 participants across control, advanced adenoma and carcinoma; adenoma showed early enrichment of some oral and mucin-degrading taxa without the full CRC signature."
+    sources: ["Feng Q, et al. Nat Commun 2015;6:6528"]
+    features:
+      - name: Bacteroides_dorei
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.6
+      - name: Bacteroides_massiliensis
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.6
+      - name: Bilophila_wadsworthia
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.6
+      - name: Alistipes_putredinis
+        level: species
+        direction: higher_in_case
+        w: 0.4
+        q: 0.6
+        s: 0.4
+        c: 0.5
+        direction_conflict: low
+        conflict_note: "Higher in adenoma here; lower in IBD. Genus Alistipes is on the conflicted list; species only."
+      - name: Fusobacterium_nucleatum
+        level: species
+        direction: higher_in_case
+        w: 0.4
+        q: 0.6
+        s: 0.4
+        c: 0.5
+        note: "Present in some adenoma cohorts at much lower effect than in carcinoma."
+
+  thomas_2019_meta:
+    label: "Thomas 2019 cross-cohort adenoma (7 cohorts)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: thomas_2019
+    maturity: P3
+    note: "Adenoma was poorly separable from control across cohorts (AUC ~0.55); the directions listed are the few reaching consistency."
+    sources: ["Thomas AM, et al. Nat Med 2019;25:667-678"]
+    features:
+      - name: Ruminococcus_gnavus
+        level: species
+        direction: higher_in_case
+        w: 0.4
+        q: 0.6
+        s: 0.2
+        c: 0.5
+      - name: Eubacterium_eligens
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.4
+        q: 0.6
+        s: 0.3
+        c: 0.6
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.4
+        q: 0.6
+        s: 0.3
+        c: 0.6
+
+  functional:
+    label: "Carcinogenic metabolite capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P2
+    note: "Secondary bile acids (DCA) are genotoxic and promote adenoma in animal models; H2S is genotoxic at colonic concentrations; the polyamine and colibactin lanes belong to the CRC profile. Butyrate is protective."
+    sources: ["Ocvirk S, O'Keefe SJD. Semin Cancer Biol 2021;73:347 (DCA and CRC)"]
+    features:
+      - name: bai
+        engine: diamond
+        direction: increased
+        w: 0.6
+        q: 0.6
+        s: 0.4
+        c: 0.6
+      - name: h2s
+        engine: diamond
+        direction: increased
+        w: 0.5
+        q: 0.5
+        s: 0.4
+        c: 0.5
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        w: 0.6
+        q: 0.6
+        s: 0.2
+        c: 0.7
+
+confounders:
+  - name: Age
+    effect: "Adenoma prevalence rises with age; controls are often younger"
+    handling: "Reference matched on age band where the stratum allows"
+  - name: Bowel preparation
+    effect: "Most adenoma stool samples are collected around colonoscopy"
+    handling: "Recorded when supplied"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Adenomas are found and removed at colonoscopy. No stool DNA test
+    replaces screening colonoscopy or FIT.
+  - >-
+    Adenoma is nearly inseparable from control by stool metagenomics. A low
+    score here means nothing; a high score means dysbiosis. The profile is in
+    the library chiefly as the challenge set for colorectal_cancer.
+
+effect_size_note: >-
+  Wirbel 2019 and Thomas 2019: adenoma-vs-control AUC roughly 0.5-0.6
+  across cohorts, versus 0.8+ for carcinoma.
+
+citation: >-
+  Feng Q, et al. Gut microbiome development along the colorectal adenoma-
+  carcinoma sequence. Nat Commun 2015;6:6528; Thomas AM, et al. Metagenomic
+  analysis of colorectal cancer datasets identifies cross-cohort microbial
+  diagnostic signatures and a link with choline degradation. Nat Med
+  2019;25:667-678; Wirbel J, et al. Nat Med 2019;25:679-689.

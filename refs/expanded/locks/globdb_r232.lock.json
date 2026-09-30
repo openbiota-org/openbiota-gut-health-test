@@ -1,0 +1,70 @@
+{
+  "source_id": "globdb_r232",
+  "files": {
+    "sylph/globdb_r232/globdb_r232_taxonomy_sylph.tsv.gz": {
+      "url": "https://fileshare.lisc.univie.ac.at/globdb/globdb_r232/taxonomic_profiling/globdb_r232_taxonomy_sylph.tsv.gz",
+      "size": 8152694,
+      "retrieved_at": "2026-09-26T23:11:00-07:00",
+      "sha256": "fe69c7d9446d15b29893d27639281650ccc5193cd9cc3fba2932ba8c7a21f419",
+      "verified": true,
+      "publisher_checksum": "md5:5669aeab27396e550c332955b71d7d2a",
+      "note": "",
+      "verification": "publisher md5"
+    },
+    "globdb_r232/globdb_r232_dictionaries.tar.gz": {
+      "url": "https://fileshare.lisc.univie.ac.at/globdb/globdb_r232/globdb_r232_dictionaries.tar.gz",
+      "size": 3266383,
+      "retrieved_at": "2026-09-26T23:11:04-07:00",
+      "sha256": "239e2385ea89be3e6e226d7b1edf226fa57975c9f7c9ce7f88166db362508a77",
+      "verified": true,
+      "publisher_checksum": "md5:9a493f06c4b41a7b6b63eff6a650a77d",
+      "note": "source-identifier crosswalk dictionaries",
+      "verification": "publisher md5"
+    },
+    "globdb_r232/globdb_r232_taxonomy.tsv.gz": {
+      "url": "https://fileshare.lisc.univie.ac.at/globdb/globdb_r232/globdb_r232_taxonomy.tsv.gz",
+      "size": 8071276,
+      "retrieved_at": "2026-09-26T23:11:04-07:00",
+      "sha256": "705b005ea3250f88b01a211caaa811d5d789b5bef1ed544d52436dbfe2236ce1",
+      "verified": true,
+      "publisher_checksum": "md5:7dd4a6b2c3bc3c7727118b3f772f7a4e",
+      "note": "",
+      "verification": "publisher md5"
+    },
+    "globdb_r232/globdb_r232_checkm2.tsv.gz": {
+      "url": "https://fileshare.lisc.univie.ac.at/globdb/globdb_r232/globdb_r232_checkm2.tsv.gz",
+      "size": 12896811,
+      "retrieved_at": "2026-09-26T23:11:04-07:00",
+      "sha256": "e863c0f7b9a5c00e61d5701dcc51ff4ebb9ad071503a3c4c14e508c1fae0948e",
+      "verified": true,
+      "publisher_checksum": "md5:61da09cb728e7fe4c5116de54e2f173f",
+      "note": "genome quality for the quality policy",
+      "verification": "publisher md5"
+    },
+    "globdb_r232/globdb_r232_dataset_list.tsv": {
+      "url": "https://fileshare.lisc.univie.ac.at/globdb/globdb_r232/globdb_r232_dataset_list.tsv",
+      "size": 4358,
+      "retrieved_at": "2026-09-26T23:11:04-07:00",
+      "sha256": "df3dce800080e43f2b4795b7dd9308304b9d40ffcd9cc6e58f5e254289ca65e3",
+      "verified": true,
+      "publisher_checksum": null,
+      "note": "the 26 source datasets",
+      "verification": "size matched Content-Length; no publisher checksum published"
+    },
+    "sylph/globdb_r232/globdb_r232_sylph_v2_c200.syl2db": {
+      "url": "http://faust.compbio.cs.cmu.edu/sylph-stuff/globdb_r232_sylph_v2_c200.syl2db",
+      "size": 31194509116,
+      "retrieved_at": "2026-09-26T23:21:07-07:00",
+      "sha256": "7f0d00af40cc7afc55dbae1cf06624295301c67b755830c67456c4a65bdf1ee4",
+      "verified": true,
+      "publisher_checksum": null,
+      "note": "official sylph pre-built list; no publisher hash - integrity established by loading and by matching the publisher taxonomy",
+      "verification": "size matched Content-Length; no publisher checksum published"
+    }
+  },
+  "release_id": "globdb_r232",
+  "taxonomy_release": "GlobDB r232",
+  "license": "CC BY-SA 4.0 (GlobDB); index by sylph authors",
+  "count_unit": "species representative",
+  "source_count": 346233
+}

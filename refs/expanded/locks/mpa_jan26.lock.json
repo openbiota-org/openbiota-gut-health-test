@@ -1,0 +1,60 @@
+{
+  "source_id": "mpa_jan26",
+  "files": {
+    "metaphlan4_db/mpa_vJan26_CHOCOPhlAnSGB_202605.md5": {
+      "url": "https://cmprod1.cibio.unitn.it/biobakery4/metaphlan_databases/mpa_vJan26_CHOCOPhlAnSGB_202605.md5",
+      "size": 70,
+      "retrieved_at": "2026-09-26T23:11:00-07:00",
+      "sha256": "67c4650b0a21f4fbe51ebc07513dc78557e273997086719ba334025352f083fa",
+      "verified": true,
+      "publisher_checksum": null,
+      "note": "",
+      "verification": "size matched Content-Length; no publisher checksum published"
+    },
+    "metaphlan4_db/mpa_vJan26_CHOCOPhlAnSGB_202605.nwk": {
+      "url": "https://cmprod1.cibio.unitn.it/biobakery4/metaphlan_databases/mpa_vJan26_CHOCOPhlAnSGB_202605.nwk",
+      "size": 2856334,
+      "retrieved_at": "2026-09-26T23:11:00-07:00",
+      "sha256": "06745d8f526daa2670c98e0be7509eb4501373b4cd8282ba07027d002ed3d2d7",
+      "verified": true,
+      "publisher_checksum": null,
+      "note": "",
+      "verification": "size matched Content-Length; no publisher checksum published"
+    },
+    "metaphlan4_db/mpa_vJan26_CHOCOPhlAnSGB_202605_species.txt.bz2": {
+      "url": "https://cmprod1.cibio.unitn.it/biobakery4/metaphlan_databases/mpa_vJan26_CHOCOPhlAnSGB_202605_species.txt.bz2",
+      "size": 1238616,
+      "retrieved_at": "2026-09-26T23:11:00-07:00",
+      "sha256": "441f86af40f587b969b40ebdb79ffb02b311ffec4c81024d8001e529c6ea5572",
+      "verified": true,
+      "publisher_checksum": "sha256:441f86af40f587b969b40ebdb79ffb02b311ffec4c81024d8001e529c6ea5572",
+      "note": "",
+      "verification": "publisher sha256"
+    },
+    "metaphlan4_db/mpa_vJan26_CHOCOPhlAnSGB_202605_marker_info.txt.bz2": {
+      "url": "https://cmprod1.cibio.unitn.it/biobakery4/metaphlan_databases/mpa_vJan26_CHOCOPhlAnSGB_202605_marker_info.txt.bz2",
+      "size": 87168249,
+      "retrieved_at": "2026-09-26T23:11:06-07:00",
+      "sha256": "ead26c31ee7c7f7ae8ffb6f3b5b489c35e19ad7ca13f79d2387e0ae8fd6ab0cd",
+      "verified": true,
+      "publisher_checksum": null,
+      "note": "",
+      "verification": "size matched Content-Length; no publisher checksum published"
+    },
+    "metaphlan4_db/mpa_vJan26_CHOCOPhlAnSGB_202605.tar": {
+      "url": "https://cmprod1.cibio.unitn.it/biobakery4/metaphlan_databases/mpa_vJan26_CHOCOPhlAnSGB_202605.tar",
+      "size": 6014115840,
+      "retrieved_at": "2026-09-26T23:16:28-07:00",
+      "sha256": "8a12f6ccf69a073f2c6425397d4252e3032effe23c58952490ef0d99fa26ecf3",
+      "verified": true,
+      "publisher_checksum": "md5:f3a9dd08e0d0a95215ef535e58409983",
+      "note": "marker database; bowtie2 index is built locally by `metaphlan --install`",
+      "verification": "publisher md5"
+    }
+  },
+  "release_id": "mpa_vJan26_CHOCOPhlAnSGB_202605",
+  "taxonomy_release": "SGB Jan26 (GTDB R226 bridge upstream)",
+  "license": "MIT (MetaPhlAn); database CC BY-NC-SA per bioBakery",
+  "count_unit": "SGB",
+  "source_count": 72000
+}

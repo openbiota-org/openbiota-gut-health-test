@@ -1,0 +1,329 @@
+# Safety rules — restricted DSL compiled by openbiota/safety.py (spec v04 §8.1).
+# Every nullable field a rule references must appear in on_unknown.fields; the
+# declared on_unknown.action runs when the value is not on file (fail closed).
+# Severity → known_safety_signal: labeled_contraindication > suppress
+# (unknown_incomplete_context) > clinician_only (clinician_review) > caution.
+safety_rules:
+  - rule_id: MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1
+    applies_to:
+      intervention_classes: [probiotic, live_biotherapeutic, topical_live_biotherapeutic, prebiotic, botanical_supplement, vitamin_supplement, multi_ingredient_product, fmt_microbiota_product, prescription_drug, otc_drug, fermented_food, diet]
+    severity: suppress
+    when:
+      any:
+        - {field: subject.is_minor, op: eq, value: true}
+        - {field: subject.adult_status, op: eq, value: unknown}
+    on_unknown:
+      fields: [subject.is_minor]
+      action: suppress
+    action: {suppress_self_directed_option: true, display_safety_reason: true}
+    reason: "Under-18, or age not on file in participant mode: adult-derived intervention content is not shown (spec §8.7; unknown age fails closed for a participant). In research and clinician mode an unsupplied age is assumed adult and the assumption is printed."
+    participant_text: "This report does not show supplement, probiotic, diet or medication content for people under 18 or when age is not on file."
+    source_refs: ["specs/BUILD_SPEC_v04.md §8.7"]
+
+  - rule_id: PRETERM_INFANT_LIVE_MICROBE_V1
+    applies_to:
+      intervention_classes: [probiotic, live_biotherapeutic, topical_live_biotherapeutic, fmt_microbiota_product, fermented_food]
+    severity: labeled_contraindication
+    when:
+      any:
+        - {field: context.preterm_infant, op: eq, value: true}
+    on_unknown:
+      fields: [context.preterm_infant]
+      action: caution
+    action: {suppress_self_directed_option: true, display_safety_reason: true}
+    reason: "FDA warns of invasive, potentially fatal infection in preterm infants given probiotics containing live bacteria or yeast; no probiotic is FDA-approved as a drug or biologic for infants."
+    participant_text: "Live-microbe products carry an FDA warning for preterm infants and no probiotic is approved as a drug or biologic for infants."
+    source_refs: ["https://www.fda.gov/safety/medical-product-safety-information/risk-invasive-disease-preterm-infants-given-probiotics-formulated-contain-live-bacteria-or-yeast"]
+
+  - rule_id: PROBIOTIC_IMMUNOCOMPROMISE_V1
+    applies_to:
+      intervention_classes: [probiotic, live_biotherapeutic, topical_live_biotherapeutic, fermented_food]
+    severity: clinician_only
+    when:
+      any:
+        - {field: context.immunocompromise.status, op: eq, value: true}
+        - {field: context.central_venous_catheter, op: eq, value: true}
+        - {field: context.critical_illness, op: eq, value: true}
+        - {field: context.recent_hospitalization, op: eq, value: true}
+        - {field: context.short_bowel_or_structural_gi, op: eq, value: true}
+    on_unknown:
+      fields: [context.immunocompromise.status, context.central_venous_catheter, context.critical_illness, context.recent_hospitalization, context.short_bowel_or_structural_gi]
+      action: clinician_only
+    action: {suppress_self_directed_option: true, display_safety_reason: true}
+    reason: "Live microbes have caused bacteraemia and fungaemia in immunocompromised, critically ill, catheterised and short-bowel patients; case reports and reviews advise clinician review."
+    source_refs: ["https://pubmed.ncbi.nlm.nih.gov/32531291/", "https://pubmed.ncbi.nlm.nih.gov/31700189/"]
+
+  - rule_id: PREGNANCY_BREASTFEEDING_SUPPLEMENT_V1
+    applies_to:
+      intervention_classes: [botanical_supplement, multi_ingredient_product, vitamin_supplement, otc_drug, probiotic, live_biotherapeutic, prescription_drug]
+    severity: clinician_only
+    when:
+      any:
+        - {field: context.pregnant, op: eq, value: true}
+        - {field: context.breastfeeding, op: eq, value: true}
+    on_unknown:
+      fields: [context.pregnant, context.breastfeeding]
+      action: clinician_only
+    action: {suppress_self_directed_option: true, display_safety_reason: true}
+    reason: "Pregnancy and breastfeeding status is not on file or is positive; most trials excluded these participants and botanical safety data are inadequate."
+    source_refs: ["specs/BUILD_SPEC_v04.md §8.3"]
+
+  - rule_id: BOTANICAL_ANTICOAGULANT_ANTIPLATELET_V1
+    applies_to:
+      intervention_classes: [botanical_supplement, multi_ingredient_product, otc_drug]
+    severity: clinician_only
+    when:
+      any:
+        - {op: medication_class_present, value: anticoagulant}
+        - {op: medication_class_present, value: antiplatelet}
+        - {op: medication_class_present, value: warfarin}
+        - {field: context.bleeding_disorder, op: eq, value: true}
+        - {field: context.gi_bleeding_history, op: eq, value: true}
+        - {field: context.surgery_planned_within_14_days, op: eq, value: true}
+    on_unknown:
+      fields: [context.bleeding_disorder, context.gi_bleeding_history, context.surgery_planned_within_14_days]
+      action: caution
+    action: {suppress_self_directed_option: true, display_safety_reason: true}
+    reason: "Berberine, garlic/allicin, black seed and other botanicals interact with anticoagulant and antiplatelet therapy and can increase bleeding risk around surgery."
+    source_refs: ["https://ods.od.nih.gov/factsheets/Garlic-HealthProfessional/", "specs/BUILD_SPEC_v04.md §8.3"]
+
+  - rule_id: BOTANICAL_GLUCOSE_LOWERING_V1
+    applies_to:
+      intervention_classes: [botanical_supplement, multi_ingredient_product]
+    severity: clinician_only
+    when:
+      any:
+        - {op: medication_class_present, value: glucose_lowering}
+        - {op: medication_class_present, value: insulin}
+        - {op: medication_class_present, value: metformin}
+        - {field: context.diabetes_on_glucose_lowering, op: eq, value: true}
+    on_unknown:
+      fields: [context.diabetes_on_glucose_lowering]
+      action: caution
+    action: {suppress_self_directed_option: true, display_safety_reason: true}
+    reason: "Berberine and several botanicals lower glucose and can potentiate glucose-lowering drugs (hypoglycaemia risk)."
+    source_refs: ["specs/BUILD_SPEC_v04.md §8.3"]
+
+  - rule_id: BOTANICAL_LIVER_KIDNEY_V1
+    applies_to:
+      intervention_classes: [botanical_supplement, multi_ingredient_product, otc_drug]
+    severity: clinician_only
+    when:
+      any:
+        - {field: context.liver_disease, op: eq, value: true}
+        - {field: context.kidney_disease, op: eq, value: true}
+        - {field: context.egfr, op: lt, value: 60, unit: mL/min/1.73m2}
+    on_unknown:
+      fields: [context.liver_disease, context.kidney_disease, context.egfr]
+      action: caution
+    action: {suppress_self_directed_option: true, display_safety_reason: true}
+    reason: "Hepatotoxic and nephrotoxic botanical reactions are documented; liver or kidney disease needs clinician review before any botanical product."
+    source_refs: ["specs/BUILD_SPEC_v04.md §8.3"]
+
+  - rule_id: BOTANICAL_ALLERGY_AND_QUALITY_V1
+    applies_to:
+      intervention_classes: [botanical_supplement, multi_ingredient_product]
+    severity: caution
+    when:
+      any:
+        - {op: allergy_present, value: botanical}
+        - {op: allergy_present, value: lamiaceae}
+        - {op: allergy_present, value: allium}
+    on_unknown:
+      fields: []
+      action: caution
+    action: {suppress_self_directed_option: false, display_safety_reason: true}
+    reason: "Botanical allergy is on file, and supplement composition/quality is not verified by any regulator before sale."
+    source_refs: ["https://www.fda.gov/food/dietary-supplements"]
+
+  - rule_id: FIBER_ESCALATION_STRUCTURAL_GI_V1
+    applies_to:
+      intervention_classes: [prebiotic, diet, fermented_food]
+    severity: clinician_only
+    when:
+      any:
+        - {field: context.short_bowel_or_structural_gi, op: eq, value: true}
+        - {field: context.active_ibd_flare, op: eq, value: true}
+        - {field: context.eating_disorder_or_malnutrition, op: eq, value: true}
+    on_unknown:
+      fields: [context.short_bowel_or_structural_gi, context.active_ibd_flare, context.eating_disorder_or_malnutrition]
+      action: caution
+    action: {suppress_self_directed_option: true, display_safety_reason: true}
+    reason: "Fermentable-fibre escalation is inappropriate with stricture, obstruction, severe flare or prescribed restriction; restrictive diets need screening for eating-disorder risk and malnutrition."
+    source_refs: ["https://pubmed.ncbi.nlm.nih.gov/35337654/", "specs/BUILD_SPEC_v04.md §15.4"]
+
+  - rule_id: RESTRICTIVE_DIET_EATING_DISORDER_V1
+    applies_to:
+      intervention_classes: [diet]
+    severity: clinician_only
+    when:
+      any:
+        - {field: context.eating_disorder_or_malnutrition, op: eq, value: true}
+    on_unknown:
+      fields: [context.eating_disorder_or_malnutrition]
+      action: caution
+    action: {suppress_self_directed_option: true, display_safety_reason: true}
+    reason: "Restriction diets (low-FODMAP, exclusion diets) require dietitian supervision, reintroduction and personalisation, and are unsuitable with eating-disorder risk or malnutrition."
+    source_refs: ["https://pubmed.ncbi.nlm.nih.gov/35337654/"]
+
+  - rule_id: GLUTEN_AVOIDANCE_BEFORE_DIAGNOSIS_V1
+    applies_to:
+      intervention_classes: [diet]
+    severity: clinician_only
+    when:
+      none:
+        - {op: condition_present, value: celiac_disease}
+    on_unknown:
+      fields: []
+      action: clinician_only
+    action: {suppress_self_directed_option: true, display_safety_reason: true}
+    reason: "Starting gluten avoidance before serology and biopsy impairs coeliac testing; the diet follows a clinical diagnosis, not a microbiome pattern."
+    source_refs: ["https://pubmed.ncbi.nlm.nih.gov/36602836/"]
+
+  - rule_id: PRESCRIPTION_REQUIRES_CONFIRMED_INDICATION_V1
+    applies_to:
+      intervention_classes: [prescription_drug]
+    severity: clinician_only
+    when:
+      any:
+        - {field: subject.mode, op: in, value: [participant, clinician, research]}
+    on_unknown:
+      fields: []
+      action: clinician_only
+    action: {suppress_self_directed_option: true, display_safety_reason: true}
+    reason: "Prescription content is clinician-only and requires an exact confirmed indication; a microbiome pattern never establishes that indication (spec §8.2)."
+    source_refs: ["specs/BUILD_SPEC_v04.md §8.2"]
+
+  - rule_id: FMT_CLINICIAN_ONLY_V1
+    applies_to:
+      intervention_classes: [fmt_microbiota_product]
+    severity: clinician_only
+    when:
+      any:
+        - {field: subject.mode, op: in, value: [participant, clinician, research]}
+    on_unknown:
+      fields: []
+      action: clinician_only
+    action: {suppress_self_directed_option: true, display_safety_reason: true}
+    reason: "FMT and FDA-approved microbiota products are clinician-only; approved products cover only prevention of recurrent CDI in adults after antibacterial treatment, and every other use is investigational under IND."
+    source_refs: ["https://pubmed.ncbi.nlm.nih.gov/38395525/", "https://www.fda.gov/vaccines-blood-biologics/fecal-microbiota-products"]
+
+  - rule_id: FMT_SEVERE_IMMUNOCOMPROMISE_V1
+    applies_to:
+      intervention_classes: [fmt_microbiota_product]
+    severity: labeled_contraindication
+    when:
+      any:
+        - {field: context.immunocompromise.severe, op: eq, value: true}
+    on_unknown:
+      fields: [context.immunocompromise.severe]
+      action: clinician_only
+    action: {suppress_self_directed_option: true, display_safety_reason: true}
+    reason: "AGA 2024 recommends against fecal microbiota-based therapy in severely immunocompromised adults."
+    source_refs: ["https://pubmed.ncbi.nlm.nih.gov/38395525/"]
+
+  - rule_id: BISMUTH_SALICYLATE_V1
+    applies_to:
+      intervention_classes: [otc_drug]
+    severity: clinician_only
+    when:
+      any:
+        - {op: medication_class_present, value: anticoagulant}
+        - {op: medication_class_present, value: salicylate}
+        - {op: medication_class_present, value: nsaid}
+        - {field: context.pregnant, op: eq, value: true}
+        - {field: context.gi_bleeding_history, op: eq, value: true}
+        - {field: context.kidney_disease, op: eq, value: true}
+        - {field: subject.is_minor, op: eq, value: true}
+    on_unknown:
+      fields: [context.pregnant, context.gi_bleeding_history, context.kidney_disease, subject.is_minor]
+      action: clinician_only
+    action: {suppress_self_directed_option: true, display_safety_reason: true}
+    reason: "Bismuth subsalicylate carries salicylate bleeding/anticoagulant interactions, pregnancy and paediatric viral-illness (Reye) cautions and toxicity with prolonged use."
+    source_refs: ["specs/BUILD_SPEC_v04.md §15.4 row 20"]
+
+  - rule_id: LEVODOPA_MAOI_MEDICATION_CARD_V1
+    applies_to:
+      intervention_classes: [clinical_route]
+    severity: clinician_only
+    when:
+      any:
+        - {op: medication_class_present, value: levodopa}
+        - {op: medication_class_present, value: mao_inhibitor}
+    on_unknown:
+      fields: []
+      action: caution
+    action: {suppress_self_directed_option: true, display_safety_reason: true}
+    reason: "Bacterial tyrosine decarboxylase abundance is associated with levodopa exposure and dose; this is a medication-context card for the prescriber, not a treatment."
+    source_refs: ["https://pubmed.ncbi.nlm.nih.gov/30659181/"]
+
+  - rule_id: RENAL_DIET_REVIEW_V1
+    applies_to:
+      intervention_classes: [diet, prebiotic, probiotic]
+    severity: clinician_only
+    when:
+      any:
+        - {field: context.kidney_disease, op: eq, value: true}
+        - {field: context.egfr, op: lt, value: 60, unit: mL/min/1.73m2}
+    on_unknown:
+      fields: [context.kidney_disease, context.egfr]
+      action: caution
+    action: {suppress_self_directed_option: true, display_safety_reason: true}
+    reason: "Dietary fibre, potassium and phosphorus changes in CKD require eGFR, electrolytes and renal-dietitian review."
+    source_refs: ["https://pubmed.ncbi.nlm.nih.gov/38490803/"]
+
+  - rule_id: HIGH_DOSE_BIOTIN_ASSAY_INTERFERENCE_V1
+    applies_to:
+      intervention_classes: [vitamin_supplement]
+    severity: caution
+    when:
+      any:
+        - {field: subject.mode, op: in, value: [participant, clinician, research]}
+    on_unknown:
+      fields: []
+      action: caution
+    action: {suppress_self_directed_option: true, display_safety_reason: true}
+    reason: "High-dose biotin interferes with laboratory assays including troponin; biotin deficiency is rare and microbial biotin genes do not indicate a need."
+    source_refs: ["https://www.fda.gov/medical-devices/in-vitro-diagnostics/biotin-interference-troponin-lab-tests-assays-subject-biotin-interference"]
+
+  - rule_id: FOLIC_ACID_MASKS_B12_V1
+    applies_to:
+      intervention_classes: [vitamin_supplement]
+    severity: caution
+    when:
+      any:
+        - {field: subject.mode, op: in, value: [participant, clinician, research]}
+    on_unknown:
+      fields: []
+      action: caution
+    action: {suppress_self_directed_option: true, display_safety_reason: true}
+    reason: "High folic-acid intake can obscure vitamin B12 deficiency; B12 and folate status are blood measurements, not microbial gene counts."
+    source_refs: ["https://ods.od.nih.gov/factsheets/Folate-HealthProfessional/"]
+
+  - rule_id: WARFARIN_VITAMIN_K_V1
+    applies_to:
+      intervention_classes: [vitamin_supplement, diet]
+    severity: clinician_only
+    when:
+      any:
+        - {op: medication_class_present, value: warfarin}
+    on_unknown:
+      fields: []
+      action: caution
+    action: {suppress_self_directed_option: true, display_safety_reason: true}
+    reason: "Warfarin requires stable vitamin K intake managed by the prescriber."
+    source_refs: ["https://ods.od.nih.gov/factsheets/VitaminK-HealthProfessional/"]
+
+  - rule_id: KIDNEY_STONE_OXALATE_ROUTE_V1
+    applies_to:
+      intervention_classes: [clinical_route, diet]
+    severity: clinician_only
+    when:
+      any:
+        - {field: context.kidney_stone_history, op: eq, value: true}
+    on_unknown:
+      fields: [context.kidney_stone_history]
+      action: caution
+    action: {suppress_self_directed_option: true, display_safety_reason: true}
+    reason: "Stone history routes to standard evaluation (24-hour urine) under AUA guidance; no Oxalobacter probiotic is recommended."
+    source_refs: ["https://www.auanet.org/guidelines-and-quality/guidelines/medical-management-of-kidney-stones"]

@@ -1,0 +1,144 @@
+name: gaba
+description: >-
+  GABA production and degradation. gadB is glutamate decarboxylase, which
+  converts glutamate to GABA and is the production route; gabT
+  (GABA aminotransferase) is the degradation route. Both are screened because
+  the net GABA available in the lumen depends on the balance, and a community
+  can be rich in both.
+metabolite: gamma-aminobutyric acid (GABA)
+pathway: >-
+  L-glutamate -> GABA + CO2 (gadB, PLP-dependent glutamate decarboxylase);
+  GABA + 2-oxoglutarate -> succinate semialdehyde + glutamate (gabT)
+category: neuroactive
+
+organisms:
+  - Bacteroides fragilis
+  - Parabacteroides distasonis
+  - Escherichia coli
+  - Lactobacillus brevis
+  - Bifidobacterium adolescentis
+  - Bifidobacterium dentium
+
+extension: true
+
+targets:
+  # The recommended protein name is precise. `gene:gadB` also returns gadA,
+  # the paralogous isoform in E. coli, which is the same activity and is
+  # welcome; it does not return unrelated proteins, unlike most gene-name
+  # queries in this panel set.
+  - id: GADB
+    label: gadB / gadA (glutamate decarboxylase)
+    gene: gadB
+    source: uniprot
+    query: '(protein_name:"glutamate decarboxylase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2500
+    length_tolerance: 0.25
+
+  - id: GABT
+    label: gabT (4-aminobutyrate aminotransferase, degradation)
+    gene: gabT
+    source: uniprot
+    query: '(protein_name:"4-aminobutyrate--2-oxoglutarate transaminase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.25
+
+decoys:
+  # Group II PLP decarboxylases are a large family running the same chemistry
+  # on different amino acids. Without them, histidine and tyrosine
+  # decarboxylases would be counted as gadB.
+  - id: PLPDC
+    label: group II PLP-dependent amino acid decarboxylase background
+    source: uniprot
+    query: '((protein_name:"histidine decarboxylase") OR (protein_name:"tyrosine decarboxylase") OR (protein_name:"aromatic-L-amino-acid decarboxylase") OR (protein_name:"cysteine sulfinic acid decarboxylase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 3000
+    length_tolerance: 0.25
+    note: >-
+      The decisive decoy set. gadB, hdcA and tyrDC share a fold and this panel
+      would otherwise report the histamine and dopamine panels' targets as GABA
+      capacity.
+
+  - id: AMINOTBG
+    label: class-III aminotransferase background (gabT fold)
+    source: uniprot
+    query: '((protein_name:"ornithine aminotransferase") OR (protein_name:"acetylornithine aminotransferase") OR (protein_name:"diaminobutyrate--2-oxoglutarate transaminase") OR (protein_name:"putrescine aminotransferase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 3000
+    length_tolerance: 0.25
+
+aggregate: sum
+aggregate_from: [GADB]
+aggregate_reason: >-
+  The headline is production capacity only. gabT is reported separately and
+  deliberately kept out of the aggregate: summing a producer and a consumer
+  would give a number that rises whichever way the community leans. The
+  interesting reading is the two side by side.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+caveats:
+  - >-
+    Bacterial GABA does not straightforwardly become brain GABA. GABA crosses
+    the blood-brain barrier poorly, and the proposed routes to the central
+    nervous system run through the vagus nerve and enteric neurons rather than
+    through the bloodstream. The gut-brain claims for this molecule are
+    substantially weaker than the popular accounts suggest.
+  - >-
+    gadB in E. coli and many other organisms is primarily an acid-resistance
+    system: it consumes a proton per decarboxylation. Its presence says the
+    organism can survive stomach transit, and GABA is the by-product.
+  - >-
+    Capacity is not concentration. Luminal GABA depends on glutamate supply,
+    on pH, and on how fast the community's own gabT consumes it.
+
+interpretation:
+  what_it_is: >-
+    GABA, the main inhibitory neurotransmitter in the brain, which many gut
+    bacteria also make from glutamate.
+  made_from: Dietary and microbial glutamate
+  higher_means: unclear
+  reader_direction: favourable
+  direction_note: >-
+    Bacterial GABA is read as a gut-brain benefit in the evidence that exists, which is early.
+  evidence_strength: preliminary
+  summary: >-
+    Certain Bacteroides and Bifidobacterium species produce GABA in the gut,
+    and one study found that GABA-producing capacity related inversely to a
+    brain signature of depression. Whether gut GABA reaches the brain in
+    meaningful amounts is unresolved, so this is reported as an interesting
+    capacity, not a mood measurement.
+  evidence_detail: >-
+    Strandwitz et al. isolated a GABA-dependent Bacteroides from human stool,
+    showed that Bacteroides species are major gut GABA producers, and found
+    that relative Bacteroides abundance related inversely to depression-
+    associated brain signatures on functional MRI in a small cohort. That is
+    a correlation in a small sample on an indirect outcome. The mechanistic
+    gap is real: GABA crosses the blood-brain barrier poorly, and the routes
+    proposed for gut-derived GABA run through the vagus nerve and enteric
+    nervous system rather than the circulation. Treat this as a genuine
+    community feature with an unresolved connection to anything you feel.
+  implications:
+    higher: >-
+      Your gut community has more GABA-producing capacity than most people's.
+      What that means for you is genuinely unknown: gut GABA crosses into the
+      brain poorly, and the proposed routes run through nerves rather than
+      blood. Read this as a feature of your community rather than a statement
+      about mood.
+    typical: >-
+      Your GABA-producing capacity sits in the middle of the reference range. Bacterial GABA production is a normal feature of the gut community, mostly from Bacteroides and lactic acid bacteria, and a typical level carries no message about mood or brain function.
+    lower: >-
+      Less GABA-producing capacity than most people. One small study related
+      low GABA production to a depression-associated brain signature; that is
+      a single finding on an indirect measure and not a reason for concern.
+  citation: >-
+    Strandwitz P. et al., Nat Microbiol 4:396-403 (2019),
+    doi:10.1038/s41564-018-0307-3; Otaru N. et al., Front Microbiol 12:656895
+    (2021)
+
+citation: >-
+  Strandwitz P., Kim K.H., Terekhova D., et al., "GABA-modulating bacteria of
+  the human gut microbiota", Nat Microbiol 4:396-403 (2019),
+  doi:10.1038/s41564-018-0307-3.

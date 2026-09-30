@@ -1,0 +1,47 @@
+name: sulfate_reducers
+label: "Sulfate-reducing bacteria"
+category: function
+higher_means: context-dependent
+reader_direction: adverse
+direction_note: >-
+  These organisms make hydrogen sulfide, which stops colon cells using butyrate for fuel and is raised in ulcerative colitis. A small population is normal; a large one is not.
+description: >-
+  Organisms that respire sulfate or sulfite and release hydrogen sulfide.
+  Desulfovibrio is the dominant genus; Bilophila wadsworthia respires taurine
+  instead and is the one that responds sharply to animal-fat diets. This
+  group and the H2S gene panel measure the same biology two different ways
+  and should agree.
+
+summary: >-
+  Bacteria that breathe sulfate instead of oxygen, releasing hydrogen sulfide
+  as they do. They are normal members of most healthy communities. Sustained
+  high sulfide interferes with how colon cells use butyrate for fuel, and
+  sulfate-reducer expansion is reported in ulcerative colitis.
+
+members:
+  - Desulfovibrio piger
+  - Desulfovibrio fairfieldensis
+  - Desulfovibrio legallii
+  - Bilophila wadsworthia
+
+unresolved:
+  - Desulfovibrio desulfuricans
+  - Desulfotomaculum nigrificans
+
+caveats:
+  - >-
+    A small group in a low-abundance niche, so this reading is noisier than
+    the larger groups and more sensitive to sequencing depth.
+  - >-
+    Bilophila wadsworthia rose sharply on an animal-based diet in the David
+    et al. dietary intervention, making this group unusually diet-responsive
+    over days rather than months.
+  - >-
+    Carriage is normal. The ulcerative colitis association concerns expansion
+    and sustained sulfide exposure, not presence.
+
+citation: >-
+  David L.A., Maurice C.F., Carmody R.N., et al., "Diet rapidly and
+  reproducibly alters the human gut microbiome", Nature 505:559-563 (2014),
+  doi:10.1038/nature12820; Carbonero F. et al., Nat Rev Gastroenterol Hepatol
+  9:504-518 (2012).

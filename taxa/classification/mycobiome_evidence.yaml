@@ -1,0 +1,1110 @@
+# Gut mycobiome: what each fungus is, what the evidence says, and the frozen
+# MHS-E1 rule manifest (BUILD_SPEC_v08.2 §9, §7.5.3).
+#
+# Evidence labels (spec §9.2): human_trial | human_association |
+# human_isolate_plus_experiment | animal_experiment | in_vitro |
+# genome_inference | insufficient_evidence.
+#
+# Every claim states organism, host, site, endpoint, design, direction and
+# its inference limit. A claim's direction is about a named endpoint under
+# the stated conditions; it is never "good fungus" or "bad fungus". The same
+# organism may carry favorable and concerning claims at once - both are kept.
+#
+# `category` is a reader-facing grouping only. It does not score anything.
+#   studied_probiotic_species | commensal_opportunist | opportunist |
+#   food_associated | environmental_or_food | beneficial_preclinical |
+#   pathogen_alert_route | unknown
+
+taxa:
+
+  - name: Saccharomyces cerevisiae
+    taxid: 4932
+    synonyms: ["Saccharomyces boulardii", "Saccharomyces cerevisiae var. boulardii"]
+    category: studied_probiotic_species
+    origin_default: compatible_with_food_or_supplement
+    role: >
+      Baker's, brewer's and wine yeast, and the species that contains the studied
+      probiotic strains sold as S. boulardii. Common in stool after bread, beer,
+      wine or a yeast probiotic; usually transient rather than resident.
+    evidence:
+      - claim_id: sacch_ibd_incidence
+        label: human_association
+        direction: favorable
+        endpoint: IBD incidence across populations
+        host: human
+        site: stool
+        design: multi-ethnic cohort; Saccharomyces-rich mycobiomes in populations with lower IBD incidence
+        source: https://doi.org/10.1080/19490976.2024.2440111
+        limit: Association at population level; Saccharomyces in stool is largely dietary and transient (review ref 81).
+      - claim_id: sacch_depleted_disease
+        label: human_association
+        direction: context
+        endpoint: depletion in IBD, alcohol-related liver disease, obesity and cirrhosis-to-HCC progression
+        host: human
+        site: stool
+        design: case-control comparisons summarised in a 2024 review
+        source: https://doi.org/10.1080/19490976.2024.2440111
+        limit: Depletion in disease does not make supplementation protective; direction in Crohn's is contested between ITS2 and shotgun studies (review refs 161, 103).
+      - claim_id: sb_aad_trial
+        label: human_trial
+        direction: favorable
+        endpoint: antibiotic-associated diarrhoea incidence
+        host: human
+        site: gut
+        design: randomised placebo-controlled trial of a studied S. boulardii strain
+        detail: >
+          22% diarrhoea with placebo versus 9.5% with the yeast among 180 completing
+          participants.
+        source: https://pubmed.ncbi.nlm.nih.gov/2494098/
+        limit: >
+          Species-level reads do not identify the trial strain; the trial's benefit
+          required antibiotic exposure. Presence is not evidence the host is
+          receiving the studied effect.
+      - claim_id: sc_colitis_mouse
+        label: animal_experiment
+        direction: concerning
+        endpoint: colitis severity
+        host: mouse
+        site: colon
+        design: gnotobiotic mouse colonisation with S. cerevisiae strains
+        detail: Some S. cerevisiae strains worsened experimental colitis.
+        source: https://pmc.ncbi.nlm.nih.gov/articles/PMC5994919/
+        limit: Strain- and model-specific; not all Saccharomyces, and not a human finding.
+      - claim_id: sb_fungemia_hospital
+        label: human_association
+        direction: concerning
+        endpoint: probiotic-associated fungemia
+        host: human
+        site: bloodstream
+        design: hospital case series in susceptible patients
+        source: https://pmc.ncbi.nlm.nih.gov/articles/PMC8314839/
+        limit: Hospital proportions are not risk estimates for healthy users.
+    must_not_infer: >
+      A probiotic product strain from species-level DNA; benefit; deficiency when
+      absent; universal safety.
+
+  - name: Candida albicans
+    taxid: 5476
+    synonyms: []
+    category: commensal_opportunist
+    origin_default: unknown
+    role: >
+      The most common fungus in human stool and mouths, carried by a large share of
+      healthy adults, and also the leading opportunistic yeast. Isolates differ:
+      in a 2022 study, human gut isolates ranged from low- to high-damaging to
+      immune cells, and the high-damaging ones aggravated experimental
+      inflammation through candidalysin-related mechanisms.
+    evidence:
+      - claim_id: ca_immune_training
+        label: animal_experiment
+        direction: favorable
+        endpoint: Th17 calibration, antifungal IgG, protection from S. aureus and influenza in mice
+        host: mouse; human association
+        site: gut
+        design: commensal colonisation experiments summarised in a 2024 review
+        source: https://doi.org/10.1080/19490976.2024.2440111
+        limit: Benefit of commensal carriage at ordinary levels; not a reason to acquire or expand it (review refs 86, 95-97, 157).
+      - claim_id: ca_dominance_dysbiosis
+        label: human_association
+        direction: concerning
+        endpoint: expansion tracks IBD relapse, alcohol-related liver disease, cirrhosis and failed FMT in C. difficile infection
+        host: human
+        site: stool
+        design: case-control and longitudinal cohorts summarised in a 2024 review
+        source: https://doi.org/10.1080/19490976.2024.2440111
+        limit: The pattern is dominance and expansion, not presence; C. albicans is a normal constituent in most people (review refs 44, 161, 193, 240).
+      - claim_id: ca_hd_isolates
+        label: human_isolate_plus_experiment
+        direction: concerning
+        endpoint: immune-cell damage and experimental intestinal inflammation
+        host: human isolates; mouse
+        site: gut
+        design: phenotyped human gut isolates with mouse colonisation
+        source: https://pmc.ncbi.nlm.nih.gov/articles/PMC9166917/
+        limit: >
+          Only a resolved high-damaging study isolate genotype carries this evidence.
+          Species presence, generic ECE1 or candidalysin variants do not - the four
+          candidalysin variants did not separate high- from low-damaging isolates.
+      - claim_id: ca_commensal
+        label: human_association
+        direction: context
+        endpoint: carriage in healthy adults
+        host: human
+        site: stool
+        design: population sequencing surveys
+        source: https://link.springer.com/article/10.1186/s40168-017-0373-4
+        limit: Presence is not candidiasis.
+    must_not_infer: Candidiasis from presence; the high-damaging phenotype from species abundance.
+
+  - name: Candida tropicalis
+    taxid: 5482
+    synonyms: []
+    category: commensal_opportunist
+    origin_default: unknown
+    role: >
+      An opportunistic yeast related to C. albicans. Associated with Crohn's disease
+      in a family study, where it interacted with E. coli and Serratia marcescens to
+      form denser biofilms in the laboratory.
+    evidence:
+      - claim_id: ct_asca_cd
+        label: human_association
+        direction: concerning
+        endpoint: Crohn's disease; ASCA antibodies that predict Crohn's up to five years ahead
+        host: human
+        site: stool; serum
+        design: cohort studies summarised in a 2024 review
+        source: https://doi.org/10.1080/19490976.2024.2440111
+        limit: Association; ASCA is the antibody biomarker, not this organism's DNA (review refs 161, 176, 177).
+      - claim_id: ct_crohns_family
+        label: human_association
+        direction: concerning
+        endpoint: Crohn's disease in a family cohort
+        host: human
+        site: stool
+        design: family-based association with in vitro interaction assays
+        source: https://pmc.ncbi.nlm.nih.gov/articles/PMC5030358/
+        limit: Association, not causation; the biofilm was formed in a dish.
+      - claim_id: ct_ec_sm_biofilm
+        label: in_vitro
+        direction: concerning
+        endpoint: mixed-species biofilm formation
+        host: none (laboratory)
+        site: in vitro
+        design: co-culture with E. coli and S. marcescens
+        source: https://pmc.ncbi.nlm.nih.gov/articles/PMC5030358/
+        limit: Co-detection in stool is interaction potential, not an observed intestinal biofilm.
+    must_not_infer: An intestinal biofilm or disease causation from co-detection.
+
+  - name: Candida parapsilosis
+    taxid: 5480
+    synonyms: ["Lodderomyces parapsilosis"]
+    complex: Candida parapsilosis complex
+    category: commensal_opportunist
+    origin_default: unknown
+    role: >
+      A skin- and gut-associated opportunistic yeast; a common cause of bloodstream
+      infection in neonates and the catheterised. In mice fed a high-fat diet, gut
+      C. parapsilosis promoted obesity through fungal lipase-related mechanisms.
+    evidence:
+      - claim_id: cpar_obesity_mouse
+        label: animal_experiment
+        direction: concerning
+        endpoint: diet-induced obesity and lipid handling
+        host: mouse
+        site: gut
+        design: colonisation on a high-fat diet
+        source: https://pmc.ncbi.nlm.nih.gov/articles/PMC8546080/
+        limit: >
+          A mouse phenotype from tested isolates; no human obesity probability follows.
+          Does not apply to unresolved C. orthopsilosis / C. metapsilosis.
+    must_not_infer: An individual obesity risk; the mechanism for an unresolved complex member.
+
+  - name: Candida orthopsilosis
+    taxid: 273371
+    synonyms: ["Lodderomyces orthopsilosis"]
+    complex: Candida parapsilosis complex
+    category: commensal_opportunist
+    origin_default: unknown
+    role: A member of the C. parapsilosis complex, distinguished from C. parapsilosis only by sequence.
+    evidence: []
+    must_not_infer: The C. parapsilosis experimental phenotype.
+
+  - name: Candida metapsilosis
+    taxid: 273372
+    synonyms: ["Lodderomyces metapsilosis"]
+    complex: Candida parapsilosis complex
+    category: commensal_opportunist
+    origin_default: unknown
+    role: A member of the C. parapsilosis complex, distinguished from C. parapsilosis only by sequence.
+    evidence:
+      - claim_id: cm_m2006b_fxr
+        label: animal_experiment
+        direction: favorable
+        endpoint: alleviates colitis in antibiotic-treated mice by activating FXR
+        host: mouse
+        site: colon
+        design: colonisation with isolate M2006B; sesquiterpenoid FXR agonists
+        source: https://doi.org/10.1080/19490976.2024.2440111
+        limit: One isolate in mice; species-level DNA does not identify it and no human benefit is shown (review ref 236).
+    must_not_infer: The C. parapsilosis experimental phenotype.
+
+  - name: Nakaseomyces glabratus
+    taxid: 5478
+    synonyms: ["Candida glabrata", "Nakaseomyces glabrata"]
+    category: opportunist
+    origin_default: unknown
+    role: >
+      Formerly Candida glabrata: one concept under two names, not two fungi. A
+      clinically important opportunistic yeast, common in the gut of healthy
+      adults and the second most common cause of candidaemia in many countries,
+      with intrinsically reduced susceptibility to fluconazole.
+    evidence:
+      - claim_id: ng_ibd_obesity
+        label: animal_experiment
+        direction: concerning
+        endpoint: elevated in IBD; drives high-fat-diet obesity in mice, reversed by antifungals
+        host: human association; mouse
+        site: gut
+        design: cohorts and mouse experiments summarised in a 2024 review
+        source: https://doi.org/10.1080/19490976.2024.2440111
+        limit: Mouse phenotype; selected for by long-term antifungal use (review refs 65, 161, 174).
+      - claim_id: ng_clinical
+        label: human_association
+        direction: context
+        endpoint: bloodstream infection epidemiology
+        host: human
+        site: bloodstream
+        design: clinical epidemiology
+        source: https://academic.oup.com/cid/article-abstract/83/1/e109/8653119
+        limit: No healthy stool abundance threshold follows from bloodstream-infection data.
+    must_not_infer: Infection or a stool threshold.
+
+  - name: Debaryomyces hansenii
+    taxid: 4959
+    synonyms: ["Candida famata"]
+    category: food_associated
+    origin_default: compatible_with_food_or_supplement
+    role: >
+      A salt-tolerant yeast of cheese rinds and cured meats, and a common stool
+      finding after dairy. In mice and human tissue it was enriched in injured,
+      inflamed intestinal wounds and impaired their repair.
+    evidence:
+      - claim_id: dh_wound_repair
+        label: animal_experiment
+        direction: concerning
+        endpoint: intestinal wound repair
+        host: mouse; human tissue
+        site: injured intestinal mucosa
+        design: colonisation of injured mucosa with human-tissue enrichment
+        source: https://pmc.ncbi.nlm.nih.gov/articles/PMC10114606/
+        limit: Stool presence cannot establish tissue localisation, impaired healing or a need for eradication.
+    must_not_infer: Impaired healing in this person.
+
+  - name: Malassezia restricta
+    taxid: 76775
+    synonyms: []
+    category: commensal_opportunist
+    origin_default: compatible_with_oral_or_skin_source
+    role: >
+      A lipid-dependent skin yeast found in healthy stool at low levels. Associated
+      with Crohn's disease mucosa in carriers of a CARD9 variant, and it worsened
+      colitis in susceptible experimental models.
+    evidence:
+      - claim_id: mr_alcohol_liver
+        label: animal_experiment
+        direction: concerning
+        endpoint: worsens ethanol-induced liver injury via CLEC4N on Kupffer cells
+        host: mouse
+        site: gut-liver
+        design: acute and chronic ethanol models
+        source: https://doi.org/10.1080/19490976.2024.2440111
+        limit: Mouse model under ethanol; enriched in ALD versus MASLD in one human cohort (review refs 195, 198).
+      - claim_id: mr_colitis
+        label: animal_experiment
+        direction: concerning
+        endpoint: colitis severity in susceptible hosts
+        host: mouse; human association
+        site: colon mucosa
+        design: colonisation in CARD9-dependent models with human mucosal association
+        source: https://pmc.ncbi.nlm.nih.gov/articles/PMC6417942/
+        limit: Host genotype (CARD9) is not known here and is not imputed; skin carriage can contribute to stool DNA.
+    must_not_infer: Crohn's disease, skin disease or invasive infection from a stool hit.
+
+  - name: Malassezia globosa
+    taxid: 76773
+    synonyms: []
+    category: commensal_opportunist
+    origin_default: compatible_with_oral_or_skin_source
+    role: >
+      A skin yeast; in stool it usually reflects skin or handling contribution.
+      Tumour-tissue and mouse research on Malassezia in pancreatic cancer is a
+      tissue finding, not a stool threshold.
+    evidence:
+      - claim_id: mg_tissue_model
+        label: animal_experiment
+        direction: context
+        endpoint: pancreatic tumour progression
+        host: mouse; human tumour tissue
+        site: pancreas
+        design: tissue mycobiome and mouse model
+        source: https://pubmed.ncbi.nlm.nih.gov/31578522/
+        limit: Not a stool cancer-risk threshold.
+    must_not_infer: Cancer risk from stool DNA.
+
+  - name: Clavispora lusitaniae
+    taxid: 36911
+    synonyms: ["Candida lusitaniae"]
+    category: beneficial_preclinical
+    origin_default: unknown
+    role: >
+      A yeast depleted in people with IBD in a 2025 study, where one gut isolate
+      (P4013B) protected mice from colitis through indole-3-ethanol and the AHR
+      pathway. A promising preclinical beneficial strain; the species is also an
+      occasional opportunist.
+    evidence:
+      - claim_id: cl_p4013b_protection
+        label: human_isolate_plus_experiment
+        direction: favorable
+        endpoint: colitis protection via indole-3-ethanol / AHR
+        host: human isolate; mouse
+        site: colon
+        design: IBD depletion association with mouse colonisation by isolate P4013B
+        source: https://pmc.ncbi.nlm.nih.gov/articles/PMC12615640/
+        limit: >
+          Species-level detection is not P4013B; the benefit is preclinical; a
+          generic pyruvate-decarboxylase gene is not this strain's identifier.
+    must_not_infer: Proven human benefit; a supplementation recommendation; P4013B from species DNA.
+
+  - name: Cladosporium sphaerospermum
+    taxid: 47458
+    synonyms: []
+    category: environmental_or_food
+    origin_default: compatible_with_food_or_supplement
+    role: >
+      A common indoor and food mould. A 2026 study found it depleted in Crohn's
+      ileal mucosa while stool abundance was unchanged, with protective mechanisms
+      investigated in mice and cells - biology that stool alone can miss.
+    evidence:
+      - claim_id: cs_mucosal_protection
+        label: animal_experiment
+        direction: context
+        endpoint: mucosal protection in models
+        host: mouse; cells; human mucosa association
+        site: ileal mucosa
+        design: mucosal versus faecal comparison with experiments
+        source: https://pubmed.ncbi.nlm.nih.gov/41501528/
+        limit: Faecal non-detection does not mean missing mucosal protection; not all Cladosporium is bad mould.
+    must_not_infer: Anything from faecal absence.
+
+  - name: Aspergillus
+    rank: genus
+    taxid: 5052
+    synonyms: []
+    category: environmental_or_food
+    origin_default: compatible_with_food_or_supplement
+    role: >
+      Ubiquitous moulds of food, air and fermented products (soy sauce and miso use
+      A. oryzae). Stool DNA is most often passage from food or air. Species and
+      complex matter: toxin-capable and food-fermentation relatives cannot be
+      told apart at genus level.
+    evidence:
+      - claim_id: asp_rambellii_crc
+        label: human_association
+        direction: concerning
+        endpoint: A. rambellii enriched in colorectal cancer alongside Fusobacterium nucleatum; promoted tumour growth experimentally
+        host: human; mouse
+        site: stool; tumour
+        design: meta-analysis of 1,329 metagenomes with functional validation
+        source: https://doi.org/10.1080/19490976.2024.2440111
+        limit: One species; stool Aspergillus in general is usually environmental exposure, not colonisation (review refs 76, 77, 187).
+      - claim_id: asp_food_passage
+        label: human_trial
+        direction: context
+        endpoint: stool fungal signal after controlled diet
+        host: human
+        site: stool
+        design: controlled-diet study
+        source: https://pmc.ncbi.nlm.nih.gov/articles/PMC5874442/
+        limit: DNA does not establish mycotoxin production, viability, colonisation or invasive disease.
+    must_not_infer: Mycotoxin exposure or infection.
+
+  - name: Penicillium
+    rank: genus
+    taxid: 5073
+    synonyms: []
+    category: environmental_or_food
+    origin_default: compatible_with_food_or_supplement
+    role: >
+      Cheese, fruit and indoor-air moulds; P. camemberti and P. roqueforti make
+      soft and blue cheeses. Stool DNA is usually dietary passage.
+    evidence:
+      - claim_id: pen_longitudinal_culture
+        label: human_association
+        direction: context
+        endpoint: recurrent culture from stool over time
+        host: human
+        site: stool
+        design: longitudinal culture study
+        source: https://doi.org/10.3389/fmicb.2019.01575
+        limit: Recurrence can still reflect repeated ingestion.
+    must_not_infer: Mycotoxin exposure or infection.
+
+  - name: Rhodotorula mucilaginosa
+    taxid: 5537
+    synonyms: []
+    category: environmental_or_food
+    origin_default: unknown
+    role: >
+      A pink environmental yeast and occasional opportunist. In early-life mouse
+      experiments its metabolic effects differed from other fungi.
+    evidence:
+      - claim_id: rm_early_life_mouse
+        label: animal_experiment
+        direction: context
+        endpoint: metabolic outcomes after early-life colonisation
+        host: mouse
+        site: gut
+        design: neonatal colonisation
+        source: https://www.nature.com/articles/s41467-025-56743-8
+        limit: A mouse phenotype, not a universal human good/bad label.
+    must_not_infer: A human metabolic effect.
+
+  - name: Candidozyma auris
+    taxid: 498019
+    synonyms: ["Candida auris"]
+    category: pathogen_alert_route
+    origin_default: unknown
+    role: >
+      An emerging multidrug-resistant yeast that spreads in healthcare settings.
+      Gut carriage is documented in outbreak contexts. Any supported detection is
+      routed to the existing pathogen alert policy; it is never folded into the
+      health index.
+    evidence:
+      - claim_id: cauris_alert
+        label: human_association
+        direction: concerning
+        endpoint: healthcare-associated colonisation and infection
+        host: human
+        site: skin; gut
+        design: outbreak epidemiology
+        source: https://www.ncbi.nlm.nih.gov/bioproject/PRJNA328792
+        limit: A clade assignment does not establish resistance genotype or infection.
+    must_not_infer: Infection, or susceptibility, from DNA alone.
+
+  - name: Pichia kudriavzevii
+    taxid: 4909
+    synonyms: ["Candida krusei", "Issatchenkia orientalis"]
+    category: commensal_opportunist
+    origin_default: compatible_with_food_or_supplement
+    role: >
+      A yeast of fermented foods (cocoa, sourdough, some cheeses) that is also the
+      opportunist formerly called Candida krusei, intrinsically resistant to
+      fluconazole. One species, two names, two contexts.
+    evidence: []
+    must_not_infer: Infection or a food source, from DNA alone.
+
+  - name: Kluyveromyces marxianus
+    taxid: 4911
+    synonyms: ["Candida kefyr"]
+    category: food_associated
+    origin_default: compatible_with_food_or_supplement
+    role: A dairy yeast of kefir and cheese whey; in stool it nearly always reflects recent dairy.
+    evidence:
+      - claim_id: kluyv_aud
+        label: human_association
+        direction: context
+        endpoint: Kluyveromyces raised in alcohol use disorder and alcohol-related liver disease
+        host: human
+        site: stool
+        design: cohorts summarised in a 2024 review
+        source: https://doi.org/10.1080/19490976.2024.2440111
+        limit: A dairy yeast; the association is with drinking, not with dairy (review refs 193, 198).
+    must_not_infer: Residence.
+
+  - name: Kluyveromyces lactis
+    taxid: 28985
+    synonyms: []
+    category: food_associated
+    origin_default: compatible_with_food_or_supplement
+    role: A dairy yeast; stool DNA reflects recent cheese or whey products.
+    evidence: []
+    must_not_infer: Residence.
+
+  - name: Geotrichum candidum
+    taxid: 27317
+    synonyms: ["Galactomyces candidus"]
+    category: food_associated
+    origin_default: compatible_with_food_or_supplement
+    role: The white rind yeast of soft cheeses; a stool hit is a cheese hit.
+    evidence: []
+    must_not_infer: Residence or infection.
+
+  - name: Cyberlindnera jadinii
+    taxid: 4903
+    synonyms: ["Candida utilis", "Pichia jadinii"]
+    category: food_associated
+    origin_default: compatible_with_food_or_supplement
+    role: Torula yeast, used as a food flavouring and in yeast extracts.
+    evidence: []
+    must_not_infer: Residence.
+
+  - name: Torulaspora delbrueckii
+    taxid: 4950
+    synonyms: []
+    category: food_associated
+    origin_default: compatible_with_food_or_supplement
+    role: A wine, beer and baking yeast; dietary passage.
+    evidence: []
+    must_not_infer: Residence.
+
+  - name: Meyerozyma guilliermondii
+    taxid: 4929
+    synonyms: ["Candida guilliermondii"]
+    category: commensal_opportunist
+    origin_default: unknown
+    role: A widespread environmental and food yeast and an occasional opportunist.
+    evidence:
+      - claim_id: mg_ethanol_pge2
+        label: animal_experiment
+        direction: concerning
+        endpoint: alcohol-associated hepatitis via prostaglandin E2 from arachidonic acid
+        host: mouse
+        site: gut-liver
+        design: chronic ethanol feeding
+        source: https://doi.org/10.1080/19490976.2024.2440111
+        limit: Mouse model under ethanol; no human endpoint (review ref 194).
+    must_not_infer: Infection.
+
+  - name: Agaricus bisporus
+    taxid: 5341
+    synonyms: []
+    category: food_associated
+    origin_default: compatible_with_food_or_supplement
+    role: The button mushroom. Its DNA in stool is dinner.
+    evidence: []
+    must_not_infer: Residence.
+
+  - name: Lentinula edodes
+    taxid: 5353
+    synonyms: []
+    category: food_associated
+    origin_default: compatible_with_food_or_supplement
+    role: Shiitake. Dietary passage.
+    evidence: []
+    must_not_infer: Residence.
+
+  - name: Pleurotus ostreatus
+    taxid: 5322
+    synonyms: []
+    category: food_associated
+    origin_default: compatible_with_food_or_supplement
+    role: Oyster mushroom. Dietary passage.
+    evidence: []
+    must_not_infer: Residence.
+
+  - name: Fusarium
+    rank: genus
+    taxid: 5506
+    synonyms: []
+    category: environmental_or_food
+    origin_default: compatible_with_food_or_supplement
+    role: >
+      Plant and cereal moulds; some species make mycotoxins in grain, one is used
+      as a mycoprotein food. Stool DNA is usually dietary. A 2025 study reported
+      experimental metabolic protection by a Fusarium species in mice - emerging
+      evidence, not a score input.
+    evidence:
+      - claim_id: fus_metabolic_mouse
+        label: animal_experiment
+        direction: context
+        endpoint: metabolic protection in a mouse model
+        host: mouse
+        site: gut
+        design: colonisation experiment
+        source: https://pubmed.ncbi.nlm.nih.gov/40310917/
+        limit: Emerging evidence; species- and model-specific.
+    must_not_infer: Mycotoxin exposure, or benefit.
+
+  - name: Brettanomyces bruxellensis
+    taxid: 5007
+    synonyms: ["Dekkera bruxellensis"]
+    category: food_associated
+    origin_default: compatible_with_food_or_supplement
+    role: >
+      The yeast of lambic and sour beers, kombucha and some wines, and a spoilage
+      organism in others. In stool it is a fermented-drink signal; it is not known
+      to colonise the gut.
+    evidence:
+      - claim_id: brett_kombucha
+        label: in_vitro
+        direction: context
+        endpoint: antioxidant and antimicrobial properties described for kombucha yeasts
+        host: none (food science)
+        site: fermented drink
+        design: reviews of kombucha SCOBY
+        source: https://doi.org/10.1080/19490976.2024.2440111
+        limit: A property of the drink, not of stool DNA (review refs 231, 232).
+    must_not_infer: Residence.
+
+  - name: Lachancea
+    rank: genus
+    taxid: 300275
+    synonyms: []
+    category: food_associated
+    origin_default: compatible_with_food_or_supplement
+    role: Wine, kombucha and sourdough yeasts (L. thermotolerans, L. fermentati). Dietary passage.
+    evidence: []
+    must_not_infer: Residence.
+
+  - name: Hanseniaspora
+    rank: genus
+    taxid: 29832
+    synonyms: ["Kloeckera"]
+    category: food_associated
+    origin_default: compatible_with_food_or_supplement
+    role: Apiculate yeasts of grape and fruit surfaces and the first phase of wine fermentation; a fruit signal.
+    evidence: []
+    must_not_infer: Residence.
+
+  - name: Kazachstania
+    rank: genus
+    taxid: 71245
+    synonyms: []
+    category: food_associated
+    origin_default: compatible_with_food_or_supplement
+    role: Sourdough and cheese-rind yeasts; K. unispora and K. servazzii are common in fermented foods.
+    evidence: []
+    must_not_infer: Residence.
+
+  - name: Zygosaccharomyces
+    rank: genus
+    taxid: 4953
+    synonyms: []
+    category: food_associated
+    origin_default: compatible_with_food_or_supplement
+    role: Osmotolerant yeasts of honey, syrups, soy sauce and miso; in stool, a sweet or fermented-food signal.
+    evidence: []
+    must_not_infer: Residence.
+
+  - name: Wickerhamomyces anomalus
+    taxid: 4927
+    synonyms: ["Pichia anomala"]
+    category: food_associated
+    origin_default: compatible_with_food_or_supplement
+    role: A yeast of grain, sourdough and fruit with biocontrol use in food storage; dietary passage.
+    evidence: []
+    must_not_infer: Residence.
+
+  - name: Yarrowia lipolytica
+    taxid: 4952
+    synonyms: []
+    category: food_associated
+    origin_default: compatible_with_food_or_supplement
+    role: A lipid-metabolising yeast of cheese, cured meat and industrial fermentation; an occasional opportunist in the immunocompromised.
+    evidence: []
+    must_not_infer: Infection or residence.
+
+  - name: Saccharomycopsis fibuligera
+    taxid: 4944
+    synonyms: []
+    category: food_associated
+    origin_default: compatible_with_food_or_supplement
+    role: The amylolytic yeast of rice wine and fermented starch foods (ragi, nuruk). Dietary passage.
+    evidence: []
+    must_not_infer: Residence.
+
+  - name: Monascus
+    rank: genus
+    taxid: 5098
+    synonyms: []
+    category: food_associated
+    origin_default: compatible_with_food_or_supplement
+    role: >
+      The red yeast rice mould. Red yeast rice products contain monacolin K
+      (chemically lovastatin); the mould's DNA in stool is a supplement or food
+      signal, and some strains make the nephrotoxin citrinin - which DNA does not measure.
+    evidence: []
+    must_not_infer: Citrinin exposure, or a statin effect, from DNA.
+
+  - name: Rhizopus
+    rank: genus
+    taxid: 4842
+    synonyms: []
+    category: environmental_or_food
+    origin_default: compatible_with_food_or_supplement
+    role: The tempeh mould (R. oligosporus/microsporus) and a common food-spoilage mould; also an agent of mucormycosis in the severely immunocompromised.
+    evidence:
+      - claim_id: rhizopus_tempeh
+        label: in_vitro
+        direction: favorable
+        endpoint: probiotic properties described for the tempeh mould R. oligosporus
+        host: none (food science)
+        site: fermented food
+        design: reviews of tempeh fermentation
+        source: https://doi.org/10.1080/19490976.2024.2440111
+        limit: A property of the food, not of stool DNA (review ref 233).
+    must_not_infer: Infection from DNA alone.
+
+  - name: Mucor
+    rank: genus
+    taxid: 4830
+    synonyms: []
+    category: environmental_or_food
+    origin_default: compatible_with_food_or_supplement
+    role: >
+      Fast-growing moulds of soil, soft cheese rinds (M. lanceolatus) and fermented
+      soy foods (M. circinelloides in sufu). Stool DNA is usually food or air. A
+      cause of mucormycosis only in the severely immunocompromised or in diabetic
+      ketoacidosis.
+    evidence:
+      - claim_id: mucor_mash_ratio
+        label: human_association
+        direction: concerning
+        endpoint: Mucor/Saccharomyces ratio raised in MASH with advanced fibrosis
+        host: human
+        site: stool
+        design: cohort summarised in a 2024 review
+        source: https://doi.org/10.1080/19490976.2024.2440111
+        limit: A ratio in liver-disease patients; food and air are the usual source of Mucor DNA (review ref 164).
+    must_not_infer: Infection from DNA alone.
+
+  - name: Rhizomucor
+    rank: genus
+    taxid: 4839
+    synonyms: []
+    category: environmental_or_food
+    origin_default: compatible_with_food_or_supplement
+    role: Thermophilic moulds of compost and rennet production (R. miehei makes microbial rennet for cheese); dietary or environmental passage.
+    evidence: []
+    must_not_infer: Infection from DNA alone.
+
+  - name: Schizothecium
+    rank: genus
+    taxid: 5180
+    synonyms: ["Podospora"]
+    category: environmental_or_food
+    origin_default: unknown
+    role: Dung- and soil-dwelling fungi of the Sordariales, common on herbivore manure and in agricultural soil; in human stool a plausible environmental or dietary (plant surface) passenger with no health evidence.
+    evidence: []
+    must_not_infer: Residence or any health effect.
+
+  - name: Cryptococcus neoformans
+    taxid: 5207
+    synonyms: []
+    category: pathogen_alert_route
+    origin_default: unknown
+    role: An environmental yeast that causes meningitis in the immunocompromised. Routed to the pathogen alert policy.
+    evidence: []
+    must_not_infer: Infection from DNA alone.
+
+  - name: Candida
+    rank: genus
+    taxid: 5475
+    synonyms: []
+    category: commensal_opportunist
+    origin_default: unknown
+    role: >
+      A large, polyphyletic genus of yeasts. A finding placed only at genus level
+      means the reads could not be told between species - the evidence for any
+      one Candida species does not transfer to it.
+    evidence: []
+    must_not_infer: Any species-specific evidence; infection.
+
+  - name: Candida dubliniensis
+    taxid: 42374
+    synonyms: []
+    category: commensal_opportunist
+    origin_default: unknown
+    role: A close relative of C. albicans, mostly oral; a less virulent opportunist in the immunocompromised.
+    evidence:
+      - claim_id: cd_ald_severity
+        label: human_association
+        direction: concerning
+        endpoint: rises with alcohol-associated liver disease severity
+        host: human
+        site: stool
+        design: cross-sectional cohort summarised in a 2024 review
+        source: https://doi.org/10.1080/19490976.2024.2440111
+        limit: Association in drinkers; not a finding about healthy carriers (review ref 199).
+    must_not_infer: Infection; the C. albicans isolate evidence.
+
+  - name: Malassezia
+    rank: genus
+    taxid: 55193
+    synonyms: []
+    category: commensal_opportunist
+    origin_default: compatible_with_oral_or_skin_source
+    role: Lipid-dependent skin yeasts; in stool at low levels in most people, usually from skin. Species-level evidence exists for M. restricta and M. globosa only.
+    evidence: []
+    must_not_infer: Skin or gut disease from stool DNA.
+
+  - name: Debaryomyces
+    rank: genus
+    taxid: 4958
+    synonyms: []
+    category: food_associated
+    origin_default: compatible_with_food_or_supplement
+    role: Salt-tolerant yeasts of cheese and cured meat. Species-level evidence exists for D. hansenii only.
+    evidence: []
+    must_not_infer: The D. hansenii wound-repair evidence, for another species.
+
+  - name: Trichosporon
+    rank: genus
+    taxid: 5552
+    synonyms: []
+    category: opportunist
+    origin_default: compatible_with_oral_or_skin_source
+    role: Skin and environmental yeasts; T. asahii causes disseminated infection in neutropenic patients. In stool of a healthy person, a skin or environmental passenger.
+    evidence: []
+    must_not_infer: Infection from DNA alone.
+
+  - name: Cladosporium
+    rank: genus
+    taxid: 5498
+    synonyms: []
+    category: environmental_or_food
+    origin_default: compatible_with_food_or_supplement
+    role: The most common airborne mould; on food surfaces and in every home. Stool DNA is passage. Species-level evidence exists for C. sphaerospermum only.
+    evidence: []
+    must_not_infer: Anything from a genus-level hit.
+
+  - name: Alternaria
+    rank: genus
+    taxid: 5598
+    synonyms: []
+    category: environmental_or_food
+    origin_default: compatible_with_food_or_supplement
+    role: Plant and air moulds common on fruit, vegetables and grain; a major outdoor allergen. Stool DNA is dietary or airborne passage.
+    evidence: []
+    must_not_infer: Mycotoxin exposure or infection.
+
+  - name: Trichoderma
+    rank: genus
+    taxid: 5543
+    synonyms: []
+    category: environmental_or_food
+    origin_default: compatible_with_food_or_supplement
+    role: Soil moulds used as agricultural biocontrol and enzyme sources (cellulases in food processing); dietary or environmental passage.
+    evidence: []
+    must_not_infer: Any health effect.
+
+  - name: Neurospora
+    rank: genus
+    taxid: 5140
+    synonyms: []
+    category: food_associated
+    origin_default: compatible_with_food_or_supplement
+    role: The orange bread mould and the mould of oncom, an Indonesian fermented food; a laboratory model organism. Dietary passage.
+    evidence: []
+    must_not_infer: Any health effect.
+
+  - name: Aureobasidium
+    rank: genus
+    taxid: 5579
+    synonyms: []
+    category: environmental_or_food
+    origin_default: compatible_with_food_or_supplement
+    role: Black yeast-like fungi of leaf and fruit surfaces; A. pullulans makes the food additive pullulan. Passage.
+    evidence: []
+    must_not_infer: Any health effect.
+
+  - name: Metschnikowia
+    rank: genus
+    taxid: 27320
+    synonyms: []
+    category: food_associated
+    origin_default: compatible_with_food_or_supplement
+    role: Fruit and flower yeasts used in winemaking and fruit biocontrol; a fruit signal.
+    evidence: []
+    must_not_infer: Residence.
+
+  - name: Lichtheimia
+    rank: genus
+    taxid: 4830
+    synonyms: ["Absidia"]
+    category: environmental_or_food
+    origin_default: compatible_with_food_or_supplement
+    role: Mucoralean moulds of soil, compost and fermented soy foods (L. corymbifera); in the severely immunocompromised an agent of mucormycosis. Stool DNA is food or environment.
+    evidence: []
+    must_not_infer: Infection from DNA alone.
+
+  - name: Ogataea
+    rank: genus
+    taxid: 461281
+    synonyms: ["Hansenula polymorpha", "Pichia angusta"]
+    category: food_associated
+    origin_default: compatible_with_food_or_supplement
+    role: Methylotrophic yeasts of fruit, tree sap and industrial fermentation (O. polymorpha is a biotech workhorse); dietary passage.
+    evidence: []
+    must_not_infer: Residence.
+
+  - name: Cystobasidium
+    rank: genus
+    taxid: 1653335
+    synonyms: ["Rhodotorula minuta", "Rhodotorula slooffiae"]
+    category: environmental_or_food
+    origin_default: unknown
+    role: Pink basidiomycetous yeasts of air, water and plant surfaces; formerly filed under Rhodotorula. Environmental passage.
+    evidence: []
+    must_not_infer: Any health effect.
+
+  - name: Kodamaea ohmeri
+    taxid: 27327
+    synonyms: ["Pichia ohmeri", "Candida guilliermondii var. membranaefaciens"]
+    category: commensal_opportunist
+    origin_default: compatible_with_food_or_supplement
+    role: A yeast of pickles, brines and fruit that is also a rare opportunist in hospitalised patients. In a healthy person's stool, a food signal.
+    evidence: []
+    must_not_infer: Infection from DNA alone.
+
+  - name: Leptographium
+    rank: genus
+    taxid: 5482
+    synonyms: ["Grosmannia"]
+    category: environmental_or_food
+    origin_default: unknown
+    role: Bark-beetle-associated fungi of conifer wood with no known human relevance; a signal here is environmental DNA or a repeat-sequence artefact, and is held as a trace.
+    evidence: []
+    must_not_infer: Any health effect.
+
+  - name: Pichia
+    rank: genus
+    taxid: 4919
+    synonyms: []
+    category: food_associated
+    origin_default: compatible_with_food_or_supplement
+    role: Yeasts of fermented foods and fruit (P. fermentans, P. membranifaciens). Species-level evidence exists for P. kudriavzevii only.
+    evidence: []
+    must_not_infer: Residence.
+
+  - name: Talaromyces
+    rank: genus
+    taxid: 5094
+    synonyms: []
+    category: environmental_or_food
+    origin_default: compatible_with_food_or_supplement
+    role: Soil and food moulds related to Penicillium; T. marneffei, a pathogen of the immunocompromised in Southeast Asia, is handled by the pathogen screen, not here.
+    evidence: []
+    must_not_infer: Infection from a genus-level hit.
+
+  - name: Histoplasma capsulatum
+    taxid: 5037
+    synonyms: []
+    category: pathogen_alert_route
+    origin_default: unknown
+    role: A dimorphic fungal pathogen of soil enriched by bird and bat droppings. Routed to the pathogen alert policy.
+    evidence: []
+    must_not_infer: Infection from DNA alone.
+
+# --------------------------------------------------------------------------- #
+# MHS-E1 rule manifest (spec §7.5.3). This table IS the initial policy.
+# `cap` is OpenBiota engineering policy; `source_ids` are the facts.
+# `required_identity`: species | reference_genotype | lineage
+# `trigger_type`: presence | genotype | co_presence | abundance_rank
+# --------------------------------------------------------------------------- #
+
+rules:
+
+  - rule_id: P4013B_B
+    direction: B
+    biological_claim_id: clavispora_lusitaniae_protection:strain
+    source_ids: [cl_p4013b_protection]
+    required_identity: reference_genotype
+    taxon: Clavispora lusitaniae
+    reference_accessions: [GCA_023627835.1]
+    trigger_type: genotype
+    cap: 0.50
+    extrapolations: [preclinical_protection_not_human_benefit]
+    note: >
+      Resolved P4013B reference genotype. Species identity or a generic PDC gene
+      alone does not activate this row.
+
+  - rule_id: CL_LUSITANIAE_B
+    direction: B
+    biological_claim_id: clavispora_lusitaniae_protection:species
+    source_ids: [cl_p4013b_protection]
+    required_identity: species
+    taxon: Clavispora lusitaniae
+    trigger_type: presence
+    cap: 0.25
+    extrapolations: [species_to_tested_strain, preclinical_protection_not_human_benefit]
+    note: >
+      Supported species without a resolved P4013B match. When P4013B remains
+      compatible with the observed discriminating evidence, P4013B_B enters the
+      sensitivity range as an unresolved alternative; the point uses this row.
+
+  - rule_id: CA_HD_C
+    direction: C
+    biological_claim_id: candida_albicans_high_damaging:strain
+    source_ids: [ca_hd_isolates]
+    required_identity: reference_genotype
+    taxon: Candida albicans
+    reference_genotypes: [IDB311, IDB101]
+    trigger_type: genotype
+    cap: 0.50
+    extrapolations: [isolate_phenotype_not_measured_in_participant]
+    note: >
+      Resolved natural high-damaging study isolate genotype. Species identity,
+      generic ECE1, candidalysin variants or a nearest-neighbour result do not
+      activate. An equivalence set containing high- and low-damaging references
+      gives C in 0-0.50 as an unresolved alternative; no member is preferred.
+
+  - rule_id: CA_LD_CONTEXT
+    direction: B
+    biological_claim_id: candida_albicans_low_damaging:strain
+    source_ids: [ca_hd_isolates]
+    required_identity: reference_genotype
+    taxon: Candida albicans
+    reference_genotypes: [IDC561, IDB891]
+    trigger_type: genotype
+    cap: 0.0
+    note: Lower damage in one assay is not a demonstrated health benefit. No points.
+
+  - rule_id: CPAR_GUT_C
+    direction: C
+    biological_claim_id: candida_parapsilosis_obesity:species
+    source_ids: [cpar_obesity_mouse]
+    required_identity: species
+    taxon: Candida parapsilosis
+    trigger_type: presence
+    cap: 0.25
+    extrapolations: [mouse_model_to_human, tested_isolates_to_detected_species]
+    note: Supported C. parapsilosis species; an unresolved complex does not identify it.
+
+  - rule_id: DH_REPAIR_C
+    direction: C
+    biological_claim_id: debaryomyces_hansenii_repair:species
+    source_ids: [dh_wound_repair]
+    required_identity: species
+    taxon: Debaryomyces hansenii
+    trigger_type: presence
+    cap: 0.25
+    extrapolations: [stool_to_injured_tissue, mouse_model_to_human]
+
+  - rule_id: MR_COLITIS_C
+    direction: C
+    biological_claim_id: malassezia_restricta_colitis:species
+    source_ids: [mr_colitis]
+    required_identity: species
+    taxon: Malassezia restricta
+    trigger_type: presence
+    cap: 0.25
+    extrapolations: [susceptible_model_to_unknown_host_genotype, skin_source_possible]
+
+  - rule_id: CT_EC_SM_INTERACTION_C
+    direction: C
+    biological_claim_id: candida_tropicalis_biofilm_interaction:in_vitro
+    source_ids: [ct_ec_sm_biofilm]
+    required_identity: species
+    taxon: Candida tropicalis
+    co_present_bacteria: [Escherichia coli, Serratia marcescens]
+    trigger_type: co_presence
+    cap: 0.125
+    extrapolations: [in_vitro_interaction_not_observed_biofilm]
+
+  - rule_id: SB_STUDIED_B
+    direction: B
+    biological_claim_id: saccharomyces_boulardii_trial:strain
+    source_ids: [sb_aad_trial]
+    required_identity: reference_genotype
+    taxon: Saccharomyces cerevisiae
+    trigger_type: genotype
+    cap: 0.50
+    required_context: [documented_relevant_antibiotic_exposure]
+    bound: false
+    note: >
+      Unbound: no verified genotype-to-trial join exists for the studied strain.
+      A boulardii-like lineage, product label or supplement history is not that
+      join. The finding stays visible; it scores nothing.
+
+  - rule_id: FUNGAL_ABUNDANCE_ASSOCIATION
+    direction: C
+    biological_claim_id: fungal_abundance_association:adapter
+    source_ids: []
+    required_identity: species
+    trigger_type: abundance_rank
+    cap: 0.25
+    bound: false
+    note: >
+      Generic adapter for a reviewed human stool abundance-outcome rule with a
+      qualified same-pipeline reference. No such reference is qualified; unbound.

@@ -1,0 +1,329 @@
+name: carbohydrates
+description: >-
+  The enzymes your gut bacteria use to open dietary carbohydrates. Each
+  substrate is reported as its own reading in the functions section, with
+  how specific the evidence is, because an enzyme family that acts on a
+  whole class of molecules is not evidence about one member of it.
+metabolite: Dietary fibre and carbohydrate breakdown
+pathway: >-
+  dietary polysaccharide -> backbone-cleaving enzyme + side-chain and
+  linkage-specific enzymes -> oligosaccharides -> uptake and fermentation
+category: substrate
+
+extension: true
+
+targets:
+  - id: CELL
+    label: cellulase (endo-beta-1,4-glucanase)
+    gene: celA
+    source: uniprot
+    query: '(protein_name:"Cellulase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: ENDOGLUC
+    label: endoglucanase
+    gene: celB
+    source: uniprot
+    query: '(protein_name:"Endoglucanase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: BGLUC
+    label: beta-glucosidase
+    gene: bglA
+    source: uniprot
+    query: '(protein_name:"Beta-glucosidase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: AMYA
+    label: alpha-amylase
+    gene: amyA
+    source: uniprot
+    query: '(protein_name:"Alpha-amylase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: PULA
+    label: pullulanase (debranching)
+    gene: pulA
+    source: uniprot
+    query: '(protein_name:"Pullulanase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: GLUCOAMY
+    label: glucoamylase
+    gene: gluA
+    source: uniprot
+    query: '(protein_name:"Glucoamylase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 2857
+    length_tolerance: 0.3
+
+  - id: AGLUC
+    label: alpha-glucosidase
+    gene: aglA
+    source: uniprot
+    query: '(protein_name:"Alpha-glucosidase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: OGLUC
+    label: oligo-1,6-glucosidase
+    gene: malL
+    source: uniprot
+    query: '(protein_name:"Oligo-1,6-glucosidase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 2200
+    length_tolerance: 0.3
+
+  - id: CHIA
+    label: chitinase
+    gene: chiA
+    source: uniprot
+    query: '(protein_name:"Chitinase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: CHID
+    label: chitin deacetylase
+    gene: chiD
+    source: uniprot
+    query: '(protein_name:"Chitin deacetylase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: NAGZ
+    label: beta-N-acetylhexosaminidase
+    gene: nagZ
+    source: uniprot
+    query: '(protein_name:"Beta-N-acetylhexosaminidase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: PGAL
+    label: polygalacturonase
+    gene: pgl
+    source: uniprot
+    query: '(protein_name:"Polygalacturonase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 1805
+    length_tolerance: 0.3
+
+  - id: PECL
+    label: pectate lyase
+    gene: pelA
+    source: uniprot
+    query: '(protein_name:"Pectate lyase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: PECE
+    label: pectinesterase
+    gene: pme
+    source: uniprot
+    query: '(protein_name:"Pectinesterase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: RHAMG
+    label: rhamnogalacturonase
+    gene: rgl
+    source: uniprot
+    query: '(protein_name:"Rhamnogalacturonase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 1703
+    length_tolerance: 0.3
+
+  - id: SACA
+    label: beta-fructofuranosidase (fructan)
+    gene: sacA
+    source: uniprot
+    query: '(protein_name:"Beta-fructofuranosidase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: LEVA
+    label: levanase
+    gene: levB
+    source: uniprot
+    query: '(protein_name:"Levanase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 613
+    length_tolerance: 0.3
+
+  - id: BGAL
+    label: beta-galactosidase
+    gene: lacZ
+    source: uniprot
+    query: '(protein_name:"Beta-galactosidase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: AGAL
+    label: alpha-galactosidase
+    gene: melA
+    source: uniprot
+    query: '(protein_name:"Alpha-galactosidase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: XYLB
+    label: xylan 1,4-beta-xylosidase
+    gene: xylB
+    source: uniprot
+    query: '(protein_name:"Xylan 1,4-beta-xylosidase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 2993
+    length_tolerance: 0.3
+
+  - id: XYNA
+    label: endo-1,4-beta-xylanase
+    gene: xynA
+    source: uniprot
+    query: '(protein_name:"Endo-1,4-beta-xylanase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: ABFA
+    label: alpha-N-arabinofuranosidase
+    gene: abfA
+    source: uniprot
+    query: '(protein_name:"Alpha-N-arabinofuranosidase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 1914
+    length_tolerance: 0.3
+
+  - id: AXE
+    label: acetyl xylan esterase
+    gene: axe
+    source: uniprot
+    query: '(protein_name:"Acetyl xylan esterase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 1483
+    length_tolerance: 0.3
+
+  - id: FAE
+    label: feruloyl esterase
+    gene: fae
+    source: uniprot
+    query: '(protein_name:"Feruloyl esterase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: LICH
+    label: licheninase (beta-1,3-1,4-glucanase)
+    gene: licB
+    source: uniprot
+    query: '(protein_name:"Licheninase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 330
+    length_tolerance: 0.3
+
+  - id: BG13
+    label: glucan endo-1,3-beta-D-glucosidase
+    gene: glcA
+    source: uniprot
+    query: '(protein_name:"Glucan endo-1,3-beta-D-glucosidase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 1470
+    length_tolerance: 0.3
+
+  - id: MANB
+    label: mannan endo-1,4-beta-mannosidase
+    gene: manB
+    source: uniprot
+    query: '(protein_name:"Mannan endo-1,4-beta-mannosidase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 2678
+    length_tolerance: 0.3
+
+  - id: MANA
+    label: beta-mannosidase
+    gene: manA
+    source: uniprot
+    query: '(protein_name:"Beta-mannosidase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+aggregate: sum
+aggregate_from: [AMYA, BGAL, XYNA, PGAL]
+aggregate_reason: >-
+  One backbone enzyme from each of four unrelated substrate classes -
+  starch, galactoside, xylan and pectin. The sum is a breadth measure and
+  is deliberately not a total of all the enzymes: the per-substrate
+  readings in the functions section are where specificity is judged.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+expected_copies_per_genome: 2
+
+citation: >-
+  Drula E. et al., "The carbohydrate-active enzyme database: functions and
+  literature", Nucleic Acids Res 50:D571-D577 (2022),
+  doi:10.1093/nar/gkab1045; Zheng J. et al., "dbCAN3", Nucleic Acids Res
+  51:W115-W121 (2023), doi:10.1093/nar/gkad328.
+
+interpretation:
+  what_it_is: >-
+    The breadth of dietary carbohydrates your gut bacteria carry enzymes
+    for, across starch, pectin, xylan and galactoside chemistry.
+  made_from: >-
+    Dietary fibre, resistant starch and other carbohydrates reaching the
+    colon
+  summary: >-
+    Fourteen individual fibre and starch readings are built from these
+    enzymes in the functions section. This panel is their shared evidence
+    and a breadth summary; the specificity judgement happens per
+    substrate.
+  evidence_detail: >-
+    A carbohydrate-active enzyme family usually acts on a class of
+    molecules rather than on one, so a family alone answers a broader
+    question than the one a reader asks. GH13 supports general amylolysis
+    but not resistant starch in particular; a beta-galactosidase is
+    carried by every lactose-using organism and does not establish
+    galactooligosaccharide use. The per-substrate readings therefore state
+    whether the evidence is substrate-specific or only class-level, and a
+    gene shared between two substrates appears on both cards and is
+    counted once in any total. What none of this measures is how much
+    fibre you eat: it is the capacity to use what arrives.
+  higher_means: favourable
+  evidence_strength: limited
+  implications:
+    higher: >-
+      Your community carries enzymes for a wider range of dietary
+      carbohydrates than most samples. Breadth of this kind travels with
+      dietary variety, and it means fewer fibres pass through unused.
+    typical: >-
+      Mid-range breadth of carbohydrate-active enzymes, which is the
+      usual finding in an adult gut. The individual substrate readings
+      in this section are more informative than the total, because they
+      say which fibres in particular your community can open.
+    lower: >-
+      Fewer carbohydrate-active enzyme families than most samples carry.
+      That can follow a narrow diet, and it is capacity rather than
+      intake: adding a fibre nothing here can open would not help.
+  citation: >-
+    Drula E. et al., "The carbohydrate-active enzyme database: functions
+    and literature", Nucleic Acids Res 50:D571-D577 (2022),
+    doi:10.1093/nar/gkab1045; Zheng J. et al., "dbCAN3", Nucleic Acids Res
+    51:W115-W121 (2023), doi:10.1093/nar/gkad328.

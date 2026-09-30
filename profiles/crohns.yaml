@@ -1,0 +1,496 @@
+name: crohns
+version: 1.0.0
+spec_version: 3
+label: "Crohn's disease — gut pattern"
+disease: crohns_disease
+task: cd_vs_non_ibd
+family: ibd
+body_site: stool
+population: mixed_north_american_european_cohorts
+status: research_beta
+evidence_maturity: P3
+challenge_for: [crc, uc]
+
+summary: >-
+  The best-replicated disease pattern in the gut microbiome literature after
+  colorectal cancer, with independent shotgun cohorts in North America and
+  Europe agreeing on direction for a core set of species: depletion of
+  Faecalibacterium prausnitzii and the Roseburia and Eubacterium butyrate
+  producers, and expansion of Escherichia coli, Ruminococcus gnavus and the
+  oral-origin Veillonella and Haemophilus. Treatment-naive paediatric cohorts
+  show the same pattern, so it is not a treatment artefact.
+
+  The pattern is strongest in a dysbiotic subgroup. The HMP2 study found IBD
+  patients moved in and out of a dysbiotic state over time, and at any one
+  sampling many Crohn's patients look like controls. A high score here is
+  also the general dysbiosis pattern, so read it with the shape analysis.
+
+references:
+  primary:
+    source: curatedMetagenomicData
+    note: >-
+      HMP2 used non-IBD symptomatic controls — people scoped for GI symptoms
+      and found not to have IBD — which is the right contrast for a stool
+      test in someone with symptoms.
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  gevers_2014_risk:
+    label: "Gevers 2014 RISK treatment-naive paediatric cohort"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: gevers_2014
+    maturity: P3
+    weight_in_combined: 1.0
+    note: >-
+      447 treatment-naive newly diagnosed children plus 221 controls, with
+      shotgun on a subset. The oral-origin taxa and E. coli directions come
+      from mucosal biopsy as well as stool; stool signal is weaker but
+      concordant.
+    sources: ["Gevers D, et al. Cell Host Microbe 2014;15:382-392"]
+    features:
+      - name: Escherichia_coli
+        level: species
+        direction: higher_in_case
+        w: 1.0
+        q: 0.8
+        s: 0.3
+        c: 0.9
+      - name: Veillonella_parvula
+        level: species
+        direction: higher_in_case
+        cluster: oral_origin
+        w: 0.8
+        q: 0.7
+        s: 0.4
+        c: 0.8
+        conflict_note: "Genus Veillonella is on the conflicted list; species only."
+      - name: Haemophilus_parainfluenzae
+        level: species
+        direction: higher_in_case
+        cluster: oral_origin
+        w: 0.8
+        q: 0.7
+        s: 0.4
+        c: 0.8
+      - name: Fusobacterium_nucleatum
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.6
+        s: 0.3
+        c: 0.7
+        note: "Shared with the colorectal cancer pattern; low specificity."
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 1.0
+        q: 0.9
+        s: 0.2
+        c: 0.9
+      - name: Bifidobacterium_adolescentis
+        level: species
+        direction: lower_in_case
+        w: 0.7
+        q: 0.7
+        s: 0.3
+        c: 0.8
+      - name: Eubacterium_rectale
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.8
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.8
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: Coprococcus_comes
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.7
+        s: 0.3
+        c: 0.7
+      - name: Dorea_longicatena
+        level: species
+        direction: lower_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.3
+        c: 0.7
+
+  hmp2_2019:
+    label: "HMP2 IBDMDB longitudinal multi-omics"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: hmp2_2019
+    maturity: P3
+    note: >-
+      132 participants sampled over a year, 1,638 stool metagenomes. Defined
+      the dysbiotic state; directions here are dysbiotic-versus-non-dysbiotic
+      as well as CD-versus-non-IBD.
+    sources: ["Lloyd-Price J, et al. Nature 2019;569:655-662"]
+    features:
+      - name: Ruminococcus_gnavus
+        level: species
+        direction: higher_in_case
+        w: 1.0
+        q: 0.9
+        s: 0.3
+        c: 0.9
+      - name: Escherichia_coli
+        level: species
+        direction: higher_in_case
+        w: 0.9
+        q: 0.8
+        s: 0.3
+        c: 0.9
+      - name: Ruminococcus_torques
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: Clostridium_bolteae
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 1.0
+        q: 0.9
+        s: 0.2
+        c: 0.9
+      - name: Roseburia_hominis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.8
+        s: 0.3
+        c: 0.8
+      - name: Alistipes_putredinis
+        level: species
+        direction: lower_in_case
+        w: 0.6
+        q: 0.7
+        s: 0.4
+        c: 0.7
+        conflict_note: "Genus Alistipes is on the conflicted list; species only."
+      - name: Eubacterium_siraeum
+        level: species
+        direction: lower_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.7
+
+  franzosa_2019_prism:
+    label: "Franzosa 2019 PRISM + validation cohort"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: franzosa_2019
+    maturity: P3
+    note: >-
+      155-person discovery with 65-person Dutch validation; metabolomic and
+      metagenomic. Independent participants from HMP2.
+    sources: ["Franzosa EA, et al. Nat Microbiol 2019;4:293-305"]
+    features:
+      - name: Ruminococcus_gnavus
+        level: species
+        direction: higher_in_case
+        w: 0.9
+        q: 0.8
+        s: 0.3
+        c: 0.9
+      - name: Escherichia_coli
+        level: species
+        direction: higher_in_case
+        w: 0.8
+        q: 0.8
+        s: 0.3
+        c: 0.9
+      - name: Clostridium_bolteae
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.9
+        q: 0.9
+        s: 0.2
+        c: 0.9
+      - name: Alistipes_putredinis
+        level: species
+        direction: lower_in_case
+        w: 0.6
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: Alistipes_shahii
+        level: species
+        direction: lower_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.7
+
+  pascal_2017:
+    label: "Pascal 2017 Spanish / Belgian / German cohorts"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    assay_transport: amplicon_taxon_to_shotgun
+    study_group: pascal_2017
+    maturity: P3
+    note: >-
+      2,045 stool samples from four countries, 16S. Identified a
+      CD-specific signature that separated CD from UC, IBS and healthy. The
+      transported genera here are the ones with a clear shotgun species
+      counterpart.
+    sources: ["Pascal V, et al. Gut 2017;66:813-822"]
+    features:
+      - name: Fusobacterium_nucleatum
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.6
+        s: 0.3
+        c: 0.7
+        mapping_confidence: medium
+      - name: Escherichia_coli
+        level: species
+        direction: higher_in_case
+        w: 0.7
+        q: 0.7
+        s: 0.3
+        c: 0.8
+        mapping_confidence: high
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.8
+        q: 0.7
+        s: 0.2
+        c: 0.8
+        mapping_confidence: high
+      - name: Methanobrevibacter_smithii
+        level: species
+        direction: lower_in_case
+        w: 0.7
+        q: 0.7
+        s: 0.5
+        c: 0.8
+        mapping_confidence: high
+        note: "Methanobrevibacter loss is one of the more CD-specific findings in the signature."
+      - name: Christensenella_minuta
+        level: species
+        direction: lower_in_case
+        w: 0.6
+        q: 0.6
+        s: 0.5
+        c: 0.7
+        mapping_confidence: medium
+      - name: Collinsella_aerofaciens
+        level: species
+        direction: lower_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.7
+        mapping_confidence: medium
+      - name: Anaerostipes_hadrus
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.6
+        s: 0.3
+        c: 0.7
+        mapping_confidence: medium
+
+  ecology:
+    label: "Community ecology"
+    type: direction_panel
+    evidence_type: ECO
+    claim_level: observed
+    study_group: hmp2_2019
+    maturity: P3
+    note: "Diversity loss is consistent across every CD cohort and unspecific across every disease."
+    features:
+      - name: shannon
+        direction: decreased
+        w: 0.8
+        q: 0.9
+        s: 0.1
+        c: 0.9
+      - name: richness
+        direction: decreased
+        w: 0.6
+        q: 0.9
+        s: 0.1
+        c: 0.9
+
+  functional:
+    label: "Metabolite gene capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P3
+    note: >-
+      Butyrate-synthesis genes fall with the butyrate producers. Bile salt
+      hydrolase capacity falls in the dysbiotic state (Franzosa found primary
+      bile acids elevated and secondary depleted in CD). Hexa-acylated LPS
+      carrier abundance rises with the Enterobacteriaceae expansion; H2S
+      capacity rises with them and with Fusobacterium.
+    sources: ["Franzosa 2019 Nat Microbiol", "Lloyd-Price 2019 Nature"]
+    features:
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        w: 1.0
+        q: 0.9
+        s: 0.2
+        c: 0.9
+      - name: bsh
+        engine: diamond
+        direction: decreased
+        w: 0.6
+        q: 0.7
+        s: 0.3
+        c: 0.7
+      - name: bai
+        engine: diamond
+        direction: decreased
+        w: 0.6
+        q: 0.7
+        s: 0.3
+        c: 0.7
+      - name: h2s
+        engine: diamond
+        direction: increased
+        w: 0.5
+        q: 0.6
+        s: 0.3
+        c: 0.6
+      - name: urease
+        engine: diamond
+        direction: increased
+        w: 0.5
+        q: 0.6
+        s: 0.3
+        c: 0.6
+        sources: ["Ni J, et al. Sci Transl Med 2017;9:eaah6888 (urease and CD dysbiosis)"]
+
+  carriers:
+    label: "Butyrate carriers and hexa-LPS carriers"
+    type: mechanism_lane
+    evidence_type: CARRIER_ABUNDANCE
+    claim_level: carrier_proxy
+    maturity: P2
+    features:
+      - name: butyrate
+        engine: carrier
+        direction: decreased
+        w: 0.8
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: hexa_lps
+        engine: carrier
+        direction: increased
+        w: 0.6
+        q: 0.7
+        s: 0.3
+        c: 0.7
+        sources: ["Vatanen T, et al. Cell 2016;165:842 (hexa- vs penta-acylated LPS immunogenicity)"]
+
+cross_engine_checks:
+  - taxonomic_feature: Faecalibacterium_prausnitzii
+    functional_feature: butyrate
+    expect: concordant
+    on_disagreement: downgrade_confidence
+    note: "F. prausnitzii is the largest single contributor to gut butyrate gene abundance."
+  - taxonomic_feature: Escherichia_coli
+    functional_feature: hexa_lps
+    expect: concordant
+    on_disagreement: downgrade_confidence
+
+confounders:
+  - name: Disease activity
+    effect: "The dysbiotic state comes and goes; a remission sample can look like a control"
+    handling: "Recorded in the ledger when disease activity is supplied"
+  - name: Bowel resection
+    effect: "Ileal resection and ileostomy reshape the community independently of inflammation"
+    handling: "Recorded when supplied"
+  - name: Immunosuppression
+    effect: "Anti-TNF and steroids shift composition toward controls"
+    handling: "Recorded when supplied"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Crohn's disease is diagnosed by endoscopy, histology and imaging. This
+    profile cannot diagnose it, exclude it, or distinguish it from
+    ulcerative colitis with any reliability.
+  - >-
+    The Crohn's pattern is the general dysbiosis pattern with oral-origin
+    taxa and E. coli on top. Antibiotics, bowel prep, gastroenteritis and
+    hospitalisation produce it. If the shape analysis reads diffuse, this
+    score is dysbiosis, not Crohn's.
+  - >-
+    Many people with Crohn's disease have a community indistinguishable from
+    controls at any one sampling.
+
+effect_size_note: >-
+  Gevers 2014: 447 treatment-naive CD, 221 controls. HMP2: 132 participants,
+  1,638 metagenomes. Franzosa: 155 discovery, 65 validation. Pascal: 2,045
+  16S samples. Cross-cohort AUCs for CD vs non-IBD of 0.8-0.9 are typical.
+
+citation: >-
+  Gevers D, et al. The treatment-naive microbiome in new-onset Crohn's disease.
+  Cell Host Microbe 2014;15:382-392; Lloyd-Price J, et al. Multi-omics of the
+  gut microbial ecosystem in inflammatory bowel diseases. Nature
+  2019;569:655-662; Franzosa EA, et al. Gut microbiome structure and metabolic
+  activity in inflammatory bowel disease. Nat Microbiol 2019;4:293-305; Pascal
+  V, et al. A microbial signature for Crohn's disease. Gut 2017;66:813-822.

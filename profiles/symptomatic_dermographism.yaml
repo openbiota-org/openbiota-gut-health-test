@@ -1,0 +1,188 @@
+name: symptomatic_dermographism
+version: 0.1.0
+spec_version: 3
+label: "Symptomatic dermographism (chronic inducible hives from skin stroking) — translated 16S pattern"
+disease: symptomatic_dermographism
+task: sd_vs_healthy
+family: allergic_inflammatory
+body_site: stool
+population: chinese_adult_cohort
+status: research_only
+evidence_maturity: P1
+challenge_for: [csu]
+
+summary: >-
+  Symptomatic dermographism is the commonest chronic inducible urticaria:
+  hives that appear along the line where the skin has been stroked, scratched
+  or rubbed, itching for minutes to an hour. One 16S amplicon study supplies
+  the pattern here — Liu et al. compared stool from 22 adults with
+  symptomatic dermographism against 22 healthy controls and described a
+  healthy-control core community that the patient group lacked.
+
+  Only two candidates from that core are imported: the genus Subdoligranulum
+  and the species Ruminococcus bromii, both depletion-oriented. They are
+  scored, but every number on this card carries a permanent transport
+  warning, because a 16S study names organisms by amplicon and this report
+  measures them by shotgun sequencing. The two are not the same measurement,
+  and no shotgun cohort has tested this pattern. Two features is also a very
+  small panel: coverage is printed beside the score for that reason, and one
+  missing feature halves it.
+
+  This profile is deliberately separate from the chronic spontaneous
+  urticaria profile. The two conditions coexist often, and when they do both
+  eligible cards are shown side by side — there is no combined score, and the
+  two indices are never multiplied or averaged into a third number.
+
+strata: []
+
+references:
+  primary:
+    source: null
+    note: >-
+      The comparison group is 22 healthy controls from the same centre. There
+      is no chronic-spontaneous-urticaria contrast arm in the pure
+      symptomatic-dermographism cohort, so this profile cannot separate a
+      dermographism signal from a general chronic-hives signal. The
+      coexisting-disease cohort (Liu 2021, OEP001891) is a different
+      phenotype and is not used as validation of this one.
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  liu_sd_2021_translated:
+    label: "Liu 2021 symptomatic-dermographism core-community candidates (16S, translated)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    assay_transport: amplicon_taxon_to_shotgun
+    study_group: liu_sd_2021
+    maturity: P1
+    weight_in_combined: 1.0
+    note: >-
+      22 adults with symptomatic dermographism against 22 healthy controls,
+      16S V3-V4 amplicon sequencing, one centre (raw data OEP001229). Both
+      candidates were members of the healthy-control core community in
+      supplementary Figure S5, defined there by at least 90% prevalence and
+      more than 0.3% mean abundance in controls. Those are discovery
+      definitions for describing a cohort, not clinical cutoffs for an
+      individual, and nothing here treats them as a healthy threshold. Equal
+      scoring weight on both features.
+    sources: ["Liu R, et al. Exp Dermatol 2021;30:1657 (22 SD / 22 HC, 16S; OEP001229)"]
+    features:
+      - name: Subdoligranulum
+        level: genus
+        direction: decreased
+        w: 1.0
+        q: 0.3
+        s: 0.2
+        c: 0.5
+        direction_conflict: low
+        mapping_confidence: genus_aggregate_non_overlapping
+        note: >-
+          Scored as the summed abundance of this pipeline's
+          Subdoligranulum species, which is a non-overlapping set of children
+          and contains no parent total. It does not overlap the other feature:
+          Ruminococcus bromii belongs to a different genus and a different
+          family. Subdoligranulum is a butyrate-producing fibre fermenter and
+          is depleted in a long list of unrelated conditions, so its
+          specificity is scored low.
+      - name: Ruminococcus_bromii
+        level: species
+        direction: decreased
+        w: 1.0
+        q: 0.3
+        s: 0.2
+        c: 0.5
+        note: >-
+          The primary resistant-starch degrader of the human colon. Genus
+          Ruminococcus must not be substituted for it: R. gnavus moves the
+          opposite way in the chronic spontaneous urticaria panel and R. obeum
+          is a third organism with its own direction, so a genus figure would
+          fill three slots with one number.
+
+unbound_sources:
+  - source: "Liu 2021 symptomatic dermographism, supplementary Figure S6 — Tax4Fun-predicted histidine metabolism"
+    evidence_type: PATH_ABUND
+    note: >-
+      A prediction from 16S gene content, not a measurement, and it is
+      histidine metabolism rather than histamine production. This report does
+      not convert it into a histamine module: the histidine-decarboxylase
+      capacity of a community is strain and context dependent and does not
+      establish histamine intolerance, diamine-oxidase deficiency, mast-cell
+      activation syndrome or hives of any kind.
+  - source: "Liu 2021 coexisting CSU-with-dermographism cohort (25 vs 25, 16S plus qPCR; OEP001891)"
+    evidence_type: TAX_REL
+    note: >-
+      A separate phenotype with its own recruitment. Its qPCR results were
+      obtained in the coexisting-disease cohort and must not be described as
+      validation performed in the pure-dermographism group. Both projects come
+      from the same institution, so any apparent replication between them
+      needs a participant-level independence audit first, which this build has
+      not been able to perform.
+  - source: "Liu 2021 — Prevotella stercorea association with symptom duration"
+    evidence_type: TAX_REL
+    note: >-
+      A correlation with how long someone has had symptoms, not a
+      case-versus-control direction, so it is not a scoreable feature. Broader
+      Verrucomicrobia, Ruminococcaceae and Enterobacteriales observations in
+      the same paper are context for the same reason.
+
+confounders:
+  - name: Amplicon-to-shotgun transport
+    effect: "16S names taxa from a marker region; this report measures them from whole genomes. Abundances, resolution and detection limits all differ"
+    handling: "Permanent transport label on every figure from this profile; removed only after an independent shotgun cohort tests it"
+  - name: Two-feature panel
+    effect: "With two features, one unmeasured organism halves coverage and the remaining feature carries the whole figure"
+    handling: "Coverage printed beside the score; a one-of-two result is labelled as such and never presented as a full panel"
+  - name: Single institution
+    effect: "The pure-dermographism and coexisting-disease cohorts share a recruiting centre and may share participants or controls"
+    handling: "No independent replication is claimed between them"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Symptomatic dermographism is diagnosed by stroking the skin and watching
+    what happens, usually with a calibrated dermographometer. A stool profile
+    cannot make that observation, and this figure is a research pattern index,
+    not a probability of having the condition.
+  - >-
+    Every number here crosses assay types. Until an independent shotgun cohort
+    tests these two directions, the transport warning stays on the card
+    regardless of how the score comes out.
+  - >-
+    The other chronic inducible urticarias — the other forms of hives brought
+    on by a trigger: cold, delayed pressure, solar, heat, vibratory,
+    cholinergic, contact and aquagenic — have no stool signature this audit
+    could locate. They are reported as evidence not established rather than
+    scored with this profile or with the chronic spontaneous urticaria
+    (spontaneous chronic hives) profile standing in for them. Skin and sweat
+    Malassezia mechanisms proposed for cholinergic urticaria — hives brought
+    on by heat, exercise or stress — are not gut findings.
+  - >-
+    Having both chronic spontaneous urticaria and dermographism at once —
+    spontaneous hives as well as hives raised by stroking the skin — is
+    common. When both profiles are eligible, both scores are shown; there is
+    no third combined index, and neither score modifies the other.
+
+effect_size_note: >-
+  22 adults with symptomatic dermographism against 22 healthy controls, 16S
+  V3-V4 amplicon sequencing at one Chinese centre. The two imported features
+  come from the healthy-control core community description in supplementary
+  Figure S5 rather than from a corrected differential-abundance table, so no
+  effect size or q-value is available for either of them. Effect direction is
+  depletion for both. This is the weakest evidence base of any scored profile
+  in this report and is labelled P1 for that reason.
+
+citation: >-
+  Liu R, Peng C, Jing D, et al. Biomarkers of gut microbiota in chronic
+  spontaneous urticaria and symptomatic dermographism. Exp Dermatol
+  2021;30:1657-1665, doi:10.1111/exd.14326; raw data OEP001229 (BioSino).
+  Coexisting-phenotype cohort: Liu R, et al. Front Cell Infect Microbiol
+  2021;11:703126, doi:10.3389/fcimb.2021.703126, raw data OEP001891. Clinical
+  classification of the inducible urticarias: Zuberbier T, et al.,
+  International guideline for the definition, classification, diagnosis and
+  management of urticaria, Allergy 2026, doi:10.1111/all.70210.

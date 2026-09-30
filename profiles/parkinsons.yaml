@@ -1,0 +1,386 @@
+name: parkinsons
+version: 1.0.0
+spec_version: 3
+label: "Parkinson's disease — gut pattern"
+disease: parkinsons_disease
+task: pd_vs_control
+family: neurodegeneration
+body_site: stool
+population: mixed_us_european_cohorts
+status: research_beta
+evidence_maturity: P3
+
+summary: >-
+  Parkinson's has the most consistently replicated gut pattern of any
+  neurological disease. Across more than twenty cohorts and a 2022 meta-
+  analysis of shotgun and 16S data, Akkermansia muciniphila and
+  Bifidobacterium are elevated, and the Lachnospiraceae butyrate producers —
+  Roseburia, Faecalibacterium, Blautia — are depleted. Wallen et al. 2022
+  confirmed this at species level in 490 PD cases with 234 controls by
+  shotgun. Constipation precedes motor symptoms by years and is the most
+  obvious confounder, since slow transit alone raises Akkermansia and
+  methanogens.
+
+references:
+  primary:
+    source: null
+    note: >-
+      The right contrast is chronic constipation without PD, and no public
+      shotgun cohort has it.
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  wallen_2022:
+    label: "Wallen 2022 US shotgun (490 PD / 234 controls)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: wallen_2022
+    maturity: P3
+    weight_in_combined: 1.0
+    note: "The largest PD shotgun cohort; 84 species altered at species level, 30% of tested species."
+    sources: ["Wallen ZD, et al. Nat Commun 2022;13:6958"]
+    features:
+      - name: Akkermansia_muciniphila
+        level: species
+        direction: higher_in_case
+        w: 1.0
+        q: 0.9
+        s: 0.5
+        c: 0.9
+      - name: Bifidobacterium_dentium
+        level: species
+        direction: higher_in_case
+        cluster: bifidobacterium
+        w: 0.8
+        q: 0.8
+        s: 0.5
+        c: 0.8
+      - name: Bifidobacterium_longum
+        level: species
+        direction: higher_in_case
+        cluster: bifidobacterium
+        w: 0.6
+        q: 0.8
+        s: 0.3
+        c: 0.7
+        note: "Bifidobacterium is higher in PD, the opposite of most gut disease patterns."
+      - name: Lactobacillus_gasseri
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: Methanobrevibacter_smithii
+        level: species
+        direction: higher_in_case
+        w: 0.7
+        q: 0.8
+        s: 0.5
+        c: 0.8
+        note: "Constipation-associated; part of the pattern and part of the confounder."
+      - name: Escherichia_coli
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.7
+        s: 0.2
+        c: 0.7
+      - name: Klebsiella_pneumoniae
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.3
+        c: 0.6
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.9
+        q: 0.9
+        s: 0.3
+        c: 0.9
+      - name: Roseburia_hominis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.8
+        s: 0.3
+        c: 0.8
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.9
+        q: 0.9
+        s: 0.2
+        c: 0.9
+      - name: Eubacterium_rectale
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: Blautia_obeum
+        level: species
+        direction: lower_in_case
+        cluster: blautia_lower
+        w: 0.6
+        q: 0.7
+        s: 0.4
+        c: 0.7
+        conflict_note: "Genus Blautia is on the conflicted list; species only."
+      - name: Blautia_wexlerae
+        level: species
+        direction: lower_in_case
+        cluster: blautia_lower
+        w: 0.5
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: Coprococcus_comes
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.7
+        s: 0.3
+        c: 0.7
+      - name: Prevotella_copri
+        level: species
+        direction: lower_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.3
+        c: 0.5
+        conflict_note: "Genus Prevotella is on the conflicted list; species only. Lower in PD in several Western cohorts."
+
+  romano_2021_meta:
+    label: "Romano 2021 meta-analysis of 10 cohorts"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    assay_transport: amplicon_taxon_to_shotgun
+    study_group: romano_2021
+    maturity: P3
+    note: >-
+      Reanalysis of 16S data from 10 independent cohorts, 1,269
+      participants. Genus-level findings transported onto their dominant
+      shotgun species; the key genera are not on the conflicted list.
+    sources: ["Romano S, et al. NPJ Parkinsons Dis 2021;7:27"]
+    features:
+      - name: Akkermansia_muciniphila
+        level: species
+        direction: higher_in_case
+        w: 0.9
+        q: 0.8
+        s: 0.5
+        c: 0.9
+        mapping_confidence: high
+      - name: Bifidobacterium_longum
+        level: species
+        direction: higher_in_case
+        cluster: bifidobacterium
+        w: 0.6
+        q: 0.7
+        s: 0.3
+        c: 0.7
+        mapping_confidence: medium
+      - name: Lactobacillus_gasseri
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.6
+        mapping_confidence: low
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.8
+        q: 0.8
+        s: 0.3
+        c: 0.8
+        mapping_confidence: medium
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.8
+        q: 0.8
+        s: 0.2
+        c: 0.8
+        mapping_confidence: high
+
+  boktor_2023:
+    label: "Boktor 2023 integrated shotgun (Wallen + Bedarf + Boktor)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: boktor_2023
+    maturity: P3
+    note: "Independent PD shotgun cohort integrated with earlier ones; used here for the directions it independently reproduces."
+    sources: ["Boktor JC, et al. Mov Disord 2023;38:399-409"]
+    features:
+      - name: Akkermansia_muciniphila
+        level: species
+        direction: higher_in_case
+        w: 0.8
+        q: 0.8
+        s: 0.5
+        c: 0.8
+      - name: Bifidobacterium_dentium
+        level: species
+        direction: higher_in_case
+        cluster: bifidobacterium
+        w: 0.6
+        q: 0.7
+        s: 0.5
+        c: 0.7
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.8
+        s: 0.3
+        c: 0.8
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.8
+        s: 0.2
+        c: 0.8
+
+  functional:
+    label: "Metabolite gene capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P2
+    note: >-
+      Butyrate capacity falls with the producers. Bacterial tyrosine
+      decarboxylase (tyrDC, Enterococcus) converts levodopa to dopamine in
+      the gut before it can be absorbed, so higher tyrDC capacity predicts a
+      higher required levodopa dose — a treatment-response mechanism, not a
+      disease marker. Methane capacity rises with constipation.
+    sources:
+      - "van Kessel SP, et al. Nat Commun 2019;10:310 (tyrDC and levodopa)"
+      - "Maini Rekdal V, et al. Science 2019;364:eaau6323"
+    features:
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        w: 1.0
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: dopamine
+        engine: diamond
+        direction: increased
+        w: 0.6
+        q: 0.6
+        s: 0.6
+        c: 0.7
+        note: "tyrDC gene capacity: levodopa metabolism, not a disease direction per se."
+      - name: methane
+        engine: diamond
+        direction: increased
+        w: 0.6
+        q: 0.7
+        s: 0.4
+        c: 0.7
+
+  carriers:
+    label: "Mucin degraders and butyrate carriers"
+    type: mechanism_lane
+    evidence_type: CARRIER_ABUNDANCE
+    claim_level: carrier_proxy
+    maturity: P2
+    features:
+      - name: mucin_degraders
+        engine: carrier
+        direction: increased
+        w: 0.7
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: butyrate
+        engine: carrier
+        direction: decreased
+        w: 0.8
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: methanogens
+        engine: carrier
+        direction: increased
+        w: 0.6
+        q: 0.7
+        s: 0.4
+        c: 0.7
+
+cross_engine_checks:
+  - taxonomic_feature: Methanobrevibacter_smithii
+    functional_feature: methane
+    expect: concordant
+    on_disagreement: downgrade_confidence
+  - taxonomic_feature: Faecalibacterium_prausnitzii
+    functional_feature: butyrate
+    expect: concordant
+    on_disagreement: downgrade_confidence
+
+confounders:
+  - name: Constipation
+    effect: "Precedes PD by years and independently raises Akkermansia and methanogens"
+    handling: "Recorded in the ledger when supplied; the pattern cannot separate the two"
+  - name: Levodopa and COMT inhibitors
+    effect: "Levodopa itself shifts the community; most cohorts are treated"
+    handling: "Recorded when supplied"
+  - name: Age
+    effect: "PD cohorts are old; some of the pattern is age"
+    handling: "Reference matched on age band where the stratum allows"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Parkinson's disease is a clinical diagnosis. No stool test predicts it,
+    and this profile is not a prodromal screen.
+  - >-
+    Chronic constipation of any cause produces most of this pattern. A
+    high score in someone with slow transit is expected and says nothing
+    about Parkinson's.
+  - >-
+    Bifidobacterium and Akkermansia are higher here — the opposite of most
+    gut disease patterns — which is what gives this profile its unusually
+    good specificity across the library.
+
+effect_size_note: >-
+  Wallen 2022: 490 PD, 234 controls, 84 species altered. Romano 2021: 10
+  cohorts, 1,269 participants. Consistent direction for Akkermansia,
+  Bifidobacterium, Lactobacillus (up) and Roseburia, Faecalibacterium (down).
+
+citation: >-
+  Wallen ZD, et al. Metagenomics of Parkinson's disease implicates the gut
+  microbiome in multiple disease mechanisms. Nat Commun 2022;13:6958; Romano
+  S, et al. Meta-analysis of the Parkinson's disease gut microbiome suggests
+  alterations linked to intestinal inflammation. NPJ Parkinsons Dis 2021;7:27;
+  Boktor JC, et al. Integrated multi-cohort analysis of the Parkinson's disease
+  gut metagenome. Mov Disord 2023;38:399-409; van Kessel SP, et al. Gut
+  bacterial tyrosine decarboxylases restrict levels of levodopa in the
+  treatment of Parkinson's disease. Nat Commun 2019;10:310.

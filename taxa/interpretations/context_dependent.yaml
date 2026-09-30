@@ -1,0 +1,563 @@
+# Species interpretation registry — context-dependent taxa (spec v04 §6.5).
+# A high or low level of these organisms reads differently by population,
+# diet, medication and disease; the card says so rather than picking a side.
+species_interpretations:
+  - species: Akkermansia_muciniphila
+    polarity: context_dependent
+    evidence_state: curated_human_action_evidence
+    guilds: [mucin_degraders]
+    summary: >
+      Mucin-degrading Verrucomicrobium. Higher levels are associated with metabolic health in
+      several cohorts and a pasteurised strain (MucT) has human trial evidence, yet the same
+      species is enriched in multiple sclerosis and Parkinson's disease cohorts. Endogenous
+      abundance does not predict response to any Akkermansia product.
+    assertions:
+      - direction: higher
+        statement: Pasteurised A. muciniphila MucT improved insulin sensitivity and metabolic markers in an exploratory 3-month trial of overweight/obese insulin-resistant volunteers.
+        citation: "Depommier C et al. Nat Med 2019;25:1096. PMID 31263284"
+        claim: intervention_context
+      - direction: higher
+        statement: Akkermansia is enriched in multiple sclerosis patients across cohorts (iMSMS).
+        citation: "iMSMS Consortium. Cell 2022;185:3467. PMID 36113426"
+      - direction: higher
+        statement: Akkermansia enrichment is one of the most consistent taxonomic findings in Parkinson's disease meta-analyses.
+        citation: "Romano S et al. NPJ Parkinsons Dis 2021;7:27. PMID 33692356"
+    tags: [mucin_degrader, ms_enriched, pd_enriched]
+    last_reviewed: "2026-09-07"
+
+  - species: Prevotella_copri
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: >
+      A complex of four clades whose prevalence tracks non-Western, fibre-rich diets. Enriched
+      in new-onset rheumatoid arthritis in one US cohort and linked to insulin resistance via
+      branched-chain amino acid synthesis in Danes, yet associated with improved glucose
+      metabolism after fibre in others. Level alone carries no fixed meaning.
+    assertions:
+      - direction: any
+        statement: P. copri comprises four distinct clades whose distribution follows Westernisation; metagenomic analysis of >6,500 samples.
+        citation: "Tett A et al. Cell Host Microbe 2019;26:666. PMID 31607556"
+      - direction: higher
+        statement: P. copri and BCAA biosynthesis were associated with insulin resistance; causality was tested in mice.
+        citation: "Pedersen HK et al. Nature 2016;535:376. PMID 27409811"
+      - direction: higher
+        statement: P. copri was enriched in new-onset untreated rheumatoid arthritis.
+        citation: "Scher JU et al. eLife 2013;2:e01202. PMID 24192039"
+    tags: [westernisation_marker]
+    last_reviewed: "2026-09-07"
+
+  - species: Bacteroides_uniformis
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Among the most prevalent Bacteroides in Western adults; level varies with diet and has no established directional meaning on its own.
+    assertions:
+      - direction: any
+        statement: Bacteroides species are dominant, diet-responsive members of Western adult stool with both commensal and opportunistic behaviours.
+        citation: "Wexler HM. Clin Microbiol Rev 2007;20:593. PMID 17934076"
+    tags: [bacteroides]
+    last_reviewed: "2026-09-07"
+
+  - species: Bacteroides_vulgatus
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Very common Bacteroides species (now Phocaeicola vulgatus); implicated in some IBD and metabolic cohorts and protective in others. No fixed reading.
+    assertions:
+      - direction: any
+        statement: Bacteroides as dominant commensals with strain-dependent effects.
+        citation: "Wexler HM. Clin Microbiol Rev 2007;20:593. PMID 17934076"
+    tags: [bacteroides]
+    last_reviewed: "2026-09-07"
+
+  - species: Bacteroides_dorei
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Common Bacteroides species; a rise preceded seroconversion in a Finnish type 1 diabetes birth cohort, while other cohorts associate it with lower atherosclerosis. Context-dependent.
+    assertions:
+      - direction: higher
+        statement: B. dorei abundance peaked before islet autoantibody seroconversion in the DIABIMMUNE cohort.
+        citation: "Davis-Richardson AG et al. Front Microbiol 2014;5:678. PMID 25540641"
+    tags: [bacteroides]
+    last_reviewed: "2026-09-07"
+
+  - species: Bacteroides_ovatus
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Versatile polysaccharide degrader; common commensal with no fixed directional interpretation.
+    assertions:
+      - direction: any
+        statement: Bacteroides as diet-responsive commensals.
+        citation: "Wexler HM. Clin Microbiol Rev 2007;20:593. PMID 17934076"
+    tags: [bacteroides]
+    last_reviewed: "2026-09-07"
+
+  - species: Bacteroides_thetaiotaomicron
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Model glycan-degrading commensal with a large polysaccharide-utilisation repertoire; common and without a fixed directional reading.
+    assertions:
+      - direction: any
+        statement: Bacteroides as glycan-degrading commensals.
+        citation: "Wexler HM. Clin Microbiol Rev 2007;20:593. PMID 17934076"
+    tags: [bacteroides]
+    last_reviewed: "2026-09-07"
+
+  - species: Bacteroides_xylanisolvens
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Xylan-degrading Bacteroides; a common commensal.
+    assertions:
+      - direction: any
+        statement: Bacteroides as diet-responsive commensals.
+        citation: "Wexler HM. Clin Microbiol Rev 2007;20:593. PMID 17934076"
+    tags: [bacteroides]
+    last_reviewed: "2026-09-07"
+
+  - species: Bacteroides_caccae
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Common mucin-utilising Bacteroides; context-dependent.
+    assertions:
+      - direction: any
+        statement: Bacteroides as commensals with mucin-degrading capacity.
+        citation: "Wexler HM. Clin Microbiol Rev 2007;20:593. PMID 17934076"
+    tags: [bacteroides]
+    last_reviewed: "2026-09-07"
+
+  - species: Bacteroides_stercoris
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Common Bacteroides species with no fixed directional interpretation.
+    assertions:
+      - direction: any
+        statement: Bacteroides as commensals.
+        citation: "Wexler HM. Clin Microbiol Rev 2007;20:593. PMID 17934076"
+    tags: [bacteroides]
+    last_reviewed: "2026-09-07"
+
+  - species: Alistipes_putredinis
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Bile-tolerant Rikenellaceae member; higher in some depression and CRC cohorts, protective in others (liver fibrosis, colitis models). Reviewed as a genus with both faces.
+    assertions:
+      - direction: any
+        statement: Review of Alistipes as a genus with both pathogenic and protective associations.
+        citation: "Parker BJ et al. Front Immunol 2020;11:906. PMID 32582143"
+    tags: [alistipes]
+    last_reviewed: "2026-09-07"
+
+  - species: Alistipes_onderdonkii
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Common Alistipes species; lower in a small two-year Long-COVID cohort (unreplicated) and variable elsewhere.
+    assertions:
+      - direction: any
+        statement: Review of Alistipes with both protective and disease associations.
+        citation: "Parker BJ et al. Front Immunol 2020;11:906. PMID 32582143"
+    tags: [alistipes]
+    last_reviewed: "2026-09-07"
+
+  - species: Alistipes_shahii
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Alistipes species associated with response to anti-PD-1 immunotherapy in one cohort and with inflammation in others.
+    assertions:
+      - direction: any
+        statement: Review of Alistipes across immunotherapy, inflammation and metabolic cohorts.
+        citation: "Parker BJ et al. Front Immunol 2020;11:906. PMID 32582143"
+    tags: [alistipes]
+    last_reviewed: "2026-09-07"
+
+  - species: Alistipes_finegoldii
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Alistipes species with mixed associations; protective in mouse colitis, higher in some human disease cohorts.
+    assertions:
+      - direction: any
+        statement: Review of Alistipes across cohorts.
+        citation: "Parker BJ et al. Front Immunol 2020;11:906. PMID 32582143"
+    tags: [alistipes]
+    last_reviewed: "2026-09-07"
+
+  - species: Dialister_invisus
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Dialister was depleted in depression cohorts, yet D. invisus is also enriched in some spondyloarthritis and IBD cohorts. Context-dependent.
+    assertions:
+      - direction: lower
+        statement: Dialister and Coprococcus depleted in depression in two population cohorts.
+        citation: "Valles-Colomer M et al. Nat Microbiol 2019;4:623. PMID 30718848"
+      - direction: higher
+        statement: D. invisus correlated with disease activity in spondyloarthritis ileal biopsies.
+        citation: "Tito RY et al. Arthritis Rheumatol 2017;69:114. PMID 27390077"
+    tags: []
+    last_reviewed: "2026-09-07"
+
+  - species: Methanobrevibacter_smithii
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [methanogens]
+    summary: >
+      The dominant human gut methanogen. Stool abundance is not intestinal methanogen
+      overgrowth; that needs a constipation phenotype and a standardised breath methane test.
+      Methane slows intestinal transit in experimental models and methane-positive breath tests
+      associate with constipation-predominant IBS.
+    assertions:
+      - direction: higher
+        statement: Methane infusion slowed small-intestinal transit in animal models; methane on breath testing associates with constipation.
+        citation: "Pimentel M et al. Am J Physiol Gastrointest Liver Physiol 2006;290:G1089. PMID 16293652"
+      - direction: any
+        statement: North American consensus defines a positive methane breath test as ≥10 ppm and separates it from stool findings.
+        citation: "Rezaie A et al. Am J Gastroenterol 2017;112:775. PMID 28323273"
+    tags: [methanogen]
+    last_reviewed: "2026-09-07"
+
+  - species: Parabacteroides_distasonis
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Common commensal; lower in some IBD/obesity cohorts and enriched in others; mouse work suggests metabolic benefit via succinate and bile acids. Not directional in humans.
+    assertions:
+      - direction: any
+        statement: P. distasonis alleviated obesity and metabolic dysfunction in mice via succinate and secondary bile acids; human data are associative.
+        citation: "Wang K et al. Cell Rep 2019;26:222. PMID 30605678"
+    tags: []
+    last_reviewed: "2026-09-07"
+
+  - species: Parabacteroides_merdae
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Common commensal Parabacteroides species without a fixed directional reading.
+    assertions:
+      - direction: any
+        statement: Parabacteroides as common Bacteroidales commensals with mixed associations.
+        citation: "Wexler HM. Clin Microbiol Rev 2007;20:593. PMID 17934076"
+    tags: []
+    last_reviewed: "2026-09-07"
+
+  - species: Desulfovibrio_piger
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [sulfate_reducers]
+    summary: The most common human gut sulfate-reducing bacterium; a normal low-abundance commensal whose hydrogen sulfide has both epithelial-toxic and signalling roles. Abundance alone does not justify antimicrobials or sulfur restriction.
+    assertions:
+      - direction: any
+        statement: D. piger colonisation and sulfate reduction studied in gnotobiotic mice; H2S production depends on dietary and host sulfate sources.
+        citation: "Rey FE et al. PNAS 2013;110:13582. PMID 23898195"
+    tags: [sulfate_reducer]
+    last_reviewed: "2026-09-07"
+
+  - species: Eggerthella_lenta
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Actinobacterium notable for drug metabolism (inactivates digoxin via cgr genes; decarboxylates levodopa-derived dopamine). Higher in some IBD/RA cohorts. Relevant to medication history, not a target.
+    assertions:
+      - direction: any
+        statement: E. lenta strains carrying the cgr operon inactivate digoxin; arginine suppresses this in mice.
+        citation: "Haiser HJ et al. Science 2013;341:295. PMID 23869020"
+      - direction: any
+        statement: E. lenta dehydroxylates dopamine produced from levodopa by Enterococcus faecalis tyrosine decarboxylase.
+        citation: "Maini Rekdal V et al. Science 2019;364:eaau6323. PMID 31196984"
+    tags: [drug_metabolism]
+    last_reviewed: "2026-09-07"
+
+  - species: Lactobacillus_rhamnosus
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [probiotics]
+    summary: Detection in stool usually reflects recent food or supplement transit; colonisation is person- and strain-specific. Level does not indicate whether any L. rhamnosus product (e.g. GG) would help, and strain evidence does not transfer to the species.
+    assertions:
+      - direction: any
+        statement: An 11-strain probiotic showed person-, strain- and region-specific mucosal colonisation; stool detection reflected transit.
+        citation: "Zmora N et al. Cell 2018;174:1388. PMID 30193112"
+    tags: [probiotic_genus]
+    last_reviewed: "2026-09-07"
+
+  - species: Lactobacillus_plantarum
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [probiotics]
+    summary: Usually food-derived in stool (fermented vegetables, supplements); transient. Trial evidence exists only for specific strains and products.
+    assertions:
+      - direction: any
+        statement: Probiotic colonisation is person- and strain-specific; stool presence reflects transit.
+        citation: "Zmora N et al. Cell 2018;174:1388. PMID 30193112"
+    tags: [probiotic_genus]
+    last_reviewed: "2026-09-07"
+
+  - species: Lactobacillus_acidophilus
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [probiotics]
+    summary: Typically supplement- or dairy-derived when seen in adult stool; transient and strain-specific.
+    assertions:
+      - direction: any
+        statement: Probiotic colonisation is person- and strain-specific.
+        citation: "Zmora N et al. Cell 2018;174:1388. PMID 30193112"
+    tags: [probiotic_genus]
+    last_reviewed: "2026-09-07"
+
+  - species: Lactobacillus_reuteri
+    polarity: context_dependent
+    evidence_state: curated_human_action_evidence
+    guilds: [probiotics]
+    summary: Detected transiently after food or supplements. Strain NCIMB 30242 has cholesterol trial evidence in hypercholesterolaemic adults; it does not transfer to the species or to any other strain.
+    assertions:
+      - direction: any
+        statement: L. reuteri NCIMB 30242 in yogurt reduced LDL-cholesterol in hypercholesterolaemic adults over 6 weeks.
+        citation: "Jones ML et al. Br J Nutr 2012;107:1505. PMID 22067612"
+        claim: intervention_context
+    tags: [probiotic_genus]
+    last_reviewed: "2026-09-07"
+
+  - species: Lactobacillus_gasseri
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [probiotics]
+    summary: Vaginal and oral commensal occasionally seen in stool; transient, strain-specific evidence only.
+    assertions:
+      - direction: any
+        statement: Probiotic colonisation is person- and strain-specific.
+        citation: "Zmora N et al. Cell 2018;174:1388. PMID 30193112"
+    tags: [probiotic_genus]
+    last_reviewed: "2026-09-07"
+
+  - species: Lactobacillus_fermentum
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [probiotics]
+    summary: Food-associated lactobacillus; transient in stool.
+    assertions:
+      - direction: any
+        statement: Probiotic colonisation is person- and strain-specific.
+        citation: "Zmora N et al. Cell 2018;174:1388. PMID 30193112"
+    tags: [probiotic_genus]
+    last_reviewed: "2026-09-07"
+
+  - species: Streptococcus_thermophilus
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [probiotics]
+    summary: Yogurt starter culture; stool detection reflects recent dairy intake rather than colonisation.
+    assertions:
+      - direction: any
+        statement: Probiotic and starter cultures are detected transiently after intake.
+        citation: "Zmora N et al. Cell 2018;174:1388. PMID 30193112"
+    tags: [food_derived]
+    last_reviewed: "2026-09-07"
+
+  - species: Lactococcus_lactis
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Cheese and fermented-dairy starter; transient in stool.
+    assertions:
+      - direction: any
+        statement: Fermented-food organisms are detected transiently after intake.
+        citation: "Zmora N et al. Cell 2018;174:1388. PMID 30193112"
+    tags: [food_derived]
+    last_reviewed: "2026-09-07"
+
+  - species: Bifidobacterium_animalis
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [probiotics]
+    summary: Almost always supplement- or yogurt-derived (subsp. lactis strains); transient. Strain evidence does not transfer to the species.
+    assertions:
+      - direction: any
+        statement: Probiotic colonisation is person- and strain-specific.
+        citation: "Zmora N et al. Cell 2018;174:1388. PMID 30193112"
+    tags: [probiotic_genus]
+    last_reviewed: "2026-09-07"
+
+  - species: Bifidobacterium_breve
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [probiotics]
+    summary: Infant-associated Bifidobacterium; in adults usually supplement-derived.
+    assertions:
+      - direction: any
+        statement: Review of Bifidobacterium species across life stages.
+        citation: "O'Callaghan A, van Sinderen D. Front Microbiol 2016;7:925. PMID 27379055"
+    tags: [bifidobacteria]
+    last_reviewed: "2026-09-07"
+
+  - species: Bifidobacterium_dentium
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Oral-cavity Bifidobacterium associated with dental caries; in stool it is an oral-origin organism, not a probiotic.
+    assertions:
+      - direction: any
+        statement: Review of Bifidobacterium species including oral B. dentium.
+        citation: "O'Callaghan A, van Sinderen D. Front Microbiol 2016;7:925. PMID 27379055"
+    tags: [oral_origin]
+    last_reviewed: "2026-09-07"
+
+  - species: Candida_albicans
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Commensal yeast present in a large share of healthy people at low abundance; expansion follows antibiotics and immunosuppression. Stool DNA is not a fungal infection diagnosis.
+    assertions:
+      - direction: any
+        statement: The gut mycobiome is dominated by Saccharomyces, Malassezia and Candida in healthy adults, with C. albicans common and diet-responsive.
+        citation: "Nash AK et al. Microbiome 2017;5:153. PMID 29178920"
+    tags: [fungus]
+    prohibited_language: ["candida overgrowth (from stool DNA)", "fungal infection"]
+    last_reviewed: "2026-09-07"
+
+  - species: Blautia_obeum
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Abundant Lachnospiraceae member; Blautia is higher in some obesity cohorts and lower in others. No fixed reading.
+    assertions:
+      - direction: any
+        statement: Review of Blautia as a widespread genus with mixed disease associations.
+        citation: "Liu X et al. Gut Microbes 2021;13:1875796. PMID 33525961"
+    tags: []
+    last_reviewed: "2026-09-07"
+
+  - species: Blautia_wexlerae
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Common Blautia species; associated with lower visceral fat in a Japanese cohort and mixed elsewhere.
+    assertions:
+      - direction: any
+        statement: Review of Blautia associations across metabolic and inflammatory cohorts.
+        citation: "Liu X et al. Gut Microbes 2021;13:1875796. PMID 33525961"
+    tags: []
+    last_reviewed: "2026-09-07"
+
+  - species: Dorea_formicigenerans
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Gas-producing Lachnospiraceae member; higher in some IBS and obesity cohorts.
+    assertions:
+      - direction: any
+        statement: Dorea among taxa enriched in IBS in a large cohort study with functional readouts.
+        citation: "Tap J et al. Gastroenterology 2017;152:111. PMID 27725146"
+    tags: []
+    last_reviewed: "2026-09-07"
+
+  - species: Dorea_longicatena
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Common Lachnospiraceae member with mixed metabolic associations.
+    assertions:
+      - direction: any
+        statement: Dorea among taxa with IBS/metabolic associations of uncertain direction.
+        citation: "Tap J et al. Gastroenterology 2017;152:111. PMID 27725146"
+    tags: []
+    last_reviewed: "2026-09-07"
+
+  - species: Phascolarctobacterium_faecium
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Succinate-consuming propionate producer; common, with mixed associations.
+    assertions:
+      - direction: any
+        statement: Phascolarctobacterium converts succinate to propionate; reviewed among propionate producers.
+        citation: "Louis P, Flint HJ. Environ Microbiol 2017;19:29. PMID 27928878"
+    tags: [propionate_producer]
+    last_reviewed: "2026-09-07"
+
+  - species: Odoribacter_splanchnicus
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Butyrate-producing Bacteroidales member; lower in some IBD and hypertension cohorts, but variable between healthy adults.
+    assertions:
+      - direction: lower
+        statement: Odoribacter was among taxa depleted in hypertension cohorts (meta-analysis of gut microbiome and blood pressure).
+        citation: "Palmu J et al. J Am Heart Assoc 2020;9:e016641. PMID 32691653"
+    tags: [butyrate_producer]
+    last_reviewed: "2026-09-07"
+
+  - species: Barnesiella_intestinihominis
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [mucin_degraders]
+    summary: Common Bacteroidales member; listed among mucin utilisers. Context-dependent, with no fixed directional reading.
+    assertions:
+      - direction: any
+        statement: Barnesiella associated with resistance to vancomycin-resistant Enterococcus colonisation in mice and mixed human associations.
+        citation: "Ubeda C et al. Infect Immun 2013;81:965. PMID 23319552"
+    tags: []
+    last_reviewed: "2026-09-07"
+
+  - species: Intestinibacter_bartlettii
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Common Peptostreptococcaceae member; reduced by metformin in T2D cohorts, so its level partly reflects medication.
+    assertions:
+      - direction: lower
+        statement: Metformin treatment lowered Intestinibacter in T2D metagenomes, a confounder of disease signatures.
+        citation: "Forslund K et al. Nature 2015;528:262. PMID 26633628"
+    tags: [metformin_responsive]
+    last_reviewed: "2026-09-07"
+
+  - species: Escherichia_coli
+    polarity: potential_pathobiont
+    evidence_state: human_association_only
+    guilds: [opportunistic_pathogens, hexa_lps]
+    summary: >
+      Carried by most people at low abundance. Species-level detection says nothing about
+      pathotype: enterohaemorrhagic, enterotoxigenic, adherent-invasive and colibactin-producing
+      lineages are strains, identified by toxin and virulence genes, not by the species name.
+      Relative expansion is common after antibiotics or in inflammation and is reported as
+      such; it is not an infection.
+    qualification_needed: pathotype/toxin genes (stx, eae, LT/ST, pks/clb) at qualifying coverage, or a clinical stool test
+    prohibited_language: ["E. coli overgrowth", "pathogenic E. coli", "E. coli infection", "E. coli eradication"]
+    assertions:
+      - direction: any
+        statement: Pathogenic E. coli are defined by pathotype-specific virulence factors; commensal and pathogenic strains share the species.
+        citation: "Kaper JB et al. Nat Rev Microbiol 2004;2:123. PMID 15040260"
+      - direction: higher
+        statement: Enterobacteriaceae/E. coli expansion is a hallmark of inflammation-associated dysbiosis across IBD cohorts.
+        citation: "Lloyd-Price J et al. Nature 2019;569:655. PMID 31142855"
+    tags: [enterobacterales]
+    last_reviewed: "2026-09-07"
+
+  - species: Klebsiella_pneumoniae
+    polarity: potential_pathobiont
+    evidence_state: human_association_only
+    guilds: [opportunistic_pathogens, oral_origin, hexa_lps]
+    summary: >
+      Common low-level colonist of the gut and mouth; a frequent cause of hospital infection,
+      with hypervirulent and multidrug-resistant lineages defined at strain level. Oral
+      Klebsiella strains from IBD patients drove Th1 responses in mice. Stool relative
+      abundance is not infection, colonisation pressure or resistance.
+    qualification_needed: strain/hypervirulence (rmpA, iuc, K1/K2) and AMR gene resolution with carrier attribution, or clinical culture
+    prohibited_language: ["Klebsiella overgrowth", "Klebsiella infection", "Klebsiella eradication"]
+    assertions:
+      - direction: higher
+        statement: Salivary Klebsiella strains from IBD patients colonised the gut of germ-free mice and induced Th1 cells.
+        citation: "Atarashi K et al. Science 2017;358:359. PMID 29051379"
+      - direction: any
+        statement: Review of K. pneumoniae biology, colonisation and virulence determinants.
+        citation: "Paczosa MK, Mecsas J. Microbiol Mol Biol Rev 2016;80:629. PMID 27307579"
+    tags: [enterobacterales]
+    last_reviewed: "2026-09-07"
+
+  - species: Klebsiella_oxytoca
+    polarity: potential_pathobiont
+    evidence_state: human_association_only
+    guilds: [opportunistic_pathogens]
+    summary: Commensal Klebsiella; toxin-producing (tilivalline) strains cause antibiotic-associated haemorrhagic colitis. Species detection does not establish toxin production.
+    qualification_needed: tilivalline biosynthesis (npsA/npsB) genes and a compatible clinical picture
+    prohibited_language: ["Klebsiella infection", "eradication"]
+    assertions:
+      - direction: any
+        statement: Cytotoxin-producing K. oxytoca causes antibiotic-associated haemorrhagic colitis.
+        citation: "Högenauer C et al. N Engl J Med 2006;355:2418. PMID 17151366"
+    tags: [enterobacterales]
+    last_reviewed: "2026-09-07"
+
+  - species: Klebsiella_variicola
+    polarity: potential_pathobiont
+    evidence_state: human_association_only
+    guilds: [opportunistic_pathogens]
+    summary: Close relative of K. pneumoniae, often misidentified as it; colonist and occasional opportunistic pathogen.
+    qualification_needed: strain/AMR resolution or clinical culture
+    prohibited_language: ["Klebsiella infection", "eradication"]
+    assertions:
+      - direction: any
+        statement: Review of K. pneumoniae complex biology including K. variicola.
+        citation: "Paczosa MK, Mecsas J. Microbiol Mol Biol Rev 2016;80:629. PMID 27307579"
+    tags: [enterobacterales]
+    last_reviewed: "2026-09-07"

@@ -1,0 +1,143 @@
+name: riboflavin
+description: >-
+  Riboflavin (vitamin B2) biosynthesis. ribB (3,4-dihydroxy-2-butanone
+  4-phosphate synthase) and ribE (riboflavin synthase) mark the pathway.
+  Riboflavin is unusual among the vitamin panels because it has a documented
+  ecological effect: it is an extracellular electron shuttle for
+  Faecalibacterium prausnitzii, and riboflavin supplementation raises
+  F. prausnitzii abundance in humans.
+metabolite: Riboflavin (vitamin B2)
+pathway: >-
+  GTP + ribulose-5-phosphate -> (ribA, ribB, ribD, ribH) -> 6,7-dimethyl-8-
+  ribityllumazine -> riboflavin (ribE) -> FMN/FAD
+category: vitamin
+
+organisms:
+  - Bacteroides fragilis
+  - Prevotella copri
+  - Escherichia coli
+  - Bifidobacterium longum
+  - Lactobacillus plantarum
+  - Faecalibacterium prausnitzii
+
+extension: true
+
+targets:
+  - id: RIBB
+    label: ribB (3,4-dihydroxy-2-butanone 4-phosphate synthase)
+    gene: ribB
+    source: uniprot
+    query: '(protein_name:"3,4-dihydroxy-2-butanone 4-phosphate synthase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2500
+    length_tolerance: 0.25
+
+  - id: RIBE
+    label: ribE (riboflavin synthase)
+    gene: ribE
+    source: uniprot
+    query: '(protein_name:"riboflavin synthase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.30
+
+  - id: RIBH
+    label: ribH (6,7-dimethyl-8-ribityllumazine synthase)
+    gene: ribH
+    source: uniprot
+    query: '(protein_name:"6,7-dimethyl-8-ribityllumazine synthase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.30
+
+decoys:
+  - id: FLAVBG
+    label: flavin handling and salvage background
+    source: uniprot
+    query: '((protein_name:"riboflavin kinase") OR (protein_name:"FAD synthase") OR (protein_name:"bifunctional riboflavin kinase/FAD synthetase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 2500
+    length_tolerance: 0.30
+    note: >-
+      Salvage and activation enzymes are near-universal because every
+      organism needs FAD; keeping them out of the target set is what makes
+      this a synthesis measurement.
+
+  - id: GTPCYC
+    label: GTP cyclohydrolase and pterin-pathway background
+    source: uniprot
+    query: '((protein_name:"GTP cyclohydrolase 1") OR (protein_name:"GTP cyclohydrolase FolE2") OR (protein_name:"dihydroneopterin aldolase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 2000
+    length_tolerance: 0.30
+
+aggregate: sum
+aggregate_from: [RIBB, RIBE, RIBH]
+aggregate_reason: >-
+  Three steps of one obligate pathway. Their sum is a more stable estimate of
+  synthesis capacity than any one, and a large divergence between them
+  indicates fold-level noise rather than carriage.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+caveats:
+  - >-
+    Riboflavin is absorbed in the small intestine, upstream of the colon where
+    most of this synthesis happens, so the direct nutritional contribution is
+    limited. The ecological effect within the community is the better-evidenced
+    story.
+  - >-
+    Riboflavin also feeds the MAIT cell antigen pathway: riboflavin
+    biosynthesis intermediates are the ligands that MR1 presents to
+    mucosal-associated invariant T cells. That is a genuine immunological
+    connection and it is not measured by this panel, which counts genes rather
+    than intermediates.
+  - >-
+    Deficiency is rare in populations with adequate dairy and grain intake and
+    is diagnosed clinically, not from stool.
+
+interpretation:
+  what_it_is: >-
+    The capacity of your gut bacteria to make riboflavin, which they also use
+    as an electron shuttle between themselves.
+  made_from: Built de novo by bacteria from GTP and ribulose-5-phosphate
+  higher_means: favourable
+  evidence_strength: limited
+  summary: >-
+    Riboflavin is one of the few bacterial vitamins with a demonstrated effect
+    on the community itself: Faecalibacterium prausnitzii uses it to transfer
+    electrons, and riboflavin supplementation increases F. prausnitzii
+    abundance in human trials.
+  evidence_detail: >-
+    Khan et al. showed that F. prausnitzii uses riboflavin as an
+    extracellular electron shuttle, which explains how a strict anaerobe
+    tolerates the oxygen gradient at the mucosal surface. Steinert et al. then
+    supplemented healthy adults with riboflavin and observed an increase in
+    F. prausnitzii and in butyrate, one of the cleaner
+    prebiotic-mechanism demonstrations in the field. Separately, riboflavin
+    biosynthesis intermediates are the antigens that MR1 presents to MAIT
+    cells, making this pathway a direct link between bacterial metabolism and
+    mucosal immunity. What the evidence does not support is treating this
+    number as a nutritional riboflavin status.
+  implications:
+    higher: >-
+      Your gut community has more riboflavin synthesis capacity than most
+      people's. The best-evidenced consequence is ecological rather than
+      nutritional: riboflavin is the electron shuttle Faecalibacterium
+      prausnitzii uses to survive at the oxygen-exposed mucosal surface.
+    typical: >-
+      Your community's riboflavin synthesis capacity sits in the middle of the reference range. Riboflavin is one of the B vitamins the colon can absorb in small amounts, but dietary intake is the dominant source and this reading is a feature of your bacteria rather than a measure of your vitamin status.
+    lower: >-
+      Less bacterial riboflavin synthesis capacity than most people. This is
+      not a statement about your vitamin B2 status, which comes from diet.
+  citation: >-
+    Khan M.T. et al., ISME J 6:1578-1585 (2012), doi:10.1038/ismej.2012.5;
+    Steinert R.E. et al., Gut Microbes 11:1300-1309 (2020),
+    doi:10.1080/19490976.2020.1748208
+
+citation: >-
+  Steinert R.E., Sadaghian Sadabad M., Harmsen H.J.M., Weber P., "The prebiotic
+  concept and human health: a changing landscape with riboflavin as a novel
+  prebiotic candidate?", Eur J Clin Nutr 70:1348-1353 (2016),
+  doi:10.1038/ejcn.2016.119.

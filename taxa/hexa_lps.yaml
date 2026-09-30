@@ -1,0 +1,62 @@
+name: hexa_lps
+label: "Hexa-acylated LPS carriers"
+category: surface
+higher_means: context-dependent
+reader_direction: adverse
+direction_note: >-
+  Hexa-acylated LPS is the strongly inflammatory form of the bacterial surface molecule; the penta-acylated form most gut Bacteroidetes make is far weaker. More carriers means more inflammatory potential at the gut wall.
+description: >-
+  Gram-negative organisms whose lipopolysaccharide carries six acyl chains.
+  Hexa-acylated LPS is a strong TLR4 agonist; the penta-acylated LPS of
+  Bacteroides is a weak one and can even antagonise TLR4. This distinction is
+  the reason "endotoxin load" cannot be read from Gram-negative abundance
+  alone, and it is why this group counts Enterobacteriaceae rather than all
+  Gram-negatives.
+
+summary: >-
+  Bacteria whose cell-surface lipopolysaccharide strongly activates the
+  innate immune receptor TLR4. Not all Gram-negative bacteria do this — the
+  Bacteroides that dominate most healthy guts carry a weakly-activating
+  variant, which is why counting them all together would be misleading.
+
+members:
+  - Escherichia coli
+  - Escherichia fergusonii
+  - Escherichia albertii
+  - Klebsiella pneumoniae
+  - Klebsiella oxytoca
+  - Klebsiella variicola
+  - Klebsiella aerogenes
+  - Enterobacter cloacae complex
+  - Citrobacter freundii
+  - Citrobacter koseri
+  - Proteus mirabilis
+  - Morganella morganii
+  - Salmonella enterica
+  - Bilophila wadsworthia
+  - Desulfovibrio piger
+  - Fusobacterium nucleatum
+  - Fusobacterium varium
+
+unresolved:
+  - Shigella flexneri
+
+caveats:
+  - >-
+    Carriage of hexa-acylated LPS is normal. Enterobacteriaceae are ordinary
+    members of a healthy gut community at low abundance; the concern in the
+    literature is expansion, not presence.
+  - >-
+    This is not a blood endotoxin measurement. Whether LPS reaches the
+    circulation depends on gut barrier integrity, which is not measured here
+    and for which no validated stool test exists.
+  - >-
+    In type 1 diabetes the direction is reversed: Vatanen et al. found that
+    Bacteroides-dominant, penta-acylated-LPS communities failed to educate
+    the infant immune system, and it was low hexa-LPS that marked the at-risk
+    group. Direction is disease-specific, not universal.
+
+citation: >-
+  Vatanen T., Kostic A.D., d'Hennezel E., et al., "Variation in microbiome
+  LPS immunogenicity contributes to autoimmunity in humans", Cell 165:842-853
+  (2016), doi:10.1016/j.cell.2016.04.007.

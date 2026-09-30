@@ -1,0 +1,51 @@
+name: bifidobacteria
+label: "Resident bifidobacteria"
+category: beneficial
+higher_means: favourable
+description: >-
+  The Bifidobacterium species that genuinely colonise the adult colon, as
+  opposed to the ones that arrive in a capsule or a yoghurt pot and pass
+  through. These are the species curated here as health-associated: they are
+  more abundant in healthy adults than in disease cohorts, they ferment
+  host- and diet-derived glycans, and they cross-feed lactate and acetate to
+  the butyrate producers rather than making butyrate themselves. They are
+  separated from the supplement-and-dairy genera because the two behave
+  differently and a single number over both cannot be read in one direction.
+
+summary: >-
+  The bifidobacteria that actually live in an adult colon, rather than the
+  ones passing through from food or a supplement. They are consistently more
+  abundant in healthy adults, and they feed the butyrate producers that line
+  your gut wall. More of these is generally the direction you want.
+
+members:
+  - Bifidobacterium adolescentis
+  - Bifidobacterium longum
+  - Bifidobacterium bifidum
+  - Bifidobacterium pseudocatenulatum
+  - Bifidobacterium catenulatum
+
+caveats:
+  - >-
+    A low reading is common and is not a diagnosis. Bifidobacterial abundance
+    falls with age, with low-fibre eating and after antibiotics, and a single
+    stool sample cannot separate those causes.
+  - >-
+    Bifidobacterium animalis and Bifidobacterium breve are deliberately not
+    counted here. Both are predominantly supplement and fermented-dairy
+    organisms in adults, so they are grouped with the other transient
+    probiotic species where a high reading is read as intake rather than as
+    colonisation.
+  - >-
+    Bifidobacterium dentium is an oral species, not a gut resident, and is
+    excluded from this group for that reason.
+  - >-
+    This group shares species with the health-associated core reading, so the
+    two are not independent confirmations of each other.
+
+citation: >-
+  Gupta V.K., Kim M., Bakshi U., et al., "A predictive index for health
+  status using species-level gut microbiome profiling", Nat Commun 11:4635
+  (2020), doi:10.1038/s41467-020-18476-8; Arboleya S., Watkins C., Stanton
+  C., Ross R.P., "Gut bifidobacteria populations in human health and aging",
+  Front Microbiol 7:1204 (2016), doi:10.3389/fmicb.2016.01204.

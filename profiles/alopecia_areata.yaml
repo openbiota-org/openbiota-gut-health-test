@@ -1,0 +1,445 @@
+name: alopecia_areata
+version: 1.0.0
+spec_version: 3
+label: "Alopecia areata — gut pattern"
+disease: alopecia_areata
+task: alopecia_areata_vs_control
+family: alopecia_areata
+body_site: stool
+population: pediatric_shotgun_derived
+status: experimental
+evidence_maturity: P1
+
+summary: >-
+  Alopecia areata is an autoimmune condition and biologically distinct from
+  androgenetic alopecia; their evidence is never merged. The only shotgun
+  cohort is pediatric — 41 children with AA against 41 unaffected siblings —
+  and everything else is 16S, which binds here as a labelled transport rather
+  than being discarded or quietly treated as equivalent.
+
+  The published cohorts disagree with each other on direction. Bacteroides is case-enriched in the severe Moreno and Bain branches and
+  lower in Lee. Dorea is higher at genus level in Lu while D. longicatena is
+  control-associated in Moreno. Those conflicts are not pooled into a
+  consensus: each study is its own module with its own vote, and the spread
+  between them is the result worth reading.
+
+references:
+  primary:
+    source: null
+    note: >-
+      The pediatric shotgun cohort uses unaffected siblings, which is an
+      unusually good contrast — shared household, shared diet. No adult
+      shotgun cohort with any contrast exists.
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  rangu_2021_shotgun:
+    label: "Rangu 2021 pediatric shotgun (41 AA / 41 siblings)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: rangu_2021
+    maturity: P2
+    note: >-
+      The only shotgun evidence in this profile and the only module measured
+      the same way as this sample. Alpha diversity and Bray-Curtis were null;
+      a small Jaccard difference was significant. R. bicirculans was decreased
+      in AA. Median ~2.7 million QC read pairs per sample.
+    sources: ["Rangu 2021 JID Innov 1:100051"]
+    features:
+      - name: Ruminococcus_bicirculans
+        level: species
+        direction: lower_in_case
+        w: 1.0
+        q: 0.6
+        s: 0.6
+        c: 0.9
+        sources: ["Rangu 2021 JID Innov (NCBI Taxonomy 1160721)"]
+        note: >-
+          The single named taxonomic finding from the only shotgun cohort.
+
+  rangu_ko_figure:
+    label: "Rangu 2021 KO set — figure encoding"
+    type: sensitivity_panel
+    evidence_type: PATH_ABUND
+    claim_level: genomic_capacity
+    study_group: rangu_2021
+    maturity: P1
+    note: >-
+      Twenty gene orthologs differed between groups, and the publication's
+      prose reverses gerKA (K06295), gerKC (K06297) and fbpA (K02012)
+      relative to its own figure, with further ambiguity around K07552. Both
+      encodings are compiled and scored as sensitivity modules so the
+      disagreement is visible rather than silently resolved by picking one.
+      All twenty directions are marked uncertain for fusion pending author
+      clarification or raw reanalysis. Same participants and same stool DNA
+      as the taxon module — one evidence group.
+    sources: ["Rangu 2021 JID Innov, figure encoding"]
+    features:
+      - {name: K06295, direction: higher_in_case, direction_conflict: material, w: 0.3}
+      - {name: K06297, direction: higher_in_case, direction_conflict: material, w: 0.3}
+      - {name: K02012, direction: higher_in_case, direction_conflict: material, w: 0.3}
+      - {name: K07552, direction: higher_in_case, direction_conflict: material, w: 0.2}
+
+  rangu_ko_text:
+    label: "Rangu 2021 KO set — prose encoding"
+    type: sensitivity_panel
+    evidence_type: PATH_ABUND
+    claim_level: genomic_capacity
+    study_group: rangu_2021
+    maturity: P1
+    note: >-
+      The same four orthologs with the directions the prose gives. The delta
+      between this module and the figure encoding is the size of the
+      publication's internal disagreement, and it is exposed rather than
+      averaged away.
+    sources: ["Rangu 2021 JID Innov, prose encoding"]
+    features:
+      - {name: K06295, direction: lower_in_case, direction_conflict: material, w: 0.3}
+      - {name: K06297, direction: lower_in_case, direction_conflict: material, w: 0.3}
+      - {name: K02012, direction: lower_in_case, direction_conflict: material, w: 0.3}
+      - {name: K07552, direction: lower_in_case, direction_conflict: material, w: 0.2}
+
+  moreno_2020:
+    label: "Moreno-Arrones 2020 (15 alopecia universalis / 15 control, 16S)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    assay_transport: amplicon_taxon_to_shotgun
+    study_group: moreno_2020
+    maturity: P1
+    note: >-
+      Severe-disease branch. Internal two-marker AUROC 0.804 (CI 0.633-0.976)
+      with no external validation, on fifteen cases. Genus-level 16S findings
+      bind by declared transport with a resolution penalty; family-level
+      groups such as Erysipelotrichaceae and Clostridiales vadinBB60 cannot be
+      resolved by marker-based shotgun taxonomy and are recorded as missing
+      rather than guessed.
+    sources: ["Moreno-Arrones et al., doi:10.1111/jdv.15885"]
+    features:
+      - name: Holdemania_filiformis
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.4
+        s: 0.5
+        c: 0.6
+        mapping_confidence: high
+      - name: Parabacteroides_johnsonii
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.4
+        s: 0.5
+        c: 0.6
+        mapping_confidence: high
+      - name: Bacteroides_eggerthii
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.4
+        s: 0.4
+        c: 0.5
+        mapping_confidence: high
+      - name: Parabacteroides_distasonis
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.4
+        s: 0.4
+        c: 0.5
+        mapping_confidence: high
+      - name: Phascolarctobacterium_succinatutens
+        level: species
+        direction: lower_in_case
+        w: 0.6
+        q: 0.4
+        s: 0.5
+        c: 0.6
+        mapping_confidence: high
+      - name: Dorea_longicatena
+        level: species
+        direction: lower_in_case
+        w: 0.5
+        q: 0.4
+        s: 0.4
+        c: 0.4
+        direction_conflict: low
+        conflict_note: >-
+          Lu 2021 reports genus Dorea higher in case; this species is
+          control-associated here. Kept as separate assertions.
+        mapping_confidence: high
+
+  lu_2021:
+    label: "Lu 2021 (33 AA / 35 control, 16S)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    assay_transport: amplicon_taxon_to_shotgun
+    study_group: lu_2021
+    maturity: P1
+    note: >-
+      Internal random-forest AUROC 0.935 on training and 0.867 on holdout,
+      both internal. Several reported genera (Achromobacter, Megasphaera) are
+      low-abundance environmental organisms whose presence in a stool 16S
+      dataset warrants contamination review, so they are weighted down.
+      Genus Blautia and genus Dorea are on the conflicted list and bind with
+      an explicit material conflict.
+    sources: ["Lu et al., doi:10.1016/j.jdermsci.2021.04.003"]
+    features:
+      - name: Blautia
+        level: genus
+        direction: higher_in_case
+        w: 0.5
+        q: 0.4
+        s: 0.3
+        c: 0.4
+        direction_conflict: material
+        conflict_note: >-
+          Genus Blautia was enriched in a US long-COVID cohort and is treated
+          as beneficial elsewhere. No stable direction; reported with the
+          conflict shown.
+        mapping_confidence: medium
+      - name: Anaerostipes_hadrus
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.4
+        s: 0.4
+        c: 0.5
+        mapping_confidence: medium
+        note: "Stands for genus Anaerostipes; the dominant gut species in that genus."
+      - name: Collinsella_aerofaciens
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.4
+        s: 0.4
+        c: 0.5
+        mapping_confidence: medium
+      - name: Dorea
+        level: genus
+        direction: higher_in_case
+        w: 0.4
+        q: 0.3
+        s: 0.3
+        c: 0.3
+        direction_conflict: material
+        conflict_note: >-
+          Directly contradicts Moreno-Arrones, where D. longicatena was
+          control-associated. Both are kept.
+        mapping_confidence: medium
+
+  bain_2022:
+    label: "Bain 2022 high-SALT subgroup (exploratory)"
+    type: sensitivity_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    assay_transport: amplicon_taxon_to_shotgun
+    study_group: bain_2022
+    maturity: P0
+    note: >-
+      Overall tests were largely null after correction; this is the
+      high-severity (SALT) subgroup only, and is reported as a sensitivity
+      result that never enters the score. Correlated Lachnospiraceae ranks
+      collapse into one lineage cluster.
+    sources: ["Bain et al., doi:10.1093/cei/uxac088"]
+    features:
+      - name: Alistipes
+        level: genus
+        direction: higher_in_case
+        w: 0.3
+        q: 0.2
+        s: 0.3
+        c: 0.3
+        direction_conflict: material
+        mapping_confidence: low
+      - name: Barnesiella_intestinihominis
+        level: species
+        direction: higher_in_case
+        w: 0.3
+        q: 0.2
+        s: 0.3
+        c: 0.3
+        mapping_confidence: low
+      - name: Tyzzerella_nexilis
+        level: species
+        direction: higher_in_case
+        cluster: lachnospiraceae_lineage
+        w: 0.3
+        q: 0.2
+        s: 0.3
+        c: 0.3
+        mapping_confidence: low
+
+  lee_2024:
+    label: "Lee 2024 (19 AA / 20 control, 16S)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    assay_transport: amplicon_taxon_to_shotgun
+    study_group: lee_2024
+    maturity: P1
+    note: >-
+      Alpha diversity null. Reports Bacteroides *lower* in case, opposite to
+      the Moreno and Bain severe branches — the clearest direction conflict in
+      this profile and the reason no pooled consensus is attempted.
+    sources: ["Lee JH, et al. IJMS 2024;25:4256"]
+    features:
+      - name: Bacteroides
+        level: genus
+        direction: lower_in_case
+        w: 0.5
+        q: 0.4
+        s: 0.3
+        c: 0.3
+        direction_conflict: material
+        conflict_note: >-
+          Case-enriched in Moreno-Arrones and Bain, case-depleted here. The
+          leave-one-study-out spread across the profile is the reported result.
+        mapping_confidence: medium
+      - name: Blautia_wexlerae
+        level: species
+        direction: higher_in_case
+        w: 0.4
+        q: 0.3
+        s: 0.3
+        c: 0.4
+        mapping_confidence: medium
+
+  nikoloudaki_2024:
+    label: "Nikoloudaki 2024 (24 AA / 18 control, 16S)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    assay_transport: amplicon_taxon_to_shotgun
+    study_group: nikoloudaki_2024
+    maturity: P1
+    note: >-
+      Internal DIABLO classification error around 35%. The deposited run count
+      for PRJNA857562 requires reconciliation against the paper. Correlated
+      Lachnospiraceae ranks collapse into one lineage cluster so the study
+      does not vote six times on one lineage.
+    sources: ["Nikoloudaki O, et al. Nutrients 2024;16:858, PRJNA857562"]
+    features:
+      - name: Blautia_obeum
+        level: species
+        direction: higher_in_case
+        cluster: lachnospiraceae_lineage
+        w: 0.4
+        q: 0.3
+        s: 0.3
+        c: 0.4
+        mapping_confidence: medium
+      - name: Holdemania_filiformis
+        level: species
+        direction: higher_in_case
+        w: 0.4
+        q: 0.3
+        s: 0.4
+        c: 0.5
+        mapping_confidence: medium
+      - name: Coprococcus_comes
+        level: species
+        direction: lower_in_case
+        w: 0.4
+        q: 0.3
+        s: 0.3
+        c: 0.4
+        mapping_confidence: medium
+
+  biotin_mechanism:
+    label: "Biotin biosynthesis capacity (mechanism, P0)"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P0
+    note: >-
+      Germ-free mice under biotin deprivation developed alopecia with
+      Lactobacillus murinus overgrowth, reversed by supplementation. That is
+      a mouse mechanism, graded P0, and it is scored in its own lane rather
+      than mixed into the human taxonomic evidence. Propionate capacity is
+      here too and carries a material conflict: regrowth was observed in five
+      of five C3H/HeJ mice and then not reproduced by the same group.
+    sources:
+      - "Hayashi A, et al. Cell Rep 2017;20:1513"
+      - "Borde A, Astrand A. Expert Opin Ther Targets 2018;22:503"
+    features:
+      - name: biotin
+        engine: diamond
+        direction: decreased
+        w: 0.6
+        q: 0.3
+        s: 0.3
+        c: 0.6
+        sources: ["Hayashi 2017 Cell Rep 20:1513"]
+      - name: propionate
+        engine: diamond
+        direction: decreased
+        w: 0.4
+        q: 0.3
+        s: 0.2
+        c: 0.3
+        direction_conflict: material
+        conflict_note: >-
+          Borde and Astrand observed regrowth in five of five C3H/HeJ mice,
+          then did not reproduce it.
+        sources: ["Borde and Astrand 2018"]
+
+unbound_sources:
+  - source: "Juhasz et al. 2020 (25 / 25) — Bacilli, Lactobacillales higher in case"
+    evidence_type: TAX_REL
+    note: >-
+      Class- and order-level findings only, with fungal and diversity results
+      largely null. Class level cannot be bound to a direction here without
+      inventing a resolution the source does not have.
+  - source: "Fecal volatile organic compound metabolomics"
+    evidence_type: METAB
+    note: >-
+      Would bind as a measured module if a fecal VOC panel were supplied
+      alongside the FASTQ. Never imputed from DNA.
+
+confounders:
+  - name: Age
+    effect: "The only shotgun cohort is children aged 4-17; adult samples are out of distribution"
+    handling: "Out-of-distribution flagged when age is supplied and adult"
+  - name: Disease severity
+    effect: "Bain's signal appears only in the high-SALT subgroup"
+    handling: "Severity subgroup evidence kept as a sensitivity module"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Alopecia areata is diagnosed by a clinician from the pattern of hair loss,
+    not from stool. No microbiome test predicts it, and no result here should
+    change treatment.
+  - >-
+    Six of the seven human cohorts here are 16S with fewer than 40 cases each,
+    and their directions conflict. The score is an average of study votes and
+    its spread is wide by construction — read the per-module scores, not just
+    the fused number.
+  - >-
+    The pediatric shotgun cohort is the only module measured the way this
+    sample was measured. An adult sample is outside its population.
+  - >-
+    Bacteroides and Dorea appear with opposite directions in different
+    cohorts. Neither direction is endorsed here.
+
+effect_size_note: >-
+  Rangu 2021: 41 children with AA, 41 unaffected siblings, shotgun. The 16S
+  cohorts range from 15 to 33 cases. All reported discrimination is internal.
+
+citation: >-
+  Rangu S, Lee J-J, Hu W, Bittinger K, Castelo-Soccio L. Understanding the gut
+  microbiota in pediatric patients with alopecia areata and their siblings: a
+  pilot study. JID Innov 2021;1:100051, doi:10.1016/j.xjidi.2021.100051;
+  Moreno-Arrones et al. doi:10.1111/jdv.15885; Lu et al.
+  doi:10.1016/j.jdermsci.2021.04.003; Bain et al. doi:10.1093/cei/uxac088;
+  Lee JH, et al. IJMS 2024;25:4256; Nikoloudaki O, et al. Nutrients
+  2024;16:858; Hayashi A, et al. Cell Rep 2017;20:1513.

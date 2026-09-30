@@ -1,0 +1,20 @@
+{
+  "source_id": "motus_db",
+  "files": {
+    "motus/db_mOTU.tar.gz": {
+      "url": "https://zenodo.org/records/20322482/files/db_mOTU.tar.gz?download=1",
+      "size": 5552983255,
+      "retrieved_at": "2026-09-27T00:11:13-07:00",
+      "sha256": "7d2d6382ecf766b23ef362311715cd612243af82c00c936da4597afb4e4df375",
+      "verified": true,
+      "publisher_checksum": "md5:471ea128f0c0839f5c4629b949ea5f8a",
+      "note": "count recorded from the downloaded artifact, not from either published figure",
+      "verification": "publisher md5"
+    }
+  },
+  "release_id": "mOTUs DB 4.1 (Zenodo 20322482)",
+  "taxonomy_release": "mOTUs 4.1 (GTDB-anchored)",
+  "license": "CC BY 4.0 (mOTUs data)",
+  "count_unit": "mOTU (species-level unit)",
+  "source_count": null
+}

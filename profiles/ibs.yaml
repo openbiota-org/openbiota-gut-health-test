@@ -1,0 +1,295 @@
+name: ibs
+version: 1.0.0
+spec_version: 3
+label: "Irritable bowel syndrome — gut pattern"
+disease: irritable_bowel_syndrome
+task: ibs_vs_healthy
+family: ibs
+body_site: stool
+population: mixed_adult_cohorts
+status: research_beta
+evidence_maturity: P2
+
+summary: >-
+  A symptom-based diagnosis, so the microbiome literature is large, mostly
+  16S, and unusually inconsistent between cohorts. Systematic reviews agree on
+  little beyond depleted butyrate producers and Bifidobacterium, and a
+  subgroup of patients with a distinctly dysbiotic community — most others
+  look like healthy controls. That heterogeneity is why the shape analysis
+  matters more than the score here: an IBS-like community is also a
+  post-antibiotic community, a low-fibre community, and a post-infectious
+  community.
+
+  Subtypes are scored separately in ibs_c, ibs_d and ibs_m, which share this
+  parent's modules and add subtype-specific ones.
+
+references:
+  primary:
+    source: null
+    note: >-
+      Healthy controls are the only widely available contrast; symptom-matched
+      non-IBS (functional dyspepsia, organic disease) contrasts are rare.
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  pittayanon_review:
+    label: "Pittayanon 2019 systematic review consensus"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    assay_transport: amplicon_taxon_to_shotgun
+    study_group: pittayanon_2019
+    maturity: P2
+    weight_in_combined: 1.0
+    note: >-
+      Directions reported consistently across at least two independent
+      cohorts in the systematic review of 24 studies. The review is a
+      synthesis rather than a study, so its module is a single vote and its
+      genus-level 16S findings bind by transport.
+    sources: ["Pittayanon R, et al. Gastroenterology 2019;157:97-108"]
+    features:
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.8
+        q: 0.6
+        s: 0.2
+        c: 0.7
+        mapping_confidence: high
+      - name: Bifidobacterium_adolescentis
+        level: species
+        direction: lower_in_case
+        cluster: bifidobacterium
+        w: 0.8
+        q: 0.6
+        s: 0.3
+        c: 0.7
+        mapping_confidence: medium
+      - name: Bifidobacterium_longum
+        level: species
+        direction: lower_in_case
+        cluster: bifidobacterium
+        w: 0.6
+        q: 0.6
+        s: 0.3
+        c: 0.7
+        mapping_confidence: medium
+      - name: Lactobacillus_ruminis
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.5
+        s: 0.3
+        c: 0.5
+        mapping_confidence: low
+        note: "Lactobacillaceae were reported higher in case; L. ruminis is the dominant gut autochthonous species."
+      - name: Escherichia_coli
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.5
+        s: 0.2
+        c: 0.6
+        mapping_confidence: medium
+      - name: Ruminococcus_gnavus
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.5
+        s: 0.2
+        c: 0.6
+        mapping_confidence: medium
+
+  mars_2020_shotgun:
+    label: "Mars 2020 longitudinal shotgun (Mayo)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: mars_2020
+    maturity: P2
+    note: >-
+      Longitudinal multi-omic study of IBS with shotgun metagenomics measured
+      the same way as this sample. Species-level shifts with a matched
+      metabolomic and bile-acid story.
+    sources: ["Mars RAT, et al. Cell 2020;182:1460-1473"]
+    features:
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.7
+        s: 0.2
+        c: 0.7
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.6
+        s: 0.3
+        c: 0.7
+      - name: Bacteroides_fragilis
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.3
+        c: 0.6
+      - name: Ruminococcus_gnavus
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.6
+        s: 0.2
+        c: 0.6
+
+  jeffery_2020_hmp:
+    label: "Jeffery 2020 (Irish IBS shotgun)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: jeffery_2020
+    maturity: P2
+    note: >-
+      Shotgun cohort identifying a dysbiotic IBS subgroup and a normal-like
+      one. This module encodes the dysbiotic-subgroup directions; most IBS
+      patients in the source resembled controls.
+    sources: ["Jeffery IB, et al. Gastroenterology 2020;158:1016-1028"]
+    features:
+      - name: Bacteroides_vulgatus
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.3
+        c: 0.6
+      - name: Eubacterium_rectale
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.6
+        s: 0.2
+        c: 0.7
+      - name: Coprococcus_comes
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.5
+        q: 0.5
+        s: 0.3
+        c: 0.6
+      - name: Methanobrevibacter_smithii
+        level: species
+        direction: lower_in_case
+        w: 0.5
+        q: 0.5
+        s: 0.4
+        c: 0.5
+        direction_conflict: material
+        conflict_note: >-
+          Methanogens are lower in IBS-D and higher in IBS-C; the direction is
+          subtype-dependent and is scored per subtype in ibs_c and ibs_d.
+
+  ecology:
+    label: "Community ecology"
+    type: direction_panel
+    evidence_type: ECO
+    claim_level: observed
+    study_group: pittayanon_2019
+    maturity: P2
+    note: >-
+      Reduced diversity in the dysbiotic subgroup. Ecology is unspecific and
+      shares a study group with the review module so it does not add a vote.
+    features:
+      - name: shannon
+        direction: decreased
+        w: 0.5
+        q: 0.6
+        s: 0.1
+        c: 0.7
+
+  mechanism:
+    label: "Gas, bile acid and neuroactive capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P1
+    note: >-
+      Hydrogen sulfide and methane capacity relate to symptom subtype;
+      secondary bile acid conversion is elevated in IBS-D with bile acid
+      malabsorption; tryptamine acts on intestinal 5-HT4 receptors to
+      accelerate transit. Mechanism only, scored in its own lane.
+    sources:
+      - "Mars 2020 Cell"
+      - "Bhattarai Y, et al. Cell Host Microbe 2018;23:775 (tryptamine 5-HT4R)"
+      - "Pimentel M, et al. Am J Physiol 2006 (methane and constipation)"
+    features:
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        w: 0.8
+        q: 0.7
+        s: 0.2
+        c: 0.8
+      - name: bai
+        engine: diamond
+        direction: increased
+        w: 0.6
+        q: 0.6
+        s: 0.3
+        c: 0.6
+      - name: h2s
+        engine: diamond
+        direction: increased
+        w: 0.5
+        q: 0.5
+        s: 0.3
+        c: 0.5
+      - name: tryptamine
+        engine: diamond
+        direction: increased
+        w: 0.4
+        q: 0.4
+        s: 0.4
+        c: 0.4
+
+confounders:
+  - name: Diet
+    effect: "Low-FODMAP and low-fibre diets used for IBS reproduce the IBS depletion pattern"
+    handling: "Recorded in the ledger when diet is supplied; not adjusted"
+  - name: Recent infection
+    effect: "Post-infectious IBS and recent gastroenteritis share the pattern"
+    handling: "Recorded when supplied"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    IBS is a symptom-based diagnosis made by a clinician after excluding
+    organic disease. No stool test diagnoses it or excludes it.
+  - >-
+    The IBS-like community is the general dysbiosis community. Every scored
+    direction here also appears in IBD, post-antibiotic and low-fibre states.
+    Read this beside the shape analysis: if many profiles are high together,
+    that is dysbiosis, not IBS.
+  - >-
+    Most IBS patients in the shotgun cohorts had communities indistinguishable
+    from controls, so a low score is common in IBS.
+
+citation: >-
+  Pittayanon R, et al. Gut microbiota in patients with irritable bowel
+  syndrome — a systematic review. Gastroenterology 2019;157:97-108; Mars RAT,
+  et al. Longitudinal multi-omics reveals subset-specific mechanisms underlying
+  irritable bowel syndrome. Cell 2020;182:1460-1473; Jeffery IB, et al.
+  Differences in fecal microbiomes and metabolomes of people with vs without
+  irritable bowel syndrome and bile acid malabsorption. Gastroenterology
+  2020;158:1016-1028.

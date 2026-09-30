@@ -1,0 +1,59 @@
+# data — never commit sequencing reads
+fastq/*.fastq
+fastq/*.fastq.gz
+fastq/*.fq
+fastq/*.fq.gz
+
+# generated artefacts
+results/
+refs/*
+.venv/
+.venv-mpa3/
+.venv-mpa4/
+*.dmnd
+
+# python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# os
+.DS_Store
+
+# never commit personal reports or side environments
+tinyhealth/
+.venv-*/
+
+# Downloaded third-party tooling. Reproduced by `make vendor-tools` and
+# `make strain-tools`, pinned there by version and checksum, so the binaries
+# themselves do not belong in the history.
+vendor/
+
+# Spec 0.8.4 provenance: the locks and summaries are small and are the record
+# of what every run used. The references themselves stay out (refs/* above).
+!refs/expanded/
+refs/expanded/*
+!refs/expanded/locks/
+!refs/expanded/reconciliation/
+refs/expanded/reconciliation/*
+!refs/expanded/reconciliation/summary.json
+!refs/expanded/reconciliation/uhgg_v2.0.2.ani.json
+!refs/crosswalk/
+refs/crosswalk/*
+!refs/crosswalk/*.summary.json
+!refs/MANIFEST.json
+!refs/MANIFEST.md
+
+# secrets and local machine state — never in the history
+.env
+.env.*
+*.pem
+*.key
+secrets/
+# the local mapping from published sample identifiers to this machine's sample names
+results/.sample_aliases.json

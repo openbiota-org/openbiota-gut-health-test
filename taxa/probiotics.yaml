@@ -1,0 +1,71 @@
+name: probiotics
+label: "Supplement and fermented-dairy species"
+category: beneficial
+higher_means: context-dependent
+description: >-
+  Lactobacillus (now split into Lactobacillus, Limosilactobacillus,
+  Lacticaseibacillus, Lactiplantibacillus and others), Streptococcus
+  thermophilus, and the two Bifidobacterium species that are predominantly
+  supplement and fermented-dairy organisms rather than adult residents.
+  These mostly do not colonise the adult colon: their detection in stool
+  usually reflects recent dietary or supplement intake passing through. The
+  resident bifidobacteria are reported separately, because for those a high
+  reading does point in a favourable direction and for these it does not.
+
+summary: >-
+  The bacteria found in yoghurt, kefir and probiotic capsules. These are
+  mostly transient in the adult gut, so a high reading usually means you are
+  currently eating or taking them rather than that they have settled in — and
+  it can also mean the opposite of good news, because the same organisms rise
+  when stomach acid is low or when bacteria overgrow the small intestine.
+  A high or low reading is not a health verdict on its own, which is why this
+  scale is drawn in neutral grey.
+
+members:
+  - Bifidobacterium breve
+  - Bifidobacterium animalis
+  - Bifidobacterium dentium
+  - Lactobacillus acidophilus
+  - Lactobacillus delbrueckii
+  - Lactobacillus gasseri
+  - Lactobacillus rhamnosus
+  - Lactobacillus plantarum
+  - Lactobacillus reuteri
+  - Lactobacillus fermentum
+  - Lactobacillus salivarius
+  - Lactobacillus ruminis
+  - Lactobacillus johnsonii
+  - Streptococcus thermophilus
+
+unresolved:
+  - Lactobacillus casei
+  - Lactobacillus paracasei
+
+caveats:
+  - >-
+    A high Lactobacillus reading in an adult is most often diet or a
+    supplement passing through; colonisation is uncommon. It is also raised
+    in small-intestinal bacterial overgrowth and in people with low stomach
+    acid (proton pump inhibitor use), where oral and upper-gut organisms reach
+    the stool in larger numbers.
+  - >-
+    Bifidobacterium dentium is an oral species and is counted here for
+    completeness; it is not a probiotic and is also a member of the
+    oral-origin group.
+  - >-
+    The bifidobacteria that do colonise the adult colon are reported as their
+    own group, "Resident bifidobacteria", and are not counted here. Splitting
+    them matters: rolling residents and transients into one number produced a
+    reading that could not be given a direction, because its two halves point
+    opposite ways.
+  - >-
+    The genus Lactobacillus was split into 25 genera in 2020. The species
+    names used here follow the older convention, which predates the split;
+    where an organism has been renamed, the current name is shown with the
+    previous one beneath it in the organism list.
+
+citation: >-
+  Zheng J., Wittouck S., Salvetti E., et al., "A taxonomic note on the genus
+  Lactobacillus", Int J Syst Evol Microbiol 70:2782-2858 (2020),
+  doi:10.1099/ijsem.0.004107; Hill C. et al., Nat Rev Gastroenterol Hepatol
+  11:506-514 (2014).

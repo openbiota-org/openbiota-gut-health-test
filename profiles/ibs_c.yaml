@@ -1,0 +1,127 @@
+name: ibs_c
+version: 1.0.0
+spec_version: 3
+label: "IBS with constipation — gut pattern"
+disease: irritable_bowel_syndrome
+task: ibs_c_vs_healthy
+family: ibs
+body_site: stool
+population: mixed_adult_cohorts
+status: experimental
+evidence_maturity: P1
+
+summary: >-
+  Constipation-predominant IBS has one microbial feature the other subtypes
+  lack: methanogen enrichment. Methane slows intestinal transit in animal
+  models and breath methane tracks constipation in humans, so
+  Methanobrevibacter smithii and the mcrA gene panel are the subtype-specific
+  evidence here. The rest is inherited from the parent IBS pattern.
+
+references:
+  primary:
+    source: null
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  methanogen_subtype:
+    label: "Methanogen enrichment in constipation"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: methane_constipation
+    maturity: P2
+    weight_in_combined: 1.0
+    note: >-
+      Breath-methane-positive patients are overwhelmingly constipation-
+      predominant, and M. smithii abundance in stool tracks breath methane.
+      This is the one direction that separates IBS-C from IBS-D.
+    sources:
+      - "Pimentel M, et al. Am J Physiol 2006;290:G1089"
+      - "Ghoshal U, et al. J Neurogastroenterol Motil 2016;22:99"
+      - "Kim G, et al. Dig Dis Sci 2012;57:3213"
+    features:
+      - name: Methanobrevibacter_smithii
+        level: species
+        direction: higher_in_case
+        w: 1.0
+        q: 0.7
+        s: 0.6
+        c: 0.8
+        sources: ["Kim 2012 Dig Dis Sci; Ghoshal 2016"]
+
+  shared_dysbiosis:
+    label: "Shared IBS depletion pattern"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    assay_transport: amplicon_taxon_to_shotgun
+    study_group: pittayanon_2019
+    maturity: P2
+    note: "Inherited from the parent IBS profile; not subtype-specific."
+    sources: ["Pittayanon R, et al. Gastroenterology 2019;157:97-108"]
+    features:
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.6
+        s: 0.2
+        c: 0.7
+        mapping_confidence: high
+      - name: Bifidobacterium_adolescentis
+        level: species
+        direction: lower_in_case
+        w: 0.6
+        q: 0.6
+        s: 0.3
+        c: 0.7
+        mapping_confidence: medium
+
+  methane_capacity:
+    label: "Methanogenesis gene capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P2
+    note: >-
+      mcrA is the terminal methanogenesis gene and a second, independent
+      count of the same biology as the M. smithii feature.
+    features:
+      - name: methane
+        engine: diamond
+        direction: increased
+        w: 1.0
+        q: 0.7
+        s: 0.6
+        c: 0.8
+
+cross_engine_checks:
+  - taxonomic_feature: Methanobrevibacter_smithii
+    functional_feature: methane
+    expect: concordant
+    on_disagreement: downgrade_confidence
+    note: "Nearly all gut methanogenesis capacity is M. smithii; disagreement means a broken map."
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    IBS subtypes are defined by stool form on the Bristol scale, not by
+    stool DNA. This profile describes a community pattern associated with
+    constipation, which many people without IBS also carry.
+  - >-
+    Methanogen carriage is common and partly heritable. High methanogen
+    abundance is a normal state for a large minority of healthy adults.
+
+citation: >-
+  Pimentel M, et al. Methane, a gas produced by enteric bacteria, slows
+  intestinal transit and augments small intestinal contractile activity. Am J
+  Physiol 2006;290:G1089; Kim G, et al. Methanobrevibacter smithii is the
+  predominant methanogen in patients with constipation-predominant IBS and
+  methane on breath. Dig Dis Sci 2012;57:3213.

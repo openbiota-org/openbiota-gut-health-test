@@ -1,0 +1,1489 @@
+# Exact intervention identities and studied protocols (spec v04 §7.2–7.3).
+# A protocol is a SOURCE FACT: what a study administered. It is never a
+# personalised instruction. Prescription and FMT doses are stripped from
+# participant output by the renderer; every other dose is suppressed unless a
+# participant_claim_release_ref exists on the mapping (§7.8).
+interventions:
+  # ------------------------------------------------------------- probiotics
+  - intervention_id: PROBIOTIC_SIM01_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: SIM01 synbiotic (Bifidobacterium adolescentis, B. bifidum, B. longum with galacto-, xylo- oligosaccharides and resistant dextrin; Hong Kong)
+    identity:
+      evidence_transfer_key: exact_product
+      components:
+        - {entity_type: probiotic_strain, taxon: Bifidobacterium adolescentis, strain_designation: "proprietary (not disclosed at strain level in the trial report)"}
+        - {entity_type: probiotic_strain, taxon: Bifidobacterium bifidum, strain_designation: "proprietary"}
+        - {entity_type: probiotic_strain, taxon: Bifidobacterium longum, strain_designation: "proprietary"}
+        - {entity_type: prebiotic, molecule: "galacto-oligosaccharides, xylo-oligosaccharides, resistant dextrin"}
+      formulation: {delivery: sachet, coating: unknown}
+      product_version: "SIM01 as used in the RECOVERY trial (Lancet Infect Dis 2024)"
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: incomplete
+
+  - intervention_id: PROBIOTIC_AA_RHAMNOSUS_BTHS08_LONGUM_BTHS06_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: Lacticaseibacillus rhamnosus Bths-08 (CECT 30580) + Bifidobacterium longum Bths-06 (CECT 30616), 1:1
+    identity:
+      evidence_transfer_key: exact_strain_combination
+      components:
+        - {entity_type: probiotic_strain, taxon: Lacticaseibacillus rhamnosus, strain_designation: Bths-08, culture_collection_ids: [CECT 30580]}
+        - {entity_type: probiotic_strain, taxon: Bifidobacterium longum, strain_designation: Bths-06, culture_collection_ids: [CECT 30616]}
+      formulation: {delivery: capsule, coating: unknown}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: PROBIOTIC_AGA_LPLANTARUM_DCN07_DCN06_LPENTOSUS_DCN105_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: Lactiplantibacillus plantarum DCn_07 (CECT 30102) + DCn_06 (CECT 30103) + Lactiplantibacillus pentosus DCn1_05 (CECT 30104)
+    identity:
+      evidence_transfer_key: exact_strain_combination
+      components:
+        - {entity_type: probiotic_strain, taxon: Lactiplantibacillus plantarum, strain_designation: DCn_07, culture_collection_ids: [CECT 30102]}
+        - {entity_type: probiotic_strain, taxon: Lactiplantibacillus plantarum, strain_designation: DCn_06, culture_collection_ids: [CECT 30103]}
+        - {entity_type: probiotic_strain, taxon: Lactiplantibacillus pentosus, strain_designation: DCn1_05, culture_collection_ids: [CECT 30104]}
+      formulation: {delivery: capsule, coating: unknown}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: PROBIOTIC_AD_MILK_FOUR_ORGANISM_AKBARI_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: Probiotic milk with Lactobacillus acidophilus, L. casei, Bifidobacterium bifidum and L. fermentum (Akbari 2016)
+    identity:
+      evidence_transfer_key: exact_product
+      components:
+        - {entity_type: probiotic_strain, taxon: Lactobacillus acidophilus, strain_designation: "not reported"}
+        - {entity_type: probiotic_strain, taxon: Lacticaseibacillus casei, strain_designation: "not reported"}
+        - {entity_type: probiotic_strain, taxon: Bifidobacterium bifidum, strain_designation: "not reported"}
+        - {entity_type: probiotic_strain, taxon: Limosilactobacillus fermentum, strain_designation: "not reported"}
+      formulation: {delivery: fermented milk, coating: not_applicable}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: incomplete
+
+  - intervention_id: POSTBIOTIC_BBIFIDUM_MIMBB75_HEAT_INACTIVATED_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: Heat-inactivated Bifidobacterium bifidum MIMBb75 (non-viable)
+    identity:
+      evidence_transfer_key: exact_product
+      components:
+        - {entity_type: postbiotic_strain, taxon: Bifidobacterium bifidum, strain_designation: MIMBb75, viability: heat_inactivated}
+      formulation: {delivery: capsule, coating: unknown}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: PROBIOTIC_BINFANTIS_35624_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: Bifidobacterium longum subsp. infantis 35624
+    identity:
+      evidence_transfer_key: exact_strain
+      components:
+        - {entity_type: probiotic_strain, taxon: Bifidobacterium longum subsp. infantis, strain_designation: "35624"}
+      formulation: {delivery: capsule, coating: unknown}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: prohibited, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: PROBIOTIC_PD_CONSTIPATION_MULTISTRAIN_TAN2021_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: Multistrain probiotic capsule used in Tan et al. 2021 (Parkinson disease constipation)
+    identity:
+      evidence_transfer_key: exact_product
+      components:
+        - {entity_type: probiotic_strain, taxon: "Lactobacillus and Bifidobacterium species (multistrain)", strain_designation: "see source; strain-level composition to be verified against the trial supplement before activation"}
+      formulation: {delivery: capsule, coating: unknown}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: incomplete
+
+  - intervention_id: LBP_AKKERMANSIA_MUCT_PASTEURISED_V1
+    version: 1.0.0
+    class: live_biotherapeutic
+    display_name: Pasteurised Akkermansia muciniphila MucT (ATCC BAA-835)
+    identity:
+      evidence_transfer_key: exact_strain
+      components:
+        - {entity_type: postbiotic_strain, taxon: Akkermansia muciniphila, strain_designation: MucT, culture_collection_ids: [ATCC BAA-835], viability: pasteurised}
+      formulation: {delivery: sachet/capsule, coating: unknown}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: LBP_AKK_WST01_V1
+    version: 1.0.0
+    class: live_biotherapeutic
+    display_name: Akkermansia muciniphila AKK-WST01 (live)
+    identity:
+      evidence_transfer_key: exact_strain
+      components:
+        - {entity_type: probiotic_strain, taxon: Akkermansia muciniphila, strain_designation: WST01}
+      formulation: {delivery: capsule, coating: unknown}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: PROBIOTIC_LREUTERI_NCIMB30242_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: Limosilactobacillus reuteri NCIMB 30242 (bile salt hydrolase-active)
+    identity:
+      evidence_transfer_key: exact_strain
+      components:
+        - {entity_type: probiotic_strain, taxon: Limosilactobacillus reuteri, strain_designation: NCIMB 30242, culture_collection_ids: [NCIMB 30242]}
+      formulation: {delivery: yogurt or capsule (two separate trials), coating: unknown}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: PROBIOTIC_CBM588_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: Clostridium butyricum MIYAIRI 588 (CBM588)
+    identity:
+      evidence_transfer_key: exact_strain
+      components:
+        - {entity_type: probiotic_strain, taxon: Clostridium butyricum, strain_designation: MIYAIRI 588}
+      formulation: {delivery: tablet, coating: unknown}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: PROBIOTIC_MDD_HIGH_DOSE_MULTISTRAIN_SCHAUB2022_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: Eight-strain high-dose probiotic (Vivomixx) as add-on to antidepressant treatment (Schaub 2022)
+    identity:
+      evidence_transfer_key: exact_product
+      components:
+        - {entity_type: probiotic_strain, taxon: "Streptococcus thermophilus, Bifidobacterium breve, B. longum, B. infantis, Lactobacillus acidophilus, L. plantarum, L. paracasei, L. delbrueckii subsp. bulgaricus", strain_designation: "Vivomixx (De Simone formulation) strains"}
+      formulation: {delivery: sachet, coating: not_applicable}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: PROBIOTIC_MS_VSL3_TANKOU2018_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: VSL#3 eight-strain probiotic (Tankou 2018, multiple sclerosis)
+    identity:
+      evidence_transfer_key: exact_product
+      components:
+        - {entity_type: probiotic_strain, taxon: "eight-strain Lactobacillus/Bifidobacterium/Streptococcus mixture", strain_designation: "VSL#3 (2018 formulation)"}
+      formulation: {delivery: sachet, coating: not_applicable}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: incomplete
+
+  - intervention_id: PROBIOTIC_RA_LCASEI01_ALIPOUR2014_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: Lacticaseibacillus casei 01 (Alipour 2014, rheumatoid arthritis)
+    identity:
+      evidence_transfer_key: exact_strain
+      components:
+        - {entity_type: probiotic_strain, taxon: Lacticaseibacillus casei, strain_designation: "01"}
+      formulation: {delivery: capsule, coating: unknown}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: PROBIOTIC_RA_MULTISTRAIN_ZAMANI2016_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: L. acidophilus + L. casei + B. bifidum capsule (Zamani 2016, rheumatoid arthritis)
+    identity:
+      evidence_transfer_key: exact_product
+      components:
+        - {entity_type: probiotic_strain, taxon: Lactobacillus acidophilus, strain_designation: "not reported"}
+        - {entity_type: probiotic_strain, taxon: Lacticaseibacillus casei, strain_designation: "not reported"}
+        - {entity_type: probiotic_strain, taxon: Bifidobacterium bifidum, strain_designation: "not reported"}
+      formulation: {delivery: capsule, coating: unknown}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: incomplete
+
+  - intervention_id: PROBIOTIC_RA_LRHAMNOSUS_LREUTERI_PINEDA2011_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: L. rhamnosus GR-1 + L. reuteri RC-14 (Pineda 2011, rheumatoid arthritis)
+    identity:
+      evidence_transfer_key: exact_strain_combination
+      components:
+        - {entity_type: probiotic_strain, taxon: Lacticaseibacillus rhamnosus, strain_designation: GR-1}
+        - {entity_type: probiotic_strain, taxon: Limosilactobacillus reuteri, strain_designation: RC-14}
+      formulation: {delivery: capsule, coating: unknown}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: PROBIOTIC_AS_LRHAMNOSUS_LREUTERI_JENKS2010_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: Multistrain probiotic (Jenks 2010, ankylosing spondylitis)
+    identity:
+      evidence_transfer_key: exact_product
+      components:
+        - {entity_type: probiotic_strain, taxon: "Streptococcus salivarius, Bifidobacterium lactis, Lactobacillus acidophilus", strain_designation: "as reported"}
+      formulation: {delivery: capsule, coating: unknown}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: incomplete
+
+  - intervention_id: PROBIOTIC_HE_VSL3_DHIMAN2014_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: VSL#3 (Dhiman 2014, secondary prophylaxis of hepatic encephalopathy)
+    identity:
+      evidence_transfer_key: exact_product
+      components:
+        - {entity_type: probiotic_strain, taxon: "eight-strain Lactobacillus/Bifidobacterium/Streptococcus mixture", strain_designation: "VSL#3 (2014 formulation)"}
+      formulation: {delivery: sachet, coating: not_applicable}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: incomplete
+
+  - intervention_id: PROBIOTIC_MECFS_LCASEI_SHIROTA_RAO2009_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: Lacticaseibacillus casei Shirota (Rao 2009, chronic fatigue syndrome)
+    identity:
+      evidence_transfer_key: exact_strain
+      components:
+        - {entity_type: probiotic_strain, taxon: Lacticaseibacillus casei, strain_designation: Shirota}
+      formulation: {delivery: fermented milk / capsule, coating: unknown}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: incomplete
+
+  - intervention_id: PROBIOTIC_LONGCOVID_STOP_FATIGUE_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: Multistrain probiotic used in the STOP-FATIGUE trial (Long COVID fatigue)
+    identity:
+      evidence_transfer_key: exact_product
+      components:
+        - {entity_type: probiotic_strain, taxon: "multistrain (see source)", strain_designation: "to be verified against the trial report before activation"}
+      formulation: {delivery: unknown, coating: unknown}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: incomplete
+
+  - intervention_id: PROBIOTIC_OXALATE_LACTO_BIFIDO_NULL_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: Lactobacillus/Bifidobacterium oxalate-degrading probiotic (null trial)
+    identity:
+      evidence_transfer_key: exact_product
+      components:
+        - {entity_type: probiotic_strain, taxon: "Lactobacillus and Bifidobacterium species", strain_designation: "as reported"}
+      formulation: {delivery: capsule, coating: unknown}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: incomplete
+
+  - intervention_id: LBP_OXABACT_OXALOBACTER_FORMIGENES_V1
+    version: 1.0.0
+    class: live_biotherapeutic
+    display_name: Oxabact (Oxalobacter formigenes, OC5) for primary hyperoxaluria
+    identity:
+      evidence_transfer_key: exact_product
+      components:
+        - {entity_type: probiotic_strain, taxon: Oxalobacter formigenes, strain_designation: "OC5 (Oxabact)"}
+      formulation: {delivery: capsule, coating: enteric}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: SYNBIOTIC_SYNERGY_CKD_ROSSI2016_V1
+    version: 1.0.0
+    class: multi_ingredient_product
+    display_name: SYNERGY synbiotic (mixed prebiotic + nine-strain probiotic) in CKD (Rossi 2016)
+    identity:
+      evidence_transfer_key: exact_product
+      components:
+        - {entity_type: prebiotic, molecule: "inulin, fructo-oligosaccharides, galacto-oligosaccharides"}
+        - {entity_type: probiotic_strain, taxon: "nine Lactobacillus, Bifidobacterium and Streptococcus strains", strain_designation: "as reported"}
+      formulation: {delivery: powder + capsule, coating: unknown}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: prohibited, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: incomplete
+
+  # ------------------------------------------------------------- prebiotics
+  - intervention_id: PREBIOTIC_RS2_POTATO_STARCH_V1
+    version: 1.0.0
+    class: prebiotic
+    display_name: Unmodified (type 2 resistant) potato starch
+    identity:
+      evidence_transfer_key: exact_molecule
+      components:
+        - {entity_type: prebiotic, molecule: "RS2 raw potato starch", degree_of_polymerization: "native granule", purity: "food-grade"}
+      formulation: {delivery: powder in food}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: PREBIOTIC_AXOS_V1
+    version: 1.0.0
+    class: prebiotic
+    display_name: Arabinoxylan-oligosaccharides (AXOS)
+    identity:
+      evidence_transfer_key: exact_molecule
+      components:
+        - {entity_type: prebiotic, molecule: "wheat-bran arabinoxylan-oligosaccharides", degree_of_polymerization: "avDP ~ 5–15", purity: "as reported"}
+      formulation: {delivery: powder}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: PREBIOTIC_INULIN_PROPIONATE_ESTER_V1
+    version: 1.0.0
+    class: prebiotic
+    display_name: Inulin-propionate ester (IPE)
+    identity:
+      evidence_transfer_key: exact_molecule
+      components:
+        - {entity_type: prebiotic, molecule: "inulin esterified with propionate", degree_of_polymerization: "inulin backbone", purity: "as reported"}
+      formulation: {delivery: powder}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: PREBIOTIC_RESISTANT_STARCH_CKD_HEADLEY_V1
+    version: 1.0.0
+    class: prebiotic
+    display_name: Resistant starch supplement in CKD (Headley 2024)
+    identity:
+      evidence_transfer_key: exact_molecule
+      components:
+        - {entity_type: prebiotic, molecule: "high-amylose maize resistant starch", degree_of_polymerization: "RS2", purity: "as reported"}
+      formulation: {delivery: powder}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+
+  # -------------------------------------------------------- vitamins / OTC
+  - intervention_id: VITAMIN_RIBOFLAVIN_RIBOGUT_V1
+    version: 1.0.0
+    class: vitamin_supplement
+    display_name: Riboflavin (vitamin B2) supplement
+    identity:
+      evidence_transfer_key: exact_molecule
+      components:
+        - {entity_type: vitamin, molecule: riboflavin, chemical_form: riboflavin}
+      formulation: {delivery: capsule}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: SUPPLEMENT_UROLITHIN_A_V1
+    version: 1.0.0
+    class: botanical_supplement
+    display_name: Urolithin A (Mitopure)
+    identity:
+      evidence_transfer_key: exact_molecule
+      components:
+        - {entity_type: compound, molecule: urolithin A, chemical_form: "synthetic urolithin A (Mitopure)"}
+      formulation: {delivery: softgel}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: OTC_BISMUTH_SUBSALICYLATE_V1
+    version: 1.0.0
+    class: otc_drug
+    display_name: Bismuth subsalicylate
+    identity:
+      evidence_transfer_key: exact_molecule
+      components:
+        - {entity_type: drug, molecule: bismuth subsalicylate, rxnorm: "RxCUI 1546 (bismuth subsalicylate)"}
+      formulation: {delivery: tablet/suspension}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+
+  # -------------------------------------------------------------- botanicals
+  - intervention_id: BOTANICAL_BERBERINE_V1
+    version: 1.0.0
+    class: botanical_supplement
+    display_name: Berberine (isoquinoline alkaloid; berberine sulfate/chloride)
+    identity:
+      evidence_transfer_key: exact_molecule
+      components:
+        - {entity_type: compound, molecule: berberine, plant_source: "Berberis/Coptis species (varies by product)", chemical_form: "berberine sulfate or hydrochloride"}
+      formulation: {delivery: capsule}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: incomplete
+
+  - intervention_id: BOTANICAL_OREGANO_OIL_V1
+    version: 1.0.0
+    class: botanical_supplement
+    display_name: Oregano (Origanum vulgare) essential oil, carvacrol-standardised
+    identity:
+      evidence_transfer_key: exact_product
+      components:
+        - {entity_type: botanical, latin_species: Origanum vulgare, plant_part: leaf, extraction: "steam-distilled essential oil", standardized_constituents: "carvacrol (varies)"}
+      formulation: {delivery: softgel/emulsified oil}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: incomplete
+
+  - intervention_id: BOTANICAL_ALLICIN_GARLIC_V1
+    version: 1.0.0
+    class: botanical_supplement
+    display_name: Allicin / stabilised garlic (Allium sativum) extract
+    identity:
+      evidence_transfer_key: exact_product
+      components:
+        - {entity_type: botanical, latin_species: Allium sativum, plant_part: bulb, extraction: "varies (allicin-stabilised or aged extract)", standardized_constituents: "allicin (varies)"}
+      formulation: {delivery: capsule}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: incomplete
+
+  - intervention_id: BOTANICAL_BLACK_SEED_OIL_V1
+    version: 1.0.0
+    class: botanical_supplement
+    display_name: Black seed (Nigella sativa) oil
+    identity:
+      evidence_transfer_key: exact_product
+      components:
+        - {entity_type: botanical, latin_species: Nigella sativa, plant_part: seed, extraction: "cold-pressed oil", standardized_constituents: "thymoquinone (varies)"}
+      formulation: {delivery: oil/softgel}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: incomplete
+
+  - intervention_id: MULTI_GI_MICROB_X_V1
+    version: 1.0.0
+    class: multi_ingredient_product
+    display_name: GI Microb-X (multi-ingredient botanical product)
+    identity:
+      evidence_transfer_key: exact_product
+      components:
+        - {entity_type: multi_ingredient, composition: "manufacturer-declared botanical blend (berberine-containing extracts, tribulus, sweet wormwood, grapefruit seed, barberry, bearberry, black walnut per label); exact composition/version not verified"}
+      formulation: {delivery: capsule}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: prohibited, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: incomplete
+
+  - intervention_id: MULTI_HERBAL_SIBO_PAIRS_CHEDID2014_V1
+    version: 1.0.0
+    class: multi_ingredient_product
+    display_name: Herbal pairs used in Chedid 2014 (Dysbiocide + FC Cidal, or Candibactin-AR + Candibactin-BR)
+    identity:
+      evidence_transfer_key: exact_product
+      components:
+        - {entity_type: multi_ingredient, composition: "two commercial two-product botanical pairs; compositions per manufacturer labels at the time of the study"}
+      formulation: {delivery: capsule}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: prohibited, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: incomplete
+
+  # --------------------------------------------------------------- diets
+  - intervention_id: DIET_LOW_FODMAP_LIMITED_V1
+    version: 1.0.0
+    class: diet
+    display_name: Dietitian-guided limited low-FODMAP diet (restriction → reintroduction → personalisation)
+    identity:
+      evidence_transfer_key: named_diet
+      components: [{entity_type: diet, name: "low-FODMAP (Monash), three-phase"}]
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: not_applicable, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: DIET_HIGH_FIBER_T2D_ZHAO2018_V1
+    version: 1.0.0
+    class: diet
+    display_name: High-fibre diet (whole grains, traditional Chinese medicinal foods, prebiotics) in type 2 diabetes (Zhao 2018)
+    identity:
+      evidence_transfer_key: named_diet
+      components: [{entity_type: diet, name: "WTP high-fibre diet with acarbose in both arms"}]
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: not_applicable, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: DIET_MEDITERRANEAN_PREDIMED_V1
+    version: 1.0.0
+    class: diet
+    display_name: Mediterranean diet supplemented with extra-virgin olive oil or nuts (PREDIMED)
+    identity:
+      evidence_transfer_key: named_diet
+      components: [{entity_type: diet, name: "PREDIMED Mediterranean diet"}]
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: not_applicable, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: DIET_DASH_PREMIER_V1
+    version: 1.0.0
+    class: lifestyle
+    display_name: PREMIER behavioural lifestyle intervention with the DASH dietary pattern
+    identity:
+      evidence_transfer_key: named_program
+      components: [{entity_type: lifestyle_program, name: "PREMIER established recommendations + DASH"}]
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: not_applicable, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: DIET_CDED_PEN_V1
+    version: 1.0.0
+    class: diet
+    display_name: Crohn's disease exclusion diet with partial enteral nutrition (CDED + PEN)
+    identity:
+      evidence_transfer_key: named_diet
+      components: [{entity_type: diet, name: "CDED + PEN (Modulen) — Levine 2019 protocol"}]
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: not_applicable, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: DIET_GLUTEN_FREE_CELIAC_V1
+    version: 1.0.0
+    class: diet
+    display_name: Strict gluten-free diet after clinical diagnosis of coeliac disease
+    identity:
+      evidence_transfer_key: named_diet
+      components: [{entity_type: diet, name: "gluten-free diet"}]
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: not_applicable, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: DIET_MIND_BARNES2023_V1
+    version: 1.0.0
+    class: diet
+    display_name: MIND diet with mild caloric restriction versus control diet with mild caloric restriction (Barnes 2023)
+    identity:
+      evidence_transfer_key: named_diet
+      components: [{entity_type: diet, name: "MIND diet"}]
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: not_applicable, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: DIET_SMILES_MODIFIED_MEDITERRANEAN_V1
+    version: 1.0.0
+    class: diet
+    display_name: ModiMedDiet dietary support (SMILES trial) as adjunct in major depression
+    identity:
+      evidence_transfer_key: named_diet
+      components: [{entity_type: diet, name: "ModiMedDiet with seven dietitian sessions"}]
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: not_applicable, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: DIET_4SURE_UC_V1
+    version: 1.0.0
+    class: diet
+    display_name: 4-SURE diet (sulfide-reducing) in ulcerative colitis
+    identity:
+      evidence_transfer_key: named_diet
+      components: [{entity_type: diet, name: "4-SURE: reduced sulfur-containing protein, increased fermentable fibre"}]
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: not_applicable, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: DIET_RED_MEAT_TMAO_WANG2019_V1
+    version: 1.0.0
+    class: diet
+    display_name: Controlled red-meat versus white-meat versus non-meat protein feeding (Wang 2019)
+    identity:
+      evidence_transfer_key: named_diet
+      components: [{entity_type: diet, name: "isocaloric controlled feeding, protein source varied"}]
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: not_applicable, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: DIET_ANIMAL_VS_PLANT_DAVID2014_V1
+    version: 1.0.0
+    class: diet
+    display_name: Five-day animal-based versus plant-based diet (David 2014)
+    identity:
+      evidence_transfer_key: named_diet
+      components: [{entity_type: diet, name: "controlled short-term animal-based / plant-based feeding"}]
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: not_applicable, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: DIET_HIGH_FIBER_VS_FERMENTED_WASTYK2021_V1
+    version: 1.0.0
+    class: diet
+    display_name: High-fibre versus high-fermented-food diet (Wastyk 2021)
+    identity:
+      evidence_transfer_key: named_diet
+      components: [{entity_type: diet, name: "10-week high-fibre or high-fermented-food dietary intervention"}]
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: not_applicable, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: LIFESTYLE_FINGER_MULTIDOMAIN_V1
+    version: 1.0.0
+    class: lifestyle
+    display_name: FINGER multidomain lifestyle intervention (diet, exercise, cognitive training, vascular risk monitoring)
+    identity:
+      evidence_transfer_key: named_program
+      components: [{entity_type: lifestyle_program, name: FINGER}]
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: not_applicable, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: DIET_CONTROLLED_OXALATE_LIESKE2010_V1
+    version: 1.0.0
+    class: diet
+    display_name: Controlled low-oxalate diet (Lieske 2010 comparator)
+    identity:
+      evidence_transfer_key: named_diet
+      components: [{entity_type: diet, name: "controlled oxalate/calcium diet"}]
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: not_applicable, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+
+  # --------------------------------------------------- prescription drugs
+  - intervention_id: RX_RIFAXIMIN_V1
+    version: 1.0.0
+    class: prescription_drug
+    display_name: Rifaximin
+    identity:
+      evidence_transfer_key: exact_molecule
+      components: [{entity_type: drug, molecule: rifaximin, rxnorm: "RxCUI 35619"}]
+      formulation: {delivery: tablet}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+    regulatory_status: "FDA-approved for reduction in risk of overt hepatic encephalopathy recurrence and for IBS-D in adults; not approved for any microbiome pattern"
+
+  - intervention_id: RX_LACTULOSE_V1
+    version: 1.0.0
+    class: prescription_drug
+    display_name: Lactulose
+    identity:
+      evidence_transfer_key: exact_molecule
+      components: [{entity_type: drug, molecule: lactulose, rxnorm: "RxCUI 6218"}]
+      formulation: {delivery: oral solution}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+    regulatory_status: "FDA-approved for hepatic encephalopathy and constipation"
+
+  - intervention_id: RX_NEOMYCIN_PLUS_RIFAXIMIN_IMO_V1
+    version: 1.0.0
+    class: prescription_drug
+    display_name: Neomycin plus rifaximin (methane-positive IBS-C study)
+    identity:
+      evidence_transfer_key: exact_combination
+      components:
+        - {entity_type: drug, molecule: neomycin, rxnorm: "RxCUI 7299"}
+        - {entity_type: drug, molecule: rifaximin, rxnorm: "RxCUI 35619"}
+      formulation: {delivery: tablet}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: prohibited, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+    regulatory_status: "off-label combination studied in one small trial; not an approved indication"
+
+  # ------------------------------------------------- FMT / microbiota products
+  - intervention_id: FMT_CONVENTIONAL_RCDI_V1
+    version: 1.0.0
+    class: fmt_microbiota_product
+    display_name: Conventional fecal microbiota transplantation for prevention of recurrent C. difficile infection
+    identity:
+      evidence_transfer_key: exact_procedure
+      components: [{entity_type: fmt, donor_source: "screened donor stool (stool bank or clinician-qualified)", processing: "fresh or frozen suspension"}]
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: not_applicable, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+    regulatory_status: "FDA enforcement discretion (Nov 2022 policy) for CDI not responding to standard therapy under clinician-qualified donor/stool, informed consent describing investigational status"
+    label_warnings:
+      - "FDA safety communications: transmission of MDRO (ESBL E. coli, VRE, CRE, MRSA; June 2019, including a death), EPEC/STEC (March–April 2020), SARS-CoV-2 (March–April 2020), mpox (August 2022)"
+
+  - intervention_id: FMT_INVESTIGATIONAL_NON_CDI_V1
+    version: 1.0.0
+    class: fmt_microbiota_product
+    display_name: Fecal microbiota transplantation for a non-CDI indication (investigational)
+    identity:
+      evidence_transfer_key: exact_procedure
+      components: [{entity_type: fmt, donor_source: "trial-specific screened donors", processing: "trial-specific"}]
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: not_applicable, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: incomplete
+    regulatory_status: "specific_effective_IND_investigation_or_FDA_determined_IND_not_required_only"
+    label_warnings:
+      - "Not authorised outside a specific clinical investigation under IND with IRB oversight and informed consent"
+
+  - intervention_id: MICROBIOTA_PRODUCT_VOWST_V1
+    version: 1.0.0
+    class: fmt_microbiota_product
+    display_name: VOWST (fecal microbiota spores, live-brpk) oral capsules
+    identity:
+      evidence_transfer_key: exact_product
+      components: [{entity_type: microbiota_product, product: VOWST, processing: "purified Firmicutes spores from screened donor stool"}]
+      formulation: {delivery: capsule}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: prohibited, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+    regulatory_status: "FDA-approved (April 2023) to prevent recurrence of CDI in adults ≥18 following antibacterial treatment for recurrent CDI; does not treat active CDI"
+    label_warnings: ["Transmissible infectious agents; food allergens from donor diet; not for treatment of active CDI"]
+
+  - intervention_id: MICROBIOTA_PRODUCT_REBYOTA_V1
+    version: 1.0.0
+    class: fmt_microbiota_product
+    display_name: REBYOTA (fecal microbiota, live-jslm) rectal suspension
+    identity:
+      evidence_transfer_key: exact_product
+      components: [{entity_type: microbiota_product, product: REBYOTA, processing: "screened donor stool suspension"}]
+      formulation: {delivery: rectal suspension}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: prohibited, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: complete
+    regulatory_status: "FDA-approved (November 2022) to prevent recurrence of CDI in adults ≥18 following antibacterial treatment for recurrent CDI; does not treat active CDI"
+    label_warnings: ["Transmissible infectious agents; food allergens; not for treatment of active CDI"]
+
+  # ----------------------------------------------------------- clinical routes
+  - intervention_id: CLINICAL_ROUTE_CRC_SCREENING_USPSTF_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: Age-appropriate colorectal cancer screening (USPSTF)
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "USPSTF colorectal cancer screening, adults 45–75"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: CLINICAL_ROUTE_PDAC_SYMPTOMS_NCI_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: Ordinary urgent evaluation of jaundice, unexplained weight loss or persistent upper abdominal/back pain
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "NCI pancreatic cancer patient information — symptoms and evaluation"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: CLINICAL_ROUTE_GASTROENTEROLOGY_CALPROTECTIN_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: Gastroenterology evaluation with fecal calprotectin when symptoms warrant
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "symptom-driven IBD evaluation"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: CLINICAL_ROUTE_METABOLIC_CONFIRMATION_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: Routine metabolic confirmation (HbA1c, fasting glucose, lipids, blood pressure, waist)
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "standard cardiometabolic assessment"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: CLINICAL_ROUTE_CELIAC_SEROLOGY_BIOPSY_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: Coeliac serology and, when indicated, duodenal biopsy while still eating gluten (ACG 2023)
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "ACG coeliac diagnosis pathway"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: CLINICAL_ROUTE_BREATH_METHANE_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: Standardised breath methane testing when constipation/bloating are present (North American consensus, ACG)
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "breath testing, methane ≥10 ppm"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: CLINICAL_ROUTE_B12_STATUS_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: Serum vitamin B12 (and methylmalonic acid when appropriate) to assess status
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "NIH ODS B12 fact sheet — assessment"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: CLINICAL_ROUTE_STONE_EVALUATION_AUA_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: Kidney-stone medical evaluation including 24-hour urine (AUA)
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "AUA medical management of kidney stones"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: CLINICAL_ROUTE_LEVODOPA_PRESCRIBER_CARD_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: Medication-context card for the prescriber (levodopa / MAO inhibitor and bacterial tyrosine decarboxylase)
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: medication_context, name: "tdc abundance and levodopa exposure"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: CLINICAL_ROUTE_HE_GUIDELINE_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: Hepatic encephalopathy management per EASL 2022 / AASLD for clinician-confirmed cirrhosis with HE
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "EASL 2022 HE guideline; AASLD practice guidance"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: CLINICAL_ROUTE_ORAL_HEALTH_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: Ordinary dental evaluation if overdue or symptomatic
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "routine dental care"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: CLINICAL_ROUTE_STOOL_PATHOGEN_TESTING_IDSA_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: Clinical stool pathogen testing and assessment per IDSA infectious-diarrhoea guideline when symptomatic
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "IDSA 2017 infectious diarrhoea"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: CLINICAL_ROUTE_CDI_TOXIN_TESTING_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: Clinical C. difficile toxin testing only with compatible symptoms
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "IDSA/SHEA CDI diagnosis"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: CLINICAL_ROUTE_COLONOSCOPY_AFTER_SGALLOLYTICUS_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: Colonoscopic evaluation after documented S. gallolyticus (S. bovis) bacteraemia or endocarditis
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "standard practice after S. bovis infection"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: CLINICAL_ROUTE_NEURO_COGNITIVE_EVALUATION_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: Neurologic/cognitive evaluation and accepted biomarkers when clinically indicated
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "Alzheimer continuum clinical evaluation"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: CLINICAL_ROUTE_DERMATOLOGY_SCALP_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: Dermatologist / scalp examination for hair loss
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "dermatology evaluation"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: CLINICAL_ROUTE_BLOOD_PRESSURE_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: Repeated validated blood-pressure measurement
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "hypertension diagnosis by repeated measurement"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: CLINICAL_ROUTE_RENAL_GUIDELINE_KDIGO_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: CKD evaluation and management per KDIGO 2024
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "KDIGO 2024 CKD"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: CLINICAL_ROUTE_MASLD_EASL_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: MASLD clinician pathway by metabolic risk and non-invasive fibrosis assessment (EASL-EASD-EASO 2024; AASLD)
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "MASLD guideline pathway"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: CLINICAL_ROUTE_IBS_DIAGNOSIS_ACG_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: IBS diagnosis by symptom criteria and red-flag review (ACG 2021)
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "ACG 2021 IBS"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: CLINICAL_ROUTE_ONCOLOGY_IRINOTECAN_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: Oncology management of irinotecan toxicity
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "oncology supportive care"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: CLINICAL_ROUTE_CLINICAL_CULTURE_AMR_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: Clinical culture and susceptibility testing when infection is suspected
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "clinical microbiology"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+
+  # ============================================================================
+  # Chronic urticaria (chronic hives) — products studied in urticaria patients.
+  # Every record here is study metadata. None of these is interchangeable with
+  # another product of the same genus, and none is selected by a stool result.
+  # ============================================================================
+  - intervention_id: PROBIOTIC_BIFIDERM_LS01_BR03_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: Bifiderm — Lactobacillus salivarius LS01 (DSM 22775) + Bifidobacterium breve BR03 (DSM 16604)
+    identity:
+      evidence_transfer_key: exact_strain_combination
+      components:
+        - {entity_type: probiotic_strain, taxon: Lactobacillus salivarius, strain_designation: LS01, culture_collection_ids: [DSM 22775]}
+        - {entity_type: probiotic_strain, taxon: Bifidobacterium breve, strain_designation: BR03, culture_collection_ids: [DSM 16604]}
+      formulation: {delivery: sachet, coating: unknown}
+      product_version: "Bifiderm as used in Nettis 2016 (each strain at least 10^9 CFU/g)"
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: PROBIOTIC_YIMINGJIA_SIX_ORGANISM_PAEDIATRIC_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: Yimingjia — L. gasseri LK001, L. salivarius LK002, L. johnsonii LK003, L. paracasei LK004, L. reuteri LK005 and Bifidobacterium animalis LK011 (paediatric)
+    identity:
+      evidence_transfer_key: exact_product
+      components:
+        - {entity_type: probiotic_strain, taxon: Lactobacillus gasseri, strain_designation: LK001, proportion: "40%"}
+        - {entity_type: probiotic_strain, taxon: Lactobacillus salivarius, strain_designation: LK002, proportion: "20%"}
+        - {entity_type: probiotic_strain, taxon: Lactobacillus johnsonii, strain_designation: LK003, proportion: "15%"}
+        - {entity_type: probiotic_strain, taxon: Bifidobacterium animalis, strain_designation: LK011, proportion: "15%"}
+        - {entity_type: probiotic_strain, taxon: Lactobacillus paracasei, strain_designation: LK004, proportion: "5%"}
+        - {entity_type: probiotic_strain, taxon: Lactobacillus reuteri, strain_designation: LK005, proportion: "5%"}
+      formulation: {delivery: powder, coating: unknown}
+      product_version: "Yimingjia as used in Bi 2021, 5 × 10^9 CFU/g"
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: complete
+    label_warnings: ["Studied only in children aged 6–12; the bifidobacterial component is B. animalis LK011, not B. breve"]
+
+  - intervention_id: PROBIOTIC_LACTOCARE_SEVEN_ORGANISM_V1
+    version: 1.0.0
+    class: multi_ingredient_product
+    display_name: LactoCare — seven-organism synbiotic (L. rhamnosus, L. casei, L. acidophilus, L. bulgaricus, B. breve, B. longum, S. thermophilus) with fructo-oligosaccharide
+    identity:
+      evidence_transfer_key: named_product_without_strain_ids
+      components:
+        - {entity_type: probiotic_strain, taxon: Lactobacillus rhamnosus, strain_designation: not_reported}
+        - {entity_type: probiotic_strain, taxon: Lacticaseibacillus casei, strain_designation: not_reported}
+        - {entity_type: probiotic_strain, taxon: Lactobacillus acidophilus, strain_designation: not_reported}
+        - {entity_type: probiotic_strain, taxon: Lactobacillus delbrueckii subsp. bulgaricus, strain_designation: not_reported}
+        - {entity_type: probiotic_strain, taxon: Bifidobacterium breve, strain_designation: not_reported}
+        - {entity_type: probiotic_strain, taxon: Bifidobacterium longum, strain_designation: not_reported}
+        - {entity_type: probiotic_strain, taxon: Streptococcus thermophilus, strain_designation: not_reported}
+        - {entity_type: prebiotic, molecule: fructo-oligosaccharide}
+      formulation: {delivery: sachet, coating: unknown}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: incomplete
+    label_warnings: ["Strain designations and per-organism CFU were not reported in the source trial; identity cannot be verified beyond species level"]
+
+  - intervention_id: PROBIOTIC_FEMILACT_SEVEN_ORGANISM_V1
+    version: 1.0.0
+    class: multi_ingredient_product
+    display_name: Femilact (ZistTakhmir) — seven-organism synbiotic with fructo-oligosaccharide, 10^9 CFU
+    identity:
+      evidence_transfer_key: named_product_without_strain_ids
+      components:
+        - {entity_type: probiotic_strain, taxon: Lactobacillus rhamnosus, strain_designation: not_reported}
+        - {entity_type: probiotic_strain, taxon: Lacticaseibacillus casei, strain_designation: not_reported}
+        - {entity_type: probiotic_strain, taxon: Lactobacillus acidophilus, strain_designation: not_reported}
+        - {entity_type: probiotic_strain, taxon: Lactobacillus delbrueckii subsp. bulgaricus, strain_designation: not_reported}
+        - {entity_type: probiotic_strain, taxon: Bifidobacterium breve, strain_designation: not_reported}
+        - {entity_type: probiotic_strain, taxon: Bifidobacterium longum, strain_designation: not_reported}
+        - {entity_type: probiotic_strain, taxon: Streptococcus thermophilus, strain_designation: not_reported}
+        - {entity_type: prebiotic, molecule: fructo-oligosaccharide}
+      formulation: {delivery: capsule, coating: unknown}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: incomplete
+    label_warnings: ["Strain-specific quantities not reported; the same species list as LactoCare is not evidence the two products behave alike"]
+
+  - intervention_id: PROBIOTIC_LREUTERI_ATCC55730_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: Limosilactobacillus reuteri ATCC 55730 (SD2112), 10^8 CFU
+    identity:
+      evidence_transfer_key: exact_strain
+      components:
+        - {entity_type: probiotic_strain, taxon: Limosilactobacillus reuteri, strain_designation: ATCC 55730, culture_collection_ids: [ATCC 55730]}
+      formulation: {delivery: capsule, coating: unknown}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: complete
+    label_warnings: ["ATCC 55730 is not DSM 17938; the two strains differ and the studied evidence does not transfer between them"]
+
+  - intervention_id: PROBIOTIC_LACTOGUT_SIX_ORGANISM_V1
+    version: 1.0.0
+    class: multi_ingredient_product
+    display_name: Lactogut — Bacillus coagulans Unique IS-2, L. rhamnosus UBLR-58, B. longum UBBL-64, B. bifidum UBBB-55, Saccharomyces boulardii Unique-28 and S. thermophilus UBST-50 with fructo-oligosaccharide and lactitol
+    identity:
+      evidence_transfer_key: exact_product
+      components:
+        - {entity_type: probiotic_strain, taxon: Bacillus coagulans, strain_designation: Unique IS-2}
+        - {entity_type: probiotic_strain, taxon: Lacticaseibacillus rhamnosus, strain_designation: UBLR-58}
+        - {entity_type: probiotic_strain, taxon: Bifidobacterium longum, strain_designation: UBBL-64}
+        - {entity_type: probiotic_strain, taxon: Bifidobacterium bifidum, strain_designation: UBBB-55}
+        - {entity_type: probiotic_strain, taxon: Saccharomyces boulardii, strain_designation: Unique-28}
+        - {entity_type: probiotic_strain, taxon: Streptococcus thermophilus, strain_designation: UBST-50}
+        - {entity_type: prebiotic, molecule: "fructo-oligosaccharide 20 mg, lactitol 10 mg"}
+      formulation: {delivery: capsule, coating: unknown}
+      product_version: "Lactogut, combined 5 × 10^9 CFU per capsule"
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: complete
+    label_warnings: ["Contains a live yeast (Saccharomyces boulardii Unique-28); this is not an all-bacterial product and yeast fungaemia has been reported with S. boulardii in people with central venous catheters or critical illness"]
+
+  - intervention_id: DIET_LOW_HISTAMINE_TIME_LIMITED_V1
+    version: 1.0.0
+    class: diet
+    display_name: Dietitian-supported, time-limited low-histamine diet as a diagnostic trial (three to four weeks, then reintroduction)
+    identity:
+      evidence_transfer_key: named_diet
+      components: [{entity_type: diet, name: "low-histamine elimination and reintroduction, clinical-history-based"}]
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: not_applicable, same_species_other_strain: not_applicable, genus_only: not_applicable}
+    exact_protocol_reproducibility: incomplete
+    label_warnings: ["An indefinite restrictive diet is not what was studied; prolonged unsupervised elimination risks nutritional inadequacy and disordered eating"]
+
+  - intervention_id: CLINICAL_ROUTE_URTICARIA_GUIDELINE_CARE_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: Guideline urticaria care — second-generation H1 antihistamine first line, with specialist escalation for chronic hives that do not respond
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "International urticaria guideline (Allergy 2026) — definition, classification, diagnosis and management"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+    label_warnings: ["Choice, dose and escalation — including omalizumab, dupilumab or remibrutinib where locally indicated — is a prescriber decision under current local labelling, not an output of a stool report"]
+
+  - intervention_id: CLINICAL_ROUTE_VITAMIN_D_STATUS_URTICARIA_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: Serum 25-hydroxyvitamin D measurement and clinician-directed repletion when deficiency is confirmed
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "vitamin D status assessment before any supplementation decision"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+    label_warnings: ["Vitamin D status cannot be inferred from stool DNA; the trial enrolled people with laboratory-confirmed deficiency"]
+
+  - intervention_id: CLINICAL_ROUTE_HPYLORI_TEST_AND_TREAT_V1
+    version: 1.0.0
+    class: clinical_route
+    display_name: Helicobacter pylori testing and, if positive, guideline eradication therapy by a clinician
+    identity: {evidence_transfer_key: clinical_route, components: [{entity_type: guideline_route, name: "H. pylori test-and-treat, clinically indicated"}]}
+    transfer_policy: {exact_protocol: permitted}
+    exact_protocol_reproducibility: complete
+    label_warnings: ["H. pylori is a gastric organism and is not measured by stool shotgun sequencing in this report; eradication requires a positive clinical test"]
+
+  # -------------------------------------------------- inflammatory skin (v4.2)
+  - intervention_id: PROBIOTIC_PSO_BLONGUM_BLACTIS_LRHAMNOSUS_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: Bifidobacterium longum CECT 7347 + Bifidobacterium lactis CECT 8145 + Lacticaseibacillus rhamnosus CECT 8361, 1:1:1
+    identity:
+      evidence_transfer_key: exact_strain_combination
+      components:
+        - {entity_type: probiotic_strain, taxon: Bifidobacterium longum, strain_designation: CECT 7347, culture_collection_ids: [CECT 7347]}
+        - {entity_type: probiotic_strain, taxon: Bifidobacterium animalis subsp. lactis, strain_designation: CECT 8145, culture_collection_ids: [CECT 8145]}
+        - {entity_type: probiotic_strain, taxon: Lacticaseibacillus rhamnosus, strain_designation: CECT 8361, culture_collection_ids: [CECT 8361]}
+      formulation: {delivery: capsule, coating: unknown}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: PROBIOTIC_ST11_LPARACASEI_NCC2461_V1
+    version: 1.0.0
+    class: probiotic
+    display_name: ST11 (Lacticaseibacillus paracasei NCC2461, formerly Lactobacillus paracasei), oral
+    identity:
+      evidence_transfer_key: exact_strain
+      components:
+        - {entity_type: probiotic_strain, taxon: Lacticaseibacillus paracasei, strain_designation: NCC2461 (ST11), culture_collection_ids: [NCC2461]}
+      formulation: {delivery: oral sachet, coating: unknown}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: sensitivity_only, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: complete
+
+  - intervention_id: TOPICAL_SEBD_LCRISPATUS_P17631_LPARACASEI_I1688_V1
+    version: 1.0.0
+    class: topical_live_biotherapeutic
+    display_name: Topical Lactobacillus crispatus P17631 + Lacticaseibacillus paracasei I1688 oily suspension (skin, not swallowed)
+    identity:
+      evidence_transfer_key: exact_strain_combination
+      components:
+        - {entity_type: probiotic_strain, taxon: Lactobacillus crispatus, strain_designation: P17631}
+        - {entity_type: probiotic_strain, taxon: Lacticaseibacillus paracasei, strain_designation: I1688}
+      formulation: {delivery: topical oily suspension, coating: not_applicable}
+    transfer_policy: {exact_protocol: permitted, same_strain_different_dose: prohibited, same_species_other_strain: prohibited, genus_only: prohibited}
+    exact_protocol_reproducibility: complete
+
+protocols:
+  - protocol_id: PROTOCOL_PSO_PROBIOTIC_12W_ADJUNCT_V1
+    intervention_id: PROBIOTIC_PSO_BLONGUM_BLACTIS_LRHAMNOSUS_V1
+    population: {age_range_years: [18, 99], confirmed_condition: plaque psoriasis, geography: Spain, n: 90}
+    administration: {dose_source_text: "1:1:1 combination, total 10^9 CFU/day for 12 weeks, adjunct to topical treatment received by both arms", route: oral, frequency: daily, duration_days: 84, cointerventions: [topical psoriasis treatment]}
+  - protocol_id: PROTOCOL_ST11_DANDRUFF_56D_V1
+    intervention_id: PROBIOTIC_ST11_LPARACASEI_NCC2461_V1
+    population: {age_range_years: [18, 60], confirmed_condition: moderate to severe dandruff, geography: France, n: 60, exclusions: [women (the trial enrolled men only)]}
+    administration: {dose_source_text: "10^9 CFU/day for 56 days", route: oral, frequency: daily, duration_days: 56}
+  - protocol_id: PROTOCOL_SEBD_TOPICAL_7D_V1
+    intervention_id: TOPICAL_SEBD_LCRISPATUS_P17631_LPARACASEI_I1688_V1
+    population: {age_range_years: [18, 99], confirmed_condition: seborrheic dermatitis, geography: Italy, n: 25}
+    administration: {dose_source_text: "topical oily suspension applied to affected skin for one week", route: topical, frequency: daily, duration_days: 7}
+  - protocol_id: PROTOCOL_SIM01_PACS_6M_V1
+    intervention_id: PROBIOTIC_SIM01_V1
+    population: {age_range_years: [18, 99], confirmed_condition: post-acute COVID-19 syndrome (PACS), geography: Hong Kong, n: 463, exclusions: [immunocompromised, pregnant, breastfeeding]}
+    administration: {dose_source_text: "SIM01 10 billion CFU in sachets twice daily for six months", route: oral, frequency: twice daily, duration_days: 180}
+  - protocol_id: PROTOCOL_AA_BTHS_24W_ADJUNCT_V1
+    intervention_id: PROBIOTIC_AA_RHAMNOSUS_BTHS08_LONGUM_BTHS06_V1
+    population: {age_range_years: [18, 99], confirmed_condition: alopecia areata, geography: Spain, n: 26}
+    administration: {dose_source_text: "1:1 combination, total 10^9 CFU/day for 24 weeks, adjunct to intralesional triamcinolone every four weeks", route: oral, frequency: daily, duration_days: 168, cointerventions: [intralesional triamcinolone]}
+  - protocol_id: PROTOCOL_AGA_DCN_16W_V1
+    intervention_id: PROBIOTIC_AGA_LPLANTARUM_DCN07_DCN06_LPENTOSUS_DCN105_V1
+    population: {age_range_years: [18, 65], confirmed_condition: androgenetic alopecia, geography: Spain, n: 136}
+    administration: {dose_source_text: "three-strain capsule daily for 16 weeks (source-reported dose/formulation)", route: oral, frequency: daily, duration_days: 112}
+  - protocol_id: PROTOCOL_AD_MILK_12W_AKBARI_V1
+    intervention_id: PROBIOTIC_AD_MILK_FOUR_ORGANISM_AKBARI_V1
+    population: {age_range_years: [60, 95], confirmed_condition: Alzheimer disease, geography: Iran, n: 60}
+    administration: {dose_source_text: "200 mL/day probiotic milk (2 × 10^9 CFU/g of each organism) for 12 weeks", route: oral, frequency: daily, duration_days: 84}
+  - protocol_id: PROTOCOL_MIMBB75_IBS_8W_V1
+    intervention_id: POSTBIOTIC_BBIFIDUM_MIMBB75_HEAT_INACTIVATED_V1
+    population: {age_range_years: [18, 70], confirmed_condition: IBS (Rome III), geography: Germany, n: 443}
+    administration: {dose_source_text: "10^9 non-viable cells once daily for eight weeks", route: oral, frequency: daily, duration_days: 56}
+  - protocol_id: PROTOCOL_BINFANTIS_35624_IBS_4W_V1
+    intervention_id: PROBIOTIC_BINFANTIS_35624_V1
+    population: {age_range_years: [18, 65], confirmed_condition: IBS, sex: female, geography: multicentre, n: 362}
+    administration: {dose_source_text: "three dose arms (10^6, 10^8, 10^10 CFU/day) for four weeks; signal only at 10^8 CFU/day", route: oral, frequency: daily, duration_days: 28}
+  - protocol_id: PROTOCOL_PD_CONSTIPATION_4W_TAN2021_V1
+    intervention_id: PROBIOTIC_PD_CONSTIPATION_MULTISTRAIN_TAN2021_V1
+    population: {age_range_years: [18, 99], confirmed_condition: Parkinson disease with constipation, geography: Malaysia, n: 72}
+    administration: {dose_source_text: "multistrain capsule for four weeks (full formula/dose from source)", route: oral, frequency: daily, duration_days: 28}
+  - protocol_id: PROTOCOL_AKK_MUCT_PASTEURISED_3M_V1
+    intervention_id: LBP_AKKERMANSIA_MUCT_PASTEURISED_V1
+    population: {age_range_years: [18, 70], confirmed_condition: overweight/obesity with insulin resistance, geography: Belgium, n: 32}
+    administration: {dose_source_text: "10^10 pasteurised cells/day for three months", route: oral, frequency: daily, duration_days: 90}
+  - protocol_id: PROTOCOL_AKK_WST01_T2D_V1
+    intervention_id: LBP_AKK_WST01_V1
+    population: {age_range_years: [18, 70], confirmed_condition: type 2 diabetes with obesity, geography: China}
+    administration: {dose_source_text: "AKK-WST01 capsules daily for 12 weeks (source-reported dose)", route: oral, frequency: daily, duration_days: 84}
+  - protocol_id: PROTOCOL_LREUTERI_30242_YOGURT_V1
+    intervention_id: PROBIOTIC_LREUTERI_NCIMB30242_V1
+    population: {age_range_years: [20, 75], confirmed_condition: hypercholesterolaemia, geography: Canada, n: 114}
+    administration: {dose_source_text: "microencapsulated L. reuteri NCIMB 30242 in yogurt twice daily for six weeks", route: oral, frequency: twice daily, duration_days: 42}
+  - protocol_id: PROTOCOL_LREUTERI_30242_CAPSULE_V1
+    intervention_id: PROBIOTIC_LREUTERI_NCIMB30242_V1
+    population: {age_range_years: [20, 75], confirmed_condition: hypercholesterolaemia, geography: Canada, n: 127}
+    administration: {dose_source_text: "2.9 × 10^9 CFU capsule twice daily for nine weeks", route: oral, frequency: twice daily, duration_days: 63}
+  - protocol_id: PROTOCOL_CBM588_ADENOMA_V1
+    intervention_id: PROBIOTIC_CBM588_V1
+    population: {age_range_years: [40, 80], confirmed_condition: history of colorectal adenoma after polypectomy, geography: Japan}
+    administration: {dose_source_text: "CBM588 tablets daily as studied (source-reported dose)", route: oral, frequency: daily, duration_days: null}
+  - protocol_id: PROTOCOL_MDD_VIVOMIXX_31D_V1
+    intervention_id: PROBIOTIC_MDD_HIGH_DOSE_MULTISTRAIN_SCHAUB2022_V1
+    population: {age_range_years: [18, 65], confirmed_condition: major depressive disorder (inpatients on antidepressants), geography: Switzerland, n: 47}
+    administration: {dose_source_text: "900 billion CFU/day for 31 days as add-on to antidepressant treatment", route: oral, frequency: daily, duration_days: 31}
+  - protocol_id: PROTOCOL_MS_VSL3_2M_V1
+    intervention_id: PROBIOTIC_MS_VSL3_TANKOU2018_V1
+    population: {age_range_years: [18, 65], confirmed_condition: relapsing-remitting multiple sclerosis, geography: USA, n: 9}
+    administration: {dose_source_text: "VSL#3 3600 billion CFU/day for two months", route: oral, frequency: twice daily, duration_days: 60}
+  - protocol_id: PROTOCOL_RA_LCASEI01_8W_V1
+    intervention_id: PROBIOTIC_RA_LCASEI01_ALIPOUR2014_V1
+    population: {age_range_years: [20, 80], confirmed_condition: rheumatoid arthritis, sex: female, geography: Iran, n: 46}
+    administration: {dose_source_text: "10^8 CFU/day L. casei 01 for eight weeks", route: oral, frequency: daily, duration_days: 56}
+  - protocol_id: PROTOCOL_RA_MULTI_8W_ZAMANI_V1
+    intervention_id: PROBIOTIC_RA_MULTISTRAIN_ZAMANI2016_V1
+    population: {age_range_years: [25, 70], confirmed_condition: rheumatoid arthritis, geography: Iran, n: 60}
+    administration: {dose_source_text: "2 × 10^9 CFU each of three organisms daily for eight weeks", route: oral, frequency: daily, duration_days: 56}
+  - protocol_id: PROTOCOL_RA_GR1_RC14_3M_V1
+    intervention_id: PROBIOTIC_RA_LRHAMNOSUS_LREUTERI_PINEDA2011_V1
+    population: {age_range_years: [18, 80], confirmed_condition: rheumatoid arthritis, geography: Canada, n: 29}
+    administration: {dose_source_text: "2 × 10^9 CFU capsules twice daily for three months", route: oral, frequency: twice daily, duration_days: 90}
+  - protocol_id: PROTOCOL_AS_PROBIOTIC_12W_V1
+    intervention_id: PROBIOTIC_AS_LRHAMNOSUS_LREUTERI_JENKS2010_V1
+    population: {age_range_years: [18, 75], confirmed_condition: ankylosing spondylitis, geography: New Zealand, n: 63}
+    administration: {dose_source_text: "probiotic capsule daily for 12 weeks", route: oral, frequency: daily, duration_days: 84}
+  - protocol_id: PROTOCOL_HE_VSL3_6M_V1
+    intervention_id: PROBIOTIC_HE_VSL3_DHIMAN2014_V1
+    population: {age_range_years: [18, 80], confirmed_condition: cirrhosis recovered from an episode of hepatic encephalopathy, geography: India, n: 130}
+    administration: {dose_source_text: "VSL#3 900 billion CFU/day for six months", route: oral, frequency: daily, duration_days: 180}
+  - protocol_id: PROTOCOL_MECFS_SHIROTA_8W_V1
+    intervention_id: PROBIOTIC_MECFS_LCASEI_SHIROTA_RAO2009_V1
+    population: {age_range_years: [18, 65], confirmed_condition: chronic fatigue syndrome, geography: Canada, n: 39}
+    administration: {dose_source_text: "24 billion CFU L. casei Shirota daily for eight weeks", route: oral, frequency: daily, duration_days: 56}
+  - protocol_id: PROTOCOL_STOP_FATIGUE_V1
+    intervention_id: PROBIOTIC_LONGCOVID_STOP_FATIGUE_V1
+    population: {age_range_years: [18, 99], confirmed_condition: Long COVID fatigue, geography: Europe}
+    administration: {dose_source_text: "multistrain probiotic as studied (source-reported)", route: oral, frequency: daily, duration_days: null}
+  - protocol_id: PROTOCOL_OXALATE_PROBIOTIC_NULL_V1
+    intervention_id: PROBIOTIC_OXALATE_LACTO_BIFIDO_NULL_V1
+    population: {age_range_years: [18, 80], confirmed_condition: calcium oxalate stone formers with hyperoxaluria}
+    administration: {dose_source_text: "probiotic capsules daily as studied", route: oral, frequency: daily, duration_days: null}
+  - protocol_id: PROTOCOL_OXABACT_EPHEX_52W_V1
+    intervention_id: LBP_OXABACT_OXALOBACTER_FORMIGENES_V1
+    population: {age_range_years: [2, 99], confirmed_condition: primary hyperoxaluria type 1 with impaired renal function, geography: multinational}
+    administration: {dose_source_text: "Oxabact capsules twice daily for 52 weeks", route: oral, frequency: twice daily, duration_days: 364}
+  - protocol_id: PROTOCOL_SYNERGY_CKD_6W_V1
+    intervention_id: SYNBIOTIC_SYNERGY_CKD_ROSSI2016_V1
+    population: {age_range_years: [18, 85], confirmed_condition: CKD stage 4–5 (pre-dialysis), geography: Australia, n: 37}
+    administration: {dose_source_text: "15 g/day mixed prebiotic plus nine-strain probiotic escalating 45 → 90 billion CFU/day for six weeks (crossover)", route: oral, frequency: daily, duration_days: 42}
+  - protocol_id: PROTOCOL_RS2_TITRATION_V1
+    intervention_id: PREBIOTIC_RS2_POTATO_STARCH_V1
+    population: {age_range_years: [18, 40], confirmed_condition: healthy adults, geography: USA, n: 20}
+    administration: {dose_source_text: "titrated 12 → 24 → 48 g/day, then 48 g/day for seven days", route: oral, frequency: daily, duration_days: 17}
+  - protocol_id: PROTOCOL_AXOS_4W_V1
+    intervention_id: PREBIOTIC_AXOS_V1
+    population: {age_range_years: [18, 65], confirmed_condition: overweight/obese adults, geography: Denmark, n: 29}
+    administration: {dose_source_text: "10.4 g/day AXOS for four weeks (crossover)", route: oral, frequency: daily, duration_days: 28}
+  - protocol_id: PROTOCOL_IPE_24W_CHAMBERS_V1
+    intervention_id: PREBIOTIC_INULIN_PROPIONATE_ESTER_V1
+    population: {age_range_years: [40, 65], confirmed_condition: overweight adults, geography: UK, n: 60}
+    administration: {dose_source_text: "10 g/day inulin-propionate ester for 24 weeks versus inulin", route: oral, frequency: daily, duration_days: 168}
+  - protocol_id: PROTOCOL_IPE_12M_IPREVENT_V1
+    intervention_id: PREBIOTIC_INULIN_PROPIONATE_ESTER_V1
+    population: {age_range_years: [20, 70], confirmed_condition: overweight adults, geography: UK, n: 270}
+    administration: {dose_source_text: "10 g/day inulin-propionate ester for 12 months", route: oral, frequency: daily, duration_days: 365}
+  - protocol_id: PROTOCOL_RS_CKD_16W_HEADLEY_V1
+    intervention_id: PREBIOTIC_RESISTANT_STARCH_CKD_HEADLEY_V1
+    population: {age_range_years: [18, 85], confirmed_condition: CKD stage 3–4, geography: USA}
+    administration: {dose_source_text: "resistant starch supplement daily for 16 weeks", route: oral, frequency: daily, duration_days: 112}
+  - protocol_id: PROTOCOL_RIBOGUT_2W_V1
+    intervention_id: VITAMIN_RIBOFLAVIN_RIBOGUT_V1
+    population: {age_range_years: [18, 65], confirmed_condition: healthy adults, geography: Netherlands, n: 105}
+    administration: {dose_source_text: "50 or 100 mg/day riboflavin for two weeks", route: oral, frequency: daily, duration_days: 14}
+  - protocol_id: PROTOCOL_RISEUP_3W_V1
+    intervention_id: VITAMIN_RIBOFLAVIN_RIBOGUT_V1
+    population: {age_range_years: [18, 75], confirmed_condition: Crohn's disease, geography: Netherlands, n: 70}
+    administration: {dose_source_text: "100 mg/day riboflavin for three weeks (single arm)", route: oral, frequency: daily, duration_days: 21}
+  - protocol_id: PROTOCOL_UROLITHIN_A_4M_V1
+    intervention_id: SUPPLEMENT_UROLITHIN_A_V1
+    population: {age_range_years: [65, 90], confirmed_condition: older adults, geography: USA, n: 66}
+    administration: {dose_source_text: "1,000 mg/day urolithin A for four months", route: oral, frequency: daily, duration_days: 120}
+  - protocol_id: PROTOCOL_BISMUTH_H2S_SUAREZ_V1
+    intervention_id: OTC_BISMUTH_SUBSALICYLATE_V1
+    population: {age_range_years: [18, 60], confirmed_condition: healthy adults, geography: USA, n: 10}
+    administration: {dose_source_text: "524 mg four times daily for 3–7 days", route: oral, frequency: four times daily, duration_days: 7}
+  - protocol_id: PROTOCOL_BERBERINE_ETEC_1987_V1
+    intervention_id: BOTANICAL_BERBERINE_V1
+    population: {age_range_years: [12, 60], confirmed_condition: acute enterotoxigenic E. coli or cholera diarrhoea, geography: Bangladesh}
+    administration: {dose_source_text: "berberine sulfate 400 mg single dose", route: oral, frequency: once, duration_days: 1}
+  - protocol_id: PROTOCOL_HERBAL_SIBO_PAIRS_4W_V1
+    intervention_id: MULTI_HERBAL_SIBO_PAIRS_CHEDID2014_V1
+    population: {age_range_years: [18, 90], confirmed_condition: lactulose breath test-positive SIBO, geography: USA, n: 104}
+    administration: {dose_source_text: "two capsules of each of two products twice daily for four weeks (patient-choice, versus rifaximin 400 mg three times daily)", route: oral, frequency: twice daily, duration_days: 28}
+  - protocol_id: PROTOCOL_LOW_FODMAP_3PHASE_V1
+    intervention_id: DIET_LOW_FODMAP_LIMITED_V1
+    population: {age_range_years: [18, 99], confirmed_condition: IBS (clinically diagnosed)}
+    administration: {dose_source_text: "restriction ordinarily 4–6 weeks, then structured reintroduction and personalisation with dietitian support", route: dietary, frequency: continuous, duration_days: 42}
+  - protocol_id: PROTOCOL_LOW_FODMAP_3W_MCINTOSH_V1
+    intervention_id: DIET_LOW_FODMAP_LIMITED_V1
+    population: {age_range_years: [18, 70], confirmed_condition: IBS, geography: Canada, n: 37}
+    administration: {dose_source_text: "three-week low-FODMAP versus high-FODMAP diet", route: dietary, frequency: continuous, duration_days: 21}
+  - protocol_id: PROTOCOL_HIGH_FIBER_T2D_12W_V1
+    intervention_id: DIET_HIGH_FIBER_T2D_ZHAO2018_V1
+    population: {age_range_years: [30, 70], confirmed_condition: type 2 diabetes, geography: China, n: 43}
+    administration: {dose_source_text: "high-fibre WTP diet (whole grains, TCM foods, prebiotics) for 12 weeks; acarbose in both arms", route: dietary, frequency: continuous, duration_days: 84}
+  - protocol_id: PROTOCOL_PREDIMED_V1
+    intervention_id: DIET_MEDITERRANEAN_PREDIMED_V1
+    population: {age_range_years: [55, 80], confirmed_condition: high cardiovascular risk without CVD, geography: Spain, n: 7447}
+    administration: {dose_source_text: "Mediterranean diet supplemented with extra-virgin olive oil or mixed nuts; median 4.8 years", route: dietary, frequency: continuous, duration_days: 1750}
+  - protocol_id: PROTOCOL_PREMIER_6M_V1
+    intervention_id: DIET_DASH_PREMIER_V1
+    population: {age_range_years: [25, 79], confirmed_condition: above-optimal blood pressure or stage 1 hypertension (untreated), geography: USA, n: 810}
+    administration: {dose_source_text: "established lifestyle recommendations plus DASH diet, 6 months (18 months follow-up)", route: behavioural, frequency: continuous, duration_days: 180}
+  - protocol_id: PROTOCOL_CDED_PEN_12W_V1
+    intervention_id: DIET_CDED_PEN_V1
+    population: {age_range_years: [4, 18], confirmed_condition: mild-to-moderate paediatric Crohn's disease, geography: multinational, n: 78}
+    administration: {dose_source_text: "CDED + 50% PEN for 6 weeks, then CDED + 25% PEN to week 12, versus exclusive enteral nutrition then free diet + 25% PEN", route: dietary, frequency: continuous, duration_days: 84}
+  - protocol_id: PROTOCOL_GFD_CELIAC_V1
+    intervention_id: DIET_GLUTEN_FREE_CELIAC_V1
+    population: {age_range_years: [0, 99], confirmed_condition: coeliac disease (serology + biopsy confirmed)}
+    administration: {dose_source_text: "lifelong strict gluten-free diet after diagnosis", route: dietary, frequency: continuous, duration_days: null}
+  - protocol_id: PROTOCOL_MIND_3Y_V1
+    intervention_id: DIET_MIND_BARNES2023_V1
+    population: {age_range_years: [65, 84], confirmed_condition: cognitively unimpaired with family history of dementia and suboptimal diet, geography: USA, n: 604}
+    administration: {dose_source_text: "MIND diet with mild caloric restriction versus usual diet with mild caloric restriction for three years", route: dietary, frequency: continuous, duration_days: 1095}
+  - protocol_id: PROTOCOL_SMILES_12W_V1
+    intervention_id: DIET_SMILES_MODIFIED_MEDITERRANEAN_V1
+    population: {age_range_years: [18, 99], confirmed_condition: major depressive episode (moderate–severe), geography: Australia, n: 67}
+    administration: {dose_source_text: "ModiMedDiet with seven dietitian sessions over 12 weeks versus social support", route: dietary, frequency: continuous, duration_days: 84}
+  - protocol_id: PROTOCOL_4SURE_8W_V1
+    intervention_id: DIET_4SURE_UC_V1
+    population: {age_range_years: [18, 75], confirmed_condition: mild-to-moderately active ulcerative colitis, geography: Australia, n: 28}
+    administration: {dose_source_text: "4-SURE diet for eight weeks (open-label)", route: dietary, frequency: continuous, duration_days: 56}
+  - protocol_id: PROTOCOL_RED_MEAT_TMAO_4W_V1
+    intervention_id: DIET_RED_MEAT_TMAO_WANG2019_V1
+    population: {age_range_years: [21, 65], confirmed_condition: healthy adults, geography: USA, n: 113}
+    administration: {dose_source_text: "three isocaloric four-week diets (red meat, white meat, non-meat protein) in random order", route: dietary, frequency: continuous, duration_days: 28}
+  - protocol_id: PROTOCOL_ANIMAL_PLANT_5D_V1
+    intervention_id: DIET_ANIMAL_VS_PLANT_DAVID2014_V1
+    population: {age_range_years: [21, 33], confirmed_condition: healthy adults, geography: USA, n: 10}
+    administration: {dose_source_text: "five days animal-based then plant-based diet (or reverse)", route: dietary, frequency: continuous, duration_days: 5}
+  - protocol_id: PROTOCOL_WASTYK_10W_V1
+    intervention_id: DIET_HIGH_FIBER_VS_FERMENTED_WASTYK2021_V1
+    population: {age_range_years: [18, 70], confirmed_condition: healthy adults, geography: USA, n: 36}
+    administration: {dose_source_text: "10-week high-fibre or high-fermented-food diet", route: dietary, frequency: continuous, duration_days: 70}
+  - protocol_id: PROTOCOL_FINGER_2Y_V1
+    intervention_id: LIFESTYLE_FINGER_MULTIDOMAIN_V1
+    population: {age_range_years: [60, 77], confirmed_condition: elevated dementia risk (CAIDE score) with average or slightly lower cognition, geography: Finland, n: 1260}
+    administration: {dose_source_text: "two-year multidomain intervention (nutrition, exercise, cognitive training, vascular risk monitoring)", route: behavioural, frequency: continuous, duration_days: 730}
+  - protocol_id: PROTOCOL_CONTROLLED_OXALATE_DIET_V1
+    intervention_id: DIET_CONTROLLED_OXALATE_LIESKE2010_V1
+    population: {age_range_years: [18, 80], confirmed_condition: calcium oxalate stone formers with mild hyperoxaluria, geography: USA}
+    administration: {dose_source_text: "controlled diet weeks with probiotic or placebo", route: dietary, frequency: continuous, duration_days: null}
+  - protocol_id: PROTOCOL_RIFAXIMIN_HE_6M_BASS_V1
+    intervention_id: RX_RIFAXIMIN_V1
+    population: {age_range_years: [18, 99], confirmed_condition: cirrhosis in remission from recurrent hepatic encephalopathy, geography: USA/Canada/Russia, n: 299}
+    administration: {dose_source_text: "550 mg twice daily for six months (>90% also on lactulose)", route: oral, frequency: twice daily, duration_days: 180}
+  - protocol_id: PROTOCOL_LACTULOSE_HE_V1
+    intervention_id: RX_LACTULOSE_V1
+    population: {age_range_years: [18, 99], confirmed_condition: cirrhosis with hepatic encephalopathy}
+    administration: {dose_source_text: "titrated to 2–3 soft stools/day per guideline", route: oral, frequency: daily, duration_days: null}
+  - protocol_id: PROTOCOL_RIFAXIMIN_IBSD_V1
+    intervention_id: RX_RIFAXIMIN_V1
+    population: {age_range_years: [18, 99], confirmed_condition: IBS-D (clinically diagnosed)}
+    administration: {dose_source_text: "550 mg three times daily for 14 days (label)", route: oral, frequency: three times daily, duration_days: 14}
+  - protocol_id: PROTOCOL_NEOMYCIN_RIFAXIMIN_IMO_14D_V1
+    intervention_id: RX_NEOMYCIN_PLUS_RIFAXIMIN_IMO_V1
+    population: {age_range_years: [18, 65], confirmed_condition: methane-positive IBS-C, geography: USA, n: 31}
+    administration: {dose_source_text: "neomycin 500 mg twice daily plus rifaximin 550 mg three times daily for 14 days", route: oral, frequency: daily, duration_days: 14}
+  - protocol_id: PROTOCOL_FMT_RCDI_AGA_V1
+    intervention_id: FMT_CONVENTIONAL_RCDI_V1
+    population: {age_range_years: [18, 99], confirmed_condition: recurrent C. difficile infection after standard-of-care antibiotics (immunocompetent or mildly/moderately immunocompromised adults)}
+    administration: {dose_source_text: "single or repeated administration by colonoscopy, enema or capsule after completion of antibiotics (clinician-only detail)", route: colonoscopic/enema/oral capsule, frequency: once (repeatable), duration_days: 1}
+  - protocol_id: PROTOCOL_VOWST_LABEL_V1
+    intervention_id: MICROBIOTA_PRODUCT_VOWST_V1
+    population: {age_range_years: [18, 99], confirmed_condition: recurrent C. difficile infection following antibacterial treatment}
+    administration: {dose_source_text: "four capsules once daily for three consecutive days, starting 2–4 days after completing antibacterial treatment (label)", route: oral, frequency: daily, duration_days: 3}
+  - protocol_id: PROTOCOL_REBYOTA_LABEL_V1
+    intervention_id: MICROBIOTA_PRODUCT_REBYOTA_V1
+    population: {age_range_years: [18, 99], confirmed_condition: recurrent C. difficile infection following antibacterial treatment}
+    administration: {dose_source_text: "single 150 mL rectal dose 24–72 hours after the last antibiotic dose (label)", route: rectal, frequency: once, duration_days: 1}
+  - protocol_id: PROTOCOL_FMT_UC_PARAMSOTHY_8W_V1
+    intervention_id: FMT_INVESTIGATIONAL_NON_CDI_V1
+    population: {age_range_years: [18, 75], confirmed_condition: active ulcerative colitis, geography: Australia, n: 81}
+    administration: {dose_source_text: "intensive multidonor FMT: colonoscopic infusion then enemas five days a week for eight weeks", route: colonoscopic + enema, frequency: 5 per week, duration_days: 56}
+  - protocol_id: PROTOCOL_FMT_LEAN_DONOR_VRIEZE_V1
+    intervention_id: FMT_INVESTIGATIONAL_NON_CDI_V1
+    population: {age_range_years: [21, 65], confirmed_condition: metabolic syndrome (male), sex: male, geography: Netherlands, n: 18}
+    administration: {dose_source_text: "single lean-donor (allogenic) versus autologous duodenal infusion", route: nasoduodenal, frequency: once, duration_days: 1}
+  - protocol_id: PROTOCOL_FMT_LEAN_DONOR_KOOTTE_V1
+    intervention_id: FMT_INVESTIGATIONAL_NON_CDI_V1
+    population: {age_range_years: [21, 69], confirmed_condition: metabolic syndrome (male), sex: male, geography: Netherlands, n: 38}
+    administration: {dose_source_text: "single lean-donor versus autologous duodenal infusion; follow-up 18 weeks", route: nasoduodenal, frequency: once, duration_days: 1}
+  - protocol_id: PROTOCOL_FMT_PD_CHENG_V1
+    intervention_id: FMT_INVESTIGATIONAL_NON_CDI_V1
+    population: {age_range_years: [40, 80], confirmed_condition: Parkinson disease, geography: China}
+    administration: {dose_source_text: "FMT versus placebo as studied (source-reported route)", route: as reported, frequency: as reported, duration_days: null}
+  - protocol_id: PROTOCOL_FMT_PD_BRUGGEMAN_V1
+    intervention_id: FMT_INVESTIGATIONAL_NON_CDI_V1
+    population: {age_range_years: [50, 65], confirmed_condition: early-stage Parkinson disease, geography: Belgium, n: 46}
+    administration: {dose_source_text: "single healthy-donor versus autologous FMT via nasojejunal tube; 12-month follow-up", route: nasojejunal, frequency: once, duration_days: 1}
+  - protocol_id: PROTOCOL_FMT_MS_PILOT_V1
+    intervention_id: FMT_INVESTIGATIONAL_NON_CDI_V1
+    population: {age_range_years: [18, 65], confirmed_condition: multiple sclerosis, geography: Canada, n: 9}
+    administration: {dose_source_text: "FMT (terminated early pilot)", route: as reported, frequency: as reported, duration_days: null}
+  - protocol_id: PROTOCOL_FMT_T1D_DEGROOT_V1
+    intervention_id: FMT_INVESTIGATIONAL_NON_CDI_V1
+    population: {age_range_years: [18, 30], confirmed_condition: recent-onset type 1 diabetes, geography: Netherlands, n: 20}
+    administration: {dose_source_text: "three autologous versus allogenic duodenal FMTs over four months", route: nasoduodenal, frequency: three infusions, duration_days: 120}
+  - protocol_id: PROTOCOL_FMT_MASLD_CRAVEN_V1
+    intervention_id: FMT_INVESTIGATIONAL_NON_CDI_V1
+    population: {age_range_years: [18, 75], confirmed_condition: NAFLD (MASLD), geography: Canada, n: 21}
+    administration: {dose_source_text: "single allogenic versus autologous FMT by endoscopy", route: endoscopic, frequency: once, duration_days: 1}
+  - protocol_id: PROTOCOL_FMT_CKD_V1
+    intervention_id: FMT_INVESTIGATIONAL_NON_CDI_V1
+    population: {age_range_years: [18, 80], confirmed_condition: chronic kidney disease}
+    administration: {dose_source_text: "FMT versus placebo as studied", route: as reported, frequency: as reported, duration_days: null}
+  - protocol_id: PROTOCOL_FMT_OBESITY_ADOLESCENT_LEONG_V1
+    intervention_id: FMT_INVESTIGATIONAL_NON_CDI_V1
+    population: {age_range_years: [14, 18], confirmed_condition: adolescent obesity, geography: New Zealand, n: 87}
+    administration: {dose_source_text: "single course of oral encapsulated lean-donor FMT versus placebo", route: oral capsule, frequency: once, duration_days: 2}
+  - protocol_id: PROTOCOL_FMT_MECFS_V1
+    intervention_id: FMT_INVESTIGATIONAL_NON_CDI_V1
+    population: {age_range_years: [18, 65], confirmed_condition: ME/CFS, geography: Norway}
+    administration: {dose_source_text: "FMT versus placebo (randomised pilot)", route: as reported, frequency: once, duration_days: 1}
+  - protocol_id: PROTOCOL_FMT_HE_BAJAJ_V1
+    intervention_id: FMT_INVESTIGATIONAL_NON_CDI_V1
+    population: {age_range_years: [18, 80], confirmed_condition: cirrhosis with recurrent hepatic encephalopathy, geography: USA, n: 20}
+    administration: {dose_source_text: "five days of broad-spectrum antibiotics then a single FMT enema from a rationally selected donor", route: enema, frequency: once, duration_days: 1}
+  - protocol_id: PROTOCOL_FMT_HYPERTENSION_V1
+    intervention_id: FMT_INVESTIGATIONAL_NON_CDI_V1
+    population: {age_range_years: [18, 70], confirmed_condition: hypertension}
+    administration: {dose_source_text: "FMT versus placebo as studied", route: as reported, frequency: as reported, duration_days: null}
+  - protocol_id: PROTOCOL_FMT_MDD_ESCITALOPRAM_V1
+    intervention_id: FMT_INVESTIGATIONAL_NON_CDI_V1
+    population: {age_range_years: [18, 65], confirmed_condition: major depressive disorder}
+    administration: {dose_source_text: "FMT plus escitalopram versus placebo plus escitalopram", route: as reported, frequency: as reported, duration_days: null}
+  - protocol_id: PROTOCOL_FMT_AA_CASE_V1
+    intervention_id: FMT_INVESTIGATIONAL_NON_CDI_V1
+    population: {age_range_years: [18, 99], confirmed_condition: recurrent C. difficile infection (with coincident alopecia universalis)}
+    administration: {dose_source_text: "FMT for CDI; hair regrowth was incidental", route: as reported, frequency: once, duration_days: 1}
+  - protocol_id: PROTOCOL_ROUTE_GENERIC_V1
+    intervention_id: CLINICAL_ROUTE_CRC_SCREENING_USPSTF_V1
+    population: {age_range_years: [45, 75]}
+    administration: {dose_source_text: "screening per USPSTF (stool-based test or colonoscopy at guideline intervals)", route: clinical, frequency: per guideline, duration_days: null}
+  - protocol_id: PROTOCOL_ROUTE_PDAC_V1
+    intervention_id: CLINICAL_ROUTE_PDAC_SYMPTOMS_NCI_V1
+    population: {age_range_years: [18, 99]}
+    administration: {dose_source_text: "ordinary urgent evaluation of jaundice, unexplained weight loss or persistent upper abdominal/back pain", route: clinical, frequency: as needed, duration_days: null}
+  - protocol_id: PROTOCOL_ROUTE_GI_CALPROTECTIN_V1
+    intervention_id: CLINICAL_ROUTE_GASTROENTEROLOGY_CALPROTECTIN_V1
+    population: {age_range_years: [0, 99]}
+    administration: {dose_source_text: "symptom-driven gastroenterology evaluation with fecal calprotectin", route: clinical, frequency: as needed, duration_days: null}
+  - protocol_id: PROTOCOL_ROUTE_METABOLIC_V1
+    intervention_id: CLINICAL_ROUTE_METABOLIC_CONFIRMATION_V1
+    population: {age_range_years: [18, 99]}
+    administration: {dose_source_text: "HbA1c, fasting glucose, lipids, blood pressure, waist", route: clinical, frequency: as needed, duration_days: null}
+  - protocol_id: PROTOCOL_ROUTE_CELIAC_V1
+    intervention_id: CLINICAL_ROUTE_CELIAC_SEROLOGY_BIOPSY_V1
+    population: {age_range_years: [0, 99]}
+    administration: {dose_source_text: "tTG-IgA with total IgA while eating gluten; biopsy per ACG 2023", route: clinical, frequency: once, duration_days: null}
+  - protocol_id: PROTOCOL_ROUTE_BREATH_METHANE_V1
+    intervention_id: CLINICAL_ROUTE_BREATH_METHANE_V1
+    population: {age_range_years: [18, 99]}
+    administration: {dose_source_text: "standardised breath test; methane ≥10 ppm positive", route: clinical, frequency: once, duration_days: null}
+  - protocol_id: PROTOCOL_ROUTE_B12_V1
+    intervention_id: CLINICAL_ROUTE_B12_STATUS_V1
+    population: {age_range_years: [0, 99]}
+    administration: {dose_source_text: "serum B12 ± methylmalonic acid", route: clinical, frequency: once, duration_days: null}
+  - protocol_id: PROTOCOL_ROUTE_STONES_V1
+    intervention_id: CLINICAL_ROUTE_STONE_EVALUATION_AUA_V1
+    population: {age_range_years: [18, 99]}
+    administration: {dose_source_text: "24-hour urine and metabolic stone evaluation per AUA", route: clinical, frequency: once, duration_days: null}
+  - protocol_id: PROTOCOL_ROUTE_LEVODOPA_V1
+    intervention_id: CLINICAL_ROUTE_LEVODOPA_PRESCRIBER_CARD_V1
+    population: {age_range_years: [18, 99]}
+    administration: {dose_source_text: "information card to the prescriber; no dose change from this report", route: clinical, frequency: once, duration_days: null}
+  - protocol_id: PROTOCOL_ROUTE_HE_V1
+    intervention_id: CLINICAL_ROUTE_HE_GUIDELINE_V1
+    population: {age_range_years: [18, 99], confirmed_condition: cirrhosis with hepatic encephalopathy}
+    administration: {dose_source_text: "guideline-directed HE management (lactulose first line, rifaximin add-on for recurrence)", route: clinical, frequency: per guideline, duration_days: null}
+  - protocol_id: PROTOCOL_ROUTE_ORAL_HEALTH_V1
+    intervention_id: CLINICAL_ROUTE_ORAL_HEALTH_V1
+    population: {age_range_years: [0, 99]}
+    administration: {dose_source_text: "routine dental evaluation if overdue or symptomatic", route: clinical, frequency: as needed, duration_days: null}
+  - protocol_id: PROTOCOL_ROUTE_STOOL_PATHOGEN_V1
+    intervention_id: CLINICAL_ROUTE_STOOL_PATHOGEN_TESTING_IDSA_V1
+    population: {age_range_years: [0, 99]}
+    administration: {dose_source_text: "stool culture/PCR and clinical assessment when symptomatic (IDSA 2017)", route: clinical, frequency: as needed, duration_days: null}
+  - protocol_id: PROTOCOL_ROUTE_CDI_TOXIN_V1
+    intervention_id: CLINICAL_ROUTE_CDI_TOXIN_TESTING_V1
+    population: {age_range_years: [0, 99]}
+    administration: {dose_source_text: "toxin testing only with ≥3 unformed stools/24 h or other compatible symptoms", route: clinical, frequency: as needed, duration_days: null}
+  - protocol_id: PROTOCOL_ROUTE_SGALLOLYTICUS_V1
+    intervention_id: CLINICAL_ROUTE_COLONOSCOPY_AFTER_SGALLOLYTICUS_V1
+    population: {age_range_years: [18, 99], confirmed_condition: S. gallolyticus bacteraemia or endocarditis}
+    administration: {dose_source_text: "colonoscopy after documented infection", route: clinical, frequency: once, duration_days: null}
+  - protocol_id: PROTOCOL_ROUTE_NEURO_V1
+    intervention_id: CLINICAL_ROUTE_NEURO_COGNITIVE_EVALUATION_V1
+    population: {age_range_years: [18, 99]}
+    administration: {dose_source_text: "neurologic/cognitive evaluation when clinically indicated", route: clinical, frequency: as needed, duration_days: null}
+  - protocol_id: PROTOCOL_ROUTE_DERM_V1
+    intervention_id: CLINICAL_ROUTE_DERMATOLOGY_SCALP_V1
+    population: {age_range_years: [0, 99]}
+    administration: {dose_source_text: "dermatologist/scalp examination", route: clinical, frequency: as needed, duration_days: null}
+  - protocol_id: PROTOCOL_ROUTE_BP_V1
+    intervention_id: CLINICAL_ROUTE_BLOOD_PRESSURE_V1
+    population: {age_range_years: [18, 99]}
+    administration: {dose_source_text: "repeated validated blood-pressure measurement", route: clinical, frequency: repeated, duration_days: null}
+  - protocol_id: PROTOCOL_ROUTE_KDIGO_V1
+    intervention_id: CLINICAL_ROUTE_RENAL_GUIDELINE_KDIGO_V1
+    population: {age_range_years: [18, 99]}
+    administration: {dose_source_text: "eGFR, albuminuria, electrolytes and management per KDIGO 2024", route: clinical, frequency: per guideline, duration_days: null}
+  - protocol_id: PROTOCOL_ROUTE_MASLD_V1
+    intervention_id: CLINICAL_ROUTE_MASLD_EASL_V1
+    population: {age_range_years: [18, 99]}
+    administration: {dose_source_text: "metabolic risk assessment and FIB-4 / elastography per guideline", route: clinical, frequency: per guideline, duration_days: null}
+  - protocol_id: PROTOCOL_ROUTE_IBS_V1
+    intervention_id: CLINICAL_ROUTE_IBS_DIAGNOSIS_ACG_V1
+    population: {age_range_years: [18, 99]}
+    administration: {dose_source_text: "positive symptom-based diagnosis with red-flag review (ACG 2021)", route: clinical, frequency: once, duration_days: null}
+  - protocol_id: PROTOCOL_ROUTE_ONCOLOGY_V1
+    intervention_id: CLINICAL_ROUTE_ONCOLOGY_IRINOTECAN_V1
+    population: {age_range_years: [18, 99], confirmed_condition: irinotecan therapy}
+    administration: {dose_source_text: "oncology management", route: clinical, frequency: as needed, duration_days: null}
+  - protocol_id: PROTOCOL_ROUTE_CULTURE_V1
+    intervention_id: CLINICAL_ROUTE_CLINICAL_CULTURE_AMR_V1
+    population: {age_range_years: [0, 99]}
+    administration: {dose_source_text: "culture and susceptibility when infection is clinically suspected", route: clinical, frequency: as needed, duration_days: null}
+  # ------------------------------------- chronic urticaria (chronic hives)
+  - protocol_id: PROTOCOL_CU_BIFIDERM_8W_ADJUNCT_V1
+    intervention_id: PROBIOTIC_BIFIDERM_LS01_BR03_V1
+    population: {age_range_years: [18, 99], confirmed_condition: refractory chronic spontaneous urticaria (chronic hives), geography: Italy, n: 52}
+    administration: {dose_source_text: "one sachet twice daily for 8 weeks, each strain at least 10^9 CFU/g, added to existing antihistamine therapy", route: oral, frequency: twice daily, duration_days: 56, cointerventions: [antihistamines]}
+  - protocol_id: PROTOCOL_CU_YIMINGJIA_4W_PAEDIATRIC_V1
+    intervention_id: PROBIOTIC_YIMINGJIA_SIX_ORGANISM_PAEDIATRIC_V1
+    population: {age_range_years: [6, 12], confirmed_condition: chronic urticaria (chronic hives) in children, geography: China, n: 213}
+    administration: {dose_source_text: "1.5 g twice daily (5 × 10^9 CFU/g) for 4 weeks, added to desloratadine", route: oral, frequency: twice daily, duration_days: 28, cointerventions: [desloratadine]}
+  - protocol_id: PROTOCOL_CU_LACTOCARE_8W_ADJUNCT_V1
+    intervention_id: PROBIOTIC_LACTOCARE_SEVEN_ORGANISM_V1
+    population: {age_range_years: [18, 45], confirmed_condition: chronic urticaria (chronic hives), geography: Iran, n: 52}
+    administration: {dose_source_text: "one sachet twice daily for 8 weeks alongside antihistamines; comparator arm received antihistamines alone, with no placebo and no patient blinding", route: oral, frequency: twice daily, duration_days: 56, cointerventions: [antihistamines]}
+  - protocol_id: PROTOCOL_CU_FEMILACT_8W_ADJUNCT_V1
+    intervention_id: PROBIOTIC_FEMILACT_SEVEN_ORGANISM_V1
+    population: {age_range_years: [12, 99], confirmed_condition: chronic urticaria (chronic hives), geography: Iran, n: 38}
+    administration: {dose_source_text: "one capsule twice daily for 8 weeks with cetirizine; comparator placebo plus cetirizine", route: oral, frequency: twice daily, duration_days: 56, cointerventions: [cetirizine]}
+  - protocol_id: PROTOCOL_CU_LREUTERI_ATCC55730_4W_ADJUNCT_V1
+    intervention_id: PROBIOTIC_LREUTERI_ATCC55730_V1
+    population: {age_range_years: [18, 99], confirmed_condition: chronic spontaneous urticaria (chronic hives), geography: Türkiye, n: 60}
+    administration: {dose_source_text: "10^8 CFU daily for 4 weeks with ebastine; comparator ebastine alone, allocation not randomized", route: oral, frequency: daily, duration_days: 28, cointerventions: [ebastine]}
+  - protocol_id: PROTOCOL_CU_LACTOGUT_12W_ADJUNCT_V1
+    intervention_id: PROBIOTIC_LACTOGUT_SIX_ORGANISM_V1
+    population: {age_range_years: [18, 99], confirmed_condition: chronic spontaneous urticaria (chronic hives), geography: India, n: 97}
+    administration: {dose_source_text: "one capsule (combined 5 × 10^9 CFU) twice daily for 12 weeks with an antihistamine; comparator placebo plus antihistamine", route: oral, frequency: twice daily, duration_days: 84, cointerventions: [antihistamines]}
+  - protocol_id: PROTOCOL_CU_LOW_HISTAMINE_3W_V1
+    intervention_id: DIET_LOW_HISTAMINE_TIME_LIMITED_V1
+    population: {age_range_years: [18, 99], confirmed_condition: chronic spontaneous urticaria (chronic hives) with gastrointestinal symptoms, geography: Germany, n: 56}
+    administration: {dose_source_text: "at least three weeks of a low-histamine diet as an uncontrolled diagnostic trial, then reassessment", route: oral, frequency: daily, duration_days: 21}
+  - protocol_id: PROTOCOL_ROUTE_URTICARIA_CARE_V1
+    intervention_id: CLINICAL_ROUTE_URTICARIA_GUIDELINE_CARE_V1
+    population: {age_range_years: [0, 99], confirmed_condition: urticaria (hives)}
+    administration: {dose_source_text: "second-generation H1 antihistamine first line, with specialist assessment and guideline escalation when hives persist", route: clinical, frequency: per guideline, duration_days: null}
+  - protocol_id: PROTOCOL_ROUTE_VITAMIN_D_STATUS_V1
+    intervention_id: CLINICAL_ROUTE_VITAMIN_D_STATUS_URTICARIA_V1
+    population: {age_range_years: [18, 99]}
+    administration: {dose_source_text: "serum 25-hydroxyvitamin D measurement; repletion only if deficiency is confirmed and a clinician directs it", route: clinical, frequency: once, duration_days: null}
+  - protocol_id: PROTOCOL_ROUTE_HPYLORI_TEST_AND_TREAT_V1
+    intervention_id: CLINICAL_ROUTE_HPYLORI_TEST_AND_TREAT_V1
+    population: {age_range_years: [18, 99]}
+    administration: {dose_source_text: "urea breath, stool antigen or endoscopic testing; guideline eradication regimen only when the test is positive", route: clinical, frequency: as needed, duration_days: null}
+  - protocol_id: PROTOCOL_FMT_CU_CASE_WU_V1
+    intervention_id: FMT_INVESTIGATIONAL_NON_CDI_V1
+    population: {age_range_years: null, confirmed_condition: chronic urticaria (chronic hives) with recurrent abdominal pain and food allergy, n: 1}
+    administration: {dose_source_text: "not verified — the full protocol of this single case report was not accessible in this audit, so dose, donor, delivery route and durability are recorded as not reported rather than filled in from secondary summaries", route: not_reported, frequency: not_reported, duration_days: null}

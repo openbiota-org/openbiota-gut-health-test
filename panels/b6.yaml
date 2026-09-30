@@ -1,0 +1,122 @@
+name: b6
+description: >-
+  Both documented routes to vitamin B6, treated as alternatives. The
+  DXP-independent route is the common bacterial one; the DXP-dependent
+  route is found in Escherichia coli and its relatives. Either complete
+  route is enough.
+metabolite: Vitamin B6 (pyridoxal phosphate)
+pathway: >-
+  pdxS with pdxT (DXP-independent), or pdxA with pdxJ (DXP-dependent) ->
+  pyridoxal 5-phosphate
+category: vitamin
+
+extension: true
+
+targets:
+  - id: PDXS
+    label: pdxS (PLP synthase
+    gene: pdxS
+    source: uniprot
+    query: "(protein_name:\"Pyridoxal 5'-phosphate synthase subunit PdxS\") AND (taxonomy_id:2)"
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: PDXT
+    label: pdxT (PLP synthase
+    gene: pdxT
+    source: uniprot
+    query: "(protein_name:\"Pyridoxal 5'-phosphate synthase subunit PdxT\") AND (taxonomy_id:2)"
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: PDXA
+    label: pdxA (4-hydroxythreonine-4-phosphate dehydrogenase)
+    gene: pdxA
+    source: uniprot
+    query: '(protein_name:"4-hydroxythreonine-4-phosphate dehydrogenase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: PDXJ
+    label: pdxJ (pyridoxine 5-phosphate synthase)
+    gene: pdxJ
+    source: uniprot
+    query: "(protein_name:\"Pyridoxine 5'-phosphate synthase\") AND (taxonomy_id:2)"
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: PDXH
+    label: pdxH (pyridoxine 5'-phosphate oxidase, salvage)
+    gene: pdxH
+    source: uniprot
+    query: "(protein_name:\"Pyridoxine/pyridoxamine 5'-phosphate oxidase\") AND (taxonomy_id:2)"
+    min_identity: 55.0
+    max_sequences: 2500
+    length_tolerance: 0.3
+
+  - id: PDXK
+    label: pdxK (pyridoxal kinase, salvage)
+    gene: pdxK
+    source: uniprot
+    query: '(protein_name:"Pyridoxal kinase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 2500
+    length_tolerance: 0.3
+
+aggregate: sum
+aggregate_from: [PDXS, PDXA]
+aggregate_reason: >-
+  One marker from each alternative route, summed because either route
+  produces the vitamin. The partner subunits are reported separately so
+  that an incomplete route stays visible as incomplete.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+citation: >-
+  Rodionov D.A. et al., Front Microbiol 10:1316 (2019),
+  doi:10.3389/fmicb.2019.01316; Fitzpatrick T.B. et al., Biochem J
+  407:1-13 (2007), doi:10.1042/BJ20070765.
+
+interpretation:
+  what_it_is: >-
+    Whether your bacteria carry either of the two known routes to vitamin
+    B6.
+  made_from: >-
+    Built de novo by one of two unrelated routes, DXP-dependent or
+    DXP-independent
+  summary: >-
+    Two unrelated chemistries reach the same vitamin. Requiring both would
+    call almost every community unable to make B6; accepting one isolated
+    subunit would call almost all of them able to.
+  evidence_detail: >-
+    The DXP-independent route, a PdxS synthase working with its PdxT
+    glutaminase, is the one most bacteria use; the DXP-dependent route
+    through PdxA and PdxJ is found in Escherichia coli and its relatives.
+    They are alternatives, so both are measured and the partner subunits
+    are shown separately. Pyridoxal phosphate is the cofactor for most
+    amino-acid chemistry in the cell, which is why the capacity is common
+    without being universal.
+  higher_means: favourable
+  evidence_strength: limited
+  implications:
+    higher: >-
+      More of your bacteria carry a complete B6 route than in most
+      samples, by one or other of the two chemistries.
+    typical: >-
+      Your community's B6 synthesis capacity sits in the middle of the
+      reference range. Pyridoxal phosphate is the cofactor for most
+      amino-acid chemistry in a cell, so the capacity to make it is
+      common without being universal, and a middling value is the
+      ordinary finding.
+    lower: >-
+      Fewer complete B6 routes here than in most samples. Your own B6
+      status comes from diet and is absorbed before the colon.
+  citation: >-
+    Rodionov D.A. et al., Front Microbiol 10:1316 (2019),
+    doi:10.3389/fmicb.2019.01316; Fitzpatrick T.B. et al., Biochem J
+    407:1-13 (2007), doi:10.1042/BJ20070765.

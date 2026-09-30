@@ -1,0 +1,100 @@
+name: urolithin
+description: >-
+  The 9-dehydroxylation that turns urolithin C into urolithin A, measured
+  from the three proteins of the ucd operon as published, not from gene
+  symbols: searching the symbols returns a fungal protein of the same
+  name.
+metabolite: Urolithin A formation
+pathway: >-
+  ellagitannins from pomegranate, walnuts and berries -> ellagic acid ->
+  urolithin C -> urolithin A, the last step by the UcdCFO dehydroxylase of
+  Enterocloster species
+category: metabolite
+
+extension: true
+
+targets:
+  - id: UCDO
+    label: ucdO (the dehydroxylase catalytic subunit, XNL98362.1)
+    gene: ucdO
+    source: literal
+    query: 'extension/ucd_operon.json#ucdO'
+    min_identity: 80.0
+    max_sequences: 1
+    length_tolerance: 0.3
+
+  - id: UCDC
+    label: ucdC (operon subunit, XNL98360.1, partial CDS)
+    gene: ucdC
+    source: literal
+    query: 'extension/ucd_operon.json#ucdC'
+    min_identity: 80.0
+    max_sequences: 1
+    length_tolerance: 0.3
+
+  - id: UCDF
+    label: ucdF (operon subunit, XNL98361.1)
+    gene: ucdF
+    source: literal
+    query: 'extension/ucd_operon.json#ucdF'
+    min_identity: 80.0
+    max_sequences: 1
+    length_tolerance: 0.3
+
+aggregate: sum
+aggregate_from: [UCDO]
+aggregate_reason: >-
+  The catalytic subunit is the reading. The other two subunits of the
+  operon are measured and shown as route detail; summing all three would
+  count one enzyme three times.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+citation: >-
+  Pidgeon R., Mitchell S., Shamash M., et al., "Diet-derived urolithin A
+  is produced by a dehydroxylase encoded by human gut Enterocloster
+  species", GenBank PQ855390.1 (2025).
+
+interpretation:
+  what_it_is: >-
+    Whether your gut bacteria carry the enzyme that makes urolithin A from
+    the urolithin C produced earlier in the pathway.
+  made_from: >-
+    ellagitannins in pomegranate, walnuts, raspberries and strawberries
+  summary: >-
+    Only some people's microbiomes make urolithin A. This measures the
+    published enzyme for the final step; it is not a urolithin
+    measurement.
+  evidence_detail: >-
+    The enzyme responsible was identified in 2025 as a dehydroxylase
+    encoded by an operon in gut Enterocloster species, and this panel
+    holds the three proteins from that record rather than a gene-symbol
+    search, which returns an unrelated fungal protein. Detection is
+    strict: one reference sequence per subunit means a diverged version in
+    another strain will not reach the identity floor, and is reported as
+    unresolved rather than counted. Carrying the gene is also not the same
+    as being a urolithin producer, which the specification is explicit
+    about: that is established by measuring urolithin after an
+    ellagitannin challenge, not from DNA.
+  higher_means: context-dependent
+  evidence_strength: preliminary
+  implications:
+    higher: >-
+      Reads map to the published dehydroxylase. The gene is present,
+      which is not the same as a measured urolithin A response to
+      pomegranate or walnuts.
+    typical: >-
+      A mid-range amount of read evidence on the published enzyme.
+      Whether you produce urolithin A is established by measuring it
+      after an ellagitannin challenge, which is a different test from
+      this one.
+    lower: >-
+      Little or no read evidence on the published enzyme. Because the
+      detector is the exact sequence, a diverged version in another
+      strain would read the same way, so this is not proof that the
+      capacity is absent.
+  citation: >-
+    Pidgeon R., Mitchell S., Shamash M., et al., "Diet-derived urolithin A
+    is produced by a dehydroxylase encoded by human gut Enterocloster
+    species", GenBank PQ855390.1 (2025).

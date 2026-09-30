@@ -1,0 +1,102 @@
+name: bsh
+description: >-
+  Bile salt deconjugation. Bile salt hydrolase (bsh, choloylglycine hydrolase)
+  removes the glycine or taurine from conjugated bile acids, the gateway step
+  that makes primary bile acids available for 7-alpha-dehydroxylation.
+metabolite: Unconjugated bile acids
+pathway: glycocholate / taurocholate -> cholate + glycine / taurine (bsh)
+
+organisms:
+  - Bacteroides fragilis
+  - Bifidobacterium longum
+  - Lactobacillus (Lactiplantibacillus) plantarum
+  - Enterococcus faecalis
+  - Clostridium perfringens
+
+targets:
+  - id: BSH
+    label: bsh (bile salt hydrolase / choloylglycine hydrolase)
+    gene: bsh
+    source: uniprot
+    query: '(protein_name:"bile salt hydrolase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 3000
+    length_tolerance: 0.20
+
+decoys:
+  # Penicillin V acylase is the classic BSH look-alike: same Ntn-hydrolase
+  # fold, same catalytic cysteine, no bile salt activity. Separating the two by
+  # sequence alone is a known hard problem and this decoy is what keeps the
+  # panel honest.
+  - id: PVA
+    label: pva (penicillin V acylase) and related Ntn-hydrolases
+    gene: pva
+    source: uniprot
+    query: '((protein_name:"penicillin V acylase") OR (protein_name:"linear amide C-N hydrolase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 2000
+    length_tolerance: 0.25
+
+aggregate: sum
+aggregate_reason: single target gene
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+caveats:
+  - >-
+    HIGH-PREVALENCE PANEL, LOW INFORMATION CONTENT. bsh is carried by most
+    major gut genera across Bacillota, Bacteroidota and Actinomycetota, so a
+    positive result is close to expected in any donor. It is reported for
+    completeness and as an internal cross-check on the `bai` panel — bsh is
+    upstream of bai, so bai-high with bsh-absent would indicate a problem with
+    the run rather than a biological finding.
+  - >-
+    Sequence-level separation of bile salt hydrolase from penicillin V acylase
+    is imperfect even for full-length proteins. Best-hit competition against
+    the PVA decoy set mitigates but does not solve this.
+
+interpretation:
+  what_it_is: >-
+    Deconjugated (unconjugated) bile acids — the first step your gut bacteria
+    take in reworking bile.
+  made_from: Liver-derived conjugated bile acids
+  higher_means: context-dependent
+  evidence_strength: limited
+  summary: >-
+    This is an enabling step rather than an outcome. Deconjugation is what makes
+    bile acids available for the secondary bile acid pathway, and it also
+    affects fat absorption and cholesterol handling. Nearly everyone carries
+    abundant capacity for it.
+  cognitive_evidence: >-
+    No direct association with cognition has been reported for bile salt
+    hydrolase activity itself. It is reported here because it sits immediately
+    upstream of the secondary bile acid pathway, and because it acts as an
+    internal consistency check: substantial secondary bile acid capacity
+    without deconjugation capacity would not make biological sense.
+  implications:
+    higher: >-
+      Your gut has substantial bile-salt-deconjugating capacity. This is the
+      gateway step that makes bile acids available for further bacterial
+      processing, and it also affects fat absorption and cholesterol handling.
+      Nearly everyone has plenty of it, so a high reading is not unusual.
+    typical: >-
+      This is an enabling step rather than an outcome — it makes bile acids
+      available for the secondary bile acid pathway above, and it affects fat
+      absorption and cholesterol handling. Nearly everyone has ample capacity,
+      so a normal reading here carries little information on its own.
+    lower: >-
+      Your bile-salt-deconjugating capacity is on the low side. Since this
+      step sits immediately upstream of secondary bile acid production, low
+      capacity here combined with high capacity there would be biologically
+      odd and would point to a problem with the run rather than a real
+      finding.
+  citation: >-
+    Jones B.V. et al., Proc Natl Acad Sci USA 105:13580-13585 (2008),
+    doi:10.1073/pnas.0804437105
+
+citation: >-
+  Jones B.V., Begley M., Hill C., Gahan C.G.M., Marchesi J.R., "Functional and
+  comparative metagenomic analysis of bile salt hydrolase activity in the human
+  gut microbiome", Proc Natl Acad Sci USA 105:13580-13585 (2008),
+  doi:10.1073/pnas.0804437105.

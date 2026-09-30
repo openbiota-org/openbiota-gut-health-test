@@ -1,0 +1,968 @@
+# Mapping from determinant requests (pathogens/catalog/determinants.yaml) to the
+# NCBI NDARO / AMRFinderPlus reference gene families that actually represent them.
+#
+# Every gene family named below was verified verbatim against the gene_family
+# column of ReferenceGeneCatalog.txt (1880 distinct families, db_version
+# 2026-08-07.1). Determinants with no NDARO representation are recorded as
+# explicit reference gaps with match_mode: absent. A reference gap means the
+# screen cannot look for the determinant at all; it must never be rendered as
+# the determinant being absent from the sample.
+#
+# Verification note: every NDARO family carries at least a
+# genbank_nucleotide_accession, but VIRULENCE-type entries have no
+# refseq_nucleotide_accession, so nucleotide references for toxin and pathotype
+# families must be pulled from the GenBank accession column.
+schema_version: pathogens.ndaro_map.v1
+ndaro_source: https://ftp.ncbi.nlm.nih.gov/pathogen/Antimicrobial_resistance/AMRFinderPlus/database/latest/
+ndaro_catalog_version: "2026-08-07.1"
+installed_family_count: 581
+mappings:
+  - determinant_id: toxin.stx1
+    ndaro_gene_families: ["stxA1", "stxB1"]
+    match_mode: exact
+    note: >-
+      Shiga toxin 1 A and B subunits are separate NDARO families; both are
+      installed so that subunit evidence and operon completeness can be
+      reported separately, as the determinant requires. There is no combined
+      stx1 family in NDARO.
+
+  - determinant_id: toxin.stx2
+    ndaro_gene_families: ["stxA2", "stxB2"]
+    match_mode: exact
+    note: >-
+      Shiga toxin 2 A and B subunits are separate NDARO families; both are
+      installed so that subunit evidence and operon completeness can be
+      reported separately. Subtype naming (stx2a, stx2d and relatives) is an
+      allele-level question that NDARO does not resolve at family level.
+
+  - determinant_id: toxin.elta
+    ndaro_gene_families: ["ltcA"]
+    match_mode: exact
+    note: >-
+      NDARO names the catalytic A subunit of the ETEC heat-labile enterotoxin
+      ltcA, with product_name "heat-labile enterotoxin LT subunit A", rather
+      than eltA. The requested eltA gene family therefore resolves to ltcA and
+      to nothing else.
+
+  - determinant_id: toxin.eltb
+    ndaro_gene_families: []
+    match_mode: absent
+    reference_gap_reason: not_in_ndaro
+    note: >-
+      NDARO contains only the A subunit of the heat-labile enterotoxin (ltcA);
+      there is no ltcB, eltB or any other LT B-subunit gene family, and no
+      product_name in the catalogue describes an LT B subunit. Operon
+      completeness for LT therefore cannot be assessed from NDARO alone. This
+      is an explicit determinant reference gap and must never be reported as
+      the heat-labile toxin B subunit being absent from the sample. A curated
+      human-ETEC LT-I B-subunit record must be added before this determinant
+      can be screened.
+    curated_accession_candidates: ["M17873.1"]
+
+  - determinant_id: toxin.esta_sta
+    ndaro_gene_families: ["sta1"]
+    match_mode: exact
+    note: >-
+      Correction to the initial guidance: the NDARO family sta is NOT the
+      heat-stable enterotoxin but "streptothricin N-acetyltransferase STAT",
+      an AMR gene, so installing it would be a false positive. Only sta1
+      ("heat-stable enterotoxin ST-I group a") is the human STa determinant.
+      The related family stb is the porcine ST-II/estB toxin, which the
+      determinant explicitly excludes, so it is deliberately not installed.
+
+  - determinant_id: pathotype_marker.eae
+    ndaro_gene_families: ["eae"]
+    match_mode: exact
+    note: >-
+      Single NDARO eae family covering thirteen curated intimin types (alpha
+      through ypsilon) under subclass INTIMIN, which is exactly the
+      family-plus-type structure this determinant needs. Intimin type is an
+      allele-level readout within the family, not a separate family.
+
+  - determinant_id: pathotype_marker.bfpa
+    ndaro_gene_families: ["bfpA"]
+    match_mode: exact
+    note: >-
+      NDARO carries a single bfpA family for the bundle-forming pilus major
+      subunit. Both product_name variants ("bundle-forming pilus major subunit
+      BfpA" and "type IV pilus major subunit protein BfpA") sit under the same
+      family name, so one exact family installs the whole marker.
+
+  - determinant_id: virulence_locus.eaf
+    ndaro_gene_families: ["perA", "bfpA"]
+    match_mode: exact
+    note: >-
+      The historical 1 kb cryptic EAF probe region is not itself an NDARO gene
+      family, but the two EAF-plasmid-encoded genes that define the locus are:
+      perA ("BFP system transcriptional regulator PerA") and bfpA, the bfp
+      operon marker. The determinant is therefore screened through its plasmid
+      contents rather than through the probe region, and locus completeness
+      must be reported as partial because the remaining bfp operon genes and
+      the plasmid replicon are not in NDARO.
+
+  - determinant_id: pathotype_marker.aggr
+    ndaro_gene_families: ["aggR"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the AggR master regulator of the aggregative
+      adherence regulon, product_name "aggregative adherence transcriptional
+      regulator AggR". The aggA/agg3-agg5 fimbrial families are separate NDARO
+      families and belong to adhesin context rather than to this determinant.
+
+  - determinant_id: pathotype_marker.aata
+    ndaro_gene_families: ["aatA"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the plasmid-borne dispersin transporter (the
+      CVD432 probe target), product_name "dispersin export ABC transporter
+      outer membrane protein AatA".
+
+  - determinant_id: pathotype_marker.aaic
+    ndaro_gene_families: ["aaiC"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the chromosomal aai type-VI-secretion island
+      marker, product_name "type VI secretion system protein AaiC/Hcp2",
+      complementary to the plasmid-borne aggR and aatA markers.
+
+  - determinant_id: toxin.asta
+    ndaro_gene_families: ["astA"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for EAST1, product_name "heat-stable enterotoxin
+      EAST1". Distinct from the ETEC sta1 family, so the two heat-stable
+      enterotoxins are screened and reported separately as the determinants
+      require.
+
+  - determinant_id: pathotype_marker.ipah
+    ndaro_gene_families: []
+    ndaro_family_prefixes: ["ipaH"]
+    match_mode: prefix
+    note: >-
+      NDARO splits the multi-copy ipaH family into ten separate families
+      (ipaH1.4, ipaH2.5, ipaH3, ipaH4.5, ipaH7.8, ipaH9.8, ipaHa, ipaHb,
+      ipaHd, ipaHe), so a prefix installs the whole family. The prefix is
+      deliberately ipaH rather than ipa so that the invasion-plasmid antigen
+      ipaD family is not swept in.
+
+  - determinant_id: pathotype_marker.afa_daa_dr
+    ndaro_gene_families: ["afaC"]
+    match_mode: exact
+    note: >-
+      Only the afa branch of the Afa/Dr family is in NDARO, as afaC
+      ("AfaC-I/III family usher protein"). Correction to the initial guidance:
+      there are no daa, dra or drb families, and the drcA/drcB/drcR/drcS
+      families that a dr prefix would match are daptomycin efflux genes, not
+      Dr adhesins, so they are excluded. Coverage of this heterogeneous
+      exploratory marker is therefore partial and must be reported as such.
+
+  - determinant_id: toxin.tcda
+    ndaro_gene_families: ["tcdA"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the C. difficile PaLoc enterotoxin, product_name
+      "glycosylating toxin TcdA". The surrounding PaLoc regulatory genes tcdC,
+      tcdE and tcdR exist as separate NDARO families and can be added later if
+      PaLoc completeness scoring is extended; they are not part of this
+      major-toxin determinant.
+
+  - determinant_id: toxin.tcdb
+    ndaro_gene_families: ["tcdB"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the C. difficile PaLoc cytotoxin, product_name
+      "glycosylating toxin TcdB", assessed independently of tcdA so that
+      A-negative/B-positive strains are handled correctly.
+
+  - determinant_id: toxin.cdta
+    ndaro_gene_families: ["cdtA"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the CdtLoc binary-toxin enzymatic component,
+      product_name "ADP-ribosylating binary toxin enzymatic subunit CdtA".
+      This family is unambiguous, unlike its cdtB partner.
+
+  - determinant_id: toxin.cdtb
+    ndaro_gene_families: ["cdtB"]
+    match_mode: exact
+    requires_allele_resolution: true
+    note: >-
+      The single NDARO cdtB family conflates two unrelated toxins: the
+      C. difficile binary-toxin binding subunit ("ADP-ribosylating binary
+      toxin binding subunit CdtB") and the cytolethal distending toxin nuclease
+      subunit of types I through V carried by E. coli, Campylobacter and
+      Haemophilus. Allele-level resolution against the binary-toxin product is
+      therefore mandatory before a family-level cdtB hit may be reported as
+      C. difficile binary toxin.
+
+  - determinant_id: toxin.cpe
+    ndaro_gene_families: ["cpe"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the C. perfringens enterotoxin, product_name
+      "enterotoxin CPE". Chromosomal versus plasmid location is not encoded in
+      the gene family and must come from assembly context.
+
+  - determinant_id: toxin.plc_cpa
+    ndaro_gene_families: ["cpa"]
+    match_mode: exact
+    requires_allele_resolution: true
+    note: >-
+      Correction to the initial guidance: plcA in NDARO is
+      "phosphatidylinositol diacylglycerol-lyase", the Listeria PI-PLC, not the
+      C. perfringens alpha-toxin, so it is deliberately not installed. Only
+      cpa represents alpha-toxin, and that family itself carries two
+      product_name values ("alpha-toxin" and "omptin family outer membrane
+      protease Cpa", a Yersinia protease), so allele-level resolution is
+      required before a cpa hit is called alpha-toxin.
+
+  - determinant_id: toxin.bft_1
+    ndaro_gene_families: []
+    match_mode: absent
+    reference_gap_reason: not_in_ndaro
+    note: >-
+      The Bacteroides fragilis toxin (fragilysin) is not in the NDARO
+      catalogue: there is no bft family and no product_name mentioning
+      fragilysin or Bacteroides. A characterised GenBank record must be curated
+      separately before this determinant can be screened; until then it is an
+      explicit determinant reference gap and must never be reported as "toxin
+      absent" or as evidence against enterotoxigenic B. fragilis.
+    curated_accession_candidates: ["AB026625.1", "AF038459.1"]
+
+  - determinant_id: toxin.bft_2
+    ndaro_gene_families: []
+    match_mode: absent
+    reference_gap_reason: not_in_ndaro
+    note: >-
+      The Bacteroides fragilis toxin (fragilysin) is not in the NDARO
+      catalogue, so the bft-2 isotype cannot be screened from the installed
+      reference set. A characterised GenBank record must be curated separately
+      first; until then this is an explicit determinant reference gap and must
+      never be reported as "toxin absent" or as evidence against
+      enterotoxigenic B. fragilis.
+    curated_accession_candidates: ["AB026626.1"]
+
+  - determinant_id: toxin.bft_3
+    ndaro_gene_families: []
+    match_mode: absent
+    reference_gap_reason: not_in_ndaro
+    note: >-
+      The Bacteroides fragilis toxin (fragilysin) is not in the NDARO
+      catalogue, so the bft-3 (Korea-type) isotype cannot be screened from the
+      installed reference set. A characterised GenBank record must be curated
+      separately first; until then this is an explicit determinant reference
+      gap and must never be reported as "toxin absent" or as evidence against
+      enterotoxigenic B. fragilis.
+    curated_accession_candidates: ["AB026624.1", "AF103902.1"]
+
+  - determinant_id: toxin.ctxa
+    ndaro_gene_families: ["ctxA"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the cholera toxin A subunit. Installed
+      independently of ctxB so that the CTXphi prophage locus can be reported
+      subunit by subunit rather than as a single toxin call.
+
+  - determinant_id: toxin.ctxb
+    ndaro_gene_families: ["ctxB"]
+    match_mode: exact
+    note: >-
+      Correction to the initial guidance: ctxB does exist as its own NDARO
+      family, so no reference gap is needed. Because ctxB and the ETEC LT B
+      subunit are closely related, the separate ctxB and ltcA family
+      assignments must be used to discriminate rather than accepting a
+      shared-family match.
+
+  - determinant_id: pathotype_marker.tcpa
+    ndaro_gene_families: []
+    match_mode: absent
+    reference_gap_reason: not_in_ndaro
+    note: >-
+      There is no tcpA gene family in NDARO and no product_name describing a
+      toxin-coregulated pilus, so the VPI colonisation-factor context cannot be
+      screened from the installed reference set. This is an explicit
+      determinant reference gap: it must never be read as tcpA being absent
+      from the sample, and it must not be allowed to weaken or strengthen a
+      ctxA/ctxB result.
+    curated_accession_candidates: ["MT726029.1"]
+
+  - determinant_id: toxin.tdh
+    ndaro_gene_families: ["tdh"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the thermostable direct haemolysin, product_name
+      "thermostable direct hemolysin TDH", installed alongside the trh
+      families so that both disease-associated markers are assessed together.
+
+  - determinant_id: toxin.trh
+    ndaro_gene_families: ["trh1", "trh2"]
+    match_mode: exact
+    note: >-
+      NDARO splits the TDH-related haemolysin into two families, trh1 and
+      trh2, and has no combined trh family, so both are installed to cover the
+      tdh-negative clinical strains this determinant targets.
+
+  - determinant_id: pathotype_marker.tlh
+    ndaro_gene_families: []
+    match_mode: absent
+    reference_gap_reason: not_in_ndaro
+    note: >-
+      There is no tlh gene family in NDARO and no product_name describing a
+      thermolabile haemolysin, so this species-identification marker cannot be
+      screened from the installed reference set. This is an explicit
+      determinant reference gap and must never be read as tlh being absent
+      from the sample; because tlh is present in essentially all
+      V. parahaemolyticus, a false absence would be actively misleading.
+    curated_accession_candidates: ["OP270227.1"]
+
+  - determinant_id: pathotype_marker.ail
+    ndaro_gene_families: ["ail"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the Yersinia attachment invasion locus protein,
+      product_name "attachment invasion locus protein Ail".
+
+  - determinant_id: toxin.ysta
+    ndaro_gene_families: ["ystA"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the Yersinia heat-stable enterotoxin YstA. The
+      sibling families ystB and ystC are separate ST-I family enterotoxins and
+      are not part of this determinant, so they are deliberately not installed.
+
+  - determinant_id: pathotype_marker.inv
+    ndaro_gene_families: ["inv"]
+    match_mode: exact
+    note: >-
+      Correction to the initial guidance: invA in NDARO is the Salmonella
+      "type III secretion system export apparatus protein InvA", an unrelated
+      gene, so it is deliberately not installed. Only inv ("inverse
+      autotransporter invasin Inv") is the Yersinia chromosomal invasin, and a
+      family-level match to it is not a functional invasion claim.
+
+  - determinant_id: pathotype_marker.virf
+    ndaro_gene_families: ["virF"]
+    match_mode: exact
+    requires_allele_resolution: true
+    note: >-
+      The single NDARO virF family carries two product_name values, the
+      Yersinia pYV/pCD1 "virulence regulon transcriptional activator VirF" and
+      the Shigella "AraC family invasion system transcriptional regulator
+      VirF". Allele-level resolution is therefore required before a virF hit is
+      attributed to the Yersinia virulence plasmid rather than to Shigella.
+
+  - determinant_id: pathotype_marker.yada
+    ndaro_gene_families: ["yadA"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the Yersinia plasmid-borne adhesin, product_name
+      "trimeric autotransporter adhesin YadA".
+
+  - determinant_id: virulence_locus.ces_cluster
+    ndaro_gene_families: ["cesA", "cesB", "cesC", "cesD"]
+    match_mode: exact
+    note: >-
+      NDARO holds four cereulide families: the cesA and cesB non-ribosomal
+      peptide synthetases and the cesC and cesD export ABC transporter
+      subunits. All four are installed so that the plasmid-borne NRPS locus can
+      be scored for completeness rather than called from a partial hit. The
+      regulatory and hydrolase genes of the ces operon are not in NDARO, so
+      completeness is measured against these four genes only.
+
+  - determinant_id: toxin.nheabc
+    ndaro_gene_families: ["nheA", "nheB", "nheC"]
+    match_mode: exact
+    note: >-
+      All three non-haemolytic enterotoxin subunits exist as separate NDARO
+      families and all three are installed, since NHE activity requires the
+      tripartite complex and partial operons must be reported as incomplete.
+
+  - determinant_id: toxin.hbl
+    ndaro_gene_families: ["hblA", "hblB", "hblC", "hblD"]
+    match_mode: exact
+    note: >-
+      NDARO carries four haemolysin BL families (hblA, hblB, hblC, hblD), all
+      installed so that the multi-component enterotoxin locus can be scored for
+      completeness rather than inferred from a single subunit hit.
+
+  - determinant_id: toxin.cytk
+    ndaro_gene_families: ["cytK1", "cytK2"]
+    match_mode: exact
+    note: >-
+      NDARO splits cytotoxin K into cytK1 and cytK2 with no combined family.
+      Both are installed because the two variants differ substantially in
+      cytotoxic potency, so the variant must be distinguishable in the report.
+
+  - determinant_id: toxin.sea
+    ndaro_gene_families: ["sea"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for staphylococcal enterotoxin type A. Using the
+      curated enterotoxin family rather than a superantigen annotation is what
+      keeps true enterotoxins separate from the large, cross-similar
+      staphylococcal superantigen family.
+
+  - determinant_id: toxin.seb
+    ndaro_gene_families: ["seb"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for staphylococcal enterotoxin type B, product_name
+      "staphylococcal enterotoxin type B", installed as a curated enterotoxin
+      family rather than a broad superantigen match.
+
+  - determinant_id: toxin.sec
+    ndaro_gene_families: ["sec1", "sec2", "sec3"]
+    match_mode: exact
+    note: >-
+      NDARO has no bare sec family; the enterotoxin C serotypes are three
+      separate families, sec1, sec2 and sec3, and all three are installed to
+      cover the determinant. Enterotoxin C is otherwise reported exactly like
+      the other staphylococcal enterotoxins.
+
+  - determinant_id: toxin.sed
+    ndaro_gene_families: ["sed"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for staphylococcal enterotoxin type D, product_name
+      "staphylococcal enterotoxin type D", installed as a curated enterotoxin
+      family rather than a broad superantigen match.
+
+  - determinant_id: toxin.see
+    ndaro_gene_families: ["see"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for staphylococcal enterotoxin type E, product_name
+      "staphylococcal enterotoxin type E", installed as a curated enterotoxin
+      family rather than a broad superantigen match.
+
+  - determinant_id: toxin.bont
+    ndaro_gene_families: []
+    ndaro_family_prefixes: ["bont_"]
+    match_mode: prefix
+    note: >-
+      NDARO enumerates botulinum neurotoxin as forty-three serotype-and-subtype
+      families named bont_A1 through bont_X, including the mosaic bont_CD and
+      bont_DC forms. The bont_ prefix installs the whole family while keeping
+      the serotype recoverable from the family name, which the report needs.
+
+  - determinant_id: virulence_locus.npsa
+    ndaro_gene_families: []
+    match_mode: absent
+    reference_gap_reason: not_in_ndaro
+    note: >-
+      NDARO contains no nps gene families and no product_name mentioning
+      tilivalline or tilimycin, so the K. oxytoca NRPS adenylation-domain gene
+      cannot be screened from the installed reference set. This is an explicit
+      determinant reference gap and must never be read as npsA being absent
+      from the sample. The determinant already names the required curated
+      source, GenBank HG425356.1 via MIBiG BGC0000446.5, whose "questionable"
+      quality flag must be preserved when it is curated in.
+    curated_accession_candidates: ["HG425356.1", "MF401554.1"]
+
+  - determinant_id: virulence_locus.npsb
+    ndaro_gene_families: []
+    match_mode: absent
+    reference_gap_reason: not_in_ndaro
+    note: >-
+      NDARO contains no nps gene families, so the second NRPS gene of the
+      kleboxymycin/tilimycin/tilivalline cluster cannot be screened from the
+      installed reference set. This is an explicit determinant reference gap
+      and must never be read as npsB being absent from the sample; the curated
+      cluster record and its "questionable" quality qualification must be
+      added before this determinant is screened.
+    curated_accession_candidates: ["HG425356.1", "MF401554.1"]
+
+  - determinant_id: virulence_locus.thda
+    ndaro_gene_families: []
+    match_mode: absent
+    reference_gap_reason: not_in_ndaro
+    note: >-
+      NDARO contains no thd gene families, so the threonine dehydrogenase gene
+      of the kleboxymycin/tilimycin/tilivalline cluster cannot be screened from
+      the installed reference set. This is an explicit determinant reference
+      gap and must never be read as thdA being absent from the sample.
+      Curating the cluster record is required first, and generic dehydrogenase
+      homology must not be substituted for it.
+    curated_accession_candidates: ["HG425356.1", "MF401554.1"]
+
+  - determinant_id: virulence_locus.iuc
+    ndaro_gene_families: []
+    ndaro_family_prefixes: ["iuc"]
+    match_mode: prefix
+    note: >-
+      NDARO enumerates the aerobactin locus as four separate biosynthesis
+      families, iucA through iucD, so the prefix installs the whole locus and
+      lets locus completeness be scored across all four genes. The aerobactin
+      receptor iutA is not an NDARO family, so completeness is measured against
+      the biosynthetic genes only.
+
+  - determinant_id: virulence_locus.iro
+    ndaro_gene_families: []
+    ndaro_family_prefixes: ["iro"]
+    match_mode: prefix
+    note: >-
+      NDARO enumerates the salmochelin locus as five separate families, iroB,
+      iroC, iroD, iroE and iroN, so the prefix installs the whole locus and
+      supports completeness scoring across the biosynthesis, export and
+      receptor genes.
+
+  - determinant_id: virulence_locus.ybt
+    ndaro_gene_families: []
+    ndaro_family_prefixes: ["ybt"]
+    match_mode: prefix
+    note: >-
+      The ybt prefix installs the only two yersiniabactin families NDARO
+      carries, the ABC transporter genes ybtP and ybtQ. The biosynthetic genes
+      of the ICEKp locus, including irp1, irp2, ybtS, ybtA, ybtE and ybtT, are
+      not in NDARO, so locus completeness for yersiniabactin can only be
+      reported as partial and must not be inferred from a transporter hit.
+
+  - determinant_id: virulence_locus.rmpa2
+    ndaro_gene_families: ["rmpA2", "rmpA"]
+    match_mode: exact
+    note: >-
+      rmpA2 ("mucoid phenotype regulator RmpA2") is the requested family, and
+      its paralogue rmpA is installed with it because the determinant requires
+      the surrounding rmp locus to judge the frameshift truncation that
+      frequently inactivates rmpA2. The two families are distinct in NDARO, so
+      the regulators stay individually reportable.
+
+  - determinant_id: virulence_locus.caga
+    ndaro_gene_families: []
+    match_mode: absent
+    reference_gap_reason: not_in_ndaro
+    note: >-
+      NDARO contains no Helicobacter entries at all: there is no cagA family
+      and no product_name mentioning CagA, the cag pathogenicity island or
+      Helicobacter. The cag island and its EPIYA motif variants therefore
+      cannot be screened from the installed reference set. This is an explicit
+      determinant reference gap and must never be read as cagA being absent
+      from the sample, and it must never be converted into a gastric-cancer
+      risk statement in either direction.
+    curated_accession_candidates: ["NC_000915.1"]
+
+  - determinant_id: toxin.vaca
+    ndaro_gene_families: []
+    match_mode: absent
+    reference_gap_reason: not_in_ndaro
+    note: >-
+      Correction to the initial guidance: the NDARO family vactox is
+      "vacuolating autotransporter toxin Vat", the E. coli Vat autotransporter,
+      not the Helicobacter pylori vacuolating cytotoxin VacA, so mapping it
+      here would be a false positive and it is deliberately not installed. No
+      H. pylori vacA family exists in NDARO. This is an explicit determinant
+      reference gap and must never be read as vacA being absent from the
+      sample; because vacA is present in essentially all H. pylori, a false
+      absence would be actively misleading.
+    curated_accession_candidates: ["LC420380.1", "NC_000915.1"]
+
+  - determinant_id: virulence_locus.clb_pks_island
+    ndaro_gene_families: []
+    ndaro_family_prefixes: ["clb"]
+    match_mode: prefix
+    note: >-
+      The clb prefix installs the four colibactin families NDARO carries,
+      clbA, clbB, clbC and clbN. There is no pks family, and the remaining
+      genes of the roughly nineteen-gene pks island, including clbP, are
+      absent, so island completeness can only be reported as partial and a
+      single clb hit is explicitly insufficient for a colibactin-capacity
+      statement.
+
+  - determinant_id: amr.blakpc
+    ndaro_gene_families: ["blaKPC"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the class A KPC carbapenemase. All KPC alleles sit
+      under this one family name, so allele resolution and gene completeness
+      are read from the allele column within the family rather than from
+      separate families.
+
+  - determinant_id: amr.blandm
+    ndaro_gene_families: ["blaNDM"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the NDM metallo-beta-lactamase. All NDM alleles
+      sit under this one family name, so allele resolution is an intra-family
+      question rather than a family-selection question.
+
+  - determinant_id: amr.blavim
+    ndaro_gene_families: ["blaVIM"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the VIM metallo-beta-lactamase, with all VIM
+      alleles carried under the single family name and allele resolution read
+      from the allele column.
+
+  - determinant_id: amr.blaimp
+    ndaro_gene_families: ["blaIMP"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the IMP metallo-beta-lactamase, with all IMP
+      alleles carried under the single family name and allele resolution read
+      from the allele column.
+
+  - determinant_id: amr.blaoxa48like
+    ndaro_gene_families: []
+    ndaro_family_prefixes: ["blaOXA"]
+    match_mode: prefix
+    requires_allele_resolution: true
+    note: >-
+      NDARO has no blaOXA-48 family. OXA-48, OXA-181, OXA-232 and OXA-244 are
+      alleles inside the broad blaOXA family, alongside blaOXA-143,
+      blaOXA-61 and the blaOXA/blaLRA13 fusion family, so prefix mode is the
+      only way to install them. This is why allele resolution is mandatory:
+      of the 1434 blaOXA rows only 820 carry subclass CARBAPENEM, while 546
+      are plain BETA-LACTAM and 64 are CEPHALOSPORIN, so not every OXA allele
+      is a carbapenemase and only curated carbapenem-hydrolysing alleles may
+      be shown in the carbapenemase group.
+
+  - determinant_id: amr.blactxm
+    ndaro_gene_families: ["blaCTX-M"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family, spelled blaCTX-M with the hyphen. All CTX-M alleles
+      and groups sit under this single family, so group assignment is an
+      allele-level readout within the family.
+
+  - determinant_id: amr.blashv
+    ndaro_gene_families: ["blaSHV"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the SHV beta-lactamases. The family mixes
+      narrow-spectrum and extended-spectrum alleles, so allele resolution
+      within the family is what decides whether an ESBL statement is
+      supportable.
+
+  - determinant_id: amr.blatem
+    ndaro_gene_families: ["blaTEM"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the TEM beta-lactamases. As with SHV, most TEM
+      alleles are narrow-spectrum penicillinases, so an ESBL claim requires
+      allele-level evidence from inside the family.
+
+  - determinant_id: amr.blacmy
+    ndaro_gene_families: ["blaCMY"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the CMY plasmid-mediated AmpC cephalosporinases,
+      with all CMY alleles carried under the single family name.
+
+  - determinant_id: amr.bladha
+    ndaro_gene_families: ["blaDHA"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the DHA plasmid-mediated AmpC cephalosporinases,
+      with all DHA alleles carried under the single family name.
+
+  - determinant_id: amr.vana
+    ndaro_gene_families: ["vanA"]
+    match_mode: exact
+    note: >-
+      vanA is the resistance-defining D-Ala-D-Lac ligase family and is
+      installed exactly. NDARO models the rest of the Tn1546 operon as
+      separate per-operon families (vanH-A, vanX-A, vanY-A, vanR-A, vanS-A,
+      vanZ-A), so operon completeness scoring can draw on those without
+      collapsing them into this determinant. The intrinsic vanC families are
+      deliberately excluded.
+
+  - determinant_id: amr.vanb
+    ndaro_gene_families: ["vanB"]
+    match_mode: exact
+    note: >-
+      vanB is the resistance-defining ligase family and is installed exactly,
+      with the accessory operon genes held in NDARO as separate vanH-B,
+      vanX-B, vanY-B, vanR-B, vanS-B and vanW-B families. The intrinsic vanC
+      families are deliberately excluded so they cannot be reported as
+      acquired glycopeptide resistance.
+
+  - determinant_id: amr.meca
+    ndaro_gene_families: ["mecA"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the classical SCCmec PBP2a determinant. The
+      related families mecA1, mecA2, mecB and mecD are separate determinants
+      and are deliberately not installed here, so a mecA report cannot be
+      satisfied by a divergent homologue.
+
+  - determinant_id: amr.mecc
+    ndaro_gene_families: ["mecC"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the divergent mecA homologue formerly named
+      mecALGA251. The mecC2 and mecC3 families are separate NDARO families and
+      are not installed here, keeping the mecA/mecC distinction that this
+      determinant exists to preserve.
+
+  - determinant_id: amr.mcr
+    ndaro_gene_families: []
+    ndaro_family_prefixes: ["mcr-"]
+    match_mode: prefix
+    note: >-
+      NDARO enumerates mcr-1 through mcr-13 as thirteen separate families, so
+      the prefix installs the whole family, including the mcr-11 to mcr-13
+      members that go beyond the mcr-1-to-mcr-10 range named in the
+      determinant. The hyphen is part of the prefix so that no unrelated
+      mcr-prefixed name could be swept in.
+
+  - determinant_id: amr.qnr
+    ndaro_gene_families: []
+    ndaro_family_prefixes: ["qnr"]
+    match_mode: prefix
+    note: >-
+      The qnr prefix installs the eight plasmid-mediated quinolone resistance
+      families NDARO carries (qnrA, qnrAS, qnrB, qnrC, qnrD, qnrE, qnrS,
+      qnrVC), all with class QUINOLONE, which matches the determinant's
+      "curated allele families only" requirement.
+
+  - determinant_id: amr.aac6_ib_cr
+    ndaro_gene_families: ["aac(6')-Ib-cr"]
+    match_mode: exact
+    requires_allele_resolution: true
+    note: >-
+      NDARO carries the bifunctional variant as its own family named
+      aac(6')-Ib-cr, verbatim, with class AMINOGLYCOSIDE/QUINOLONE and
+      subclass AMIKACIN/KANAMYCIN/QUINOLONE/TOBRAMYCIN. Because it is only two
+      substitutions away from ordinary aac(6')-Ib, allele-level discrimination
+      remains mandatory and the family label alone must not be trusted.
+
+  - determinant_id: amr.gyra
+    ndaro_gene_families: []
+    match_mode: absent
+    reference_gap_reason: family_too_generic_to_install
+    note: >-
+      A nominal gyrA family label exists in NDARO, but every one of its rows
+      has subtype POINT and a per-organism chromosomal reference accession, so
+      these are organism-specific point-mutation models held in the
+      AMR_DNA-*.fa files, not an installable acquired gene family.
+      Organism-specific point-mutation models require a confidently assigned
+      organism and the correct reference coordinate system, so they are not
+      installed as a read-level gene screen. The consequence must never be
+      read as quinolone-resistance substitutions being absent from the sample.
+
+  - determinant_id: amr.parc
+    ndaro_gene_families: []
+    match_mode: absent
+    reference_gap_reason: family_too_generic_to_install
+    note: >-
+      As with gyrA, the parC rows in NDARO are all subtype POINT against
+      per-organism chromosomal references rather than an acquired gene family.
+      Organism-specific point-mutation models require a confidently assigned
+      organism and the correct reference coordinate system, so they are not
+      installed as a read-level gene screen, and the absence of a parC result
+      must never be read as parC substitutions being absent from the sample.
+
+  - determinant_id: amr.erm
+    ndaro_gene_families: []
+    ndaro_family_prefixes: ["erm"]
+    match_mode: prefix
+    note: >-
+      NDARO writes the rRNA methyltransferases in the parenthesised form
+      erm(A), erm(B), erm(C), erm(F) and so on, giving forty-eight families
+      including erm(44)v; the bare erm prefix installs all of them and matches
+      nothing else. Every matched family has a lincosamide, macrolide or
+      streptogramin class, so the prefix does not pull in off-target genes.
+
+  - determinant_id: amr.mef
+    ndaro_gene_families: []
+    ndaro_family_prefixes: ["mef"]
+    match_mode: prefix
+    note: >-
+      The mef prefix installs the eight macrolide efflux families NDARO
+      carries, all in parenthesised form (mef(A) through mef(J), including
+      mef(En2)), and all with class MACROLIDE. The determinant's mefA/mefE
+      naming corresponds to mef(A) and mef(E)-type alleles within these
+      families.
+
+  - determinant_id: amr.mph
+    ndaro_gene_families: []
+    ndaro_family_prefixes: ["mph"]
+    match_mode: prefix
+    note: >-
+      NDARO mixes two naming styles for the macrolide phosphotransferases,
+      the parenthesised mph(A) through mph(G) and the unparenthesised mphH
+      through mphN, so the bare mph prefix is required to install all twelve
+      families. All twelve carry class MACROLIDE.
+
+  - determinant_id: amr.lnu
+    ndaro_gene_families: []
+    ndaro_family_prefixes: ["lnu"]
+    match_mode: prefix
+    note: >-
+      The lnu prefix installs the eleven lincosamide nucleotidyltransferase
+      families NDARO carries, all parenthesised (lnu(A) through lnu(P),
+      including lnu(AN2)) and all with class LINCOSAMIDE, matching the
+      determinant's lincosamide-only scope.
+
+  - determinant_id: amr.tet_efflux
+    ndaro_gene_families: ["tet(30)", "tet(31)", "tet(33)", "tet(35)", "tet(38)", "tet(39)", "tet(40)", "tet(41)", "tet(42)", "tet(45)", "tet(57)", "tet(59)", "tet(62)", "tet(63)", "tet(64)", "tet(65)", "tet(A)", "tet(B)", "tet(C)", "tet(D)", "tet(E)", "tet(G)", "tet(H)", "tet(J)", "tet(K)", "tet(L)", "tet(V)", "tet(Y)", "tet(Z)", "tetA", "tetA(46)", "tetA(58)", "tetA(60)", "tetA(P)", "tetB", "tetB(46)", "tetB(58)", "tetB(60)"]
+    match_mode: exact
+    note: >-
+      Mechanism split done by product_name, because NDARO uses class
+      TETRACYCLINE for all seventy-one tet families and so cannot separate the
+      mechanisms by class or subclass. These thirty-eight families are the ones
+      whose product_name describes efflux (MFS transporters, the Na+/H+
+      antiporter tet(35), and the TetAB-style ABC transporter subunits). Note
+      that a bare tet( prefix would be wrong for this determinant: it would
+      both miss the unparenthesised tetA/tetB/tetA(P) families and pull in the
+      ribosomal-protection and enzymatic mechanisms.
+
+  - determinant_id: amr.tet_ribosomal_protection
+    ndaro_gene_families: ["tet(32)", "tet(36)", "tet(44)", "tet(M)", "tet(O)", "tet(O/32/O)", "tet(O/M/O)", "tet(O/W)", "tet(O/W/32/O)", "tet(O/W/O)", "tet(Q)", "tet(S)", "tet(T)", "tet(W)", "tet(W/32/O)", "tet(W/N/W)", "tetB(P)"]
+    match_mode: exact
+    note: >-
+      These seventeen families are the ones whose product_name describes a
+      tetracycline resistance ribosomal protection protein, including the six
+      mosaic tet(O/W)-style recombinant families and the unparenthesised
+      tetB(P). The determinant's named tetM/tetO/tetS/tetW/tetQ all appear
+      here in parenthesised NDARO form; these genes are expected background in
+      commensal gut anaerobes.
+
+  - determinant_id: amr.tet_enzymatic
+    ndaro_gene_families: ["tet(37)", "tet(47)", "tet(48)", "tet(49)", "tet(50)", "tet(51)", "tet(52)", "tet(53)", "tet(54)", "tet(55)", "tet(56)", "tet(X1)", "tet(X2)", "tet(X3)", "tet(X4)", "tet(X5)"]
+    match_mode: exact
+    note: >-
+      These sixteen families are the enzymatic-inactivation mechanism: the
+      tet(X1) to tet(X5) flavin-dependent monooxygenases, the tet(47) to
+      tet(56) destructases, and the NADPH-dependent oxidoreductase tet(37).
+      The tigecycline weighting the determinant calls for is supported by
+      NDARO subclass, which is TIGECYCLINE for tet(X2) through tet(X5) and
+      TETRACYCLINE for tet(X1) and the destructases.
+
+  - determinant_id: amr.aac
+    ndaro_gene_families: []
+    ndaro_family_prefixes: ["aac"]
+    match_mode: prefix
+    note: >-
+      The aac prefix installs all ninety-three aminoglycoside
+      acetyltransferase families, which NDARO names at allele-family
+      granularity such as aac(3)-IIa and aac(6')-Ib. Ninety-two carry class
+      AMINOGLYCOSIDE; the ninety-third is aac(6')-Ib-cr, which is also mapped
+      separately as the quinolone determinant, so a hit there must be reported
+      under whichever determinant the resolved allele supports.
+
+  - determinant_id: amr.aph
+    ndaro_gene_families: []
+    ndaro_family_prefixes: ["aph"]
+    match_mode: prefix
+    note: >-
+      The aph prefix installs all forty-seven aminoglycoside
+      phosphotransferase families, all with class AMINOGLYCOSIDE, covering the
+      aph(3'), aph(2''), aph(6) and streptomycin groups the determinant names,
+      including the widespread aph(3')-Ia.
+
+  - determinant_id: amr.ant
+    ndaro_gene_families: []
+    ndaro_family_prefixes: ["ant"]
+    match_mode: prefix
+    note: >-
+      The ant prefix installs all twenty aminoglycoside nucleotidyltransferase
+      families, all with class AMINOGLYCOSIDE. NDARO uses the ant naming rather
+      than the historical aad naming, and it includes ant/aac fusion families
+      whose substrate profile must be read from the resolved allele.
+
+  - determinant_id: amr.arma
+    ndaro_gene_families: ["armA"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the ArmA 16S rRNA methylase, kept separate from
+      the aac/aph/ant modifying enzymes because the mechanism and the breadth
+      of the resulting profile differ.
+
+  - determinant_id: amr.rmt
+    ndaro_gene_families: []
+    ndaro_family_prefixes: ["rmt"]
+    match_mode: prefix
+    note: >-
+      The rmt prefix installs the eight 16S rRNA methyltransferase families
+      rmtA through rmtH, all with class AMINOGLYCOSIDE, exactly matching the
+      rmtA-to-rmtH scope the determinant describes.
+
+  - determinant_id: amr.sul
+    ndaro_gene_families: ["sul1", "sul2", "sul3", "sul4"]
+    match_mode: exact
+    note: >-
+      Correction to the initial guidance: a bare sul prefix would also install
+      sulR ("flavin reductase SulR") and sulX ("sulfonamide monooxygenase
+      SulX"), which are sulfonamide-degradation enzymes rather than the
+      acquired resistant dihydropteroate synthases this determinant is about.
+      Exact mode on sul1 through sul4 installs only the four
+      sulfonamide-resistant dihydropteroate synthases.
+
+  - determinant_id: amr.dfr
+    ndaro_gene_families: []
+    ndaro_family_prefixes: ["dfr"]
+    match_mode: prefix
+    note: >-
+      The dfr prefix installs all sixty-five acquired dihydrofolate reductase
+      families (dfrA and its numbered alleles, dfrB and its numbered alleles,
+      plus dfrC, dfrD and dfrE), every one of which carries class
+      TRIMETHOPRIM. Because NDARO only catalogues the acquired
+      trimethoprim-resistant enzymes, this prefix cannot pull in the intrinsic
+      chromosomal folate-pathway genes the determinant warns about.
+
+  - determinant_id: amr.cfr
+    ndaro_gene_families: []
+    ndaro_family_prefixes: ["cfr"]
+    match_mode: prefix
+    note: >-
+      Adjustment to the initial guidance: exact mode on cfr alone would miss
+      the cfr(B) through cfr(F) variants that the determinant explicitly says
+      exist and need allele-level curation. The cfr prefix installs all six
+      families, every one carrying the full
+      LINCOSAMIDE/OXAZOLIDINONE/PHENICOL/PLEUROMUTILIN/STREPTOGRAMIN class
+      that defines the PhLOPSa phenotype.
+
+  - determinant_id: amr.optra
+    ndaro_gene_families: ["optrA"]
+    match_mode: exact
+    note: >-
+      Exact NDARO family for the OptrA ABC-F ribosomal protection protein.
+      NDARO carries a single optrA family, so exact mode is complete here and
+      no prefix is needed.
+
+  - determinant_id: amr.poxta
+    ndaro_gene_families: ["poxtA", "poxtA-Ef"]
+    match_mode: exact
+    note: >-
+      NDARO splits the PoxtA ABC-F protein into two families, poxtA and the
+      enterococcal poxtA-Ef, and both are installed so that the enterococcal
+      variant is not missed by an exact match on poxtA alone.
+
+  - determinant_id: amr.cat
+    ndaro_gene_families: []
+    ndaro_family_prefixes: ["cat"]
+    match_mode: prefix
+    note: >-
+      The cat prefix installs all twenty-four chloramphenicol
+      acetyltransferase families, covering the type A group (catA and its
+      numbered alleles, cat86, cat-TC, catU), the type B group (catB and its
+      numbered alleles), and catC, catD, catP and catV. Twenty-three carry
+      class PHENICOL and one is the AMINOGLYCOSIDE/PHENICOL fusion family
+      catB8/aac(6')-Ib'. None of these are oxazolidinone-relevant and they
+      must not be displayed as such.
+
+  - determinant_id: amr.flor
+    ndaro_gene_families: ["floR", "floR2"]
+    match_mode: exact
+    note: >-
+      NDARO carries two phenicol efflux families, floR and floR2, both with
+      class PHENICOL, and both are installed. The cml and cmlA families are
+      separate phenicol efflux determinants outside this determinant's stated
+      scope, so they are deliberately not installed here.
+
+  - determinant_id: amr.rpob
+    ndaro_gene_families: []
+    match_mode: absent
+    reference_gap_reason: family_too_generic_to_install
+    note: >-
+      A nominal rpoB family label exists in NDARO, but all of its rows have
+      subtype POINT against per-organism chromosomal reference accessions, so
+      it is a set of organism-specific point-mutation models rather than an
+      installable gene family. Organism-specific point-mutation models require
+      a confidently assigned organism and the correct reference coordinate
+      system - the canonical M. tuberculosis codon numbering does not transfer
+      to other genera - so they are not installed as a read-level gene screen.
+      A conserved rpoB match is a taxonomic marker, and the absence of an rpoB
+      result must never be read as rifamycin-associated substitutions being
+      absent from the sample.

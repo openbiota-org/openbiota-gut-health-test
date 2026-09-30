@@ -1,0 +1,312 @@
+name: crc
+version: 1.0.0
+spec_version: 3
+label: "Colorectal cancer-associated community pattern"
+disease: colorectal_cancer
+task: crc_vs_colonoscopy_negative_control
+family: colorectal
+body_site: stool
+population: mixed_international_cohorts
+status: validation_control
+evidence_maturity: P3
+challenge_for: [adenoma, crohns, cirrhosis]
+
+summary: >-
+  Colorectal cancer is the pattern on which this pipeline's scoring engine is
+  validated. It is the only microbiome disease association
+  with genuinely cross-cohort-validated performance, and it is the only one
+  for which public cohorts carry disease labels — which makes it the single
+  pattern on which the whole engine can be checked against known answers. If
+  the engine cannot recover a known-good signal here, no number it produces
+  for any other pattern means anything either.
+
+  Two independent meta-analyses of eight shotgun cohorts across three
+  continents agree on a core of oral-origin anaerobes enriched in CRC stool.
+  The virulence-gene lane (fadA, bft, clbB) is the mechanistic layer and is
+  reported as presence-grade only, for reasons recorded in the panel.
+
+references:
+  primary:
+    source: curatedMetagenomicData
+    note: >-
+      Same-cohort colonoscopy-negative controls with disease labels attached,
+      which is what makes this profile usable as a validation control rather
+      than only a pattern description.
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  wirbel_2019:
+    label: "Wirbel 2019 meta-analysis (5 cohorts, 768 metagenomes)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: wirbel_2019
+    maturity: P3
+    weight_in_combined: 1.0
+    note: >-
+      Cross-cohort validated core: 29 species enriched in CRC with 0.84
+      cross-study AUC. These are the strongest, and the reason CRC is the
+      engine's validation control.
+    sources: ["Wirbel J, et al. Nat Med 2019;25:679-689"]
+    features:
+      - name: Fusobacterium_nucleatum
+        level: species
+        direction: higher_in_case
+        cluster: oral_anaerobes
+        w: 1.0
+        q: 1.0
+        s: 0.8
+        c: 1.0
+        note: "The single best-replicated taxon in the disease-microbiome literature."
+      - name: Parvimonas_micra
+        level: species
+        direction: higher_in_case
+        cluster: oral_anaerobes
+        w: 1.0
+        q: 1.0
+        s: 0.8
+        c: 1.0
+      - name: Peptostreptococcus_stomatis
+        level: species
+        direction: higher_in_case
+        cluster: oral_anaerobes
+        w: 1.0
+        q: 1.0
+        s: 0.8
+        c: 1.0
+      - name: Gemella_morbillorum
+        level: species
+        direction: higher_in_case
+        cluster: oral_anaerobes
+        w: 0.9
+        q: 0.9
+        s: 0.7
+        c: 1.0
+      - name: Solobacterium_moorei
+        level: species
+        direction: higher_in_case
+        cluster: oral_anaerobes
+        w: 0.9
+        q: 0.9
+        s: 0.7
+        c: 1.0
+      - name: Porphyromonas_asaccharolytica
+        level: species
+        direction: higher_in_case
+        w: 0.8
+        q: 0.9
+        s: 0.7
+        c: 0.9
+      - name: Clostridium_symbiosum
+        level: species
+        direction: higher_in_case
+        w: 0.7
+        q: 0.8
+        s: 0.5
+        c: 0.8
+      - name: Bacteroides_fragilis
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.8
+        s: 0.4
+        c: 0.8
+        note: >-
+          Only enterotoxigenic strains carry the relevant toxin; species-level
+          abundance cannot separate them from commensal B. fragilis. The bft
+          gene in the virulence lane is the specific measurement.
+
+  thomas_2019:
+    label: "Thomas 2019 meta-analysis (7 cohorts) + choline"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: thomas_2019
+    maturity: P3
+    note: "Independent meta-analysis with two new Italian cohorts; concordant core, and a choline-degradation (cutC) link."
+    sources: ["Thomas AM, et al. Nat Med 2019;25:667-678"]
+    features:
+      - name: Fusobacterium_nucleatum
+        level: species
+        direction: higher_in_case
+        cluster: oral_anaerobes
+        w: 1.0
+        q: 1.0
+        s: 0.8
+        c: 1.0
+      - name: Parvimonas_micra
+        level: species
+        direction: higher_in_case
+        cluster: oral_anaerobes
+        w: 1.0
+        q: 1.0
+        s: 0.8
+        c: 1.0
+      - name: Peptostreptococcus_stomatis
+        level: species
+        direction: higher_in_case
+        cluster: oral_anaerobes
+        w: 0.9
+        q: 1.0
+        s: 0.8
+        c: 1.0
+      - name: Gemella_morbillorum
+        level: species
+        direction: higher_in_case
+        cluster: oral_anaerobes
+        w: 0.8
+        q: 0.9
+        s: 0.7
+        c: 0.9
+      - name: Porphyromonas_asaccharolytica
+        level: species
+        direction: higher_in_case
+        w: 0.7
+        q: 0.9
+        s: 0.7
+        c: 0.9
+      - name: Prevotella_intermedia
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.8
+        s: 0.6
+        c: 0.8
+        conflict_note: "Genus Prevotella is on the conflicted list; species only. P. intermedia is an oral periodontal pathogen."
+      - name: Streptococcus_anginosus_group
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.7
+        s: 0.4
+        c: 0.7
+        conflict_note: "Genus Streptococcus is on the conflicted list; species only."
+
+  virulence:
+    label: "CRC virulence genes — presence grade"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: association_only
+    maturity: P2
+    note: >-
+      fadA (F. nucleatum adhesin, E-cadherin/beta-catenin), bft (B. fragilis
+      toxin), and clbB (colibactin pks island, DNA alkylation). The
+      reference set behind this panel is small — UniProt carries about a
+      dozen proteins each for colibactin and fragilysin that survive an
+      honest query — so its sensitivity is unmeasurable and it is reported as
+      detected/not-detected, never as a percentile and never in the fused
+      score. A zero here is "not detected at this depth", not "absent".
+    sources:
+      - "Rubinstein MR, et al. Cell Host Microbe 2013;14:195 (FadA)"
+      - "Wu S, et al. Nat Med 2009;15:1016 (BFT)"
+      - "Pleguezuelos-Manzano C, et al. Nature 2020;580:269 (colibactin mutational signature)"
+    features:
+      - name: crc_virulence
+        engine: diamond
+        direction: increased
+        w: 1.0
+        q: 0.4
+        s: 0.8
+        c: 0.5
+        nominal_status: presence_only
+
+  functional:
+    label: "Carcinogenic metabolite capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P2
+    note: "Secondary bile acids (genotoxic DCA), H2S (genotoxic), choline degradation (Thomas 2019 cutC link), and butyrate (protective, HDAC inhibition)."
+    features:
+      - name: bai
+        engine: diamond
+        direction: increased
+        w: 0.7
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: h2s
+        engine: diamond
+        direction: increased
+        w: 0.6
+        q: 0.6
+        s: 0.4
+        c: 0.6
+      - name: cutc
+        engine: diamond
+        direction: increased
+        w: 0.6
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        w: 0.6
+        q: 0.7
+        s: 0.2
+        c: 0.7
+
+  carriers:
+    label: "Oral-origin carriers"
+    type: mechanism_lane
+    evidence_type: CARRIER_ABUNDANCE
+    claim_level: carrier_proxy
+    maturity: P2
+    features:
+      - name: oral_origin
+        engine: carrier
+        direction: increased
+        w: 0.8
+        q: 0.8
+        s: 0.4
+        c: 0.8
+      - name: opportunistic_pathogens
+        engine: carrier
+        direction: increased
+        w: 0.5
+        q: 0.6
+        s: 0.3
+        c: 0.6
+
+confounders:
+  - name: Periodontal disease and gastric acid suppression
+    effect: "Both move oral anaerobes into stool without malignancy"
+    handling: "Recorded in the ledger when supplied; cirrhosis and crohns are challenge sets for the same reason"
+  - name: Age
+    effect: "CRC cohorts are older than their controls in most studies"
+    handling: "Reference matched on age band where the stratum allows"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    This is not a cancer screen and not a risk estimate. It exists to test
+    the scoring engine against labelled data. Colorectal cancer screening is
+    done with faecal immunochemical testing, multi-target stool DNA testing,
+    or colonoscopy, on a schedule set by a clinician.
+  - >-
+    The taxonomic features are oral-origin anaerobes. Their enrichment in
+    faecal metagenomes is reproducible in cancer cohorts, but oral-gut
+    translocation also occurs in periodontal disease and with reduced gastric
+    acid, so the pattern is not unique to malignancy.
+  - >-
+    The virulence lane is presence-grade with unmeasurable sensitivity. Not
+    detected does not mean absent.
+
+effect_size_note: >-
+  Wirbel 2019: 768 metagenomes, 5 cohorts, cross-study AUC 0.84. Thomas
+  2019: 7 cohorts, similar. Adenoma-vs-control was near chance in both.
+
+citation: >-
+  Wirbel J, et al. Meta-analysis of fecal metagenomes reveals global microbial
+  signatures that are specific for colorectal cancer. Nat Med 2019;25:679-689;
+  Thomas AM, et al. Metagenomic analysis of colorectal cancer datasets
+  identifies cross-cohort microbial diagnostic signatures and a link with
+  choline degradation. Nat Med 2019;25:667-678.

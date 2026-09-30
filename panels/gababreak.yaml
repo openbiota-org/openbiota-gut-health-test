@@ -1,0 +1,83 @@
+name: gababreak
+description: >-
+  GABA degradation past the aminotransferase the GABA panel already
+  measures. Degradation and production are shown side by side and are
+  never subtracted: a difference between two percentiles is not a flux.
+metabolite: GABA breakdown
+pathway: >-
+  GABA -> succinate semialdehyde (gabT) -> succinate (gabD) -> TCA cycle
+category: neuroactive
+
+extension: true
+
+targets:
+  - id: GABD
+    label: gabD (succinate-semialdehyde dehydrogenase)
+    gene: gabD
+    source: uniprot
+    query: '(protein_name:"Succinate-semialdehyde dehydrogenase [NADP(+)]") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: ABFH
+    label: abfH (4-hydroxybutyrate dehydrogenase)
+    gene: abfH
+    source: uniprot
+    query: '(protein_name:"4-hydroxybutyrate dehydrogenase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 514
+    length_tolerance: 0.3
+
+aggregate: sum
+aggregate_from: [GABD]
+aggregate_reason: >-
+  Succinate-semialdehyde dehydrogenase is the committed step of GABA
+  degradation and is what this panel adds. The aminotransferase before it
+  is already measured by the GABA panel, and duplicating it would take
+  that panel's reads rather than add a reading.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+citation: >-
+  Strandwitz P. et al., "GABA-modulating bacteria of the human gut
+  microbiota", Nat Microbiol 4:396-403 (2019),
+  doi:10.1038/s41564-018-0307-3.
+
+interpretation:
+  what_it_is: >-
+    Your gut bacteria's capacity to break GABA down, shown beside their
+    capacity to make it.
+  made_from: >-
+    GABA made by other bacteria or arriving in fermented food
+  summary: >-
+    The existing GABA panel measures production. This measures
+    degradation. They are separate readings and are never subtracted from
+    each other.
+  evidence_detail: >-
+    A community that both makes and breaks down GABA is not a community
+    with no GABA, which is why these are reported side by side rather than
+    netted. Neither number is a GABA concentration, and neither says
+    anything about GABA reaching your brain: the blood-brain barrier is
+    not permeable to it, so any gut-brain effect runs through other routes
+    such as the vagus nerve or the enteric nervous system.
+  higher_means: context-dependent
+  evidence_strength: limited
+  implications:
+    higher: >-
+      More GABA-degrading capacity than most samples. Shown beside your
+      GABA production reading, which is a separate measurement.
+    typical: >-
+      Mid-range GABA degradation capacity. This is shown beside your
+      GABA production reading, which is a separate measurement over
+      different genes; the two are never subtracted from one another.
+    lower: >-
+      Less GABA-degrading capacity than most samples carry. Read this
+      beside your GABA production reading rather than on its own:
+      neither number is a GABA concentration, and the two are not
+      netted.
+  citation: >-
+    Strandwitz P. et al., "GABA-modulating bacteria of the human gut
+    microbiota", Nat Microbiol 4:396-403 (2019),
+    doi:10.1038/s41564-018-0307-3.

@@ -1,0 +1,3863 @@
+# Parasite seed catalog compiled from specs/BUILD_SPEC_v05.0.md section 9
+# (9.1-9.6). One seed per semicolon-separated organism; explicitly named species
+# complexes stay as one seed with member/parent links. Route tokens follow the
+# spec's route column (E2 -> EukDetect2, WB:BioProject -> WBPS19:BioProject,
+# N -> NCBI); ParaRef is added as a candidate for helminths and intestinal
+# protozoa and must be confirmed against its actual accession manifest.
+# No route token makes a target reportable before reference checks (spec 9).
+schema_version: pathogens.seed.v1
+catalog_section: "9"
+seeds:
+  # ---------------------------------------------------------------------------
+  # 9.1 Intestinal protists and microsporidia
+  # ---------------------------------------------------------------------------
+  - seed_id: protozoa.giardia_duodenalis
+    source_section: "9.1"
+    requested_name: Giardia duodenalis
+    display_name: Giardia duodenalis
+    aliases: [Giardia intestinalis, Giardia lamblia]
+    group: protozoa
+    interpretation_class: established_enteric
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["EukDetect2", "GiardiaDB", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_NAAT, clinical_stool_antigen]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/giardiasis/index.html"]
+    note: >-
+      Established enteric protozoan. Aliases count once; human assemblages A/B
+      are reported only if resolved, never as separate infections.
+
+  - seed_id: protozoa.entamoeba_histolytica
+    source_section: "9.1"
+    requested_name: Entamoeba histolytica
+    display_name: Entamoeba histolytica
+    aliases: []
+    group: protozoa
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["EukDetect2", "AmoebaDB", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_NAAT, clinical_stool_antigen, serology]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/amebiasis/index.html"]
+    note: >-
+      Established enteric. Must be distinguished from Entamoeba dispar,
+      E. moshkovskii and other relatives (see 9.6 competitors and the separate
+      E. moshkovskii/E. bangladeshi/E. nuttalli seeds).
+
+  - seed_id: protozoa.cryptosporidium_parvum
+    source_section: "9.1"
+    requested_name: Cryptosporidium parvum
+    display_name: Cryptosporidium parvum
+    aliases: []
+    group: protozoa
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["EukDetect2", "CryptoDB", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_NAAT, clinical_stool_antigen, modified_acid_fast_stain]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/cryptosporidiosis/index.html"]
+    note: >-
+      Established enteric; one of the two common human species.
+
+  - seed_id: protozoa.cryptosporidium_hominis
+    source_section: "9.1"
+    requested_name: Cryptosporidium hominis
+    display_name: Cryptosporidium hominis
+    aliases: []
+    group: protozoa
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["EukDetect2", "CryptoDB", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_NAAT, clinical_stool_antigen, modified_acid_fast_stain]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/cryptosporidiosis/index.html"]
+    note: >-
+      Established enteric; one of the two common human species.
+
+  - seed_id: protozoa.cryptosporidium_meleagridis
+    source_section: "9.1"
+    requested_name: Cryptosporidium meleagridis
+    display_name: Cryptosporidium meleagridis
+    aliases: []
+    group: protozoa
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["EukDetect2", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_NAAT, clinical_stool_antigen, modified_acid_fast_stain]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/cryptosporidiosis/index.html"]
+    note: >-
+      Less common human-infecting species; a call does not require one of the
+      two common species to be present.
+
+  - seed_id: protozoa.cryptosporidium_felis
+    source_section: "9.1"
+    requested_name: Cryptosporidium felis
+    display_name: Cryptosporidium felis
+    aliases: []
+    group: protozoa
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["EukDetect2", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_NAAT, clinical_stool_antigen, modified_acid_fast_stain]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/cryptosporidiosis/index.html"]
+    note: >-
+      Less common human-infecting species; a call does not require one of the
+      two common species to be present.
+
+  - seed_id: protozoa.cryptosporidium_canis
+    source_section: "9.1"
+    requested_name: Cryptosporidium canis
+    display_name: Cryptosporidium canis
+    aliases: []
+    group: protozoa
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["EukDetect2", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_NAAT, clinical_stool_antigen, modified_acid_fast_stain]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/cryptosporidiosis/index.html"]
+    note: >-
+      Less common human-infecting species; a call does not require one of the
+      two common species to be present.
+
+  - seed_id: protozoa.cryptosporidium_ubiquitum
+    source_section: "9.1"
+    requested_name: Cryptosporidium ubiquitum
+    display_name: Cryptosporidium ubiquitum
+    aliases: []
+    group: protozoa
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["EukDetect2", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_NAAT, clinical_stool_antigen, modified_acid_fast_stain]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/cryptosporidiosis/index.html"]
+    note: >-
+      Less common human-infecting species; a call does not require one of the
+      two common species to be present.
+
+  - seed_id: protozoa.cryptosporidium_viatorum
+    source_section: "9.1"
+    requested_name: Cryptosporidium viatorum
+    display_name: Cryptosporidium viatorum
+    aliases: []
+    group: protozoa
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["EukDetect2", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_NAAT, clinical_stool_antigen, modified_acid_fast_stain]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/cryptosporidiosis/index.html"]
+    note: >-
+      Less common human-infecting species; a call does not require one of the
+      two common species to be present.
+
+  - seed_id: protozoa.cryptosporidium_muris
+    source_section: "9.1"
+    requested_name: Cryptosporidium muris
+    display_name: Cryptosporidium muris
+    aliases: []
+    group: protozoa
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["EukDetect2", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_NAAT, clinical_stool_antigen, modified_acid_fast_stain]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/cryptosporidiosis/index.html"]
+    note: >-
+      Less common human-infecting (gastric) species; a call does not require
+      one of the two common species to be present.
+
+  - seed_id: protozoa.cryptosporidium_cuniculus
+    source_section: "9.1"
+    requested_name: Cryptosporidium cuniculus
+    display_name: Cryptosporidium cuniculus
+    aliases: []
+    group: protozoa
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_NAAT, clinical_stool_antigen, modified_acid_fast_stain]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/cryptosporidiosis/index.html"]
+    note: >-
+      Rare human-infecting/associated target; verify the exact reference and
+      the human-host evidence before promotion.
+
+  - seed_id: protozoa.cryptosporidium_mink_genotype
+    source_section: "9.1"
+    requested_name: Cryptosporidium mink genotype
+    display_name: Cryptosporidium mink genotype
+    aliases: []
+    group: protozoa
+    interpretation_class: rare_enteric
+    taxonomic_resolution: genotype
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_NAAT, clinical_stool_antigen, modified_acid_fast_stain]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/cryptosporidiosis/index.html"]
+    note: >-
+      Rare human-associated genotype; preserve genotype identity, verify the
+      exact reference and host evidence, and do not invent a species name.
+
+  - seed_id: protozoa.cryptosporidium_chipmunk_genotype_i
+    source_section: "9.1"
+    requested_name: Cryptosporidium chipmunk genotype I
+    display_name: Cryptosporidium chipmunk genotype I
+    aliases: []
+    group: protozoa
+    interpretation_class: rare_enteric
+    taxonomic_resolution: genotype
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["EukDetect2", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_NAAT, clinical_stool_antigen, modified_acid_fast_stain]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/cryptosporidiosis/index.html"]
+    note: >-
+      Preserve genotype identity as reported; do not invent a species
+      assignment.
+
+  - seed_id: protozoa.cyclospora_cayetanensis_sensu_lato
+    resolution_name: Cyclospora cayetanensis
+    source_section: "9.1"
+    requested_name: Cyclospora cayetanensis sensu lato umbrella
+    display_name: Cyclospora cayetanensis sensu lato
+    aliases: []
+    group: protozoa
+    interpretation_class: established_enteric
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["EukDetect2", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_NAAT, modified_acid_fast_stain, clinical_stool_ova_and_parasite_microscopy]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    member_seed_ids:
+      - protozoa.cyclospora_cayetanensis
+      - protozoa.cyclospora_ashfordi
+      - protozoa.cyclospora_henanensis
+    expansion_state: installed
+    clinical_source_urls:
+      - "https://www.cdc.gov/advanced-molecular-detection/php/success-stories/cyclospora.html"
+      - "https://link.springer.com/article/10.1186/s12864-024-10163-y"
+      - "https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1045665"
+    note: >-
+      Established enteric umbrella. Legacy EukDetect2 references resolve here;
+      shared markers yield the sensu-lato result. Species-boundary uncertainty
+      and marker resolution must remain explicit. Never count the umbrella and
+      a resolved lineage member as separate infections. Acquire PRJNA1045665
+      metadata and verify assembly-to-lineage mapping before members install.
+
+  - seed_id: protozoa.cyclospora_cayetanensis
+    source_section: "9.1"
+    requested_name: Cyclospora cayetanensis/lineage A
+    display_name: Cyclospora cayetanensis (lineage A)
+    aliases: [Cyclospora lineage A]
+    group: protozoa
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_NAAT, modified_acid_fast_stain, clinical_stool_ova_and_parasite_microscopy]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    parent_seed_id: protozoa.cyclospora_cayetanensis_sensu_lato
+    clinical_source_urls:
+      - "https://www.cdc.gov/advanced-molecular-detection/php/success-stories/cyclospora.html"
+      - "https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1045665"
+    note: >-
+      Reviewed lineage member of the sensu-lato umbrella; reported only when
+      lineage-resolving evidence supports it. Requires verified lineage genome
+      (N route); legacy unresolved references stay with the umbrella.
+
+  - seed_id: protozoa.cyclospora_ashfordi
+    source_section: "9.1"
+    requested_name: Cyclospora ashfordi/lineage B
+    display_name: Cyclospora ashfordi (lineage B)
+    aliases: [Cyclospora lineage B]
+    group: protozoa
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_NAAT, modified_acid_fast_stain, clinical_stool_ova_and_parasite_microscopy]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    parent_seed_id: protozoa.cyclospora_cayetanensis_sensu_lato
+    clinical_source_urls:
+      - "https://www.cdc.gov/advanced-molecular-detection/php/success-stories/cyclospora.html"
+      - "https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1045665"
+    note: >-
+      Reviewed lineage member of the sensu-lato umbrella; species boundary is
+      not settled. Reported only when lineage-resolving evidence supports it.
+
+  - seed_id: protozoa.cyclospora_henanensis
+    source_section: "9.1"
+    requested_name: Cyclospora henanensis/lineage C
+    display_name: Cyclospora henanensis (lineage C)
+    aliases: [Cyclospora lineage C]
+    group: protozoa
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_NAAT, modified_acid_fast_stain, clinical_stool_ova_and_parasite_microscopy]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    parent_seed_id: protozoa.cyclospora_cayetanensis_sensu_lato
+    clinical_source_urls:
+      - "https://www.cdc.gov/advanced-molecular-detection/php/success-stories/cyclospora.html"
+      - "https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1045665"
+    note: >-
+      Reviewed lineage member of the sensu-lato umbrella; species boundary is
+      not settled. Reported only when lineage-resolving evidence supports it.
+
+  - seed_id: protozoa.cystoisospora_belli
+    source_section: "9.1"
+    requested_name: Cystoisospora belli
+    display_name: Cystoisospora belli
+    aliases: [Isospora belli]
+    group: protozoa
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, modified_acid_fast_stain, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    reference_gap_note: >-
+      The audited March 2026 EukDetect2 manifest lacks Cystoisospora belli;
+      EukDetect2's Cystoisospora suis is an animal competitor/decoy and is not
+      coverage for C. belli. Acquire and verify NCBI/primary records.
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Established enteric coccidian (historical name Isospora belli). Requires
+      its own verified reference; a related animal species must not silently
+      substitute.
+
+  - seed_id: protozoa.balantioides_coli
+    source_section: "9.1"
+    requested_name: Balantioides coli
+    display_name: Balantioides coli
+    aliases: [Balantidium coli, Neobalantidium coli]
+    group: protozoa
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent]
+    reference_gap_note: >-
+      No verified whole-genome reference; route is NCBI-acquired reviewed
+      SSU/ITS and other loci (marker-only). Fish Balantidium species are
+      competitors, not a substitute reference for Balantioides coli. Absent
+      from the audited EukDetect2 manifest.
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/balantidiasis/index.html"]
+    note: >-
+      Established enteric ciliate; historical names Balantidium coli and
+      Neobalantidium coli count once.
+
+  - seed_id: protozoa.sarcocystis_hominis
+    source_section: "9.1"
+    requested_name: Sarcocystis hominis
+    display_name: Sarcocystis hominis
+    aliases: []
+    group: protozoa
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    reference_gap_note: >-
+      Absent from the audited EukDetect2 manifest. Related animal Sarcocystis
+      (including muscle-associated species and S. cruzi) is not coverage for
+      S. hominis; acquire and verify species-specific NCBI records.
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/sarcocystosis/index.html"]
+    note: >-
+      Intestinal sarcocystosis (beef-associated). Distinguish from
+      muscle-associated Sarcocystis and from nonhuman competitor species.
+
+  - seed_id: protozoa.sarcocystis_suihominis
+    source_section: "9.1"
+    requested_name: Sarcocystis suihominis
+    display_name: Sarcocystis suihominis
+    aliases: []
+    group: protozoa
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    reference_gap_note: >-
+      Absent from the audited EukDetect2 manifest. Related animal Sarcocystis
+      (including muscle-associated species and S. cruzi) is not coverage for
+      S. suihominis; acquire and verify species-specific NCBI records.
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/sarcocystosis/index.html"]
+    note: >-
+      Intestinal sarcocystosis (pork-associated). Distinguish from
+      muscle-associated Sarcocystis and from nonhuman competitor species.
+
+  - seed_id: protozoa.sarcocystis_heydorni
+    source_section: "9.1"
+    requested_name: Sarcocystis heydorni
+    display_name: Sarcocystis heydorni
+    aliases: []
+    group: protozoa
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent]
+    reference_gap_note: >-
+      Curated COI marker records only (332-bp COI assay in the 2025 study); no
+      verified public shotgun cohort and no WGS accession may be invented.
+      Marker-only target never reports whole-genome breadth.
+    clinical_source_urls:
+      - "https://www.cdc.gov/dpdx/sarcocystosis/index.html"
+      - "https://wwwnc.cdc.gov/eid/article/31/3/24-1640_article"
+    note: >-
+      Documented in microscopy-positive human stools (often with other
+      species); clinical pathogenicity remains uncertain and must stay
+      species-specific in the report.
+
+  - seed_id: protozoa.sarcocystis_sigmoideus
+    source_section: "9.1"
+    requested_name: Sarcocystis sigmoideus
+    display_name: Sarcocystis sigmoideus
+    aliases: []
+    group: protozoa
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent]
+    reference_gap_note: >-
+      Curated COI marker records only (332-bp COI assay in the 2025 study); no
+      verified public shotgun cohort and no WGS accession may be invented.
+      Marker-only target never reports whole-genome breadth.
+    clinical_source_urls:
+      - "https://www.cdc.gov/dpdx/sarcocystosis/index.html"
+      - "https://wwwnc.cdc.gov/eid/article/31/3/24-1640_article"
+    note: >-
+      Documented in microscopy-positive human stools (often with other
+      species); clinical pathogenicity remains uncertain and must stay
+      species-specific in the report.
+
+  - seed_id: microsporidia.enterocytozoon_bieneusi
+    source_section: "9.1"
+    requested_name: Enterocytozoon bieneusi
+    display_name: Enterocytozoon bieneusi
+    aliases: []
+    group: microsporidia
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["EukDetect2", "MicrosporidiaDB", "NCBI"]
+    report_template_id: opportunistic_eukaryote
+    confirmation_options: [trichrome_or_chromotrope_stain, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/microsporidiosis/index.html"]
+    note: >-
+      Intestinal opportunist. Genotype alone does not identify the
+      transmission source. No mitochondrial confirmation is demanded
+      (microsporidia lack a conventional organelle genome).
+
+  - seed_id: microsporidia.encephalitozoon_intestinalis
+    source_section: "9.1"
+    requested_name: Encephalitozoon intestinalis
+    display_name: Encephalitozoon intestinalis
+    aliases: [Septata intestinalis]
+    group: microsporidia
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["EukDetect2"]
+    report_template_id: opportunistic_eukaryote
+    confirmation_options: [trichrome_or_chromotrope_stain, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/microsporidiosis/index.html"]
+    note: >-
+      Intestinal opportunist; historical name Septata intestinalis counts once.
+
+  - seed_id: microsporidia.encephalitozoon_cuniculi
+    source_section: "9.1"
+    requested_name: Encephalitozoon cuniculi
+    display_name: Encephalitozoon cuniculi
+    aliases: []
+    group: microsporidia
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["EukDetect2"]
+    report_template_id: opportunistic_eukaryote
+    confirmation_options: [trichrome_or_chromotrope_stain, clinical_stool_NAAT, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/microsporidiosis/index.html"]
+    note: >-
+      Contextual opportunist; stool detection does not establish systemic
+      involvement.
+
+  - seed_id: microsporidia.encephalitozoon_hellem
+    source_section: "9.1"
+    requested_name: Encephalitozoon hellem
+    display_name: Encephalitozoon hellem
+    aliases: []
+    group: microsporidia
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["EukDetect2"]
+    report_template_id: opportunistic_eukaryote
+    confirmation_options: [trichrome_or_chromotrope_stain, clinical_stool_NAAT, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/microsporidiosis/index.html"]
+    note: >-
+      Contextual opportunist; stool detection does not establish systemic
+      involvement.
+
+  - seed_id: protozoa.dientamoeba_fragilis
+    source_section: "9.1"
+    requested_name: Dientamoeba fragilis
+    display_name: Dientamoeba fragilis
+    aliases: []
+    group: protozoa
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["EukDetect2", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_NAAT, clinical_stool_ova_and_parasite_microscopy]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/dientamoeba/index.html"]
+    note: >-
+      Detection has variable/disputed clinical significance; no automatic
+      parasite-treatment alarm.
+
+  - seed_id: protozoa.blastocystis_spp
+    source_section: "9.1"
+    requested_name: Blastocystis spp., curated human subtypes
+    display_name: Blastocystis spp.
+    aliases: [Blastocystis hominis]
+    group: protozoa
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["EukDetect2", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/blastocystis/index.html"]
+    note: >-
+      Stramenopile kept in the protozoa report group. Uncertain enteric role;
+      no automatic parasite-treatment alarm. Human subtypes (ST1-ST9 and
+      related) are curated members and are reported only if resolved.
+
+  - seed_id: protozoa.entamoeba_moshkovskii
+    source_section: "9.1"
+    requested_name: Entamoeba moshkovskii
+    display_name: Entamoeba moshkovskii
+    aliases: []
+    group: protozoa
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["EukDetect2", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_NAAT, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/amebiasis/index.html"]
+    note: >-
+      Emerging/uncertain pathogenicity; keep separate from Entamoeba
+      histolytica and never merge into its count.
+
+  - seed_id: protozoa.entamoeba_bangladeshi
+    source_section: "9.1"
+    requested_name: Entamoeba bangladeshi
+    display_name: Entamoeba bangladeshi
+    aliases: []
+    group: protozoa
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_NAAT, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/amebiasis/index.html"]
+    note: >-
+      Emerging/uncertain significance; keep separate from Entamoeba
+      histolytica.
+
+  - seed_id: protozoa.entamoeba_nuttalli
+    source_section: "9.1"
+    requested_name: Entamoeba nuttalli
+    display_name: Entamoeba nuttalli
+    aliases: []
+    group: protozoa
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["EukDetect2", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_NAAT, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/amebiasis/index.html"]
+    note: >-
+      Rare/zoonotic (nonhuman-primate) context; review human-relevance
+      evidence before any clinical tier promotion. Keep separate from
+      Entamoeba histolytica.
+
+  # ---------------------------------------------------------------------------
+  # 9.2 Intestinal nematodes
+  # ---------------------------------------------------------------------------
+  - seed_id: helminths.ascaris_lumbricoides
+    source_section: "9.2"
+    requested_name: Ascaris lumbricoides
+    display_name: Ascaris lumbricoides
+    aliases: []
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["WBPS19:PRJEB4950", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/ascariasis/index.html"]
+    note: >-
+      Established enteric. Ascaris suum/related-species or hybrid ambiguity is
+      retained; do not force a species call when the complex is unresolved.
+
+  - seed_id: helminths.ascaris_suum
+    source_section: "9.2"
+    requested_name: Ascaris suum
+    display_name: Ascaris suum
+    aliases: []
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["WBPS19:PRJNA62057", "WBPS19:PRJNA80881", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/ascariasis/index.html"]
+    note: >-
+      Human zoonotic infection possible. No forced species assignment if the
+      A. lumbricoides/A. suum complex is unresolved.
+
+  - seed_id: helminths.trichuris_trichiura
+    source_section: "9.2"
+    requested_name: Trichuris trichiura
+    display_name: Trichuris trichiura
+    aliases: []
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["WBPS19:PRJEB535", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Established enteric. Bacterial-contaminant masks on the reference are
+      essential; distinguish from Trichuris suis/muris competitors.
+
+  - seed_id: helminths.necator_americanus
+    source_section: "9.2"
+    requested_name: Necator americanus
+    display_name: Necator americanus
+    aliases: []
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["WBPS19:PRJNA1007425", "WBPS19:PRJNA72135", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/hookworm/index.html"]
+    note: >-
+      Core hookworm.
+
+  - seed_id: helminths.ancylostoma_duodenale
+    source_section: "9.2"
+    requested_name: Ancylostoma duodenale
+    display_name: Ancylostoma duodenale
+    aliases: []
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["WBPS19:PRJNA72581", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/hookworm/index.html"]
+    note: >-
+      Core hookworm.
+
+  - seed_id: helminths.ancylostoma_ceylanicum
+    source_section: "9.2"
+    requested_name: Ancylostoma ceylanicum
+    display_name: Ancylostoma ceylanicum
+    aliases: []
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["WBPS19:PRJNA72583", "WBPS19:PRJNA231479", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/hookworm/index.html"]
+    note: >-
+      Human zoonotic hookworm with patent egg shedding.
+
+  - seed_id: helminths.ancylostoma_caninum
+    source_section: "9.2"
+    requested_name: Ancylostoma caninum
+    display_name: Ancylostoma caninum
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["WBPS19:PRJNA72585", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [specialist_referral, serology, tissue_biopsy_or_imaging]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, no_patent_stool_stage]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/hookworm/index.html"]
+    note: >-
+      Contextual human intestinal disease (eosinophilic enteritis) usually
+      without patent human egg shedding; a negative stool result cannot
+      exclude it.
+
+  - seed_id: helminths.strongyloides_stercoralis
+    source_section: "9.2"
+    requested_name: Strongyloides stercoralis
+    display_name: Strongyloides stercoralis
+    aliases: []
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["WBPS19:PRJNA930454", "WBPS19:PRJEB528", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [strongyloides_specialist_stool_and_serology, serology]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/strongyloidiasis/index.html"]
+    note: >-
+      Low/intermittent larval output; a negative stool DNA result cannot
+      exclude infection. Confirmation uses specialist-selected stool methods
+      and/or serology.
+
+  - seed_id: helminths.strongyloides_fuelleborni_fuelleborni
+    source_section: "9.2"
+    requested_name: Strongyloides fuelleborni subsp. fuelleborni
+    display_name: Strongyloides fuelleborni subsp. fuelleborni
+    aliases: [Strongyloides fuelleborni fuelleborni]
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: subspecies
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [strongyloides_specialist_stool_and_serology, clinical_stool_ova_and_parasite_microscopy]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/strongyloidiasis/index.html"]
+    note: >-
+      Rare human intestinal infection (primate-associated). Do not substitute
+      another Strongyloides reference; distinguish from S. stercoralis and
+      from animal competitors (S. ratti/venezuelensis/papillosus).
+
+  - seed_id: helminths.strongyloides_fuelleborni_kellyi
+    source_section: "9.2"
+    requested_name: Strongyloides fuelleborni subsp. kellyi
+    display_name: Strongyloides fuelleborni subsp. kellyi
+    aliases: [Strongyloides fuelleborni kellyi]
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: subspecies
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [strongyloides_specialist_stool_and_serology, clinical_stool_ova_and_parasite_microscopy]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/strongyloidiasis/index.html"]
+    note: >-
+      Rare human intestinal infection (Papua New Guinea). Do not substitute
+      another Strongyloides reference.
+
+  - seed_id: helminths.enterobius_vermicularis
+    source_section: "9.2"
+    requested_name: Enterobius vermicularis
+    display_name: Enterobius vermicularis
+    aliases: [Enterobius gregorii]
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["WBPS19:PRJEB503", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [perianal_tape_test, clinical_stool_ova_and_parasite_microscopy]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/enterobiasis/index.html"]
+    note: >-
+      Stool has limited sensitivity; the perianal tape test is the relevant
+      confirmation approach. Enterobius gregorii has a disputed identity and is
+      folded into this seed so that no independent E. gregorii disease count is
+      created.
+
+  - seed_id: helminths.paracapillaria_philippinensis
+    source_section: "9.2"
+    requested_name: Capillaria/Paracapillaria philippinensis
+    display_name: Paracapillaria philippinensis
+    aliases: [Capillaria philippinensis]
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/intestinalcapillariasis/index.html"]
+    note: >-
+      Intestinal capillariasis. Distinguish from hepatic Capillaria/Calodium
+      hepaticum (a 9.5 tissue target).
+
+  - seed_id: helminths.trichostrongylus_orientalis
+    source_section: "9.2"
+    requested_name: Trichostrongylus orientalis
+    display_name: Trichostrongylus orientalis
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/trichostrongylosis/index.html"]
+    note: >-
+      Zoonotic intestinal target.
+
+  - seed_id: helminths.trichostrongylus_colubriformis
+    source_section: "9.2"
+    requested_name: Trichostrongylus colubriformis
+    display_name: Trichostrongylus colubriformis
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/trichostrongylosis/index.html"]
+    note: >-
+      Zoonotic intestinal target.
+
+  - seed_id: helminths.trichostrongylus_axei
+    source_section: "9.2"
+    requested_name: Trichostrongylus axei
+    display_name: Trichostrongylus axei
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/trichostrongylosis/index.html"]
+    note: >-
+      Zoonotic intestinal target.
+
+  - seed_id: helminths.oesophagostomum_bifurcum
+    source_section: "9.2"
+    requested_name: Oesophagostomum bifurcum
+    display_name: Oesophagostomum bifurcum
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/oesophagostomiasis/index.html"]
+    note: >-
+      Human intestinal target (nodular worm). Pig Oesophagostomum dentatum is
+      a competitor and cannot substitute as reference.
+
+  - seed_id: helminths.oesophagostomum_aculeatum
+    source_section: "9.2"
+    requested_name: Oesophagostomum aculeatum
+    display_name: Oesophagostomum aculeatum
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/oesophagostomiasis/index.html"]
+    note: >-
+      Rare human intestinal target. Pig Oesophagostomum dentatum is a
+      competitor and cannot substitute as reference.
+
+  - seed_id: helminths.ternidens_deminutus
+    source_section: "9.2"
+    requested_name: Ternidens deminutus
+    display_name: Ternidens deminutus
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    reference_gap_note: >-
+      Reference-sufficiency gate: the target is searchable only if verified
+      NCBI records provide adequate, species-specific sequence; otherwise it
+      remains an explicit coverage gap.
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Rare intestinal target with a reference-sufficiency gate.
+
+  - seed_id: helminths.syphacia_obvelata
+    source_section: "9.2"
+    requested_name: Syphacia obvelata
+    display_name: Syphacia obvelata
+    aliases: []
+    group: helminths
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Rodent pinworm with exceptional human reports. Manual-review tier until
+      human relevance and reference specificity are resolved; never an
+      automatically alarming diagnosis.
+
+  # ---------------------------------------------------------------------------
+  # 9.3 Intestinal tapeworms
+  # ---------------------------------------------------------------------------
+  - seed_id: helminths.taenia_solium
+    source_section: "9.3"
+    requested_name: Taenia solium
+    display_name: Taenia solium
+    aliases: []
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["WBPS19:PRJNA170813", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT, clinical_stool_antigen]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/taeniasis/index.html"]
+    note: >-
+      Intestinal taeniasis. Stool does not diagnose tissue cysticercosis, and
+      a negative stool result does not exclude it.
+
+  - seed_id: helminths.taenia_saginata
+    source_section: "9.3"
+    requested_name: Taenia saginata
+    display_name: Taenia saginata
+    aliases: []
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["WBPS19:PRJNA71493", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT, clinical_stool_antigen]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/taeniasis/index.html"]
+    note: >-
+      Intestinal taeniasis (beef tapeworm).
+
+  - seed_id: helminths.taenia_asiatica
+    source_section: "9.3"
+    requested_name: Taenia asiatica
+    display_name: Taenia asiatica
+    aliases: []
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["WBPS19:PRJNA299871", "WBPS19:PRJEB532", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT, clinical_stool_antigen]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/taeniasis/index.html"]
+    note: >-
+      Intestinal taeniasis; related-species ambiguity with T. saginata is
+      retained when not resolved.
+
+  - seed_id: helminths.hymenolepis_nana
+    source_section: "9.3"
+    requested_name: Hymenolepis/Rodentolepis nana
+    display_name: Hymenolepis nana
+    aliases: [Rodentolepis nana]
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["WBPS19:PRJEB508", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/hymenolepiasis/index.html"]
+    note: >-
+      One canonical target; Hymenolepis and Rodentolepis generic names are
+      aliases of the same organism.
+
+  - seed_id: helminths.hymenolepis_diminuta
+    source_section: "9.3"
+    requested_name: Hymenolepis diminuta
+    display_name: Hymenolepis diminuta
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["WBPS19:PRJEB30942", "WBPS19:PRJEB507", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/hymenolepiasis/index.html"]
+    note: >-
+      Intestinal (rat tapeworm); uncommon human infection.
+
+  - seed_id: helminths.dipylidium_caninum
+    source_section: "9.3"
+    requested_name: Dipylidium caninum
+    display_name: Dipylidium caninum
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Intestinal zoonosis (dog/cat flea tapeworm).
+
+  - seed_id: helminths.dibothriocephalus_latus
+    source_section: "9.3"
+    requested_name: Dibothriocephalus latus
+    display_name: Dibothriocephalus latus
+    aliases: [Diphyllobothrium latum]
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["WBPS19:PRJEB1206", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/diphyllobothriasis/index.html"]
+    note: >-
+      Broad fish tapeworm; historical name Diphyllobothrium latum counts once.
+
+  - seed_id: helminths.dibothriocephalus_nihonkaiensis
+    source_section: "9.3"
+    requested_name: Dibothriocephalus nihonkaiense
+    display_name: Dibothriocephalus nihonkaiensis
+    aliases: [Diphyllobothrium nihonkaiense, Dibothriocephalus nihonkaiense]
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/diphyllobothriasis/index.html"]
+    note: >-
+      Fish tapeworm (Pacific salmon-associated); historical Diphyllobothrium
+      alias preserved. Spelling variants nihonkaiense/nihonkaiensis map to one
+      seed.
+
+  - seed_id: helminths.dibothriocephalus_dendriticus
+    source_section: "9.3"
+    requested_name: Dibothriocephalus dendriticus
+    display_name: Dibothriocephalus dendriticus
+    aliases: [Diphyllobothrium dendriticum]
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/diphyllobothriasis/index.html"]
+    note: >-
+      Fish tapeworm; historical Diphyllobothrium alias preserved.
+
+  - seed_id: helminths.adenocephalus_pacificus
+    source_section: "9.3"
+    requested_name: Adenocephalus pacificus
+    display_name: Adenocephalus pacificus
+    aliases: [Diphyllobothrium pacificum]
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/diphyllobothriasis/index.html"]
+    note: >-
+      Fish tapeworm (Pacific coast of South America); historical
+      Diphyllobothrium alias preserved.
+
+  - seed_id: helminths.diphyllobothrium_stemmacephalum
+    source_section: "9.3"
+    requested_name: Diphyllobothrium stemmacephalum
+    display_name: Diphyllobothrium stemmacephalum
+    aliases: [Diphyllobothrium yonagoense]
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    reference_gap_note: >-
+      Current synonym review required before reference selection; verify that
+      records labelled D. yonagoense and D. stemmacephalum are the same taxon
+      in the taxonomy snapshot.
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/diphyllobothriasis/index.html"]
+    note: >-
+      Rare human fish-tapeworm record; current synonym review required.
+
+  - seed_id: helminths.diphyllobothrium_balaenopterae
+    source_section: "9.3"
+    requested_name: Diphyllobothrium balaenopterae
+    display_name: Diphyllobothrium balaenopterae
+    aliases: [Diplogonoporus grandis]
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    reference_gap_note: >-
+      Current synonym review required before reference selection; verify that
+      records labelled Diplogonoporus grandis and Diphyllobothrium
+      balaenopterae are the same taxon in the taxonomy snapshot.
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/diphyllobothriasis/index.html"]
+    note: >-
+      Rare human fish-tapeworm record (whale tapeworm); historical
+      Diplogonoporus grandis alias preserved.
+
+  - seed_id: helminths.bertiella_studeri
+    source_section: "9.3"
+    requested_name: Bertiella studeri
+    display_name: Bertiella studeri
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Rare intestinal (primate tapeworm).
+
+  - seed_id: helminths.bertiella_mucronata
+    source_section: "9.3"
+    requested_name: Bertiella mucronata
+    display_name: Bertiella mucronata
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Rare intestinal (primate tapeworm).
+
+  - seed_id: helminths.inermicapsifer_madagascariensis
+    source_section: "9.3"
+    requested_name: Inermicapsifer madagascariensis
+    display_name: Inermicapsifer madagascariensis
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Rare intestinal.
+
+  - seed_id: helminths.raillietina_celebensis
+    source_section: "9.3"
+    requested_name: Raillietina celebensis
+    display_name: Raillietina celebensis
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    reference_gap_note: >-
+      Report a Raillietina genus-level result if species resolution is not
+      supported by the available references.
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Rare intestinal; genus result if species resolution unsupported.
+
+  - seed_id: helminths.mesocestoides_spp
+    source_section: "9.3"
+    requested_name: Mesocestoides spp.
+    display_name: Mesocestoides spp.
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Rare intestinal genus-level target. Species expansion requires
+      human-infection evidence; no invented species assignment.
+
+  # ---------------------------------------------------------------------------
+  # 9.4 Intestinal/hepatobiliary flukes and acanthocephalans
+  # ---------------------------------------------------------------------------
+  - seed_id: helminths.schistosoma_mansoni
+    source_section: "9.4"
+    requested_name: Schistosoma mansoni
+    display_name: Schistosoma mansoni
+    aliases: []
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["WBPS19:PRJEA36577", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT, serology]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/schistosomiasis/index.html"]
+    note: >-
+      Intestinal egg shedding.
+
+  - seed_id: helminths.schistosoma_japonicum
+    source_section: "9.4"
+    requested_name: Schistosoma japonicum
+    display_name: Schistosoma japonicum
+    aliases: []
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["WBPS19:PRJEA34885", "WBPS19:PRJNA520774", "WBPS19:PRJNA724792", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT, serology]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/schistosomiasis/index.html"]
+    note: >-
+      Intestinal egg shedding.
+
+  - seed_id: helminths.schistosoma_mekongi
+    source_section: "9.4"
+    requested_name: Schistosoma mekongi
+    display_name: Schistosoma mekongi
+    aliases: []
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT, serology]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/schistosomiasis/index.html"]
+    note: >-
+      Intestinal egg shedding; closely related to S. japonicum, so reference
+      discrimination must be verified.
+
+  - seed_id: helminths.schistosoma_intercalatum
+    source_section: "9.4"
+    requested_name: Schistosoma intercalatum
+    display_name: Schistosoma intercalatum
+    aliases: []
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["WBPS19:PRJEB44434", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT, serology]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    reference_gap_note: >-
+      PRJEB44434 is a shared multi-species project record; resolve the
+      species-specific assembly and distinguish current taxonomy from
+      S. guineensis before claiming coverage.
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/schistosomiasis/index.html"]
+    note: >-
+      Intestinal egg shedding; distinguish current taxonomy (S. intercalatum
+      vs S. guineensis) and shared project records.
+
+  - seed_id: helminths.schistosoma_guineensis
+    source_section: "9.4"
+    requested_name: Schistosoma guineensis
+    display_name: Schistosoma guineensis
+    aliases: []
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["WBPS19:PRJEB44434", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT, serology]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    reference_gap_note: >-
+      PRJEB44434 is a shared multi-species project record; resolve the
+      species-specific assembly and distinguish current taxonomy from
+      S. intercalatum before claiming coverage.
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/schistosomiasis/index.html"]
+    note: >-
+      Intestinal egg shedding; distinguish current taxonomy (S. guineensis vs
+      S. intercalatum) and shared project records.
+
+  - seed_id: helminths.schistosoma_haematobium
+    source_section: "9.4"
+    requested_name: Schistosoma haematobium
+    display_name: Schistosoma haematobium
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["WBPS19:PRJNA78265", "WBPS19:PRJEB44434", "NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [serology, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, no_patent_stool_stage]
+    reference_gap_note: >-
+      PRJEB44434 is a shared multi-species project record; keep the
+      species-specific assembly identity (PRJNA78265) when merging.
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/schistosomiasis/index.html"]
+    note: >-
+      Primarily urinary schistosomiasis; eggs are shed in urine, not reliably
+      in stool. A stool-negative result does not screen out urinary
+      schistosomiasis and must never enter the exclusion denominator.
+
+  - seed_id: helminths.clonorchis_sinensis
+    source_section: "9.4"
+    requested_name: Clonorchis sinensis
+    display_name: Clonorchis sinensis
+    aliases: []
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["WBPS19:PRJNA386618", "WBPS19:PRJDA72781", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT, serology]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Biliary infection with stool eggs.
+
+  - seed_id: helminths.opisthorchis_viverrini
+    source_section: "9.4"
+    requested_name: Opisthorchis viverrini
+    display_name: Opisthorchis viverrini
+    aliases: []
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["WBPS19:PRJNA222628", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT, serology]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Biliary infection with stool eggs.
+
+  - seed_id: helminths.opisthorchis_felineus
+    source_section: "9.4"
+    requested_name: Opisthorchis felineus
+    display_name: Opisthorchis felineus
+    aliases: []
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["WBPS19:PRJNA413383", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT, serology]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Biliary infection with stool eggs.
+
+  - seed_id: helminths.fasciola_hepatica
+    source_section: "9.4"
+    requested_name: Fasciola hepatica
+    display_name: Fasciola hepatica
+    aliases: []
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["WBPS19:PRJEB58756", "WBPS19:PRJNA179522", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [serology, clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Eggs appear mainly in patent/chronic infection; acute/early infection
+      can be stool-negative, so serology is the relevant confirmation.
+      Ingested infected liver can cause spurious egg passage.
+
+  - seed_id: helminths.fasciola_gigantica
+    source_section: "9.4"
+    requested_name: Fasciola gigantica
+    display_name: Fasciola gigantica
+    aliases: []
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["WBPS19:PRJNA230515", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [serology, clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Related-species/hybrid ambiguity with F. hepatica is retained; no forced
+      species call when unresolved. Early infection can be stool-negative.
+
+  - seed_id: helminths.fasciolopsis_buski
+    source_section: "9.4"
+    requested_name: Fasciolopsis buski
+    display_name: Fasciolopsis buski
+    aliases: []
+    group: helminths
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["WBPS19:PRJNA284521", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, clinical_stool_NAAT]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Giant intestinal fluke.
+
+  - seed_id: helminths.dicrocoelium_dendriticum
+    source_section: "9.4"
+    requested_name: Dicrocoelium dendriticum
+    display_name: Dicrocoelium dendriticum
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["WBPS19:PRJEB44434", "NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    reference_gap_note: >-
+      PRJEB44434 is a shared multi-species project record; resolve the
+      species-specific assembly before claiming coverage.
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/dicrocoeliasis/index.html"]
+    note: >-
+      Biliary (lancet liver fluke). Ingestion of infected animal liver causes
+      spurious passage; repeat sampling on a liver-free diet distinguishes
+      true infection.
+
+  - seed_id: helminths.dicrocoelium_hospes
+    source_section: "9.4"
+    requested_name: Dicrocoelium hospes
+    display_name: Dicrocoelium hospes
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/dicrocoeliasis/index.html"]
+    note: >-
+      Rare biliary target; spurious passage after ingesting infected liver is
+      possible.
+
+  - seed_id: helminths.heterophyes_heterophyes
+    source_section: "9.4"
+    requested_name: Heterophyes heterophyes
+    display_name: Heterophyes heterophyes
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://doi.org/10.1186/s13071-017-1968-0"]
+    note: >-
+      Intestinal minute (heterophyid) fluke.
+
+  - seed_id: helminths.heterophyes_nocens
+    source_section: "9.4"
+    requested_name: Heterophyes nocens
+    display_name: Heterophyes nocens
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://doi.org/10.1186/s13071-017-1968-0"]
+    note: >-
+      Intestinal minute (heterophyid) fluke.
+
+  - seed_id: helminths.metagonimus_yokogawai
+    source_section: "9.4"
+    requested_name: Metagonimus yokogawai
+    display_name: Metagonimus yokogawai
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://doi.org/10.1186/s13071-017-1968-0"]
+    note: >-
+      Intestinal minute (heterophyid) fluke.
+
+  - seed_id: helminths.metagonimus_miyatai
+    source_section: "9.4"
+    requested_name: Metagonimus miyatai
+    display_name: Metagonimus miyatai
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://doi.org/10.1186/s13071-017-1968-0"]
+    note: >-
+      Intestinal minute (heterophyid) fluke.
+
+  - seed_id: helminths.metagonimus_takahashii
+    source_section: "9.4"
+    requested_name: Metagonimus takahashii
+    display_name: Metagonimus takahashii
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://doi.org/10.1186/s13071-017-1968-0"]
+    note: >-
+      Intestinal minute (heterophyid) fluke.
+
+  - seed_id: helminths.haplorchis_taichui
+    source_section: "9.4"
+    requested_name: Haplorchis taichui
+    display_name: Haplorchis taichui
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent]
+    reference_gap_note: >-
+      Marker-only route likely: published mitochondrial (mitogenome) and
+      ribosomal loci; whole-genome reference not verified. A marker-only
+      target never reports whole-genome breadth.
+    clinical_source_urls:
+      - "https://doi.org/10.1186/s13071-017-1968-0"
+      - "https://pubmed.ncbi.nlm.nih.gov/24516279/"
+    note: >-
+      Intestinal heterophyid fluke.
+
+  - seed_id: helminths.haplorchis_pumilio
+    source_section: "9.4"
+    requested_name: Haplorchis pumilio
+    display_name: Haplorchis pumilio
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent]
+    reference_gap_note: >-
+      Marker-only route likely: published mitochondrial and ribosomal loci
+      (molecular-detection report); whole-genome reference not verified.
+    clinical_source_urls:
+      - "https://doi.org/10.1186/s13071-017-1968-0"
+      - "https://wwwnc.cdc.gov/eid/article/28/11/22-0653_article"
+    note: >-
+      Intestinal heterophyid fluke.
+
+  - seed_id: helminths.haplorchis_yokogawai
+    source_section: "9.4"
+    requested_name: Haplorchis yokogawai
+    display_name: Haplorchis yokogawai
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent]
+    reference_gap_note: >-
+      Marker-only route likely: published mitochondrial and ribosomal loci;
+      whole-genome reference not verified.
+    clinical_source_urls: ["https://doi.org/10.1186/s13071-017-1968-0"]
+    note: >-
+      Intestinal heterophyid fluke; distinguish from Metagonimus yokogawai
+      (different genus, similar epithet).
+
+  - seed_id: helminths.centrocestus_formosanus
+    source_section: "9.4"
+    requested_name: Centrocestus formosanus
+    display_name: Centrocestus formosanus
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent]
+    reference_gap_note: >-
+      Published ribosomal loci only; whole-genome reference not verified
+      (marker-only route).
+    clinical_source_urls: ["https://doi.org/10.1186/s13071-017-1968-0"]
+    note: >-
+      Intestinal heterophyid fluke.
+
+  - seed_id: helminths.procerovum_varium
+    source_section: "9.4"
+    requested_name: Procerovum varium
+    display_name: Procerovum varium
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent]
+    reference_gap_note: >-
+      Published ribosomal loci only; whole-genome reference not verified
+      (marker-only route).
+    clinical_source_urls: ["https://doi.org/10.1186/s13071-017-1968-0"]
+    note: >-
+      Intestinal heterophyid fluke.
+
+  - seed_id: helminths.stellantchasmus_falcatus
+    source_section: "9.4"
+    requested_name: Stellantchasmus falcatus
+    display_name: Stellantchasmus falcatus
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent]
+    reference_gap_note: >-
+      Published ribosomal loci only; whole-genome reference not verified
+      (marker-only route).
+    clinical_source_urls: ["https://doi.org/10.1186/s13071-017-1968-0"]
+    note: >-
+      Intestinal heterophyid fluke.
+
+  - seed_id: helminths.heterophyopsis_continua
+    source_section: "9.4"
+    requested_name: Heterophyopsis continua
+    display_name: Heterophyopsis continua
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    reference_gap_note: >-
+      Current taxonomy and sequence verification required before any
+      reference is accepted.
+    clinical_source_urls: ["https://doi.org/10.1186/s13071-017-1968-0"]
+    note: >-
+      Rare intestinal heterophyid fluke.
+
+  - seed_id: helminths.pygidiopsis_summa
+    source_section: "9.4"
+    requested_name: Pygidiopsis summa
+    display_name: Pygidiopsis summa
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    reference_gap_note: >-
+      Current taxonomy and sequence verification required before any
+      reference is accepted.
+    clinical_source_urls: ["https://doi.org/10.1186/s13071-017-1968-0"]
+    note: >-
+      Rare intestinal heterophyid fluke.
+
+  - seed_id: helminths.gastrodiscoides_hominis
+    source_section: "9.4"
+    requested_name: Gastrodiscoides hominis
+    display_name: Gastrodiscoides hominis
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent]
+    reference_gap_note: >-
+      Whole-genome reference not verified; published ITS/ribosomal/
+      mitochondrial loci give an explicit marker-only route. Record the
+      marker-only gap if no genome is verified.
+    clinical_source_urls:
+      - "https://pubmed.ncbi.nlm.nih.gov/19198879/"
+      - "https://pmc.ncbi.nlm.nih.gov/articles/PMC12926597/"
+    note: >-
+      Rare intestinal amphistome fluke (pig/human).
+
+  - seed_id: helminths.echinostoma_revolutum_complex
+    source_section: "9.4"
+    requested_name: Echinostoma revolutum complex
+    display_name: Echinostoma revolutum complex
+    aliases: [Echinostoma revolutum]
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    member_seed_ids:
+      - helminths.echinostoma_trivolvis
+      - helminths.echinostoma_echinatum
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/echinostomiasis/index.html"]
+    note: >-
+      Rare intestinal fluke complex (37-collar-spine revolutum group).
+      Historical names and species boundaries require taxonomic resolution;
+      complex-level result when members are unresolved, never a double count.
+
+  - seed_id: helminths.echinostoma_ilocanum
+    source_section: "9.4"
+    requested_name: Echinostoma ilocanum
+    display_name: Echinostoma ilocanum
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/echinostomiasis/index.html"]
+    note: >-
+      Rare intestinal fluke; historical names require taxonomic resolution.
+
+  - seed_id: helminths.echinostoma_cinetorchis
+    source_section: "9.4"
+    requested_name: Echinostoma cinetorchis
+    display_name: Echinostoma cinetorchis
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/echinostomiasis/index.html"]
+    note: >-
+      Rare intestinal fluke; 37-collar-spine species whose relationship to the
+      E. revolutum complex needs taxonomic review before any member link.
+
+  - seed_id: helminths.echinostoma_macrorchis
+    source_section: "9.4"
+    requested_name: Echinostoma macrorchis
+    display_name: Echinostoma macrorchis
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/echinostomiasis/index.html"]
+    note: >-
+      Rare intestinal fluke; historical names require taxonomic resolution.
+
+  - seed_id: helminths.echinostoma_trivolvis
+    source_section: "9.4"
+    requested_name: Echinostoma trivolvis
+    display_name: Echinostoma trivolvis
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    parent_seed_id: helminths.echinostoma_revolutum_complex
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/echinostomiasis/index.html"]
+    note: >-
+      Rare intestinal fluke; member of the E. revolutum (37-collar-spine)
+      complex, reported at complex level when not resolved.
+
+  - seed_id: helminths.echinostoma_echinatum
+    source_section: "9.4"
+    requested_name: Echinostoma echinatum
+    display_name: Echinostoma echinatum
+    aliases: [Echinostoma lindoense]
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    parent_seed_id: helminths.echinostoma_revolutum_complex
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/echinostomiasis/index.html"]
+    note: >-
+      Rare intestinal fluke; historical name Echinostoma lindoense counts
+      once. Member of the E. revolutum complex.
+
+  - seed_id: helminths.echinostoma_fujianensis
+    source_section: "9.4"
+    requested_name: Echinostoma fujianensis
+    display_name: Echinostoma fujianensis
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    reference_gap_note: >-
+      Poorly characterized species; verify that any sequence record is
+      attributable to this name before reference acceptance.
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/echinostomiasis/index.html"]
+    note: >-
+      Rare intestinal fluke; historical names require taxonomic resolution.
+
+  - seed_id: helminths.isthmiophora_hortensis
+    source_section: "9.4"
+    requested_name: Isthmiophora hortensis
+    display_name: Isthmiophora hortensis
+    aliases: [Echinostoma hortense]
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/echinostomiasis/index.html"]
+    note: >-
+      Rare intestinal fluke; accepted alias Echinostoma hortense preserved.
+
+  - seed_id: helminths.artyfechinostomum_malayanum
+    source_section: "9.4"
+    requested_name: Artyfechinostomum malayanum
+    display_name: Artyfechinostomum malayanum
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/echinostomiasis/index.html"]
+    note: >-
+      Rare intestinal fluke; preserve accepted aliases found during taxonomy
+      resolution.
+
+  - seed_id: helminths.echinoparyphium_spp
+    source_section: "9.4"
+    requested_name: Echinoparyphium
+    display_name: Echinoparyphium spp.
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/echinostomiasis/index.html"]
+    note: >-
+      Review-only genus expansion. Sporadic human echinostomid records; a
+      clinical species target requires species-level human evidence and
+      usable sequences.
+
+  - seed_id: helminths.acanthoparyphium_spp
+    source_section: "9.4"
+    requested_name: Acanthoparyphium
+    display_name: Acanthoparyphium spp.
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/echinostomiasis/index.html"]
+    note: >-
+      Review-only genus expansion. Sporadic human echinostomid records; a
+      clinical species target requires species-level human evidence and
+      usable sequences.
+
+  - seed_id: helminths.episthmium_spp
+    source_section: "9.4"
+    requested_name: Episthmium
+    display_name: Episthmium spp.
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/echinostomiasis/index.html"]
+    note: >-
+      Review-only genus expansion. Sporadic human echinostomid records; a
+      clinical species target requires species-level human evidence and
+      usable sequences.
+
+  - seed_id: helminths.himasthla_spp
+    source_section: "9.4"
+    requested_name: Himasthla
+    display_name: Himasthla spp.
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/echinostomiasis/index.html"]
+    note: >-
+      Review-only genus expansion. Sporadic human echinostomid records; a
+      clinical species target requires species-level human evidence and
+      usable sequences.
+
+  - seed_id: helminths.hypoderaeum_spp
+    source_section: "9.4"
+    requested_name: Hypoderaeum
+    display_name: Hypoderaeum spp.
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/echinostomiasis/index.html"]
+    note: >-
+      Review-only genus expansion. Sporadic human echinostomid records; a
+      clinical species target requires species-level human evidence and
+      usable sequences.
+
+  - seed_id: helminths.moniliformis_moniliformis
+    source_section: "9.4"
+    requested_name: Moniliformis moniliformis
+    display_name: Moniliformis moniliformis
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, no_patent_stool_stage]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/acanthocephaliasis/index.html"]
+    note: >-
+      Rare intestinal acanthocephalan; humans may not shed eggs, so a negative
+      stool result is weak evidence.
+
+  - seed_id: helminths.macracanthorhynchus_hirudinaceus
+    source_section: "9.4"
+    requested_name: Macracanthorhynchus hirudinaceus
+    display_name: Macracanthorhynchus hirudinaceus
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, no_patent_stool_stage]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/acanthocephaliasis/index.html"]
+    note: >-
+      Rare intestinal acanthocephalan (pig-associated); humans may not shed
+      eggs.
+
+  - seed_id: helminths.macracanthorhynchus_ingens
+    source_section: "9.4"
+    requested_name: Macracanthorhynchus ingens
+    display_name: Macracanthorhynchus ingens
+    aliases: []
+    group: helminths
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, no_patent_stool_stage]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/acanthocephaliasis/index.html"]
+    note: >-
+      Rare intestinal acanthocephalan (raccoon-associated); humans may not
+      shed eggs.
+
+  - seed_id: helminths.acanthocephalus_rauschi
+    source_section: "9.4"
+    requested_name: Acanthocephalus rauschi
+    display_name: Acanthocephalus rauschi
+    aliases: []
+    group: helminths
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, no_patent_stool_stage]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/acanthocephaliasis/index.html"]
+    note: >-
+      Exceptional/manual-review acanthocephalan candidate; inclusion here does
+      not make it a clinically validated stool target.
+
+  - seed_id: helminths.pseudoacanthocephalus_bufonis
+    source_section: "9.4"
+    requested_name: Pseudoacanthocephalus bufonis
+    display_name: Pseudoacanthocephalus bufonis
+    aliases: []
+    group: helminths
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, no_patent_stool_stage]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/acanthocephaliasis/index.html"]
+    note: >-
+      Exceptional/manual-review acanthocephalan candidate; inclusion here does
+      not make it a clinically validated stool target.
+
+  - seed_id: helminths.corynosoma_strumosum
+    source_section: "9.4"
+    requested_name: Corynosoma strumosum
+    display_name: Corynosoma strumosum
+    aliases: []
+    group: helminths
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, no_patent_stool_stage]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/acanthocephaliasis/index.html"]
+    note: >-
+      Exceptional/manual-review acanthocephalan candidate (marine-mammal
+      parasite, fish-borne); inclusion here does not make it a clinically
+      validated stool target.
+
+  - seed_id: helminths.bolbosoma_spp
+    source_section: "9.4"
+    requested_name: Bolbosoma spp.
+    display_name: Bolbosoma spp.
+    aliases: []
+    group: helminths
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: intestinal_parasite
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, no_patent_stool_stage]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/acanthocephaliasis/index.html"]
+    note: >-
+      Genus-level manual-review candidate (fish-borne acanthocephalan);
+      inclusion here does not make it a clinically validated stool target.
+
+  # ---------------------------------------------------------------------------
+  # 9.5 Tissue-associated and nonstandard stool targets
+  # Never part of a "negative stool excludes infection" claim. Unexpected
+  # supported sequences are reported with source/specimen ambiguity.
+  # ---------------------------------------------------------------------------
+  - seed_id: protozoa.toxoplasma_gondii
+    source_section: "9.5"
+    requested_name: Toxoplasma gondii
+    display_name: Toxoplasma gondii
+    aliases: []
+    group: protozoa
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ToxoDB"]
+    report_template_id: tissue_parasite
+    confirmation_options: [serology, tissue_biopsy_or_imaging]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/toxoplasmosis/index.html"]
+    note: >-
+      Humans do not ordinarily shed oocysts; stool sequences can derive from
+      food/environmental sources. Stool-negative is not exclusion.
+
+  - seed_id: helminths.trichinella_spiralis
+    source_section: "9.5"
+    requested_name: Trichinella spiralis
+    display_name: Trichinella spiralis
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [serology, tissue_biopsy_or_imaging]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/trichinellosis/index.html"]
+    note: >-
+      Tissue (muscle) infection is not established by ingested-meat DNA in
+      stool and is not excluded by stool negativity.
+
+  - seed_id: helminths.trichinella_britovi
+    source_section: "9.5"
+    requested_name: Trichinella britovi
+    display_name: Trichinella britovi
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [serology, tissue_biopsy_or_imaging]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/trichinellosis/index.html"]
+    note: >-
+      Tissue infection is not established by ingested-meat DNA in stool and is
+      not excluded by stool negativity.
+
+  - seed_id: helminths.trichinella_nativa
+    source_section: "9.5"
+    requested_name: Trichinella nativa
+    display_name: Trichinella nativa
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [serology, tissue_biopsy_or_imaging]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/trichinellosis/index.html"]
+    note: >-
+      Tissue infection is not established by ingested-meat DNA in stool and is
+      not excluded by stool negativity.
+
+  - seed_id: helminths.trichinella_nelsoni
+    source_section: "9.5"
+    requested_name: Trichinella nelsoni
+    display_name: Trichinella nelsoni
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [serology, tissue_biopsy_or_imaging]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/trichinellosis/index.html"]
+    note: >-
+      Tissue infection is not established by ingested-meat DNA in stool and is
+      not excluded by stool negativity.
+
+  - seed_id: helminths.trichinella_murrelli
+    source_section: "9.5"
+    requested_name: Trichinella murrelli
+    display_name: Trichinella murrelli
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [serology, tissue_biopsy_or_imaging]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/trichinellosis/index.html"]
+    note: >-
+      Tissue infection is not established by ingested-meat DNA in stool and is
+      not excluded by stool negativity.
+
+  - seed_id: helminths.trichinella_pseudospiralis
+    source_section: "9.5"
+    requested_name: Trichinella pseudospiralis
+    display_name: Trichinella pseudospiralis
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [serology, tissue_biopsy_or_imaging]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/trichinellosis/index.html"]
+    note: >-
+      Non-encapsulating species. Tissue infection is not established by
+      ingested-meat DNA in stool and is not excluded by stool negativity.
+
+  - seed_id: helminths.trichinella_papuae
+    source_section: "9.5"
+    requested_name: Trichinella papuae
+    display_name: Trichinella papuae
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [serology, tissue_biopsy_or_imaging]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/trichinellosis/index.html"]
+    note: >-
+      Non-encapsulating species. Tissue infection is not established by
+      ingested-meat DNA in stool and is not excluded by stool negativity.
+
+  - seed_id: helminths.trichinella_patagoniensis
+    source_section: "9.5"
+    requested_name: Trichinella patagoniensis
+    display_name: Trichinella patagoniensis
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [serology, tissue_biopsy_or_imaging]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/trichinellosis/index.html"]
+    note: >-
+      Tissue infection is not established by ingested-meat DNA in stool and is
+      not excluded by stool negativity.
+
+  - seed_id: helminths.trichinella_zimbabwensis
+    source_section: "9.5"
+    requested_name: Trichinella zimbabwensis
+    display_name: Trichinella zimbabwensis
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [serology, tissue_biopsy_or_imaging]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/trichinellosis/index.html"]
+    note: >-
+      Non-encapsulating species. Tissue infection is not established by
+      ingested-meat DNA in stool and is not excluded by stool negativity.
+
+  - seed_id: helminths.trichinella_recognized_genotypes
+    source_section: "9.5"
+    requested_name: Trichinella recognized genotypes
+    display_name: Trichinella recognized genotypes (unnamed)
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [serology, tissue_biopsy_or_imaging]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/trichinellosis/index.html"]
+    note: >-
+      Recognized but unnamed Trichinella genotypes (e.g. T6, T8, T9, T13);
+      preserve genotype identity and do not invent species assignments.
+      Tissue infection is not established by stool DNA or excluded by stool
+      negativity.
+
+  - seed_id: helminths.toxocara_canis
+    source_section: "9.5"
+    requested_name: Toxocara canis
+    display_name: Toxocara canis
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [serology, tissue_biopsy_or_imaging]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/toxocariasis/index.html"]
+    note: >-
+      Humans usually harbor larvae, not egg-shedding adults; stool eggs are
+      not expected. Distinguish from Ascaris.
+
+  - seed_id: helminths.toxocara_cati
+    source_section: "9.5"
+    requested_name: Toxocara cati
+    display_name: Toxocara cati
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [serology, tissue_biopsy_or_imaging]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/toxocariasis/index.html"]
+    note: >-
+      Humans usually harbor larvae, not egg-shedding adults; stool eggs are
+      not expected.
+
+  - seed_id: helminths.baylisascaris_procyonis
+    source_section: "9.5"
+    requested_name: Baylisascaris procyonis
+    display_name: Baylisascaris procyonis
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [serology, tissue_biopsy_or_imaging]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/toxocariasis/index.html"]
+    note: >-
+      Raccoon roundworm; humans harbor larvae (neural/ocular larva migrans),
+      not egg-shedding adults.
+
+  - seed_id: helminths.echinococcus_granulosus_sensu_lato
+    source_section: "9.5"
+    requested_name: Echinococcus granulosus sensu lato
+    display_name: Echinococcus granulosus sensu lato
+    aliases: [Echinococcus granulosus]
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [tissue_biopsy_or_imaging, serology]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/echinococcosis/index.html"]
+    note: >-
+      Species complex (E. granulosus sensu stricto and related genotypic
+      species) kept as one target; members are not separately seeded because
+      the spec names only the complex. Humans are intermediate hosts; stool is
+      not a hydatid disease screen.
+
+  - seed_id: helminths.echinococcus_multilocularis
+    source_section: "9.5"
+    requested_name: Echinococcus multilocularis
+    display_name: Echinococcus multilocularis
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [tissue_biopsy_or_imaging, serology]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/echinococcosis/index.html"]
+    note: >-
+      Humans are intermediate hosts; stool is not an alveolar echinococcosis
+      screen.
+
+  - seed_id: helminths.echinococcus_vogeli
+    source_section: "9.5"
+    requested_name: Echinococcus vogeli
+    display_name: Echinococcus vogeli
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [tissue_biopsy_or_imaging, serology]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/echinococcosis/index.html"]
+    note: >-
+      Humans are intermediate hosts (polycystic echinococcosis); stool is not
+      a screen.
+
+  - seed_id: helminths.echinococcus_oligarthrus
+    source_section: "9.5"
+    requested_name: Echinococcus oligarthrus
+    display_name: Echinococcus oligarthrus
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [tissue_biopsy_or_imaging, serology]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/echinococcosis/index.html"]
+    note: >-
+      Humans are intermediate hosts (unicystic echinococcosis); stool is not
+      a screen.
+
+  - seed_id: helminths.anisakis_simplex_complex
+    source_section: "9.5"
+    requested_name: Anisakis simplex complex
+    display_name: Anisakis simplex complex
+    aliases: [Anisakis simplex sensu lato, Anisakis simplex]
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [tissue_biopsy_or_imaging, serology]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    member_seed_ids: [helminths.anisakis_pegreffii]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/anisakiasis/index.html"]
+    note: >-
+      Foodborne larval GI disease without a patent human stool-egg cycle;
+      stool DNA most likely reflects ingested fish larvae. Confirmation is
+      endoscopic/tissue based. Other complex members are not seeded because
+      the spec names only A. pegreffii.
+
+  - seed_id: helminths.anisakis_pegreffii
+    source_section: "9.5"
+    requested_name: Anisakis pegreffii
+    display_name: Anisakis pegreffii
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [tissue_biopsy_or_imaging, serology]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    parent_seed_id: helminths.anisakis_simplex_complex
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/anisakiasis/index.html"]
+    note: >-
+      Member of the A. simplex complex; reported at complex level when not
+      resolved. Foodborne larval disease without a patent stool-egg cycle.
+
+  - seed_id: helminths.pseudoterranova_spp
+    source_section: "9.5"
+    requested_name: Pseudoterranova spp.
+    display_name: Pseudoterranova spp.
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [tissue_biopsy_or_imaging, serology]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/anisakiasis/index.html"]
+    note: >-
+      Genus-level foodborne anisakid target; larval disease without a patent
+      stool-egg cycle. Species expansion requires human evidence.
+
+  - seed_id: helminths.angiostrongylus_cantonensis
+    source_section: "9.5"
+    requested_name: Angiostrongylus cantonensis
+    display_name: Angiostrongylus cantonensis
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [serology, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/angiostrongyliasis/index.html"]
+    note: >-
+      Neural angiostrongyliasis; human infections do not yield ordinary stool
+      larvae/eggs.
+
+  - seed_id: helminths.angiostrongylus_costaricensis
+    source_section: "9.5"
+    requested_name: Angiostrongylus costaricensis
+    display_name: Angiostrongylus costaricensis
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [tissue_biopsy_or_imaging, serology, specialist_referral]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/angiostrongyliasis/index.html"]
+    note: >-
+      Abdominal angiostrongyliasis can be stool-negative; eggs/larvae are not
+      ordinarily passed in human stool.
+
+  - seed_id: helminths.gnathostoma_spp
+    source_section: "9.5"
+    requested_name: Gnathostoma spp.
+    display_name: Gnathostoma spp.
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [serology, tissue_biopsy_or_imaging]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Tissue-associated larval disease (gnathostomiasis); appropriate
+      non-stool confirmation needed. Genus-level target.
+
+  - seed_id: helminths.spirometra_spp
+    source_section: "9.5"
+    requested_name: Spirometra spp.
+    display_name: Spirometra spp.
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [tissue_biopsy_or_imaging, serology]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Tissue-associated disease (sparganosis); humans host larvae, not
+      egg-shedding adults. Genus-level target.
+
+  - seed_id: helminths.taenia_multiceps
+    source_section: "9.5"
+    requested_name: Taenia multiceps
+    display_name: Taenia multiceps
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [tissue_biopsy_or_imaging, serology]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Tissue-associated disease (coenurosis); humans are intermediate hosts.
+      Distinguish from intestinal Taenia species.
+
+  - seed_id: helminths.taenia_serialis
+    source_section: "9.5"
+    requested_name: Taenia serialis
+    display_name: Taenia serialis
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [tissue_biopsy_or_imaging, serology]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Tissue-associated disease (coenurosis); humans are intermediate hosts.
+      Distinguish from intestinal Taenia species.
+
+  - seed_id: helminths.calodium_hepaticum
+    source_section: "9.5"
+    requested_name: Calodium hepaticum
+    display_name: Calodium hepaticum
+    aliases: [Capillaria hepatica]
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [tissue_biopsy_or_imaging, serology]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Hepatic capillariasis; true infection does not shed eggs in stool
+      (stool eggs indicate spurious passage after eating infected liver).
+      Historical name Capillaria hepatica preserved. Distinguish from
+      intestinal Paracapillaria philippinensis.
+
+  - seed_id: helminths.paragonimus_westermani
+    source_section: "9.5"
+    requested_name: Paragonimus westermani
+    display_name: Paragonimus westermani
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [serology, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [tissue_restricted, shedding]
+    parent_seed_id: helminths.paragonimus_spp
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/paragonimiasis/index.html"]
+    note: >-
+      Pulmonary disease; swallowed sputum can yield stool eggs. Stool
+      detection does not imply intestinal adult worms; stool negativity does
+      not exclude pulmonary paragonimiasis.
+
+  - seed_id: helminths.paragonimus_kellicotti
+    source_section: "9.5"
+    requested_name: Paragonimus kellicotti
+    display_name: Paragonimus kellicotti
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [serology, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [tissue_restricted, shedding]
+    parent_seed_id: helminths.paragonimus_spp
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/paragonimiasis/index.html"]
+    note: >-
+      Pulmonary disease (North America); swallowed sputum can yield stool
+      eggs. Stool detection does not imply intestinal adult worms.
+
+  - seed_id: helminths.paragonimus_heterotremus
+    source_section: "9.5"
+    requested_name: Paragonimus heterotremus
+    display_name: Paragonimus heterotremus
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [serology, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [tissue_restricted, shedding]
+    parent_seed_id: helminths.paragonimus_spp
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/paragonimiasis/index.html"]
+    note: >-
+      Pulmonary disease (Southeast Asia); swallowed sputum can yield stool
+      eggs. Stool detection does not imply intestinal adult worms.
+
+  - seed_id: helminths.paragonimus_spp
+    source_section: "9.5"
+    requested_name: Paragonimus clinically relevant relatives
+    display_name: Paragonimus spp. (clinically relevant relatives)
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [serology, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [tissue_restricted, shedding]
+    member_seed_ids:
+      - helminths.paragonimus_westermani
+      - helminths.paragonimus_kellicotti
+      - helminths.paragonimus_heterotremus
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/paragonimiasis/index.html"]
+    note: >-
+      Genus-level pool for the named species plus clinically relevant
+      relatives; additional species require documented human relevance
+      before installation. Pulmonary disease; stool eggs come from swallowed
+      sputum.
+
+  - seed_id: protozoa.plasmodium_spp
+    source_section: "9.5"
+    requested_name: Plasmodium
+    display_name: Plasmodium spp.
+    aliases: []
+    group: protozoa
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI"]
+    report_template_id: tissue_parasite
+    confirmation_options: [specialist_referral, serology]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Blood parasite; broad unexpected-sequence watch only. No stool
+      diagnostic-negative claim is ever made.
+
+  - seed_id: protozoa.babesia_spp
+    source_section: "9.5"
+    requested_name: Babesia
+    display_name: Babesia spp.
+    aliases: []
+    group: protozoa
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI"]
+    report_template_id: tissue_parasite
+    confirmation_options: [specialist_referral, serology]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Blood parasite; broad unexpected-sequence watch only. No stool
+      diagnostic-negative claim is ever made.
+
+  - seed_id: protozoa.trypanosoma_spp
+    source_section: "9.5"
+    requested_name: Trypanosoma
+    display_name: Trypanosoma spp.
+    aliases: []
+    group: protozoa
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI"]
+    report_template_id: tissue_parasite
+    confirmation_options: [specialist_referral, serology]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Blood/tissue parasite; broad unexpected-sequence watch only. No stool
+      diagnostic-negative claim is ever made.
+
+  - seed_id: protozoa.leishmania_spp
+    source_section: "9.5"
+    requested_name: Leishmania
+    display_name: Leishmania spp.
+    aliases: []
+    group: protozoa
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI"]
+    report_template_id: tissue_parasite
+    confirmation_options: [specialist_referral, serology, tissue_biopsy_or_imaging]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Tissue parasite; broad unexpected-sequence watch only. No stool
+      diagnostic-negative claim is ever made.
+
+  - seed_id: helminths.human_filarial_parasites
+    source_section: "9.5"
+    requested_name: human filarial parasites
+    display_name: Human filarial parasites
+    aliases: []
+    group: helminths
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: tissue_parasite
+    confirmation_options: [specialist_referral, serology]
+    negative_limitation_codes: [no_patent_stool_stage, tissue_restricted]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/az.html"]
+    note: >-
+      Group watch for human filariae (e.g. Wuchereria, Brugia, Loa,
+      Onchocerca, Mansonella); members require documented references before
+      installation. Blood/tissue parasites; no stool diagnostic-negative
+      claim.
+
+  - seed_id: microsporidia.anncaliia_algerae
+    source_section: "9.5"
+    requested_name: Anncaliia algerae
+    display_name: Anncaliia algerae
+    aliases: []
+    group: microsporidia
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI"]
+    report_template_id: tissue_parasite
+    confirmation_options: [tissue_biopsy_or_imaging, trichrome_or_chromotrope_stain]
+    negative_limitation_codes: [tissue_restricted, no_patent_stool_stage]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/microsporidiosis/index.html"]
+    note: >-
+      Extraintestinal/contextual microsporidian (myositis, keratitis, skin);
+      retain site-specific clinical relevance. Stool detection does not
+      establish site-specific disease.
+
+  - seed_id: microsporidia.anncaliia_connori
+    source_section: "9.5"
+    requested_name: Anncaliia connori
+    display_name: Anncaliia connori
+    aliases: []
+    group: microsporidia
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI"]
+    report_template_id: tissue_parasite
+    confirmation_options: [tissue_biopsy_or_imaging, trichrome_or_chromotrope_stain]
+    negative_limitation_codes: [tissue_restricted, no_patent_stool_stage]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/microsporidiosis/index.html"]
+    note: >-
+      Extraintestinal/contextual microsporidian (disseminated infection);
+      unresolved taxonomy retained.
+
+  - seed_id: microsporidia.anncaliia_vesicularum
+    source_section: "9.5"
+    requested_name: Anncaliia vesicularum
+    display_name: Anncaliia vesicularum
+    aliases: []
+    group: microsporidia
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI"]
+    report_template_id: tissue_parasite
+    confirmation_options: [tissue_biopsy_or_imaging, trichrome_or_chromotrope_stain]
+    negative_limitation_codes: [tissue_restricted, no_patent_stool_stage]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/microsporidiosis/index.html"]
+    note: >-
+      Extraintestinal/contextual microsporidian (myositis); unresolved
+      taxonomy retained.
+
+  - seed_id: microsporidia.trachipleistophora_hominis
+    source_section: "9.5"
+    requested_name: Trachipleistophora hominis
+    display_name: Trachipleistophora hominis
+    aliases: []
+    group: microsporidia
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI"]
+    report_template_id: tissue_parasite
+    confirmation_options: [tissue_biopsy_or_imaging, trichrome_or_chromotrope_stain]
+    negative_limitation_codes: [tissue_restricted, no_patent_stool_stage]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/microsporidiosis/index.html"]
+    note: >-
+      Extraintestinal/contextual microsporidian (myositis, keratitis); retain
+      site-specific clinical relevance.
+
+  - seed_id: microsporidia.trachipleistophora_anthropophthera
+    source_section: "9.5"
+    requested_name: Trachipleistophora anthropophthera
+    display_name: Trachipleistophora anthropophthera
+    aliases: []
+    group: microsporidia
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI"]
+    report_template_id: tissue_parasite
+    confirmation_options: [tissue_biopsy_or_imaging, trichrome_or_chromotrope_stain]
+    negative_limitation_codes: [tissue_restricted, no_patent_stool_stage]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/microsporidiosis/index.html"]
+    note: >-
+      Extraintestinal/contextual microsporidian (disseminated/cerebral);
+      retain site-specific clinical relevance.
+
+  - seed_id: microsporidia.pleistophora_ronneafiei
+    source_section: "9.5"
+    requested_name: Pleistophora ronneafiei
+    display_name: Pleistophora ronneafiei
+    aliases: []
+    group: microsporidia
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI"]
+    report_template_id: tissue_parasite
+    confirmation_options: [tissue_biopsy_or_imaging, trichrome_or_chromotrope_stain]
+    negative_limitation_codes: [tissue_restricted, no_patent_stool_stage]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/microsporidiosis/index.html"]
+    note: >-
+      Extraintestinal/contextual microsporidian (myositis); unresolved
+      taxonomy retained.
+
+  - seed_id: microsporidia.vittaforma_corneae
+    source_section: "9.5"
+    requested_name: Vittaforma corneae
+    display_name: Vittaforma corneae
+    aliases: []
+    group: microsporidia
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI"]
+    report_template_id: tissue_parasite
+    confirmation_options: [tissue_biopsy_or_imaging, trichrome_or_chromotrope_stain]
+    negative_limitation_codes: [tissue_restricted, no_patent_stool_stage]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/microsporidiosis/index.html"]
+    note: >-
+      Extraintestinal/contextual microsporidian (keratitis, urinary); retain
+      site-specific clinical relevance.
+
+  - seed_id: microsporidia.tubulinosema_acridophagus
+    source_section: "9.5"
+    requested_name: Tubulinosema acridophagus
+    display_name: Tubulinosema acridophagus
+    aliases: []
+    group: microsporidia
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI"]
+    report_template_id: tissue_parasite
+    confirmation_options: [tissue_biopsy_or_imaging, trichrome_or_chromotrope_stain]
+    negative_limitation_codes: [tissue_restricted, no_patent_stool_stage]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/microsporidiosis/index.html"]
+    note: >-
+      Extraintestinal/contextual microsporidian (disseminated/myositis in
+      immunocompromised hosts); insect-associated genus, unresolved taxonomy
+      retained.
+
+  - seed_id: microsporidia.nosema_ocularum
+    source_section: "9.5"
+    requested_name: Nosema ocularum
+    display_name: Nosema ocularum
+    aliases: []
+    group: microsporidia
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI"]
+    report_template_id: tissue_parasite
+    confirmation_options: [tissue_biopsy_or_imaging, trichrome_or_chromotrope_stain]
+    negative_limitation_codes: [tissue_restricted, no_patent_stool_stage]
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/microsporidiosis/index.html"]
+    note: >-
+      Extraintestinal/contextual microsporidian (ocular); unresolved taxonomy
+      retained.
+
+  - seed_id: microsporidia.microsporidium_africanum
+    source_section: "9.5"
+    requested_name: Microsporidium africanum
+    display_name: Microsporidium africanum
+    aliases: []
+    group: microsporidia
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI"]
+    report_template_id: tissue_parasite
+    confirmation_options: [tissue_biopsy_or_imaging, trichrome_or_chromotrope_stain]
+    negative_limitation_codes: [tissue_restricted, no_patent_stool_stage, reference_absent]
+    reference_gap_note: >-
+      Collective-group name (Microsporidium) for an unclassified ocular
+      isolate; sequence records may not exist. Record as an explicit gap if
+      no verified reference is found.
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/microsporidiosis/index.html"]
+    note: >-
+      Extraintestinal/contextual microsporidian (ocular); unresolved taxonomy
+      retained.
+
+  - seed_id: microsporidia.microsporidium_ceylonensis
+    source_section: "9.5"
+    requested_name: Microsporidium ceylonensis
+    display_name: Microsporidium ceylonensis
+    aliases: []
+    group: microsporidia
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI"]
+    report_template_id: tissue_parasite
+    confirmation_options: [tissue_biopsy_or_imaging, trichrome_or_chromotrope_stain]
+    negative_limitation_codes: [tissue_restricted, no_patent_stool_stage, reference_absent]
+    reference_gap_note: >-
+      Collective-group name (Microsporidium) for an unclassified ocular
+      isolate; sequence records may not exist. Record as an explicit gap if
+      no verified reference is found.
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/microsporidiosis/index.html"]
+    note: >-
+      Extraintestinal/contextual microsporidian (ocular); unresolved taxonomy
+      retained.
+
+  # ---------------------------------------------------------------------------
+  # 9.6 Mandatory nonpathogenic/animal competitors
+  # Detection does not imply a pathogenic parasite; never in the negative
+  # denominator. Food/animal sequences are competitors, not a pre-filter that
+  # discards potential true parasite reads. No route column exists in the
+  # spec for 9.6, so NCBI is the default acquisition route.
+  # ---------------------------------------------------------------------------
+  - seed_id: protozoa.entamoeba_dispar
+    source_section: "9.6"
+    requested_name: Entamoeba dispar
+    display_name: Entamoeba dispar
+    aliases: []
+    group: protozoa
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy]
+    negative_limitation_codes: []
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/intestinalamebae/index.html"]
+    note: >-
+      Nonpathogenic amoeba morphologically identical to Entamoeba
+      histolytica; mandatory competitor so that E. histolytica is not
+      over-called.
+
+  - seed_id: protozoa.entamoeba_coli
+    source_section: "9.6"
+    requested_name: Entamoeba coli
+    display_name: Entamoeba coli
+    aliases: []
+    group: protozoa
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy]
+    negative_limitation_codes: []
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/intestinalamebae/index.html"]
+    note: >-
+      Nonpathogenic intestinal amoeba. Entamoeba coli (protozoan) and
+      Escherichia coli (bacterium) are unrelated target names and must never
+      be treated as aliases or merged during name resolution.
+
+  - seed_id: protozoa.entamoeba_hartmanni
+    source_section: "9.6"
+    requested_name: Entamoeba hartmanni
+    display_name: Entamoeba hartmanni
+    aliases: []
+    group: protozoa
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy]
+    negative_limitation_codes: []
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/intestinalamebae/index.html"]
+    note: >-
+      Nonpathogenic intestinal amoeba; competitor.
+
+  - seed_id: protozoa.entamoeba_polecki
+    source_section: "9.6"
+    requested_name: Entamoeba polecki
+    display_name: Entamoeba polecki
+    aliases: []
+    group: protozoa
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy]
+    negative_limitation_codes: []
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/intestinalamebae/index.html"]
+    note: >-
+      Nonpathogenic (pig/primate-associated) intestinal amoeba; competitor.
+
+  - seed_id: protozoa.endolimax_nana
+    source_section: "9.6"
+    requested_name: Endolimax nana
+    display_name: Endolimax nana
+    aliases: []
+    group: protozoa
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy]
+    negative_limitation_codes: []
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/intestinalamebae/index.html"]
+    note: >-
+      Nonpathogenic intestinal amoeba; competitor.
+
+  - seed_id: protozoa.iodamoeba_buetschlii
+    source_section: "9.6"
+    requested_name: Iodamoeba buetschlii
+    display_name: Iodamoeba buetschlii
+    aliases: [Iodamoeba bütschlii]
+    group: protozoa
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy]
+    negative_limitation_codes: []
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/intestinalamebae/index.html"]
+    note: >-
+      Nonpathogenic intestinal amoeba; competitor. Spelling variant with
+      umlaut maps to the same seed.
+
+  - seed_id: protozoa.chilomastix_mesnili
+    source_section: "9.6"
+    requested_name: Chilomastix mesnili
+    display_name: Chilomastix mesnili
+    aliases: []
+    group: protozoa
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy]
+    negative_limitation_codes: []
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/nonpathogenic_flagellates/index.html"]
+    note: >-
+      Nonpathogenic intestinal flagellate; competitor.
+
+  - seed_id: protozoa.enteromonas_hominis
+    source_section: "9.6"
+    requested_name: Enteromonas hominis
+    display_name: Enteromonas hominis
+    aliases: []
+    group: protozoa
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy]
+    negative_limitation_codes: []
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/nonpathogenic_flagellates/index.html"]
+    note: >-
+      Nonpathogenic intestinal flagellate; competitor.
+
+  - seed_id: protozoa.retortamonas_intestinalis
+    source_section: "9.6"
+    requested_name: Retortamonas intestinalis
+    display_name: Retortamonas intestinalis
+    aliases: []
+    group: protozoa
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy]
+    negative_limitation_codes: []
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/nonpathogenic_flagellates/index.html"]
+    note: >-
+      Nonpathogenic intestinal flagellate; competitor.
+
+  - seed_id: protozoa.pentatrichomonas_hominis
+    source_section: "9.6"
+    requested_name: Pentatrichomonas hominis
+    display_name: Pentatrichomonas hominis
+    aliases: []
+    group: protozoa
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: [clinical_stool_ova_and_parasite_microscopy]
+    negative_limitation_codes: []
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/nonpathogenic_flagellates/index.html"]
+    note: >-
+      Nonpathogenic intestinal trichomonad; competitor.
+
+  - seed_id: protozoa.animal_giardia_competitors
+    source_section: "9.6"
+    requested_name: relevant animal Giardia
+    display_name: Animal Giardia competitors
+    aliases: []
+    group: protozoa
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: []
+    negative_limitation_codes: []
+    expansion_state: manual_review_required
+    clinical_source_urls: []
+    note: >-
+      Competitor group for animal Giardia species/assemblages that are not the
+      human Giardia duodenalis target; membership is curated from verified
+      references at build time. Prevents false human-assemblage calls.
+
+  - seed_id: protozoa.animal_cryptosporidium_competitors
+    source_section: "9.6"
+    requested_name: relevant animal Cryptosporidium
+    display_name: Animal Cryptosporidium competitors
+    aliases: []
+    group: protozoa
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: []
+    negative_limitation_codes: []
+    expansion_state: manual_review_required
+    clinical_source_urls: []
+    note: >-
+      Competitor group for animal Cryptosporidium species/genotypes not
+      seeded as human targets in 9.1; membership is curated from verified
+      references at build time.
+
+  - seed_id: protozoa.cystoisospora_suis
+    source_section: "9.6"
+    requested_name: Cystoisospora suis
+    display_name: Cystoisospora suis
+    aliases: []
+    group: protozoa
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["EukDetect2", "NCBI"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: []
+    negative_limitation_codes: []
+    parent_seed_id: protozoa.animal_cystoisospora_competitors
+    clinical_source_urls: []
+    note: >-
+      Pig coccidian present in the audited EukDetect2 manifest. Competitor
+      only; it is explicitly not coverage for Cystoisospora belli (see
+      protozoa.cystoisospora_belli reference gap).
+
+  - seed_id: protozoa.animal_cystoisospora_competitors
+    source_section: "9.6"
+    requested_name: relevant animal Cystoisospora
+    display_name: Animal Cystoisospora competitors
+    aliases: []
+    group: protozoa
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: []
+    negative_limitation_codes: []
+    member_seed_ids: [protozoa.cystoisospora_suis]
+    expansion_state: manual_review_required
+    clinical_source_urls: []
+    note: >-
+      Competitor group for animal Cystoisospora (dog/cat/pig species);
+      membership is curated from verified references at build time. None of
+      these substitutes for Cystoisospora belli.
+
+  - seed_id: protozoa.eimeria_spp
+    source_section: "9.6"
+    requested_name: Eimeria
+    display_name: Eimeria spp.
+    aliases: []
+    group: protozoa
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: []
+    negative_limitation_codes: []
+    expansion_state: manual_review_required
+    clinical_source_urls: []
+    note: >-
+      Animal coccidia (poultry, rabbit, livestock) passing through with food;
+      competitor for human coccidian targets (Cyclospora, Cystoisospora,
+      Cryptosporidium).
+
+  - seed_id: protozoa.fish_ciliate_competitors
+    source_section: "9.6"
+    requested_name: fish ciliates
+    display_name: Fish ciliate competitors (including fish Balantidium)
+    aliases: []
+    group: protozoa
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: []
+    negative_limitation_codes: []
+    expansion_state: manual_review_required
+    clinical_source_urls: []
+    note: >-
+      Fish-associated ciliates including fish Balantidium species; these are
+      competitors for Balantioides coli and never a substitute reference for
+      it.
+
+  - seed_id: protozoa.sarcocystis_cruzi
+    source_section: "9.6"
+    requested_name: Sarcocystis cruzi
+    display_name: Sarcocystis cruzi
+    aliases: []
+    group: protozoa
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: []
+    negative_limitation_codes: []
+    parent_seed_id: protozoa.nonhuman_sarcocystis_competitors
+    clinical_source_urls: ["https://wwwnc.cdc.gov/eid/article/31/3/24-1640_article"]
+    note: >-
+      Animal-associated (cattle/dog) Sarcocystis named in spec 9.1 as a
+      competitor/uncertain finding; not coverage for S. hominis, S. suihominis,
+      S. heydorni or S. sigmoideus.
+
+  - seed_id: protozoa.nonhuman_sarcocystis_competitors
+    source_section: "9.6"
+    requested_name: nonhuman Sarcocystis
+    display_name: Nonhuman Sarcocystis competitors
+    aliases: []
+    group: protozoa
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: []
+    negative_limitation_codes: []
+    member_seed_ids: [protozoa.sarcocystis_cruzi]
+    expansion_state: manual_review_required
+    clinical_source_urls: ["https://www.cdc.gov/dpdx/sarcocystosis/index.html"]
+    note: >-
+      Competitor group for muscle-associated and other nonhuman Sarcocystis
+      species passing through with meat; membership is curated from verified
+      references at build time.
+
+  - seed_id: helminths.strongyloides_ratti
+    source_section: "9.6"
+    requested_name: Strongyloides ratti
+    display_name: Strongyloides ratti
+    aliases: []
+    group: helminths
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: []
+    negative_limitation_codes: []
+    clinical_source_urls: []
+    note: >-
+      Rodent Strongyloides; competitor for S. stercoralis and S. fuelleborni,
+      never a substitute reference.
+
+  - seed_id: helminths.strongyloides_venezuelensis
+    source_section: "9.6"
+    requested_name: Strongyloides venezuelensis
+    display_name: Strongyloides venezuelensis
+    aliases: []
+    group: helminths
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: []
+    negative_limitation_codes: []
+    clinical_source_urls: []
+    note: >-
+      Rodent Strongyloides; competitor for S. stercoralis and S. fuelleborni,
+      never a substitute reference.
+
+  - seed_id: helminths.strongyloides_papillosus
+    source_section: "9.6"
+    requested_name: Strongyloides papillosus
+    display_name: Strongyloides papillosus
+    aliases: []
+    group: helminths
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: []
+    negative_limitation_codes: []
+    clinical_source_urls: []
+    note: >-
+      Ruminant Strongyloides; competitor for S. stercoralis and
+      S. fuelleborni, never a substitute reference.
+
+  - seed_id: helminths.trichuris_suis
+    source_section: "9.6"
+    requested_name: Trichuris suis
+    display_name: Trichuris suis
+    aliases: []
+    group: helminths
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: []
+    negative_limitation_codes: []
+    clinical_source_urls: []
+    note: >-
+      Pig whipworm; competitor for Trichuris trichiura. Note that T. suis ova
+      are also used therapeutically, which can produce genuine stool DNA
+      without human infection.
+
+  - seed_id: helminths.trichuris_muris
+    source_section: "9.6"
+    requested_name: Trichuris muris
+    display_name: Trichuris muris
+    aliases: []
+    group: helminths
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: []
+    negative_limitation_codes: []
+    clinical_source_urls: []
+    note: >-
+      Mouse whipworm; competitor for Trichuris trichiura.
+
+  - seed_id: helminths.oesophagostomum_dentatum
+    source_section: "9.6"
+    requested_name: Oesophagostomum dentatum
+    display_name: Oesophagostomum dentatum
+    aliases: []
+    group: helminths
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: []
+    negative_limitation_codes: []
+    clinical_source_urls: []
+    note: >-
+      Pig nodular worm; competitor for O. bifurcum/O. aculeatum and cannot
+      substitute as their reference.
+
+  - seed_id: helminths.free_living_and_plant_nematode_competitors
+    source_section: "9.6"
+    requested_name: free-living/plant nematodes
+    display_name: Free-living and plant nematode competitors
+    aliases: []
+    group: helminths
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: []
+    negative_limitation_codes: []
+    expansion_state: manual_review_required
+    clinical_source_urls: []
+    note: >-
+      Environmental and dietary nematodes (soil, plant-parasitic and
+      free-living species) used as near-neighbor competitors for parasitic
+      nematode targets; membership is curated at build time.
+
+  - seed_id: helminths.neighboring_fluke_and_tapeworm_competitors
+    source_section: "9.6"
+    requested_name: neighboring flukes/tapeworms
+    display_name: Neighboring fluke and tapeworm competitors
+    aliases: []
+    group: helminths
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "ParaRef"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: []
+    negative_limitation_codes: []
+    expansion_state: manual_review_required
+    clinical_source_urls: []
+    note: >-
+      Animal trematodes and cestodes phylogenetically close to the 9.3/9.4
+      targets, used as near-neighbor competitors; membership is curated at
+      build time.
+
+  - seed_id: other_eukaryotes.food_animal_genome_competitors
+    source_section: "9.6"
+    requested_name: common food-animal genomes
+    display_name: Common food-animal genome competitors
+    aliases: []
+    group: other_eukaryotes
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI"]
+    report_template_id: nonpathogenic_competitor
+    confirmation_options: []
+    negative_limitation_codes: []
+    expansion_state: manual_review_required
+    clinical_source_urls: []
+    note: >-
+      Dietary host genomes (e.g. cattle, pig, chicken, fish) used as
+      competitors for contaminated parasite references. Per spec 9.6 they are
+      competitors, not an indiscriminate pre-filter that discards potential
+      true parasite reads.

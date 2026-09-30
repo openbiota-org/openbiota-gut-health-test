@@ -1,0 +1,518 @@
+name: csu
+version: 0.1.0
+spec_version: 3
+label: "Chronic spontaneous urticaria (chronic hives) gut-microbiome similarity"
+disease: chronic_spontaneous_urticaria
+task: csu_vs_healthy
+family: allergic_inflammatory
+body_site: stool
+population: chinese_adult_cohort
+status: research_only
+evidence_maturity: P2
+challenge_for: [ibs, crohns, uc]
+
+summary: >-
+  Chronic spontaneous urticaria — chronic hives, historically called chronic
+  idiopathic urticaria — is itchy weals and often deep swelling that keep
+  recurring for more than six weeks without an external trigger anyone can
+  point to. One human shotgun-metagenomic cohort supplies the pattern scored
+  here: Zhu et al. sequenced stool from 26 adults with chronic hives and 26
+  healthy controls and reported fifteen species-level directions. The
+  depletions sit in the fibre-fermenting, short-chain-fatty-acid-producing
+  end of the community — three Alistipes species, Coprococcus catus,
+  Roseburia hominis, Blautia (Ruminococcus) obeum, two Bacteroides — and the
+  enrichments in the Gram-negative and mucin-degrading end, led by
+  Ruminococcus gnavus, with Escherichia coli, Klebsiella pneumoniae,
+  Veillonella parvula and Bacteroides stercoris.
+
+  Eight of the fifteen survive Benjamini-Hochberg correction in the source
+  table; the other seven are exploratory and labelled as such. Both are
+  scored, the strict eight separately as a sensitivity panel, because a
+  fifteen-species panel selected in fifty-two people is a discovery result
+  and the sensitivity panel is how the report says so out loud. Every feature
+  carries the same scoring weight: the published association coefficients are
+  recorded as provenance and are deliberately not used as model weights,
+  because a MaAsLin2 coefficient fitted on a discovery cohort is not a
+  deployable classifier.
+
+  Amplicon cohorts from other centres agree on some of this and disagree on
+  the rest. Diversity has been reported lower, unchanged and higher in
+  chronic hives; genus Lactobacillus has been reported both depleted and
+  enriched. That is why this profile contains no diversity term and no
+  genus-level term, and why the conflicting cohorts are listed rather than
+  averaged away. A high score is a research observation about community
+  composition. It does not diagnose hives, and a low score in someone with
+  hives does not argue against the diagnosis.
+
+references:
+  primary:
+    source: null
+    note: >-
+      No treated-versus-untreated or recovered-hives contrast group exists in
+      the published cohorts. Zhu's 26 healthy controls are the only comparison
+      available, so a hives-specific signal cannot be separated from a general
+      inflammatory, dietary or constipation-related signal. The controls were
+      recruited at one Chinese centre; this report's reference cohort is a
+      broader curatedMetagenomicData match, which is a different population
+      and is labelled as such.
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  zhu_2024_full:
+    label: "Zhu 2024 shotgun species panel (all 15 reported directions)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: zhu_2024
+    maturity: P2
+    weight_in_combined: 1.0
+    note: >-
+      26 adults with chronic spontaneous urticaria (chronic hives) and 26
+      healthy controls, stool shotgun metagenomics, one centre. All fifteen
+      species-level directions from the source workbook's differential table,
+      each at equal scoring weight. The coefficient and q-value in each note
+      are provenance from that table, not scoring weights.
+    sources: ["Zhu L, et al. Nat Commun 2024;15:112 (26 CSU / 26 HC, stool shotgun)"]
+    features:
+      - name: Alistipes_onderdonkii
+        level: species
+        direction: decreased
+        w: 1.0
+        q: 0.4
+        s: 0.3
+        c: 0.7
+        cluster: alistipes_depletion
+        note: >-
+          Source coefficient −2.4697, BH q = 0.0154, nonzero in 35 of 52
+          participants. Passes correction. Alistipes species ferment fibre and
+          produce propionate; the genus as a whole has no stable direction
+          across cohorts, so only the species is scored.
+      - name: Alistipes_putredinis
+        level: species
+        direction: decreased
+        w: 1.0
+        q: 0.4
+        s: 0.3
+        c: 0.7
+        cluster: alistipes_depletion
+        note: >-
+          Source coefficient −2.4591, BH q = 0.0277, nonzero in 45 of 52.
+          Passes correction. Shares a cluster with the other two Alistipes
+          species so three correlated depletions count once toward coverage.
+      - name: Alistipes_shahii
+        level: species
+        direction: decreased
+        w: 1.0
+        q: 0.4
+        s: 0.3
+        c: 0.7
+        cluster: alistipes_depletion
+        note: >-
+          Source coefficient −2.0393, BH q = 0.0277, nonzero in 41 of 52.
+          Passes correction.
+      - name: Coprococcus_catus
+        level: species
+        direction: decreased
+        w: 1.0
+        q: 0.4
+        s: 0.2
+        c: 0.8
+        note: >-
+          Source coefficient −2.1674, BH q = 0.0022 — the joint strongest
+          depletion in the table, nonzero in 34 of 52. A propionate producer
+          by the acrylate route. Also depleted in inflammatory bowel disease
+          and after antibiotics, so specificity is low.
+      - name: Bacteroides_intestinalis
+        level: species
+        direction: decreased
+        w: 1.0
+        q: 0.4
+        s: 0.3
+        c: 0.7
+        note: >-
+          Source coefficient −1.8883, BH q = 0.0422, nonzero in 27 of 52.
+          Passes correction. A xylan and hemicellulose degrader.
+      - name: Ruminococcus_obeum
+        measured_as: Blautia_obeum
+        mapping_reason: >-
+          Ruminococcus obeum was formally transferred to Blautia obeum
+          (Liu 2008, Int J Syst Evol Microbiol 58:1896). The source paper used
+          the historical name; this pipeline's profiler reports the current
+          one. Same organism, same biological scope, so the slot is measured
+          under Blautia obeum and both names are printed.
+        level: species
+        direction: decreased
+        w: 1.0
+        q: 0.4
+        s: 0.3
+        c: 0.6
+        note: >-
+          Source coefficient −0.8317, BH q = 0.0222, nonzero in 52 of 52 —
+          present in everyone, lower in the hives group. Passes correction.
+          Genus Ruminococcus is useless here: R. gnavus goes the other way and
+          R. bromii belongs to a different profile entirely, so no genus
+          aggregate may fill this slot.
+      - name: Veillonella_parvula
+        level: species
+        direction: increased
+        w: 1.0
+        q: 0.4
+        s: 0.2
+        c: 0.6
+        note: >-
+          Source coefficient +1.3503, BH q = 0.0478, nonzero in 31 of 52.
+          Passes correction. An oral-origin organism; enrichment in stool is a
+          generic marker of oral-to-gut translocation seen in many conditions,
+          which is why its specificity is scored low. Genus Veillonella has no
+          stable direction and is not used.
+      - name: Ruminococcus_gnavus
+        level: species
+        direction: increased
+        w: 1.0
+        q: 0.4
+        s: 0.3
+        c: 0.8
+        note: >-
+          Source coefficient +3.0579, BH q = 0.0022 — the largest effect in
+          the table, nonzero in 40 of 52. A mucin degrader that makes an
+          inflammatory glucorhamnan polysaccharide. It is Gram-positive: its
+          inflammatory polysaccharide is not classical lipopolysaccharide, and
+          this profile makes no LPS-production claim from its presence.
+      - name: Bacteroides_cellulosilyticus
+        level: species
+        direction: decreased
+        w: 1.0
+        q: 0.4
+        s: 0.3
+        c: 0.5
+        nominal_status: not_below_0.05
+        note: >-
+          Source coefficient −1.6427, BH q = 0.1005 — exploratory, does not
+          pass correction, nonzero in 38 of 52. Scored in the full panel and
+          excluded from the strict sensitivity panel.
+      - name: Odoribacter_splanchnicus
+        level: species
+        direction: decreased
+        w: 1.0
+        q: 0.4
+        s: 0.2
+        c: 0.4
+        nominal_status: not_below_0.05
+        note: >-
+          Source coefficient −1.9550, BH q = 0.0988 — exploratory, nonzero in
+          31 of 52. Reported in the opposite direction in the relaxed
+          exploratory set of an unrelated cognition cohort, so its direction
+          agreement is scored low.
+      - name: Roseburia_hominis
+        level: species
+        direction: decreased
+        w: 1.0
+        q: 0.4
+        s: 0.2
+        c: 0.6
+        nominal_status: not_below_0.05
+        note: >-
+          Source coefficient −1.3591, BH q = 0.1284 — exploratory, nonzero in
+          40 of 52. A butyrate producer, and one of the least specific
+          depletions in the whole microbiome literature.
+      - name: Bacteroides_stercoris
+        level: species
+        direction: increased
+        w: 1.0
+        q: 0.4
+        s: 0.3
+        c: 0.5
+        nominal_status: not_below_0.05
+        note: >-
+          Source coefficient +1.8275, BH q = 0.1195 — exploratory, nonzero in
+          48 of 52. Higher in the hives group in the source table and in
+          Figure 1b; earlier drafts of this panel had the sign inverted, and
+          the corrected direction is increased, with no figure-versus-text
+          conflict to flag.
+      - name: Bilophila_wadsworthia
+        level: species
+        direction: decreased
+        w: 1.0
+        q: 0.4
+        s: 0.3
+        c: 0.4
+        nominal_status: not_below_0.05
+        note: >-
+          Source coefficient −1.0838, BH q = 0.1195 — exploratory, nonzero in
+          37 of 52. Lower in the hives group. This is the opposite of the
+          direction a bile-tolerant, sulfide-producing organism is usually
+          discussed in, which is exactly why the source direction is used
+          rather than a mechanistic expectation.
+      - name: Escherichia_coli
+        level: species
+        direction: increased
+        w: 1.0
+        q: 0.4
+        s: 0.2
+        c: 0.6
+        nominal_status: not_below_0.05
+        note: >-
+          Source coefficient +1.3893, BH q = 0.1076 — exploratory despite the
+          mechanistic weight the source narrative gives it, nonzero in 52 of
+          52. Present in nearly everyone. An abundance figure here is not an
+          infection, is not a coliform overgrowth diagnosis, and is not an
+          eradication target.
+      - name: Klebsiella_pneumoniae
+        level: species
+        direction: increased
+        w: 1.0
+        q: 0.4
+        s: 0.2
+        c: 0.6
+        nominal_status: not_below_0.05
+        note: >-
+          Source coefficient +1.7137, BH q = 0.1246 — exploratory, nonzero in
+          31 of 52. Gut carriage of K. pneumoniae is common in healthy people;
+          detection here is carriage, not infection, and not a reason for
+          antimicrobials.
+
+  zhu_2024_strict_eight:
+    label: "Zhu 2024 strict subset (BH q < 0.05) — sensitivity only"
+    type: sensitivity_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: zhu_2024
+    maturity: P2
+    note: >-
+      The eight of fifteen species that pass Benjamini-Hochberg correction in
+      the source table, scored under the same transformation as the full
+      panel. This is a sensitivity analysis on the same measurements, not a
+      second independent test: the two panels share every one of these eight
+      features, so agreement between them is expected and disagreement means
+      the full-panel result is being carried by its seven exploratory
+      members. Never fused into the headline figure.
+    sources: ["Zhu L, et al. Nat Commun 2024;15:112 (BH q < 0.05 subset)"]
+    features:
+      - name: Alistipes_onderdonkii
+        level: species
+        direction: decreased
+        w: 1.0
+        q: 0.4
+        s: 0.3
+        c: 0.7
+        cluster: alistipes_depletion
+      - name: Alistipes_putredinis
+        level: species
+        direction: decreased
+        w: 1.0
+        q: 0.4
+        s: 0.3
+        c: 0.7
+        cluster: alistipes_depletion
+      - name: Alistipes_shahii
+        level: species
+        direction: decreased
+        w: 1.0
+        q: 0.4
+        s: 0.3
+        c: 0.7
+        cluster: alistipes_depletion
+      - name: Bacteroides_intestinalis
+        level: species
+        direction: decreased
+        w: 1.0
+        q: 0.4
+        s: 0.3
+        c: 0.7
+      - name: Coprococcus_catus
+        level: species
+        direction: decreased
+        w: 1.0
+        q: 0.4
+        s: 0.2
+        c: 0.8
+      - name: Ruminococcus_obeum
+        measured_as: Blautia_obeum
+        mapping_reason: >-
+          Reclassified to Blautia obeum (Liu 2008); the historical name is the
+          source identifier and the current name is what the profiler reports.
+        level: species
+        direction: decreased
+        w: 1.0
+        q: 0.4
+        s: 0.3
+        c: 0.6
+      - name: Veillonella_parvula
+        level: species
+        direction: increased
+        w: 1.0
+        q: 0.4
+        s: 0.2
+        c: 0.6
+      - name: Ruminococcus_gnavus
+        level: species
+        direction: increased
+        w: 1.0
+        q: 0.4
+        s: 0.3
+        c: 0.8
+
+  gram_negative_envelope_lane:
+    label: "Gram-negative envelope and endotoxin capacity (mechanism context)"
+    type: mechanism_lane
+    evidence_type: CARRIER_ABUNDANCE
+    claim_level: carrier_proxy
+    study_group: zhu_2024_function
+    maturity: P1
+    note: >-
+      Zhu's functional result was a set of overlapping HUMAnN pathways for the
+      Gram-negative cell envelope — enterobacterial common antigen, colanic
+      acid, enterobactin, the lipopolysaccharide superpathway, (Kdo)2-lipid-A
+      and a polymyxin-resistance annotation — all higher in the hives group at
+      nominal p, none of them independent of the others. This pipeline has no
+      pathway-abundance engine, so the closest thing it can measure honestly
+      is the abundance of the organisms that carry hexa-acylated
+      lipopolysaccharide and of the opportunistic Enterobacteriaceae. That is
+      a carrier proxy for the same biology, not the published pathway result,
+      and it is kept out of the headline figure for that reason.
+    sources: ["Zhu L, et al. Nat Commun 2024;15:112 (Fig 1h pathway panel)"]
+    features:
+      - name: hexa_lps
+        engine: carrier
+        direction: increased
+        w: 0.6
+        q: 0.4
+        s: 0.2
+        c: 0.5
+        cluster: gram_negative_envelope
+        note: >-
+          Summed abundance of curated hexa-acylated-LPS carriers. Endotoxin
+          exposure is not measured here: Zhu's raised LPS figures were plasma
+          measurements in a separate 16-versus-16 subset, and no blood was
+          analysed for this report.
+      - name: opportunistic_pathogens
+        engine: carrier
+        direction: increased
+        w: 0.5
+        q: 0.4
+        s: 0.2
+        c: 0.5
+        cluster: gram_negative_envelope
+        note: >-
+          Summed abundance of the curated opportunistic-pathogen group, which
+          contains the Enterobacteriaceae behind most of the reported
+          envelope pathways. Shares one cluster with the LPS carriers so the
+          overlapping evidence counts once.
+
+unbound_sources:
+  - source: "Zhu 2024 HUMAnN pathway panel — COLANSYN-PWY, ECASYN-PWY, ENTBACSYN-PWY, LPSSYN-PWY, PWY0-1338, KDO-NAGLIPASYN-PWY (all higher at nominal p, 0.007–0.028)"
+    evidence_type: PATH_ABUND
+    note: >-
+      Six overlapping Gram-negative envelope pathways, reported at unadjusted
+      p-values rather than q-values. They are not six independent mechanisms:
+      parent, child and stratified totals overlap, so they could only ever
+      count once, and they are never added into the species index. A pathway
+      annotation for polymyxin resistance is a gene-content observation and
+      not an antimicrobial-susceptibility result.
+  - source: "Zhu 2024 plasma short-chain fatty acids (29 vs 38) and plasma lipopolysaccharide (16 vs 16)"
+    evidence_type: METAB
+    note: >-
+      Acetate, propionate and caproate were measured in plasma, not stool, in
+      subsets of different size from the 26-versus-26 sequencing cohort. Stool
+      butyrate-producer abundance, butyrate synthesis genes, faecal butyrate
+      and plasma butyrate are four different measurements and this report has
+      only the first two. No blood concentration is inferred from DNA.
+  - source: "Wang 2026 plasma urate and hypoxanthine (35 untreated CSU vs 21 HC, 16S plus blood metabolomics)"
+    evidence_type: METAB
+    note: >-
+      Circulating purine metabolites reported higher in untreated chronic
+      hives. Nothing in a stool FASTQ measures a plasma concentration, so this
+      binds only if a metabolomics file is supplied.
+  - source: "Nabizadeh 2017 targeted qPCR (20 vs 20) — lower Akkermansia muciniphila; Clostridium leptum and Faecalibacterium prausnitzii trends not significant"
+    evidence_type: TAX_PRES
+    note: >-
+      A targeted qPCR study, not shotgun sequencing, and its
+      non-significant trends are not a confirmed deficiency of anything. Kept
+      as context rather than converted into scored directions.
+
+confounders:
+  - name: Antihistamines and omalizumab
+    effect: "Most people with chronic hives are on treatment when sampled; Podder 2025 and Cho 2026 sampled refractory, treated patients and Podder reported higher diversity, the opposite of the usual narrative"
+    handling: "Recorded in the ledger; assumed absent and stated when no medication list is supplied"
+  - name: Diet and histamine restriction
+    effect: "Low-histamine and elimination diets are common in this population and move fibre fermenters, which is where most of this panel sits"
+    handling: "Recorded in the ledger; no dietary inference is made from the score"
+  - name: Geography and single-centre discovery
+    effect: "The panel was discovered in one Chinese cohort of 52; the reference cohort here is a broader curatedMetagenomicData match"
+    handling: "population_transportability reported; the profile is labelled single-centre discovery"
+  - name: Shared inflammatory signal
+    effect: "R. gnavus enrichment with fibre-fermenter depletion is the generic inflammatory-bowel and post-antibiotic pattern, not a hives-specific fingerprint"
+    handling: "Declared a specificity challenge for IBS, Crohn's disease and ulcerative colitis so competing patterns are scored side by side"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Chronic hives is a clinical diagnosis made from weals, itch and their
+    duration. Nothing in stool DNA makes or excludes it, and this score is not
+    a probability of having it. A diagnosis of chronic spontaneous urticaria
+    needs weals or angioedema recurring for more than six weeks without an
+    identifiable external trigger, assessed by a clinician.
+  - >-
+    The fifteen species were selected in the same fifty-two people whose data
+    produced them. Any evaluation on that cohort is reconstruction, not
+    external validation, and no independent shotgun cohort has yet tested this
+    panel. The strict-eight sensitivity figure is the same measurements
+    re-summarised, not a second opinion.
+  - >-
+    Diversity is deliberately absent from this profile. It has been reported
+    lower (Lu 2019), unchanged (Wang 2021, Ciftci 2025) and higher (Podder
+    2025) in chronic hives, and the cohorts that disagree differ in treatment
+    exposure more than in phenotype. A Shannon or evenness figure elsewhere in
+    this report says nothing about this pattern.
+  - >-
+    Detection of Escherichia coli, Klebsiella pneumoniae or Ruminococcus
+    gnavus in this panel is a relative abundance measurement. It is not an
+    infection, not an overgrowth diagnosis and not an indication for
+    antimicrobials, herbal or prescription. No microbiome score authorises
+    eradication, a transplant, or stopping any hives treatment already
+    prescribed.
+  - >-
+    Only chronic spontaneous urticaria — spontaneous chronic hives — is scored
+    here. Symptomatic dermographism, the hives raised by stroking the skin,
+    has its own separate and explicitly translated profile. The other
+    inducible forms of hives (cold, delayed pressure, solar, heat, vibratory,
+    cholinergic, contact and aquagenic urticaria) have no stool-signature
+    cohort that this audit could locate: evidence not established, so they
+    carry no score at all rather than borrowing this one. Short-lived acute
+    hives, urticarial vasculitis, mastocytosis and bradykinin-mediated
+    angioedema are different conditions from chronic hives and are not scored
+    here either.
+
+effect_size_note: >-
+  26 adults with chronic spontaneous urticaria (chronic hives) against 26
+  healthy controls at one centre, stool shotgun metagenomics, MaAsLin2
+  differential abundance with
+  Benjamini-Hochberg correction. Eight of fifteen species reached q < 0.05;
+  the largest effects were Ruminococcus gnavus higher (coefficient +3.06,
+  q = 0.0022) and Coprococcus catus lower (−2.17, q = 0.0022). Separate plasma
+  short-chain fatty acid (29 vs 38) and plasma lipopolysaccharide (16 vs 16)
+  comparisons come from different subsets and are not additional sequenced
+  participants. Mouse experiments in the same paper do not establish anything
+  about human treatment.
+
+citation: >-
+  Zhu L, Jian X, Zhou B, Liu R, Muñoz M, Sun W, Xie L, Chen X, Peng C, Maurer M,
+  Li J. Gut microbiota facilitate chronic spontaneous urticaria. Nat Commun
+  2024;15:112,
+  doi:10.1038/s41467-023-44373-x; raw data OEP002960 (BioSino), metabolomics
+  CNP0005021, mouse 16S OEP002997. Conflicting and supporting amplicon
+  cohorts: Lu 2019 PMC6881578; Wang 2020 doi:10.3389/fcimb.2020.00024; Wang
+  2021 doi:10.3389/fimmu.2021.691304; Luo 2023
+  doi:10.3389/fcimb.2022.1094737; Cesic 2023 doi:10.3390/life13061280; Podder
+  2025 doi:10.1002/clt2.70027; Park 2025 doi:10.1111/all.16601; Ciftci 2025
+  Pathogens 14(11):1140; Cho 2026 doi:10.1111/exd.70208; Wang 2026
+  doi:10.1111/1751-7915.70316. Clinical classification: Zuberbier T, et al.
+  International guideline for the definition, classification, diagnosis and
+  management of urticaria, Allergy 2026, doi:10.1111/all.70210.

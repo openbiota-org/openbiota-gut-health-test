@@ -1,0 +1,138 @@
+name: biotin
+description: >-
+  Biotin (vitamin B7) biosynthesis. bioB (biotin synthase) and bioF
+  (8-amino-7-oxononanoate synthase) mark the pathway. Included because the
+  one mechanistic link between gut microbes and hair growth runs through
+  biotin: germ-free mice on a biotin-deficient diet developed alopecia with
+  Lactobacillus murinus overgrowth, reversed by supplementation.
+metabolite: Biotin (vitamin B7)
+pathway: >-
+  pimeloyl-ACP + alanine -> KAPA (bioF) -> DAPA (bioA) -> dethiobiotin
+  (bioD) -> biotin (bioB, a radical SAM enzyme that inserts the sulfur)
+category: vitamin
+
+organisms:
+  - Bacteroides fragilis
+  - Prevotella copri
+  - Escherichia coli
+  - Fusobacterium varium
+  - Campylobacter coli
+
+extension: true
+
+targets:
+  - id: BIOB
+    label: bioB (biotin synthase)
+    gene: bioB
+    source: uniprot
+    query: '(protein_name:"biotin synthase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2500
+    length_tolerance: 0.25
+
+  - id: BIOF
+    label: bioF (8-amino-7-oxononanoate synthase)
+    gene: bioF
+    source: uniprot
+    query: '(protein_name:"8-amino-7-oxononanoate synthase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.25
+
+  - id: BIOD
+    label: bioD (dethiobiotin synthase)
+    gene: bioD
+    source: uniprot
+    query: '(protein_name:"ATP-dependent dethiobiotin synthetase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.30
+
+decoys:
+  # bioB is a radical SAM enzyme and shares its fold with lipoyl synthase and
+  # a large family of others. This is the decisive decoy here.
+  - id: RADSAM2
+    label: radical SAM background (bioB fold)
+    source: uniprot
+    query: '((protein_name:"lipoyl synthase") OR (protein_name:"radical SAM protein") OR (protein_name:"molybdenum cofactor biosynthesis protein A") OR (protein_name:"coproporphyrinogen III oxidase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 3000
+    length_tolerance: 0.30
+
+  - id: AOSBG
+    label: alpha-oxoamine synthase family background (bioF fold)
+    source: uniprot
+    query: '((protein_name:"5-aminolevulinate synthase") OR (protein_name:"serine palmitoyltransferase") OR (protein_name:"2-amino-3-ketobutyrate coenzyme A ligase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 2500
+    length_tolerance: 0.25
+    note: "The AOS family runs the same PLP chemistry on different substrates and is abundant."
+
+aggregate: sum
+aggregate_from: [BIOB, BIOF, BIOD]
+aggregate_reason: >-
+  Three consecutive steps of one pathway. Their sum estimates synthesis
+  capacity; divergence between them suggests fold-level noise.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+caveats:
+  - >-
+    The alopecia link is a mouse mechanism under experimental biotin
+    deprivation, not a human finding. Biotin supplementation does not improve
+    hair loss in people with normal biotin status, and biotin deficiency is
+    rare.
+  - >-
+    High-dose biotin supplements interfere with many immunoassays, including
+    thyroid and troponin tests. That is a real clinical issue and it has
+    nothing to do with your gut bacteria.
+  - >-
+    Colonic biotin absorption exists but human biotin status is dominated by
+    diet.
+
+interpretation:
+  what_it_is: >-
+    The capacity of your gut bacteria to synthesise biotin, and the
+    complementary fact of how much of the community depends on scavenging it.
+  made_from: Built de novo by bacteria from pimeloyl-ACP and alanine
+  higher_means: favourable
+  evidence_strength: preliminary
+  summary: >-
+    Biotin is the one vitamin with a demonstrated mechanistic link to hair
+    growth, though only in germ-free mice under experimental deprivation.
+    In humans with normal biotin status there is no evidence that bacterial
+    biotin synthesis affects hair.
+  evidence_detail: >-
+    Hayashi et al. fed germ-free mice a biotin-deficient diet, observed
+    alopecia accompanied by Lactobacillus murinus overgrowth, and reversed
+    both with biotin supplementation — establishing that the gut community's
+    biotin economy can affect hair in an extreme experimental setting. That is
+    the entire mechanistic basis for the widely repeated claim linking gut
+    bacteria to hair loss. Human biotin deficiency is rare and produces a
+    distinctive picture (rash, neurological signs) unlike either common form
+    of alopecia, and randomised evidence for biotin supplementation in hair
+    loss with normal biotin status is absent. Magnusdottir et al. found
+    biotin synthesis capacity in a minority of gut genomes, with most species
+    dependent on scavenging.
+  implications:
+    higher: >-
+      Your gut community has more biotin synthesis capacity than most
+      people's. The relevance to anything you would notice is speculative:
+      the hair-growth link comes from germ-free mice under experimental
+      biotin deprivation, a state that does not occur with an ordinary diet.
+    typical: >-
+      Your community's biotin synthesis capacity sits in the middle of the reference range. Biotin is one of the vitamins the colon does absorb, so bacterial production contributes to supply, but dietary intake is by far the larger source for most people and a typical reading needs no action.
+    lower: >-
+      Less bacterial biotin synthesis capacity than most people. Human biotin
+      status comes from diet and biotin deficiency is rare; this is not
+      evidence of it.
+  citation: >-
+    Hayashi A. et al., Cell Rep 20:1513-1524 (2017),
+    doi:10.1016/j.celrep.2017.07.057; Magnusdottir S. et al., Front Genet
+    6:148 (2015)
+
+citation: >-
+  Hayashi A., Mikami Y., Miyamoto K., et al., "Intestinal dysbiosis and biotin
+  deprivation induce alopecia through overgrowth of Lactobacillus murinus in
+  mice", Cell Rep 20:1513-1524 (2017), doi:10.1016/j.celrep.2017.07.057.

@@ -1,0 +1,131 @@
+name: ad_preclinical_amyloid
+version: 1.0.0
+spec_version: 3
+label: "Preclinical amyloid positivity — gut pattern"
+disease: alzheimers_disease
+task: amyloid_positive_vs_negative_cognitively_unimpaired
+family: alzheimers_continuum
+body_site: stool
+population: us_cognitively_unimpaired_adults
+status: experimental
+evidence_maturity: P2
+
+summary: >-
+  This is not an Alzheimer's disease label. Ferreiro et al. compared 49
+  amyloid-positive with 115 amyloid-negative participants who were all
+  cognitively unimpaired — the question is whether the gut community differs
+  in people carrying amyloid before any symptoms, which is a different
+  question from whether it differs in people with the disease.
+
+  Effect sizes at this stage are the smallest in the continuum, which is what
+  you would expect and what the profile's low weights encode.
+
+references:
+  primary:
+    source: curatedMetagenomicData
+    note: >-
+      Amyloid-negative cognitively-unimpaired participants are a genuinely
+      matched contrast — same cognitive status, same recruitment — which is
+      unusually good for this literature. The comparison this tool can make is
+      still against a healthy reference cohort rather than that contrast group.
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  ferreiro_amyloid:
+    label: "Ferreiro 2023 preclinical amyloid cohort"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: ferreiro_2023
+    maturity: P2
+    weight_in_combined: 1.0
+    note: >-
+      Taxa differing between amyloid-positive and amyloid-negative
+      cognitively-unimpaired participants. Weights are low throughout because
+      the reported effects are small and unreplicated.
+    sources: ["Ferreiro et al. PMC10680783, PRJNA798058"]
+    features:
+      - name: Dorea_formicigenerans
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.4
+        s: 0.4
+        c: 0.6
+        conflict_note: >-
+          Genus Dorea is on the conflicted list — higher at genus level in one
+          alopecia cohort while D. longicatena is control-associated in
+          another — so only named species carry a direction.
+        sources: ["Ferreiro PMC10680783"]
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.4
+        s: 0.2
+        c: 0.6
+        sources: ["Ferreiro PMC10680783"]
+      - name: Eubacterium_eligens
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.5
+        q: 0.4
+        s: 0.3
+        c: 0.5
+        sources: ["Ferreiro PMC10680783"]
+      - name: Bacteroides_uniformis
+        level: species
+        direction: higher_in_case
+        w: 0.4
+        q: 0.3
+        s: 0.3
+        c: 0.5
+        sources: ["Ferreiro PMC10680783"]
+
+  amyloid_mechanism:
+    label: "Amyloid-relevant metabolite capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P1
+    note: >-
+      Indole-3-propionate interferes with amyloid-beta fibril formation in
+      vitro, which makes its capacity mechanistically interesting at this
+      stage specifically. A mechanism lane, not a classifier.
+    features:
+      - name: ipa
+        engine: diamond
+        direction: decreased
+        w: 0.7
+        q: 0.5
+        s: 0.4
+        c: 0.7
+        sources: ["Pappolla 2021 Neurobiol Dis 156:105403"]
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Amyloid positivity is established by PET imaging or cerebrospinal fluid
+    assay. Many amyloid-positive people never develop dementia. This profile
+    is not a substitute for either measurement and not a prediction of either
+    outcome.
+  - >-
+    A separate profile from clinical Alzheimer's disease and from mild
+    cognitive impairment by design. The three are different prediction tasks
+    and their scores must not be averaged or read as one continuum reading.
+
+effect_size_note: >-
+  Ferreiro et al.: 164 cognitively unimpaired participants, 49 amyloid-positive
+  and 115 amyloid-negative. Reported effects are small.
+
+citation: >-
+  Ferreiro AL, et al. Gut microbiome composition may be an indicator of
+  preclinical Alzheimer's disease. PMC10680783; data PRJNA798058.

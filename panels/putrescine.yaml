@@ -1,0 +1,114 @@
+name: putrescine
+description: >-
+  Capacity to form putrescine, by either of the two routes bacteria use:
+  decarboxylating ornithine directly, or going through agmatine.
+  Polyamines are required for normal gut epithelial renewal and are also
+  produced in excess in some disease states, so the direction of this
+  reading depends entirely on context.
+metabolite: Putrescine formation
+pathway: >-
+  ornithine -> putrescine (speC), or arginine -> agmatine -> putrescine by
+  agmatinase (speB), or arginine -> agmatine -> N-carbamoylputrescine ->
+  putrescine by the deiminase route (aguA, aguB)
+category: metabolite
+
+extension: true
+
+targets:
+  - id: SPEC
+    label: speC (ornithine decarboxylase)
+    gene: speC
+    source: uniprot
+    query: '(protein_name:"Ornithine decarboxylase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: SPEB
+    label: speB (agmatinase)
+    gene: speB
+    source: uniprot
+    query: '(protein_name:"Agmatinase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: AGUA
+    label: aguA (agmatine deiminase)
+    gene: aguA
+    source: uniprot
+    query: '(protein_name:"Agmatine deiminase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: AGUB
+    label: aguB (N-carbamoylputrescine amidase)
+    gene: aguB
+    source: uniprot
+    query: '(protein_name:"N-carbamoylputrescine amidase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 2883
+    length_tolerance: 0.3
+
+aggregate: sum
+aggregate_from: [SPEC, SPEB, AGUB]
+aggregate_reason: >-
+  The three reactions that actually release putrescine are summed. The
+  deiminase step before aguB is measured and shown but not added, because
+  counting both steps of the same two-step route would count one
+  organism's single capacity twice. An organism carrying two independent
+  routes does contribute twice here, which is a count of reactions, not of
+  organisms.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+citation: >-
+  Nakamura A. et al., "Symbiotic polyamine metabolism regulates epithelial
+  proliferation and macrophage differentiation in the colon", Nat Commun
+  12:2105 (2021), doi:10.1038/s41467-021-22212-1.
+
+interpretation:
+  what_it_is: >-
+    How much capacity your gut bacteria have to make putrescine, the
+    smallest of the polyamines.
+  made_from: >-
+    arginine and ornithine from dietary and host protein
+  summary: >-
+    Polyamines are needed for the constant renewal of the gut lining, and
+    are also elevated in some disease states. A higher or lower reading is
+    not good or bad on its own.
+  evidence_detail: >-
+    Putrescine, spermidine and spermine are required for cell
+    proliferation, and the gut epithelium renews itself every few days, so
+    a supply matters. The same chemistry is implicated in tumour biology,
+    and bacterial polyamine production has been associated with colorectal
+    cancer tissue in observational work. Stable-isotope and multi-omics
+    work in 2025 traced polyamine flux in gut communities and found
+    production and consumption happening simultaneously in the same
+    sample, which is why this reading is presented as capacity rather than
+    as an amount, and why its direction is context-dependent rather than
+    favourable or adverse.
+  higher_means: context-dependent
+  evidence_strength: limited
+  implications:
+    higher: >-
+      More putrescine-forming capacity than most samples. Polyamines
+      support gut lining renewal and are also elevated in some disease
+      states, so this reading does not point in a single direction on
+      its own.
+    typical: >-
+      A mid-range amount of putrescine-forming capacity, similar to most
+      samples in the reference set. Polyamine capacity is read alongside
+      the spermidine and agmatine readings rather than interpreted as a
+      good or bad number by itself.
+    lower: >-
+      Less putrescine-forming capacity than most samples carry. Host
+      cells make polyamines as well, so a lower bacterial capacity is
+      not a deficiency, and this is a gene count rather than a measured
+      polyamine concentration.
+  citation: >-
+    Nakamura A. et al., "Symbiotic polyamine metabolism regulates
+    epithelial proliferation and macrophage differentiation in the colon",
+    Nat Commun 12:2105 (2021), doi:10.1038/s41467-021-22212-1.

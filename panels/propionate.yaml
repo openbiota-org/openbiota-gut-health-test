@@ -1,0 +1,176 @@
+# EXTENSION PANEL — not requested by the build spec.
+#
+# Added because the source review discusses propionate separately from
+# butyrate and in the opposite direction: increased gut butyrate production
+# associates with improved insulin resistance, whereas increased propionate
+# production or absorption associates with an increased likelihood of
+# Alzheimer's disease. Reporting the two short-chain fatty acid routes
+# separately is therefore more informative than a single "SCFA" figure.
+name: propionate
+description: >-
+  Propionate production by the acrylate route (lactoyl-CoA dehydratase lcdA
+  with propionate CoA-transferase pct) and the propanediol route (pduP).
+  The third route, succinate decarboxylation via mmdA/methylmalonyl-CoA
+  decarboxylase, is not screened — see caveats.
+metabolite: Propionate (SCFA)
+pathway: >-
+  acrylate route: DL-lactate -> lactoyl-CoA (pct) -> acrylyl-CoA (lcdA) ->
+  propionate; propanediol route: fucose/rhamnose -> 1,2-propanediol ->
+  propionaldehyde -> propionyl-CoA (pduP) -> propionate
+
+organisms:
+  - Coprococcus catus
+  - Megasphaera elsdenii
+  - Salmonella enterica (propanediol route)
+  - Roseburia inulinivorans (propanediol route)
+  - Veillonella parvula
+
+extension: true
+
+targets:
+  - id: PCT
+    label: pct (propionate CoA-transferase)
+    gene: pct
+    source: uniprot
+    query: '(protein_name:"propionate CoA-transferase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.25
+
+  - id: PDUP
+    label: pduP (propionaldehyde dehydrogenase)
+    gene: pduP
+    source: uniprot
+    query: '(protein_name:"propionaldehyde dehydrogenase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.25
+
+  - id: LCDA
+    label: lcdA (lactoyl-CoA dehydratase)
+    gene: lcdA
+    source: uniprot
+    query: '(protein_name:"lactoyl-CoA dehydratase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 1000
+    length_tolerance: 0.30
+    note: >-
+      Very small reference set (single digits in UniProt). Expect this entry to
+      be reported as reference-limited rather than as a real zero.
+
+
+  # The acrylate dehydratase's other subunit, and the succinate route's
+  # decarboxylase which this panel previously declared out of scope. Context
+  # targets: the aggregate still rests on PCT and PDUP.
+  - id: LCDB
+    label: lcdB (lactoyl-CoA dehydratase subunit)
+    gene: lcdB
+    source: uniprot
+    query: '((protein_name:"Lactoyl-CoA dehydratase") OR (protein_name:"2-hydroxyacyl-CoA dehydratase")) AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.3
+
+  - id: MMDA
+    label: mmdA (methylmalonyl-CoA decarboxylase)
+    gene: mmdA
+    source: uniprot
+    query: '(protein_name:"Methylmalonyl-CoA decarboxylase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 800
+    length_tolerance: 0.3
+
+decoys:
+  - id: COATBG
+    label: family I CoA-transferase background
+    source: uniprot
+    query: '((protein_name:"acetate CoA-transferase") OR (protein_name:"glutaconate CoA-transferase subunit A") OR (protein_name:"succinyl-CoA:acetate CoA-transferase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 2000
+    length_tolerance: 0.30
+
+  - id: ALDHBG
+    label: CoA-acylating aldehyde dehydrogenase background (pduP fold)
+    source: uniprot
+    query: '((protein_name:"acetaldehyde dehydrogenase") OR (protein_name:"aldehyde-alcohol dehydrogenase") OR (protein_name:"butanal dehydrogenase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 3000
+    length_tolerance: 0.30
+
+aggregate: sum
+aggregate_from: [PCT, PDUP]
+aggregate_reason: >-
+  pct (acrylate route) plus pduP (propanediol route). The two routes are
+  independent, so the sum approximates total propiogenic capacity across them.
+  lcdA is reported separately and kept out of the headline: with only a
+  handful of reference sequences it cannot distinguish carriage from
+  fold-level similarity within the 2-hydroxyacyl-CoA dehydratase family.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+caveats:
+  - >-
+    The succinate route — quantitatively the dominant propionate pathway in
+    Bacteroidota — is deliberately not screened. Its marker genes sit in the
+    core methylmalonyl-CoA pathway, which is near-universal, so screening them
+    would return a positive for essentially every genome and carry no
+    information. This panel therefore measures the acrylate and propanediol
+    routes only and systematically understates total propionate capacity.
+  - >-
+    pct also acts on acetate and lactate in several organisms, so carriage is
+    not proof of propionate as the dominant product.
+  - >-
+    LCDA has only a handful of reference sequences and in testing accepted
+    fragments at ~70% mean identity — distant-homolog capture from the
+    2-hydroxyacyl-CoA dehydratase fold rather than carriage. PCT and PDUP,
+    with larger reference sets, reached 87% and 95% on the same sample. Read
+    the LCDA value as an upper bound only.
+
+interpretation:
+  what_it_is: >-
+    Propionate, a short-chain fatty acid produced alongside butyrate but with a
+    different reported relationship to cognition.
+  made_from: Dietary fibre, lactate, and the sugars fucose and rhamnose
+  higher_means: adverse
+  evidence_strength: limited
+  summary: >-
+    Propionate behaves differently from butyrate. A genetic (Mendelian
+    randomisation) study found that higher gut propionate production was
+    associated with an increased likelihood of Alzheimer's disease, while
+    higher butyrate was associated with improved insulin resistance.
+  cognitive_evidence: >-
+    Sanna et al. used Mendelian randomisation across gut microbiome, short-chain
+    fatty acid and disease datasets and reported that increased propionate
+    production or absorption associated with an increased likelihood of
+    Alzheimer's disease. This is a single study using an indirect method, so
+    the finding is suggestive rather than established. Propionate also has
+    documented protective effects on mitochondrial structure, so the overall
+    picture is not settled.
+  implications:
+    higher: >-
+      One genetic study reported that higher gut propionate production
+      associates with increased Alzheimer's likelihood — the opposite
+      direction to butyrate — and your capacity sits above most people's. That
+      was a single study using an indirect method, and propionate also has
+      documented protective effects on mitochondria, so this is worth noting
+      rather than acting on.
+    typical: >-
+      Your propionate-producing capacity is unremarkable. Note that this panel
+      covers only two of the three known propionate routes, so it understates
+      total capacity by design — see the pathway notes.
+    lower: >-
+      Your gut has less propionate-producing capacity than most people. Given
+      the reported association between higher propionate and cognitive
+      outcomes, low is the more favourable direction — though the evidence for
+      that direction is thin.
+  citation: >-
+    Sanna S. et al., Nat Genet 51:600-605 (2019),
+    doi:10.1038/s41588-019-0350-x; Cheng Y. et al., Biochem Pharmacol 169:113607
+    (2019), doi:10.1016/j.bcp.2019.08.015
+
+citation: >-
+  Reichardt N. et al., "Phylogenetic distribution of three pathways for
+  propionate production within the human gut microbiota", ISME J 8:1323-1335
+  (2014), doi:10.1038/ismej.2014.14. Also Kircher B. et al., Gut Microbes
+  14:2149019 (2022), doi:10.1080/19490976.2022.2149019.

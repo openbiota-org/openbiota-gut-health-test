@@ -1,0 +1,79 @@
+name: agmatine
+description: >-
+  Arginine decarboxylation to agmatine, which is both the entry point to
+  the polyamine routes and a neuroactive compound in its own right. It is
+  kept separate from putrescine because the two have different downstream
+  fates.
+metabolite: Agmatine formation
+pathway: >-
+  arginine -> agmatine + CO2 (arginine decarboxylase)
+category: neuroactive
+
+extension: true
+
+targets:
+  - id: ADIA
+    label: adiA / speA (arginine decarboxylase, both the acid-resistance and biosynthetic enzymes)
+    gene: adiA
+    source: uniprot
+    query: '(protein_name:"Arginine decarboxylase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+aggregate: sum
+aggregate_from: [ADIA]
+aggregate_reason: >-
+  One reaction, one target. The acid-resistance decarboxylase and the
+  biosynthetic one are both named arginine decarboxylase in the sequence
+  databases and are not separated here; splitting them by name alone would
+  produce two readings that are really one.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+citation: >-
+  Piletz J.E. et al., "Agmatine: clinical applications after 100 years in
+  translation", Drug Discov Today 18:880-893 (2013),
+  doi:10.1016/j.drudis.2013.05.017.
+
+interpretation:
+  what_it_is: >-
+    Capacity to turn arginine into agmatine, which feeds the polyamine
+    routes and has its own activity in the nervous system.
+  made_from: >-
+    arginine from dietary and host protein
+  summary: >-
+    Agmatine is a polyamine precursor and a neuroactive molecule. This
+    counts the gene for making it; it is not a measurement of agmatine.
+  evidence_detail: >-
+    Arginine decarboxylase is also part of how several gut bacteria
+    survive stomach acid, consuming a proton with each decarboxylation, so
+    a high reading can reflect acid resistance rather than a deliberate
+    investment in polyamine production. Agmatine itself binds imidazoline
+    and alpha-2 adrenergic receptors and has been studied in animal models
+    of pain and mood, but the doses used in those studies are
+    pharmacological and bear no relation to what gut bacteria produce.
+    Nothing here measures agmatine reaching your circulation or your
+    brain.
+  higher_means: context-dependent
+  evidence_strength: limited
+  implications:
+    higher: >-
+      More arginine decarboxylase capacity than most samples carry. This
+      enzyme also serves acid resistance, so a higher reading is not by
+      itself evidence of more polyamine or neuroactive signalling.
+    typical: >-
+      A mid-range amount of arginine decarboxylase capacity, which is
+      what most samples carry. Read it beside the putrescine and
+      spermidine readings, since agmatine is the entry point to both of
+      those routes.
+    lower: >-
+      Less arginine decarboxylase capacity than most samples carry.
+      Ornithine decarboxylation is an independent route to putrescine
+      that does not pass through agmatine, so this does not mean the
+      polyamine routes are closed.
+  citation: >-
+    Piletz J.E. et al., "Agmatine: clinical applications after 100 years
+    in translation", Drug Discov Today 18:880-893 (2013),
+    doi:10.1016/j.drudis.2013.05.017.

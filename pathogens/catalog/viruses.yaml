@@ -1,0 +1,1887 @@
+# Viral seed catalog compiled from BUILD_SPEC_v05.0.md section 11.1.
+# Pre-resolution seeds only: candidate_sources are acquisition leads, not
+# installed references. `allowed_nucleic_acids` drives assay eligibility, so an
+# RNA-genome seed is never reported as negative on a DNA-only library.
+schema_version: pathogens.seed.v1
+catalog_section: "11"
+seeds:
+
+  # ------------------------------------------------------------------
+  # 11.1 row: Established enteric DNA
+  # ------------------------------------------------------------------
+  - seed_id: dna_viruses.human_adenovirus_f40
+    source_section: "11.1"
+    requested_name: Human adenovirus 40
+    display_name: Human adenovirus F40
+    aliases: [HAdV-F40, Human mastadenovirus F, Adenovirus type 40]
+    group: dna_viruses
+    family: Established enteric DNA
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: dsDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus:NC_001454.1", "ICTV_VMR", "RVDB"]
+    report_template_id: enteric_virus
+    confirmation_options: [clinical_stool_NAAT, clinical_multiplex_GI_panel, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/adenovirus/hcp/outbreaks/index.html"]
+    note: >-
+      DNA-compatible enteric adenovirus. NC_001454.1 is the INTEGRATE benchmark
+      acquisition seed, not complete adenovirus coverage; relevant diversity and
+      non-F competitors must be included before a type-level claim. Distinguish
+      from other adenoviruses and report the type only when the evidence
+      resolves it.
+
+  - seed_id: dna_viruses.human_adenovirus_f41
+    source_section: "11.1"
+    requested_name: Human adenovirus 41
+    display_name: Human adenovirus F41
+    aliases: [HAdV-F41, Human mastadenovirus F, Adenovirus type 41]
+    group: dna_viruses
+    family: Established enteric DNA
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: dsDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus:DQ315364.2", "ICTV_VMR", "RVDB"]
+    report_template_id: enteric_virus
+    confirmation_options: [clinical_stool_NAAT, clinical_multiplex_GI_panel, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/adenovirus/hcp/outbreaks/index.html"]
+    note: >-
+      DNA-compatible enteric adenovirus. DQ315364.2 is the INTEGRATE benchmark
+      acquisition seed, not complete adenovirus coverage. F40 and F41 are held as
+      separate species-level seeds and are only reported at type level when the
+      evidence discriminates them from each other and from non-F adenoviruses.
+
+  # ------------------------------------------------------------------
+  # 11.1 row: Other human adenoviruses
+  # ------------------------------------------------------------------
+  - seed_id: dna_viruses.other_human_adenoviruses
+    resolution_name: Human mastadenovirus C
+    source_section: "11.1"
+    requested_name: Human adenovirus species/types beyond F40/F41
+    display_name: Other human adenoviruses (non-F species and types)
+    aliases: [HAdV non-F, Human mastadenovirus A-G excluding F]
+    group: dna_viruses
+    family: Other human adenoviruses
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: dsDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: conditional_virus
+    confirmation_options: [clinical_stool_NAAT, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/adenovirus/hcp/outbreaks/index.html"]
+    note: >-
+      Non-F human adenoviruses are shedding and conditional-disease context and
+      are NOT relabelled as F40/F41 enteric adenovirus gastroenteritis. These
+      records exist as required non-F competitors so that a non-enteric type is
+      not misassigned to the enteric F species. Detection is not automatically
+      equivalent to enteric adenovirus disease.
+
+  # ------------------------------------------------------------------
+  # 11.1 row: Established enteric RNA
+  # ------------------------------------------------------------------
+  - seed_id: rna_viruses.norovirus_group
+    resolution_name: Norwalk virus
+    source_section: "11.1"
+    requested_name: Human noroviruses, including documented human-infecting genogroups/variants
+    display_name: Human noroviruses (group)
+    aliases: [Norwalk virus, NoV, Norovirus GI, Norovirus GII, Norovirus GIV]
+    group: rna_viruses
+    family: Established enteric RNA
+    interpretation_class: established_enteric
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [RNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: ssRNA_positive
+    segmented: false
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while human norovirus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: enteric_virus
+    confirmation_options: [clinical_stool_NAAT, clinical_multiplex_GI_panel]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Explicit group record retained per the compiler rule; the documented
+      human-infecting genogroups and variants are resolved as separately
+      reviewed members during reference builds rather than split arbitrarily
+      from prose here. Requires the RNA/RT route. Additional software cannot
+      recover norovirus RNA that a DNA-only extraction and library never
+      sequenced, so a DNA-only run reports not assessed rather than negative.
+
+  - seed_id: rna_viruses.human_sapovirus
+    source_section: "11.1"
+    requested_name: human sapoviruses
+    display_name: Human sapoviruses
+    aliases: [Sapporo virus, SaV, Sapovirus GI, Sapovirus GII, Sapovirus GIV, Sapovirus GV]
+    group: rna_viruses
+    family: Established enteric RNA
+    interpretation_class: established_enteric
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [RNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: ssRNA_positive
+    segmented: false
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while human sapovirus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: enteric_virus
+    confirmation_options: [clinical_stool_NAAT, clinical_multiplex_GI_panel]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Human-infecting sapovirus genogroups are kept as one curated human group;
+      animal-host sapovirus lineages are not folded into it. RNA/RT eligible
+      only.
+
+  - seed_id: rna_viruses.rotavirus_group
+    source_section: "11.1"
+    requested_name: rotavirus A/B/C and other documented human-associated lineages
+    display_name: Human-associated rotaviruses (group)
+    aliases: [Rotavirus, RV, Rotavirus A/B/C]
+    group: rna_viruses
+    family: Established enteric RNA
+    interpretation_class: established_enteric
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [RNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: dsRNA
+    segmented: true
+    segment_manifest_id: rotavirus_group_11_segments
+    segment_count: 11
+    member_seed_ids:
+      - rna_viruses.rotavirus_a
+      - rna_viruses.rotavirus_b
+      - rna_viruses.rotavirus_c
+      - rna_viruses.rotavirus_other_human_lineages
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while rotavirus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: enteric_virus
+    confirmation_options: [clinical_stool_NAAT, clinical_multiplex_GI_panel]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Group parent for the segment-aware rotavirus bundle. All eleven segments of
+      a member are connected through its segment manifest, so recovering several
+      segments is one virus-group finding rather than several pathogens. Partial
+      segment recovery can support a limited sequence result but cannot imply a
+      complete genome or a resolved strain or reassortant.
+
+  - seed_id: rna_viruses.rotavirus_a
+    source_section: "11.1"
+    requested_name: Rotavirus A
+    display_name: Rotavirus A
+    aliases: [RVA, Human rotavirus A, Group A rotavirus]
+    group: rna_viruses
+    family: Established enteric RNA
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [RNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: dsRNA
+    segmented: true
+    segment_manifest_id: rotavirus_a_11_segments
+    segment_count: 11
+    parent_seed_id: rna_viruses.rotavirus_group
+    vaccine_shedding_context: true
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while rotavirus A has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: enteric_virus
+    confirmation_options: [clinical_stool_NAAT, clinical_multiplex_GI_panel]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid]
+    clinical_source_urls:
+      - "https://academic.oup.com/jid/article/230/3/754/7603816"
+      - "https://www.ncbi.nlm.nih.gov/labs/virus/vssi/"
+    note: >-
+      Segment-aware bundle of eleven dsRNA segments. Detecting multiple rotavirus
+      A segments is ONE virus-group finding, not multiple pathogens; three
+      segments are one rotavirus result rather than three. Partial segment
+      recovery cannot imply a complete genome or a resolved strain or
+      reassortant. Recent live oral rotavirus vaccine context must be preserved:
+      rotavirus vaccine shedding is documented, and vaccine-versus-wild-type
+      inference requires validated discriminatory evidence rather than detection
+      alone. Absent that evidence the report states that vaccine and wild-type
+      origin were not discriminated.
+
+  - seed_id: rna_viruses.rotavirus_b
+    source_section: "11.1"
+    requested_name: Rotavirus B
+    display_name: Rotavirus B
+    aliases: [RVB, Group B rotavirus, Adult diarrhea rotavirus]
+    group: rna_viruses
+    family: Established enteric RNA
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [RNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: dsRNA
+    segmented: true
+    segment_manifest_id: rotavirus_b_11_segments
+    segment_count: 11
+    parent_seed_id: rna_viruses.rotavirus_group
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while rotavirus B has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: enteric_virus
+    confirmation_options: [clinical_stool_NAAT, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid, reference_absent]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Segment-aware eleven-segment bundle. Human rotavirus B is largely reported
+      from specific outbreak settings, so reference diversity is a real
+      limitation and multiple recovered segments remain one virus-group finding.
+
+  - seed_id: rna_viruses.rotavirus_c
+    source_section: "11.1"
+    requested_name: Rotavirus C
+    display_name: Rotavirus C
+    aliases: [RVC, Group C rotavirus]
+    group: rna_viruses
+    family: Established enteric RNA
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [RNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: dsRNA
+    segmented: true
+    segment_manifest_id: rotavirus_c_11_segments
+    segment_count: 11
+    parent_seed_id: rna_viruses.rotavirus_group
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while rotavirus C has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: enteric_virus
+    confirmation_options: [clinical_stool_NAAT, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Segment-aware eleven-segment bundle. Multiple recovered segments are one
+      rotavirus C finding, not several pathogens.
+
+  - seed_id: rna_viruses.rotavirus_other_human_lineages
+    source_section: "11.1"
+    requested_name: other documented human-associated rotavirus lineages
+    display_name: Other documented human-associated rotavirus lineages
+    aliases: [Rotavirus H, RVH, Human-associated rotavirus non-ABC]
+    group: rna_viruses
+    family: Established enteric RNA
+    interpretation_class: rare_enteric
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [RNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: human_infection_documented
+    molecule_type: dsRNA
+    segmented: true
+    segment_manifest_id: rotavirus_other_human_lineages_11_segments
+    segment_count: 11
+    parent_seed_id: rna_viruses.rotavirus_group
+    expansion_state: manual_review_required
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while rotavirus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: enteric_virus
+    confirmation_options: [clinical_stool_NAAT, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid, reference_absent]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Documented human-associated rotavirus lineages outside A, B and C are added
+      only after review against the frozen taxonomy and ICTV VMR; animal-only
+      rotavirus species are not promoted into a human result. Segment bundling
+      rules are identical to the named species seeds.
+
+  - seed_id: rna_viruses.classical_human_astrovirus
+    source_section: "11.1"
+    requested_name: classical human astroviruses
+    display_name: Classical human astroviruses (HAstV-1 to HAstV-8)
+    aliases: [HAstV, Mamastrovirus 1, Classic human astrovirus]
+    group: rna_viruses
+    family: Established enteric RNA
+    interpretation_class: established_enteric
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [RNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: ssRNA_positive
+    segmented: false
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while classical human astrovirus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: enteric_virus
+    confirmation_options: [clinical_stool_NAAT, clinical_multiplex_GI_panel]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Classical serotypes only. The MLB and VA/HMO lineages are held as separate
+      uncertain-enteric seeds and are never merged into this established-enteric
+      record.
+
+  # ------------------------------------------------------------------
+  # 11.1 row: Additional enteric RNA
+  # ------------------------------------------------------------------
+  - seed_id: rna_viruses.aichi_virus
+    source_section: "11.1"
+    requested_name: Aichi virus
+    display_name: Aichi virus
+    aliases: [Aichivirus A, AiV, Aichi virus 1]
+    group: rna_viruses
+    family: Additional enteric RNA
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [RNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: human_infection_documented
+    molecule_type: ssRNA_positive
+    segmented: false
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while Aichi virus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: enteric_virus
+    confirmation_options: [clinical_stool_NAAT, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      RNA/RT eligible. Clinical attribution remains contextual: detection is
+      reported as a sequence finding, not as an established cause of the
+      submitted symptoms.
+
+  # ------------------------------------------------------------------
+  # 11.1 row: Enteroviruses
+  # ------------------------------------------------------------------
+  - seed_id: rna_viruses.human_enterovirus_group
+    resolution_name: Enterovirus
+    source_section: "11.1"
+    requested_name: Human enteroviruses including polioviruses, coxsackieviruses, echoviruses and numbered enteroviruses
+    display_name: Human enteroviruses (group)
+    aliases: [HEV-A, HEV-B, HEV-C, HEV-D, Enterovirus A-D]
+    group: rna_viruses
+    family: Enteroviruses
+    interpretation_class: established_enteric
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [RNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: ssRNA_positive
+    segmented: false
+    member_seed_ids:
+      - rna_viruses.poliovirus
+      - rna_viruses.coxsackievirus
+      - rna_viruses.echovirus
+      - rna_viruses.numbered_enteroviruses
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while human enterovirus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: enteric_virus
+    confirmation_options: [clinical_stool_NAAT, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Explicit group record retained alongside the separately named members.
+      Enterovirus stool shedding does not establish systemic disease such as
+      myocarditis, meningitis or paralysis; a group-level result is reported as
+      enterovirus shedding until the evidence resolves a member.
+
+  - seed_id: rna_viruses.poliovirus
+    source_section: "11.1"
+    requested_name: polioviruses
+    display_name: Polioviruses (types 1-3)
+    aliases: [Poliovirus 1, Poliovirus 2, Poliovirus 3, PV, Enterovirus C poliovirus]
+    group: rna_viruses
+    family: Enteroviruses
+    interpretation_class: rare_enteric
+    taxonomic_resolution: serotype
+    allowed_nucleic_acids: [RNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: ssRNA_positive
+    segmented: false
+    parent_seed_id: rna_viruses.human_enterovirus_group
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while poliovirus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: enteric_virus
+    confirmation_options: [clinical_stool_NAAT, public_health_laboratory_referral, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      A polio-type unexpected finding requires appropriate expert and laboratory
+      confirmation and must route to a public health laboratory; this pipeline
+      does not itself distinguish wild-type, vaccine-derived and Sabin-like
+      poliovirus, and no such call is emitted. Stool shedding does not establish
+      systemic disease or paralytic risk.
+
+  - seed_id: rna_viruses.coxsackievirus
+    source_section: "11.1"
+    requested_name: coxsackieviruses
+    display_name: Coxsackieviruses (group A and group B)
+    aliases: [Coxsackievirus A, Coxsackievirus B, CVA, CVB]
+    group: rna_viruses
+    family: Enteroviruses
+    interpretation_class: established_enteric
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [RNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: ssRNA_positive
+    segmented: false
+    parent_seed_id: rna_viruses.human_enterovirus_group
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while coxsackievirus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: enteric_virus
+    confirmation_options: [clinical_stool_NAAT, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Coxsackie A and B serotypes are distributed across several Enterovirus
+      species, so the serotype label is only reported when the evidence resolves
+      it. Stool shedding does not establish myocarditis, meningitis or
+      hand-foot-and-mouth disease.
+
+  - seed_id: rna_viruses.echovirus
+    source_section: "11.1"
+    requested_name: echoviruses
+    display_name: Echoviruses
+    aliases: [ECHO virus, Echovirus, E-serotypes of Enterovirus B]
+    group: rna_viruses
+    family: Enteroviruses
+    interpretation_class: established_enteric
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [RNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: ssRNA_positive
+    segmented: false
+    parent_seed_id: rna_viruses.human_enterovirus_group
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while echovirus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: enteric_virus
+    confirmation_options: [clinical_stool_NAAT, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Echovirus serotypes sit within Enterovirus B. Detection reports enterovirus
+      shedding; it does not establish aseptic meningitis or neonatal sepsis.
+
+  - seed_id: rna_viruses.numbered_enteroviruses
+    source_section: "11.1"
+    requested_name: numbered enteroviruses
+    display_name: Numbered enteroviruses (EV-A71, EV-D68 and related)
+    aliases: [EV-A71, EV-D68, Numbered EV serotypes]
+    group: rna_viruses
+    family: Enteroviruses
+    interpretation_class: established_enteric
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [RNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: ssRNA_positive
+    segmented: false
+    parent_seed_id: rna_viruses.human_enterovirus_group
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while numbered enterovirus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: enteric_virus
+    confirmation_options: [clinical_stool_NAAT, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Numerically designated enterovirus types resolved against the frozen
+      taxonomy rather than hand-assigned. Stool shedding does not establish
+      neurological or respiratory disease.
+
+  # ------------------------------------------------------------------
+  # 11.1 row: Parechoviruses
+  # ------------------------------------------------------------------
+  - seed_id: rna_viruses.human_parechovirus
+    resolution_name: Parechovirus A
+    source_section: "11.1"
+    requested_name: Human parechoviruses
+    display_name: Human parechoviruses (Parechovirus A)
+    aliases: [HPeV, Parechovirus A, Echovirus 22, Echovirus 23]
+    group: rna_viruses
+    family: Parechoviruses
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [RNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: ssRNA_positive
+    segmented: false
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while human parechovirus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: enteric_virus
+    confirmation_options: [clinical_stool_NAAT, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      RNA/RT eligible. Age and clinical syndrome matter for interpretation:
+      HPeV-3 in young infants carries different significance from asymptomatic
+      shedding in older children and adults, and this pipeline does not supply
+      that clinical context by itself.
+
+  # ------------------------------------------------------------------
+  # 11.1 row: Hepatitis viruses shed in stool
+  # ------------------------------------------------------------------
+  - seed_id: rna_viruses.hepatitis_a_virus
+    source_section: "11.1"
+    requested_name: Hepatitis A
+    display_name: Hepatitis A virus
+    aliases: [HAV, Hepatovirus A, Hepatitis A virus]
+    group: rna_viruses
+    family: Hepatitis viruses shed in stool
+    interpretation_class: established_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [RNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: ssRNA_positive
+    segmented: false
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while hepatitis A virus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: enteric_virus
+    confirmation_options: [serology, clinical_stool_NAAT, public_health_laboratory_referral, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid]
+    clinical_source_urls: ["https://www.cdc.gov/hepatitis-a/hcp/diagnosis-testing/index.html"]
+    note: >-
+      Faecal shedding is greatest before and around symptom onset, so a stool
+      sequence result is not a complete hepatitis diagnosis and cannot stage or
+      exclude acute hepatitis A. Serological and clinical diagnosis follows CDC
+      testing guidance; hepatitis A is notifiable, so unexpected findings route
+      to public health.
+
+  - seed_id: rna_viruses.hepatitis_e_virus
+    source_section: "11.1"
+    requested_name: human-infecting hepatitis E lineages
+    display_name: Human-infecting hepatitis E virus lineages (genotypes 1-4)
+    aliases: [HEV, Paslahepevirus balayani, Hepatitis E virus, Orthohepevirus A]
+    group: rna_viruses
+    family: Hepatitis viruses shed in stool
+    interpretation_class: established_enteric
+    taxonomic_resolution: genotype
+    allowed_nucleic_acids: [RNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: ssRNA_positive
+    segmented: false
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while hepatitis E virus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: enteric_virus
+    confirmation_options: [serology, blood_PCR_viral_load, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Only human-infecting lineages are seeded; zoonotic and animal-restricted
+      hepeviruses are not promoted into a human result without genotype-level
+      evidence. A stool result is not a complete hepatitis diagnosis and does not
+      distinguish acute from chronic infection in an immunocompromised host.
+
+  # ------------------------------------------------------------------
+  # 11.1 row: Respiratory/systemic RNA shed in stool
+  # ------------------------------------------------------------------
+  - seed_id: rna_viruses.sars_cov_2
+    source_section: "11.1"
+    requested_name: SARS-CoV-2
+    display_name: SARS-CoV-2
+    aliases: [Severe acute respiratory syndrome coronavirus 2, 2019-nCoV, COVID-19 virus]
+    group: rna_viruses
+    family: Respiratory/systemic RNA shed in stool
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [RNA]
+    stool_role: variable_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: ssRNA_positive
+    segmented: false
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while SARS-CoV-2 has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: extraintestinal_watch_virus
+    confirmation_options: [specialist_referral, no_stool_confirmation_applicable]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid, wrong_specimen_type]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Faecal RNA shedding can persist after respiratory clearance. No inference
+      of infectiousness, transmissibility or causation of GI symptoms is made
+      from a stool sequence, and stool is not the validated specimen for
+      diagnosing or excluding COVID-19.
+
+  - seed_id: rna_viruses.other_human_rna_virus_broad_search
+    source_section: "11.1"
+    requested_name: other supported human-virus sequences surfaced by broad search
+    display_name: Other supported human RNA-virus sequences (broad search)
+    aliases: []
+    group: rna_viruses
+    family: Respiratory/systemic RNA shed in stool
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [RNA]
+    stool_role: variable_shedding
+    host_category: human
+    host_evidence_level: unresolved
+    molecule_type: ssRNA_positive
+    segmented: false
+    expansion_state: manual_review_required
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while this RNA-virus candidate has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: extraintestinal_watch_virus
+    confirmation_options: [specialist_referral, no_stool_confirmation_applicable]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid, wrong_specimen_type, reference_absent]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Registry slot for unexpected human RNA-virus sequences surfaced by the
+      broad search rather than by a routine targeted panel. This is not a
+      diagnostic-negative target: it can only produce reviewable discovery
+      candidates. Group-level molecule, segment and host fields are placeholders;
+      each resolved member carries its own actual molecule and segment
+      annotation, which overrides this group value, and host certainty stays
+      mandatory per section 11.2.
+    member_seed_ids: []
+
+  # ------------------------------------------------------------------
+  # 11.1 row: Herpesvirus DNA
+  # ------------------------------------------------------------------
+  - seed_id: dna_viruses.human_cytomegalovirus
+    source_section: "11.1"
+    requested_name: CMV
+    display_name: Human cytomegalovirus
+    aliases: [CMV, HHV-5, Human betaherpesvirus 5]
+    group: dna_viruses
+    family: Herpesvirus DNA
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: dsDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: conditional_virus
+    confirmation_options: [blood_PCR_viral_load, serology, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://clinicalinfo.hiv.gov/en/guidelines/hiv-clinical-guidelines-adult-and-adolescent-opportunistic-infections/cytomegalovirus"]
+    note: >-
+      CMV DNA alone cannot be labelled reactivation, CMV colitis or end-organ
+      disease, and no antiviral is recommended on the basis of this sequence
+      finding. Distinguishing latency and asymptomatic shedding from tissue
+      disease requires clinical assessment with histopathology or a validated
+      quantitative assay, which this stool screen does not provide. A negative
+      result does not exclude CMV disease.
+
+  - seed_id: dna_viruses.herpes_simplex_virus_1
+    source_section: "11.1"
+    requested_name: HSV-1
+    display_name: Herpes simplex virus 1
+    aliases: [HSV-1, HHV-1, Human alphaherpesvirus 1]
+    group: dna_viruses
+    family: Herpesvirus DNA
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: dsDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: conditional_virus
+    confirmation_options: [serology, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_specimen_type]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Conditional and largely extraintestinal finding. HSV-1 DNA in stool does
+      not establish herpetic proctitis, oesophagitis or reactivation, and no
+      antiviral is recommended from this sequence result.
+
+  - seed_id: dna_viruses.herpes_simplex_virus_2
+    source_section: "11.1"
+    requested_name: HSV-2
+    display_name: Herpes simplex virus 2
+    aliases: [HSV-2, HHV-2, Human alphaherpesvirus 2]
+    group: dna_viruses
+    family: Herpesvirus DNA
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: dsDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: conditional_virus
+    confirmation_options: [serology, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_specimen_type]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Conditional and largely extraintestinal finding, and a sensitive result
+      that must be reported carefully. Stool DNA does not establish anogenital
+      herpes, proctitis or reactivation, and no antiviral is recommended here.
+
+  - seed_id: dna_viruses.epstein_barr_virus
+    source_section: "11.1"
+    requested_name: EBV
+    display_name: Epstein-Barr virus
+    aliases: [EBV, HHV-4, Human gammaherpesvirus 4]
+    group: dna_viruses
+    family: Herpesvirus DNA
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: dsDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: conditional_virus
+    confirmation_options: [serology, blood_PCR_viral_load, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.cdc.gov/epstein-barr/php/laboratories/index.html"]
+    note: >-
+      EBV DNA alone cannot be labelled reactivation, EBV colitis or end-organ
+      disease, and no antiviral is recommended on the basis of this sequence
+      finding. Most adults carry latent EBV, so detection is expected background
+      rather than evidence of active disease; staging requires serology or a
+      validated quantitative assay interpreted clinically.
+
+  - seed_id: dna_viruses.varicella_zoster_virus
+    source_section: "11.1"
+    requested_name: VZV
+    display_name: Varicella-zoster virus
+    aliases: [VZV, HHV-3, Human alphaherpesvirus 3]
+    group: dna_viruses
+    family: Herpesvirus DNA
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: dsDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: conditional_virus
+    confirmation_options: [serology, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, tissue_restricted, wrong_specimen_type]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Latency is in sensory ganglia and disease presents in skin or viscera, so
+      stool is not a validated specimen. A negative stool result gives no
+      reassurance about varicella or zoster, and detection does not establish
+      reactivation or justify an antiviral. Recent varicella vaccination is
+      relevant context.
+
+  - seed_id: dna_viruses.human_herpesvirus_6a
+    source_section: "11.1"
+    requested_name: HHV-6A
+    display_name: Human herpesvirus 6A
+    aliases: [HHV-6A, Human betaherpesvirus 6A]
+    group: dna_viruses
+    family: Herpesvirus DNA
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: dsDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: conditional_virus
+    confirmation_options: [blood_PCR_viral_load, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      HHV-6A and HHV-6B are held as separate species-level seeds and are only
+      distinguished when the evidence resolves them. DNA detection does not
+      establish reactivation or end-organ disease, and inherited chromosomally
+      integrated HHV-6 is an alternative explanation for persistent detection.
+
+  - seed_id: dna_viruses.human_herpesvirus_6b
+    source_section: "11.1"
+    requested_name: HHV-6B
+    display_name: Human herpesvirus 6B
+    aliases: [HHV-6B, Human betaherpesvirus 6B, Roseolovirus]
+    group: dna_viruses
+    family: Herpesvirus DNA
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: dsDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: conditional_virus
+    confirmation_options: [blood_PCR_viral_load, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Near-universal childhood infection followed by lifelong latency, so
+      detection is common background. DNA alone does not establish reactivation
+      or end-organ disease and does not justify an antiviral.
+
+  - seed_id: dna_viruses.human_herpesvirus_7
+    source_section: "11.1"
+    requested_name: HHV-7
+    display_name: Human herpesvirus 7
+    aliases: [HHV-7, Human betaherpesvirus 7]
+    group: dna_viruses
+    family: Herpesvirus DNA
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: dsDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: conditional_virus
+    confirmation_options: [blood_PCR_viral_load, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Widespread latent infection with frequent salivary shedding. Detection is
+      an incidental conditional finding, not evidence of reactivation or of a
+      cause of GI symptoms.
+
+  - seed_id: dna_viruses.human_herpesvirus_8
+    source_section: "11.1"
+    requested_name: HHV-8
+    display_name: Human herpesvirus 8
+    aliases: [HHV-8, KSHV, Kaposi sarcoma-associated herpesvirus, Human gammaherpesvirus 8]
+    group: dna_viruses
+    family: Herpesvirus DNA
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: dsDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: conditional_virus
+    confirmation_options: [serology, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, tissue_restricted, wrong_specimen_type]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Disease is lymphoproliferative or tumour-associated and tissue-based, so a
+      stool sequence cannot establish or exclude Kaposi sarcoma or Castleman
+      disease. Detection routes to specialist assessment only; no antiviral or
+      oncological conclusion is drawn from this result.
+
+  # ------------------------------------------------------------------
+  # 11.1 row: Other human DNA viruses
+  # ------------------------------------------------------------------
+  - seed_id: dna_viruses.bk_polyomavirus
+    source_section: "11.1"
+    requested_name: BK polyomavirus
+    display_name: BK polyomavirus
+    aliases: [BKPyV, BK virus, Human polyomavirus 1]
+    group: dna_viruses
+    family: Other human DNA viruses
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: dsDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: conditional_virus
+    confirmation_options: [blood_PCR_viral_load, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_specimen_type]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Conditional and incidental. BK is not an established cause of diarrhoea;
+      its recognised disease settings are nephropathy and haemorrhagic cystitis
+      in transplant and immunocompromised hosts, assessed on urine or plasma
+      rather than stool.
+
+  - seed_id: dna_viruses.jc_polyomavirus
+    source_section: "11.1"
+    requested_name: JC polyomavirus
+    display_name: JC polyomavirus
+    aliases: [JCPyV, JC virus, Human polyomavirus 2]
+    group: dna_viruses
+    family: Other human DNA viruses
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: dsDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: conditional_virus
+    confirmation_options: [blood_PCR_viral_load, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_specimen_type]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Conditional and incidental. JC virus is shed by many healthy people and is
+      not an established cause of diarrhoea; progressive multifocal
+      leukoencephalopathy is a CSF and neuroimaging diagnosis that a stool
+      sequence can neither support nor exclude.
+
+  - seed_id: dna_viruses.other_human_polyomaviruses
+    source_section: "11.1"
+    requested_name: other human polyomaviruses
+    display_name: Other human polyomaviruses
+    aliases: [MCPyV, HPyV6, HPyV7, TSPyV, STLPyV, HPyV9, MWPyV, HPyV12, NJPyV, LIPyV]
+    group: dna_viruses
+    family: Other human DNA viruses
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    host_category: human
+    host_evidence_level: human_infection_documented
+    molecule_type: dsDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: conditional_virus
+    confirmation_options: [specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Curated human polyomaviruses beyond BK and JC. Human infection is
+      documented but most are not established causes of diarrhoea; several are
+      common skin or mucosal carriage. No oncological conclusion is drawn from a
+      Merkel cell polyomavirus sequence in stool.
+
+  - seed_id: dna_viruses.human_papillomavirus
+    resolution_name: Human papillomavirus
+    source_section: "11.1"
+    requested_name: human papillomaviruses
+    display_name: Human papillomaviruses
+    aliases: [HPV, Alphapapillomavirus, Betapapillomavirus, Gammapapillomavirus]
+    group: dna_viruses
+    family: Other human DNA viruses
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: dsDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: conditional_virus
+    confirmation_options: [specialist_referral, no_stool_confirmation_applicable]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, tissue_restricted, wrong_specimen_type]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      HPV is epithelium-restricted and stool is not a validated HPV specimen. A
+      stool sequence carries no cervical or anal cancer screening meaning, cannot
+      be used for risk stratification, and a negative result gives no
+      reassurance. High-risk versus low-risk typing is only reported when the
+      evidence resolves the type.
+
+  - seed_id: dna_viruses.human_bocavirus
+    resolution_name: Human bocavirus
+    source_section: "11.1"
+    requested_name: human bocaviruses
+    display_name: Human bocaviruses (HBoV1-4)
+    aliases: [HBoV, HBoV1, HBoV2, HBoV3, HBoV4, Primate bocaparvovirus]
+    group: dna_viruses
+    family: Other human DNA viruses
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    host_category: human
+    host_evidence_level: human_infection_documented
+    molecule_type: ssDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: conditional_virus
+    confirmation_options: [specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      DNA-compatible but not an established cause of diarrhoea. Bocavirus DNA is
+      frequently detected in asymptomatic children and alongside other agents,
+      so co-detection does not make it the cause. Prolonged shedding after
+      infection is documented.
+
+  - seed_id: dna_viruses.parvovirus_b19
+    source_section: "11.1"
+    requested_name: parvovirus B19
+    display_name: Parvovirus B19
+    aliases: [B19V, Human parvovirus B19, Erythroparvovirus, Primate erythroparvovirus 1]
+    group: dna_viruses
+    family: Other human DNA viruses
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: ssDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: conditional_virus
+    confirmation_options: [serology, blood_PCR_viral_load, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_specimen_type]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Erythroid-tropic and bloodborne rather than enteric; B19 is not an
+      established cause of diarrhoea. DNA can persist in tissue for years after
+      infection, so detection does not indicate acute infection. Aplastic crisis
+      and pregnancy-related risk are assessed on serology and blood PCR, not
+      stool.
+
+  - seed_id: dna_viruses.curated_human_parvoviruses
+    source_section: "11.1"
+    requested_name: curated human parvoviruses
+    display_name: Curated human parvoviruses
+    aliases: [PARV4, Human parvovirus 4, Tetraparvovirus]
+    group: dna_viruses
+    family: Other human DNA viruses
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    host_category: human
+    host_evidence_level: human_infection_documented
+    molecule_type: ssDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: conditional_virus
+    confirmation_options: [specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Curated human parvoviruses other than B19 and the bocaviruses, held as a
+      conditional and incidental watch group. The stool-associated bufaviruses,
+      tusaviruses and cutaviruses are kept in the separate uncertain-enteric
+      seeds and are not merged here.
+
+  # ------------------------------------------------------------------
+  # 11.1 row: Uncertain stool-disease attribution
+  # ------------------------------------------------------------------
+  - seed_id: rna_viruses.astrovirus_mlb
+    resolution_name: Astrovirus MLB1
+    source_section: "11.1"
+    requested_name: Astrovirus MLB lineages
+    display_name: Astrovirus MLB lineages
+    aliases: [MLB astrovirus, HAstV-MLB1, HAstV-MLB2, HAstV-MLB3, Mamastrovirus MLB]
+    group: rna_viruses
+    family: Uncertain stool-disease attribution
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [RNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: human_infection_documented
+    molecule_type: ssRNA_positive
+    segmented: false
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while MLB astrovirus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: uncertain_virus
+    confirmation_options: [no_stool_confirmation_applicable, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Divergent astrovirus lineage detected in both symptomatic and asymptomatic
+      stool. Uncertain-enteric class: no alarm is raised from stool association
+      alone, and it is never relabelled as a classical human astrovirus result.
+
+  - seed_id: rna_viruses.astrovirus_va_hmo
+    resolution_name: Astrovirus VA1
+    source_section: "11.1"
+    requested_name: Astrovirus VA/HMO lineages
+    display_name: Astrovirus VA/HMO lineages
+    aliases: [VA astrovirus, HAstV-VA1, HAstV-VA2, HMO astrovirus, HAstV-HMO-C]
+    group: rna_viruses
+    family: Uncertain stool-disease attribution
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [RNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: human_infection_documented
+    molecule_type: ssRNA_positive
+    segmented: false
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while VA/HMO astrovirus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: uncertain_virus
+    confirmation_options: [no_stool_confirmation_applicable, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      VA and HMO are overlapping naming schemes for the same divergent clade and
+      are resolved as aliases against the frozen taxonomy rather than duplicated.
+      Uncertain-enteric class; rare severe extraintestinal cases in
+      immunocompromised hosts do not license a general alarm from stool
+      association alone.
+
+  - seed_id: rna_viruses.salivirus
+    source_section: "11.1"
+    requested_name: saliviruses
+    display_name: Saliviruses
+    aliases: [Salivirus A, Klassevirus, SalV]
+    group: rna_viruses
+    family: Uncertain stool-disease attribution
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [RNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: human_sample_association_only
+    molecule_type: ssRNA_positive
+    segmented: false
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while salivirus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: uncertain_virus
+    confirmation_options: [no_stool_confirmation_applicable, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Human stool association is documented; a causal enteric role is not
+      established. Isolation from human stool does not by itself set the
+      biological host or license a clinical claim.
+
+  - seed_id: rna_viruses.cosavirus
+    source_section: "11.1"
+    requested_name: cosaviruses
+    display_name: Cosaviruses
+    aliases: [Cosavirus A, Cosavirus B, Cosavirus D, Cosavirus E, HCoSV]
+    group: rna_viruses
+    family: Uncertain stool-disease attribution
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [RNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: human_sample_association_only
+    molecule_type: ssRNA_positive
+    segmented: false
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while cosavirus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: uncertain_virus
+    confirmation_options: [no_stool_confirmation_applicable, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Frequently found in asymptomatic stool, including in healthy children. No
+      alarm from stool association alone and no attribution of diarrhoea to a
+      cosavirus sequence.
+
+  - seed_id: rna_viruses.saffold_cardiovirus
+    source_section: "11.1"
+    requested_name: Saffold cardioviruses
+    display_name: Saffold cardiovirus
+    aliases: [SAFV, Cardiovirus B, Saffold virus, Human Theilovirus]
+    group: rna_viruses
+    family: Uncertain stool-disease attribution
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [RNA]
+    stool_role: intestinal_shedding
+    host_category: human
+    host_evidence_level: human_infection_documented
+    molecule_type: ssRNA_positive
+    segmented: false
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while Saffold cardiovirus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: uncertain_virus
+    confirmation_options: [no_stool_confirmation_applicable, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Human infection is documented by high seroprevalence, but stool-disease
+      attribution is not established. Detection is reported as an
+      uncertain-enteric sequence finding with no inference of myocarditis or
+      neurological disease.
+
+  - seed_id: dna_viruses.bufavirus
+    source_section: "11.1"
+    requested_name: bufaviruses
+    display_name: Bufaviruses
+    aliases: [BuV, BuV1, BuV2, BuV3, Primate protoparvovirus 1]
+    group: dna_viruses
+    family: Uncertain stool-disease attribution
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    host_category: human
+    host_evidence_level: human_sample_association_only
+    molecule_type: ssDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: uncertain_virus
+    confirmation_options: [no_stool_confirmation_applicable, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      DNA-compatible molecule but uncertain-enteric class: bufavirus is detected
+      at low prevalence in both diarrhoeal and non-diarrhoeal stool and is not an
+      established cause of gastroenteritis. Molecule eligibility does not confer
+      clinical attribution.
+
+  - seed_id: dna_viruses.tusavirus
+    source_section: "11.1"
+    requested_name: tusaviruses
+    display_name: Tusaviruses
+    aliases: [TuV, Tusavirus 1, Protoparvovirus tusavirus]
+    group: dna_viruses
+    family: Uncertain stool-disease attribution
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    host_category: human
+    host_evidence_level: human_sample_association_only
+    molecule_type: ssDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: uncertain_virus
+    confirmation_options: [no_stool_confirmation_applicable]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Known from very few human stool reports, with reference diversity and
+      possible reference absence as real limitations. Human sample association
+      only; no disease claim and no confirmation pathway exists on stool.
+
+  - seed_id: dna_viruses.cutavirus
+    source_section: "11.1"
+    requested_name: cutaviruses
+    display_name: Cutaviruses
+    aliases: [CuV, Cutavirus, Protoparvovirus cutavirus]
+    group: dna_viruses
+    family: Uncertain stool-disease attribution
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    host_category: human
+    host_evidence_level: human_sample_association_only
+    molecule_type: ssDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: uncertain_virus
+    confirmation_options: [no_stool_confirmation_applicable, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Detected in human stool and reported in some cutaneous T-cell lymphoma
+      tissue studies. Those associations are not established causation and no
+      oncological or dermatological conclusion is drawn from a stool sequence.
+
+  - seed_id: dna_viruses.other_human_stool_associated_parvoviruses
+    source_section: "11.1"
+    requested_name: other human stool-associated parvoviruses
+    display_name: Other human stool-associated parvoviruses
+    aliases: []
+    group: dna_viruses
+    family: Uncertain stool-disease attribution
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: variable_shedding
+    host_category: human
+    host_evidence_level: human_sample_association_only
+    molecule_type: ssDNA
+    segmented: false
+    expansion_state: manual_review_required
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: uncertain_virus
+    confirmation_options: [no_stool_confirmation_applicable]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Registry slot for further parvoviruses reported from human stool. Members
+      are added only after review against the frozen taxonomy and ICTV VMR; no
+      ICTV binomial is hand-invented, and dietary or animal-derived parvoviruses
+      are not promoted to human findings.
+
+  - seed_id: dna_viruses.anellovirus
+    source_section: "11.1"
+    requested_name: anelloviruses
+    display_name: Anelloviruses
+    aliases: [TTV, Torque teno virus, TTMV, TTMDV, Alphatorquevirus, Anelloviridae]
+    group: dna_viruses
+    family: Uncertain stool-disease attribution
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    host_category: human
+    host_evidence_level: human_infection_documented
+    molecule_type: ssDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: uncertain_virus
+    confirmation_options: [no_stool_confirmation_applicable]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Near-universal, highly diverse human carriage with no established disease
+      role; anellovirus load is studied as a correlate of immune status but is
+      not a validated clinical marker here. Detection is expected background and
+      is never reported as an infection or an alarm.
+
+  # ------------------------------------------------------------------
+  # 11.1 row: Human torovirus-like findings
+  # ------------------------------------------------------------------
+  - seed_id: rna_viruses.human_torovirus_like
+    source_section: "11.1"
+    requested_name: Human torovirus-like findings
+    display_name: Human torovirus-like findings
+    aliases: [Human torovirus, HToV, Torovirus-like sequence]
+    group: rna_viruses
+    family: Human torovirus-like findings
+    interpretation_class: uncertain_enteric_role
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [RNA]
+    stool_role: variable_shedding
+    host_category: unresolved
+    host_evidence_level: unresolved
+    molecule_type: ssRNA_positive
+    segmented: false
+    expansion_state: manual_review_required
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while torovirus-like sequence has an RNA genome."
+    candidate_sources: []
+    report_template_id: uncertain_virus
+    confirmation_options: [no_stool_confirmation_applicable]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid, reference_absent]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    reference_gap_note: >-
+      Curated candidate references are only added once host and taxonomy can be
+      verified against the frozen NCBI taxonomy and ICTV VMR. Until then
+      candidate_sources stays empty, this seed carries an explicit
+      reference and attribution gap in the coverage ledger, and it cannot receive
+      a not_detected or species-supported status.
+    note: >-
+      Uncertain-enteric and uncertain-host class held for manual review. Human
+      torovirus reports rest on older electron microscopy and serology, and the
+      biological host of torovirus-like stool sequences is not resolved, so no
+      ICTV binomial is hand-invented for them. A protein or HMM match, geNomad
+      classification or CheckV completeness estimate does not prove human
+      tropism.
+
+  # ------------------------------------------------------------------
+  # 11.1 row: Uncertain host/background
+  # ------------------------------------------------------------------
+  - seed_id: other_viruses.picobirnavirus
+    resolution_name: Human picobirnavirus
+    source_section: "11.1"
+    requested_name: Picobirnaviruses
+    display_name: Picobirnaviruses
+    aliases: [PBV, Picobirnaviridae, Human picobirnavirus]
+    group: other_viruses
+    family: Uncertain host/background
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [RNA]
+    stool_role: carriage_common
+    host_category: unresolved
+    host_evidence_level: unresolved
+    molecule_type: dsRNA
+    segmented: true
+    segment_manifest_id: picobirnavirus_2_segments
+    segment_count: 2
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while picobirnavirus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: background_virus
+    confirmation_options: [no_stool_confirmation_applicable]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid]
+    clinical_source_urls: ["https://www.pnas.org/doi/10.1073/pnas.2309647120"]
+    note: >-
+      Picobirnavirus is not a default human-pathogen result. Bacterial-lysin
+      evidence, including genes encoding cell-wall-degrading lysins in
+      picobirnavirus genomes, supports prokaryotic or other microbial hosts for
+      at least some members, so the biological host stays unresolved even though
+      the sequence came from human stool. A sequence finding does not establish
+      human infection. The bi-segmented dsRNA genome is bundled through its
+      segment manifest, so recovering both segments is one virus-group finding
+      rather than two.
+
+  - seed_id: other_viruses.smacovirus
+    resolution_name: Porcine stool-associated circular virus 1
+    source_section: "11.1"
+    requested_name: smacoviruses
+    display_name: Smacoviruses
+    aliases: [Smacoviridae, Porprismacovirus, Human smacovirus]
+    group: other_viruses
+    family: Uncertain host/background
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    host_category: unresolved
+    host_evidence_level: unresolved
+    molecule_type: ssDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: background_virus
+    confirmation_options: [no_stool_confirmation_applicable]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Small circular ssDNA viruses recovered from stool with an unresolved
+      biological host; archaeal methanogens have been proposed rather than
+      established. DNA-molecule eligibility does not make this a human-pathogen
+      result, and detection is reported in the ecological/background section
+      only.
+
+  - seed_id: other_viruses.cress_dna_circovirus_like
+    source_section: "11.1"
+    requested_name: CRESS-DNA/circovirus-like findings
+    display_name: CRESS-DNA and circovirus-like findings
+    aliases: [CRESS-DNA virus, Circoviridae-like, Cyclovirus, Gemycircularvirus, Redondoviridae]
+    group: other_viruses
+    family: Uncertain host/background
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    host_category: unresolved
+    host_evidence_level: unresolved
+    molecule_type: ssDNA
+    segmented: false
+    expansion_state: manual_review_required
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: background_virus
+    confirmation_options: [no_stool_confirmation_applicable]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Circular Rep-encoding ssDNA sequences are abundant in stool and food and
+      their hosts are largely unknown; many likely infect dietary plants, fungi,
+      protists or bacteria rather than humans. Rep-gene homology alone does not
+      resolve host or taxonomy, so these remain background findings and no ICTV
+      binomial is hand-invented for them.
+
+  - seed_id: other_viruses.fungal_viruses
+    source_section: "11.1"
+    requested_name: fungal viruses
+    display_name: Fungal viruses (mycoviruses)
+    aliases: [Mycovirus, Totiviridae, Partitiviridae, Chrysoviridae, Narnaviridae]
+    group: other_viruses
+    family: Uncertain host/background
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [RNA]
+    stool_role: carriage_common
+    host_category: fungal
+    host_evidence_level: nonhuman_host_established
+    molecule_type: dsRNA
+    segmented: false
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while mycovirus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: background_virus
+    confirmation_options: [no_stool_confirmation_applicable]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid, reference_absent]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Viruses of fungi, whose established hosts are fungal and not human; they
+      typically enter stool with dietary or commensal fungi. A sequence finding
+      does not establish human infection and is reported in the
+      ecological/background section only. Most stool-relevant mycoviruses are
+      dsRNA, so this seed is RNA-annotated; DNA-genome mycoviruses are registered
+      as separate molecule-annotated records rather than inferred from this row.
+
+  - seed_id: other_viruses.protist_viruses
+    source_section: "11.1"
+    requested_name: protist viruses
+    display_name: Protist viruses
+    aliases: [Giardia lamblia virus, Trichomonas vaginalis virus, Giardiavirus, Trichomonasvirus]
+    group: other_viruses
+    family: Uncertain host/background
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [RNA]
+    stool_role: carriage_common
+    host_category: protist
+    host_evidence_level: nonhuman_host_established
+    molecule_type: dsRNA
+    segmented: false
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while protist virus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: background_virus
+    confirmation_options: [no_stool_confirmation_applicable]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid, reference_absent]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Viruses whose established hosts are protists, including the dsRNA viruses
+      of Giardia and Trichomonas. Detection is a marker of the protist host at
+      most and never a human-virus result; it does not on its own confirm the
+      protist either, which stays a separate parasite target. DNA-genome protist
+      viruses are registered as separate molecule-annotated records.
+
+  # ------------------------------------------------------------------
+  # 11.1 row: Phage/background
+  # ------------------------------------------------------------------
+  - seed_id: other_viruses.bacteriophage_background
+    resolution_name: Escherichia phage Lambda
+    source_section: "11.1"
+    requested_name: Bacterial viruses, including viral sequence clusters
+    display_name: Bacteriophage background (including viral sequence clusters)
+    aliases: [Bacteriophage, Phage, Caudoviricetes, Microviridae, crAss-like phage, MetaPhlAn VSC]
+    group: other_viruses
+    family: Phage/background
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    host_category: bacterial
+    host_evidence_level: nonhuman_host_established
+    molecule_type: dsDNA
+    segmented: false
+    candidate_sources: ["MetaPhlAn_VSC", "NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: background_virus
+    confirmation_options: [no_stool_confirmation_applicable]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Phage contigs are never counted as human pathogens. Viral sequence
+      cluster outputs and other bacteriophage sequences belong to the
+      ecological/background section: their established hosts are bacteria, the
+      gut phageome is normal and abundant, and phage-encoded genes are not read
+      as human virulence or resistance findings. Never count all viral contigs as
+      human pathogens. Most gut phages are dsDNA, so this seed is DNA-annotated;
+      RNA phages are registered as separate molecule-annotated records.
+
+  - seed_id: other_viruses.archaeal_viruses
+    resolution_name: Sulfolobus spindle-shaped virus 1
+    source_section: "11.1"
+    requested_name: Archaeal viruses
+    display_name: Archaeal viruses
+    aliases: [Archaeal virus, Archaeovirus, Methanogen virus]
+    group: other_viruses
+    family: Phage/background
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    host_category: archaeal
+    host_evidence_level: nonhuman_host_established
+    molecule_type: dsDNA
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: background_virus
+    confirmation_options: [no_stool_confirmation_applicable]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, reference_absent]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Viruses of gut archaea such as methanogens. Ecological/background section
+      only; their established hosts are archaeal and detection is never counted
+      as a human pathogen finding.
+
+  - seed_id: other_viruses.plant_food_virus_background
+    source_section: "11.1"
+    requested_name: plant/food viruses
+    display_name: Plant and food-derived viruses
+    aliases: [Plant virus, Dietary virus, Tobamovirus, Tymovirales]
+    group: other_viruses
+    family: Phage/background
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [RNA]
+    stool_role: environmental_or_dietary
+    host_category: plant
+    host_evidence_level: nonhuman_host_established
+    molecule_type: ssRNA_positive
+    segmented: false
+    member_seed_ids:
+      - other_viruses.pepper_mild_mottle_virus
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while plant/food virus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: background_virus
+    confirmation_options: [no_stool_confirmation_applicable]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid, reference_absent]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Group record for dietary plant viruses that pass through the gut. Their
+      established hosts are plants, so these are diet and environment markers at
+      most and are never counted as human pathogens. Dietary plant viruses in
+      stool are predominantly positive-sense ssRNA, so this group is
+      RNA-annotated; DNA-genome plant viruses such as geminiviruses are
+      registered as separate molecule-annotated records rather than inferred from
+      this row heading.
+
+  - seed_id: other_viruses.pepper_mild_mottle_virus
+    source_section: "11.1"
+    requested_name: pepper mild mottle virus
+    display_name: Pepper mild mottle virus
+    aliases: [PMMoV, Pepper mild mottle tobamovirus, Tobamovirus]
+    group: other_viruses
+    family: Phage/background
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [RNA]
+    stool_role: environmental_or_dietary
+    host_category: plant
+    host_evidence_level: nonhuman_host_established
+    molecule_type: ssRNA_positive
+    segmented: false
+    parent_seed_id: other_viruses.plant_food_virus_background
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while pepper mild mottle virus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: background_virus
+    confirmation_options: [no_stool_confirmation_applicable]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      A pepper-infecting plant virus and one of the most abundant viruses in
+      human stool, derived from chilli and pepper-containing food. Its
+      established host is a plant, so detection is a dietary exposure marker and
+      never a human infection; it is a useful background and faecal-source
+      control rather than a pathogen result.
+
+  # ------------------------------------------------------------------
+  # 11.1 row: Non-enteric systemic watch
+  # ------------------------------------------------------------------
+  - seed_id: rna_viruses.hiv
+    resolution_name: Human immunodeficiency virus 1
+    source_section: "11.1"
+    requested_name: HIV
+    display_name: Human immunodeficiency virus (HIV-1 and HIV-2)
+    aliases: [HIV, HIV-1, HIV-2, Human immunodeficiency virus 1, Human immunodeficiency virus 2]
+    group: rna_viruses
+    family: Non-enteric systemic watch
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA, RNA]
+    stool_role: extraintestinal
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: ssRNA_RT
+    segmented: false
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while HIV has an RNA genome. Integrated proviral DNA can still be searched in a DNA library, and that search is reported separately and only as an unexpected-sequence finding."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: extraintestinal_watch_virus
+    confirmation_options: [serology, blood_PCR_viral_load, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_specimen_type]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Stool is not an HIV diagnostic assay. Both nucleic acids are permitted
+      because integrated proviral DNA in shed host cells may be searchable in a
+      DNA library while the genomic RNA branch needs the RNA profile, but
+      proviral DNA does not make stool a validated HIV test. This is a broad
+      unexpected-sequence search target, not a routine
+      stool-diagnostic-negative target: no negative result may be read as
+      excluding HIV, and any finding requires confirmatory serology or blood
+      testing with appropriate counselling. Highly sensitive result requiring
+      careful handling.
+
+  - seed_id: rna_viruses.htlv
+    resolution_name: Primate T-lymphotropic virus 1
+    source_section: "11.1"
+    requested_name: HTLV
+    display_name: Human T-lymphotropic virus (HTLV-1 and HTLV-2)
+    aliases: [HTLV, HTLV-1, HTLV-2, Human T-cell leukemia virus, Primate T-lymphotropic virus]
+    group: rna_viruses
+    family: Non-enteric systemic watch
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA, RNA]
+    stool_role: extraintestinal
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: ssRNA_RT
+    segmented: false
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while HTLV has an RNA genome. Integrated proviral DNA can still be searched in a DNA library, and that search is reported separately and only as an unexpected-sequence finding."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: extraintestinal_watch_virus
+    confirmation_options: [serology, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_specimen_type]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Stool is not an HTLV diagnostic assay. Both nucleic acids are permitted
+      because integrated proviral DNA in shed lymphocytes may be searchable while
+      the genomic RNA branch needs the RNA profile; proviral DNA does not make
+      stool a validated HTLV test. Most carriers never develop adult T-cell
+      leukaemia or HAM/TSP, so no prognosis is implied. Confirmation is by
+      serology with specialist counselling. Highly sensitive result requiring
+      careful handling.
+
+  - seed_id: dna_viruses.hepatitis_b_virus
+    source_section: "11.1"
+    requested_name: HBV
+    display_name: Hepatitis B virus
+    aliases: [HBV, Hepatitis B virus, Orthohepadnavirus, Hepadnaviridae]
+    group: dna_viruses
+    family: Non-enteric systemic watch
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: dsDNA_RT
+    segmented: false
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: extraintestinal_watch_virus
+    confirmation_options: [serology, blood_PCR_viral_load, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_specimen_type]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Hepatitis B has a DNA genome, so the molecule permits a broad
+      unexpected-sequence search on a DNA library; that does not make stool a
+      validated hepatitis B test. Blood is the diagnostic specimen and a negative
+      stool result is not a routine diagnostic negative for HBV. Detection cannot
+      distinguish acute, chronic, resolved or occult infection, and no
+      antiviral or staging conclusion follows. Recent hepatitis B vaccination is
+      not a source of HBV genomic DNA but immunisation history remains relevant
+      context. Sensitive result requiring careful handling.
+
+  - seed_id: rna_viruses.hepatitis_c_virus
+    source_section: "11.1"
+    requested_name: HCV
+    display_name: Hepatitis C virus
+    aliases: [HCV, Hepacivirus C, Hepatitis C virus]
+    group: rna_viruses
+    family: Non-enteric systemic watch
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [RNA]
+    stool_role: extraintestinal
+    host_category: human
+    host_evidence_level: established_human_pathogen
+    molecule_type: ssRNA_positive
+    segmented: false
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while hepatitis C virus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: extraintestinal_watch_virus
+    confirmation_options: [serology, blood_PCR_viral_load, specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid, wrong_specimen_type]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Bloodborne and hepatotropic rather than enteric, and RNA-genome, so a
+      DNA-only library returns not assessed rather than negative. Even on an RNA
+      route stool is not a validated hepatitis C test; diagnosis is antibody
+      testing plus blood HCV RNA. Sensitive result requiring careful handling.
+
+  - seed_id: dna_viruses.additional_curated_human_dna_viruses
+    source_section: "11.1"
+    requested_name: additional curated human viruses
+    display_name: Additional curated human DNA viruses (systemic watch)
+    aliases: []
+    group: dna_viruses
+    family: Non-enteric systemic watch
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    host_category: human
+    host_evidence_level: unresolved
+    molecule_type: dsDNA
+    segmented: false
+    expansion_state: manual_review_required
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: extraintestinal_watch_virus
+    confirmation_options: [specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_specimen_type, reference_absent]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      Registry slot for further curated human DNA viruses reachable by the broad
+      unexpected-sequence search where the molecule permits. Not a routine
+      stool-diagnostic-negative target. The row heading mixes molecules, so the
+      DNA and RNA halves are held as separate molecule-annotated seeds and each
+      resolved member carries its own actual molecule, segment and host-evidence
+      annotation, which overrides these group-level placeholders.
+    member_seed_ids: []
+
+  - seed_id: rna_viruses.additional_curated_human_rna_viruses
+    source_section: "11.1"
+    requested_name: additional curated human viruses
+    display_name: Additional curated human RNA viruses (systemic watch)
+    aliases: []
+    group: rna_viruses
+    family: Non-enteric systemic watch
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [RNA]
+    stool_role: extraintestinal
+    host_category: human
+    host_evidence_level: unresolved
+    molecule_type: ssRNA_positive
+    segmented: false
+    expansion_state: manual_review_required
+    rna_profile_required: true
+    dna_only_statement: "Not assessed: this library was prepared for DNA, while this curated human RNA virus has an RNA genome."
+    candidate_sources: ["NCBI_Virus", "ICTV_VMR", "RVDB"]
+    report_template_id: extraintestinal_watch_virus
+    confirmation_options: [specialist_referral]
+    negative_limitation_codes: [sampling, shedding, extraction, depth, reference_diversity, wrong_nucleic_acid, wrong_specimen_type, reference_absent]
+    clinical_source_urls: ["https://www.ncbi.nlm.nih.gov/labs/virus/vssi/", "https://ictv.global/vmr"]
+    note: >-
+      RNA counterpart of the curated systemic watch registry, eligible only on
+      the separately benchmarked research_rna_virus_v1 profile. Not a routine
+      stool-diagnostic-negative target. Each resolved member carries its own
+      actual molecule, segment and host-evidence annotation, which overrides
+      these group-level placeholders; segmented members gain a segment manifest
+      at resolution.
+    member_seed_ids: []

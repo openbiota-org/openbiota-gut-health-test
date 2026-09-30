@@ -1,0 +1,143 @@
+name: bcaa
+description: >-
+  Branched-chain amino acid biosynthesis. ilvC (ketol-acid reductoisomerase)
+  and ilvD (dihydroxy-acid dehydratase) mark the shared valine/leucine/
+  isoleucine route, with leuA marking the leucine branch. Higher microbial
+  BCAA biosynthesis potential was the strongest functional signature of
+  insulin resistance in the Pedersen cohort, mediated by Prevotella copri and
+  Bacteroides vulgatus.
+metabolite: Branched-chain amino acids (valine, leucine, isoleucine)
+pathway: >-
+  pyruvate -> acetolactate (ilvBN) -> ilvC -> ilvD -> 2-ketoisovalerate ->
+  valine (ilvE); 2-ketoisovalerate -> leuA -> leucine
+category: metabolite
+
+organisms:
+  - Prevotella copri
+  - Bacteroides vulgatus
+  - Escherichia coli
+  - Klebsiella pneumoniae
+  - Bacteroides fragilis
+
+extension: true
+
+targets:
+  - id: ILVC
+    label: ilvC (ketol-acid reductoisomerase)
+    gene: ilvC
+    source: uniprot
+    query: '(protein_name:"ketol-acid reductoisomerase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2500
+    length_tolerance: 0.25
+
+  - id: ILVD
+    label: ilvD (dihydroxy-acid dehydratase)
+    gene: ilvD
+    source: uniprot
+    query: '(protein_name:"dihydroxy-acid dehydratase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2500
+    length_tolerance: 0.25
+
+  - id: LEUA
+    label: leuA (2-isopropylmalate synthase, leucine branch)
+    gene: leuA
+    source: uniprot
+    query: '(protein_name:"2-isopropylmalate synthase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.25
+
+decoys:
+  - id: DHADBG
+    label: IlvD/EDD family background
+    source: uniprot
+    query: '((protein_name:"phosphogluconate dehydratase") OR (protein_name:"L-arabonate dehydratase") OR (protein_name:"6-phosphogluconate dehydratase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 2500
+    length_tolerance: 0.25
+
+  - id: DREBG
+    label: DRE-TIM metallolyase background (leuA fold)
+    source: uniprot
+    query: '((protein_name:"citrate synthase") OR (protein_name:"homocitrate synthase") OR (protein_name:"2-isopropylmalate synthase-like protein") OR (protein_name:"malate synthase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 3000
+    length_tolerance: 0.30
+
+  - id: NADPRED
+    label: NAD(P)-binding Rossmann background (ilvC fold)
+    source: uniprot
+    query: '((protein_name:"3-hydroxyisobutyrate dehydrogenase") OR (protein_name:"6-phosphogluconate dehydrogenase, decarboxylating") OR (protein_name:"2-hydroxy-3-oxopropionate reductase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 3000
+    length_tolerance: 0.30
+
+aggregate: sum
+aggregate_from: [ILVC, ILVD]
+aggregate_reason: >-
+  ilvC and ilvD are consecutive steps in the shared BCAA route and their sum
+  is the capacity estimate. leuA is reported separately as the leucine branch.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+caveats:
+  - >-
+    BCAA biosynthesis is a core amino acid pathway present in most gut
+    bacteria. The finding in the insulin resistance literature is about
+    *degree* — a shift in the community's biosynthetic potential — not about
+    presence or absence, so the percentile is the meaningful reading and the
+    raw value is not.
+  - >-
+    Elevated serum BCAAs in insulin resistance also reflect impaired host
+    BCAA catabolism in muscle and liver. The microbial contribution is one
+    term in that equation, and this panel measures only capacity, not flux.
+  - >-
+    Whether raising or lowering microbial BCAA synthesis changes insulin
+    sensitivity in humans has not been tested.
+
+interpretation:
+  what_it_is: >-
+    The capacity of your gut bacteria to synthesise the branched-chain amino
+    acids valine, leucine and isoleucine.
+  made_from: Pyruvate and other central carbon intermediates
+  higher_means: adverse
+  evidence_strength: moderate
+  summary: >-
+    Higher microbial branched-chain amino acid biosynthesis potential was the
+    strongest functional signature of insulin resistance in a large European
+    cohort, driven mainly by Prevotella copri and Bacteroides vulgatus.
+  evidence_detail: >-
+    Pedersen et al. profiled 277 non-diabetic Danish adults with serum
+    metabolomics and shotgun metagenomics and found that insulin-resistant
+    individuals had higher serum BCAAs and that the gut community's BCAA
+    biosynthesis potential was the strongest associated functional module.
+    They then showed that colonising mice with Prevotella copri — a main
+    driver species — raised serum BCAAs and induced insulin resistance,
+    which turns a correlation into a plausible causal chain. The honest
+    limits: the driver species are diet-dependent and geographically
+    variable, and serum BCAA elevation in insulin resistance has a substantial
+    host-metabolism component that this measurement does not touch.
+  implications:
+    higher: >-
+      Your gut community has more branched-chain amino acid synthesis capacity
+      than most people's. In a large European cohort this was the functional
+      signature most strongly associated with insulin resistance, with a
+      supporting mouse experiment. It is one term among many — host muscle and
+      liver BCAA handling matter at least as much — and no intervention
+      targeting it has been tested in humans.
+    typical: >-
+      Your community's branched-chain amino acid synthesis capacity sits in the middle of the reference range. The raised capacity reported in insulin resistance was a group-level pattern; a typical reading is the expected state and carries no message about metabolic health on its own.
+    lower: >-
+      Less BCAA synthesis capacity than most people, which is the direction
+      associated with better insulin sensitivity in the cohort data.
+  citation: >-
+    Pedersen H.K. et al., Nature 535:376-381 (2016),
+    doi:10.1038/nature18646
+
+citation: >-
+  Pedersen H.K., Gudmundsdottir V., Nielsen H.B., et al., "Human gut microbes
+  impact host serum metabolome and insulin sensitivity", Nature 535:376-381
+  (2016), doi:10.1038/nature18646.

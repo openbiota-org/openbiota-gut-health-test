@@ -1,0 +1,1410 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Free, open-source software that turns raw shotgun stool-metagenome reads into a readable, evidence-linked gut health report.">
+      
+      
+        <meta name="author" content="OpenBiota contributors">
+      
+      
+        <link rel="canonical" href="https://openbiota.com/docs/fmt.html">
+      
+      
+        <link rel="prev" href="profiles.html">
+      
+      
+        <link rel="next" href="expanded_detection.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="images/openbiota-mark.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>FMT donor matching - OpenBiota Gut Health Test</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/openbiota.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#fmt-donor-matching" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+<header class="md-header ob-header" data-md-component="header">
+  <nav class="md-header__inner ob-header__inner" aria-label="Header">
+    <a href="./../index.html" class="ob-brand" aria-label="OpenBiota home" data-md-component="logo">
+      <img src="images/openbiota-logo.svg" alt="OpenBiota" width="166" height="38">
+    </a>
+    <nav class="ob-nav" aria-label="OpenBiota">
+      <a href="./../index.html#report">The report</a>
+      <a href="./../index.html#technology">The science</a>
+      <a href="./../index.html#story">The reason</a>
+    </nav>
+    <div class="ob-actions">
+      <a class="ob-button ob-button--quiet" href="./../index.html#sample-report">
+        <svg class="icon icon-stack" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 3h13v15H7zM4 6v15h13M10 8h7M10 12h7"/></svg>
+        <span>See an example</span>
+      </a>
+      <a class="ob-button ob-button--dark" href="./../index.html#get-report">
+        <svg class="icon icon-document" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
+        <span>Free Gut Report</span>
+      </a>
+    </div>
+    <label class="md-header__button md-icon ob-drawer" for="__drawer" aria-label="Open navigation">
+      <svg class="icon icon-menu" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </label>
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="OpenBiota Gut Health Test" class="md-nav__button md-logo" aria-label="OpenBiota Gut Health Test" data-md-component="logo">
+      
+  <img src="images/openbiota-mark.svg" alt="logo">
+
+    </a>
+    OpenBiota Gut Health Test
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/openbiota-org/openbiota-gut-health-test" title="Go to repository" class="md-source" data-md-component="source" target="_blank" rel="noopener noreferrer">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quickstart.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="install.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="usage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="output.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reading the report
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="method.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Method
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="panels.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metabolite pathways
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="profiles.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Disease patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FMT donor matching
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="fmt.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FMT donor matching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#run-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-the-report-looks-like" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the report looks like
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-the-recommendation-is-not-simply-the-top-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why the recommendation is not simply the top score
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-the-number-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the number means
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-target-ledger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The target ledger
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#donor-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Donor sets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concerns-and-exclusions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concerns and exclusions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concerns and exclusions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#needs-a-lab-test-names-the-test-and-the-material" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Needs a lab test" names the test and the material
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identity-not-confirmed-and-the-zero-fragment-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Identity not confirmed" and the zero-fragment rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-not-implemented-and-why" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is not implemented, and why
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#strain-level-donor-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strain-level donor comparison
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Strain-level donor comparison">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reading-the-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading the comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disease-resemblance-no-longer-excludes-a-donor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disease resemblance no longer excludes a donor
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="expanded_detection.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Organism detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="measured_capability.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Measured capability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="validation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="testing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="attribution.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#run-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-the-report-looks-like" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the report looks like
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-the-recommendation-is-not-simply-the-top-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why the recommendation is not simply the top score
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-the-number-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the number means
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-target-ledger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The target ledger
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#donor-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Donor sets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concerns-and-exclusions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concerns and exclusions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concerns and exclusions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#needs-a-lab-test-names-the-test-and-the-material" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Needs a lab test" names the test and the material
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identity-not-confirmed-and-the-zero-fragment-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Identity not confirmed" and the zero-fragment rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-not-implemented-and-why" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is not implemented, and why
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#strain-level-donor-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strain-level donor comparison
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Strain-level donor comparison">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reading-the-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading the comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disease-resemblance-no-longer-excludes-a-donor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disease resemblance no longer excludes a donor
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/openbiota-org/openbiota-gut-health-test/edit/main/docs/FMT.md" title="Edit this page" class="md-content__button md-icon" rel="edit noopener noreferrer" target="_blank">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<p class="eyebrow">Research tool</p>
+
+<h1 id="fmt-donor-matching">FMT donor matching<a class="headerlink" href="#fmt-donor-matching" title="Permanent link">&para;</a></h1>
+<p><code>openbiota fmt match</code> compares one recipient against any number of candidate
+donor materials, evaluates combinations of donors for complementary
+restoration potential, and writes a report that separates what was measured
+from what was predicted, simulated or left unresolved.</p>
+<div class="admonition warning">
+<p class="admonition-title">What this command is not</p>
+<p>It is an <strong>experimental computational comparison</strong>. It does not screen a
+donor, clear a donor, predict clinical benefit, or produce preparation,
+mixing, dosing or administration instructions. There is deliberately no
+<code>safe</code> field, no clearance probability and no "approved for FMT" state
+anywhere in the output. Whether any material is ever used is a decision
+for a responsible clinical or research programme with validated
+laboratory screening — not for this software.</p>
+</div>
+<h2 id="run-it">Run it<a class="headerlink" href="#run-it" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>openbiota<span class="w"> </span>fmt<span class="w"> </span>match<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span>--recipient<span class="w"> </span>results/SAMPLE2_A02<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span>--donor<span class="w"> </span><span class="nv">SAMPLE3</span><span class="o">=</span>results/SAMPLE3_A03<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span>--donor<span class="w"> </span><span class="nv">SAMPLE4</span><span class="o">=</span>results/SAMPLE4_A04<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span>--donor<span class="w"> </span><span class="nv">SAMPLE6</span><span class="o">=</span>results/SAMPLE6_A06<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span>--donor<span class="w"> </span><span class="nv">SAMPLE1</span><span class="o">=</span>results/SAMPLE1_A01<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span>--indication<span class="w"> </span>longcovid<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span>--out<span class="w"> </span>results/fmt_SAMPLE2_vs_4donors
+</code></pre></div>
+<p>Every input is a sample output directory from <code>openbiota run</code>. The command
+reads the native <code>results.json</code> of each one; it never needs the network, and
+it never reprocesses reads.</p>
+<p>Outputs land in <code>--out</code>: <code>match.json</code> (canonical), <code>match.html</code>, <code>match.pdf</code>
+and <code>provenance.json</code>. The HTML and PDF read the JSON only, so the three can
+never disagree.</p>
+<table>
+<thead>
+<tr>
+<th>Subcommand</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fmt match</code></td>
+<td>run a comparison and write the reports</td>
+</tr>
+<tr>
+<td><code>fmt inspect --manifest req.json</code></td>
+<td>validate a request and list what would be used</td>
+</tr>
+<tr>
+<td><code>fmt explain --run DIR --candidate SAMPLE4+SAMPLE6</code></td>
+<td>what one candidate uniquely supplies</td>
+</tr>
+<tr>
+<td><code>fmt validate --run DIR</code></td>
+<td>check a completed run's integrity</td>
+</tr>
+<tr>
+<td><code>fmt models list</code></td>
+<td>capability and model-artifact status</td>
+</tr>
+</tbody>
+</table>
+<p>Useful flags: <code>--max-donors-per-set</code>, <code>--max-materials-per-set</code>,
+<code>--max-subsets</code>, <code>--goals FILE</code>, <code>--screening-manifest FILE</code>, <code>--formats</code>,
+<code>--objective</code>, <code>--seed</code>.</p>
+<h2 id="what-the-report-looks-like">What the report looks like<a class="headerlink" href="#what-the-report-looks-like" title="Permanent link">&para;</a></h2>
+<p>The first page is a leaderboard: the recommended candidate, then every other
+candidate ranked, then a definition of each column — so "which donor is the
+best match" has exactly one answer and the reason for the order is on the same
+page.</p>
+<p><img alt="The first page of a match report: the recommended candidate, its match score, and every candidate ranked and split by whether it would introduce a disease pattern the recipient does not have" src="images/fmt-match-leaderboard.png" /></p>
+<h2 id="why-the-recommendation-is-not-simply-the-top-score">Why the recommendation is not simply the top score<a class="headerlink" href="#why-the-recommendation-is-not-simply-the-top-score" title="Permanent link">&para;</a></h2>
+<p>The highest-scoring candidate is not always the one the report recommends, and
+the gap between those two answers is the point of this section.</p>
+<p>A match score measures restoration: how much of what the recipient is missing a
+candidate can supply. It says nothing about what a candidate would <em>add</em>. For
+most donor differences that is fine — a resemblance percentile is not a
+diagnosis, and a gut community is not a transmissible disease.</p>
+<p>But for a small set of conditions, that dismissal does not hold up. Stool from
+patients has been put into animals and reproduced disease features against
+healthy-donor controls. Colorectal cancer is the clearest case, with four
+independent studies: promotion of intestinal carcinogenesis, accelerated
+adenoma progression and oncogenic epigenetic signatures. A candidate at the 90th
+percentile of that pattern, offered to a recipient at the 15th, is a different
+proposition from one that merely shares a pattern the recipient already
+carries.</p>
+<p>So the report applies one rule, stated on the page:</p>
+<blockquote>
+<p><strong>Recommended</strong> = the highest-scoring candidate that would introduce no new
+high-resemblance disease pattern whose condition has human-donor transfer
+evidence.</p>
+</blockquote>
+<p>A pattern counts as <strong>introduced</strong> when the candidate sits at or above the
+<strong>75th percentile</strong> and at least <strong>20 percentile points above</strong> the recipient's
+own reading. A pattern the recipient already carries at a similar level is not
+counted — it is not new to them.</p>
+<p>A pattern counts as <strong>transfer-evidenced</strong> only when patient stool produced
+disease features in a recipient animal against healthy-donor controls. Conditions
+resting on association alone — coeliac disease, ME/CFS, alopecia areata,
+androgenetic alopecia — are reported but never block a candidate. The tiers and
+their citations come from <code>specs/research/Disease_Evidence.md</code>, including its
+explicit boundary list of conditions where association must not be relabelled as
+transfer.</p>
+<p>Nothing is hidden by this rule:</p>
+<ul>
+<li>Every candidate keeps its score and its rank on restoration alone; the <code>#</code>
+  column is that rank.</li>
+<li>The ranked table is <strong>split</strong>, not filtered, under two headings: candidates
+  that introduce nothing new, and candidates that would introduce something.</li>
+<li>The highest-scoring candidate is named on the first page either way, with the
+  patterns it would introduce spelled out.</li>
+<li>A dedicated section lists every flagged pattern with the donor's percentile,
+  the recipient's, the strongest published transfer experiment, its limit and
+  its citations.</li>
+<li>If no candidate is clean, the report says so rather than inventing a
+  recommendation.</li>
+</ul>
+<p>This stays out of the benefit score on purpose. A hazard and a benefit are not
+commensurable, and averaging them into one number would hide exactly the
+decision a person needs to make. Every transfer experiment behind these tiers
+used an animal, usually a predisposed or chemically sensitised one, and none
+establishes that a human FMT transmits a disease. The rule exists because "do
+not give me a condition I do not already have" is a reasonable thing to ask of
+a donor choice, not because the risk is quantified.</p>
+<h2 id="what-the-number-means">What the number means<a class="headerlink" href="#what-the-number-means" title="Permanent link">&para;</a></h2>
+<p><strong>Match score, 0–100.</strong> The share of the recipient's <em>reachable</em> gaps a
+candidate supplies — each gap counted once, with partial credit where supply is
+graded. "Reachable" means a gap that at least one of the supplied materials can
+supply at all: gaps nobody covers are named separately and kept out of the
+scale, so <strong>100 means "supplies everything these materials could supply between
+them"</strong> rather than an unreachable ideal.</p>
+<p>The leaderboard ranks on that score, then on how many gaps are <em>fully</em> rather
+than partly supplied, then on the fewest people involved, then on the fewest
+findings needing a laboratory test, then on a stable candidate ID. Findings are
+a <strong>tie-break only</strong> — they are never traded against the score, and no candidate
+is promoted for having fewer of them.</p>
+<p>It is not a percentage of a microbiome restored, not an engraftment probability,
+not a probability of clinical benefit and not a safety ranking.</p>
+<p><strong>Supported target coverage, 0–100.</strong> The same evidence as a group-capped
+index, reported beside the match score. Gaps are grouped so that one biological
+signal cannot be counted twice: a curated guild and the gene panel measuring the
+same capacity share a group, and their combined credit is capped at that group's
+weight.</p>
+<p>The arithmetic is deliberately conservative:</p>
+<ul>
+<li>The <strong>denominator is frozen</strong> across every candidate. A donor measured on
+  fewer features cannot score well by having fewer goals.</li>
+<li>An <strong>unassessed</strong> target contributes nothing to the supported figure while
+  keeping its measurement <code>null</code> and its scenario bounds at <code>[0, 1]</code>. No
+  evidence earns no credit — and no evidence is not proof of absence.</li>
+<li>An <strong>assessed non-detection</strong> contributes nothing and narrows to zero, with
+  the assay's uncalibrated detection limit recorded as an uncertainty reason.</li>
+<li>Supply is <strong>capped at 1 per target</strong>, so excess earns nothing.</li>
+<li><strong>One signal, one vote.</strong> A curated guild and the gene panel measuring the
+  same capacity share a counting group, and their combined credit is capped at
+  that group's weight. Ten butyrate taxa cannot multiply butyrate's
+  importance tenfold.</li>
+</ul>
+<p>The interval beside a coverage figure is a <strong>scenario bound</strong>, not a
+confidence interval: it is the range across analytical uncertainty (trace
+calls, unassessed features), not a statistical statement.</p>
+<h2 id="the-target-ledger">The target ledger<a class="headerlink" href="#the-target-ledger" title="Permanent link">&para;</a></h2>
+<p>Goals are built <strong>once, from the recipient alone</strong>, before any donor is
+examined — otherwise adding a donor could change what the recipient is said
+to need. Four origins stay separate:</p>
+<table>
+<thead>
+<tr>
+<th>Origin</th>
+<th>Where it comes from</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>reference_supported</code></td>
+<td>a curated guild member absent from the recipient but common in the reference cohort, or a feature reading below the reference lower quartile</td>
+</tr>
+<tr>
+<td><code>indication_hypothesis</code></td>
+<td>a feature the recipient's own scored disease pattern reports as depleted in that condition, carrying its study module as the source</td>
+</tr>
+<tr>
+<td><code>explicit_user_goal</code></td>
+<td>anything you ask for in <code>--goals</code>, allowed without trial evidence and labelled as such</td>
+</tr>
+<tr>
+<td><code>report_candidate</code></td>
+<td>context only: descriptors, community indices, disease-pattern percentiles, uncurated polarity</td>
+</tr>
+</tbody>
+</table>
+<p>Neutral and unknown-polarity features are context by default. A high feature
+becomes an avoidance goal only when its adverse direction is sourced, and a
+donor lacking a feature never earns "eradication" credit — there is no
+negative abundance credit in the tool.</p>
+<h2 id="donor-sets">Donor sets<a class="headerlink" href="#donor-sets" title="Permanent link">&para;</a></h2>
+<p>Set identity is the sorted member list, so <code>SAMPLE4+SAMPLE6</code> and <code>SAMPLE6+SAMPLE4</code> are one
+candidate. Both <code>material_count</code> and <code>unique_donor_count</code> are tracked, so two
+samples from one person are never two donors.</p>
+<p>A set's coverage is an <strong>availability ceiling</strong>: at least one member has
+evidence of supplying the goal. It is not a pooled concentration, a predicted
+community or a persistence forecast. Adding relative abundances does not model
+viability, competition, resource sharing or priority effects, and concatenated
+FASTQs are not a sequenced physical pool.</p>
+<p>Every candidate is compared on a common objective vector — lower scenario
+coverage, supported coverage and assessed goal weight (maximise); scenario
+width, unique donor count and material count (minimise) — and Pareto fronts
+are reported with a deterministic display order. Hazards are deliberately
+<strong>not</strong> in that vector: they are shown alongside, never traded against
+benefit.</p>
+<h2 id="concerns-and-exclusions">Concerns and exclusions<a class="headerlink" href="#concerns-and-exclusions" title="Permanent link">&para;</a></h2>
+<p>Only <strong>confirmed, material-linked</strong> evidence can exclude material: rules X01
+(a qualifying transmissible pathogen), X02 (confirmed ESBL/CRE/VRE/MRSA), X03
+(identity or integrity failure — which excludes the <em>record</em>, never the
+person) and X04 (a documented programme criterion). Those require a
+<code>--screening-manifest</code> with validated laboratory results.</p>
+<p>Everything the sequencing itself finds is a review item, tiered by analytical
+strength rather than by how alarming the organism's name is:</p>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>high_consequence_supported</code></td>
+<td>organism-specific fragments across several informative regions for an established enteric pathogen</td>
+</tr>
+<tr>
+<td><code>high_consequence_unresolved</code></td>
+<td>a serious organism with support confined to one region, or otherwise ambiguous identity</td>
+</tr>
+<tr>
+<td><code>technical_ambiguity</code></td>
+<td>no organism-specific fragment at all — only fragments shared with other taxa</td>
+</tr>
+<tr>
+<td><code>toxin_or_resistance_review</code></td>
+<td>a determinant with no resolved carrier, intact allele or phenotype</td>
+</tr>
+<tr>
+<td><code>screening_gap</code></td>
+<td>no validated screening record linked to the analysed donation</td>
+</tr>
+<tr>
+<td><code>context</code></td>
+<td>disease-pattern resemblance, background and decoy organisms</td>
+</tr>
+</tbody>
+</table>
+<p>The leaderboard splits findings into two columns, because they mean different
+things to a reader. <strong>Serious findings</strong> are organisms that would matter if the
+evidence held up and that a laboratory test would settle. <strong>Other findings</strong> are
+the routine residue every stool sample produces: a species a close relative
+makes unnameable, an organism carried without the genes that cause disease, a
+resistance gene with no resolved carrier.</p>
+<h3 id="needs-a-lab-test-names-the-test-and-the-material">"Needs a lab test" names the test and the material<a class="headerlink" href="#needs-a-lab-test-names-the-test-and-the-material" title="Permanent link">&para;</a></h3>
+<p>A finding that says only "needs a laboratory test" is not actionable, and a
+donor candidate is usually a banked, frozen aliquot rather than a person in a
+clinic. So every finding states which test would settle it and what that test
+needs:</p>
+<table>
+<thead>
+<tr>
+<th>Route</th>
+<th>What it runs on</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stool nucleic-acid test (PCR panel)</td>
+<td>a thawed aliquot of the banked sample, or a fresh sample from the donor</td>
+</tr>
+<tr>
+<td>stool culture</td>
+<td>viable organisms — run it on a fresh sample; a frozen aliquot may not grow even when the organism was there</td>
+</tr>
+<tr>
+<td>toxin immunoassay (EIA)</td>
+<td>the toxin protein, in a thawed aliquot or a fresh sample</td>
+</tr>
+<tr>
+<td>stool antigen test</td>
+<td>a thawed aliquot or a fresh sample</td>
+</tr>
+<tr>
+<td>modified acid-fast microscopy</td>
+<td>a preserved or thawed aliquot</td>
+</tr>
+</tbody>
+</table>
+<p>The routes come from each catalogue target's <code>confirmation_options</code>, so the
+report never invents a test that does not apply to the organism it found.</p>
+<h3 id="identity-not-confirmed-and-the-zero-fragment-rule">"Identity not confirmed" and the zero-fragment rule<a class="headerlink" href="#identity-not-confirmed-and-the-zero-fragment-rule" title="Permanent link">&para;</a></h3>
+<p><strong>Serious organism, identity not confirmed</strong> means the sequence matched an
+organism but not well enough to name the species: either the support sits in a
+region the organism shares with a close relative, or the organism is the same
+genomic species as a relative most healthy guts carry. No species name is given
+because it would be a guess, and nothing has been ruled in or out.</p>
+<p>A row with <strong>zero organism-specific fragments</strong> has no evidence to resolve, so
+it can never produce a "DNA present" line. Reporting <em>"Enteroinvasive
+Escherichia coli — DNA present — 0 specific fragments, 0 regions"</em> is a sentence
+that contradicts itself, and it was the most alarming-looking line in the report
+for a row carrying nothing at all. Those rows now fall through to a plain
+statement that only shared sequence matched. Two tests enforce this:
+<code>test_no_finding_claims_dna_present_with_zero_specific_fragments</code> and
+<code>test_every_finding_names_the_test_and_the_material</code>.</p>
+<p>A gene-family resistance hit with no resolved carrier can only ever raise
+R02 — never an MDRO call. A disease-pattern percentile can only ever be
+context (C01). And the report says <em>"no confirmed exclusion identified in the
+available evidence"</em>, never "no risk": stool DNA sequencing cannot cover
+blood-borne viruses, RNA enteric viruses, culture phenotype, parasite
+microscopy, <em>H. pylori</em> antigen, medical history or the viability of anything
+in the material that would actually be used. That list is printed in every
+report.</p>
+<h2 id="what-is-not-implemented-and-why">What is not implemented, and why<a class="headerlink" href="#what-is-not-implemented-and-why" title="Permanent link">&para;</a></h2>
+<p><code>openbiota fmt models list</code> prints the honest status of every optional
+extension with the exact artifacts that would unblock it. At the time of
+writing: strain resolution needs a strain caller and retained alignments; the
+public engraftment baseline needs the Schmidt 2022 strain objects and triad
+mappings; the MOZAIC adapter needs trained weights the authors do not
+distribute (and its exported metadata maps two participants to one run
+accession, which stays quarantined); the Zhang metabolic replay needs R, the
+committed RDS and AGORA archives the repository references but does not
+bundle; MICOM is not installed; and no ex-vivo immune assay exists for any
+recipient here. None of these blocks the core comparison, and none of them is
+faked with a placeholder score.</p>
+<p>No prospectively validated donor-selection algorithm for post-acute COVID or
+ME/CFS was found in the reviewed evidence, so <code>clinical_matching_validation</code>
+reports <code>not_established_in_retrieved_evidence</code>. That label does not suppress
+the goal-relative comparison — it describes what the comparison can and
+cannot claim.</p>
+<h2 id="strain-level-donor-comparison">Strain-level donor comparison<a class="headerlink" href="#strain-level-donor-comparison" title="Permanent link">&para;</a></h2>
+<p>Species availability tells you a donor carries an organism you are missing.
+Strain comparison tells you something availability cannot: whether a donor's
+population of an organism you <em>both</em> carry is actually <strong>different</strong> from
+yours. Where it differs, that organism is a candidate for changing something.
+Where it is indistinguishable, it would add nothing you do not already have.</p>
+<p>Spec §10.1 requires three capabilities kept strictly apart, because merging
+them turns a comparison into a promise:</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Needs</th>
+<th>Status without it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Baseline comparison</strong> — how related are the populations now?</td>
+<td>The specimens in hand</td>
+<td>Computed</td>
+</tr>
+<tr>
+<td><strong>Observed engraftment</strong> — did the donor's population establish?</td>
+<td>A dated recipient follow-up specimen</td>
+<td><code>followup_required</code>, never "no engraftment" and never zero</td>
+</tr>
+<tr>
+<td><strong>Prospective prediction</strong> — will it establish?</td>
+<td>A frozen, evaluated model</td>
+<td><code>model_unavailable</code>; the baseline comparison stands on its own</td>
+</tr>
+</tbody>
+</table>
+<p><code>match_score</code> keeps its original meaning — <strong>target availability and
+complementarity</strong>. It is not renamed to a probability of establishment when
+strain results are added, and phylogenetic distance is never converted into a
+probability.</p>
+<h3 id="reading-the-comparison">Reading the comparison<a class="headerlink" href="#reading-the-comparison" title="Permanent link">&para;</a></h3>
+<p>Only positions callable in <em>both</em> specimens are compared, and the count is
+always reported. A comparison below 5,000 shared callable bases returns
+<code>insufficient_callable_overlap</code> rather than a distance: zero differences across
+200 positions means something entirely different from zero across 200,000.</p>
+<h3 id="disease-resemblance-no-longer-excludes-a-donor">Disease resemblance no longer excludes a donor<a class="headerlink" href="#disease-resemblance-no-longer-excludes-a-donor" title="Permanent link">&para;</a></h3>
+<p>The rule that a donor percentile ≥75, ≥20 points above the recipient, plus any
+animal-transfer paper for that disease, marked a donor as introducing a
+transferable causal pattern <strong>has been retired</strong> (§8.4).</p>
+<p>It was wrong. A percentile is resemblance to a case-control <em>community
+pattern</em>: it is not a feature of the donor, so there is nothing there to
+transfer, and a paper about a disease says nothing about whether this donor
+carries what the paper studied. In the supplied samples the rule blocked a
+donor on a colorectal-cancer resemblance score whose actual measured colibactin
+evidence was a single <code>clbB</code> fragment — not an intact island by any standard.</p>
+<p>What replaces it is a <strong>measured-mechanism ledger</strong>: candidate mechanisms
+counted only where the sequence evidence was measured in that donor, reported
+per person and never pooled. A gene-family fragment count is the weakest
+evidence there is, and each row states what a confirmed call would require —
+subtype discrimination, locus architecture, gene integrity and carrier linkage.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+  
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  <div class="md-copyright__highlight">
+    <span class="ob-foot__part">&copy; 2026 <a href="./../index.html">OpenBiota</a></span><span class="ob-foot__sep">&middot;</span>
+    <span class="ob-foot__part">Built for the good of humanity.</span><span class="ob-foot__sep">&middot;</span>
+    <span class="ob-foot__part">Free for noncommercial use</span><span class="ob-foot__sep">&middot;</span>
+    <span class="ob-foot__part">Research use only, not a diagnostic test</span>
+  </div>
+</div>
+      
+        <div class="md-social">
+  <a class="ob-code-link" href="https://github.com/openbiota-org/openbiota-gut-health-test" target="_blank" rel="noopener noreferrer" aria-label="OpenBiota on GitHub">
+    <svg class="icon icon-github" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="currentColor" stroke="none" d="M12 .75a11.25 11.25 0 0 0-3.558 21.923c.562.104.77-.244.77-.542 0-.267-.01-.974-.016-1.912-3.13.68-3.791-1.507-3.791-1.507-.512-1.301-1.25-1.647-1.25-1.647-1.023-.7.077-.686.077-.686 1.13.08 1.725 1.16 1.725 1.16 1.006 1.724 2.64 1.226 3.282.938.102-.73.394-1.227.716-1.51-2.499-.284-5.126-1.25-5.126-5.565 0-1.23.44-2.235 1.159-3.023-.116-.284-.502-1.428.11-2.976 0 0 .944-.302 3.094 1.155A10.787 10.787 0 0 1 12 6.18c.956.005 1.918.13 2.816.379 2.148-1.457 3.09-1.155 3.09-1.155.613 1.548.228 2.692.112 2.976.721.788 1.157 1.793 1.157 3.023 0 4.326-2.63 5.278-5.137 5.557.404.35.765 1.043.765 2.1 0 1.516-.013 2.738-.013 3.109 0 .3.204.65.774.541A11.251 11.251 0 0 0 12 .75Z"/></svg>
+    <span>Code</span>
+  </a>
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+  <div class="ob-mobile-actions" aria-label="Get the OpenBiota report">
+    <a class="ob-button ob-button--outline" href="./../index.html#sample-report">
+      <svg class="icon icon-stack" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 3h13v15H7zM4 6v15h13M10 8h7M10 12h7"/></svg>
+      <span>See an example</span>
+    </a>
+    <a class="ob-button ob-button--dark" href="./../index.html#get-report">
+      <svg class="icon icon-document" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
+      <span>Get Free Report</span>
+    </a>
+  </div>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.indexes", "content.code.copy", "content.action.edit", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

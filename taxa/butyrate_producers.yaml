@@ -1,0 +1,63 @@
+name: butyrate
+label: "Butyrate producers"
+category: function
+higher_means: favourable
+description: >-
+  Species with characterised butyrate-producing capacity, dominated by the
+  Lachnospiraceae and Ruminococcaceae. Butyrate is the main energy source for
+  colonocytes, inhibits histone deacetylases, and induces regulatory T cells.
+  This group is the single most informative one in the report and the one
+  whose depletion appears in nearly every disease pattern — which is exactly
+  why a low reading here is not specific to anything.
+
+summary: >-
+  The organisms that make butyrate, the short-chain fatty acid your colon
+  cells burn for fuel. Depletion of this group is the most common finding in
+  gut disease research and the least specific: it accompanies inflammatory
+  bowel disease, recent antibiotics, low-fibre eating and general ill health
+  alike.
+
+members:
+  - Faecalibacterium prausnitzii
+  - Roseburia intestinalis
+  - Roseburia hominis
+  - Roseburia faecis
+  - Roseburia inulinivorans
+  - Eubacterium rectale
+  - Eubacterium hallii
+  - Eubacterium eligens
+  - Eubacterium ventriosum
+  - Coprococcus catus
+  - Coprococcus comes
+  - Coprococcus eutactus
+  - Anaerostipes hadrus
+  - Anaerostipes caccae
+  - Butyricicoccus pullicaecorum
+  - Butyrivibrio crossotus
+  - Agathobaculum butyriciproducens
+  - Subdoligranulum variabile
+  - Odoribacter splanchnicus
+
+unresolved:
+  - Agathobacter rectalis
+  - Butyricimonas faecihominis
+
+caveats:
+  - >-
+    Carriage of the pathway is not production. Butyrate output depends on
+    fermentable fibre reaching the colon, and a person with a rich butyrate-
+    producer community on a low-fibre diet produces little of it.
+  - >-
+    Odoribacter splanchnicus is included as a characterised butyrate producer
+    but is also elevated in the Alzheimer's continuum panel. Group membership
+    is about metabolic capacity, not about whether an organism is desirable.
+  - >-
+    This group should agree with the butyrate gene panel. Where the two
+    disagree, one of the two maps is wrong, and the report says so rather
+    than picking a winner.
+
+citation: >-
+  Louis P., Flint H.J., "Formation of propionate and butyrate by the human
+  colonic microbiota", Environ Microbiol 19:29-41 (2017),
+  doi:10.1111/1462-2920.13589; Vital M., Karch A., Pieper D.H., "Colonic
+  butyrate-producing communities in humans", mSystems 2:e00130-17 (2017).

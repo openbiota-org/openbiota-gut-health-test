@@ -1,0 +1,279 @@
+name: longcovid
+version: 0.2.0
+label: "Long COVID chronic-state community similarity"
+disease: post_acute_sequelae_of_covid19
+task: pacs_chronic_vs_healthy
+family: post_infectious
+body_site: stool
+population: mixed_hong_kong_us_cohorts
+status: research_only
+evidence_maturity: P1
+challenge_for: [mecfs, ibs]
+
+summary: >-
+  This scores resemblance to the chronic-state pattern: stool collected at
+  least three months after infection with ongoing symptoms. Hong Kong and US
+  cohorts agree on the core direction — depletion of the butyrate producers
+  Faecalibacterium prausnitzii, Eubacterium rectale and Roseburia, with
+  Ruminococcus gnavus and Bacteroides vulgatus enriched — and on reduced
+  short-chain fatty acid and isoleucine synthesis capacity. Predicting future
+  risk from stool collected in the first two months after infection is a
+  separate task with different features, and those features are not used here.
+
+  In the largest independent study (799 outpatients), species-level features
+  reached AUROC 0.62 against 0.72 for clinical variables alone, so the pattern
+  is read as a supporting signal alongside the clinical picture rather than
+  in place of it.
+
+references:
+  primary:
+    source: null
+    note: >-
+      The right contrast is people who had COVID-19 and recovered without
+      post-acute sequelae. Most published cohorts compare against uninfected
+      or general healthy controls instead, which cannot separate a
+      post-infection signal from a syndrome-specific one. No recovered-without-
+      PACS reference is available to this tool, so confidence is downgraded
+      rather than healthy controls substituted silently.
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  taxonomic:
+    weight_in_combined: 0.50
+    note: >-
+      Tier A features carry weight 1.0 before penalties. Most originate in one
+      institutional family — PRJNA714459, PRJNA876804, PRJNA841786,
+      PRJNA1004982, PRJNA995807, PRJNA1056888 come from potentially
+      overlapping recruitment at a single centre — so a taxon reported across
+      four of those papers carries roughly one independent vote. That is
+      encoded as the q factor below.
+    features:
+      # ---- Tier A: weight 1.0 before penalties ----
+      - name: Ruminococcus_gnavus
+        level: species
+        direction: increased
+        tier: A
+        w: 1.0
+        q: 0.4
+        s: 0.5
+        c: 0.9
+        sources: ["Liu 2022 Gut", "Liu 2022 Nat Commun", "Su 2024 Cell Host Microbe"]
+        note: >-
+          Reported across the single-institution family; q reflects roughly
+          one independent vote. Also enriched in IBD, hence reduced s.
+      - name: Clostridium_bolteae
+        level: species
+        direction: increased
+        tier: A
+        w: 1.0
+        q: 0.4
+        s: 0.5
+        c: 0.9
+        sources: ["Liu 2022 Gut", "Su 2024 Cell Host Microbe"]
+      - name: Clostridium_innocuum
+        level: species
+        direction: increased
+        tier: A
+        w: 1.0
+        q: 0.4
+        s: 0.5
+        c: 0.9
+        sources: ["Liu 2022 Gut", "Su 2024 Cell Host Microbe"]
+        note: >-
+          Also associated with fatigue and neuropsychiatric symptom domains
+          in the phenotype-stratified analysis.
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: decreased
+        tier: A
+        w: 1.0
+        q: 0.5
+        s: 0.3
+        c: 0.9
+        conflict_note: "Genus Faecalibacterium conflicts across cohorts; species only."
+        sources: ["Liu 2022 Gut", "Zhang 2022 Gastroenterology"]
+        note: >-
+          Very low specificity: depleted in nearly every dysbiosis
+          state. Contributes little to condition-specific similarity.
+      - name: Bifidobacterium_adolescentis
+        level: species
+        direction: decreased
+        tier: A
+        w: 1.0
+        q: 0.4
+        s: 0.5
+        c: 0.9
+        sources: ["Liu 2022 Gut", "Liu 2022 Nat Commun"]
+      - name: Bifidobacterium_pseudocatenulatum
+        level: species
+        direction: decreased
+        tier: A
+        w: 1.0
+        q: 0.4
+        s: 0.5
+        c: 0.9
+        sources: ["Liu 2022 Gut", "Liu 2022 Nat Commun"]
+
+      # ---- Tier B: weight 0.5 ----
+      - name: Erysipelatoclostridium_ramosum
+        level: species
+        direction: increased
+        tier: B
+        w: 0.5
+        q: 0.4
+        s: 0.5
+        c: 0.8
+        sources: ["Su 2024 Cell Host Microbe"]
+      - name: Bacteroides_vulgatus
+        level: species
+        direction: increased
+        tier: B
+        w: 0.5
+        q: 0.4
+        # Common across many conditions; specificity penalty applied.
+        s: 0.3
+        c: 0.7
+        sources: ["Liu 2022 Nat Commun"]
+        note: >-
+          Formerly Bacteroides vulgatus. Enriched in many conditions;
+          specificity is low by design.
+      - name: Flavonifractor_plautii
+        level: species
+        direction: increased
+        tier: B
+        w: 0.5
+        q: 0.4
+        s: 0.5
+        c: 0.8
+        sources: ["Su 2024 Cell Host Microbe"]
+      - name: Gemmiger_formicilis
+        level: species
+        direction: decreased
+        tier: B
+        w: 0.5
+        q: 0.4
+        s: 0.5
+        c: 0.8
+        sources: ["Liu 2022 Gut"]
+
+  functional:
+    weight_in_combined: 0.35
+    note: >-
+      Functional backbone from Zhang et al. 2022: reduced short-chain fatty
+      acid and L-isoleucine biosynthesis, elevated urea production. Only the
+      pathways measurable with the existing gene panels are included.
+    features:
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        tier: A
+        w: 1.0
+        q: 0.6
+        s: 0.4
+        c: 0.9
+        sources: ["Zhang 2022 Gastroenterology", "Liu 2022 Gut"]
+        note: >-
+          Reduced SCFA-producing capacity. Reported by a group outside the
+          main institutional family, so q is higher than the taxonomic
+          features.
+      - name: indole
+        engine: diamond
+        direction: decreased
+        tier: B
+        w: 0.5
+        q: 0.5
+        s: 0.5
+        c: 0.8
+        sources: ["Zhang 2022 Gastroenterology"]
+        note: >-
+          Lower indole/tryptophan metabolism; measured as tnaA gene capacity.
+
+  ecological:
+    weight_in_combined: 0.15
+    features:
+      - name: richness
+        direction: decreased
+        w: 0.5
+        q: 0.6
+        s: 0.2
+        c: 0.6
+        sources: ["Hamrefors 2024 Sci Rep (lower richness, no species survived correction)"]
+
+  phenotype:
+    note: >-
+      Symptom-domain submodules, used only when the symptom label was declared
+      before analysis. Excluded from the combined figure so a symptom pattern
+      cannot be chosen after seeing the data. Tier C features live here.
+    features:
+      - name: Actinomyces_naeslundii
+        level: species
+        direction: increased
+        tier: C
+        w: 0.25
+        q: 0.4
+        s: 0.4
+        c: 0.7
+        sources: ["Su 2024 Cell Host Microbe (fatigue / neuropsychiatric)"]
+      - name: Streptococcus_anginosus_group
+        level: species
+        direction: increased
+        tier: C
+        w: 0.25
+        q: 0.4
+        s: 0.3
+        c: 0.5
+        sources: ["Liu 2022 Gut (respiratory-associated)"]
+        note: >-
+          Genus Streptococcus is conflicted — enriched in Dutch and Hainan
+          cohorts, depleted in GI-predominant cases — so only this species is
+          used and its direction-agreement factor is low.
+
+cross_engine_checks:
+  - taxonomic_feature: Faecalibacterium_prausnitzii
+    functional_feature: butyrate
+    expect: concordant
+    on_disagreement: downgrade_confidence
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_reads_lt: 500000
+
+caveats:
+  - >-
+    Chronic-state resemblance only. Features from acute-phase (0-2 month)
+    risk-prediction studies are not included and must not be read into a
+    chronic sample.
+  - >-
+    Most taxonomic features originate in one institutional recruitment
+    family; their cohort-independence factor is set to reflect roughly one
+    independent vote rather than the number of papers.
+  - >-
+    E. coli, Klebsiella and antimicrobial-resistance genes track ICU exposure
+    and antibiotics rather than the syndrome, and are deliberately excluded.
+    Flagellin potential is shared with rheumatoid arthritis, ankylosing
+    spondylitis and IBD, and is excluded for the same reason.
+  - >-
+    The two-year Hainan cohort (Zhang et al. 2026) is n=11 per arm with
+    uninfected rather than recovered controls, and reports no deposited data,
+    so its strain-level calls are neither reusable nor portable across
+    database versions. It is treated as a hypothesis source only and none of
+    its features carry weight here.
+
+effect_size_note: >-
+  Comba et al. 2026 (799 outpatients): species AUROC 0.62, genus 0.59,
+  clinical variables 0.72. Osterdahl et al. 2023 (2,561 participants): no
+  association with illness duration. Hamrefors et al. 2024: lower richness but
+  no species surviving multiple-testing correction. Upadhyay et al. 2023:
+  associations vanished after longitudinal adjustment. This profile's own
+  discrimination is UNMEASURED: the accessions that would allow it publish
+  reads without a sample-to-outcome key, and no AUC is printed for it.
+
+citation: >-
+  Liu Q, Mak JWY, Su Q, et al. Gut 2022;71:544-552,
+  doi:10.1136/gutjnl-2021-325989 (PRJNA714459). Liu Q, Su Q, Zhang F, et al.
+  Nat Commun 2022;13:6806, doi:10.1038/s41467-022-34535-8 (PRJNA876804). Su Q,
+  et al. Cell Host Microbe 2024;32:651-660 (PRJNA1004982). Zhang F, et al.
+  Gastroenterology 2022;162:548-561 (PRJNA689961). Comba IY, et al. Gut
+  Microbes 2026 (PRJNA1167328).

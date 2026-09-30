@@ -1,0 +1,238 @@
+name: ankylosing_spondylitis
+version: 1.0.0
+spec_version: 3
+label: "Ankylosing spondylitis — gut pattern"
+disease: ankylosing_spondylitis
+task: as_vs_healthy
+family: autoimmune
+body_site: stool
+population: chinese_cohort_derived
+status: research_beta
+evidence_maturity: P2
+
+summary: >-
+  Up to 60% of ankylosing spondylitis patients have subclinical gut
+  inflammation, and about 10% develop overt IBD, so the AS gut pattern
+  overlaps with Crohn's disease. Wen et al. shotgun-sequenced 97 AS patients
+  and 114 controls in China and found Prevotella species, Bacteroides
+  coprophilus and Bifidobacterium enriched with Roseburia, Faecalibacterium
+  and Eubacterium depleted; Zhou et al. replicated in a second Chinese
+  cohort with Bifidobacterium and Klebsiella higher, and Costello's
+  Australian ileal biopsy study found Lachnospiraceae, Ruminococcaceae,
+  Bacteroidaceae and Porphyromonadaceae differences. The HLA-B27 host
+  genotype itself shapes the gut community.
+
+  TNF inhibitors, the standard AS treatment, partly normalise the pattern.
+
+references:
+  primary:
+    source: null
+    note: "HLA-B27-positive healthy controls are the right contrast and exist only in Costello's small biopsy study."
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  wen_2017:
+    label: "Wen 2017 Chinese AS shotgun (97 / 114)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: wen_2017
+    maturity: P2
+    weight_in_combined: 1.0
+    sources: ["Wen C, et al. Genome Biol 2017;18:142"]
+    features:
+      - name: Prevotella_copri
+        level: species
+        direction: higher_in_case
+        cluster: prevotella
+        w: 0.8
+        q: 0.7
+        s: 0.3
+        c: 0.7
+        conflict_note: "Genus Prevotella is on the conflicted list; species only. High P. copri is also the healthy non-Western pattern."
+      - name: Prevotella_stercorea
+        level: species
+        direction: higher_in_case
+        cluster: prevotella
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.6
+      - name: Bacteroides_coprophilus
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.6
+        s: 0.5
+        c: 0.6
+      - name: Bifidobacterium_adolescentis
+        level: species
+        direction: higher_in_case
+        cluster: bifidobacterium
+        w: 0.6
+        q: 0.6
+        s: 0.4
+        c: 0.6
+        direction_conflict: low
+        conflict_note: "Higher in AS in both Chinese cohorts; lower in most other gut disease."
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.7
+        s: 0.3
+        c: 0.7
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.7
+        s: 0.2
+        c: 0.7
+      - name: Eubacterium_rectale
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.7
+        s: 0.2
+        c: 0.7
+      - name: Eubacterium_eligens
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.7
+
+  zhou_2020:
+    label: "Zhou 2020 Chinese AS shotgun (replication)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: zhou_2020
+    maturity: P2
+    note: "127 AS, 123 controls, plus treated patients; Bifidobacterium and Klebsiella higher, treatment shifted the pattern toward controls."
+    sources: ["Zhou C, et al. J Autoimmun 2020;107:102360"]
+    features:
+      - name: Bifidobacterium_adolescentis
+        level: species
+        direction: higher_in_case
+        cluster: bifidobacterium
+        w: 0.6
+        q: 0.6
+        s: 0.4
+        c: 0.6
+      - name: Bifidobacterium_longum
+        level: species
+        direction: higher_in_case
+        cluster: bifidobacterium
+        w: 0.5
+        q: 0.6
+        s: 0.3
+        c: 0.6
+      - name: Klebsiella_pneumoniae
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.6
+        s: 0.4
+        c: 0.6
+        note: "Klebsiella is the classic AS-associated organism from older serology and culture studies (Ebringer)."
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.7
+        s: 0.2
+        c: 0.7
+      - name: Roseburia_hominis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.5
+        q: 0.6
+        s: 0.3
+        c: 0.7
+
+  functional:
+    label: "Metabolite gene capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P2
+    note: "Butyrate capacity falls with the producers. Hexa-LPS carriers rise with Klebsiella and Enterobacteriaceae, supplying the endotoxin that drives IL-23 in the gut-joint axis."
+    features:
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        w: 0.8
+        q: 0.7
+        s: 0.2
+        c: 0.7
+
+  carriers:
+    label: "Hexa-LPS and butyrate carriers"
+    type: mechanism_lane
+    evidence_type: CARRIER_ABUNDANCE
+    claim_level: carrier_proxy
+    maturity: P2
+    features:
+      - name: hexa_lps
+        engine: carrier
+        direction: increased
+        w: 0.6
+        q: 0.6
+        s: 0.3
+        c: 0.6
+      - name: butyrate
+        engine: carrier
+        direction: decreased
+        w: 0.6
+        q: 0.7
+        s: 0.2
+        c: 0.7
+
+confounders:
+  - name: TNF inhibitors and NSAIDs
+    effect: "Anti-TNF partly normalises the pattern; NSAIDs cause enteropathy and shift the community"
+    handling: "Recorded in the ledger when supplied"
+  - name: Subclinical IBD
+    effect: "A large minority of AS patients have gut inflammation; the pattern partly is IBD"
+    handling: "crohns is a competing profile; read the two together"
+  - name: Geography
+    effect: "Both shotgun cohorts are Chinese; Prevotella baseline differs by diet and country"
+    handling: "population_transportability reported"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Ankylosing spondylitis is diagnosed by imaging of the sacroiliac joints,
+    HLA-B27 and clinical criteria. This profile does not diagnose it.
+  - >-
+    The Prevotella direction is confounded with diet and geography; a high
+    P. copri sample from a high-fibre diet will score toward AS here for
+    reasons that have nothing to do with joints.
+
+effect_size_note: >-
+  Wen 2017: 97 AS, 114 controls. Zhou 2020: 127 AS, 123 controls. Both
+  Chinese.
+
+citation: >-
+  Wen C, et al. Quantitative metagenomics reveals unique gut microbiome
+  biomarkers in ankylosing spondylitis. Genome Biol 2017;18:142; Zhou C, et al.
+  Metagenomic profiling of the pro-inflammatory gut microbiota in ankylosing
+  spondylitis. J Autoimmun 2020;107:102360; Costello ME, et al. Brief report:
+  intestinal dysbiosis in ankylosing spondylitis. Arthritis Rheumatol
+  2015;67:686.

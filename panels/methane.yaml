@@ -1,0 +1,143 @@
+name: methane
+description: >-
+  Methanogenesis capacity. mcrA — the alpha subunit of methyl-coenzyme M
+  reductase — catalyses the terminal step of every known methanogenic
+  pathway and is the standard molecular marker for methanogens. In the human
+  gut this is almost entirely Methanobrevibacter smithii, with
+  Methanosphaera stadtmanae second.
+metabolite: Methane (CH4)
+pathway: >-
+  H2 + CO2 -> ... -> methyl-CoM -> CH4 (mcrA/mcrB/mcrG); also methanol +
+  H2 -> CH4 in Methanosphaera
+category: gas
+
+organisms:
+  - Methanobrevibacter smithii
+  - Methanosphaera stadtmanae
+  - Methanomassiliicoccus luminyensis
+
+extension: true
+
+targets:
+  # mcrA is one of the cleanest markers in this whole panel set: a single
+  # recommended protein name, a tight ~550 aa length, and no eukaryotic or
+  # unrelated-bacterial namesake to confound it. Note taxonomy_id:2157
+  # (Archaea) rather than 2 (Bacteria) — the reason gene-name search fails
+  # here is not homonymy but that a Bacteria-restricted query returns nothing.
+  - id: MCRA
+    label: mcrA (methyl-coenzyme M reductase, alpha subunit)
+    gene: mcrA
+    source: uniprot
+    query: '((protein_name:"methyl-coenzyme M reductase subunit alpha") OR (protein_name:"methyl-coenzyme M reductase I subunit alpha") OR (protein_name:"methyl-coenzyme M reductase II subunit alpha")) AND (taxonomy_id:2157)'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.25
+
+  - id: MCRB
+    label: mcrB (methyl-coenzyme M reductase, beta subunit)
+    gene: mcrB
+    source: uniprot
+    query: '(protein_name:"methyl-coenzyme M reductase subunit beta") AND (taxonomy_id:2157)'
+    min_identity: 60.0
+    max_sequences: 1500
+    length_tolerance: 0.25
+
+  - id: MTAB
+    label: mtaB (methanol:corrinoid methyltransferase, Methanosphaera route)
+    gene: mtaB
+    source: uniprot
+    query: '(protein_name:"methanol--corrinoid protein Co-methyltransferase") AND (taxonomy_id:2157)'
+    min_identity: 60.0
+    max_sequences: 1000
+    length_tolerance: 0.30
+
+decoys:
+  # There is no usable decoy for the alkyl-coenzyme M reductase of anaerobic
+  # alkane oxidisers, MCR's closest homolog: UniProt does not carry those
+  # proteins under a searchable name (checked 2026-09), and the isoenzyme
+  # names "MCR I/II subunit alpha" are genuine mcrA, so they belong in the
+  # target set, not against it. The background decoy below is what keeps the
+  # best-hit competition honest.
+  - id: ARCHBG
+    label: abundant archaeal protein background
+    source: uniprot
+    query: '((protein_name:"formylmethanofuran dehydrogenase subunit A") OR (protein_name:"tetrahydromethanopterin S-methyltransferase subunit A") OR (protein_name:"coenzyme F420 hydrogenase subunit alpha")) AND (taxonomy_id:2157)'
+    min_identity: 50.0
+    max_sequences: 2000
+    length_tolerance: 0.35
+    note: >-
+      Other methanogen-pathway enzymes. Present in the same organisms, so this
+      decoy does not remove true positives; it stops fold-level matches to the
+      wider methanogenesis machinery being counted as mcrA.
+
+aggregate: sum
+aggregate_from: [MCRA, MCRB]
+aggregate_reason: >-
+  mcrA and mcrB are subunits of one obligate complex and are always present
+  together in a methanogen genome, so their sum is a more stable estimate of
+  methanogen carriage than either alone. mtaB is reported separately because
+  it marks the Methanosphaera methanol route specifically.
+
+min_fragments_for_stability: 15
+min_alignment_aa: 25
+
+caveats:
+  - >-
+    Methanogen carriage is bimodal in healthy adults: a large minority carry
+    essentially none and a large minority carry a lot. A high value here is a
+    normal variant, not a finding.
+  - >-
+    Methane production requires hydrogen from fermenting bacteria as well as
+    methanogens to consume it. Gene capacity does not establish breath methane
+    positivity, which is measured directly by a breath test.
+  - >-
+    M. smithii is resolved well, so the taxonomic and gene routes are
+    a genuine cross-check here — one of the few places in this report where
+    two independent measurements should agree closely.
+
+interpretation:
+  what_it_is: >-
+    Methane, made by archaea (not bacteria) that consume the hydrogen other
+    gut microbes produce.
+  made_from: Hydrogen and carbon dioxide from fibre fermentation
+  higher_means: context-dependent
+  reader_direction: adverse
+  direction_note: >-
+    Methane slows transit and high methanogen carriage is one of the firmest associations with constipation-predominant IBS.
+  evidence_strength: moderate
+  summary: >-
+    Methane slows intestinal transit. High methanogen carriage is strongly
+    associated with constipation and with the constipation subtype of IBS, and
+    is a normal variant in a large minority of healthy people.
+  evidence_detail: >-
+    Pimentel and colleagues infused methane into dog ileum and slowed transit
+    by about 60%, which is the clearest causal evidence for the association.
+    In humans, breath-methane-positive patients are overwhelmingly
+    constipation-predominant, and Kim et al. showed that
+    Methanobrevibacter smithii abundance in stool tracks breath methane.
+    Methanogen carriage is also partly heritable and rises with age. Methane
+    production is not itself a disease: it shifts transit, and whether that
+    matters depends on where a person's transit already sits.
+  implications:
+    higher: >-
+      You carry more methanogen capacity than most people. Methane slows gut
+      transit, and high methanogen levels are consistently associated with
+      constipation and constipation-predominant IBS. Plenty of people with high
+      methanogens have entirely normal bowels — this is a normal variant as
+      well as a pattern.
+    typical: >-
+      Your methane-producing capacity sits in the middle of the reference range. Because methanogen carriage is close to all-or-nothing between people, a middling reading usually means a small methanogen population rather than a large one, and carries no implication for transit or bloating.
+    lower: >-
+      Little or no methanogen capacity detected. Roughly a third of healthy
+      adults are in this position; the hydrogen those archaea would have
+      consumed goes to other routes instead, including sulfide.
+  citation: >-
+    Pimentel M et al., Am J Physiol Gastrointest Liver Physiol 290:G1089
+    (2006); Kim G et al., Dig Dis Sci 57:3213-3218 (2012); Triantafyllou K
+    et al., J Neurogastroenterol Motil 20:31-40 (2014)
+
+citation: >-
+  Dridi B., Henry M., El Khechine A., Raoult D., Drancourt M., "High prevalence
+  of Methanobrevibacter smithii and Methanosphaera stadtmanae detected in the
+  human gut using an improved DNA detection protocol", PLoS One 4:e7063 (2009),
+  doi:10.1371/journal.pone.0007063.

@@ -1,0 +1,2730 @@
+# Fungal and other opportunistic-eukaryote seed catalog.
+# Compiled from specs/BUILD_SPEC_v05.0.md section 10 ("Fungal and other
+# opportunistic-eukaryote catalog"). Every row of the section 10 table is
+# represented; semicolon-separated organisms are separate seeds, explicitly
+# named species complexes stay as one seed, and unnamed "curated" /
+# "clinically relevant" genus members become one genus- or group-level seed
+# with expansion_state: manual_review_required.
+#
+# These are pre-resolution seeds (no taxids/accessions yet). None of the
+# organisms below is asserted to be a normal cause of intestinal infection:
+# colonisation, food passage, skin/oral contamination and invasive disease
+# are separate interpretations, and every fungal seed carries the
+# hard_to_lyse_cell_wall limitation because fungal walls resist standard
+# stool lysis protocols.
+schema_version: pathogens.seed.v1
+catalog_section: "10"
+seeds:
+  # ---------------------------------------------------------------------
+  # Common Candida
+  # ---------------------------------------------------------------------
+  - seed_id: fungi.candida_albicans
+    source_section: "10"
+    requested_name: Candida albicans
+    display_name: Candida albicans
+    aliases: ["Candida stellatoidea"]
+    group: fungi
+    family: "Common Candida"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "CandidaGenomeDatabase", "UNITE_ITS", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.cdc.gov/candidiasis/about/index.html", "https://www.who.int/publications/i/item/9789240060241"]
+    expansion_state: installed
+    who_priority: true
+    note: >-
+      Conditional opportunist and the most common human commensal yeast.
+      Stool carriage and food or oral sources may occur; detection does not
+      diagnose invasive candidiasis or mucosal disease and does not establish
+      a need for antifungal treatment. No "Candida overgrowth" claim is made
+      from relative abundance alone. WHO fungal priority list critical group.
+
+  - seed_id: fungi.candida_dubliniensis
+    source_section: "10"
+    requested_name: Candida dubliniensis
+    display_name: Candida dubliniensis
+    aliases: []
+    group: fungi
+    family: "Common Candida"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "CandidaGenomeDatabase", "UNITE_ITS", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.cdc.gov/candidiasis/about/index.html"]
+    expansion_state: installed
+    note: >-
+      Conditional opportunist closely related to Candida albicans and
+      historically misidentified as it. Near-neighbour discrimination from
+      C. albicans is required before species-level reporting. Oral and gut
+      carriage occur, especially in HIV infection; detection does not
+      diagnose infection or establish a need for antifungal treatment.
+
+  - seed_id: fungi.candida_tropicalis
+    source_section: "10"
+    requested_name: Candida tropicalis
+    display_name: Candida tropicalis
+    aliases: []
+    group: fungi
+    family: "Common Candida"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "CandidaGenomeDatabase", "UNITE_ITS", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.cdc.gov/candidiasis/about/index.html", "https://www.who.int/publications/i/item/9789240060241"]
+    expansion_state: installed
+    who_priority: true
+    note: >-
+      Conditional opportunist. Gut colonisation is common, particularly in
+      oncology patients and in tropical settings; detection does not diagnose
+      candidaemia or establish a need for antifungal treatment. Azole
+      susceptibility is not inferred from sequence. WHO fungal priority list
+      high group.
+
+  - seed_id: fungi.candida_parapsilosis
+    source_section: "10"
+    requested_name: Candida parapsilosis
+    display_name: Candida parapsilosis
+    aliases: ["Candida parapsilosis sensu stricto", "Candida parapsilosis group I"]
+    group: fungi
+    family: "Common Candida"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "CandidaGenomeDatabase", "UNITE_ITS", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.cdc.gov/candidiasis/about/index.html", "https://www.who.int/publications/i/item/9789240060241"]
+    expansion_state: installed
+    who_priority: true
+    note: >-
+      Conditional opportunist. Frequently skin- and hand-carried and
+      healthcare-associated (neonatal units, catheters, parenteral
+      nutrition); stool detection may reflect carriage or food. Must be
+      resolved from Candida orthopsilosis and C. metapsilosis (former groups
+      II and III) or reported at complex level. No fluconazole susceptibility
+      is inferred from sequence. Detection does not diagnose infection. WHO
+      fungal priority list high group.
+
+  - seed_id: fungi.candida_orthopsilosis
+    source_section: "10"
+    requested_name: Candida orthopsilosis
+    display_name: Candida orthopsilosis
+    aliases: ["Candida parapsilosis group II"]
+    group: fungi
+    family: "Common Candida"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "CandidaGenomeDatabase", "UNITE_ITS", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.cdc.gov/candidiasis/about/index.html"]
+    expansion_state: installed
+    note: >-
+      Conditional opportunist within the Candida parapsilosis complex (former
+      group II). Strict near-neighbour discrimination from C. parapsilosis
+      sensu stricto and C. metapsilosis is required; otherwise report at
+      complex level. Detection does not diagnose infection or establish a
+      need for antifungal treatment.
+
+  - seed_id: fungi.candida_metapsilosis
+    source_section: "10"
+    requested_name: Candida metapsilosis
+    display_name: Candida metapsilosis
+    aliases: ["Candida parapsilosis group III"]
+    group: fungi
+    family: "Common Candida"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "CandidaGenomeDatabase", "UNITE_ITS", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.cdc.gov/candidiasis/about/index.html"]
+    expansion_state: installed
+    note: >-
+      Conditional opportunist within the Candida parapsilosis complex (former
+      group III), a hybrid lineage of reduced virulence. Strict near-neighbour
+      discrimination from C. parapsilosis sensu stricto and C. orthopsilosis
+      is required; otherwise report at complex level. Detection does not
+      diagnose infection or establish a need for antifungal treatment.
+
+  # ---------------------------------------------------------------------
+  # Glabrata relatives (three distinct species + one unresolved group)
+  # ---------------------------------------------------------------------
+  - seed_id: fungi.candida_glabrata
+    source_section: "10"
+    requested_name: Candida glabrata
+    display_name: "Candida glabrata (Nakaseomyces glabratus)"
+    aliases: ["Nakaseomyces glabratus", "Nakaseomyces glabrata", "Torulopsis glabrata"]
+    group: fungi
+    family: "Glabrata relatives"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "CandidaGenomeDatabase", "UNITE_ITS", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, antifungal_susceptibility_testing, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.cdc.gov/candidiasis/about/index.html", "https://www.who.int/publications/i/item/9789240060241"]
+    parent_seed_id: fungi.nakaseomyces_glabrata_group_unresolved
+    expansion_state: installed
+    who_priority: true
+    note: >-
+      Conditional opportunist; current accepted name Nakaseomyces glabratus
+      (WHO list spelling Nakaseomyces glabrata). Gut carriage is common;
+      detection does not diagnose infection or establish a need for
+      antifungal treatment, and the reduced azole susceptibility typical of
+      the species is a clinical laboratory matter, not a sequence result.
+      Kept distinct from Candida nivariensis and C. bracarensis; only this
+      species' own legacy and current synonyms are deduplicated here. Report
+      via the parent unresolved group when discrimination among the three is
+      insufficient. WHO fungal priority list high group.
+
+  - seed_id: fungi.candida_nivariensis
+    source_section: "10"
+    requested_name: Candida nivariensis
+    display_name: "Candida nivariensis (Nakaseomyces nivariensis)"
+    aliases: ["Nakaseomyces nivariensis"]
+    group: fungi
+    family: "Glabrata relatives"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "CandidaGenomeDatabase", "UNITE_ITS", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, antifungal_susceptibility_testing, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.cdc.gov/candidiasis/about/index.html"]
+    parent_seed_id: fungi.nakaseomyces_glabrata_group_unresolved
+    expansion_state: installed
+    note: >-
+      Conditional opportunist; current accepted name Nakaseomyces
+      nivariensis. Cryptic relative of Candida glabrata that phenotypic
+      methods historically misidentified as C. glabrata. A distinct species
+      seed: it is not merged with C. glabrata or C. bracarensis, and sequence
+      discrimination from both is required. Report via the parent unresolved
+      group when discrimination is insufficient. Detection does not diagnose
+      infection or establish a need for antifungal treatment.
+
+  - seed_id: fungi.candida_bracarensis
+    source_section: "10"
+    requested_name: Candida bracarensis
+    display_name: "Candida bracarensis (Nakaseomyces bracarensis)"
+    aliases: ["Nakaseomyces bracarensis"]
+    group: fungi
+    family: "Glabrata relatives"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "CandidaGenomeDatabase", "UNITE_ITS", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, antifungal_susceptibility_testing, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.cdc.gov/candidiasis/about/index.html"]
+    parent_seed_id: fungi.nakaseomyces_glabrata_group_unresolved
+    expansion_state: installed
+    note: >-
+      Conditional opportunist; current accepted name Nakaseomyces
+      bracarensis. Cryptic relative of Candida glabrata described from
+      clinical isolates and historically misidentified as C. glabrata. A
+      distinct species seed: it is not merged with C. glabrata or C.
+      nivariensis, and sequence discrimination from both is required. Report
+      via the parent unresolved group when discrimination is insufficient.
+      Detection does not diagnose infection or establish a need for
+      antifungal treatment.
+
+  - seed_id: fungi.nakaseomyces_glabrata_group_unresolved
+    source_section: "10"
+    requested_name: "Glabrata relatives unresolved related-species group (Candida glabrata; C. nivariensis; C. bracarensis and corresponding Nakaseomyces names)"
+    display_name: "Nakaseomyces glabratus group, unresolved (Candida glabrata / nivariensis / bracarensis)"
+    aliases: ["Candida glabrata complex", "Candida glabrata sensu lato", "Candida glabrata species complex", "Nakaseomyces glabrata group"]
+    group: fungi
+    family: "Glabrata relatives"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "CandidaGenomeDatabase", "UNITE_ITS", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, antifungal_susceptibility_testing, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.cdc.gov/candidiasis/about/index.html", "https://www.who.int/publications/i/item/9789240060241"]
+    member_seed_ids: [fungi.candida_glabrata, fungi.candida_nivariensis, fungi.candida_bracarensis]
+    expansion_state: installed
+    note: >-
+      Unresolved related-species group for Candida glabrata, C. nivariensis
+      and C. bracarensis (genus Nakaseomyces). Used only when reads support
+      the group but cannot discriminate among the three member species; it is
+      not a fourth organism and never replaces a resolved member call. Member
+      Nakaseomyces glabratus is on the WHO fungal priority list. Detection
+      does not diagnose infection or establish a need for antifungal
+      treatment.
+
+  # ---------------------------------------------------------------------
+  # Other Candida-related yeasts
+  # ---------------------------------------------------------------------
+  - seed_id: fungi.candida_krusei
+    source_section: "10"
+    requested_name: "Candida krusei (= Pichia kudriavzevii)"
+    display_name: "Candida krusei (Pichia kudriavzevii)"
+    aliases: ["Pichia kudriavzevii", "Issatchenkia orientalis"]
+    group: fungi
+    family: "Other Candida-related yeasts"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, antifungal_susceptibility_testing, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.cdc.gov/candidiasis/about/index.html", "https://www.who.int/publications/i/item/9789240060241"]
+    expansion_state: installed
+    who_priority: true
+    note: >-
+      Conditional opportunist; current accepted name Pichia kudriavzevii
+      (teleomorph formerly Issatchenkia orientalis). Also a widespread food
+      and fermentation yeast (cocoa, sourdough, cassava, kefir), so stool
+      detection may reflect dietary exposure or carriage; detection does not
+      diagnose infection. The intrinsic fluconazole resistance of the species
+      is a clinical laboratory fact, not a sequence-derived susceptibility
+      result. Excluded from the background Pichia dietary-yeast seed to avoid
+      double counting. WHO fungal priority list medium group.
+
+  - seed_id: fungi.candida_lusitaniae
+    source_section: "10"
+    requested_name: "Candida lusitaniae (= Clavispora lusitaniae)"
+    display_name: "Candida lusitaniae (Clavispora lusitaniae)"
+    aliases: ["Clavispora lusitaniae"]
+    group: fungi
+    family: "Other Candida-related yeasts"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, antifungal_susceptibility_testing, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.cdc.gov/candidiasis/about/index.html"]
+    expansion_state: installed
+    note: >-
+      Conditional opportunist; current accepted name Clavispora lusitaniae.
+      Gut carriage and environmental or food sources occur, including in
+      cystic fibrosis and oncology patients; detection does not diagnose
+      infection or establish a need for antifungal treatment. Amphotericin B
+      resistance reported for the species is not inferred from sequence.
+
+  - seed_id: fungi.candida_guilliermondii
+    source_section: "10"
+    requested_name: Candida guilliermondii
+    display_name: "Candida guilliermondii (Meyerozyma guilliermondii)"
+    aliases: ["Meyerozyma guilliermondii", "Pichia guilliermondii"]
+    group: fungi
+    family: "Other Candida-related yeasts"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.cdc.gov/candidiasis/about/index.html"]
+    expansion_state: installed
+    note: >-
+      Conditional opportunist; current accepted name Meyerozyma
+      guilliermondii (Meyerozyma synonym preserved). Common on skin, in
+      food and in the environment, so stool detection is expected to reflect
+      carriage or diet. Near-neighbour discrimination from Meyerozyma
+      caribbica (Candida fermentati) is required. Detection does not diagnose
+      infection or establish a need for antifungal treatment.
+
+  - seed_id: fungi.candida_fermentati
+    source_section: "10"
+    requested_name: Candida fermentati
+    display_name: "Candida fermentati (Meyerozyma caribbica)"
+    aliases: ["Meyerozyma caribbica", "Pichia caribbica"]
+    group: fungi
+    family: "Other Candida-related yeasts"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.cdc.gov/candidiasis/about/index.html"]
+    expansion_state: installed
+    note: >-
+      Conditional opportunist; current accepted name Meyerozyma caribbica
+      (Meyerozyma synonym preserved). Sister species of M. guilliermondii and
+      frequently misidentified as Candida guilliermondii by phenotypic
+      methods, so strict sequence discrimination is required. Food,
+      fermentation and environmental sources are common; detection does not
+      diagnose infection or establish a need for antifungal treatment.
+
+  - seed_id: fungi.candida_kefyr
+    source_section: "10"
+    requested_name: "Candida kefyr (= Kluyveromyces marxianus)"
+    display_name: "Candida kefyr (Kluyveromyces marxianus)"
+    aliases: ["Kluyveromyces marxianus", "Candida pseudotropicalis"]
+    group: fungi
+    family: "Other Candida-related yeasts"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.cdc.gov/candidiasis/about/index.html"]
+    expansion_state: installed
+    note: >-
+      Conditional opportunist; current accepted name Kluyveromyces marxianus,
+      a dairy, kefir and cheese fermentation yeast. Stool detection commonly
+      reflects dietary exposure, although gut colonisation and rare invasive
+      infection in haematology patients are documented; detection does not
+      diagnose infection or establish a need for antifungal treatment.
+
+  - seed_id: fungi.candida_inconspicua
+    source_section: "10"
+    requested_name: Candida inconspicua
+    display_name: Candida inconspicua
+    aliases: []
+    group: fungi
+    family: "Other Candida-related yeasts"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, antifungal_susceptibility_testing, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.cdc.gov/candidiasis/about/index.html"]
+    expansion_state: installed
+    reference_gap_note: >-
+      Genomic studies report Candida inconspicua and Pichia cactophila as
+      conspecific or indistinguishable, while NCBI maintains separate names.
+      Confirm the synonymy against the frozen taxonomy snapshot before
+      merging the two names into one target; until then P. cactophila reads
+      are a near-neighbour competitor, not an alias.
+    note: >-
+      Conditional opportunist within the Pichia clade. Rare cause of
+      fungaemia in immunocompromised and haematology patients; the reduced
+      fluconazole susceptibility typical of the species is not inferred from
+      sequence. Gut carriage is possible; detection does not diagnose
+      infection or establish a need for antifungal treatment.
+
+  - seed_id: fungi.candida_norvegensis
+    source_section: "10"
+    requested_name: Candida norvegensis
+    display_name: "Candida norvegensis (Pichia norvegensis)"
+    aliases: ["Pichia norvegensis"]
+    group: fungi
+    family: "Other Candida-related yeasts"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, antifungal_susceptibility_testing, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.cdc.gov/candidiasis/about/index.html"]
+    expansion_state: installed
+    note: >-
+      Conditional opportunist; current accepted name Pichia norvegensis. Rare
+      opportunist with reduced fluconazole susceptibility that is not inferred
+      from sequence. Gut carriage is possible and the species also occurs in
+      food; detection does not diagnose infection or establish a need for
+      antifungal treatment. Excluded from the background Pichia dietary-yeast
+      seed.
+
+  - seed_id: fungi.candida_rugosa_complex
+    source_section: "10"
+    requested_name: Candida rugosa complex
+    display_name: "Candida rugosa complex (Diutina rugosa complex)"
+    aliases: ["Diutina rugosa complex", "Candida rugosa", "Diutina rugosa"]
+    group: fungi
+    family: "Other Candida-related yeasts"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.cdc.gov/candidiasis/about/index.html"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    note: >-
+      Conditional opportunist species complex now placed in Diutina (Diutina
+      rugosa, D. pararugosa, D. mesorugosa, D. neorugosa, D. pseudorugosa).
+      Also a dairy, food and animal-associated yeast. Report at complex level
+      unless member-level references and distinguishing evidence are
+      installed; detection does not diagnose infection or establish a need
+      for antifungal treatment.
+
+  # ---------------------------------------------------------------------
+  # Auris/haemulonii group
+  # ---------------------------------------------------------------------
+  - seed_id: fungi.candida_auris
+    source_section: "10"
+    requested_name: Candida/Candidozyma auris
+    display_name: "Candida auris (Candidozyma auris)"
+    aliases: ["Candidozyma auris"]
+    group: fungi
+    family: "Auris/haemulonii group"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "CandidaGenomeDatabase", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, antifungal_susceptibility_testing, infection_control_review, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/candida-auris/hcp/clinical-overview/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    expansion_state: installed
+    who_priority: true
+    note: >-
+      Emerging multidrug-resistant, healthcare-associated yeast; current
+      accepted name Candidozyma auris. Strict near-neighbour resolution from
+      the Candida haemulonii complex is required before any species call. A
+      supported sequence finding warrants confirmation and infection-control
+      review; colonisation of skin, gut or other body sites is not invasive
+      candidiasis, and no antifungal treatment is recommended from this
+      result. Clade assignment and antifungal resistance are not inferred
+      from stool sequence. WHO fungal priority list critical group.
+
+  - seed_id: fungi.candida_haemulonii_complex
+    source_section: "10"
+    requested_name: "Candida haemulonii complex, including clinically recognized closely related taxa"
+    display_name: "Candida haemulonii complex (Candidozyma haemulonii complex)"
+    aliases: ["Candidozyma haemulonii complex", "Candida haemulonii species complex"]
+    group: fungi
+    family: "Auris/haemulonii group"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, antifungal_susceptibility_testing, infection_control_review, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.cdc.gov/candida-auris/hcp/clinical-overview/index.html"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    note: >-
+      Conditional opportunist species complex: Candida haemulonii, C.
+      haemulonii var. vulnera, C. duobushaemulonii and C. pseudohaemulonii,
+      now combined in Candidozyma, with clinically recognised close relatives
+      (e.g. Candidozyma vulturna, C. khanbhai) reviewed for inclusion.
+      Members show reduced amphotericin B and azole susceptibility and are
+      routinely confused with C. auris in both directions, so strict
+      near-neighbour resolution is required. Detection does not diagnose
+      infection; a supported finding warrants confirmation and
+      infection-control review, not automatic antifungal treatment.
+
+  # ---------------------------------------------------------------------
+  # Saccharomyces
+  # ---------------------------------------------------------------------
+  - seed_id: fungi.saccharomyces_cerevisiae
+    source_section: "10"
+    requested_name: "Saccharomyces cerevisiae, including boulardii-associated lineage"
+    display_name: Saccharomyces cerevisiae
+    aliases: ["Saccharomyces boulardii", "Saccharomyces cerevisiae var. boulardii"]
+    group: fungi
+    family: "Saccharomyces"
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: dietary_or_environmental_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://pmc.ncbi.nlm.nih.gov/articles/PMC5874442/"]
+    expansion_state: installed
+    note: >-
+      Background or decoy: baker's, brewer's and probiotic yeast found in
+      bread, beer, wine, fermented foods and probiotic products, and a normal
+      transient in stool. Species-level reads do not identify a specific
+      probiotic strain, so no Saccharomyces boulardii (S. cerevisiae var.
+      boulardii) strain claim is made. Rare invasive infection in
+      immunocompromised or catheterised patients taking probiotics is a
+      clinical matter; detection does not diagnose it. Recent probiotic or
+      fermented-food exposure is optional context, never a reason to erase a
+      well-supported result.
+
+  # ---------------------------------------------------------------------
+  # Rhodotorula (three separate species; closes a prior omission)
+  # ---------------------------------------------------------------------
+  - seed_id: fungi.rhodotorula_mucilaginosa
+    source_section: "10"
+    requested_name: Rhodotorula mucilaginosa
+    display_name: Rhodotorula mucilaginosa
+    aliases: ["Rhodotorula rubra"]
+    group: fungi
+    family: "Rhodotorula"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    note: >-
+      Conditional opportunist in an environmental context; explicitly
+      restored after a prior catalog omission. Pigmented basidiomycetous
+      yeast of water, soil, food, dairy and skin, and the Rhodotorula species
+      most often implicated in catheter-associated fungaemia. Stool detection
+      most often reflects environmental or dietary exposure; detection does
+      not diagnose infection or establish a need for antifungal treatment.
+      Intrinsic echinocandin and fluconazole resistance is not inferred from
+      sequence.
+
+  - seed_id: fungi.rhodotorula_glutinis
+    source_section: "10"
+    requested_name: Rhodotorula glutinis
+    display_name: Rhodotorula glutinis
+    aliases: []
+    group: fungi
+    family: "Rhodotorula"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    note: >-
+      Conditional opportunist in an environmental context; explicitly
+      restored after a prior catalog omission. Environmental and food yeast
+      (soil, air, dairy, fruit) with rare fungaemia and peritonitis reports;
+      many older clinical "R. glutinis" identifications were actually R.
+      mucilaginosa, so sequence discrimination is required. Detection does
+      not diagnose infection or establish a need for antifungal treatment.
+
+  - seed_id: fungi.rhodotorula_minuta
+    source_section: "10"
+    requested_name: Rhodotorula minuta
+    display_name: "Rhodotorula minuta (Cystobasidium minutum)"
+    aliases: ["Cystobasidium minutum"]
+    group: fungi
+    family: "Rhodotorula"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    note: >-
+      Conditional opportunist in an environmental context; explicitly
+      restored after a prior catalog omission. Current accepted name
+      Cystobasidium minutum. Environmental yeast (air, water, plants, skin)
+      with rare keratitis, endophthalmitis and fungaemia reports. Detection
+      does not diagnose infection or establish a need for antifungal
+      treatment.
+
+  # ---------------------------------------------------------------------
+  # Trichosporon relatives
+  # ---------------------------------------------------------------------
+  - seed_id: fungi.trichosporon_asahii
+    source_section: "10"
+    requested_name: Trichosporon asahii
+    display_name: Trichosporon asahii
+    aliases: []
+    group: fungi
+    family: "Trichosporon relatives"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, antifungal_susceptibility_testing, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    note: >-
+      Conditional opportunist and the principal agent of invasive
+      trichosporonosis in haematology and intensive-care patients. Gut, skin
+      and urinary colonisation occur; detection does not diagnose infection or
+      establish a need for antifungal treatment. Legacy "Trichosporon
+      beigelii" identifications cannot be mapped to a single current species.
+      Intrinsic echinocandin resistance is not inferred from sequence.
+
+  - seed_id: fungi.trichosporon_inkin
+    source_section: "10"
+    requested_name: Trichosporon inkin
+    display_name: Trichosporon inkin
+    aliases: []
+    group: fungi
+    family: "Trichosporon relatives"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    note: >-
+      Conditional opportunist; skin and genitocrural yeast (agent of white
+      piedra) with rare invasive disease, including peritonitis and
+      endocarditis. Stool detection is expected to reflect skin or perianal
+      carriage; detection does not diagnose infection or establish a need for
+      antifungal treatment.
+
+  - seed_id: fungi.trichosporon_asteroides
+    source_section: "10"
+    requested_name: Trichosporon asteroides
+    display_name: Trichosporon asteroides
+    aliases: []
+    group: fungi
+    family: "Trichosporon relatives"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    note: >-
+      Conditional opportunist; skin-associated yeast with rare invasive
+      disease and frequent phenotypic misidentification as Trichosporon
+      asahii, so sequence discrimination is required (IGS1 or whole-genome
+      informed references, since ITS alone is weak in this genus). Detection
+      does not diagnose infection or establish a need for antifungal
+      treatment.
+
+  - seed_id: fungi.trichosporon_mucoides
+    source_section: "10"
+    requested_name: Trichosporon mucoides
+    display_name: "Trichosporon mucoides (Cutaneotrichosporon mucoides)"
+    aliases: ["Cutaneotrichosporon mucoides"]
+    group: fungi
+    family: "Trichosporon relatives"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    note: >-
+      Conditional opportunist; current accepted name Cutaneotrichosporon
+      mucoides. Skin, gut and environmental yeast with rare invasive disease;
+      requires discrimination from Cutaneotrichosporon cutaneum and C.
+      dermatis. Detection does not diagnose infection or establish a need for
+      antifungal treatment.
+
+  - seed_id: fungi.trichosporon_cutaneotrichosporon_human_infecting_members
+    source_section: "10"
+    requested_name: "curated human-infecting Trichosporon/Cutaneotrichosporon members"
+    display_name: "Trichosporon / Cutaneotrichosporon, curated human-infecting members"
+    aliases: []
+    group: fungi
+    family: "Trichosporon relatives"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, reference_absent, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    reference_gap_note: >-
+      Several human-infecting members lack genome assemblies and ITS is weakly
+      discriminatory within Trichosporonales; record member coverage gaps and
+      prefer IGS1-informed references during expansion.
+    note: >-
+      Genus-level expansion seed for curated human-infecting Trichosporon and
+      Cutaneotrichosporon species not seeded individually (e.g. Trichosporon
+      faecale, T. japonicum, T. dohaense, T. coremiiforme, T. ovoides,
+      Cutaneotrichosporon dermatis, C. cutaneum, C. jirovecii, C.
+      debeurmannianum, Apiotrichum montevideense). Expansion requires
+      documented human relevance and accepted taxonomy with complex-level
+      resolution; report only at the resolution supported. Detection does
+      not diagnose infection or establish a need for antifungal treatment.
+
+  # ---------------------------------------------------------------------
+  # Cryptococcus
+  # ---------------------------------------------------------------------
+  - seed_id: fungi.cryptococcus_neoformans_complex
+    source_section: "10"
+    requested_name: Cryptococcus neoformans complex
+    display_name: Cryptococcus neoformans species complex
+    aliases: ["Cryptococcus neoformans species complex", "Cryptococcus neoformans sensu lato", "Cryptococcus neoformans var. grubii", "Cryptococcus neoformans var. neoformans", "Filobasidiella neoformans"]
+    group: fungi
+    family: "Cryptococcus"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [antigen_testing, clinical_culture_with_species_identification, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/cryptococcosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    who_priority: true
+    note: >-
+      Extraintestinal / conditional watch. Cryptococcus neoformans species
+      complex: C. neoformans (formerly var. grubii; molecular types VNI, VNII,
+      VNB), C. deneoformans (formerly var. neoformans; VNIV) and their AD
+      hybrids (VNIII). Disease is pulmonary and meningeal; stool is not a
+      cryptococcosis exclusion test and detection does not diagnose
+      cryptococcosis. Environmental sources include pigeon guano and trees.
+      Confirmation uses cryptococcal antigen, culture and CSF or tissue
+      evaluation. WHO fungal priority list critical group.
+
+  - seed_id: fungi.cryptococcus_gattii_complex
+    source_section: "10"
+    requested_name: Cryptococcus gattii complex
+    display_name: Cryptococcus gattii species complex
+    aliases: ["Cryptococcus gattii species complex", "Cryptococcus gattii sensu lato", "Cryptococcus neoformans var. gattii", "Filobasidiella bacillispora"]
+    group: fungi
+    family: "Cryptococcus"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [antigen_testing, clinical_culture_with_species_identification, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/cryptococcosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    who_priority: true
+    note: >-
+      Extraintestinal / conditional watch. Cryptococcus gattii species
+      complex: C. gattii (VGI), C. deuterogattii (VGII), C. bacillisporus
+      (VGIII), C. tetragattii (VGIV) and C. decagattii (VGIV/VGIIIc), which
+      infect immunocompetent as well as immunocompromised hosts. Disease is
+      pulmonary and meningeal; stool is not a cryptococcosis exclusion test
+      and detection does not diagnose cryptococcosis. Report at complex level
+      unless member references support discrimination. WHO fungal priority
+      list medium group.
+
+  - seed_id: fungi.cryptococcus_reclassified_opportunistic_yeasts
+    source_section: "10"
+    requested_name: "clinically documented reclassified opportunistic cryptococcal yeasts"
+    display_name: "Reclassified opportunistic cryptococcal yeasts (former Cryptococcus spp.)"
+    aliases: []
+    group: fungi
+    family: "Cryptococcus"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [clinical_culture_with_species_identification, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, reference_absent, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/cryptococcosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    reference_gap_note: >-
+      Members span several genera after the Tremellales revision; some lack
+      genome assemblies and legacy GenBank records still carry Cryptococcus
+      names. Map legacy names to current genera against the frozen taxonomy
+      before expansion.
+    note: >-
+      Genus-level expansion seed for clinically documented opportunistic
+      yeasts formerly named Cryptococcus and now reclassified, e.g.
+      Naganishia albida (Cryptococcus albidus), Papiliotrema laurentii
+      (Cryptococcus laurentii), Filobasidium uniguttulatum (Cryptococcus
+      uniguttulatus) and Cutaneotrichosporon curvatus (Cryptococcus
+      curvatus). These are environmental yeasts with rare, mostly
+      catheter-associated infections; stool detection reflects environmental
+      or dietary exposure and is not a cryptococcosis exclusion test.
+      Expansion requires documented human relevance; detection does not
+      diagnose infection.
+
+  # ---------------------------------------------------------------------
+  # Geotrichum-related
+  # ---------------------------------------------------------------------
+  - seed_id: fungi.geotrichum_candidum
+    source_section: "10"
+    requested_name: Geotrichum candidum
+    display_name: Geotrichum candidum
+    aliases: ["Galactomyces candidus", "Galactomyces geotrichum"]
+    group: fungi
+    family: "Geotrichum-related"
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: dietary_or_environmental_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://pmc.ncbi.nlm.nih.gov/articles/PMC5874442/"]
+    expansion_state: installed
+    note: >-
+      Background or decoy. Dairy and cheese-ripening yeast-like fungus
+      (sexual morph Galactomyces candidus) and a common food-derived transient
+      in stool; rare geotrichosis occurs only in severely immunocompromised
+      patients. Aliases are deduplicated to this one target and kept apart
+      from Magnusiomyces capitatus. Detection does not diagnose infection or
+      establish a need for antifungal treatment.
+
+  - seed_id: fungi.magnusiomyces_capitatus
+    source_section: "10"
+    requested_name: Magnusiomyces/Saprochaete/Geotrichum capitatus
+    display_name: Magnusiomyces capitatus
+    aliases: ["Saprochaete capitata", "Geotrichum capitatum", "Blastoschizomyces capitatus", "Dipodascus capitatus", "Trichosporon capitatum"]
+    group: fungi
+    family: "Geotrichum-related"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, antifungal_susceptibility_testing, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    note: >-
+      Conditional opportunist. The aliases Saprochaete capitata, Geotrichum
+      capitatum, Blastoschizomyces capitatus, Dipodascus capitatus and
+      Trichosporon capitatum are deduplicated to this single target. Gut
+      colonisation precedes breakthrough invasive infection in haematology
+      patients, particularly in Mediterranean Europe; stool detection alone
+      does not diagnose infection or establish a need for antifungal
+      treatment. Intrinsic echinocandin resistance is not inferred from
+      sequence.
+
+  - seed_id: fungi.saprochaete_clavata
+    source_section: "10"
+    requested_name: Saprochaete clavata
+    display_name: Saprochaete clavata
+    aliases: ["Magnusiomyces clavatus", "Geotrichum clavatum"]
+    group: fungi
+    family: "Geotrichum-related"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: carriage_common
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, antifungal_susceptibility_testing, infection_control_review, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    note: >-
+      Conditional opportunist (also Magnusiomyces clavatus / Geotrichum
+      clavatum, deduplicated here). Associated with hospital outbreaks of
+      invasive infection in haematology patients, plausibly via gut
+      colonisation and contaminated equipment or food; requires sequence
+      discrimination from Magnusiomyces capitatus. Detection does not
+      diagnose infection or establish a need for antifungal treatment.
+
+  # ---------------------------------------------------------------------
+  # Other yeasts
+  # ---------------------------------------------------------------------
+  - seed_id: fungi.wickerhamomyces_anomalus
+    source_section: "10"
+    requested_name: Wickerhamomyces anomalus
+    display_name: Wickerhamomyces anomalus
+    aliases: ["Pichia anomala", "Hansenula anomala", "Candida pelliculosa"]
+    group: fungi
+    family: "Other yeasts"
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: dietary_or_environmental_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://pmc.ncbi.nlm.nih.gov/articles/PMC5874442/"]
+    expansion_state: installed
+    note: >-
+      Background or decoy in a conditional / food-associated context. Food,
+      fermentation and biocontrol yeast (Pichia anomala / Candida
+      pelliculosa) with rare fungaemia outbreaks in neonatal and paediatric
+      units. Stool detection is expected to reflect dietary exposure;
+      detection does not diagnose infection or establish a need for
+      antifungal treatment.
+
+  - seed_id: fungi.cyberlindnera_fabianii
+    source_section: "10"
+    requested_name: Cyberlindnera fabianii
+    display_name: Cyberlindnera fabianii
+    aliases: ["Pichia fabianii", "Hansenula fabianii", "Lindnera fabianii", "Candida fabianii"]
+    group: fungi
+    family: "Other yeasts"
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: dietary_or_environmental_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://pmc.ncbi.nlm.nih.gov/articles/PMC5874442/"]
+    expansion_state: installed
+    note: >-
+      Background or decoy in a conditional / food-associated context.
+      Fermentation and environmental yeast (Pichia / Hansenula fabianii) that
+      phenotypic systems frequently misidentify as Candida utilis or C.
+      pelliculosa; rare fungaemia and endocarditis reported. Detection does
+      not diagnose infection or establish a need for antifungal treatment.
+
+  - seed_id: fungi.kodamaea_ohmeri
+    source_section: "10"
+    requested_name: Kodamaea ohmeri
+    display_name: Kodamaea ohmeri
+    aliases: ["Pichia ohmeri", "Yamadazyma ohmeri", "Candida guilliermondii var. membranaefaciens"]
+    group: fungi
+    family: "Other yeasts"
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: dietary_or_environmental_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    note: >-
+      Background or decoy in the stool context. Food and environmental yeast
+      (Pichia ohmeri; pickles, fermented foods) that is also an emerging cause
+      of fungaemia in neonates and immunocompromised patients, so it remains
+      reviewable rather than erased. Detection does not diagnose infection or
+      establish a need for antifungal treatment.
+
+  - seed_id: fungi.debaryomyces_hansenii
+    source_section: "10"
+    requested_name: Debaryomyces hansenii
+    display_name: Debaryomyces hansenii
+    aliases: ["Candida famata", "Debaryomyces hansenii var. hansenii"]
+    group: fungi
+    family: "Other yeasts"
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: dietary_or_environmental_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://pmc.ncbi.nlm.nih.gov/articles/PMC5874442/"]
+    expansion_state: installed
+    note: >-
+      Background or decoy. Salt-tolerant dairy, cheese and cured-meat yeast
+      (anamorph Candida famata) and one of the most common food-derived
+      yeasts in stool; many older "C. famata" clinical isolates were
+      misidentified other species. Reported associations with intestinal
+      inflammation are research findings, not diagnostic criteria. Detection
+      does not diagnose infection or establish a need for antifungal
+      treatment.
+
+  # ---------------------------------------------------------------------
+  # Malassezia
+  # ---------------------------------------------------------------------
+  - seed_id: fungi.malassezia_restricta
+    source_section: "10"
+    requested_name: Malassezia restricta
+    display_name: Malassezia restricta
+    aliases: []
+    group: fungi
+    family: "Malassezia"
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: dietary_or_environmental_fungus
+    confirmation_options: [clinical_culture_with_species_identification, dermatology_referral_with_skin_sampling]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    note: >-
+      Background or decoy: skin-associated lipophilic yeast (the dominant
+      scalp and face species) that is an ecological stool finding, most often
+      from skin, oral or dietary passage. The finding does not diagnose
+      seborrheic dermatitis or fungal gut disease; reported associations with
+      Crohn's disease are research observations, not diagnostic criteria.
+      Culture requires lipid-supplemented media. Detection does not establish
+      a need for antifungal treatment.
+
+  - seed_id: fungi.malassezia_globosa
+    source_section: "10"
+    requested_name: Malassezia globosa
+    display_name: Malassezia globosa
+    aliases: []
+    group: fungi
+    family: "Malassezia"
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: dietary_or_environmental_fungus
+    confirmation_options: [clinical_culture_with_species_identification, dermatology_referral_with_skin_sampling]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    note: >-
+      Background or decoy: skin-associated lipophilic yeast (dandruff and
+      pityriasis versicolor associated) that is an ecological stool finding,
+      most often from skin, oral or dietary passage. The finding does not
+      diagnose seborrheic dermatitis or fungal gut disease. Culture requires
+      lipid-supplemented media. Detection does not establish a need for
+      antifungal treatment.
+
+  - seed_id: fungi.malassezia_furfur
+    source_section: "10"
+    requested_name: Malassezia furfur
+    display_name: Malassezia furfur
+    aliases: []
+    group: fungi
+    family: "Malassezia"
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: dietary_or_environmental_fungus
+    confirmation_options: [clinical_culture_with_species_identification, dermatology_referral_with_skin_sampling]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    reference_gap_note: >-
+      Historical names Pityrosporum ovale and Pityrosporum orbiculare predate
+      the split of the genus into multiple species and cannot be mapped to a
+      single current species, so they are deliberately not listed as aliases.
+    note: >-
+      Background or decoy: skin-associated lipophilic yeast that is an
+      ecological stool finding, most often from skin, oral or dietary
+      passage. The finding does not diagnose seborrheic dermatitis or fungal
+      gut disease. Lipid-infusion-associated fungaemia in neonates and
+      catheterised patients is a clinical matter that stool detection does
+      not diagnose. Detection does not establish a need for antifungal
+      treatment.
+
+  - seed_id: fungi.malassezia_sympodialis
+    source_section: "10"
+    requested_name: Malassezia sympodialis
+    display_name: Malassezia sympodialis
+    aliases: []
+    group: fungi
+    family: "Malassezia"
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: dietary_or_environmental_fungus
+    confirmation_options: [clinical_culture_with_species_identification, dermatology_referral_with_skin_sampling]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    note: >-
+      Background or decoy: skin-associated lipophilic yeast (trunk skin;
+      atopic dermatitis allergen source) that is an ecological stool finding,
+      most often from skin, oral or dietary passage. The finding does not
+      diagnose seborrheic dermatitis or fungal gut disease. Detection does
+      not establish a need for antifungal treatment.
+
+  - seed_id: fungi.malassezia_pachydermatis
+    source_section: "10"
+    requested_name: Malassezia pachydermatis
+    display_name: Malassezia pachydermatis
+    aliases: ["Pityrosporum pachydermatis"]
+    group: fungi
+    family: "Malassezia"
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: dietary_or_environmental_fungus
+    confirmation_options: [clinical_culture_with_species_identification, dermatology_referral_with_skin_sampling]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    note: >-
+      Background or decoy: animal-associated (canine otitis and dermatitis)
+      non-lipid-dependent Malassezia species; human carriage is usually
+      zoonotic from pets and it is an ecological stool finding. The finding
+      does not diagnose seborrheic dermatitis or fungal gut disease. Neonatal
+      intensive-care fungaemia outbreaks traced to pet-owning staff are a
+      clinical matter that stool detection does not diagnose. Detection does
+      not establish a need for antifungal treatment.
+
+  # ---------------------------------------------------------------------
+  # Additional food/ecological yeasts
+  # ---------------------------------------------------------------------
+  - seed_id: fungi.pichia_dietary_yeasts
+    source_section: "10"
+    requested_name: "Curated Pichia (common dietary yeasts)"
+    display_name: "Pichia, curated dietary species"
+    aliases: []
+    group: fungi
+    family: "Additional food/ecological yeasts"
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: dietary_or_environmental_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://pmc.ncbi.nlm.nih.gov/articles/PMC5874442/"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    note: >-
+      Background or decoy genus-level expansion seed for curated dietary
+      Pichia species (e.g. Pichia membranifaciens, P. fermentans, P.
+      kluyveri, P. manshurica, P. occidentalis) from fermented foods, fruit,
+      olives and beverages. Excludes Pichia kudriavzevii (Candida krusei) and
+      Pichia norvegensis (Candida norvegensis), which have dedicated clinical
+      seeds. Background or ecology unless a separately supported
+      organism-specific clinical context applies; food sequences act as
+      competitors, not as a pre-filter that discards potential true findings.
+
+  - seed_id: fungi.kazachstania_dietary_yeasts
+    source_section: "10"
+    requested_name: "Curated Kazachstania (common dietary yeasts)"
+    display_name: "Kazachstania, curated dietary species"
+    aliases: []
+    group: fungi
+    family: "Additional food/ecological yeasts"
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: dietary_or_environmental_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://pmc.ncbi.nlm.nih.gov/articles/PMC5874442/"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    note: >-
+      Background or decoy genus-level expansion seed for curated dietary
+      Kazachstania species (e.g. Kazachstania exigua = Candida holmii, K.
+      humilis = Candida milleri, K. unispora, K. servazzii, K. bulderi) from
+      sourdough, dairy and fermented foods. Animal-associated species (K.
+      pintolopesii, K. slooffiae, K. telluris, K. bovina) are food-animal
+      competitors, not human targets. Background or ecology unless a
+      separately supported organism-specific clinical context applies.
+
+  - seed_id: fungi.other_common_dietary_yeasts
+    source_section: "10"
+    requested_name: "other common dietary yeasts"
+    display_name: "Other common dietary yeasts (curated group)"
+    aliases: []
+    group: fungi
+    family: "Additional food/ecological yeasts"
+    interpretation_class: background_or_decoy
+    taxonomic_resolution: group
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: dietary_or_environmental_fungus
+    confirmation_options: [clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://pmc.ncbi.nlm.nih.gov/articles/PMC5874442/"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    note: >-
+      Group-level expansion seed for other common dietary yeasts not seeded
+      elsewhere (e.g. Torulaspora delbrueckii, Zygosaccharomyces bailii and
+      Z. rouxii, Hanseniaspora uvarum, Kluyveromyces lactis, Lachancea
+      thermotolerans, Metschnikowia pulcherrima, Brettanomyces / Dekkera
+      bruxellensis, Cyberlindnera jadinii, Yarrowia lipolytica, Starmerella
+      bacillaris). Background or ecology unless a separately supported
+      organism-specific clinical context applies; these sequences serve as
+      competitors that keep food yeasts from being misassigned to clinical
+      targets, never as an indiscriminate pre-filter.
+
+  # ---------------------------------------------------------------------
+  # Aspergillus
+  # ---------------------------------------------------------------------
+  - seed_id: fungi.aspergillus_fumigatus
+    source_section: "10"
+    requested_name: Aspergillus fumigatus
+    display_name: Aspergillus fumigatus
+    aliases: ["Neosartorya fumigata", "Aspergillus fumigatus sensu stricto"]
+    group: fungi
+    family: "Aspergillus"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, antigen_testing, serology, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/aspergillosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    expansion_state: installed
+    who_priority: true
+    note: >-
+      Opportunistic mould. Ubiquitous airborne spores mean stool detection
+      usually reflects swallowed or dietary spores and requires stringent
+      food and environmental contamination review. Invasive and chronic
+      aspergillosis are pulmonary or sinus diseases; stool is not a
+      diagnostic specimen and detection does not diagnose aspergillosis.
+      Cryptic section Fumigati relatives (A. lentulus, A. udagawae, A.
+      thermomutatus) must be discriminated. Azole resistance (e.g. cyp51A
+      alleles) is not inferred from stool sequence. No mycotoxin measurement
+      or toxin exposure can be inferred from mould DNA. WHO fungal priority
+      list critical group.
+
+  - seed_id: fungi.aspergillus_flavus
+    source_section: "10"
+    requested_name: Aspergillus flavus
+    display_name: Aspergillus flavus
+    aliases: []
+    group: fungi
+    family: "Aspergillus"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, antigen_testing, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/aspergillosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    reference_gap_note: >-
+      Aspergillus oryzae (koji mould) is a domesticated lineage of A. flavus
+      that is largely indistinguishable at species level; include A. oryzae
+      references as a dietary competitor and expect complex-level calls.
+    note: >-
+      Opportunistic mould, second most common agent of invasive aspergillosis
+      and a leading cause of fungal sinusitis and keratitis in warm climates.
+      Aspergillus oryzae (soy sauce, miso, sake koji) is essentially a
+      domesticated A. flavus, so fermented-food exposure review is required
+      before any interpretation. Stool is not a diagnostic specimen and
+      detection does not diagnose aspergillosis. No mycotoxin (aflatoxin)
+      measurement or toxin exposure can be inferred from mould DNA.
+
+  - seed_id: fungi.aspergillus_niger_complex
+    source_section: "10"
+    requested_name: Aspergillus niger complex
+    display_name: Aspergillus niger complex (section Nigri)
+    aliases: ["Aspergillus section Nigri", "Aspergillus niger aggregate", "Aspergillus niger species complex"]
+    group: fungi
+    family: "Aspergillus"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/aspergillosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    note: >-
+      Opportunistic mould complex (Aspergillus niger, A. tubingensis, A.
+      welwitschiae, A. luchuensis / awamori, A. brasiliensis, A.
+      carbonarius). Members are used in food fermentation and citric-acid or
+      enzyme production and grow on onions, grapes and dried fruit, so
+      dietary exposure is common; otomycosis is the usual clinical
+      presentation. Report at complex level unless member references support
+      discrimination. Stool is not a diagnostic specimen and detection does
+      not diagnose aspergillosis. No mycotoxin (ochratoxin, fumonisin)
+      measurement or toxin exposure can be inferred from mould DNA.
+
+  - seed_id: fungi.aspergillus_terreus
+    source_section: "10"
+    requested_name: Aspergillus terreus
+    display_name: Aspergillus terreus
+    aliases: []
+    group: fungi
+    family: "Aspergillus"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, antigen_testing, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/aspergillosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    note: >-
+      Opportunistic mould with regional prominence (e.g. Innsbruck, Houston)
+      in invasive aspergillosis. The intrinsic amphotericin B resistance of
+      the species is a clinical laboratory matter, not a sequence result.
+      Cryptic section Terrei relatives (A. alabamensis, A. hortai, A.
+      citrinoterreus) must be discriminated or reported at section level.
+      Stool is not a diagnostic specimen and detection does not diagnose
+      aspergillosis. No mycotoxin measurement or toxin exposure can be
+      inferred from mould DNA.
+
+  - seed_id: fungi.aspergillus_nidulans
+    source_section: "10"
+    requested_name: Aspergillus nidulans
+    display_name: Aspergillus nidulans
+    aliases: ["Emericella nidulans"]
+    group: fungi
+    family: "Aspergillus"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/aspergillosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    note: >-
+      Opportunistic mould (sexual morph Emericella nidulans) of particular
+      relevance in chronic granulomatous disease, and a soil and food
+      environmental fungus and laboratory model organism. Stool is not a
+      diagnostic specimen and detection does not diagnose aspergillosis;
+      section Nidulantes relatives (A. quadrilineatus, A. spinulosporus) need
+      discrimination. No mycotoxin (sterigmatocystin) measurement or toxin
+      exposure can be inferred from mould DNA.
+
+  - seed_id: fungi.aspergillus_clinically_relevant_cryptic_relatives
+    source_section: "10"
+    requested_name: "clinically relevant cryptic relatives (Aspergillus)"
+    display_name: "Aspergillus, clinically relevant cryptic species"
+    aliases: []
+    group: fungi
+    family: "Aspergillus"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, reference_absent, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/aspergillosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    reference_gap_note: >-
+      Many cryptic species are indistinguishable by ITS alone and require
+      calmodulin or beta-tubulin informed references; several lack genome
+      assemblies. Record member coverage gaps during expansion.
+    note: >-
+      Genus-level expansion seed for clinically relevant cryptic Aspergillus
+      species that routine identification misassigns to the classical species
+      (e.g. Aspergillus lentulus, A. udagawae, A. thermomutatus, A. felis, A.
+      calidoustus, A. sydowii, A. versicolor, A. tamarii, A. alliaceus).
+      Expansion requires documented human relevance and member references.
+      Stool is not a diagnostic specimen; detection does not diagnose
+      aspergillosis and no antifungal susceptibility is inferred. No
+      mycotoxin measurement or toxin exposure can be inferred from mould DNA.
+
+  # ---------------------------------------------------------------------
+  # Fusarium
+  # ---------------------------------------------------------------------
+  - seed_id: fungi.fusarium_clinically_relevant_species_complexes
+    source_section: "10"
+    requested_name: "Clinically relevant Fusarium species complexes and current reclassified members"
+    display_name: "Fusarium, clinically relevant species complexes"
+    aliases: []
+    group: fungi
+    family: "Fusarium"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    reference_gap_note: >-
+      Generic boundaries are disputed (Fusarium sensu lato versus
+      Neocosmospora / Bisifusarium); map both naming systems to the frozen
+      taxonomy and keep complex-level identities stable across renames.
+    note: >-
+      Genus-level expansion seed preserving complex-level results for
+      clinically relevant Fusarium: F. solani species complex (FSSC;
+      Neocosmospora in some classifications, including F. keratoplasticum,
+      F. petroliphilum and F. falciforme), F. oxysporum SC, F. fujikuroi SC
+      (F. verticillioides, F. proliferatum), F. incarnatum-equiseti SC, F.
+      dimerum SC (Bisifusarium) and F. chlamydosporum SC. Ubiquitous plant
+      pathogens and cereal contaminants, so dietary exposure is common. Stool
+      is not a diagnostic specimen for fusariosis or keratitis; detection
+      does not diagnose infection and no antifungal susceptibility is
+      inferred. No mycotoxin (fumonisin, trichothecene, zearalenone)
+      measurement or toxin exposure can be inferred from mould DNA. WHO
+      fungal priority list high group.
+
+  # ---------------------------------------------------------------------
+  # Scedosporium/Lomentospora
+  # ---------------------------------------------------------------------
+  - seed_id: fungi.scedosporium_apiospermum_boydii_complex
+    source_section: "10"
+    requested_name: Scedosporium apiospermum/boydii complex
+    display_name: Scedosporium apiospermum / boydii complex
+    aliases: ["Scedosporium apiospermum species complex", "Scedosporium boydii", "Pseudallescheria boydii", "Pseudallescheria apiosperma"]
+    group: fungi
+    family: "Scedosporium/Lomentospora"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, antifungal_susceptibility_testing, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    who_priority: true
+    note: >-
+      Opportunistic mould watch. Complex members: Scedosporium apiospermum,
+      S. boydii, S. aurantiacum, S. dehoogii, S. minutisporum, S. angustum,
+      S. ellipsoideum and S. fusoideum (sexual morph Pseudallescheria).
+      Environmental in soil, polluted water and manure; causes airway
+      colonisation in cystic fibrosis, mycetoma, and disseminated disease
+      after near-drowning or in transplant recipients. Stool is not a
+      diagnostic specimen and detection does not diagnose scedosporiosis;
+      report at complex level unless member references support
+      discrimination. No mycotoxin measurement or toxin exposure can be
+      inferred from mould DNA. WHO fungal priority list medium group.
+
+  - seed_id: fungi.lomentospora_prolificans
+    source_section: "10"
+    requested_name: Lomentospora prolificans
+    display_name: Lomentospora prolificans
+    aliases: ["Scedosporium prolificans", "Scedosporium inflatum"]
+    group: fungi
+    family: "Scedosporium/Lomentospora"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, antifungal_susceptibility_testing, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    expansion_state: installed
+    who_priority: true
+    note: >-
+      Opportunistic mould watch (formerly Scedosporium prolificans / S.
+      inflatum). Environmental soil fungus, prominent in Australia and Spain,
+      causing disseminated infection in neutropenic patients; its intrinsic
+      pan-antifungal resistance is a clinical laboratory matter, not a
+      sequence result. Stool is not a diagnostic specimen and detection does
+      not diagnose infection. No mycotoxin measurement or toxin exposure can
+      be inferred from mould DNA. WHO fungal priority list medium group.
+
+  # ---------------------------------------------------------------------
+  # Other hyaline moulds
+  # ---------------------------------------------------------------------
+  - seed_id: fungi.purpureocillium_lilacinum
+    source_section: "10"
+    requested_name: Purpureocillium lilacinum
+    display_name: Purpureocillium lilacinum
+    aliases: ["Paecilomyces lilacinus", "Penicillium lilacinum"]
+    group: fungi
+    family: "Other hyaline moulds"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    note: >-
+      Conditional / extraintestinal watch. Soil fungus and nematode
+      biocontrol agent (formerly Paecilomyces lilacinus) causing keratitis,
+      endophthalmitis, cutaneous and catheter-related infections in
+      immunocompromised hosts; also an agricultural product contaminant, so
+      dietary exposure is possible. Stool is not a diagnostic specimen and
+      detection does not diagnose infection; amphotericin B resistance is not
+      inferred from sequence. No mycotoxin measurement or toxin exposure can
+      be inferred from mould DNA.
+
+  - seed_id: fungi.paecilomyces_variotii
+    source_section: "10"
+    requested_name: Paecilomyces variotii
+    display_name: Paecilomyces variotii
+    aliases: ["Byssochlamys spectabilis", "Paecilomyces variotii complex"]
+    group: fungi
+    family: "Other hyaline moulds"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    note: >-
+      Conditional / extraintestinal watch. Heat-resistant food-spoilage mould
+      (sexual morph Byssochlamys spectabilis) of pasteurised juices, dairy
+      and processed foods, so dietary exposure is common; rare peritonitis,
+      endocarditis and catheter infections in immunocompromised hosts. Stool
+      is not a diagnostic specimen and detection does not diagnose infection;
+      voriconazole resistance is not inferred from sequence. No mycotoxin
+      measurement or toxin exposure can be inferred from mould DNA.
+
+  - seed_id: fungi.acremonium_sarocladium_clinically_relevant_members
+    source_section: "10"
+    requested_name: "clinically relevant Acremonium/Sarocladium"
+    display_name: "Acremonium / Sarocladium, clinically relevant members"
+    aliases: []
+    group: fungi
+    family: "Other hyaline moulds"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [clinical_culture_with_species_identification, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, reference_absent, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    reference_gap_note: >-
+      Acremonium sensu lato is polyphyletic and many clinical isolates were
+      reclassified into Sarocladium and other genera; legacy GenBank records
+      carry outdated names and several species lack genome assemblies.
+    note: >-
+      Genus-level expansion seed for clinically relevant Acremonium and
+      Sarocladium species (e.g. Sarocladium kiliense, S. strictum,
+      Acremonium sclerotigenum, A. egyptiacum). Environmental and
+      plant-associated hyaline moulds causing mycetoma, keratitis, and
+      catheter-related fungaemia (including a contaminated
+      anti-nausea-medication outbreak); many older "Acremonium" isolates
+      were misidentified. Stool is not a diagnostic specimen and detection
+      does not diagnose infection. No mycotoxin measurement or toxin exposure
+      can be inferred from mould DNA.
+
+  # ---------------------------------------------------------------------
+  # Mucorales
+  # ---------------------------------------------------------------------
+  - seed_id: fungi.rhizopus_arrhizus
+    source_section: "10"
+    requested_name: Rhizopus arrhizus/oryzae
+    display_name: "Rhizopus arrhizus (Rhizopus oryzae)"
+    aliases: ["Rhizopus oryzae", "Rhizopus arrhizus var. arrhizus", "Rhizopus arrhizus var. delemar", "Rhizopus delemar"]
+    group: fungi
+    family: "Mucorales"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [tissue_biopsy_or_imaging, clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/mucormycosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    expansion_state: installed
+    who_priority: true
+    reference_gap_note: >-
+      Rhizopus delemar is treated as a variety of R. arrhizus by some
+      taxonomies and as a sibling species by others; confirm against the
+      frozen taxonomy snapshot and keep the two mapped to this target unless
+      the snapshot separates them.
+    note: >-
+      The most common agent of mucormycosis worldwide; the slash-separated
+      names R. arrhizus and R. oryzae are aliases deduplicated to this one
+      target. Also used in tempeh, ragi and other fermented foods, so dietary
+      exposure is expected. Rare invasive gastrointestinal mucormycosis is
+      possible (neonates, malnutrition, contaminated probiotics or
+      medications), but stool does not establish mucormycosis; diagnosis
+      requires tissue histopathology, culture or validated tissue or blood
+      PCR. No mycotoxin measurement or toxin exposure can be inferred from
+      mould DNA. WHO fungal priority list high group (Mucorales).
+
+  - seed_id: fungi.rhizopus_microsporus
+    source_section: "10"
+    requested_name: Rhizopus microsporus
+    display_name: Rhizopus microsporus
+    aliases: ["Rhizopus microsporus var. rhizopodiformis", "Rhizopus microsporus var. oligosporus", "Rhizopus oligosporus", "Rhizopus microsporus var. chinensis", "Rhizopus azygosporus"]
+    group: fungi
+    family: "Mucorales"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [tissue_biopsy_or_imaging, clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/mucormycosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    expansion_state: installed
+    who_priority: true
+    note: >-
+      Second most common Rhizopus agent of mucormycosis; former varieties
+      (rhizopodiformis, oligosporus, chinensis) and R. azygosporus are
+      deduplicated to this target. The oligosporus lineage is the tempeh
+      starter culture, so dietary exposure is expected; healthcare outbreaks
+      via contaminated linen and wooden tongue depressors are documented.
+      Rare invasive gastrointestinal mucormycosis is possible, but stool does
+      not establish mucormycosis; diagnosis requires tissue histopathology,
+      culture or validated PCR. No mycotoxin measurement or toxin exposure
+      can be inferred from mould DNA. WHO fungal priority list high group
+      (Mucorales).
+
+  - seed_id: fungi.mucor_circinelloides_complex
+    source_section: "10"
+    requested_name: Mucor circinelloides complex
+    display_name: Mucor circinelloides complex
+    aliases: ["Mucor circinelloides species complex", "Mucor circinelloides f. circinelloides", "Mucor circinelloides f. lusitanicus", "Mucor circinelloides f. griseocyanus", "Mucor circinelloides f. janssenii"]
+    group: fungi
+    family: "Mucorales"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [tissue_biopsy_or_imaging, clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/mucormycosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    who_priority: true
+    note: >-
+      Opportunistic Mucorales complex: Mucor circinelloides sensu stricto,
+      M. lusitanicus, M. griseocyanus, M. janssenii, M. ramosissimus and M.
+      velutinosus (former formae now raised to species). Used in sufu and
+      other fermented foods and a frequent food contaminant (e.g. the yoghurt
+      recall strain), so dietary exposure is common. Report at complex level
+      unless member references support discrimination. Rare invasive
+      gastrointestinal mucormycosis is possible, but stool does not establish
+      mucormycosis; diagnosis requires tissue histopathology, culture or
+      validated PCR. No mycotoxin measurement or toxin exposure can be
+      inferred from mould DNA. WHO fungal priority list high group
+      (Mucorales).
+
+  - seed_id: fungi.lichtheimia_corymbifera
+    source_section: "10"
+    requested_name: Lichtheimia corymbifera
+    display_name: Lichtheimia corymbifera
+    aliases: ["Absidia corymbifera", "Mycocladus corymbifer"]
+    group: fungi
+    family: "Mucorales"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [tissue_biopsy_or_imaging, clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/mucormycosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    expansion_state: installed
+    who_priority: true
+    note: >-
+      Second most common Mucorales agent in Europe (formerly Absidia
+      corymbifera / Mycocladus corymbifer); thermotolerant soil and compost
+      fungus also found on stored grain and hay. Requires discrimination from
+      Lichtheimia ramosa and L. ornata. Rare invasive gastrointestinal
+      mucormycosis is possible, but stool does not establish mucormycosis;
+      diagnosis requires tissue histopathology, culture or validated PCR. No
+      mycotoxin measurement or toxin exposure can be inferred from mould DNA.
+      WHO fungal priority list high group (Mucorales).
+
+  - seed_id: fungi.lichtheimia_ramosa
+    source_section: "10"
+    requested_name: Lichtheimia ramosa
+    display_name: Lichtheimia ramosa
+    aliases: ["Absidia ramosa"]
+    group: fungi
+    family: "Mucorales"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [tissue_biopsy_or_imaging, clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/mucormycosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    expansion_state: installed
+    who_priority: true
+    note: >-
+      Opportunistic Mucorales species (formerly Absidia ramosa) that older
+      literature lumped with L. corymbifera; sequence discrimination between
+      the two is required. Environmental in soil, compost and fermented
+      foods. Rare invasive gastrointestinal mucormycosis is possible, but
+      stool does not establish mucormycosis; diagnosis requires tissue
+      histopathology, culture or validated PCR. No mycotoxin measurement or
+      toxin exposure can be inferred from mould DNA. WHO fungal priority list
+      high group (Mucorales).
+
+  - seed_id: fungi.rhizomucor_pusillus
+    source_section: "10"
+    requested_name: Rhizomucor pusillus
+    display_name: Rhizomucor pusillus
+    aliases: ["Mucor pusillus"]
+    group: fungi
+    family: "Mucorales"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [tissue_biopsy_or_imaging, clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/mucormycosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    expansion_state: installed
+    who_priority: true
+    note: >-
+      Thermophilic Mucorales species (formerly Mucor pusillus) of compost
+      and self-heating organic matter, also used industrially for microbial
+      rennet, so dietary exposure is possible; causes pulmonary and
+      disseminated mucormycosis in haematology patients and must be
+      discriminated from Rhizomucor miehei. Rare invasive gastrointestinal
+      mucormycosis is possible, but stool does not establish mucormycosis;
+      diagnosis requires tissue histopathology, culture or validated PCR. No
+      mycotoxin measurement or toxin exposure can be inferred from mould DNA.
+      WHO fungal priority list high group (Mucorales).
+
+  - seed_id: fungi.cunninghamella_bertholletiae
+    source_section: "10"
+    requested_name: Cunninghamella bertholletiae
+    display_name: Cunninghamella bertholletiae
+    aliases: []
+    group: fungi
+    family: "Mucorales"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [tissue_biopsy_or_imaging, clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/mucormycosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    expansion_state: installed
+    reference_gap_note: >-
+      Older literature confused Cunninghamella bertholletiae with C. elegans
+      and C. echinulata, and the genus has been revised recently; confirm
+      species boundaries against the frozen taxonomy and keep C. elegans /
+      C. echinulata as competitors.
+    note: >-
+      Opportunistic Mucorales species with the highest mortality among
+      mucormycosis agents, mainly in haematology patients; soil and
+      environmental fungus. Rare invasive gastrointestinal mucormycosis is
+      possible, but stool does not establish mucormycosis; diagnosis requires
+      tissue histopathology, culture or validated PCR. No mycotoxin
+      measurement or toxin exposure can be inferred from mould DNA. WHO
+      fungal priority list high group (Mucorales).
+
+  # ---------------------------------------------------------------------
+  # Extended Mucorales
+  # ---------------------------------------------------------------------
+  - seed_id: fungi.apophysomyces_human_infecting_members
+    source_section: "10"
+    requested_name: "Human-infecting Apophysomyces members"
+    display_name: "Apophysomyces, human-infecting members"
+    aliases: []
+    group: fungi
+    family: "Extended Mucorales"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [tissue_biopsy_or_imaging, clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, reference_absent, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/mucormycosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    who_priority: true
+    reference_gap_note: >-
+      Few genome assemblies exist and several species are represented only by
+      ITS or LSU markers; record marker-only coverage for members.
+    note: >-
+      Genus-level expansion seed for human-infecting Apophysomyces members
+      (the A. elegans complex: A. variabilis, A. ossiformis, A.
+      trapeziformis, A. mexicanus). Cause necrotising cutaneous and
+      soft-tissue mucormycosis after trauma in otherwise healthy people,
+      including natural-disaster clusters; tropical and subtropical soils.
+      Expand only with documented human relevance. Stool does not establish
+      mucormycosis; diagnosis requires tissue histopathology, culture or
+      validated PCR. No mycotoxin measurement or toxin exposure can be
+      inferred from mould DNA. WHO fungal priority list high group
+      (Mucorales).
+
+  - seed_id: fungi.saksenaea_human_infecting_members
+    source_section: "10"
+    requested_name: "Human-infecting Saksenaea members"
+    display_name: "Saksenaea, human-infecting members"
+    aliases: []
+    group: fungi
+    family: "Extended Mucorales"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [tissue_biopsy_or_imaging, clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, reference_absent, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/mucormycosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    who_priority: true
+    reference_gap_note: >-
+      Members are represented mainly by ITS/LSU markers with few genome
+      assemblies; record marker-only coverage and member gaps.
+    note: >-
+      Genus-level expansion seed for human-infecting Saksenaea members (the
+      S. vasiformis complex, S. erythrospora, S. oblongispora, S.
+      trapezispora, S. loutrophoriformis). Cause trauma-associated cutaneous
+      and subcutaneous mucormycosis in immunocompetent hosts; culture
+      identification is difficult because isolates fail to sporulate on
+      standard media. Expand only with documented human relevance. Stool does
+      not establish mucormycosis; diagnosis requires tissue histopathology,
+      culture or validated PCR. No mycotoxin measurement or toxin exposure
+      can be inferred from mould DNA. WHO fungal priority list high group
+      (Mucorales).
+
+  - seed_id: fungi.syncephalastrum_human_infecting_members
+    source_section: "10"
+    requested_name: "Human-infecting Syncephalastrum members"
+    display_name: "Syncephalastrum, human-infecting members"
+    aliases: []
+    group: fungi
+    family: "Extended Mucorales"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [tissue_biopsy_or_imaging, clinical_culture_with_species_identification, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, reference_absent, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/mucormycosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    who_priority: true
+    note: >-
+      Genus-level expansion seed for human-infecting Syncephalastrum members
+      (S. racemosum, S. monosporum, S. contaminatum). Common soil and
+      laboratory contaminant with rare cutaneous, nail, sinus and pulmonary
+      infections; documented human relevance is limited, so expand only with
+      case-level evidence. Stool does not establish mucormycosis; diagnosis
+      requires tissue histopathology, culture or validated PCR. No mycotoxin
+      measurement or toxin exposure can be inferred from mould DNA. WHO
+      fungal priority list high group (Mucorales).
+
+  # ---------------------------------------------------------------------
+  # Basidiobolus
+  # ---------------------------------------------------------------------
+  - seed_id: fungi.basidiobolus_ranarum
+    source_section: "10"
+    requested_name: Basidiobolus ranarum
+    display_name: Basidiobolus ranarum
+    aliases: ["Basidiobolus haptosporus", "Basidiobolus meristosporus"]
+    group: fungi
+    family: "Basidiobolus"
+    interpretation_class: rare_enteric
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [tissue_biopsy_or_imaging, clinical_culture_with_species_identification, serology, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, tissue_restricted, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    note: >-
+      Rare gastrointestinal-invasive fungal context. Agent of gastrointestinal
+      basidiobolomycosis (mainly children and adults in arid regions such as
+      Arizona, Saudi Arabia and Iran, often mimicking malignancy or Crohn's
+      disease) and of subcutaneous basidiobolomycosis in the tropics;
+      environmental in soil, decaying vegetation and amphibian or reptile
+      intestines. Legacy names B. haptosporus and B. meristosporus are
+      deduplicated here. Stool detection is not validated as diagnostic: the
+      disease is tissue-based and needs specimen-specific confirmation by
+      endoscopic or surgical biopsy, culture and, where available, serology.
+      Detection does not diagnose infection or establish treatment.
+
+  - seed_id: fungi.basidiobolus_verified_relevant_relatives
+    source_section: "10"
+    requested_name: "verified relevant relatives (Basidiobolus)"
+    display_name: "Basidiobolus, verified relevant relatives"
+    aliases: []
+    group: fungi
+    family: "Basidiobolus"
+    interpretation_class: rare_enteric
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: tissue_restricted
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: opportunistic_fungus
+    confirmation_options: [tissue_biopsy_or_imaging, clinical_culture_with_species_identification, serology, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, reference_absent, tissue_restricted, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    reference_gap_note: >-
+      Genome assemblies exist for very few Basidiobolus species and ITS
+      sequences are sparse; record marker-only coverage and member gaps.
+    note: >-
+      Genus-level expansion seed for verified relevant Basidiobolus relatives
+      (e.g. Basidiobolus omanensis, described from human abdominal
+      basidiobolomycosis; B. microsporus, B. heterosporus and B. magnus as
+      environmental or animal-associated competitors). Expand only with
+      documented human relevance. Stool detection is not validated as
+      diagnostic; gastrointestinal basidiobolomycosis needs specimen-specific
+      tissue confirmation. Detection does not diagnose infection or establish
+      treatment.
+
+  # ---------------------------------------------------------------------
+  # Endemic/systemic fungi
+  # ---------------------------------------------------------------------
+  - seed_id: fungi.histoplasma_species_complex
+    source_section: "10"
+    requested_name: Histoplasma species complex
+    display_name: Histoplasma species complex
+    aliases: ["Histoplasma capsulatum", "Histoplasma capsulatum var. capsulatum", "Histoplasma capsulatum var. duboisii", "Histoplasma capsulatum var. farciminosum", "Ajellomyces capsulatus", "Emmonsiella capsulata"]
+    group: fungi
+    family: "Endemic/systemic fungi"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [antigen_testing, serology, clinical_culture_with_species_identification, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, tissue_restricted, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/histoplasmosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    who_priority: true
+    note: >-
+      Extraintestinal / rare GI watch. Histoplasma species complex:
+      Histoplasma capsulatum sensu stricto, H. mississippiense, H. ohiense
+      and H. suramericanum, plus the legacy varieties capsulatum, duboisii
+      (African histoplasmosis) and farciminosum (equine). Disseminated
+      histoplasmosis can involve the gastrointestinal tract in advanced HIV
+      and other immunosuppression, but stool is not a validated specimen;
+      genome inclusion does not imply validated stool sensitivity and stool
+      gives no negative reassurance. Confirmation uses urine or serum
+      antigen, serology, culture and tissue. Report at complex level unless
+      member references support discrimination. WHO fungal priority list
+      high group.
+
+  - seed_id: fungi.talaromyces_marneffei
+    source_section: "10"
+    requested_name: Talaromyces marneffei
+    display_name: Talaromyces marneffei
+    aliases: ["Penicillium marneffei"]
+    group: fungi
+    family: "Endemic/systemic fungi"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [antigen_testing, clinical_culture_with_species_identification, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, tissue_restricted, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/talaromycosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    expansion_state: installed
+    who_priority: true
+    note: >-
+      Extraintestinal / rare GI watch. Thermally dimorphic fungus (formerly
+      Penicillium marneffei) endemic to Southeast Asia, southern China and
+      north-east India, causing disseminated talaromycosis in advanced HIV
+      and other immunodeficiency; gastrointestinal symptoms occur in
+      disseminated disease but stool is not a validated specimen and gives no
+      negative reassurance. Must be discriminated from ubiquitous
+      environmental and food Talaromyces / Penicillium species. Confirmation
+      uses Mp1p antigen, culture and tissue or bone-marrow examination. WHO
+      fungal priority list medium group.
+
+  - seed_id: fungi.coccidioides_immitis
+    source_section: "10"
+    requested_name: Coccidioides immitis
+    display_name: Coccidioides immitis
+    aliases: []
+    group: fungi
+    family: "Endemic/systemic fungi"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [serology, clinical_culture_with_species_identification, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, tissue_restricted, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/valley-fever/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    expansion_state: installed
+    who_priority: true
+    note: >-
+      Extraintestinal / rare GI watch. Agent of coccidioidomycosis (Valley
+      fever), historically the California clade; pulmonary disease with
+      occasional dissemination to skin, bone and meninges. Gastrointestinal
+      involvement is exceptional and stool is not a validated specimen;
+      genome inclusion does not imply validated stool sensitivity. Requires
+      discrimination from the sibling species C. posadasii. Culture is a
+      laboratory biosafety hazard (select agent), so serology and tissue
+      confirmation are preferred. WHO fungal priority list medium group.
+
+  - seed_id: fungi.coccidioides_posadasii
+    source_section: "10"
+    requested_name: Coccidioides posadasii
+    display_name: Coccidioides posadasii
+    aliases: []
+    group: fungi
+    family: "Endemic/systemic fungi"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [serology, clinical_culture_with_species_identification, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, tissue_restricted, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/valley-fever/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    expansion_state: installed
+    who_priority: true
+    note: >-
+      Extraintestinal / rare GI watch. Agent of coccidioidomycosis (Valley
+      fever) across Arizona, Texas, Mexico and Central and South America;
+      pulmonary disease with occasional dissemination. Gastrointestinal
+      involvement is exceptional and stool is not a validated specimen;
+      genome inclusion does not imply validated stool sensitivity. Requires
+      discrimination from the sibling species C. immitis. Culture is a
+      laboratory biosafety hazard (select agent), so serology and tissue
+      confirmation are preferred. WHO fungal priority list medium group.
+
+  - seed_id: fungi.blastomyces_dermatitidis
+    source_section: "10"
+    requested_name: Blastomyces dermatitidis
+    display_name: Blastomyces dermatitidis
+    aliases: ["Ajellomyces dermatitidis"]
+    group: fungi
+    family: "Endemic/systemic fungi"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [antigen_testing, serology, clinical_culture_with_species_identification, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, tissue_restricted, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/blastomycosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    note: >-
+      Extraintestinal / rare GI watch. Agent of blastomycosis (pulmonary,
+      cutaneous, osteoarticular and genitourinary disease) in the Ohio and
+      Mississippi river valleys, Great Lakes and St Lawrence regions.
+      Gastrointestinal involvement is exceptional and stool is not a
+      validated specimen; genome inclusion does not imply validated stool
+      sensitivity. Requires discrimination from the cryptic sibling
+      Blastomyces gilchristii. Urine antigen cross-reacts with Histoplasma,
+      so culture and tissue confirmation matter.
+
+  - seed_id: fungi.blastomyces_gilchristii
+    source_section: "10"
+    requested_name: Blastomyces gilchristii
+    display_name: Blastomyces gilchristii
+    aliases: []
+    group: fungi
+    family: "Endemic/systemic fungi"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [antigen_testing, serology, clinical_culture_with_species_identification, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, tissue_restricted, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/blastomycosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    note: >-
+      Extraintestinal / rare GI watch. Cryptic species split from Blastomyces
+      dermatitidis in 2013, concentrated in the upper Midwest and Canada and
+      associated with more pulmonary-restricted disease. Stool is not a
+      validated specimen; genome inclusion does not imply validated stool
+      sensitivity. Requires sequence discrimination from B. dermatitidis;
+      report at genus level when the two cannot be separated.
+
+  - seed_id: fungi.blastomyces_relevant_relatives
+    source_section: "10"
+    requested_name: "relevant relatives (Blastomyces)"
+    display_name: "Blastomyces, relevant relatives"
+    aliases: []
+    group: fungi
+    family: "Endemic/systemic fungi"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [clinical_culture_with_species_identification, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, reference_absent, wrong_specimen_type, tissue_restricted, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/blastomycosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    reference_gap_note: >-
+      Several recently described relatives have single or draft genome
+      assemblies only; record member coverage gaps during expansion.
+    note: >-
+      Genus-level expansion seed for relevant Blastomyces relatives beyond
+      B. dermatitidis and B. gilchristii: Blastomyces helicus (formerly
+      Emmonsia helica; western North America, immunocompromised hosts), B.
+      percursus (Africa, Israel), B. parvus (Emmonsia parva; adiaspiromycosis),
+      B. emzantsi and B. silverae. Expand only with documented human
+      relevance. Stool is not a validated specimen and gives no negative
+      reassurance for pulmonary or systemic disease.
+
+  - seed_id: fungi.paracoccidioides_brasiliensis_complex
+    source_section: "10"
+    requested_name: Paracoccidioides brasiliensis complex
+    display_name: Paracoccidioides brasiliensis complex
+    aliases: ["Paracoccidioides brasiliensis", "Paracoccidioides brasiliensis sensu lato", "Paracoccidioides brasiliensis species complex"]
+    group: fungi
+    family: "Endemic/systemic fungi"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [serology, clinical_culture_with_species_identification, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, tissue_restricted, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/paracoccidioidomycosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    who_priority: true
+    note: >-
+      Extraintestinal / rare GI watch. Paracoccidioides brasiliensis complex
+      (P. brasiliensis sensu stricto / S1, P. americana, P. restrepiensis,
+      P. venezuelensis), agents of paracoccidioidomycosis in Latin America
+      with pulmonary, mucosal and lymphatic disease; intestinal involvement
+      occurs in juvenile disseminated forms but stool is not a validated
+      specimen and gives no negative reassurance. Kept separate from
+      Paracoccidioides lutzii, which is a distinct species rather than an
+      alias. Report at complex level unless member references support
+      discrimination. WHO fungal priority list medium group.
+
+  - seed_id: fungi.paracoccidioides_lutzii
+    source_section: "10"
+    requested_name: Paracoccidioides lutzii complex
+    display_name: Paracoccidioides lutzii
+    aliases: ["Paracoccidioides brasiliensis Pb01-like"]
+    group: fungi
+    family: "Endemic/systemic fungi"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [serology, clinical_culture_with_species_identification, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, tissue_restricted, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/paracoccidioidomycosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    expansion_state: installed
+    who_priority: true
+    note: >-
+      Extraintestinal / rare GI watch. Paracoccidioides lutzii (formerly the
+      "Pb01-like" lineage), endemic to central-western Brazil and Ecuador and
+      a distinct species from the P. brasiliensis complex, with known
+      serological cross-reactivity gaps. Stool is not a validated specimen
+      and gives no negative reassurance for pulmonary or mucosal disease.
+      Requires discrimination from the P. brasiliensis complex. WHO fungal
+      priority list medium group.
+
+  - seed_id: fungi.sporothrix_pathogenic_complex
+    source_section: "10"
+    requested_name: pathogenic Sporothrix complex
+    display_name: "Sporothrix schenckii complex (pathogenic clade)"
+    aliases: ["Sporothrix schenckii complex", "Sporothrix schenckii sensu lato", "Sporothrix schenckii species complex"]
+    group: fungi
+    family: "Endemic/systemic fungi"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species_complex
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [clinical_culture_with_species_identification, tissue_biopsy_or_imaging, dermatology_referral_with_skin_sampling, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, tissue_restricted, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/sporotrichosis/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    note: >-
+      Extraintestinal watch. Pathogenic Sporothrix clade: Sporothrix
+      schenckii sensu stricto, S. brasiliensis (cat-transmitted epidemic in
+      Brazil), S. globosa and S. luriei; environmental relatives S. mexicana,
+      S. pallida and S. chilensis are rarely pathogenic and serve as
+      competitors. Sporotrichosis is cutaneous and lymphocutaneous, rarely
+      pulmonary or disseminated; stool is not a diagnostic specimen and gives
+      no negative reassurance. Report at complex level unless member
+      references support discrimination.
+
+  - seed_id: fungi.emergomyces
+    source_section: "10"
+    requested_name: Emergomyces
+    display_name: "Emergomyces (human-infecting species)"
+    aliases: []
+    group: fungi
+    family: "Endemic/systemic fungi"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [clinical_culture_with_species_identification, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, reference_absent, wrong_specimen_type, tissue_restricted, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    reference_gap_note: >-
+      Only some Emergomyces species have genome assemblies and legacy GenBank
+      records use Emmonsia names; map legacy names against the frozen
+      taxonomy and record member gaps.
+    note: >-
+      Genus-level expansion seed for Emergomyces, thermally dimorphic
+      Ajellomycetaceae causing disseminated emergomycosis in advanced HIV
+      and other immunosuppression: Emergomyces africanus (South Africa), E.
+      pasteurianus (formerly Emmonsia pasteuriana), E. canadensis, E.
+      orientalis and E. europaeus. Skin lesions and pneumonia dominate;
+      stool is not a validated specimen and gives no negative reassurance.
+      Expand only with documented human relevance.
+
+  # ---------------------------------------------------------------------
+  # Other extraintestinal fungi
+  # ---------------------------------------------------------------------
+  - seed_id: fungi.pneumocystis_jirovecii
+    source_section: "10"
+    requested_name: Pneumocystis jirovecii
+    display_name: Pneumocystis jirovecii
+    aliases: ["Pneumocystis jiroveci", "Pneumocystis carinii f. sp. hominis"]
+    group: fungi
+    family: "Other extraintestinal fungi"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI", "FungiDB", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, tissue_restricted, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/pneumocystis-pneumonia/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html", "https://www.who.int/publications/i/item/9789240060241"]
+    expansion_state: installed
+    who_priority: true
+    note: >-
+      Extraintestinal watch. Obligate human-associated fungus causing
+      Pneumocystis pneumonia in immunocompromised hosts; it cannot be
+      cultured, so confirmation relies on respiratory specimens (induced
+      sputum or bronchoalveolar lavage microscopy and PCR, with serum
+      beta-D-glucan as a supportive biomarker), not stool. A stool finding is
+      unexpected and offers no stool-negative reassurance for pulmonary
+      infection. Pneumocystis carinii proper is the rat species; legacy human
+      names are aliases. Sulfonamide resistance (DHPS mutations) is not
+      inferred from stool sequence. WHO fungal priority list medium group.
+
+  - seed_id: fungi.exophiala_clinically_relevant_members
+    source_section: "10"
+    requested_name: "clinically relevant Exophiala"
+    display_name: "Exophiala, clinically relevant species"
+    aliases: []
+    group: fungi
+    family: "Other extraintestinal fungi"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [clinical_culture_with_species_identification, tissue_biopsy_or_imaging, dermatology_referral_with_skin_sampling, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, reference_absent, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    note: >-
+      Genus-level expansion seed for clinically relevant Exophiala black
+      yeasts (Exophiala dermatitidis = Wangiella dermatitidis, E.
+      jeanselmei, E. spinifera, E. xenobiotica, E. oligosperma, E.
+      phaeomuriformis). Agents of phaeohyphomycosis (cutaneous,
+      subcutaneous, keratitis and rare disseminated or cerebral disease); E.
+      dermatitidis colonises airways in cystic fibrosis and is found in
+      dishwashers, saunas and occasionally the gut. Unexpected finding: no
+      stool-negative reassurance for pulmonary, skin or systemic infection.
+      Expand only with documented human relevance.
+
+  - seed_id: fungi.cladophialophora_clinically_relevant_members
+    source_section: "10"
+    requested_name: "clinically relevant Cladophialophora"
+    display_name: "Cladophialophora, clinically relevant species"
+    aliases: []
+    group: fungi
+    family: "Other extraintestinal fungi"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [clinical_culture_with_species_identification, tissue_biopsy_or_imaging, dermatology_referral_with_skin_sampling, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, reference_absent, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    note: >-
+      Genus-level expansion seed for clinically relevant Cladophialophora
+      species (Cladophialophora bantiana, a neurotropic cause of brain
+      abscess in immunocompetent hosts; C. carrionii, an agent of
+      chromoblastomycosis; C. boppii, C. arxii, C. devriesii, C. modesta, C.
+      saturnica). Unexpected finding: no stool-negative reassurance for
+      skin, cerebral or systemic infection. Expand only with documented human
+      relevance and discriminate from environmental Cladosporium.
+
+  - seed_id: fungi.fonsecaea_clinically_relevant_members
+    source_section: "10"
+    requested_name: "clinically relevant Fonsecaea"
+    display_name: "Fonsecaea, clinically relevant species"
+    aliases: []
+    group: fungi
+    family: "Other extraintestinal fungi"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [clinical_culture_with_species_identification, tissue_biopsy_or_imaging, dermatology_referral_with_skin_sampling, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, reference_absent, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    note: >-
+      Genus-level expansion seed for clinically relevant Fonsecaea species
+      (Fonsecaea pedrosoi, F. monophora, F. nubica, F. pugnacius), the main
+      agents of chromoblastomycosis (a WHO neglected tropical disease) and
+      occasional cerebral phaeohyphomycosis; environmental on plant debris
+      and thorns. Unexpected finding: no stool-negative reassurance for skin
+      or systemic infection. Expand only with documented human relevance.
+
+  - seed_id: fungi.alternaria_clinically_relevant_members
+    source_section: "10"
+    requested_name: "clinically relevant Alternaria"
+    display_name: "Alternaria, clinically relevant species"
+    aliases: []
+    group: fungi
+    family: "Other extraintestinal fungi"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [clinical_culture_with_species_identification, tissue_biopsy_or_imaging, dermatology_referral_with_skin_sampling, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    note: >-
+      Genus-level expansion seed for clinically relevant Alternaria species
+      (Alternaria alternata, A. infectoria and relatives), causes of
+      cutaneous and subcutaneous phaeohyphomycosis in transplant recipients,
+      keratitis and sinusitis, and a major airborne allergen. Ubiquitous on
+      plants, cereals, fruit and vegetables, so stool reads most often
+      reflect dietary exposure. Unexpected finding: no stool-negative
+      reassurance for skin or systemic infection. No mycotoxin (alternariol,
+      tenuazonic acid) measurement or toxin exposure can be inferred from
+      mould DNA.
+
+  - seed_id: fungi.curvularia_clinically_relevant_members
+    source_section: "10"
+    requested_name: "clinically relevant Curvularia"
+    display_name: "Curvularia, clinically relevant species"
+    aliases: []
+    group: fungi
+    family: "Other extraintestinal fungi"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "JGI_MycoCosm", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [clinical_culture_with_species_identification, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    reference_gap_note: >-
+      Clinically important species formerly in Bipolaris (B. spicifera, B.
+      hawaiiensis, B. australiensis) are now Curvularia; legacy GenBank
+      records keep Bipolaris names and must be mapped against the frozen
+      taxonomy.
+    note: >-
+      Genus-level expansion seed for clinically relevant Curvularia species
+      (Curvularia lunata, C. geniculata, C. spicifera, C. hawaiiensis, C.
+      australiensis; the latter three formerly Bipolaris). Agents of fungal
+      sinusitis, keratitis, cutaneous phaeohyphomycosis and rare cerebral or
+      disseminated disease; grass- and cereal-associated, so dietary exposure
+      is common. Unexpected finding: no stool-negative reassurance for
+      sinus, skin or systemic infection. No mycotoxin measurement or toxin
+      exposure can be inferred from mould DNA.
+
+  # ---------------------------------------------------------------------
+  # Dermatophytes
+  # ---------------------------------------------------------------------
+  - seed_id: fungi.trichophyton_human_infecting_members
+    source_section: "10"
+    requested_name: "Human-infecting Trichophyton"
+    display_name: "Trichophyton, human-infecting species"
+    aliases: []
+    group: fungi
+    family: "Dermatophytes"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [dermatology_referral_with_skin_sampling, clinical_culture_with_species_identification]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/ringworm/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    member_seed_ids: [fungi.trichophyton_indotineae]
+    expansion_state: manual_review_required
+    reference_gap_note: >-
+      ITS alone does not separate the T. mentagrophytes / T. interdigitale /
+      T. indotineae series or T. rubrum from T. violaceum and T. soudanense
+      reliably; expansion needs genome-informed references and complex-level
+      fallbacks.
+    note: >-
+      Genus-level expansion seed for human-infecting Trichophyton species
+      (Trichophyton rubrum, T. interdigitale, T. mentagrophytes, T.
+      tonsurans, T. violaceum, T. soudanense, T. schoenleinii, T.
+      verrucosum, T. benhamiae, T. erinacei, T. concentricum), with T.
+      indotineae seeded separately as a member. Searchable background /
+      watch: these are skin, hair and nail fungi, so a stool finding reflects
+      skin or perianal shedding or contamination, and stool is not a
+      skin-fungal diagnostic assay. Terbinafine or azole resistance is not
+      inferred from sequence.
+
+  - seed_id: fungi.trichophyton_indotineae
+    source_section: "10"
+    requested_name: Trichophyton indotineae
+    display_name: Trichophyton indotineae
+    aliases: ["Trichophyton mentagrophytes genotype VIII", "Trichophyton mentagrophytes ITS genotype VIII"]
+    group: fungi
+    family: "Dermatophytes"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [dermatology_referral_with_skin_sampling, clinical_culture_with_species_identification, antifungal_susceptibility_testing]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/ringworm/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    parent_seed_id: fungi.trichophyton_human_infecting_members
+    expansion_state: installed
+    note: >-
+      Extraintestinal watch. Emerging, frequently terbinafine-resistant
+      dermatophyte (formerly Trichophyton mentagrophytes ITS genotype VIII)
+      causing extensive, recalcitrant tinea corporis and cruris, spreading
+      from South Asia worldwide. A stool finding reflects skin or perianal
+      shedding; stool is not a skin-fungal diagnostic assay and dermatology
+      referral with skin sampling is the confirmation route. ITS may not
+      separate it from T. mentagrophytes and T. interdigitale, so validated
+      discrimination is required; SQLE resistance mutations are not reported
+      from stool sequence.
+
+  - seed_id: fungi.microsporum_human_infecting_members
+    source_section: "10"
+    requested_name: "Human-infecting Microsporum"
+    display_name: "Microsporum, human-infecting species"
+    aliases: []
+    group: fungi
+    family: "Dermatophytes"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [dermatology_referral_with_skin_sampling, clinical_culture_with_species_identification]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/ringworm/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    reference_gap_note: >-
+      Former Microsporum species now in Nannizzia (N. gypsea, N. persicolor,
+      N. fulva, N. incurvata) and other revised genera are reviewed for
+      inclusion during expansion; legacy GenBank records keep Microsporum
+      names.
+    note: >-
+      Genus-level expansion seed for human-infecting Microsporum species
+      (Microsporum canis, zoonotic from cats and dogs; M. audouinii; M.
+      ferrugineum), agents of tinea capitis and tinea corporis. Searchable
+      background / watch: a stool finding reflects skin or perianal shedding
+      or contamination, and stool is not a skin-fungal diagnostic assay;
+      dermatology referral with skin or hair sampling is the confirmation
+      route.
+
+  - seed_id: fungi.epidermophyton_human_infecting_members
+    source_section: "10"
+    requested_name: "Human-infecting Epidermophyton"
+    display_name: "Epidermophyton, human-infecting species (Epidermophyton floccosum)"
+    aliases: []
+    group: fungi
+    family: "Dermatophytes"
+    interpretation_class: extraintestinal_watch
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: extraintestinal
+    candidate_sources: ["NCBI", "FungiDB", "UNITE_ITS", "ISHAM_ITS_Database", "EukDetect2"]
+    report_template_id: extraintestinal_watch_fungus
+    confirmation_options: [dermatology_referral_with_skin_sampling, clinical_culture_with_species_identification]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/ringworm/about/index.html", "https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    note: >-
+      Genus-level expansion seed for human-infecting Epidermophyton, which
+      in practice resolves to the single anthropophilic species
+      Epidermophyton floccosum (tinea cruris, tinea pedis, onychomycosis);
+      E. stockdaleae is a non-pathogenic soil species kept as a competitor.
+      Searchable background / watch: a stool finding reflects skin or
+      perianal shedding or contamination, and stool is not a skin-fungal
+      diagnostic assay; dermatology referral with skin sampling is the
+      confirmation route.
+
+  # ---------------------------------------------------------------------
+  # Nonfungal look-alikes (group other_eukaryotes, not fungi)
+  # ---------------------------------------------------------------------
+  - seed_id: other_eukaryotes.pythium_insidiosum
+    source_section: "10"
+    requested_name: Pythium insidiosum
+    display_name: Pythium insidiosum
+    aliases: []
+    group: other_eukaryotes
+    family: "Nonfungal look-alikes"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: species
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "FungiDB", "EukDetect2"]
+    report_template_id: nonfungal_lookalike
+    confirmation_options: [clinical_culture_with_species_identification, serology, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    expansion_state: installed
+    reference_gap_note: >-
+      Recent proposals split clinical isolates into Pythium insidiosum, P.
+      periculosum and P. destruens, and only a few draft genome assemblies
+      exist; confirm species boundaries against the frozen taxonomy and
+      record member coverage gaps.
+    note: >-
+      Nonfungal look-alike: an oomycete (Stramenopila), not a fungus or a
+      bacterium, so it is filed under other_eukaryotes. Agent of pythiosis
+      (vascular and ocular disease in humans, especially thalassaemia
+      patients in Thailand; cutaneous and gastrointestinal disease in dogs
+      and horses) acquired from swampy fresh water. Stool is not a diagnostic
+      specimen and detection does not diagnose pythiosis; ergosterol-targeting
+      antifungals are ineffective, so no treatment inference is made. Its
+      cellulose and beta-glucan wall still resists standard lysis.
+
+  - seed_id: other_eukaryotes.prototheca_clinically_documented_species
+    source_section: "10"
+    requested_name: "clinically documented Prototheca spp."
+    display_name: "Prototheca, clinically documented species"
+    aliases: []
+    group: other_eukaryotes
+    family: "Nonfungal look-alikes"
+    interpretation_class: conditional_opportunist
+    taxonomic_resolution: genus
+    allowed_nucleic_acids: [DNA]
+    stool_role: environmental_or_dietary
+    candidate_sources: ["NCBI", "PR2_18S", "EukDetect2"]
+    report_template_id: nonfungal_lookalike
+    confirmation_options: [clinical_culture_with_species_identification, tissue_biopsy_or_imaging, specialist_referral]
+    negative_limitation_codes: [sampling, extraction, depth, reference_diversity, reference_absent, wrong_specimen_type, hard_to_lyse_cell_wall]
+    clinical_source_urls: ["https://www.cdc.gov/fungal/about/types-of-fungal-diseases.html"]
+    member_seed_ids: []
+    expansion_state: manual_review_required
+    reference_gap_note: >-
+      Few complete Prototheca genomes exist and several clinically documented
+      species are represented only by 18S, ITS or cytb markers; record
+      marker-only coverage and member gaps.
+    note: >-
+      Nonfungal look-alike: achlorophyllous green algae (Chlorophyta), not
+      fungi or bacteria, so filed under other_eukaryotes. Clinically
+      documented species include Prototheca wickerhamii, P. bovis and P.
+      ciferrii (former P. zopfii genotypes 2 and 1), P. cutis, P. miyajii and
+      P. blaschkeae. Ubiquitous in water, soil, sewage and dairy (bovine
+      mastitis, raw milk), so stool detection commonly reflects environmental
+      or dietary exposure, and intestinal carriage is reported. Protothecosis
+      is cutaneous, olecranon bursitis or disseminated disease in
+      immunocompromised hosts; stool is not a diagnostic specimen and
+      detection does not diagnose infection. The rigid sporangial wall
+      resists standard lysis.

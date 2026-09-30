@@ -1,0 +1,3272 @@
+{
+ "run_at": "2026-09-29T08:30:25-07:00",
+ "tool": "sylph 1.0.0 (naive ANI, containment)",
+ "database": "globdb_r232_sylph_v2_c200.syl2db",
+ "n_queried": 468,
+ "n_same_species": 426,
+ "n_boundary": 30,
+ "n_distinct_or_no_hit": 12,
+ "thresholds": {
+  "naive_ani_same": 95.5,
+  "naive_ani_boundary": 94.0,
+  "min_containment": 0.25
+ },
+ "placements": {
+  "MGYG000000300": {
+   "globdb_genome": "MOTU40_008566",
+   "naive_ani": 97.36,
+   "containment": 0.4367,
+   "species": "Anaerotardibacter MOTU40_008566",
+   "result": "same_species"
+  },
+  "MGYG000000286": {
+   "globdb_genome": "GCA_018371275",
+   "naive_ani": 96.17,
+   "containment": 0.2977,
+   "species": "Tyzzerella sp018371275",
+   "result": "same_species"
+  },
+  "MGYG000000328": {
+   "globdb_genome": "GCA_963598415",
+   "naive_ani": 96.97,
+   "containment": 0.3849,
+   "species": "Colimorpha_A sp900556615",
+   "result": "same_species"
+  },
+  "MGYG000000334": {
+   "globdb_genome": "GCA_944387285",
+   "naive_ani": 99.02,
+   "containment": 0.7372,
+   "species": "Scatomorpha sp944387285",
+   "result": "same_species"
+  },
+  "MGYG000000342": {
+   "globdb_genome": "GCA_934270705",
+   "naive_ani": 97.25,
+   "containment": 0.4211,
+   "species": "Oxalobacter sp934270705",
+   "result": "same_species"
+  },
+  "MGYG000000346": {
+   "globdb_genome": "MOTU40_078035",
+   "naive_ani": 98.39,
+   "containment": 0.6045,
+   "species": "MOTU40_078035 MOTU40_078035",
+   "result": "same_species"
+  },
+  "MGYG000000336": {
+   "globdb_genome": "GEMOTU_21760",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Varibaculum GEMOTU_21760",
+   "result": "same_species"
+  },
+  "MGYG000000350": {
+   "globdb_genome": "MOTU40_049849",
+   "naive_ani": 99.41,
+   "containment": 0.8336,
+   "species": "MOTU40_049849 MOTU40_049849",
+   "result": "same_species"
+  },
+  "MGYG000000403": {
+   "globdb_genome": "GCA_934476675",
+   "naive_ani": 96.53,
+   "containment": 0.3341,
+   "species": "UBA4716 sp934476675",
+   "result": "same_species"
+  },
+  "MGYG000000361": {
+   "globdb_genome": "GCA_934432885",
+   "naive_ani": 97.94,
+   "containment": 0.5248,
+   "species": "VSOB01 sp934432885",
+   "result": "same_species"
+  },
+  "MGYG000000454": {
+   "globdb_genome": "GCA_934446485",
+   "naive_ani": 97.22,
+   "containment": 0.4173,
+   "species": "RUG11130 sp934446485",
+   "result": "same_species"
+  },
+  "MGYG000000401": {
+   "globdb_genome": "HRGMV2_4044",
+   "naive_ani": 98.78,
+   "containment": 0.6845,
+   "species": "Onthoplasma HRGMV2_4044",
+   "result": "same_species"
+  },
+  "MGYG000000522": {
+   "globdb_genome": "GCA_902463315",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Methanocatella sp900766745",
+   "result": "same_species"
+  },
+  "MGYG000000397": {
+   "globdb_genome": "MOTU40_023115",
+   "naive_ani": 95.35,
+   "containment": 0.2287,
+   "species": "Collinsella MOTU40_023115",
+   "result": "boundary"
+  },
+  "MGYG000000497": {
+   "globdb_genome": "GCA_944389885",
+   "naive_ani": 97.28,
+   "containment": 0.4248,
+   "species": "Merdousia sp944389885",
+   "result": "same_species"
+  },
+  "MGYG000000547": {
+   "globdb_genome": "GEMOTU_40335",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Catenibacterium GEMOTU_40335",
+   "result": "same_species"
+  },
+  "MGYG000000566": {
+   "globdb_genome": "GCF_905187505",
+   "naive_ani": 98.01,
+   "containment": 0.5368,
+   "species": "Mailhella sp905187505",
+   "result": "same_species"
+  },
+  "MGYG000000681": {
+   "globdb_genome": "GCF_001591765",
+   "naive_ani": 98.22,
+   "containment": 0.5726,
+   "species": "Pseudolactococcus raffinolactis",
+   "result": "same_species"
+  },
+  "MGYG000000654": {
+   "globdb_genome": "GCA_006954405",
+   "naive_ani": 99.18,
+   "containment": 0.7745,
+   "species": "Methanarcanum hacksteinii",
+   "result": "same_species"
+  },
+  "MGYG000000738": {
+   "globdb_genome": "GCA_934167445",
+   "naive_ani": 97.3,
+   "containment": 0.4277,
+   "species": "CAG-269 sp014846485",
+   "result": "same_species"
+  },
+  "MGYG000000688": {
+   "globdb_genome": "SPIREOTU_01936329",
+   "naive_ani": 95.42,
+   "containment": 0.2341,
+   "species": "Collinsella SPIREOTU_01936329",
+   "result": "boundary"
+  },
+  "MGYG000000680": {
+   "globdb_genome": "GCA_934418055",
+   "naive_ani": 96.69,
+   "containment": 0.3524,
+   "species": "UBA3402 sp934418055",
+   "result": "same_species"
+  },
+  "MGYG000000578": {
+   "globdb_genome": "GEMOTU_36172",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Avilachnospira GEMOTU_36172",
+   "result": "same_species"
+  },
+  "MGYG000000555": {
+   "globdb_genome": "GCA_937935915",
+   "naive_ani": 99.18,
+   "containment": 0.7751,
+   "species": "Cellulosilyticum sp937935915",
+   "result": "same_species"
+  },
+  "MGYG000000709": {
+   "globdb_genome": "MOTU40_013851",
+   "naive_ani": 96.8,
+   "containment": 0.3645,
+   "species": "Apopatocola MOTU40_013851",
+   "result": "same_species"
+  },
+  "MGYG000000699": {
+   "globdb_genome": "GCMETA_00500130",
+   "naive_ani": 97.66,
+   "containment": 0.4794,
+   "species": "Bulleidia GCMETA_00500130",
+   "result": "same_species"
+  },
+  "MGYG000000601": {
+   "globdb_genome": "MOTU40_012810",
+   "naive_ani": 97.56,
+   "containment": 0.4647,
+   "species": "Allobaileyella MOTU40_012810",
+   "result": "same_species"
+  },
+  "MGYG000000759": {
+   "globdb_genome": "GEMOTU_41880",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Corynebacterium GEMOTU_41880",
+   "result": "same_species"
+  },
+  "MGYG000000763": {
+   "globdb_genome": "MOTU40_014975",
+   "naive_ani": 95.41,
+   "containment": 0.2328,
+   "species": "Porphyromonas MOTU40_014975",
+   "result": "boundary"
+  },
+  "MGYG000000754": {
+   "globdb_genome": "SPIREOTU_00044938",
+   "naive_ani": 97.25,
+   "containment": 0.4217,
+   "species": "Streptococcus SPIREOTU_00044938",
+   "result": "same_species"
+  },
+  "MGYG000000876": {
+   "globdb_genome": "MOTU40_020917",
+   "naive_ani": 95.18,
+   "containment": 0.216,
+   "species": "Faecalibacterium MOTU40_020917",
+   "result": "boundary"
+  },
+  "MGYG000000934": {
+   "globdb_genome": "GEMOTU_37017",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Collinsella GEMOTU_37017",
+   "result": "same_species"
+  },
+  "MGYG000000897": {
+   "globdb_genome": "GCA_905202485",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Methanomassiliicoccus_A sp905202485",
+   "result": "same_species"
+  },
+  "MGYG000001020": {
+   "globdb_genome": "GCA_934702375",
+   "naive_ani": 95.89,
+   "containment": 0.2723,
+   "species": "UBA7702 sp934702375",
+   "result": "same_species"
+  },
+  "MGYG000000910": {
+   "globdb_genome": "GCF_014982855",
+   "naive_ani": 95.72,
+   "containment": 0.2578,
+   "species": "Pseudoflavonifractor_A gallinarum",
+   "result": "same_species"
+  },
+  "MGYG000001033": {
+   "globdb_genome": "GCA_944376225",
+   "naive_ani": 98.61,
+   "containment": 0.6485,
+   "species": "Faecimorpha sp944376225",
+   "result": "same_species"
+  },
+  "MGYG000001032": {
+   "globdb_genome": "GCA_904420085",
+   "naive_ani": 97.24,
+   "containment": 0.4195,
+   "species": "Eubacterium_G sp904420085",
+   "result": "same_species"
+  },
+  "MGYG000001028": {
+   "globdb_genome": "SPIREOTU_00943607",
+   "naive_ani": 98.36,
+   "containment": 0.5987,
+   "species": "Limivicinus SPIREOTU_00943607",
+   "result": "same_species"
+  },
+  "MGYG000001080": {
+   "globdb_genome": "GCF_001224225",
+   "naive_ani": 97.13,
+   "containment": 0.4056,
+   "species": "Staphylococcus borealis",
+   "result": "same_species"
+  },
+  "MGYG000001133": {
+   "globdb_genome": "GCA_048527645",
+   "naive_ani": 97.42,
+   "containment": 0.4443,
+   "species": "HGM12669 sp048527645",
+   "result": "same_species"
+  },
+  "MGYG000001181": {
+   "globdb_genome": "GCA_937976375",
+   "naive_ani": 97.16,
+   "containment": 0.4089,
+   "species": "UMGS1590 sp937976375",
+   "result": "same_species"
+  },
+  "MGYG000001142": {
+   "globdb_genome": "GCA_958439425",
+   "naive_ani": 97.45,
+   "containment": 0.449,
+   "species": "Collinsella sp958439425",
+   "result": "same_species"
+  },
+  "MGYG000001075": {
+   "globdb_genome": "MOTU40_010667",
+   "naive_ani": 95.7,
+   "containment": 0.2562,
+   "species": "Granulicatella MOTU40_010667",
+   "result": "same_species"
+  },
+  "MGYG000001048": {
+   "globdb_genome": "GCA_018716115",
+   "naive_ani": 98.47,
+   "containment": 0.62,
+   "species": "Alloscybalousia intestinigallinarum",
+   "result": "same_species"
+  },
+  "MGYG000001169": {
+   "globdb_genome": "GCA_904391645",
+   "naive_ani": 98.18,
+   "containment": 0.5658,
+   "species": "Acutalibacter sp904391645",
+   "result": "same_species"
+  },
+  "MGYG000001035": {
+   "globdb_genome": "GCF_025905485",
+   "naive_ani": 97.4,
+   "containment": 0.4418,
+   "species": "Aquipseudomonas putida_P",
+   "result": "same_species"
+  },
+  "MGYG000001049": {
+   "globdb_genome": "GCMETA_00005630",
+   "naive_ani": 97.85,
+   "containment": 0.5101,
+   "species": "Limivicinus GCMETA_00005630",
+   "result": "same_species"
+  },
+  "MGYG000001106": {
+   "globdb_genome": "MOTU40_038014",
+   "naive_ani": 97.5,
+   "containment": 0.4563,
+   "species": "Pygmaiobacter MOTU40_038014",
+   "result": "same_species"
+  },
+  "MGYG000001284": {
+   "globdb_genome": "GCA_041432705",
+   "naive_ani": 97.94,
+   "containment": 0.5246,
+   "species": "Pauljensenia sp018375675",
+   "result": "same_species"
+  },
+  "MGYG000001573": {
+   "globdb_genome": "GEMOTU_32497",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Collinsella GEMOTU_32497",
+   "result": "same_species"
+  },
+  "MGYG000001257": {
+   "globdb_genome": "GCF_042850985",
+   "naive_ani": 97.35,
+   "containment": 0.4352,
+   "species": "Allocoprobacillus sp002160865",
+   "result": "same_species"
+  },
+  "MGYG000001272": {
+   "globdb_genome": "GCA_944372565",
+   "naive_ani": 97.52,
+   "containment": 0.4585,
+   "species": "UMGS775 sp944372565",
+   "result": "same_species"
+  },
+  "MGYG000001582": {
+   "globdb_genome": "MOTU40_022986",
+   "naive_ani": 95.86,
+   "containment": 0.2694,
+   "species": "Collinsella MOTU40_022986",
+   "result": "same_species"
+  },
+  "MGYG000001566": {
+   "globdb_genome": "GCA_020540725",
+   "naive_ani": 97.06,
+   "containment": 0.3965,
+   "species": "Faecalimonas sp900556835",
+   "result": "same_species"
+  },
+  "MGYG000001583": {
+   "globdb_genome": "GEMOTU_45319",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Collinsella GEMOTU_45319",
+   "result": "same_species"
+  },
+  "MGYG000001568": {
+   "globdb_genome": "GEMOTU_19795",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Collinsella GEMOTU_19795",
+   "result": "same_species"
+  },
+  "MGYG000001584": {
+   "globdb_genome": "GEMOTU_32209",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Collinsella GEMOTU_32209",
+   "result": "same_species"
+  },
+  "MGYG000001686": {
+   "globdb_genome": "GCF_900604965",
+   "naive_ani": 98.06,
+   "containment": 0.5447,
+   "species": "Berryella sp900604965",
+   "result": "same_species"
+  },
+  "MGYG000001768": {
+   "globdb_genome": "GCA_944327025",
+   "naive_ani": 98.15,
+   "containment": 0.5604,
+   "species": "Avelusimicrobium excrementipullorum",
+   "result": "same_species"
+  },
+  "MGYG000001600": {
+   "globdb_genome": "GCA_018712955",
+   "naive_ani": 97.33,
+   "containment": 0.4325,
+   "species": "Aveggerthella stercoripullorum",
+   "result": "same_species"
+  },
+  "MGYG000001570": {
+   "globdb_genome": "GCF_014467055",
+   "naive_ani": 97.29,
+   "containment": 0.4262,
+   "species": "Caproicibacterium amylolyticum",
+   "result": "same_species"
+  },
+  "MGYG000001724": {
+   "globdb_genome": "GEMOTU_19626",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Collinsella GEMOTU_19626",
+   "result": "same_species"
+  },
+  "MGYG000001771": {
+   "globdb_genome": "GCA_000438115",
+   "naive_ani": 97.77,
+   "containment": 0.4972,
+   "species": "Alloprevotella sp000438115",
+   "result": "same_species"
+  },
+  "MGYG000001778": {
+   "globdb_genome": "MOTU40_059923",
+   "naive_ani": 97.03,
+   "containment": 0.3928,
+   "species": "Fusicatenibacter_A MOTU40_059923",
+   "result": "same_species"
+  },
+  "MGYG000001794": {
+   "globdb_genome": "MOTU40_027163",
+   "naive_ani": 96.21,
+   "containment": 0.3014,
+   "species": "SPIREOTU_02504236 MOTU40_027163",
+   "result": "same_species"
+  },
+  "MGYG000001808": {
+   "globdb_genome": "GCA_018712465",
+   "naive_ani": 97.63,
+   "containment": 0.4762,
+   "species": "Egerieicola pullicola",
+   "result": "same_species"
+  },
+  "MGYG000001799": {
+   "result": "no_hit"
+  },
+  "MGYG000001813": {
+   "globdb_genome": "MOTU40_022958",
+   "naive_ani": 95.17,
+   "containment": 0.2154,
+   "species": "Collinsella MOTU40_022958",
+   "result": "boundary"
+  },
+  "MGYG000001818": {
+   "globdb_genome": "GCA_017937065",
+   "naive_ani": 98.24,
+   "containment": 0.5764,
+   "species": "RGIG9041 sp017937065",
+   "result": "same_species"
+  },
+  "MGYG000001825": {
+   "globdb_genome": "MOTU40_003246",
+   "naive_ani": 98.55,
+   "containment": 0.6366,
+   "species": "CAG-269 MOTU40_003246",
+   "result": "same_species"
+  },
+  "MGYG000001841": {
+   "globdb_genome": "GCA_934613505",
+   "naive_ani": 97.4,
+   "containment": 0.4424,
+   "species": "CAG-170 sp934613505",
+   "result": "same_species"
+  },
+  "MGYG000001879": {
+   "globdb_genome": "GCA_934385225",
+   "naive_ani": 96.73,
+   "containment": 0.3566,
+   "species": "SIG710 sp934385225",
+   "result": "same_species"
+  },
+  "MGYG000001888": {
+   "globdb_genome": "GCA_944363555",
+   "naive_ani": 97.53,
+   "containment": 0.4607,
+   "species": "UMGS775 sp944363555",
+   "result": "same_species"
+  },
+  "MGYG000001904": {
+   "globdb_genome": "GCA_944332995",
+   "naive_ani": 96.94,
+   "containment": 0.3815,
+   "species": "CAG-917 sp944332995",
+   "result": "same_species"
+  },
+  "MGYG000001844": {
+   "globdb_genome": "GCA_003343765",
+   "naive_ani": 95.71,
+   "containment": 0.2566,
+   "species": "Borkfalkia sp003343765",
+   "result": "same_species"
+  },
+  "MGYG000001856": {
+   "globdb_genome": "GCA_905203995",
+   "naive_ani": 99.88,
+   "containment": 0.9643,
+   "species": "Methanomassiliicoccus_A sp905203995",
+   "result": "same_species"
+  },
+  "MGYG000001915": {
+   "globdb_genome": "MOTU40_010735",
+   "naive_ani": 94.85,
+   "containment": 0.1942,
+   "species": "Collinsella MOTU40_010735",
+   "result": "boundary"
+  },
+  "MGYG000001916": {
+   "globdb_genome": "GEMOTU_45530",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Collinsella GEMOTU_45530",
+   "result": "same_species"
+  },
+  "MGYG000001958": {
+   "globdb_genome": "MOTU40_005314",
+   "naive_ani": 96.27,
+   "containment": 0.3079,
+   "species": "Intestinimonas MOTU40_005314",
+   "result": "same_species"
+  },
+  "MGYG000001969": {
+   "globdb_genome": "GCA_029225225",
+   "naive_ani": 97.44,
+   "containment": 0.4472,
+   "species": "JAZOXB01 sp029225225",
+   "result": "same_species"
+  },
+  "MGYG000001976": {
+   "globdb_genome": "GCA_934255515",
+   "naive_ani": 97.9,
+   "containment": 0.5179,
+   "species": "Sutterella sp934255515",
+   "result": "same_species"
+  },
+  "MGYG000001979": {
+   "globdb_genome": "GCA_019320095",
+   "naive_ani": 97.76,
+   "containment": 0.495,
+   "species": "Acutalibacter pullicola",
+   "result": "same_species"
+  },
+  "MGYG000001914": {
+   "globdb_genome": "SPIREOTU_02476804",
+   "naive_ani": 97.08,
+   "containment": 0.3986,
+   "species": "Scatosoma SPIREOTU_02476804",
+   "result": "same_species"
+  },
+  "MGYG000001912": {
+   "globdb_genome": "GCA_949296915",
+   "naive_ani": 98.32,
+   "containment": 0.5907,
+   "species": "Onthovicinus sp900555545",
+   "result": "same_species"
+  },
+  "MGYG000002017": {
+   "globdb_genome": "GCA_019119025",
+   "naive_ani": 95.59,
+   "containment": 0.2471,
+   "species": "Allofournierella_A excrementigallinarum",
+   "result": "boundary"
+  },
+  "MGYG000002000": {
+   "globdb_genome": "GCA_028724485",
+   "naive_ani": 97.83,
+   "containment": 0.5067,
+   "species": "CAG-917 sp028724485",
+   "result": "same_species"
+  },
+  "MGYG000002053": {
+   "globdb_genome": "SPIREOTU_01467316",
+   "naive_ani": 97.88,
+   "containment": 0.5147,
+   "species": "SPIREOTU_02409482 SPIREOTU_01467316",
+   "result": "same_species"
+  },
+  "MGYG000002010": {
+   "globdb_genome": "GCA_022769485",
+   "naive_ani": 98.29,
+   "containment": 0.5862,
+   "species": "JALEJU01 sp022769485",
+   "result": "same_species"
+  },
+  "MGYG000002011": {
+   "globdb_genome": "GCMETA_02723070",
+   "naive_ani": 97.13,
+   "containment": 0.4054,
+   "species": "Pullichristensenella GCMETA_02723070",
+   "result": "same_species"
+  },
+  "MGYG000002085": {
+   "globdb_genome": "GCA_934668295",
+   "naive_ani": 98.45,
+   "containment": 0.6155,
+   "species": "CAG-170 sp934668295",
+   "result": "same_species"
+  },
+  "MGYG000002036": {
+   "globdb_genome": "GCA_900763675",
+   "naive_ani": 97.75,
+   "containment": 0.4943,
+   "species": "Apopatocola sp900763675",
+   "result": "same_species"
+  },
+  "MGYG000002046": {
+   "globdb_genome": "GCA_905206195",
+   "naive_ani": 97.73,
+   "containment": 0.4913,
+   "species": "Roseburia sp905206195",
+   "result": "same_species"
+  },
+  "MGYG000002089": {
+   "globdb_genome": "MOTU40_076716",
+   "naive_ani": 99.56,
+   "containment": 0.8717,
+   "species": "Merdivicinus MOTU40_076716",
+   "result": "same_species"
+  },
+  "MGYG000002112": {
+   "globdb_genome": "GEMOTU_35544",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Collinsella GEMOTU_35544",
+   "result": "same_species"
+  },
+  "MGYG000002127": {
+   "result": "no_hit"
+  },
+  "MGYG000002147": {
+   "globdb_genome": "GCA_030842085",
+   "naive_ani": 98.28,
+   "containment": 0.5841,
+   "species": "Timburyella sp030842085",
+   "result": "same_species"
+  },
+  "MGYG000002150": {
+   "globdb_genome": "GCA_019113645",
+   "naive_ani": 97.34,
+   "containment": 0.4333,
+   "species": "Mediterraneibacter vanvlietii",
+   "result": "same_species"
+  },
+  "MGYG000002151": {
+   "globdb_genome": "GCA_946496415",
+   "naive_ani": 97.0,
+   "containment": 0.3894,
+   "species": "Pullichristensenella sp946496415",
+   "result": "same_species"
+  },
+  "MGYG000002162": {
+   "globdb_genome": "GCF_001639275",
+   "naive_ani": 99.9,
+   "containment": 0.9695,
+   "species": "Methanocatella oralis",
+   "result": "same_species"
+  },
+  "MGYG000002163": {
+   "globdb_genome": "GCF_000016525",
+   "naive_ani": 98.73,
+   "containment": 0.6726,
+   "species": "Methanocatella smithii",
+   "result": "same_species"
+  },
+  "MGYG000002204": {
+   "globdb_genome": "MOTU40_046694",
+   "naive_ani": 97.55,
+   "containment": 0.4631,
+   "species": "Pelethousia MOTU40_046694",
+   "result": "same_species"
+  },
+  "MGYG000002189": {
+   "globdb_genome": "GEMOTU_37659",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Collinsella GEMOTU_37659",
+   "result": "same_species"
+  },
+  "MGYG000002219": {
+   "globdb_genome": "GCA_934667425",
+   "naive_ani": 97.16,
+   "containment": 0.4089,
+   "species": "UBA1731 sp934667425",
+   "result": "same_species"
+  },
+  "MGYG000002249": {
+   "globdb_genome": "GCA_014845975",
+   "naive_ani": 98.13,
+   "containment": 0.5567,
+   "species": "CAJOJO01 sp014845975",
+   "result": "same_species"
+  },
+  "MGYG000002252": {
+   "globdb_genome": "GCA_934476455",
+   "naive_ani": 96.74,
+   "containment": 0.3583,
+   "species": "UMGS1883 sp934476455",
+   "result": "same_species"
+  },
+  "MGYG000002245": {
+   "globdb_genome": "GCA_934446065",
+   "naive_ani": 96.82,
+   "containment": 0.3671,
+   "species": "UMGS1312 sp934446065",
+   "result": "same_species"
+  },
+  "MGYG000002456": {
+   "globdb_genome": "GCF_000300255",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Methanomethylophilus alvi",
+   "result": "same_species"
+  },
+  "MGYG000002604": {
+   "result": "no_hit"
+  },
+  "MGYG000002446": {
+   "globdb_genome": "GCF_002252585",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Methanocatella intestini",
+   "result": "same_species"
+  },
+  "MGYG000002226": {
+   "globdb_genome": "GCA_934376955",
+   "naive_ani": 96.54,
+   "containment": 0.3353,
+   "species": "CAKRPJ01 sp934376955",
+   "result": "same_species"
+  },
+  "MGYG000002701": {
+   "globdb_genome": "MOTU40_086857",
+   "naive_ani": 99.41,
+   "containment": 0.8325,
+   "species": "MOTU40_086857 MOTU40_086857",
+   "result": "same_species"
+  },
+  "MGYG000002731": {
+   "globdb_genome": "MOTU40_023115",
+   "naive_ani": 94.98,
+   "containment": 0.2026,
+   "species": "Collinsella MOTU40_023115",
+   "result": "boundary"
+  },
+  "MGYG000002749": {
+   "globdb_genome": "GEMOTU_40157",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Collinsella GEMOTU_40157",
+   "result": "same_species"
+  },
+  "MGYG000002753": {
+   "globdb_genome": "HRGMV2_2714",
+   "naive_ani": 97.62,
+   "containment": 0.474,
+   "species": "CAG-103 HRGMV2_2714",
+   "result": "same_species"
+  },
+  "MGYG000002758": {
+   "globdb_genome": "MOTU40_063162",
+   "naive_ani": 97.74,
+   "containment": 0.4919,
+   "species": "Ornithomonoglobus_A MOTU40_063162",
+   "result": "same_species"
+  },
+  "MGYG000002761": {
+   "globdb_genome": "MOTU40_108795",
+   "naive_ani": 99.23,
+   "containment": 0.7872,
+   "species": "Anaerotardibacter MOTU40_108795",
+   "result": "same_species"
+  },
+  "MGYG000002666": {
+   "globdb_genome": "GCA_934254675",
+   "naive_ani": 96.18,
+   "containment": 0.299,
+   "species": "RUG410 sp934254675",
+   "result": "same_species"
+  },
+  "MGYG000002629": {
+   "globdb_genome": "MOTU40_077985",
+   "naive_ani": 96.54,
+   "containment": 0.3361,
+   "species": "MOTU40_077985 MOTU40_077985",
+   "result": "same_species"
+  },
+  "MGYG000002790": {
+   "globdb_genome": "GCA_944338075",
+   "naive_ani": 97.42,
+   "containment": 0.4454,
+   "species": "Gallimonas intestinigallinarum",
+   "result": "same_species"
+  },
+  "MGYG000002793": {
+   "globdb_genome": "GEMOTU_35206",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Collinsella GEMOTU_35206",
+   "result": "same_species"
+  },
+  "MGYG000002808": {
+   "globdb_genome": "MOTU40_023177",
+   "naive_ani": 94.58,
+   "containment": 0.1777,
+   "species": "Collinsella MOTU40_023177",
+   "result": "boundary"
+  },
+  "MGYG000002769": {
+   "globdb_genome": "GCA_934130595",
+   "naive_ani": 97.41,
+   "containment": 0.4431,
+   "species": "CAG-465 sp934130595",
+   "result": "same_species"
+  },
+  "MGYG000002785": {
+   "globdb_genome": "GCA_018366495",
+   "naive_ani": 97.8,
+   "containment": 0.501,
+   "species": "JAGZHZ01 sp018366495",
+   "result": "same_species"
+  },
+  "MGYG000002879": {
+   "globdb_genome": "GCA_018713905",
+   "naive_ani": 96.05,
+   "containment": 0.2864,
+   "species": "Fimimonas merdipullorum",
+   "result": "same_species"
+  },
+  "MGYG000002791": {
+   "globdb_genome": "GCA_958420075",
+   "naive_ani": 96.63,
+   "containment": 0.345,
+   "species": "Anaerotignum sp958420075",
+   "result": "same_species"
+  },
+  "MGYG000002767": {
+   "globdb_genome": "GCA_900552685",
+   "naive_ani": 94.56,
+   "containment": 0.1765,
+   "species": "Collinsella sp900552685",
+   "result": "boundary"
+  },
+  "MGYG000002828": {
+   "globdb_genome": "MOTU40_083296",
+   "naive_ani": 98.92,
+   "containment": 0.7148,
+   "species": "SPIREOTU_02695069 MOTU40_083296",
+   "result": "same_species"
+  },
+  "MGYG000002842": {
+   "globdb_genome": "MOTU40_043175",
+   "naive_ani": 97.36,
+   "containment": 0.4357,
+   "species": "Lancefieldella MOTU40_043175",
+   "result": "same_species"
+  },
+  "MGYG000002809": {
+   "globdb_genome": "GCA_934553285",
+   "naive_ani": 97.27,
+   "containment": 0.4246,
+   "species": "Faecalibacterium sp934553285",
+   "result": "same_species"
+  },
+  "MGYG000002902": {
+   "globdb_genome": "GCA_963521235",
+   "naive_ani": 96.65,
+   "containment": 0.3476,
+   "species": "F0422 sp963521235",
+   "result": "same_species"
+  },
+  "MGYG000002938": {
+   "globdb_genome": "GCF_020908015",
+   "naive_ani": 97.96,
+   "containment": 0.5272,
+   "species": "Clostridium_B aromativorans",
+   "result": "same_species"
+  },
+  "MGYG000002931": {
+   "globdb_genome": "GCF_000212375",
+   "naive_ani": 93.34,
+   "containment": 0.118,
+   "species": "Porphyromonas asaccharolytica",
+   "result": "distinct"
+  },
+  "MGYG000002881": {
+   "globdb_genome": "MOTU40_084860",
+   "naive_ani": 99.05,
+   "containment": 0.743,
+   "species": "Ruminococcus MOTU40_084860",
+   "result": "same_species"
+  },
+  "MGYG000002901": {
+   "globdb_genome": "MOTU40_049616",
+   "naive_ani": 99.64,
+   "containment": 0.8944,
+   "species": "Anaerococcus MOTU40_049616",
+   "result": "same_species"
+  },
+  "MGYG000003061": {
+   "globdb_genome": "GEMOTU_33121",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Collinsella GEMOTU_33121",
+   "result": "same_species"
+  },
+  "MGYG000002921": {
+   "globdb_genome": "GEMOTU_19988",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Collinsella GEMOTU_19988",
+   "result": "same_species"
+  },
+  "MGYG000003050": {
+   "globdb_genome": "GEMOTU_29177",
+   "naive_ani": 95.38,
+   "containment": 0.2311,
+   "species": "Collinsella GEMOTU_29177",
+   "result": "boundary"
+  },
+  "MGYG000002939": {
+   "globdb_genome": "GCF_005405485",
+   "naive_ani": 96.17,
+   "containment": 0.2985,
+   "species": "Enterococcus_A hulanensis",
+   "result": "same_species"
+  },
+  "MGYG000003021": {
+   "globdb_genome": "MOTU40_008364",
+   "naive_ani": 95.01,
+   "containment": 0.2043,
+   "species": "Haemophilus_D MOTU40_008364",
+   "result": "boundary"
+  },
+  "MGYG000002952": {
+   "globdb_genome": "GCA_963525775",
+   "naive_ani": 96.1,
+   "containment": 0.2915,
+   "species": "Bulleidia sp963525775",
+   "result": "same_species"
+  },
+  "MGYG000003071": {
+   "globdb_genome": "SPIREOTU_02646715",
+   "naive_ani": 95.63,
+   "containment": 0.2505,
+   "species": "Veillonella SPIREOTU_02646715",
+   "result": "same_species"
+  },
+  "MGYG000003076": {
+   "globdb_genome": "SPIREOTU_00737574",
+   "naive_ani": 97.27,
+   "containment": 0.4244,
+   "species": "Odoribacter SPIREOTU_00737574",
+   "result": "same_species"
+  },
+  "MGYG000003109": {
+   "globdb_genome": "MOTU40_023104",
+   "naive_ani": 95.2,
+   "containment": 0.2174,
+   "species": "Collinsella MOTU40_023104",
+   "result": "boundary"
+  },
+  "MGYG000003162": {
+   "globdb_genome": "MRGM_1308",
+   "naive_ani": 97.36,
+   "containment": 0.4367,
+   "species": "YE71 MRGM_1308",
+   "result": "same_species"
+  },
+  "MGYG000003112": {
+   "globdb_genome": "MOTU40_023465",
+   "naive_ani": 96.81,
+   "containment": 0.3664,
+   "species": "Ruminococcoides MOTU40_023465",
+   "result": "same_species"
+  },
+  "MGYG000003207": {
+   "globdb_genome": "GCMETA_00035221",
+   "naive_ani": 98.87,
+   "containment": 0.7041,
+   "species": "UBA1206 GCMETA_00035221",
+   "result": "same_species"
+  },
+  "MGYG000003210": {
+   "globdb_genome": "GCF_014333425",
+   "naive_ani": 97.29,
+   "containment": 0.4264,
+   "species": "Hominibacterium hominis",
+   "result": "same_species"
+  },
+  "MGYG000003175": {
+   "globdb_genome": "GEMOTU_26019",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Collinsella GEMOTU_26019",
+   "result": "same_species"
+  },
+  "MGYG000003206": {
+   "globdb_genome": "GEMOTU_18196",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Collinsella GEMOTU_18196",
+   "result": "same_species"
+  },
+  "MGYG000003212": {
+   "globdb_genome": "HRGMV2_4053",
+   "naive_ani": 98.46,
+   "containment": 0.6177,
+   "species": "HRGMV2_4053 HRGMV2_4053",
+   "result": "same_species"
+  },
+  "MGYG000003211": {
+   "globdb_genome": "GCA_934615635",
+   "naive_ani": 98.59,
+   "containment": 0.6436,
+   "species": "CAKTXU01 sp934615635",
+   "result": "same_species"
+  },
+  "MGYG000003167": {
+   "globdb_genome": "GEMOTU_29588",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Collinsella GEMOTU_29588",
+   "result": "same_species"
+  },
+  "MGYG000003254": {
+   "globdb_genome": "MOTU40_034952",
+   "naive_ani": 97.79,
+   "containment": 0.5003,
+   "species": "Alistipes_A MOTU40_034952",
+   "result": "same_species"
+  },
+  "MGYG000003235": {
+   "globdb_genome": "GEMOTU_31887",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "GEMOTU_31887 GEMOTU_31887",
+   "result": "same_species"
+  },
+  "MGYG000003256": {
+   "globdb_genome": "GCMETA_00078183",
+   "naive_ani": 97.1,
+   "containment": 0.4014,
+   "species": "CAG-873 GCMETA_00078183",
+   "result": "same_species"
+  },
+  "MGYG000003262": {
+   "globdb_genome": "GEMOTU_27134",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "SPIREOTU_02369470 GEMOTU_27134",
+   "result": "same_species"
+  },
+  "MGYG000003264": {
+   "globdb_genome": "GEMOTU_24700",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "JAQVRG01 GEMOTU_24700",
+   "result": "same_species"
+  },
+  "MGYG000003270": {
+   "globdb_genome": "GCMETA_00035581",
+   "naive_ani": 97.82,
+   "containment": 0.5057,
+   "species": "CALZFJ01 GCMETA_00035581",
+   "result": "same_species"
+  },
+  "MGYG000003269": {
+   "globdb_genome": "SPIREOTU_01092254",
+   "naive_ani": 99.4,
+   "containment": 0.8286,
+   "species": "Faecousia SPIREOTU_01092254",
+   "result": "same_species"
+  },
+  "MGYG000003267": {
+   "globdb_genome": "SPIREOTU_02976394",
+   "naive_ani": 97.64,
+   "containment": 0.4765,
+   "species": "Stenotrophomonas SPIREOTU_02976394",
+   "result": "same_species"
+  },
+  "MGYG000003273": {
+   "globdb_genome": "MOTU40_041073",
+   "naive_ani": 97.39,
+   "containment": 0.441,
+   "species": "MOTU40_041073 MOTU40_041073",
+   "result": "same_species"
+  },
+  "MGYG000003296": {
+   "globdb_genome": "GCA_934630515",
+   "naive_ani": 98.05,
+   "containment": 0.5433,
+   "species": "UBA5905 sp934630515",
+   "result": "same_species"
+  },
+  "MGYG000003271": {
+   "globdb_genome": "GCA_934193515",
+   "naive_ani": 97.09,
+   "containment": 0.4003,
+   "species": "Megasphaera sp934193515",
+   "result": "same_species"
+  },
+  "MGYG000003299": {
+   "globdb_genome": "GCA_934845495",
+   "naive_ani": 97.29,
+   "containment": 0.4263,
+   "species": "Avimicrobium sp934845495",
+   "result": "same_species"
+  },
+  "MGYG000003297": {
+   "globdb_genome": "MOTU40_018619",
+   "naive_ani": 98.14,
+   "containment": 0.5594,
+   "species": "CAKTFW01 MOTU40_018619",
+   "result": "same_species"
+  },
+  "MGYG000003305": {
+   "globdb_genome": "GCA_934636325",
+   "naive_ani": 96.37,
+   "containment": 0.318,
+   "species": "RGIG1902 sp934636325",
+   "result": "same_species"
+  },
+  "MGYG000003294": {
+   "globdb_genome": "GEMOTU_19975",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Selenomonas_A GEMOTU_19975",
+   "result": "same_species"
+  },
+  "MGYG000003289": {
+   "globdb_genome": "GCA_934646115",
+   "naive_ani": 96.53,
+   "containment": 0.3349,
+   "species": "RGIG7332 sp934646115",
+   "result": "same_species"
+  },
+  "MGYG000003301": {
+   "globdb_genome": "GCA_015257125",
+   "naive_ani": 96.45,
+   "containment": 0.3256,
+   "species": "Alloprevotella sp015257125",
+   "result": "same_species"
+  },
+  "MGYG000003319": {
+   "globdb_genome": "GCA_934454635",
+   "naive_ani": 98.64,
+   "containment": 0.6543,
+   "species": "Ruminiclostridium_E sp934454635",
+   "result": "same_species"
+  },
+  "MGYG000003315": {
+   "globdb_genome": "MOTU40_022986",
+   "naive_ani": 95.12,
+   "containment": 0.2121,
+   "species": "Collinsella MOTU40_022986",
+   "result": "boundary"
+  },
+  "MGYG000003304": {
+   "globdb_genome": "GCA_948468985",
+   "naive_ani": 97.38,
+   "containment": 0.439,
+   "species": "QANA01 sp948468985",
+   "result": "same_species"
+  },
+  "MGYG000003308": {
+   "globdb_genome": "GCA_934636425",
+   "naive_ani": 97.76,
+   "containment": 0.4958,
+   "species": "Firm-10 sp934636425",
+   "result": "same_species"
+  },
+  "MGYG000003321": {
+   "globdb_genome": "GCA_934255455",
+   "naive_ani": 99.61,
+   "containment": 0.8848,
+   "species": "Enterousia sp934255455",
+   "result": "same_species"
+  },
+  "MGYG000003328": {
+   "globdb_genome": "MOTU40_046163",
+   "naive_ani": 96.06,
+   "containment": 0.2876,
+   "species": "Collinsella MOTU40_046163",
+   "result": "same_species"
+  },
+  "MGYG000003338": {
+   "globdb_genome": "GEMOTU_20216",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Dysgonomonas GEMOTU_20216",
+   "result": "same_species"
+  },
+  "MGYG000003323": {
+   "globdb_genome": "GCA_934533135",
+   "naive_ani": 96.89,
+   "containment": 0.3755,
+   "species": "Faecalibacterium sp934533135",
+   "result": "same_species"
+  },
+  "MGYG000003322": {
+   "globdb_genome": "MOTU40_002229",
+   "naive_ani": 96.55,
+   "containment": 0.3366,
+   "species": "Collinsella MOTU40_002229",
+   "result": "same_species"
+  },
+  "MGYG000003356": {
+   "globdb_genome": "GEMOTU_25590",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Lancefieldella GEMOTU_25590",
+   "result": "same_species"
+  },
+  "MGYG000003389": {
+   "globdb_genome": "GEMOTU_40793",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "GEMOTU_40793 GEMOTU_40793",
+   "result": "same_species"
+  },
+  "MGYG000003402": {
+   "globdb_genome": "GCF_017873605",
+   "naive_ani": 97.82,
+   "containment": 0.5052,
+   "species": "Paenibacillus_AQ lactis",
+   "result": "same_species"
+  },
+  "MGYG000003345": {
+   "globdb_genome": "SPIREOTU_01063310",
+   "naive_ani": 99.15,
+   "containment": 0.7673,
+   "species": "Veillonella SPIREOTU_01063310",
+   "result": "same_species"
+  },
+  "MGYG000003324": {
+   "globdb_genome": "GCA_934234035",
+   "naive_ani": 97.02,
+   "containment": 0.3914,
+   "species": "Mogibacterium_A sp934234035",
+   "result": "same_species"
+  },
+  "MGYG000003416": {
+   "globdb_genome": "GWHCUBY00000000",
+   "naive_ani": 95.15,
+   "containment": 0.214,
+   "species": "GWHCUBY00000000 GWHCUBY00000000",
+   "result": "boundary"
+  },
+  "MGYG000003415": {
+   "globdb_genome": "SPIREOTU_02530056",
+   "naive_ani": 97.22,
+   "containment": 0.4171,
+   "species": "Alistipes SPIREOTU_02530056",
+   "result": "same_species"
+  },
+  "MGYG000003426": {
+   "globdb_genome": "GCA_016296285",
+   "naive_ani": 94.86,
+   "containment": 0.1949,
+   "species": "Alloenteromonas sp016296285",
+   "result": "boundary"
+  },
+  "MGYG000003421": {
+   "result": "no_hit"
+  },
+  "MGYG000003434": {
+   "globdb_genome": "GCA_029224905",
+   "naive_ani": 96.23,
+   "containment": 0.3036,
+   "species": "Limisoma sp029224905",
+   "result": "same_species"
+  },
+  "MGYG000003438": {
+   "globdb_genome": "MOTU40_024548",
+   "naive_ani": 97.04,
+   "containment": 0.3942,
+   "species": "NHYM01 MOTU40_024548",
+   "result": "same_species"
+  },
+  "MGYG000003441": {
+   "globdb_genome": "GEMOTU_34036",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Mesosutterella GEMOTU_34036",
+   "result": "same_species"
+  },
+  "MGYG000003435": {
+   "globdb_genome": "GCMETA_00000766",
+   "naive_ani": 98.44,
+   "containment": 0.6139,
+   "species": "Ornithospirochaeta GCMETA_00000766",
+   "result": "same_species"
+  },
+  "MGYG000003431": {
+   "globdb_genome": "GCA_945876405",
+   "naive_ani": 97.58,
+   "containment": 0.4685,
+   "species": "HUN007 sp945876405",
+   "result": "same_species"
+  },
+  "MGYG000003444": {
+   "globdb_genome": "GCA_018065985",
+   "naive_ani": 97.2,
+   "containment": 0.4151,
+   "species": "Cryptobacteroides choladohippi",
+   "result": "same_species"
+  },
+  "MGYG000003453": {
+   "globdb_genome": "SPIREOTU_02367788",
+   "naive_ani": 97.88,
+   "containment": 0.5142,
+   "species": "UMGS1491 SPIREOTU_02367788",
+   "result": "same_species"
+  },
+  "MGYG000003467": {
+   "globdb_genome": "GCA_017546725",
+   "naive_ani": 96.64,
+   "containment": 0.3461,
+   "species": "Alistipes sp017546725",
+   "result": "same_species"
+  },
+  "MGYG000003447": {
+   "globdb_genome": "HOGU_03770",
+   "naive_ani": 96.56,
+   "containment": 0.3378,
+   "species": "Akkermansia HOGU_03770",
+   "result": "same_species"
+  },
+  "MGYG000003455": {
+   "globdb_genome": "GCA_900767505",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Methanoprimaticola sp900767505",
+   "result": "same_species"
+  },
+  "MGYG000003492": {
+   "globdb_genome": "GCA_945231345",
+   "naive_ani": 96.73,
+   "containment": 0.3563,
+   "species": "CAJUPY01 sp945231345",
+   "result": "same_species"
+  },
+  "MGYG000003470": {
+   "globdb_genome": "GCA_017622815",
+   "naive_ani": 96.8,
+   "containment": 0.3651,
+   "species": "Physcousia sp017622815",
+   "result": "same_species"
+  },
+  "MGYG000003474": {
+   "globdb_genome": "GCA_017502165",
+   "naive_ani": 94.64,
+   "containment": 0.1814,
+   "species": "UMGS1322 sp017502165",
+   "result": "boundary"
+  },
+  "MGYG000003510": {
+   "globdb_genome": "GCA_016293225",
+   "naive_ani": 98.12,
+   "containment": 0.5558,
+   "species": "UBA6857 sp016293225",
+   "result": "same_species"
+  },
+  "MGYG000003499": {
+   "globdb_genome": "GCMETA_00080394",
+   "naive_ani": 96.27,
+   "containment": 0.3078,
+   "species": "Spyradenecus GCMETA_00080394",
+   "result": "same_species"
+  },
+  "MGYG000003509": {
+   "globdb_genome": "GCA_934445015",
+   "naive_ani": 98.6,
+   "containment": 0.6451,
+   "species": "UBA737 sp934445015",
+   "result": "same_species"
+  },
+  "MGYG000003490": {
+   "globdb_genome": "SPIREOTU_00222390",
+   "naive_ani": 96.91,
+   "containment": 0.3779,
+   "species": "UBA11524 SPIREOTU_00222390",
+   "result": "same_species"
+  },
+  "MGYG000003516": {
+   "globdb_genome": "GCA_029219465",
+   "naive_ani": 99.0,
+   "containment": 0.7325,
+   "species": "Methanocatella sp900769095",
+   "result": "same_species"
+  },
+  "MGYG000003519": {
+   "globdb_genome": "GCA_051889215",
+   "naive_ani": 97.14,
+   "containment": 0.4062,
+   "species": "UMGS1470 sp051889215",
+   "result": "same_species"
+  },
+  "MGYG000003522": {
+   "globdb_genome": "GCA_051883495",
+   "naive_ani": 96.22,
+   "containment": 0.303,
+   "species": "UBA7862 sp051883495",
+   "result": "same_species"
+  },
+  "MGYG000003526": {
+   "globdb_genome": "GCMETA_00082593",
+   "naive_ani": 96.68,
+   "containment": 0.3514,
+   "species": "UBA1685 GCMETA_00082593",
+   "result": "same_species"
+  },
+  "MGYG000003506": {
+   "globdb_genome": "SPIREOTU_03003801",
+   "naive_ani": 96.41,
+   "containment": 0.3219,
+   "species": "CAG-196 SPIREOTU_03003801",
+   "result": "same_species"
+  },
+  "MGYG000003536": {
+   "globdb_genome": "GCA_023450935",
+   "naive_ani": 97.99,
+   "containment": 0.5322,
+   "species": "Merdousia sp023450935",
+   "result": "same_species"
+  },
+  "MGYG000003545": {
+   "globdb_genome": "GCMETA_00052601",
+   "naive_ani": 90.41,
+   "containment": 0.0439,
+   "species": "Fimenecus GCMETA_00052601",
+   "result": "distinct"
+  },
+  "MGYG000003524": {
+   "globdb_genome": "GCA_051881555",
+   "naive_ani": 94.53,
+   "containment": 0.1748,
+   "species": "CAG-177 sp051881555",
+   "result": "boundary"
+  },
+  "MGYG000003562": {
+   "globdb_genome": "GWHEHNR00000000",
+   "naive_ani": 96.63,
+   "containment": 0.3456,
+   "species": "RGIG4097 GWHEHNR00000000",
+   "result": "same_species"
+  },
+  "MGYG000003574": {
+   "globdb_genome": "GCA_945486915",
+   "naive_ani": 96.99,
+   "containment": 0.3871,
+   "species": "Faecousia sp945486915",
+   "result": "same_species"
+  },
+  "MGYG000003576": {
+   "globdb_genome": "GWHGLPM00000000",
+   "naive_ani": 98.15,
+   "containment": 0.5601,
+   "species": "DTU089 GWHGLPM00000000",
+   "result": "same_species"
+  },
+  "MGYG000003586": {
+   "globdb_genome": "GCMETA_00083520",
+   "naive_ani": 98.12,
+   "containment": 0.5544,
+   "species": "Bulleidia GCMETA_00083520",
+   "result": "same_species"
+  },
+  "MGYG000003599": {
+   "globdb_genome": "SPIREOTU_02183128",
+   "naive_ani": 95.2,
+   "containment": 0.2177,
+   "species": "Alistipes SPIREOTU_02183128",
+   "result": "boundary"
+  },
+  "MGYG000003541": {
+   "result": "no_hit"
+  },
+  "MGYG000003600": {
+   "globdb_genome": "GWHENEC00000000",
+   "naive_ani": 92.67,
+   "containment": 0.0945,
+   "species": "Faecousia GWHENEC00000000",
+   "result": "distinct"
+  },
+  "MGYG000003557": {
+   "globdb_genome": "GCA_045659165",
+   "naive_ani": 92.68,
+   "containment": 0.0949,
+   "species": "Fimenecus sp045659165",
+   "result": "distinct"
+  },
+  "MGYG000003602": {
+   "globdb_genome": "GCA_017387505",
+   "naive_ani": 96.28,
+   "containment": 0.309,
+   "species": "Methanocorpusculum sp017387505",
+   "result": "same_species"
+  },
+  "MGYG000003531": {
+   "globdb_genome": "GCA_945492685",
+   "naive_ani": 97.81,
+   "containment": 0.504,
+   "species": "Methanoprimaticola sp945492685",
+   "result": "same_species"
+  },
+  "MGYG000003618": {
+   "globdb_genome": "GCA_945829225",
+   "naive_ani": 96.75,
+   "containment": 0.3592,
+   "species": "CAG-873 sp945829225",
+   "result": "same_species"
+  },
+  "MGYG000003578": {
+   "globdb_genome": "GCA_945643825",
+   "naive_ani": 90.16,
+   "containment": 0.0404,
+   "species": "UMGS2037 sp945643825",
+   "result": "distinct"
+  },
+  "MGYG000003614": {
+   "globdb_genome": "GCF_021531665",
+   "naive_ani": 96.96,
+   "containment": 0.3843,
+   "species": "Alloprevotella sp004552865",
+   "result": "same_species"
+  },
+  "MGYG000003627": {
+   "globdb_genome": "GCMETA_00221037",
+   "naive_ani": 96.89,
+   "containment": 0.3758,
+   "species": "GCMETA_00221037 GCMETA_00221037",
+   "result": "same_species"
+  },
+  "MGYG000003616": {
+   "globdb_genome": "GEMOTU_30658",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Weimeria GEMOTU_30658",
+   "result": "same_species"
+  },
+  "MGYG000003633": {
+   "globdb_genome": "GCA_018066005",
+   "naive_ani": 95.54,
+   "containment": 0.2432,
+   "species": "Colicola sp018066005",
+   "result": "boundary"
+  },
+  "MGYG000003631": {
+   "globdb_genome": "GEMOTU_25089",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "UBA1731 GEMOTU_25089",
+   "result": "same_species"
+  },
+  "MGYG000003629": {
+   "globdb_genome": "GEMOTU_40028",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "RGIG426 GEMOTU_40028",
+   "result": "same_species"
+  },
+  "MGYG000003636": {
+   "globdb_genome": "GCMETA_00000977",
+   "naive_ani": 99.95,
+   "containment": 0.9833,
+   "species": "UBA1724 GCMETA_00000977",
+   "result": "same_species"
+  },
+  "MGYG000003637": {
+   "globdb_genome": "GCF_050314555",
+   "naive_ani": 98.15,
+   "containment": 0.5599,
+   "species": "Spyradosoma sp004558035",
+   "result": "same_species"
+  },
+  "MGYG000003639": {
+   "globdb_genome": "GCMETA_00083777",
+   "naive_ani": 97.29,
+   "containment": 0.4272,
+   "species": "UBA1067 GCMETA_00083777",
+   "result": "same_species"
+  },
+  "MGYG000003644": {
+   "globdb_genome": "GEMOTU_37093",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Roseburia GEMOTU_37093",
+   "result": "same_species"
+  },
+  "MGYG000003635": {
+   "globdb_genome": "GCA_018065225",
+   "naive_ani": 95.54,
+   "containment": 0.2431,
+   "species": "Phascolarctobacterium_B caballi",
+   "result": "boundary"
+  },
+  "MGYG000003647": {
+   "globdb_genome": "GCMETA_00140520",
+   "naive_ani": 95.41,
+   "containment": 0.2333,
+   "species": "Anaerotignum GCMETA_00140520",
+   "result": "boundary"
+  },
+  "MGYG000003638": {
+   "globdb_genome": "GCA_004557035",
+   "naive_ani": 97.31,
+   "containment": 0.4294,
+   "species": "Alloprevotella sp004557035",
+   "result": "same_species"
+  },
+  "MGYG000003623": {
+   "globdb_genome": "GCA_022773945",
+   "naive_ani": 98.14,
+   "containment": 0.559,
+   "species": "Lentihominibacter sp022773945",
+   "result": "same_species"
+  },
+  "MGYG000003745": {
+   "globdb_genome": "GEMOTU_26308",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "GEMOTU_26308 GEMOTU_26308",
+   "result": "same_species"
+  },
+  "MGYG000003764": {
+   "globdb_genome": "MOTU40_001894",
+   "naive_ani": 97.36,
+   "containment": 0.4363,
+   "species": "Campylobacter_B MOTU40_001894",
+   "result": "same_species"
+  },
+  "MGYG000003666": {
+   "globdb_genome": "GCA_934699705",
+   "naive_ani": 98.33,
+   "containment": 0.5929,
+   "species": "UBA6984 sp934699705",
+   "result": "same_species"
+  },
+  "MGYG000003663": {
+   "globdb_genome": "GCA_934096645",
+   "naive_ani": 98.33,
+   "containment": 0.5937,
+   "species": "CAG-1000 sp934096645",
+   "result": "same_species"
+  },
+  "MGYG000003724": {
+   "globdb_genome": "SPIREOTU_02389547",
+   "naive_ani": 96.92,
+   "containment": 0.3793,
+   "species": "Anaerococcus SPIREOTU_02389547",
+   "result": "same_species"
+  },
+  "MGYG000003670": {
+   "globdb_genome": "GCA_934644775",
+   "naive_ani": 98.29,
+   "containment": 0.5858,
+   "species": "Bruticola sp934644775",
+   "result": "same_species"
+  },
+  "MGYG000003766": {
+   "globdb_genome": "GCA_900759935",
+   "naive_ani": 92.6,
+   "containment": 0.0922,
+   "species": "HGM11327 sp900759935",
+   "result": "distinct"
+  },
+  "MGYG000003774": {
+   "globdb_genome": "MOTU40_015110",
+   "naive_ani": 97.88,
+   "containment": 0.5142,
+   "species": "Porphyromonas_A MOTU40_015110",
+   "result": "same_species"
+  },
+  "MGYG000003684": {
+   "globdb_genome": "GCF_009696275",
+   "naive_ani": 97.31,
+   "containment": 0.4288,
+   "species": "Eisenbergiella porci",
+   "result": "same_species"
+  },
+  "MGYG000003776": {
+   "globdb_genome": "GCA_946220865",
+   "naive_ani": 97.45,
+   "containment": 0.4485,
+   "species": "SFGY01 sp946220865",
+   "result": "same_species"
+  },
+  "MGYG000003817": {
+   "globdb_genome": "GCA_910577095",
+   "naive_ani": 98.75,
+   "containment": 0.6761,
+   "species": "JAFUYI01 sp910577095",
+   "result": "same_species"
+  },
+  "MGYG000003822": {
+   "globdb_genome": "GCA_937893675",
+   "naive_ani": 97.78,
+   "containment": 0.4982,
+   "species": "Blautia_A sp937893675",
+   "result": "same_species"
+  },
+  "MGYG000003830": {
+   "globdb_genome": "GEMOTU_44179",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Collinsella GEMOTU_44179",
+   "result": "same_species"
+  },
+  "MGYG000003850": {
+   "globdb_genome": "GCA_945910975",
+   "naive_ani": 96.75,
+   "containment": 0.3596,
+   "species": "JAKSPM01 sp945910975",
+   "result": "same_species"
+  },
+  "MGYG000003853": {
+   "globdb_genome": "MOTU40_046160",
+   "naive_ani": 98.95,
+   "containment": 0.721,
+   "species": "Collinsella MOTU40_046160",
+   "result": "same_species"
+  },
+  "MGYG000003855": {
+   "globdb_genome": "GCA_934875675",
+   "naive_ani": 97.65,
+   "containment": 0.4786,
+   "species": "CAKXIK01 sp934875675",
+   "result": "same_species"
+  },
+  "MGYG000003871": {
+   "globdb_genome": "MOTU40_027359",
+   "naive_ani": 97.39,
+   "containment": 0.44,
+   "species": "MOTU40_027359 MOTU40_027359",
+   "result": "same_species"
+  },
+  "MGYG000003861": {
+   "globdb_genome": "MOTU40_045645",
+   "naive_ani": 96.08,
+   "containment": 0.2895,
+   "species": "Collinsella MOTU40_045645",
+   "result": "same_species"
+  },
+  "MGYG000003950": {
+   "globdb_genome": "GCA_934565425",
+   "naive_ani": 96.72,
+   "containment": 0.3554,
+   "species": "Onthomonas sp934565425",
+   "result": "same_species"
+  },
+  "MGYG000003877": {
+   "globdb_genome": "HRGMV2_3007",
+   "naive_ani": 97.07,
+   "containment": 0.3972,
+   "species": "Limivicinus HRGMV2_3007",
+   "result": "same_species"
+  },
+  "MGYG000003888": {
+   "globdb_genome": "GCMETA_02521526",
+   "naive_ani": 98.15,
+   "containment": 0.5603,
+   "species": "Methanoprimaticola GCMETA_02521526",
+   "result": "same_species"
+  },
+  "MGYG000003904": {
+   "globdb_genome": "GCF_944389935",
+   "naive_ani": 97.22,
+   "containment": 0.4169,
+   "species": "Victivallis sp944389935",
+   "result": "same_species"
+  },
+  "MGYG000003970": {
+   "globdb_genome": "MOTU40_130503",
+   "naive_ani": 98.94,
+   "containment": 0.7176,
+   "species": "MOTU40_130503 MOTU40_130503",
+   "result": "same_species"
+  },
+  "MGYG000003917": {
+   "globdb_genome": "GEMOTU_36541",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Collinsella GEMOTU_36541",
+   "result": "same_species"
+  },
+  "MGYG000003936": {
+   "globdb_genome": "MOTU40_121448",
+   "naive_ani": 97.68,
+   "containment": 0.4824,
+   "species": "V9D3004 MOTU40_121448",
+   "result": "same_species"
+  },
+  "MGYG000003946": {
+   "globdb_genome": "GCA_938005465",
+   "naive_ani": 97.36,
+   "containment": 0.4359,
+   "species": "Collinsella sp938005465",
+   "result": "same_species"
+  },
+  "MGYG000003976": {
+   "globdb_genome": "MOTU40_022971",
+   "naive_ani": 95.13,
+   "containment": 0.2125,
+   "species": "Collinsella MOTU40_022971",
+   "result": "boundary"
+  },
+  "MGYG000003962": {
+   "globdb_genome": "GCA_905187815",
+   "naive_ani": 98.81,
+   "containment": 0.6908,
+   "species": "Methanoprimaticola sp905187815",
+   "result": "same_species"
+  },
+  "MGYG000004002": {
+   "globdb_genome": "GCA_900759925",
+   "naive_ani": 94.84,
+   "containment": 0.1937,
+   "species": "Butyricimonas sp900759925",
+   "result": "boundary"
+  },
+  "MGYG000003953": {
+   "globdb_genome": "MOTU40_070940",
+   "naive_ani": 97.23,
+   "containment": 0.419,
+   "species": "Borkfalkia MOTU40_070940",
+   "result": "same_species"
+  },
+  "MGYG000003918": {
+   "globdb_genome": "GEMOTU_35937",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Mailhella GEMOTU_35937",
+   "result": "same_species"
+  },
+  "MGYG000003968": {
+   "globdb_genome": "MOTU40_046121",
+   "naive_ani": 95.91,
+   "containment": 0.2738,
+   "species": "Collinsella MOTU40_046121",
+   "result": "same_species"
+  },
+  "MGYG000004127": {
+   "globdb_genome": "GEMOTU_34227",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Propionicimonas GEMOTU_34227",
+   "result": "same_species"
+  },
+  "MGYG000004061": {
+   "globdb_genome": "GCA_934255545",
+   "naive_ani": 96.55,
+   "containment": 0.3367,
+   "species": "CAKQOE01 sp934255545",
+   "result": "same_species"
+  },
+  "MGYG000004069": {
+   "globdb_genome": "GCA_937925715",
+   "naive_ani": 97.01,
+   "containment": 0.3906,
+   "species": "Collinsella sp937925715",
+   "result": "same_species"
+  },
+  "MGYG000004024": {
+   "globdb_genome": "MOTU40_108702",
+   "naive_ani": 98.34,
+   "containment": 0.5957,
+   "species": "MOTU40_108702 MOTU40_108702",
+   "result": "same_species"
+  },
+  "MGYG000004144": {
+   "globdb_genome": "GCA_904419955",
+   "naive_ani": 96.48,
+   "containment": 0.3289,
+   "species": "Roslinia caecavium",
+   "result": "same_species"
+  },
+  "MGYG000004135": {
+   "globdb_genome": "GCA_019114345",
+   "naive_ani": 97.38,
+   "containment": 0.4388,
+   "species": "Agathobaculum pullistercoris",
+   "result": "same_species"
+  },
+  "MGYG000004057": {
+   "globdb_genome": "GCA_017513795",
+   "naive_ani": 96.06,
+   "containment": 0.2875,
+   "species": "Ruminococcus sp017513795",
+   "result": "same_species"
+  },
+  "MGYG000004202": {
+   "globdb_genome": "GCA_934747765",
+   "naive_ani": 96.71,
+   "containment": 0.3543,
+   "species": "UMGS687 sp934747765",
+   "result": "same_species"
+  },
+  "MGYG000004040": {
+   "globdb_genome": "GEMOTU_40457",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Collinsella GEMOTU_40457",
+   "result": "same_species"
+  },
+  "MGYG000004174": {
+   "globdb_genome": "GCMETA_00140503",
+   "naive_ani": 99.01,
+   "containment": 0.7357,
+   "species": "Limiplasma GCMETA_00140503",
+   "result": "same_species"
+  },
+  "MGYG000004077": {
+   "globdb_genome": "GCF_944327115",
+   "naive_ani": 96.61,
+   "containment": 0.3429,
+   "species": "Traorella sp944327115",
+   "result": "same_species"
+  },
+  "MGYG000004217": {
+   "globdb_genome": "GCA_937989795",
+   "naive_ani": 98.85,
+   "containment": 0.6991,
+   "species": "Collinsella sp937989795",
+   "result": "same_species"
+  },
+  "MGYG000004154": {
+   "globdb_genome": "GCA_018715105",
+   "naive_ani": 98.37,
+   "containment": 0.6014,
+   "species": "Ventricola intestinavium",
+   "result": "same_species"
+  },
+  "MGYG000004235": {
+   "globdb_genome": "GCA_003343685",
+   "naive_ani": 98.88,
+   "containment": 0.7047,
+   "species": "QAKS01 sp003343685",
+   "result": "same_species"
+  },
+  "MGYG000004238": {
+   "globdb_genome": "GCA_937925385",
+   "naive_ani": 96.35,
+   "containment": 0.3153,
+   "species": "Senegalimassilia sp937925385",
+   "result": "same_species"
+  },
+  "MGYG000004251": {
+   "globdb_genome": "MOTU40_026259",
+   "naive_ani": 98.79,
+   "containment": 0.6853,
+   "species": "Oxalobacter MOTU40_026259",
+   "result": "same_species"
+  },
+  "MGYG000004264": {
+   "globdb_genome": "MOTU40_077388",
+   "naive_ani": 97.4,
+   "containment": 0.4425,
+   "species": "Slackia MOTU40_077388",
+   "result": "same_species"
+  },
+  "MGYG000004283": {
+   "globdb_genome": "GCF_003111605",
+   "naive_ani": 97.61,
+   "containment": 0.4725,
+   "species": "Methanocatella woesei",
+   "result": "same_species"
+  },
+  "MGYG000004523": {
+   "globdb_genome": "GCA_019119005",
+   "naive_ani": 97.91,
+   "containment": 0.5191,
+   "species": "Thermophilibacter avistercoris",
+   "result": "same_species"
+  },
+  "MGYG000004304": {
+   "globdb_genome": "GCA_910588145",
+   "naive_ani": 97.49,
+   "containment": 0.4548,
+   "species": "Porcipelethomonas sp910588145",
+   "result": "same_species"
+  },
+  "MGYG000004339": {
+   "globdb_genome": "GCA_006954465",
+   "naive_ani": 98.19,
+   "containment": 0.5671,
+   "species": "Methanoprimaticola hominis",
+   "result": "same_species"
+  },
+  "MGYG000004563": {
+   "globdb_genome": "GCF_028890305",
+   "naive_ani": 99.39,
+   "containment": 0.8274,
+   "species": "Methanosphaera massiliense",
+   "result": "same_species"
+  },
+  "MGYG000004312": {
+   "globdb_genome": "GCA_944319735",
+   "naive_ani": 98.69,
+   "containment": 0.6637,
+   "species": "Methanomassiliicoccus_A sp944319735",
+   "result": "same_species"
+  },
+  "MGYG000004346": {
+   "globdb_genome": "GEMOTU_19885",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Collinsella GEMOTU_19885",
+   "result": "same_species"
+  },
+  "MGYG000004348": {
+   "globdb_genome": "GCA_963931275",
+   "naive_ani": 96.19,
+   "containment": 0.3003,
+   "species": "Prevotella sp944319935",
+   "result": "same_species"
+  },
+  "MGYG000004372": {
+   "globdb_genome": "SPIREOTU_00735636",
+   "naive_ani": 96.58,
+   "containment": 0.3397,
+   "species": "Methanoprimaticola SPIREOTU_00735636",
+   "result": "same_species"
+  },
+  "MGYG000004554": {
+   "globdb_genome": "MOTU40_038013",
+   "naive_ani": 97.46,
+   "containment": 0.45,
+   "species": "MOTU40_038013 MOTU40_038013",
+   "result": "same_species"
+  },
+  "MGYG000004436": {
+   "globdb_genome": "GCA_934433485",
+   "naive_ani": 96.57,
+   "containment": 0.3388,
+   "species": "UMGS1696 sp934433485",
+   "result": "same_species"
+  },
+  "MGYG000004574": {
+   "globdb_genome": "GCA_944321985",
+   "naive_ani": 96.26,
+   "containment": 0.3065,
+   "species": "Methanoprimaticola sp944321985",
+   "result": "same_species"
+  },
+  "MGYG000004531": {
+   "globdb_genome": "GCA_944384845",
+   "naive_ani": 97.09,
+   "containment": 0.4003,
+   "species": "UBA737 sp944384845",
+   "result": "same_species"
+  },
+  "MGYG000004577": {
+   "globdb_genome": "GCA_963927425",
+   "naive_ani": 97.27,
+   "containment": 0.4239,
+   "species": "Thermophilibacter sp963927425",
+   "result": "same_species"
+  },
+  "MGYG000004609": {
+   "globdb_genome": "GCA_019112765",
+   "naive_ani": 97.75,
+   "containment": 0.4931,
+   "species": "Mediterraneibacter norwichensis",
+   "result": "same_species"
+  },
+  "MGYG000004650": {
+   "globdb_genome": "GCA_945900015",
+   "naive_ani": 97.84,
+   "containment": 0.5078,
+   "species": "Odoribacter sp945900015",
+   "result": "same_species"
+  },
+  "MGYG000004635": {
+   "globdb_genome": "MOTU40_083305",
+   "naive_ani": 98.77,
+   "containment": 0.6804,
+   "species": "MGBC163016 MOTU40_083305",
+   "result": "same_species"
+  },
+  "MGYG000004595": {
+   "globdb_genome": "GCA_958410215",
+   "naive_ani": 97.31,
+   "containment": 0.4293,
+   "species": "Anaerotardibacter sp958410215",
+   "result": "same_species"
+  },
+  "MGYG000004620": {
+   "globdb_genome": "GCA_934090775",
+   "naive_ani": 98.23,
+   "containment": 0.5743,
+   "species": "CAG-605 sp934090775",
+   "result": "same_species"
+  },
+  "MGYG000004647": {
+   "globdb_genome": "GCA_905197905",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Sutterella sp905197905",
+   "result": "same_species"
+  },
+  "MGYG000004649": {
+   "globdb_genome": "GCF_905187505",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Mailhella sp905187505",
+   "result": "same_species"
+  },
+  "MGYG000004648": {
+   "globdb_genome": "MOTU40_083742",
+   "naive_ani": 98.74,
+   "containment": 0.675,
+   "species": "CAZU01 MOTU40_083742",
+   "result": "same_species"
+  },
+  "MGYG000004651": {
+   "globdb_genome": "GCA_900554455",
+   "naive_ani": 97.41,
+   "containment": 0.4432,
+   "species": "Collinsella sp900554455",
+   "result": "same_species"
+  },
+  "MGYG000004654": {
+   "globdb_genome": "GCA_905215325",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Senegalimassilia sp905215325",
+   "result": "same_species"
+  },
+  "MGYG000004655": {
+   "globdb_genome": "GCA_905202215",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "CAG-873 sp905202215",
+   "result": "same_species"
+  },
+  "MGYG000004664": {
+   "globdb_genome": "GCA_019117005",
+   "naive_ani": 98.98,
+   "containment": 0.7271,
+   "species": "Collinsella stercoripullorum",
+   "result": "same_species"
+  },
+  "MGYG000004656": {
+   "globdb_genome": "MOTU40_023104",
+   "naive_ani": 96.36,
+   "containment": 0.3164,
+   "species": "Collinsella MOTU40_023104",
+   "result": "same_species"
+  },
+  "MGYG000004645": {
+   "globdb_genome": "GCA_905214315",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "UMGS1322 sp905214315",
+   "result": "same_species"
+  },
+  "MGYG000004660": {
+   "globdb_genome": "GCA_937890595",
+   "naive_ani": 98.71,
+   "containment": 0.6684,
+   "species": "CAJMNU01 sp905214855",
+   "result": "same_species"
+  },
+  "MGYG000004670": {
+   "globdb_genome": "GCA_964576895",
+   "naive_ani": 98.03,
+   "containment": 0.5399,
+   "species": "Desulfovibrio sp964576895",
+   "result": "same_species"
+  },
+  "MGYG000004662": {
+   "globdb_genome": "GCA_905198825",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Collinsella sp905198825",
+   "result": "same_species"
+  },
+  "MGYG000004663": {
+   "globdb_genome": "GCA_900113995",
+   "naive_ani": 99.24,
+   "containment": 0.7906,
+   "species": "Yanshouia sp900113995",
+   "result": "same_species"
+  },
+  "MGYG000004679": {
+   "globdb_genome": "GCF_010509575",
+   "naive_ani": 93.49,
+   "containment": 0.1242,
+   "species": "Faecalibacterium duncaniae",
+   "result": "distinct"
+  },
+  "MGYG000004657": {
+   "globdb_genome": "GCA_905214245",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "CALXVA01 sp905214245",
+   "result": "same_species"
+  },
+  "MGYG000004659": {
+   "globdb_genome": "GCA_905192935",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Mailhella sp905192935",
+   "result": "same_species"
+  },
+  "MGYG000004668": {
+   "globdb_genome": "GCA_019117185",
+   "naive_ani": 97.81,
+   "containment": 0.5028,
+   "species": "Limosilactobacillus intestinipullorum",
+   "result": "same_species"
+  },
+  "MGYG000004665": {
+   "globdb_genome": "GCA_018883805",
+   "naive_ani": 97.02,
+   "containment": 0.3913,
+   "species": "Limosilactobacillus merdavium",
+   "result": "same_species"
+  },
+  "MGYG000004674": {
+   "globdb_genome": "MOTU40_011195",
+   "naive_ani": 97.79,
+   "containment": 0.4998,
+   "species": "CAZU01 MOTU40_011195",
+   "result": "same_species"
+  },
+  "MGYG000004677": {
+   "globdb_genome": "GCA_905215775",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Alitiscatomonas sp905215775",
+   "result": "same_species"
+  },
+  "MGYG000004689": {
+   "globdb_genome": "GCA_905216215",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Allocoprococcus sp905216215",
+   "result": "same_species"
+  },
+  "MGYG000004691": {
+   "globdb_genome": "GCF_020686985",
+   "naive_ani": 98.42,
+   "containment": 0.6096,
+   "species": "Brotaphodocola catenula",
+   "result": "same_species"
+  },
+  "MGYG000004693": {
+   "globdb_genome": "GCA_905214675",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Hominisplanchenecus sp905214675",
+   "result": "same_species"
+  },
+  "MGYG000004697": {
+   "globdb_genome": "GCA_905212635",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Eubacterium_F sp905212635",
+   "result": "same_species"
+  },
+  "MGYG000004680": {
+   "globdb_genome": "GCF_043633585",
+   "naive_ani": 99.17,
+   "containment": 0.7716,
+   "species": "Lacrimispora sinapis",
+   "result": "same_species"
+  },
+  "MGYG000004700": {
+   "globdb_genome": "GCA_904390925",
+   "naive_ani": 97.95,
+   "containment": 0.5256,
+   "species": "Gemmiger sp904390925",
+   "result": "same_species"
+  },
+  "MGYG000004681": {
+   "globdb_genome": "GCA_905209765",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Collinsella sp905209765",
+   "result": "same_species"
+  },
+  "MGYG000004682": {
+   "globdb_genome": "MOTU40_046291",
+   "naive_ani": 94.97,
+   "containment": 0.202,
+   "species": "Collinsella MOTU40_046291",
+   "result": "boundary"
+  },
+  "MGYG000004669": {
+   "globdb_genome": "GCA_934190785",
+   "naive_ani": 97.26,
+   "containment": 0.4226,
+   "species": "CAKPTA01 sp934190785",
+   "result": "same_species"
+  },
+  "MGYG000004683": {
+   "globdb_genome": "GCA_004553545",
+   "naive_ani": 98.14,
+   "containment": 0.5579,
+   "species": "Oscillibacter sp004553545",
+   "result": "same_species"
+  },
+  "MGYG000004699": {
+   "globdb_genome": "MOTU40_023689",
+   "naive_ani": 99.25,
+   "containment": 0.7908,
+   "species": "Clostridium MOTU40_023689",
+   "result": "same_species"
+  },
+  "MGYG000004684": {
+   "globdb_genome": "SPIREOTU_01854150",
+   "naive_ani": 95.1,
+   "containment": 0.2107,
+   "species": "Collinsella SPIREOTU_01854150",
+   "result": "boundary"
+  },
+  "MGYG000004686": {
+   "globdb_genome": "GCA_905202605",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "HGM13006 sp905202605",
+   "result": "same_species"
+  },
+  "MGYG000004702": {
+   "globdb_genome": "GCMETA_00021173",
+   "naive_ani": 97.92,
+   "containment": 0.5212,
+   "species": "CAG-170 GCMETA_00021173",
+   "result": "same_species"
+  },
+  "MGYG000004712": {
+   "globdb_genome": "GCF_014385005",
+   "naive_ani": 97.26,
+   "containment": 0.4229,
+   "species": "Marvinbryantia shaoxingensis",
+   "result": "same_species"
+  },
+  "MGYG000004706": {
+   "globdb_genome": "GCF_024741235",
+   "naive_ani": 98.53,
+   "containment": 0.6312,
+   "species": "Tractidigestivibacter montrealensis",
+   "result": "same_species"
+  },
+  "MGYG000004704": {
+   "globdb_genome": "GCA_905215795",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Sutterella sp905215795",
+   "result": "same_species"
+  },
+  "MGYG000004715": {
+   "globdb_genome": "GCA_004555725",
+   "naive_ani": 98.57,
+   "containment": 0.6404,
+   "species": "Aminicella saphenum_A",
+   "result": "same_species"
+  },
+  "MGYG000004705": {
+   "globdb_genome": "GCA_905214715",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Lepagella sp905214715",
+   "result": "same_species"
+  },
+  "MGYG000004701": {
+   "globdb_genome": "GCA_905215675",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Desulfovibrio sp905215675",
+   "result": "same_species"
+  },
+  "MGYG000004711": {
+   "globdb_genome": "GCA_905216195",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Culturomica sp905216195",
+   "result": "same_species"
+  },
+  "MGYG000004722": {
+   "globdb_genome": "GCA_905210485",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "UBA1740 sp905210485",
+   "result": "same_species"
+  },
+  "MGYG000004710": {
+   "globdb_genome": "GCA_900550785",
+   "naive_ani": 95.28,
+   "containment": 0.2232,
+   "species": "Collinsella sp900550785",
+   "result": "boundary"
+  },
+  "MGYG000004708": {
+   "globdb_genome": "GCA_905215655",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Prevotella sp905215655",
+   "result": "same_species"
+  },
+  "MGYG000004726": {
+   "globdb_genome": "GCF_014287675",
+   "naive_ani": 99.33,
+   "containment": 0.8125,
+   "species": "Pseudoflavonifractor faecis",
+   "result": "same_species"
+  },
+  "MGYG000004713": {
+   "globdb_genome": "GCA_963542695",
+   "naive_ani": 97.09,
+   "containment": 0.3998,
+   "species": "RUG100 sp963542695",
+   "result": "same_species"
+  },
+  "MGYG000004716": {
+   "globdb_genome": "GCA_018714895",
+   "naive_ani": 99.23,
+   "containment": 0.7876,
+   "species": "Coprovicinus avistercoris",
+   "result": "same_species"
+  },
+  "MGYG000004727": {
+   "globdb_genome": "GCA_905200265",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Heritagella sp905200265",
+   "result": "same_species"
+  },
+  "MGYG000004714": {
+   "globdb_genome": "GCF_022773025",
+   "naive_ani": 98.84,
+   "containment": 0.6972,
+   "species": "Clostridium_X sp022773025",
+   "result": "same_species"
+  },
+  "MGYG000004718": {
+   "globdb_genome": "GCA_905214825",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Anaerotignum sp905214825",
+   "result": "same_species"
+  },
+  "MGYG000004735": {
+   "globdb_genome": "GCA_900757145",
+   "naive_ani": 99.48,
+   "containment": 0.8502,
+   "species": "Choladousia sp900757145",
+   "result": "same_species"
+  },
+  "MGYG000004721": {
+   "globdb_genome": "GCA_905198745",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Prevotella sp905198745",
+   "result": "same_species"
+  },
+  "MGYG000004725": {
+   "globdb_genome": "GCA_905198835",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "MGBC124762 sp900554075",
+   "result": "same_species"
+  },
+  "MGYG000004740": {
+   "globdb_genome": "GCA_905193415",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Brotonthovivens sp905193415",
+   "result": "same_species"
+  },
+  "MGYG000004741": {
+   "globdb_genome": "GCA_905209745",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Faecimonas sp905209745",
+   "result": "same_species"
+  },
+  "MGYG000004724": {
+   "globdb_genome": "GCA_905215035",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Anaerotardibacter sp905215035",
+   "result": "same_species"
+  },
+  "MGYG000004728": {
+   "globdb_genome": "GCA_905214325",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Anaerotardibacter sp905214325",
+   "result": "same_species"
+  },
+  "MGYG000004744": {
+   "globdb_genome": "GCF_905197185",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Megamonas sp905197185",
+   "result": "same_species"
+  },
+  "MGYG000004734": {
+   "globdb_genome": "GCA_905215695",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "CAJMQN01 sp905215695",
+   "result": "same_species"
+  },
+  "MGYG000004732": {
+   "globdb_genome": "GCA_905214345",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Gemmiger sp905214345",
+   "result": "same_species"
+  },
+  "MGYG000004737": {
+   "globdb_genome": "GCA_905214865",
+   "naive_ani": 99.89,
+   "containment": 0.9653,
+   "species": "Olsenella_H sp905214865",
+   "result": "same_species"
+  },
+  "MGYG000004751": {
+   "globdb_genome": "GCA_905206345",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Aphodousia sp905206345",
+   "result": "same_species"
+  },
+  "MGYG000004743": {
+   "globdb_genome": "GCA_900753645",
+   "naive_ani": 98.96,
+   "containment": 0.723,
+   "species": "Faecisoma sp900753645",
+   "result": "same_species"
+  },
+  "MGYG000004753": {
+   "globdb_genome": "GCA_905188025",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "RUG705 sp905188025",
+   "result": "same_species"
+  },
+  "MGYG000004729": {
+   "globdb_genome": "GCF_046244355",
+   "naive_ani": 98.78,
+   "containment": 0.6833,
+   "species": "Aminicella sp905214225",
+   "result": "same_species"
+  },
+  "MGYG000004738": {
+   "globdb_genome": "GCA_905202595",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Sutterella sp905202595",
+   "result": "same_species"
+  },
+  "MGYG000004752": {
+   "globdb_genome": "GCA_905206195",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Roseburia sp905206195",
+   "result": "same_species"
+  },
+  "MGYG000004745": {
+   "globdb_genome": "GCA_905215665",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "JAZOXB01 sp905215665",
+   "result": "same_species"
+  },
+  "MGYG000004750": {
+   "globdb_genome": "GCF_963931295",
+   "naive_ani": 95.46,
+   "containment": 0.2367,
+   "species": "Mailhella sp944324995",
+   "result": "boundary"
+  },
+  "MGYG000004755": {
+   "globdb_genome": "GCF_036408855",
+   "naive_ani": 98.54,
+   "containment": 0.6338,
+   "species": "Olsenella_K absiana",
+   "result": "same_species"
+  },
+  "MGYG000004749": {
+   "globdb_genome": "GCA_949290765",
+   "naive_ani": 98.64,
+   "containment": 0.6536,
+   "species": "Oxalobacter formigenes_E",
+   "result": "same_species"
+  },
+  "MGYG000004756": {
+   "globdb_genome": "GCA_905214725",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Alistipes sp905214725",
+   "result": "same_species"
+  },
+  "MGYG000004748": {
+   "globdb_genome": "GCA_905215345",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Bacteroides sp905215345",
+   "result": "same_species"
+  },
+  "MGYG000004767": {
+   "globdb_genome": "GCA_905214545",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Lactobacillus sp905214545",
+   "result": "same_species"
+  },
+  "MGYG000004768": {
+   "globdb_genome": "GCA_019118565",
+   "naive_ani": 97.8,
+   "containment": 0.5025,
+   "species": "Alistipes avicola",
+   "result": "same_species"
+  },
+  "MGYG000004775": {
+   "globdb_genome": "GCA_959029275",
+   "naive_ani": 98.14,
+   "containment": 0.5588,
+   "species": "Bianquea sp959029275",
+   "result": "same_species"
+  },
+  "MGYG000004764": {
+   "globdb_genome": "GCMETA_00565350",
+   "naive_ani": 97.69,
+   "containment": 0.4848,
+   "species": "Porcincola GCMETA_00565350",
+   "result": "same_species"
+  },
+  "MGYG000004765": {
+   "globdb_genome": "GCA_905216145",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Collinsella sp905216145",
+   "result": "same_species"
+  },
+  "MGYG000004760": {
+   "globdb_genome": "GCA_905209135",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "UMGS1783 sp905209135",
+   "result": "same_species"
+  },
+  "MGYG000004763": {
+   "globdb_genome": "GCF_900291465",
+   "naive_ani": 98.26,
+   "containment": 0.5801,
+   "species": "Phocaeicola_A sp900291465",
+   "result": "same_species"
+  },
+  "MGYG000004771": {
+   "globdb_genome": "GCA_905215615",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "CAG-273 sp905215615",
+   "result": "same_species"
+  },
+  "MGYG000004784": {
+   "globdb_genome": "GCA_900550685",
+   "naive_ani": 98.6,
+   "containment": 0.6449,
+   "species": "Oscillibacter sp900550685",
+   "result": "same_species"
+  },
+  "MGYG000004759": {
+   "globdb_genome": "GCA_905215575",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Paraprevotella sp905215575",
+   "result": "same_species"
+  },
+  "MGYG000004774": {
+   "globdb_genome": "GCA_905215625",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "UMGS1370 sp905215625",
+   "result": "same_species"
+  },
+  "MGYG000004776": {
+   "globdb_genome": "GCA_905205665",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Ventrenecus sp905205665",
+   "result": "same_species"
+  },
+  "MGYG000004778": {
+   "globdb_genome": "GCA_945927325",
+   "naive_ani": 96.89,
+   "containment": 0.3749,
+   "species": "QANA01 sp945927325",
+   "result": "same_species"
+  },
+  "MGYG000004790": {
+   "globdb_genome": "GCA_017695095",
+   "naive_ani": 98.43,
+   "containment": 0.6115,
+   "species": "Cryptobacteroides avistercoris",
+   "result": "same_species"
+  },
+  "MGYG000004779": {
+   "globdb_genome": "GCA_905192745",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Avimonas sp900551425",
+   "result": "same_species"
+  },
+  "MGYG000004781": {
+   "globdb_genome": "GCA_905214925",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Scybalomonas sp905214925",
+   "result": "same_species"
+  },
+  "MGYG000004800": {
+   "globdb_genome": "GCA_905215845",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "CAG-269 sp905215845",
+   "result": "same_species"
+  },
+  "MGYG000004791": {
+   "globdb_genome": "GCA_905212515",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Ruthenibacterium sp905212515",
+   "result": "same_species"
+  },
+  "MGYG000004792": {
+   "globdb_genome": "GCF_947381485",
+   "naive_ani": 99.33,
+   "containment": 0.8112,
+   "species": "Limosilactobacillus avium",
+   "result": "same_species"
+  },
+  "MGYG000004782": {
+   "globdb_genome": "GWHGLXJ00000000",
+   "naive_ani": 96.83,
+   "containment": 0.3688,
+   "species": "Veillonella_A GWHGLXJ00000000",
+   "result": "same_species"
+  },
+  "MGYG000004787": {
+   "globdb_genome": "GCA_905215125",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Ventrousia sp905215125",
+   "result": "same_species"
+  },
+  "MGYG000004786": {
+   "globdb_genome": "GCA_900550955",
+   "naive_ani": 99.98,
+   "containment": 0.994,
+   "species": "Limiplasma sp900550955",
+   "result": "same_species"
+  },
+  "MGYG000004795": {
+   "globdb_genome": "GCA_905216155",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "CAJMSU01 sp905216155",
+   "result": "same_species"
+  },
+  "MGYG000004808": {
+   "globdb_genome": "GCA_905214175",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Tractidigestivibacter sp905214175",
+   "result": "same_species"
+  },
+  "MGYG000004810": {
+   "globdb_genome": "GCA_959601495",
+   "naive_ani": 98.67,
+   "containment": 0.6598,
+   "species": "Avispirillum sp959601495",
+   "result": "same_species"
+  },
+  "MGYG000004802": {
+   "globdb_genome": "GCA_904398645",
+   "naive_ani": 99.07,
+   "containment": 0.7492,
+   "species": "Allobutyricicoccus pentlandensis",
+   "result": "same_species"
+  },
+  "MGYG000004806": {
+   "globdb_genome": "MOTU40_014726",
+   "naive_ani": 97.95,
+   "containment": 0.5254,
+   "species": "Collinsella MOTU40_014726",
+   "result": "same_species"
+  },
+  "MGYG000004807": {
+   "globdb_genome": "GCA_905215055",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Acutalibacter sp905215055",
+   "result": "same_species"
+  },
+  "MGYG000004793": {
+   "globdb_genome": "GCA_938023515",
+   "naive_ani": 95.68,
+   "containment": 0.2543,
+   "species": "Merdimorpha sp938023515",
+   "result": "same_species"
+  },
+  "MGYG000004803": {
+   "globdb_genome": "GCA_934527315",
+   "naive_ani": 96.0,
+   "containment": 0.2817,
+   "species": "HGM13010 sp934527315",
+   "result": "same_species"
+  },
+  "MGYG000004830": {
+   "globdb_genome": "GCA_900549375",
+   "naive_ani": 97.39,
+   "containment": 0.4402,
+   "species": "Lepagella sp900549375",
+   "result": "same_species"
+  },
+  "MGYG000004820": {
+   "globdb_genome": "GCA_902836725",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "UBA7173 sp902836725",
+   "result": "same_species"
+  },
+  "MGYG000004822": {
+   "globdb_genome": "GCA_905215395",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Odoribacter sp905215395",
+   "result": "same_species"
+  },
+  "MGYG000004834": {
+   "globdb_genome": "GCF_042850985",
+   "naive_ani": 98.46,
+   "containment": 0.6181,
+   "species": "Allocoprobacillus sp002160865",
+   "result": "same_species"
+  },
+  "MGYG000004835": {
+   "globdb_genome": "GCF_009834925",
+   "naive_ani": 97.0,
+   "containment": 0.3894,
+   "species": "Eggerthella guodeyinii",
+   "result": "same_species"
+  },
+  "MGYG000004811": {
+   "globdb_genome": "GCA_905215425",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Lawsonibacter sp905215425",
+   "result": "same_species"
+  },
+  "MGYG000004818": {
+   "globdb_genome": "GCA_905214155",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "CAG-170 sp905214155",
+   "result": "same_species"
+  },
+  "MGYG000004839": {
+   "globdb_genome": "GCA_905214955",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Limivivens sp905214955",
+   "result": "same_species"
+  },
+  "MGYG000004833": {
+   "globdb_genome": "GCA_900752445",
+   "naive_ani": 99.5,
+   "containment": 0.8565,
+   "species": "Scatomorpha sp900752445",
+   "result": "same_species"
+  },
+  "MGYG000004823": {
+   "globdb_genome": "GCA_900765575",
+   "naive_ani": 99.82,
+   "containment": 0.9468,
+   "species": "Phocaeicola_A sp900765575",
+   "result": "same_species"
+  },
+  "MGYG000004836": {
+   "globdb_genome": "GCA_905215645",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Acidaminococcus sp905215645",
+   "result": "same_species"
+  },
+  "MGYG000004824": {
+   "globdb_genome": "GCA_905214795",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Paraprevotella sp905214795",
+   "result": "same_species"
+  },
+  "MGYG000004831": {
+   "globdb_genome": "GCA_021531315",
+   "naive_ani": 97.19,
+   "containment": 0.4139,
+   "species": "Hominicoprocola sp900552375",
+   "result": "same_species"
+  },
+  "MGYG000004837": {
+   "globdb_genome": "GCF_905207935",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Haemophilus_D sp905207935",
+   "result": "same_species"
+  },
+  "MGYG000004849": {
+   "globdb_genome": "GCA_905214265",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Merdivicinus sp905214265",
+   "result": "same_species"
+  },
+  "MGYG000004850": {
+   "globdb_genome": "GCA_905215105",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Heritagella_A sp905215105",
+   "result": "same_species"
+  },
+  "MGYG000004840": {
+   "globdb_genome": "GCF_947381495",
+   "naive_ani": 98.65,
+   "containment": 0.6555,
+   "species": "Limosilactobacillus galli",
+   "result": "same_species"
+  },
+  "MGYG000004841": {
+   "globdb_genome": "GCA_905215335",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Zag111 sp905215335",
+   "result": "same_species"
+  },
+  "MGYG000004829": {
+   "globdb_genome": "GCA_905213905",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Sutterella sp905213905",
+   "result": "same_species"
+  },
+  "MGYG000004855": {
+   "globdb_genome": "GCF_040096075",
+   "naive_ani": 97.56,
+   "containment": 0.4653,
+   "species": "Brotaphodocola faecis",
+   "result": "same_species"
+  },
+  "MGYG000004848": {
+   "globdb_genome": "GCF_937930345",
+   "naive_ani": 98.59,
+   "containment": 0.644,
+   "species": "Prevotella sp905214625",
+   "result": "same_species"
+  },
+  "MGYG000004845": {
+   "globdb_genome": "GCA_905215805",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "UMGS1958 sp905215805",
+   "result": "same_species"
+  },
+  "MGYG000004846": {
+   "globdb_genome": "GCA_905213725",
+   "naive_ani": 99.81,
+   "containment": 0.9435,
+   "species": "Collinsella aerofaciens_BZ",
+   "result": "same_species"
+  },
+  "MGYG000004847": {
+   "globdb_genome": "MGYG000318192",
+   "naive_ani": 98.65,
+   "containment": 0.656,
+   "species": "Metalachnospira MGYG000318192",
+   "result": "same_species"
+  },
+  "MGYG000004852": {
+   "globdb_genome": "GCF_934754925",
+   "naive_ani": 98.65,
+   "containment": 0.6552,
+   "species": "Clostridium sp934754925",
+   "result": "same_species"
+  },
+  "MGYG000004858": {
+   "globdb_genome": "MOTU40_021824",
+   "naive_ani": 94.19,
+   "containment": 0.1562,
+   "species": "Veillonella MOTU40_021824",
+   "result": "boundary"
+  },
+  "MGYG000004857": {
+   "globdb_genome": "GCA_018714845",
+   "naive_ani": 97.23,
+   "containment": 0.418,
+   "species": "Ventrousia excrementavium",
+   "result": "same_species"
+  },
+  "MGYG000004863": {
+   "globdb_genome": "GCA_905214195",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Fimisoma sp905214195",
+   "result": "same_species"
+  },
+  "MGYG000004861": {
+   "globdb_genome": "GCF_947381555",
+   "naive_ani": 98.09,
+   "containment": 0.5492,
+   "species": "Limosilactobacillus pulli",
+   "result": "same_species"
+  },
+  "MGYG000004864": {
+   "globdb_genome": "GCA_905214305",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Desulfovibrio sp905214305",
+   "result": "same_species"
+  },
+  "MGYG000004865": {
+   "globdb_genome": "GCA_905215015",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "RUG023 sp905215015",
+   "result": "same_species"
+  },
+  "MGYG000004873": {
+   "globdb_genome": "GCA_934476545",
+   "naive_ani": 97.61,
+   "containment": 0.4727,
+   "species": "UMGS1071 sp934476545",
+   "result": "same_species"
+  },
+  "MGYG000004870": {
+   "globdb_genome": "GCA_944377425",
+   "naive_ani": 97.58,
+   "containment": 0.4679,
+   "species": "Neoanaerotignum_A sp944377425",
+   "result": "same_species"
+  },
+  "MGYG000004874": {
+   "globdb_genome": "GCA_018716505",
+   "naive_ani": 96.0,
+   "containment": 0.2819,
+   "species": "Faecaligallichristensenella faecipullorum",
+   "result": "same_species"
+  },
+  "MGYG000004871": {
+   "globdb_genome": "GCA_905214735",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Lepagella sp905214735",
+   "result": "same_species"
+  },
+  "MGYG000004877": {
+   "globdb_genome": "GCF_009695875",
+   "naive_ani": 98.29,
+   "containment": 0.5857,
+   "species": "Olsenella_H porci",
+   "result": "same_species"
+  },
+  "MGYG000004853": {
+   "globdb_genome": "GCA_017935045",
+   "naive_ani": 97.18,
+   "containment": 0.4123,
+   "species": "Lepagella sp017935045",
+   "result": "same_species"
+  },
+  "MGYG000004876": {
+   "globdb_genome": "GCA_905215555",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Bacteroides sp905215555",
+   "result": "same_species"
+  },
+  "MGYG000004854": {
+   "globdb_genome": "GCA_905215965",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Ruminococcus sp905215965",
+   "result": "same_species"
+  },
+  "MGYG000004880": {
+   "globdb_genome": "GCA_905216025",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Prevotella sp905216025",
+   "result": "same_species"
+  },
+  "MGYG000004881": {
+   "globdb_genome": "MOTU40_011303",
+   "naive_ani": 96.37,
+   "containment": 0.3178,
+   "species": "UBA4716 MOTU40_011303",
+   "result": "same_species"
+  },
+  "MGYG000004878": {
+   "globdb_genome": "GCF_046365375",
+   "naive_ani": 98.0,
+   "containment": 0.5338,
+   "species": "Butyricimonas muris",
+   "result": "same_species"
+  },
+  "MGYG000004879": {
+   "globdb_genome": "GCA_905215405",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "CAJMQE01 sp905215405",
+   "result": "same_species"
+  },
+  "MGYG000004882": {
+   "globdb_genome": "GCA_905207515",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Caccovivens sp905207515",
+   "result": "same_species"
+  },
+  "MGYG000004884": {
+   "globdb_genome": "GCA_905214365",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "Anthropogastromicrobium sp905214365",
+   "result": "same_species"
+  },
+  "MGYG000004894": {
+   "globdb_genome": "SPIREOTU_01978711",
+   "naive_ani": 96.79,
+   "containment": 0.3636,
+   "species": "Veillonella SPIREOTU_01978711",
+   "result": "same_species"
+  },
+  "MGYG000004885": {
+   "globdb_genome": "GCA_937944365",
+   "naive_ani": 98.88,
+   "containment": 0.7053,
+   "species": "Alloprevotella sp905216095",
+   "result": "same_species"
+  },
+  "MGYG000004888": {
+   "globdb_genome": "SPIREOTU_02229330",
+   "naive_ani": 96.47,
+   "containment": 0.3285,
+   "species": "Veillonella SPIREOTU_02229330",
+   "result": "same_species"
+  },
+  "MGYG000004886": {
+   "globdb_genome": "MOTU40_010427",
+   "naive_ani": 95.32,
+   "containment": 0.2264,
+   "species": "Rothia MOTU40_010427",
+   "result": "boundary"
+  },
+  "MGYG000004887": {
+   "globdb_genome": "GCA_002305575",
+   "naive_ani": 97.7,
+   "containment": 0.4859,
+   "species": "Hominenteromicrobium sp002305575",
+   "result": "same_species"
+  },
+  "MGYG000004890": {
+   "globdb_genome": "GCA_934101175",
+   "naive_ani": 96.36,
+   "containment": 0.3171,
+   "species": "RUG705 sp934101175",
+   "result": "same_species"
+  },
+  "MGYG000004892": {
+   "globdb_genome": "GCA_905203795",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "CAJKXG01 sp905203795",
+   "result": "same_species"
+  },
+  "MGYG000004891": {
+   "globdb_genome": "GCA_905214875",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "KM106-2 sp905214875",
+   "result": "same_species"
+  },
+  "MGYG000004895": {
+   "globdb_genome": "HRGMV2_4122",
+   "naive_ani": 98.35,
+   "containment": 0.5974,
+   "species": "CALADF01 HRGMV2_4122",
+   "result": "same_species"
+  },
+  "MGYG000004898": {
+   "globdb_genome": "GCF_025908565",
+   "naive_ani": 97.17,
+   "containment": 0.4107,
+   "species": "Weissella fermenti",
+   "result": "same_species"
+  },
+  "MGYG000004900": {
+   "globdb_genome": "GCA_900550385",
+   "naive_ani": 99.69,
+   "containment": 0.9086,
+   "species": "Aphodovivens sp900550385",
+   "result": "same_species"
+  },
+  "MGYG000004901": {
+   "globdb_genome": "GCA_023419375",
+   "naive_ani": 97.65,
+   "containment": 0.4781,
+   "species": "Desulfovibrio sp023419375",
+   "result": "same_species"
+  },
+  "MGYG000004902": {
+   "globdb_genome": "GCA_937934445",
+   "naive_ani": 99.65,
+   "containment": 0.8982,
+   "species": "Caccocola sp900545755",
+   "result": "same_species"
+  },
+  "MGYG000004904": {
+   "globdb_genome": "GCA_905215935",
+   "naive_ani": 100.0,
+   "containment": 1.0,
+   "species": "CAG-492 sp905215935",
+   "result": "same_species"
+  }
+ }
+}

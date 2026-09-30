@@ -1,0 +1,114 @@
+name: spermidine
+description: >-
+  Both routes to spermidine: the textbook aminopropyltransferase route,
+  and the carboxyspermidine route that most gut Bacteroidetes actually use
+  and that is missing from pathway databases built around the textbook
+  one.
+metabolite: Spermidine formation
+pathway: >-
+  putrescine + decarboxylated S-adenosylmethionine -> spermidine (speE,
+  with speD supplying the aminopropyl donor); or putrescine + aspartate
+  semialdehyde -> carboxyspermidine -> spermidine (the carboxyspermidine
+  dehydrogenase and decarboxylase route)
+category: metabolite
+
+extension: true
+
+targets:
+  - id: SPEE
+    label: speE (spermidine synthase)
+    gene: speE
+    source: uniprot
+    query: '(protein_name:"Spermidine synthase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: SPED
+    label: speD (S-adenosylmethionine decarboxylase, the aminopropyl donor)
+    gene: speD
+    source: uniprot
+    query: '(protein_name:"S-adenosylmethionine decarboxylase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: CASDH
+    label: casDH (carboxyspermidine / carboxynorspermidine dehydrogenase)
+    gene: casDH
+    source: uniprot
+    query: '(protein_name:"Carboxyspermidine dehydrogenase" OR protein_name:"Carboxynorspermidine dehydrogenase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 417
+    length_tolerance: 0.3
+
+  - id: CASDC
+    label: casDC (carboxyspermidine / carboxynorspermidine decarboxylase)
+    gene: casDC
+    source: uniprot
+    query: '(protein_name:"Carboxyspermidine decarboxylase" OR protein_name:"Carboxynorspermidine decarboxylase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+aggregate: sum
+aggregate_from: [SPEE, CASDC]
+aggregate_reason: >-
+  The two committed spermidine-forming steps are summed, one from each
+  route. The donor enzyme speD and the dehydrogenase before casDC are
+  measured and shown as route detail, but adding them would count a single
+  organism's single capacity twice over.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+citation: >-
+  Hanfrey C.C. et al., "Alternative spermidine biosynthetic route is
+  critical for growth of Campylobacter jejuni and is the dominant
+  polyamine pathway in human gut microbiota", J Biol Chem 286:43301-43312
+  (2011), doi:10.1074/jbc.M111.307835.
+
+interpretation:
+  what_it_is: >-
+    Capacity to make spermidine, counted over both of the routes bacteria
+    actually use rather than only the one in the textbooks.
+  made_from: >-
+    putrescine, with either S-adenosylmethionine or aspartate semialdehyde
+  summary: >-
+    Spermidine has been studied for autophagy and healthy ageing. This
+    reading is the genetic capacity of your bacteria to produce it, not a
+    spermidine level.
+  evidence_detail: >-
+    Most gut Bacteroidetes make spermidine through carboxyspermidine
+    rather than through the aminopropyltransferase route, and a 2023 study
+    described a further variant running through
+    carboxyaminopropylagmatine. A pipeline that looks only for spermidine
+    synthase therefore reports an absence where the capacity is present,
+    which is why both routes are counted here. Spermidine's association
+    with autophagy and longevity comes largely from model organisms and
+    from observational human diet data; supplement trials in humans are
+    small and mixed, and none of that work measured bacterial gene
+    capacity of the kind reported here.
+  higher_means: context-dependent
+  evidence_strength: limited
+  implications:
+    higher: >-
+      More spermidine-forming capacity than most samples carry, counted
+      across both routes. This is gene capacity, not a spermidine
+      measurement, and the longevity literature on spermidine is mostly
+      from model organisms.
+    typical: >-
+      A mid-range amount of spermidine-forming capacity across both
+      routes, similar to most samples in the reference set. Dietary
+      spermidine from wheat germ, soy and aged cheese contributes
+      independently of anything bacteria make.
+    lower: >-
+      Less spermidine-forming capacity than most samples carry. Host
+      cells and food both supply spermidine, so this is not a
+      deficiency, and no supplement recommendation follows from a gene
+      count in stool.
+  citation: >-
+    Hanfrey C.C. et al., "Alternative spermidine biosynthetic route is
+    critical for growth of Campylobacter jejuni and is the dominant
+    polyamine pathway in human gut microbiota", J Biol Chem
+    286:43301-43312 (2011), doi:10.1074/jbc.M111.307835.

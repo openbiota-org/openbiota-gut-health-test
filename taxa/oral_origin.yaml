@@ -1,0 +1,78 @@
+name: oral_origin
+label: "Oral-origin organisms found in stool"
+category: origin
+# Scored adverse in the raised direction. Oral organisms arriving in stool in
+# quantity means something upstream let them through — reduced gastric acid,
+# reduced bile, or an inflamed gut they could colonise — and the group is
+# raised across the cirrhosis, colorectal cancer, Crohn's and cardiovascular
+# patterns. The commonest cause is an ordinary one (acid-suppressing
+# medication), which is why the caveats lead with it and why the mild bands
+# are amber rather than red. Carriage at typical levels reads as typical.
+higher_means: adverse
+description: >-
+  Species whose normal home is the mouth. Finding them abundantly in stool
+  means they survived the journey, which normally requires that something has
+  changed: reduced gastric acid, reduced bile delivery, or an inflamed gut
+  that they can colonise. Oral-gut translocation is one of the more
+  interpretable findings in a stool metagenome because the organisms are
+  unambiguous about where they came from.
+
+summary: >-
+  Bacteria that normally live in your mouth, measured in stool. Ordinarily
+  stomach acid and bile stop them; when they arrive in quantity it usually
+  means one of those barriers is reduced. Acid-suppressing medication is the
+  most common everyday cause by far.
+
+members:
+  - Streptococcus salivarius
+  - Streptococcus parasanguinis
+  - Streptococcus mitis
+  - Streptococcus oralis
+  - Streptococcus sanguinis
+  - Streptococcus gordonii
+  - Streptococcus australis
+  - Streptococcus cristatus
+  - Streptococcus vestibularis
+  - Streptococcus anginosus group
+  - Veillonella parvula
+  - Veillonella atypica
+  - Veillonella dispar
+  - Veillonella rogosae
+  - Haemophilus parainfluenzae
+  - Rothia mucilaginosa
+  - Rothia dentocariosa
+  - Rothia aeria
+  - Actinomyces odontolyticus
+  - Actinomyces graevenitzii
+  - Actinomyces naeslundii
+  - Gemella haemolysans
+  - Gemella morbillorum
+  - Gemella sanguinis
+  - Atopobium parvulum
+  - Atopobium rimae
+  - Fusobacterium nucleatum
+  - Fusobacterium periodonticum
+  - Porphyromonas gingivalis
+  - Porphyromonas endodontalis
+  - Solobacterium moorei
+  - Parvimonas micra
+  - Peptostreptococcus stomatis
+
+caveats:
+  - >-
+    Proton pump inhibitors raise this group substantially and are extremely
+    common. Before reading anything else into a high value, check whether the
+    person takes one.
+  - >-
+    Periodontal disease increases the oral load being swallowed, which raises
+    this group without any change in gut barrier function.
+  - >-
+    A high value is a real observation with several ordinary explanations. It
+    appears in the cirrhosis, colorectal cancer, Crohn's and cardiovascular
+    patterns, which is precisely why it cannot distinguish between them.
+
+citation: >-
+  Schmidt T.S.B., Hayward M.R., Coelho L.P., et al., "Extensive
+  transmission of microbes along the gastrointestinal tract", eLife 8:e42693
+  (2019), doi:10.7554/eLife.42693; Imhann F. et al., "Proton pump inhibitors
+  affect the gut microbiome", Gut 65:740-748 (2016).

@@ -1,0 +1,2754 @@
+version: 1
+condition: systemic_lupus_erythematosus
+
+# ---------------------------------------------------------------------------
+# Provenance and schema notes
+# ---------------------------------------------------------------------------
+# Every study below was resolved to a PubMed record and/or Crossref DOI record
+# and read (abstract minimum; PMC full text where open access). No citation,
+# DOI, sample size, p value or effect size in this file was reconstructed from
+# memory. Where a number could not be read off a source, the field is OMITTED
+# and the omission is stated in `limitations`.
+#
+# Two corrections to the schema example supplied in the request, both verified:
+#   - azzouz_2019_ard is 16S rRNA amplicon sequencing, NOT shotgun
+#     metagenomics, and used QIIME/DADA2, NOT MetaPhlAn 2. The abstract states
+#     "Faecal 16 S rRNA analyses were performed".
+#   - The p=0.01 in Azzouz 2019 is the SLE-vs-control comparison of R. gnavus
+#     relative abundance, not a SLEDAI>=8 subgroup p value. The SLEDAI-
+#     stratified species-level p value is 0.013 (uncorrected Kruskal-Wallis).
+#
+# Enum extensions used, declared here rather than silently mislabelling:
+#   design:  + meta_analysis          (pooled published cohorts)
+#            + mechanistic_human      (human tissue/serology mechanism, no
+#                                      stool-taxon case-control contrast)
+#   assay:   + mixed_16S_shotgun      (both run on the same cohort)
+#            + shotgun_virome         (shotgun, viral fraction)
+#   findings: + trait_or_state        (added to satisfy rule 3 at the level of
+#                                      the individual finding rather than only
+#                                      the study)
+#             values: trait | state | trait_and_state | unresolved
+#
+# Taxon names follow the repository convention Genus_species. Note the
+# nomenclature drift on R. gnavus: Ruminococcus gnavus = Blautia gnavus =
+# Mediterraneibacter gnavus. MetaPhlAn 4 indexes it under Ruminococcus_gnavus
+# (SGB4584 group); MetaPhlAn 3 under Ruminococcus_gnavus. Papers from the
+# Silverman lab use "Blautia (Ruminococcus) gnavus" interchangeably.
+
+studies:
+
+  # =========================================================================
+  # SPAIN — the original dysbiosis and F/B reports
+  # =========================================================================
+  - study_id: hevia_2014_mbio
+    citation: "Hevia A, Milani C, López P, et al. Intestinal dysbiosis associated with systemic lupus erythematosus. mBio 2014;5(5):e01548-14"
+    doi: "10.1128/mBio.01548-14"
+    url: "https://journals.asm.org/doi/10.1128/mBio.01548-14"
+    design: cross_sectional
+    assay: 16S
+    profiler: "Ion Torrent 16S rRNA gene amplicon, optimised in-house protocol; F/B ratio independently corroborated by qPCR"
+    n_cases: 20
+    n_controls: 20
+    country: Spain
+    population_note: >
+      Asturias, northern Spain. 20 SLE patients selected specifically to be IN
+      REMISSION, under strict inclusion/exclusion criteria, versus 20 age- and
+      sex-matched healthy controls. This is the origin of the F/B claim and it
+      is a small, deliberately quiescent, single-region European cohort. The
+      remission-only design is the study's strength for trait detection and its
+      weakness for generalisation: it says nothing about active disease.
+      Treatment detail is not extractable from the abstract; a remission
+      cohort in 2014 Spain would be near-universally on hydroxychloroquine
+      with variable steroid exposure, but this is inference, not reported data,
+      and is therefore not asserted as fact here.
+    disease_activity: >
+      TRAIT. Findings are explicitly from patients without active disease, so
+      the F/B shift is presented as a diagnosis-associated trait rather than an
+      activity marker. This makes it one of the few SLE findings in the whole
+      literature that is legitimately readable from a single stool sample of a
+      quiescent patient — which is exactly why its failure to replicate in the
+      USA matters so much.
+    findings:
+      - taxon: Firmicutes_Bacteroidetes_ratio
+        rank: phylum_ratio
+        direction: decreased
+        effect_size: "median F/B 1.97 in SLE vs 4.86 in healthy controls"
+        statistic: "P < 0.002; corroborated by qPCR"
+        replicated_in: [rodriguez_carrio_2017_front_immunol, van_der_meulen_2019_j_autoimmun, toumi_2022_front_immunol]
+        trait_or_state: trait
+        caveat: >
+          A phylum ratio is not a species-level feature. It is arithmetically
+          derivable from a MetaPhlAn profile but is notoriously unstable across
+          sequencing protocols, DNA extraction methods and diet, and it failed
+          to replicate in the US cohort (luo_2018_aem). Directly contradicted
+          by gui_2024_arthritis_res_ther, which reported an elevated
+          Proteobacteria/Bacteroidetes ratio and did not reproduce a Firmicutes
+          depletion of this magnitude.
+      - taxon: Shannon_diversity
+        rank: community_metric
+        direction: unchanged
+        effect_size: "diversity comparable between groups"
+        statistic: "Shannon index, no significant difference reported"
+        trait_or_state: trait
+        caveat: >
+          NULL RESULT, and a load-bearing one. The single most-repeated summary
+          claim about SLE — "reduced alpha diversity" — is absent in the
+          founding study of the field. Consistent with the later observation
+          (park_2025_j_transl_med) that richness falls while evenness is
+          preserved: Shannon is evenness-weighted and therefore the least
+          sensitive index for SLE.
+      - taxon: Firmicutes
+        rank: phylum
+        direction: decreased
+        effect_size: "not quantified in the abstract; 'a decrease of some Firmicutes families was also detected'"
+        statistic: "not extractable"
+        trait_or_state: trait
+        caveat: >
+          The specific families are not named in the abstract and full text was
+          not retrieved, so no family-level feature is asserted from this study.
+    functional_findings:
+      - pathway: "oxidative phosphorylation"
+        direction: increased
+        note: >
+          In silico functional inference from 16S data, not measured gene
+          content. A shotgun pipeline CAN measure oxidative phosphorylation
+          gene abundance directly, but it would not be measuring the same
+          quantity this paper reported, so this is not a transferable finding.
+      - pathway: "glycan utilisation"
+        direction: increased
+        note: >
+          Same caveat: 16S-inferred, not sequenced. Directionally interesting
+          because mucin-glycan foraging is the strain-defining property of the
+          R. gnavus lineages implicated by the NYU work, but the two studies
+          did not measure the same thing.
+    limitations: >
+      n=20 vs 20 is small for compositional data. Remission-only, single-centre,
+      single-region. Functional claims are 16S-inferred. Treatment exposure not
+      reported in the abstract and deliberately not estimated here. The F/B
+      ratio is now widely regarded as a low-information summary statistic; this
+      study should be cited as the historical origin of the claim, not as
+      support for using F/B as a scoring feature.
+
+  - study_id: rodriguez_carrio_2017_front_immunol
+    citation: "Rodríguez-Carrio J, López P, Sánchez B, et al. Intestinal dysbiosis is associated with altered short-chain fatty acids and serum-free fatty acids in systemic lupus erythematosus. Front Immunol 2017;8:23"
+    doi: "10.3389/fimmu.2017.00023"
+    url: "https://www.frontiersin.org/articles/10.3389/fimmu.2017.00023/full"
+    design: cross_sectional
+    assay: 16S
+    profiler: "unspecified in abstract; same IPLA-CSIC/Oviedo platform lineage as hevia_2014_mbio"
+    n_cases: 21
+    n_controls: 25
+    country: Spain
+    population_note: >
+      Asturias, Spain — the same group and overlapping recruitment base as
+      hevia_2014_mbio and lópez_2016. This is NOT an independent replication
+      population; treat the Spanish F/B result as approximately one cohort
+      reported three ways. Treatment status not reported in the abstract.
+    disease_activity: >
+      TRAIT, with a mechanistic twist that is arguably more informative than
+      the taxonomy. The F/B ratio correlated strongly with serum free fatty
+      acids in healthy controls even after adjustment for confounders, and that
+      association was ABSENT in SLE. The disease signal is the decoupling of a
+      normal host-microbe relationship, not a taxon abundance. A single stool
+      sample cannot see a decoupling; it needs the paired serum measure.
+    findings:
+      - taxon: Firmicutes_Bacteroidetes_ratio
+        rank: phylum_ratio
+        direction: decreased
+        effect_size: "not quantified in the abstract"
+        statistic: "not extractable from the abstract"
+        replicated_in: [hevia_2014_mbio]
+        trait_or_state: trait
+        caveat: >
+          Same cohort lineage as hevia_2014_mbio, so this is corroboration
+          rather than independent replication. Numeric effect size omitted
+          rather than estimated.
+    functional_findings:
+      - pathway: "short-chain fatty acid production"
+        direction: variable
+        note: >
+          Reported as "an altered production of SCFA related to the intestinal
+          dysbiosis in lupus" — altered, not uniformly reduced, and the
+          abstract does not resolve per-SCFA directions. Recorded as variable
+          rather than decreased, because writing "decreased" here would be
+          importing the general SCFA narrative instead of this study's result.
+          Measured as faecal SCFA concentrations, which shotgun sequencing
+          cannot produce; a shotgun pipeline can only measure the gene capacity
+          to make them, which is a different and much weaker claim.
+      - pathway: "serum free fatty acid / omega-3 coupling to microbiota"
+        direction: variable
+        note: >
+          Immunomodulatory omega-3 FFAs correlated positively with the F/B
+          ratio in healthy controls but not in SLE. Serum measure, not
+          measurable from stool.
+    limitations: >
+      Small; overlapping population with the other Spanish reports; per-SCFA
+      directions and numeric effect sizes not extractable from the abstract and
+      therefore omitted. The most useful content of this paper for a stool
+      report is a negative: the informative quantity was a stool-serum
+      correlation, which a stool-only assay cannot compute.
+
+  # =========================================================================
+  # USA — the Ruminococcus gnavus / lupus nephritis programme
+  # =========================================================================
+  - study_id: luo_2018_aem
+    citation: "Luo XM, Edwards MR, Mu Q, et al. Gut microbiota in human systemic lupus erythematosus and a mouse model of lupus. Appl Environ Microbiol 2018;84(4):e02288-17"
+    doi: "10.1128/AEM.02288-17"
+    url: "https://journals.asm.org/doi/10.1128/AEM.02288-17"
+    design: cross_sectional
+    assay: 16S
+    profiler: "unspecified"
+    country: USA
+    population_note: >
+      Virginia, USA. Described by the authors only as "a small group of SLE
+      patients with active disease" versus control subjects without
+      immune-mediated disease. Exact n for the human arm could not be read from
+      the abstract and the PMC record returned abstract-only text, so n_cases
+      and n_controls are OMITTED rather than guessed. The paper is
+      predominantly a NZB/W F1 mouse study with a human sub-analysis attached,
+      and the authors explicitly state they "did not control for age and the
+      cage effect" in the murine arm.
+    disease_activity: >
+      STATE. The human arm sampled active disease only, so it cannot separate
+      trait from state, and there is no quiescent SLE comparison group.
+    findings:
+      - taxon: Firmicutes_Bacteroidetes_ratio
+        rank: phylum_ratio
+        direction: unchanged
+        effect_size: "no difference between SLE and non-SLE microbiota"
+        statistic: "explicitly reported as not differing"
+        trait_or_state: unresolved
+        caveat: >
+          NULL RESULT AND DIRECT CONTRADICTION of the Spanish F/B finding, in a
+          US cohort, in patients with ACTIVE disease. This is the single most
+          important negative result for anyone contemplating an F/B-based
+          score. It is also the only F/B test in this dossier performed in a
+          North American population, which is the population most likely to
+          resemble a US consumer stool-testing customer.
+      - taxon: alpha_diversity
+        rank: community_metric
+        direction: decreased
+        effect_size: "not quantified in the abstract"
+        statistic: "not extractable"
+        replicated_in: [azzouz_2019_ard, toumi_2022_front_immunol, park_2025_j_transl_med, xiang_2022_lupus_sci_med, wang_2022_ebiomedicine]
+        trait_or_state: state
+    limitations: >
+      Human n not recoverable and therefore omitted. Genus-level differences
+      were reported for Odoribacter, Blautia and an unnamed Rikenellaceae genus,
+      but the abstract does not state the DIRECTION of change for any of them
+      and full text was not retrievable, so those taxa are deliberately absent
+      from `findings` rather than entered with a guessed direction. Increased
+      representation of Gram-negative bacteria is reported but not resolved to
+      taxa. Primarily a mouse paper.
+
+  - study_id: azzouz_2019_ard
+    citation: "Azzouz D, Omarbekova A, Heguy A, et al. Lupus nephritis is linked to disease-activity associated expansions and immunity to a gut commensal. Ann Rheum Dis 2019;78(7):947-956"
+    doi: "10.1136/annrheumdis-2018-214856"
+    url: "https://ard.bmj.com/content/78/7/947"
+    design: cross_sectional
+    assay: 16S
+    profiler: "16S rRNA amplicon; OTU analysis plus DADA2 amplicon sequence variants. NOT shotgun, NOT MetaPhlAn."
+    n_cases: 61
+    n_controls: 17
+    country: USA
+    population_note: >
+      NYU urban discovery cohort, New York City. 61 FEMALE SLE patients and 17
+      FEMALE healthy controls — all female, so the profile has no male-derived
+      evidence at all, and the control arm is very small (17). Patients were
+      highly heterogeneous in organ involvement and spanned clinical remission
+      to active disease: SLEDAI 0-7 n=47, SLEDAI 8-18 n=14. Two independent
+      validation cohorts were serology-only, not microbiome: Temple University
+      (16 non-renal SLE vs 12 active lupus nephritis) and Ohio State University
+      (17 biopsy-proven active LN vs 6 idiopathic primary mesangial
+      glomerulonephritis controls). Treatment exposure is not tabulated in the
+      main text of this paper.
+    disease_activity: >
+      MIXED, leaning STATE. R. gnavus was elevated in SLE overall (a trait-like
+      contrast), but the magnitude scaled with SLEDAI (healthy 0.25% ->
+      SLEDAI-low 1.19% -> SLEDAI-high 2.11%), diversity restriction was most
+      pronounced at SLEDAI>=8, and the antibody arm — which is where the
+      lipoglycan story actually lives — tracked activity and nephritis, not
+      diagnosis. Anti-RG2 IgG was elevated in only 22.9% of the NYU SLE cohort.
+    findings:
+      - taxon: Ruminococcus_gnavus
+        rank: species
+        direction: increased
+        effect_size: "~5.4-fold higher mean relative abundance: SLE 1.35% +/- 2.01% (range 0.00-10.79%) vs controls 0.25% +/- 0.39% (range 0.00-1.27%)"
+        statistic: "Mann-Whitney p=0.01 for SLE vs control. SLEDAI-stratified species-level Kruskal-Wallis p=0.013 (healthy 0.25% / SLEDAI-low 1.19% / SLEDAI-high 2.11%), UNCORRECTED and reported at a p<0.10 screening threshold"
+        replicated_in: [azzouz_2023_ard, amarnani_2026_ard]
+        trait_or_state: trait_and_state
+        caveat: >
+          STRAIN-DEPENDENT — species-level abundance cannot support the causal
+          claim. The pathogenic property is a cell-wall lipoglycan expressed by
+          a restricted subset of strains: gut RG abundance correlated with serum
+          antibodies to only 1 of 8 RG strains tested. Species-level shotgun
+          abundance cannot distinguish a lipoglycan-producing lupus strain from
+          ordinary carriage, and RG is a normal low-abundance commensal in
+          healthy people. Additionally: the SLEDAI-stratified taxon table is
+          explicitly NOT FDR corrected and was screened at p<0.10, and the mean
+          RG abundance is dominated by a small number of high-carriage
+          individuals (SD 2.01% exceeds the mean of 1.35%), so a single
+          patient's value is close to uninterpretable against this distribution.
+      - taxon: Ruminococcus
+        rank: genus
+        direction: increased
+        effect_size: "healthy 0.53% / SLEDAI-low 1.76% / SLEDAI-high 3.15%"
+        statistic: "Kruskal-Wallis p=0.007, uncorrected, p<0.10 screening threshold"
+        trait_or_state: trait_and_state
+        caveat: >
+          Genus-level Ruminococcus in a 16S framework is not the same entity as
+          MetaPhlAn's Ruminococcus, and R. gnavus has since been reassigned to
+          Blautia/Mediterraneibacter. Directly CONTRADICTED at genus level by
+          park_2025_j_transl_med, which found Ruminococcus DEPLETED in 157
+          Korean SLE patients.
+      - taxon: Bacteroides_uniformis
+        rank: species
+        direction: decreased
+        effect_size: "healthy 2.11% / SLEDAI-low 0.87% / SLEDAI-high 0.34%"
+        statistic: "Kruskal-Wallis p=0.014, uncorrected, p<0.10 screening threshold"
+        trait_or_state: trait_and_state
+        caveat: >
+          This is the "reciprocal contraction of a species with putative
+          protective properties" from the abstract. Cleanly measurable by
+          MetaPhlAn 3/4 and monotonic with activity, which makes it more
+          attractive as a scoring feature than RG itself — but it rests on a
+          single uncorrected p value in one 61-vs-17 cohort and has not been
+          replicated at species level anywhere else in this dossier.
+      - taxon: Bacteroides_fragilis
+        rank: species
+        direction: unchanged
+        effect_size: "healthy 1.17% / SLEDAI-low 2.41% / SLEDAI-high 2.20%"
+        statistic: "Kruskal-Wallis p=0.081 — NOT significant"
+        replicated_in: [chen_2021_arthritis_rheumatol]
+        trait_or_state: unresolved
+        caveat: >
+          Recorded because it is a null here and a positive in Chinese shotgun
+          data (chen_2021_arthritis_rheumatol reported B. fragilis enriched in
+          untreated SLE). Direction set to unchanged AS REPORTED IN THIS STUDY;
+          see synthesis for the conflict.
+      - taxon: Chao1_richness
+        rank: community_metric
+        direction: decreased
+        effect_size: "restriction most pronounced at SLEDAI>=8"
+        statistic: "Mann-Whitney p=0.038 SLE vs control; p=0.003 for SLEDAI>=8 vs control"
+        replicated_in: [park_2025_j_transl_med, toumi_2022_front_immunol, xiang_2022_lupus_sci_med, wang_2022_ebiomedicine]
+        trait_or_state: trait_and_state
+      - taxon: beta_diversity
+        rank: community_metric
+        direction: increased
+        effect_size: "community composition differs from controls; separation greater when stratified by activity"
+        statistic: "PERMANOVA p=0.02 control vs SLE; p=0.002 control vs SLEDAI-high vs SLEDAI-low"
+        trait_or_state: trait_and_state
+    functional_findings:
+      - pathway: "R. gnavus cell-wall lipoglycan (strain-restricted antigen)"
+        direction: increased
+        note: >
+          NOT MEASURABLE FROM STOOL SEQUENCING as reported. The measured
+          quantities were serum IgG against a strain-restricted lipoglycan pool
+          plus mass-spectrometry and NMR structural characterisation of purified
+          lipoglycan. Serum anti-RG2 IgG correlated with SLEDAI (Spearman
+          p=0.04) and with anti-native-DNA, and inversely with C3 and C4. In
+          principle a shotgun pipeline could hunt for the lipoglycan
+          biosynthesis locus, but the paper does not define that locus, and
+          gene-level detection at the depth of a routine stool run would be
+          unreliable.
+      - pathway: "faecal secretory IgA / IgM / IgG"
+        direction: increased
+        note: >
+          Faecal sIgA 2.6-fold higher in SLE (Welch p=0.002). RG was 2-fold
+          enriched among sIgA-coated faecal bacteria but this did NOT reach
+          significance (Wilcoxon p=0.14). Faecal immunoglobulin is a stool
+          measurement but not a sequencing measurement; out of scope for a
+          metagenomic pipeline.
+    limitations: >
+      Authors' own framing is hypothesis-generating ("suggest a novel
+      paradigm"). Cross-sectional. All-female. 17 controls. The taxon table is
+      uncorrected for multiple comparisons at a p<0.10 screening threshold —
+      this alone means the species-level directions should carry low weight.
+      16S, so species assignment is intrinsically less reliable than shotgun,
+      and 16S relative abundances are not numerically interchangeable with
+      MetaPhlAn relative abundances. The validation cohorts validated the
+      SEROLOGY, not the microbiome. Three published comments/critiques exist in
+      Ann Rheum Dis (2019;78:867-869; 2021;80:e177; 2021;80:e178) which were not
+      retrieved for this dossier — a gap worth closing before this study is
+      weighted heavily.
+
+  - study_id: azzouz_2023_ard
+    citation: "Azzouz DF, Chen Z, Izmirly PM, et al. Longitudinal gut microbiome analyses and blooms of pathogenic strains during lupus disease flares. Ann Rheum Dis 2023;82(10):1315-1327"
+    doi: "10.1136/ard-2023-223929"
+    url: "https://ard.bmj.com/content/82/10/1315"
+    design: longitudinal
+    assay: 16S
+    profiler: "16S rRNA gene amplicon libraries; whole-genome sequencing of cultured RG isolates. RG abundance by 16S and by shotgun cloning were highly correlated in a 16-sample cross-check."
+    n_cases: 16
+    n_controls: 22
+    country: USA
+    population_note: >
+      NYU, New York City. Only 16 SLE patients, contributing 44 faecal samples
+      over 24-291 weeks (2-6 samples each), versus 22 healthy adult FEMALE
+      controls contributing 72 sequential samples (49 used for the RG abundance
+      comparison, 2-12 samples per donor). TREATMENT: all patients received
+      hydroxychloroquine and many also received prednisone; patients on
+      cytotoxic agents or antibiotics were EXCLUDED, and samples were taken
+      before treatment changes where possible. The authors assert HCQ and
+      prednisone have little or no effect on the human gut microbiome, citing
+      one reference — that assertion is contested by
+      li_2022_bmc_microbiol_ppi and xiang_2022_lupus_sci_med, both of which
+      found drug effects on SLE microbiota, and should not be accepted at face
+      value.
+    disease_activity: >
+      STATE — and this study is the clearest statement in the literature that
+      RG is a flare marker rather than a trait. RG abundance "fluctuated
+      greatly overtime" WITHIN individual patients. Blooms (defined as >1% of
+      16S amplicons, against a healthy-control mean of 0.15%) occurred at times
+      of high disease activity and were detected in almost half of patients
+      during lupus nephritis flares. All but one bloom-associated patient had a
+      documented LN flare concurrent with the bloom. A single stool sample from
+      a patient not in flare would be expected to look unremarkable.
+    findings:
+      - taxon: Ruminococcus_gnavus
+        rank: species
+        direction: variable
+        effect_size: "transient blooms above a 1% relative abundance threshold, against a healthy-control mean of 0.15%; blooms in almost half of patients during LN flares"
+        statistic: "within-subject temporal variation; beta-diversity differences PERMANOVA p=0.001 for high disease activity and p=0.001 for active lupus nephritis"
+        replicated_in: [azzouz_2019_ard, amarnani_2026_ard]
+        trait_or_state: state
+        caveat: >
+          Direction is set to VARIABLE deliberately and this is the single most
+          consequential entry in the dossier. RG is not stably elevated in SLE;
+          it spikes and subsides within the same patient. A cross-sectional
+          stool sample therefore samples a random point on a highly volatile
+          trajectory, and a low RG value carries essentially no information
+          about whether the patient has lupus or will flare. Compounding this,
+          only lupus-nephritis-derived strains expressed the lipoglycan, so even
+          a true bloom is only pathogenically meaningful for a strain subset
+          that species-level profiling cannot identify.
+      - taxon: community_temporal_instability
+        rank: community_metric
+        direction: increased
+        effect_size: "significant community-wide ecological instability common in SLE and absent in healthy controls; transient growth spikes of several pathogenic species"
+        statistic: "multivariate analysis of beta-diversity over time"
+        trait_or_state: trait
+        caveat: >
+          This may be the most robust and most under-exploited finding in the
+          whole SLE microbiome literature — the disease signal is VARIANCE, not
+          a mean shift. It is also completely unmeasurable from one stool
+          sample. It requires >=2 samples per person, ideally 3+. Notably, the
+          authors found NO correlation between community variance and disease
+          duration, sampling interval, maximal disease activity, activity range
+          across visits, OR the medications individual subjects were taking.
+    functional_findings:
+      - pathway: "R. gnavus host-adaptation gene set"
+        direction: increased
+        note: >
+          PRECISE FINDING, frequently mis-stated: of 199 previously published
+          IBD-associated R. gnavus genes, 34 were present in one or more of the
+          lupus-nephritis strains at a 70% homology cut-off. This is 34 out of a
+          candidate list of 199, from whole-genome sequencing of 27
+          non-identical isolates cultured from just TWO active-LN patients (S47
+          and S107). It is not a validated 34-gene lupus signature and it was
+          not measured in stool metagenomes.
+      - pathway: "novel cell-membrane-associated lipoglycan"
+        direction: increased
+        note: >
+          STRAIN-LEVEL, CULTURE-DEPENDENT. Structure resolved by mass
+          spectrometry in three RG strains: most abundant species average
+          mono-isotopic mass 3632.645 Da, interpreted as three fatty acids
+          (acyl composition 47:0), one glycerol, eight hexoses, five
+          N-acetyl-hexosamines, three hexuronic acids; structural similarity
+          across the three strains p<2e-12. Recognised by high-level serum IgG2
+          arising concurrently with blooms and flares. Only LN-derived strains
+          expressed it. Requires bacterial isolation and glycan chemistry —
+          categorically outside what stool shotgun sequencing can do.
+    limitations: >
+      n=16 patients. Every patient on hydroxychloroquine, so the cohort cannot
+      distinguish disease biology from HCQ effects, and the authors' dismissal
+      of drug effects rests on a single citation. The serological follow-up was
+      thin: 3 of 8 LN patients had elevated anti-lipoglycan antibody levels, and
+      for those longitudinal samples microbiota data were UNAVAILABLE, so the
+      antibody-to-bloom link is asserted in detail for only three patients
+      (S47, S61, S78). Samples were treated as independent data points in the
+      initial overview despite repeated measures. 16S, not shotgun.
+
+  - study_id: amarnani_2026_ard
+    citation: "Amarnani A, Rivera CF, Cornwell M, et al. A pathogenic gut lipoglycan drives systemic thromboinflammation in lupus nephritis. Ann Rheum Dis 2026;85(8):1582-1595"
+    doi: "10.1016/j.ard.2026.03.002"
+    url: "https://doi.org/10.1016/j.ard.2026.03.002"
+    design: mechanistic_human
+    assay: serology
+    profiler: "bulk-blood RNA sequencing; serum host-protein assays; anti-lipoglycan IgG; murine gnotobiotic colonisation and intraperitoneal lipoglycan challenge"
+    country: USA
+    population_note: >
+      NYU Grossman School of Medicine, with an Immune Tolerance Network /
+      University of Michigan contribution. Two cohorts of patients with
+      BIOPSY-PROVEN LUPUS NEPHRITIS — a "Pilot" cohort subsetted by gut
+      microbiota community and a "Validation" cohort. Exact n for either cohort
+      is not stated in the abstract and the full text is behind an Elsevier
+      paywall, so n_cases and n_controls are OMITTED rather than estimated.
+      This is a biopsy-proven-LN population: the most severe, most treated end
+      of the SLE spectrum, and the least representative of anyone who would
+      submit a routine stool sample.
+    disease_activity: >
+      STATE, and narrower still — this is an LN ENDOTYPE marker. The authors'
+      own framing is a "previously unrecognised LN endotype" in which anti-
+      lipoglycan antibodies serve as a surrogate for a thromboinflammatory
+      profile. It says nothing about SLE without nephritis and nothing about
+      quiescent disease.
+    findings:
+      - taxon: Ruminococcus_gnavus
+        rank: species
+        direction: increased
+        effect_size: "not extractable from the abstract; paywalled"
+        statistic: "not extractable from the abstract; paywalled"
+        replicated_in: [azzouz_2019_ard, azzouz_2023_ard]
+        trait_or_state: state
+        caveat: >
+          STRAIN-LEVEL. RG gut expansions were associated with high-level
+          platelet, neutrophil and monocyte activation, but the causal agent is
+          the lipoglycan produced by PATHOGENIC RG STRAINS, and the human
+          readout used as the exposure marker is a serum antibody, not a stool
+          abundance. Species-level shotgun abundance cannot support any part of
+          this mechanism. No effect size is entered because none could be
+          verified.
+    functional_findings:
+      - pathway: "R. gnavus lipoglycan -> TLR2 -> platelet activation and NETosis"
+        direction: increased
+        note: >
+          Mechanism established in mice: gut colonisation with LG-producing RG
+          strains, or a single intraperitoneal LG injection, caused
+          megakaryocytosis and platelet activation; colonisation induced
+          tubulointerstitial injury with NETosis; responses to LG were
+          TLR2-DEPENDENT. Human correlates were serum platelet factor 4, NET
+          release and blood transcriptomic profiles. NOT MEASURABLE FROM STOOL —
+          every human readout here is blood.
+    limitations: >
+      Sample sizes not verifiable (paywalled) and therefore omitted, per the
+      no-invention rule. Biopsy-proven LN only. The human component is
+      correlative; causality rests on mice. Critically for a stool report: this
+      paper strengthens the biological case that RG matters while
+      simultaneously moving the measurable biomarker further away from stool
+      sequencing and into serology and blood transcriptomics. It is a reason to
+      be MORE cautious about reporting RG abundance from stool, not less.
+
+  - study_id: silverman_2022_front_immunol
+    citation: "Silverman GJ, Deng J, Azzouz DF. Sex-dependent Lupus Blautia (Ruminococcus) gnavus strain induction of zonulin-mediated intestinal permeability and autoimmunity. Front Immunol 2022;13:897971"
+    doi: "10.3389/fimmu.2022.897971"
+    url: "https://www.frontiersin.org/articles/10.3389/fimmu.2022.897971/full"
+    design: mechanistic_animal
+    assay: culture
+    profiler: "gnotobiotic and antibiotic-preconditioned SPF C57BL/6 colonisation with individual human-derived RG strains"
+    country: USA
+    population_note: >
+      Not a human cohort. C57BL/6 mice colonised with individual RG strains
+      isolated either from healthy adults or from lupus patients, including
+      germ-free adults and their neonatally colonised litters.
+    disease_activity: >
+      Not applicable — mechanistic. Relevant to the dossier because it is the
+      experiment that makes the RG story STRAIN-specific rather than
+      species-specific.
+    findings:
+      - taxon: Ruminococcus_gnavus
+        rank: strain
+        direction: increased
+        effect_size: "lupus-derived RG strains induced high intestinal permeability, significantly greater in female than male mice; the RG species-type strain from a healthy donor (ATCC29149 / VPI C7-1) had little or no effect"
+        statistic: "sex-stratified comparison; permeability correlated with serum IgG anti-RG cell-wall lipoglycan and with anti-native-DNA autoantibodies"
+        trait_or_state: unresolved
+        caveat: >
+          THE DEFINITIVE STRAIN-LEVEL CAVEAT FOR THIS ENTIRE PROFILE. Healthy-
+          donor and lupus-donor RG strains colonised mice equally well but had
+          opposite functional consequences. Therefore R. gnavus RELATIVE
+          ABUNDANCE — the only thing a species-level shotgun pipeline can
+          report — is uninformative about the property that matters. Two people
+          with identical MetaPhlAn RG abundance can carry strains with
+          opposite effects on gut permeability. Also note the sex dependence:
+          the effect was significantly stronger in females, and the human
+          cohorts underpinning this programme were all female.
+    functional_findings:
+      - pathway: "zonulin-mediated tight junction disruption"
+        direction: increased
+        note: >
+          Lupus RG strains raised serum zonulin and translocated to mesenteric
+          lymph nodes; permeability was COMPLETELY REVERSED by oral larazotide
+          acetate, a zonulin antagonist. Serum zonulin and MLN translocation are
+          not stool-sequencing readouts. The reversibility is the most
+          therapeutically interesting result in the RG literature and is
+          entirely invisible to a metagenomic pipeline.
+    limitations: >
+      Mouse. Single-strain monocolonisation is not a human community. Numeric
+      effect sizes not extracted. Its value here is as a hard constraint on
+      interpretation rather than as directional evidence for a score.
+
+  # =========================================================================
+  # JAPAN — the largest shotgun MWAS
+  # =========================================================================
+  - study_id: tomofuji_2021_ard
+    citation: "Tomofuji Y, Maeda Y, Oguro-Igashira E, et al. Metagenome-wide association study revealed disease-specific landscape of the gut microbiome of systemic lupus erythematosus in Japanese. Ann Rheum Dis 2021;80(12):1575-1583"
+    doi: "10.1136/annrheumdis-2021-220687"
+    url: "https://ard.bmj.com/content/80/12/1575"
+    design: case_control
+    assay: shotgun_metagenomics
+    profiler: "shotgun sequencing with species-level phylogenetic analysis, microbial gene analysis and pathway analysis; integrated with GWAS and plasma metabolome"
+    n_cases: 47
+    n_controls: 203
+    country: Japan
+    population_note: >
+      Osaka University and NHO Osaka Minami Medical Center, Japan. 47 SLE cases
+      against 203 controls — the control arm is unusually large for this
+      literature, which improves the reliability of the case-control contrast.
+      Treatment status is not stated in the abstract. Japanese population:
+      baseline gut microbiome composition in Japanese cohorts differs
+      systematically from European and North American cohorts (notably in
+      Bacteroides/Prevotella structure and in seaweed-glycan metabolism), so
+      transfer of Japanese effect sizes to a Western reference panel is not
+      automatic.
+    disease_activity: >
+      TRAIT for the primary taxonomic contrast (SLE vs control), with an
+      activity overlay: the Frontiers 2026 review states that the Streptococcus
+      increases were reported in patients with active disease and that
+      composition correlated with SLEDAI. The MWAS abstract itself frames the
+      finding as a disease-specific landscape, i.e. trait-level. Recorded as
+      trait_and_state.
+    findings:
+      - taxon: Streptococcus_intermedius
+        rank: species
+        direction: increased
+        effect_size: "not quantified in the abstract"
+        statistic: "identified AND VALIDATED via species-level phylogenetic analysis; positive dosage correlation with plasma acylcarnitine"
+        replicated_in: [li_2019_clin_sci, wang_2022_ebiomedicine, park_2025_j_transl_med]
+        trait_or_state: trait_and_state
+        caveat: >
+          This is the strongest candidate in the dossier for a shotgun-
+          measurable, species-level, internally validated SLE feature. Caveats:
+          Streptococcus enrichment is NOT SLE-SPECIFIC — wang_2022_ebiomedicine
+          found it shared across rheumatoid arthritis and Sjögren's syndrome —
+          and oral streptococci in stool partly reflect oral-gut translocation
+          and swallowed saliva, which is influenced by periodontal disease and
+          oral hygiene rather than lupus. Numeric effect size omitted (not in
+          the abstract).
+      - taxon: Streptococcus_anginosus
+        rank: species
+        direction: increased
+        effect_size: "not quantified in the abstract"
+        statistic: "identified and validated via species-level phylogenetic analysis"
+        replicated_in: [li_2019_clin_sci, wang_2022_ebiomedicine]
+        trait_or_state: trait_and_state
+        caveat: >
+          Same non-specificity caveat as S. intermedius. Independently
+          corroborated at species level by 16S in a Chinese cohort
+          (li_2019_clin_sci reported species "anginosus" positively correlated
+          with lupus activity), which is a genuine cross-geography,
+          cross-platform replication and rare in this literature.
+      - taxon: alpha_diversity
+        rank: community_metric
+        direction: decreased
+        effect_size: "not quantified in the abstract"
+        statistic: "alpha- and beta-diversity analyses provided evidence of dysbiosis"
+        replicated_in: [azzouz_2019_ard, park_2025_j_transl_med, toumi_2022_front_immunol]
+        trait_or_state: trait
+    functional_findings:
+      - pathway: "sulfur metabolism"
+        direction: variable
+        note: >
+          Reported as ALTERED, not simply increased, so direction is recorded as
+          variable rather than importing the "hydrogen sulfide accumulation"
+          narrative from downstream reviews. This IS shotgun-measurable: it was
+          measured as microbial gene and pathway abundance from shotgun reads,
+          so a MetaPhlAn/HUMAnN pipeline could compute a comparable quantity.
+      - pathway: "flagellar assembly"
+        direction: variable
+        note: >
+          Reported as altered. Shotgun-measurable as gene/pathway abundance.
+          Downstream reviews describe this as enrichment implying enhanced
+          motility and epithelial penetration; the primary abstract says
+          "altered", and that is what is recorded.
+      - pathway: "Streptococcus-derived genes including one involved in redox reaction"
+        direction: increased
+        note: >
+          Gene-level, shotgun-measurable in principle, but identifying a
+          specific redox gene requires gene-resolved profiling (HUMAnN or
+          equivalent) rather than taxonomic profiling alone.
+      - pathway: "MWAS-GWAS pathway overlap"
+        direction: increased
+        note: >
+          Overlap in enriched biological pathways between metagenome and
+          germline genome. Requires host genotype data. NOT measurable from
+          stool alone.
+    limitations: >
+      47 cases is modest for a metagenome-wide association study, and no numeric
+      effect sizes are available from the abstract, so none are recorded.
+      Single-country, single-region. Treatment status not stated. Plasma
+      metabolome and host GWAS components are not reproducible from stool.
+      Cross-platform comparability: this study's species calls come from shotgun
+      phylogenetic analysis, which is the same class of measurement a MetaPhlAn
+      pipeline makes — making it the most directly transferable study in this
+      dossier — but the specific profiler and version are not stated in the
+      abstract.
+
+  # =========================================================================
+  # CHINA — shotgun and 16S cohorts, including the largest untreated cohort
+  # =========================================================================
+  - study_id: chen_2021_arthritis_rheumatol
+    citation: "Chen BD, Jia XM, Xu JY, et al. An autoimmunogenic and proinflammatory profile defined by the gut microbiota of patients with untreated systemic lupus erythematosus. Arthritis Rheumatol 2021;73(2):232-243"
+    doi: "10.1002/art.41511"
+    url: "https://acrjournals.onlinelibrary.wiley.com/doi/10.1002/art.41511"
+    design: case_control
+    assay: shotgun_metagenomics
+    profiler: "whole-genome shotgun profiling; SNP-based strain-level analysis to establish oral origin of gut species"
+    n_cases: 117
+    n_controls: 115
+    country: China
+    population_note: >
+      Multi-centre China (Peking Union Medical College Hospital, Xiangya,
+      Huaian, Anyang, Renji/Shanghai Jiaotong), with Harvard collaboration.
+      THE MOST IMPORTANT FEATURE OF THIS COHORT: 117 patients were UNTREATED at
+      sampling, with a separate set of 52 post-treatment patients, against 115
+      matched healthy controls. This is the only large cohort in the dossier
+      that removes the immunosuppressant/steroid/HCQ confound by design, and
+      the treatment comparison is internal: the SLE-enriched species were
+      REDUCED AFTER TREATMENT, which directly demonstrates that treatment
+      status changes the answer.
+    disease_activity: >
+      TRAIT, in the cleanest available population. Because patients were
+      treatment-naive, the case-control contrast reflects disease rather than
+      therapy. The treatment arm shows the signature is partly reversible,
+      which means a treated patient's stool sample should NOT be scored against
+      an untreated-cohort profile without an explicit caveat.
+    findings:
+      - taxon: Bacteroides_fragilis
+        rank: species
+        direction: increased
+        effect_size: "not quantified in the abstract"
+        statistic: "enriched in SLE gut microbiota and reduced after treatment"
+        replicated_in: [van_der_meulen_2019_j_autoimmun, park_2025_j_transl_med]
+        trait_or_state: trait
+        caveat: >
+          CONFLICTS with azzouz_2019_ard, where B. fragilis was non-significant
+          (p=0.081) in a US cohort. Cleanly measurable by MetaPhlAn 3/4.
+      - taxon: Clostridium_leptum
+        rank: species
+        direction: increased
+        effect_size: "not quantified in the abstract"
+        statistic: "enriched in SLE and reduced after treatment"
+        trait_or_state: trait
+        caveat: >
+          Direction is counter-intuitive: the Clostridium leptum group is
+          usually described as a butyrate-producing, protective cluster and is
+          reported as DEPLETED in most inflammatory conditions. Recorded as
+          increased because that is what this study reports. Also note
+          C. leptum has unstable taxonomy across reference databases, so
+          MetaPhlAn 4 mapping should be checked before use.
+      - taxon: Atopobium_rimae
+        rank: species
+        direction: increased
+        effect_size: "not quantified in the abstract"
+        statistic: "enriched in SLE and reduced after treatment"
+        trait_or_state: trait
+        caveat: >
+          ORAL-ORIGIN SPECIES. SNP-based strain analysis showed species of oral
+          origin enriched in the SLE gut. Its presence in stool may index
+          oral-gut translocation or saliva swallowing rather than a colonic
+          community change, so periodontal status is an uncontrolled confounder.
+      - taxon: Shuttleworthia_satelles
+        rank: species
+        direction: increased
+        effect_size: "not quantified in the abstract"
+        statistic: "enriched in SLE and reduced after treatment"
+        trait_or_state: trait
+        caveat: >
+          Oral-origin species; same confound. Low prevalence and low abundance
+          taxa like this are near the detection floor of a routine-depth stool
+          shotgun run.
+      - taxon: Actinomyces_massiliensis
+        rank: species
+        direction: increased
+        effect_size: "not quantified in the abstract"
+        statistic: "enriched in SLE and reduced after treatment"
+        trait_or_state: trait
+        caveat: >
+          Oral-origin species; same confound plus detection-floor concern.
+      - taxon: Clostridium_sp_ATCC_BAA_442
+        rank: species
+        direction: increased
+        effect_size: "not quantified in the abstract"
+        statistic: "enriched in SLE and reduced after treatment"
+        trait_or_state: trait
+        caveat: >
+          A strain-designated entity ("the Clostridium species ATCC BAA-442"),
+          not a cleanly named species. May not have a stable MetaPhlAn 4
+          equivalent; mapping must be verified before use as a feature.
+    functional_findings:
+      - pathway: "lipopolysaccharide biosynthesis"
+        direction: increased
+        note: >
+          Genuinely shotgun-measurable as gene/pathway abundance, and one of the
+          more reproducible functional claims in the SLE literature. Note this
+          is GENOMIC CAPACITY, not LPS exposure: circulating LPS and
+          LPS-binding protein are serum measures.
+      - pathway: "branched-chain amino acid biosynthesis"
+        direction: decreased
+        note: >
+          Shotgun-measurable as pathway abundance. Reported alongside the LPS
+          increase as a coordinated shift.
+      - pathway: "autoantigen-mimicking microbial peptides"
+        direction: increased
+        note: >
+          Functional validation assays demonstrated proinflammatory capacity of
+          peptides from SLE-enriched species. Requires peptide-level
+          annotation and in vitro assay; not a routine stool-pipeline output.
+    limitations: >
+      No numeric effect sizes in the abstract, so none are recorded. Several of
+      the reported species are of oral origin, which confounds their
+      interpretation as gut features and ties them to dental rather than
+      systemic status. Chinese multi-centre population: diet and geography
+      differ substantially from a Western reference cohort. The murine MRL/lpr
+      comparison is supportive but not human evidence. Strongest study in the
+      dossier for treatment-naive trait detection; weakest on transferable
+      quantitative effect sizes.
+
+  - study_id: gui_2024_arthritis_res_ther
+    citation: "Gui L, Zuo X, Feng J, et al. Outgrowth of Escherichia is susceptible to aggravation of systemic lupus erythematosus. Arthritis Res Ther 2024;26(1):191"
+    doi: "10.1186/s13075-024-03413-7"
+    url: "https://arthritis-research.biomedcentral.com/articles/10.1186/s13075-024-03413-7"
+    design: case_control
+    assay: mixed_16S_shotgun
+    profiler: "16S rRNA amplicon for genus-level discovery (114 SLE vs 134 HC) followed by shotgun metagenomics for species-level confirmation and pathway/epitope analysis (124 SLE vs 97 HC); validated by oral gavage into MRL/lpr mice"
+    n_cases: 124
+    n_controls: 97
+    country: China
+    population_note: >
+      Third Affiliated Hospital of Sun Yat-sen University and collaborators,
+      Guangzhou/Shenzhen, southern China. Two overlapping sample sets: 114 SLE
+      vs 134 healthy controls for 16S, and 124 SLE vs 97 healthy controls for
+      shotgun (n_cases/n_controls above are the shotgun set). Includes lupus
+      nephritis and active patients as subgroups. Treatment status not stated
+      in the abstract. Southern Chinese diet and genetic background.
+    disease_activity: >
+      TRAIT_AND_STATE, well separated. Richness reduction and composition change
+      were present overall but "particularly lupus nephritis and active
+      patients". The Escherichia coli associations were with SLEDAI and with
+      renal involvement specifically — so the taxon is elevated as a trait but
+      its magnitude and its epitope associations track state.
+    findings:
+      - taxon: Escherichia_coli
+        rank: species
+        direction: increased
+        effect_size: "not quantified in the abstract"
+        statistic: "Escherichia identified as the dominantly expanded genus; shotgun located E. coli and Escherichia unclassified; significant associations between E. coli, purine nucleotide salvage / peptidoglycan maturation pathways and SLEDAI, and between E. coli epitopes and disease activity or renal involvement"
+        replicated_in: [xiang_2022_lupus_sci_med, ling_2023_front_immunol]
+        trait_or_state: trait_and_state
+        caveat: >
+          Well measured by MetaPhlAn 3/4 and this is the best-designed
+          Escherichia result in the dossier (16S discovery, shotgun species
+          confirmation, mouse gavage causality). Two caveats: E. coli abundance
+          in stool is highly variable in healthy people and responds to recent
+          antibiotics, diet and transit time; and Enterobacteriaceae enrichment
+          in SLE did NOT survive Bonferroni correction in the
+          xiang_2022_lupus_sci_med meta-analysis (p=0.045 uncorrected against a
+          0.0071 threshold).
+      - taxon: Proteobacteria_Bacteroidetes_ratio
+        rank: phylum_ratio
+        direction: increased
+        effect_size: "remarkably up-regulated"
+        statistic: "not quantified in the abstract"
+        trait_or_state: trait
+        caveat: >
+          Note this is P/B, not F/B, and it is a DIFFERENT ratio from the Hevia
+          claim. This study did not report the Firmicutes depletion that the
+          Spanish, French and Dutch cohorts found — it framed the phylum-level
+          shift as a Proteobacteria expansion instead. That is a substantive
+          disagreement about which phylum moves, not just about a ratio.
+      - taxon: microbial_richness
+        rank: community_metric
+        direction: decreased
+        effect_size: "not quantified in the abstract"
+        statistic: "richness reduction, particularly in lupus nephritis and active patients"
+        replicated_in: [park_2025_j_transl_med, azzouz_2019_ard, toumi_2022_front_immunol]
+        trait_or_state: trait_and_state
+    functional_findings:
+      - pathway: "purine nucleotide salvage"
+        direction: increased
+        note: >
+          Shotgun-measurable as pathway abundance and associated with SLEDAI.
+          One of the few functional findings in this dossier that is both
+          measurable by a standard shotgun pipeline and tied to a clinical
+          score.
+      - pathway: "peptidoglycan maturation"
+        direction: increased
+        note: "Shotgun-measurable as pathway abundance; associated with SLEDAI."
+      - pathway: "E. coli epitopes cross-reactive with host autoantigens"
+        direction: increased
+        note: >
+          Epitope-level analysis from metagenomes; associated with disease
+          activity and renal phenotype. Requires peptide-level annotation
+          against an autoantigen database, not a routine pipeline output.
+    limitations: >
+      No numeric effect sizes available from the abstract. Two non-identical
+      sample sets for the two assays, which complicates reading the 16S and
+      shotgun results as one coherent cohort. Treatment status unreported.
+      Mouse gavage supports causality for "Escherichia" as gavaged material
+      rather than for a defined strain. Southern Chinese population only.
+
+  - study_id: li_2019_clin_sci
+    citation: "Li Y, Wang HF, Li X, et al. Disordered intestinal microbes are associated with the activity of systemic lupus erythematosus. Clin Sci (Lond) 2019;133(7):821-838"
+    doi: "10.1042/CS20180841"
+    url: "https://portlandpress.com/clinsci/article/133/7/821/71975"
+    design: cross_sectional
+    assay: 16S
+    profiler: "16S rRNA amplicon; functional inference by PICRUSt; random forest classifiers"
+    n_cases: 40
+    n_controls: 22
+    country: China
+    population_note: >
+      Nanfang Hospital / Southern Medical University, Guangzhou. 40 SLE patients
+      split by activity into 19 ACTIVE and 21 REMISSIVE, versus 22 healthy
+      controls AND — importantly — 20 rheumatoid arthritis patients as a DISEASE
+      control arm. The RA arm is valuable: it is one of very few attempts in
+      this literature to test disease specificity rather than just
+      disease-vs-health. Treatment status not stated in the abstract.
+    disease_activity: >
+      STATE-DOMINANT, and the study is explicitly built around it. Dysbiosis was
+      significant in SLE "particularly the active patients". Four genera and two
+      species were correlated with lupus ACTIVITY, and a separate random forest
+      model was needed to predict activity (AUC 0.811) from the one that
+      separated SLE from RA and healthy controls (AUC 0.792). Two different
+      models for two different questions is itself evidence that trait and state
+      signatures are not the same signature.
+    findings:
+      - taxon: Streptococcus_anginosus
+        rank: species
+        direction: increased
+        effect_size: "not quantified in the abstract"
+        statistic: "positively correlated with lupus activity"
+        replicated_in: [tomofuji_2021_ard]
+        trait_or_state: state
+        caveat: >
+          CROSS-PLATFORM, CROSS-GEOGRAPHY REPLICATION of the Japanese shotgun
+          finding — 16S in China, shotgun in Japan, same species, same
+          direction. This is the strongest species-level convergence in the
+          dossier. But species-level assignment from 16S is unreliable in
+          principle, so the Chinese half of the replication is weaker than it
+          looks, and here the association is with ACTIVITY rather than with
+          diagnosis.
+      - taxon: Veillonella_dispar
+        rank: species
+        direction: increased
+        effect_size: "not quantified in the abstract"
+        statistic: "species 'dispar' positively correlated with lupus activity"
+        replicated_in: [joseph_2026_lupus, park_2025_j_transl_med]
+        trait_or_state: state
+        caveat: >
+          Oral-origin genus; stool detection is confounded by saliva swallowing
+          and oral health. 16S species-level call.
+      - taxon: Streptococcus
+        rank: genus
+        direction: increased
+        effect_size: "not quantified in the abstract"
+        statistic: "positively correlated with lupus activity"
+        replicated_in: [tomofuji_2021_ard, park_2025_j_transl_med, wang_2022_ebiomedicine]
+        trait_or_state: state
+      - taxon: Campylobacter
+        rank: genus
+        direction: increased
+        effect_size: "not quantified in the abstract"
+        statistic: "positively correlated with lupus activity"
+        trait_or_state: state
+        caveat: >
+          Not replicated elsewhere in this dossier. Campylobacter in stool is
+          more commonly a marker of recent enteric infection than of
+          autoimmunity, and a pathogen-panel finding would be reported very
+          differently from a dysbiosis finding.
+      - taxon: Veillonella
+        rank: genus
+        direction: increased
+        effect_size: "not quantified in the abstract"
+        statistic: "positively correlated with lupus activity"
+        replicated_in: [park_2025_j_transl_med, joseph_2026_lupus]
+        trait_or_state: state
+      - taxon: Bifidobacterium
+        rank: genus
+        direction: decreased
+        effect_size: "not quantified in the abstract"
+        statistic: "negatively associated with disease activity"
+        replicated_in: [park_2025_j_transl_med]
+        trait_or_state: state
+        caveat: >
+          Well measured by MetaPhlAn at genus and species level, and
+          independently replicated in Korea. Confounded by dairy and probiotic
+          intake, which is not recorded in either study.
+    functional_findings:
+      - pathway: "PICRUSt-inferred metabolic pathways"
+        direction: variable
+        note: >
+          Pathways differed between SLE and healthy controls AND between active
+          and remissive SLE. 16S-inferred, not sequenced; not directly
+          comparable to a shotgun HUMAnN output.
+    limitations: >
+      16S with species-level claims, which is exactly the resolution problem
+      this dossier is meant to flag. No numeric effect sizes in the abstract.
+      Treatment status unreported. Random forest AUCs (0.792, 0.811) are
+      internally derived on a small cohort with no external validation, so they
+      are almost certainly optimistic. The activity model is the useful part and
+      it requires knowing the patient's activity state to train — which a
+      consumer stool report does not have.
+
+  - study_id: ling_2023_front_immunol
+    citation: "Ling Z, Cheng Y, Gao J, et al. Alterations of the fecal and vaginal microbiomes in patients with systemic lupus erythematosus and their associations with immunological profiles. Front Immunol 2023;14:1135861"
+    doi: "10.3389/fimmu.2023.1135861"
+    url: "https://www.frontiersin.org/articles/10.3389/fimmu.2023.1135861/full"
+    design: cross_sectional
+    assay: 16S
+    profiler: "16S rRNA gene sequencing of paired faecal and vaginal samples"
+    n_cases: 30
+    n_controls: 30
+    country: China
+    population_note: >
+      Zhejiang / Shandong, China. 30 SLE patients and 30 BMI- and age-matched
+      healthy controls, with PAIRED faecal and vaginal sampling. Female by
+      design (vaginal arm). Treatment status not stated in the abstract.
+    disease_activity: >
+      TRAIT for composition, but with a decisive negative for stool: the
+      distinct immunological features were associated ONLY with the VAGINAL
+      microbiome, not the faecal one. The authors state plainly that "only the
+      vaginal microbiome interacted with patients' immunological features" and
+      that vaginal dysbiosis was more pronounced than faecal.
+    findings:
+      - taxon: Faecalibacterium
+        rank: genus
+        direction: decreased
+        effect_size: "not quantified in the abstract"
+        statistic: "one of 11 genera differing in patients' faeces"
+        replicated_in: [wang_2022_ebiomedicine, xiang_2022_lupus_sci_med]
+        trait_or_state: trait
+        caveat: >
+          Well measured by MetaPhlAn (F. prausnitzii and its SGB set), and the
+          most consistently depleted genus across the meta-analyses. But
+          wang_2022_ebiomedicine showed Faecalibacterium depletion is SHARED
+          across rheumatoid arthritis and Sjögren's syndrome, so it is a general
+          inflammation marker, not an SLE marker.
+      - taxon: Lactobacillus
+        rank: genus
+        direction: increased
+        effect_size: "not quantified in the abstract"
+        statistic: "one of 11 genera differing in patients' faeces"
+        replicated_in: [zegarra_ruiz_2019_cell_host_microbe]
+        trait_or_state: trait
+        caveat: >
+          DIRECTIONALLY CONTENTIOUS AND CLINICALLY DANGEROUS TO REPORT.
+          Lactobacillus is INCREASED in SLE faeces here and in the Yale cohort
+          (zegarra_ruiz_2019_cell_host_microbe), consistent with L. reuteri as a
+          TLR7-dependent pathobiont — yet Lactobacillus-containing probiotics
+          are simultaneously proposed as SLE therapy, and li_2022_bmc_microbiol_ppi
+          found faecal Lactobacillus rising with proton pump inhibitor use, a
+          drug commonly co-prescribed in SLE. Any elevated-Lactobacillus finding
+          in a treated SLE patient is at least as likely to reflect PPIs or
+          probiotic supplements as disease biology. Also strain-level: the
+          pathobiont claim is specific to L. reuteri, not to the genus.
+      - taxon: Gardnerella
+        rank: genus
+        direction: increased
+        effect_size: "not quantified in the abstract"
+        statistic: "one of 11 genera differing in patients' faeces"
+        trait_or_state: trait
+        caveat: >
+          Gardnerella in a faecal sample is unusual and most plausibly reflects
+          urogenital contamination or transfer in a female cohort with
+          concurrent vaginal dysbiosis. Not a credible gut scoring feature.
+      - taxon: vaginal_alpha_diversity
+        rank: community_metric
+        direction: increased
+        effect_size: "significantly higher bacterial diversity in the vagina"
+        statistic: "not quantified in the abstract"
+        trait_or_state: trait
+        caveat: "Not a stool measurement. Included only to document that the stronger signal was extra-intestinal."
+      - taxon: faecal_alpha_diversity
+        rank: community_metric
+        direction: decreased
+        effect_size: "'slightly lower' gut bacterial diversity"
+        statistic: "described as slight; not quantified in the abstract"
+        trait_or_state: trait
+        caveat: >
+          Note the authors' own hedge — "slightly lower" — against the confident
+          "reduced alpha diversity in SLE" claim in the review literature.
+    limitations: >
+      30 vs 30. No numeric effect sizes in the abstract; 8 of the 11 differing
+      faecal genera are not named there and are therefore not recorded.
+      Treatment status unreported. The study's headline conclusion actively
+      undercuts stool-based inference: faecal dysbiosis was the weaker signal
+      and had NO association with immunological features, while the vaginal
+      microbiome did. For a stool-only pipeline this is a negative result
+      dressed as a positive one.
+
+  - study_id: li_2022_bmc_microbiol_ppi
+    citation: "Li XB, Chu XJ, Cao NW, et al. Proton pump inhibitors induce changes in the gut microbiome composition of systemic lupus erythematosus patients. BMC Microbiol 2022;22(1):117"
+    doi: "10.1186/s12866-022-02533-x"
+    url: "https://bmcmicrobiol.biomedcentral.com/articles/10.1186/s12866-022-02533-x"
+    design: cross_sectional
+    assay: 16S
+    profiler: "16S rRNA gene sequencing; redundancy analysis; KEGG functional estimation; network analysis"
+    n_cases: 40
+    n_controls: 17
+    country: China
+    population_note: >
+      Anhui Medical University, Hefei, China. Three arms: 20 SLE patients ON
+      proton pump inhibitors (P-SLE), 20 SLE patients NOT on PPIs (NP-SLE), and
+      17 healthy controls. n_cases above is the combined 40 SLE. PPIs are
+      routinely co-prescribed in SLE to manage drug-related gastrointestinal
+      damage, so this is not an exotic subgroup — it is a large fraction of real
+      SLE patients.
+    disease_activity: >
+      Not an activity study. Its role in this dossier is as the DRUG CONFOUND
+      CONTROL, and it is the most damaging single study for naive
+      interpretation of an SLE stool profile.
+    findings:
+      - taxon: alpha_diversity
+        rank: community_metric
+        direction: variable
+        effect_size: "NP-SLE alpha diversity significantly lower than healthy controls; P-SLE alpha diversity INCREASED relative to NP-SLE and became similar to healthy controls"
+        statistic: "redundancy analysis showed PPI use was the ONLY significant explanatory variable for microbiome composition among SLE patients"
+        trait_or_state: unresolved
+        caveat: >
+          READ THIS BEFORE SCORING ANY SLE DIVERSITY FEATURE. The canonical
+          "reduced alpha diversity in SLE" finding was present only in
+          PPI-NAIVE patients and was ERASED in patients taking a PPI. A single
+          co-prescribed drug moved the headline biomarker back to the healthy
+          range. And PPI use out-explained every clinical variable tested. Any
+          diversity-based SLE index computed without PPI status is measuring
+          medication as much as disease.
+      - taxon: Lactobacillus
+        rank: genus
+        direction: increased
+        effect_size: "increased in P-SLE relative to NP-SLE"
+        statistic: "not quantified in the abstract"
+        trait_or_state: unresolved
+        caveat: >
+          Directly undermines the "Lactobacillus increased in SLE" finding of
+          ling_2023_front_immunol and zegarra_ruiz_2019_cell_host_microbe:
+          faecal Lactobacillus rises with PPI use, an extremely well documented
+          pharmacological effect. Without PPI status, an elevated Lactobacillus
+          reading cannot be attributed to lupus.
+      - taxon: Escherichia
+        rank: genus
+        direction: decreased
+        effect_size: "decreased in P-SLE relative to NP-SLE"
+        statistic: "not quantified in the abstract"
+        trait_or_state: unresolved
+        caveat: >
+          Cuts the other way against gui_2024_arthritis_res_ther: PPI use
+          LOWERED Escherichia. So a treated SLE patient could show a normal or
+          low Escherichia while having active disease.
+      - taxon: Veillonella
+        rank: genus
+        direction: decreased
+        effect_size: "decreased in P-SLE relative to NP-SLE"
+        statistic: "not quantified in the abstract"
+        trait_or_state: unresolved
+        caveat: "Opposes the Veillonella increase reported by li_2019_clin_sci, park_2025_j_transl_med and joseph_2026_lupus, in a drug-dependent direction."
+      - taxon: Roseburia
+        rank: genus
+        direction: increased
+        effect_size: "increased in P-SLE relative to NP-SLE"
+        statistic: "not quantified in the abstract"
+        trait_or_state: unresolved
+      - taxon: Desulfovibrio
+        rank: genus
+        direction: increased
+        effect_size: "increased in P-SLE relative to NP-SLE"
+        statistic: "not quantified in the abstract"
+        trait_or_state: unresolved
+        caveat: >
+          Relevant because Desulfovibrio is invoked in the sulfur-metabolism
+          mechanism narrative for SLE; here its abundance moves with PPI use.
+    functional_findings:
+      - pathway: "16 KEGG metabolic pathways differing between PPI-treated and PPI-naive SLE"
+        direction: variable
+        note: >
+          Driven by Escherichia, Roseburia, Stenotrophomonas, Morganella and
+          Alistipes. Demonstrates that functional as well as taxonomic profiles
+          shift with a single co-medication. 16S-inferred, not sequenced.
+    limitations: >
+      20 per arm plus 17 controls — small, and the authors themselves call for
+      validation at higher patient numbers. No numeric effect sizes in the
+      abstract. Cross-sectional, so PPI-treated and PPI-naive patients may
+      differ in disease severity as well as medication. Despite these
+      weaknesses, this study should be treated as a hard constraint rather than
+      a minor caveat: it is direct evidence that the most-cited SLE microbiome
+      biomarker is drug-labile.
+
+  # =========================================================================
+  # KOREA — the largest single-cohort SLE stool study, and a decisive null
+  # =========================================================================
+  - study_id: park_2025_j_transl_med
+    citation: "Park Y, Yang J, Son H, et al. Distinct gut microbiome profiles in Korean systemic lupus erythematosus patients. J Transl Med 2025;23(1):1426"
+    doi: "10.1186/s12967-025-07438-7"
+    url: "https://translational-medicine.biomedcentral.com/articles/10.1186/s12967-025-07438-7"
+    design: case_control
+    assay: 16S
+    profiler: "16S rRNA gene sequencing; alpha and beta diversity; LEfSe; PICRUSt2 functional prediction"
+    n_cases: 157
+    n_controls: 50
+    country: South_Korea
+    population_note: >
+      Catholic University of Korea (Seoul St. Mary's, Yeouido St. Mary's,
+      St. Vincent's). 157 SLE patients versus 50 healthy controls — THE LARGEST
+      SINGLE-COHORT SLE STOOL STUDY IN THIS DOSSIER. Subgroups defined by lupus
+      nephritis status and by disease activity. Treatment status not stated in
+      the abstract. Korean diet (high fermented-vegetable intake) shapes
+      baseline composition in ways that do not transfer to Western reference
+      panels.
+    disease_activity: >
+      TRAIT ONLY — and this study is the strongest single piece of evidence
+      AGAINST activity-based stool inference. In the largest cohort available,
+      there were NO significant microbial differences between LN-positive and
+      LN-negative patients, and NO significant differences between high and low
+      disease activity groups. The disease-versus-health contrast was clear; the
+      within-disease activity contrast was absent.
+    findings:
+      - taxon: microbial_richness
+        rank: community_metric
+        direction: decreased
+        effect_size: "significantly reduced Chao1, ACE and Fisher indices"
+        statistic: "significant for richness; evenness (Shannon, Simpson) PRESERVED"
+        replicated_in: [azzouz_2019_ard, gui_2024_arthritis_res_ther, toumi_2022_front_immunol, xiang_2022_lupus_sci_med, wang_2022_ebiomedicine]
+        trait_or_state: trait
+        caveat: >
+          The richness/evenness dissociation is the most useful methodological
+          finding here: SLE loses rare taxa without redistributing the abundant
+          ones. It explains why hevia_2014_mbio found Shannon unchanged, and it
+          means an index built on Shannon will underperform one built on Chao1
+          or observed species. Richness is also the diversity metric MOST
+          sensitive to sequencing depth and 16S-versus-shotgun differences, so
+          it transfers poorly across platforms.
+      - taxon: Streptococcus
+        rank: genus
+        direction: increased
+        effect_size: "not quantified in the abstract"
+        statistic: "enrichment identified; LEfSe discriminatory taxa"
+        replicated_in: [tomofuji_2021_ard, li_2019_clin_sci, wang_2022_ebiomedicine]
+        trait_or_state: trait
+      - taxon: Bacteroides
+        rank: genus
+        direction: increased
+        effect_size: "not quantified in the abstract"
+        statistic: "enrichment identified"
+        replicated_in: [van_der_meulen_2019_j_autoimmun, chen_2021_arthritis_rheumatol]
+        trait_or_state: trait
+        caveat: >
+          CONFLICTS with xiang_2022_lupus_sci_med, whose meta-analysis found NO
+          significant difference in Bacteroides (p>0.05). Consistent in
+          direction with the decreased-F/B story, since Bacteroides enrichment
+          is the numerator's mirror.
+      - taxon: Veillonella
+        rank: genus
+        direction: increased
+        effect_size: "not quantified in the abstract"
+        statistic: "enrichment identified"
+        replicated_in: [li_2019_clin_sci, joseph_2026_lupus]
+        trait_or_state: trait
+      - taxon: Bifidobacterium
+        rank: genus
+        direction: decreased
+        effect_size: "not quantified in the abstract"
+        statistic: "depletion identified"
+        replicated_in: [li_2019_clin_sci]
+        trait_or_state: trait
+        caveat: "Confounded by dairy and probiotic intake, unrecorded here."
+      - taxon: Ruminococcus
+        rank: genus
+        direction: decreased
+        effect_size: "not quantified in the abstract"
+        statistic: "depletion identified"
+        trait_or_state: trait
+        caveat: >
+          DIRECTLY OPPOSITE to azzouz_2019_ard, which found genus Ruminococcus
+          INCREASED (0.53% healthy -> 3.15% at SLEDAI>=8) in a US cohort. In the
+          largest cohort in this dossier, in Korea, the genus containing the
+          flagship SLE pathobiont is DEPLETED. Some of this is nomenclature —
+          16S "Ruminococcus" spans Ruminococcus sensu stricto and the
+          Blautia/Mediterraneibacter clade that R. gnavus belongs to, and
+          different classifiers split it differently — but the discrepancy
+          cannot be waved away, and it means genus-level Ruminococcus must never
+          be used as an SLE feature.
+      - taxon: Collinsella
+        rank: genus
+        direction: decreased
+        effect_size: "not quantified in the abstract"
+        statistic: "depletion identified"
+        trait_or_state: trait
+        caveat: "Not replicated elsewhere in this dossier."
+      - taxon: lupus_nephritis_vs_non_nephritis
+        rank: community_metric
+        direction: unchanged
+        effect_size: "no significant microbial differences between LN-positive and LN-negative groups"
+        statistic: "explicitly reported as non-significant"
+        trait_or_state: trait
+        caveat: >
+          MAJOR NULL. Contradicts the central premise of the NYU lupus-nephritis
+          programme in the largest available cohort. Reconcilable in principle —
+          NYU's claim is about transient blooms during ACTIVE nephritis flares,
+          while a cross-sectional LN-status split averages over flare and
+          quiescence — but that reconciliation is itself the argument that
+          cross-sectional stool sampling cannot detect the LN signal.
+      - taxon: high_vs_low_disease_activity
+        rank: community_metric
+        direction: unchanged
+        effect_size: "no significant microbial differences between high and low disease activity groups"
+        statistic: "explicitly reported as non-significant"
+        trait_or_state: trait
+        caveat: >
+          MAJOR NULL, and directly opposed to azzouz_2019_ard (diversity
+          restriction at SLEDAI>=8, p=0.003), li_2019_clin_sci (activity-
+          correlated genera, activity-prediction AUC 0.811),
+          gui_2024_arthritis_res_ther (SLEDAI-associated E. coli pathways) and
+          toumi_2022_front_immunol (SLEDAI-correlated cluster, OR 15). In the
+          largest cohort, with the most statistical power to find it, the
+          activity signal was not there.
+    functional_findings:
+      - pathway: "PICRUSt2-predicted pathways"
+        direction: unchanged
+        note: >
+          "Functional prediction revealed MINIMAL differences in microbial
+          pathways between groups." A functional null in the largest cohort,
+          against the LPS-biosynthesis and sulfur-metabolism enrichments
+          reported from shotgun data (chen_2021_arthritis_rheumatol,
+          tomofuji_2021_ard). Note the platform difference: PICRUSt2 inference
+          from 16S is far less sensitive than true shotgun gene profiling, so
+          this null is weaker evidence than the shotgun positives.
+    limitations: >
+      16S, and the paper's own conclusion ("support the potential utility of
+      microbiome profiles as diagnostic biomarkers") is considerably stronger
+      than its data warrant given the internal nulls. No numeric effect sizes or
+      corrected p values in the abstract. 50 controls against 157 cases is
+      imbalanced. Treatment status unreported in a cohort large enough to have
+      stratified for it. Korean-specific baseline composition. Its greatest
+      value to this dossier is its two nulls, which are more reliable than most
+      of the positives in this literature because they come from the largest
+      sample.
+
+  # =========================================================================
+  # EUROPE — disease-specificity and F/B replication
+  # =========================================================================
+  - study_id: van_der_meulen_2019_j_autoimmun
+    citation: "van der Meulen TA, Harmsen HJM, Vila AV, et al. Shared gut, but distinct oral microbiota composition in primary Sjögren's syndrome and systemic lupus erythematosus. J Autoimmun 2019;97:77-87"
+    doi: "10.1016/j.jaut.2018.10.009"
+    url: "https://doi.org/10.1016/j.jaut.2018.10.009"
+    design: case_control
+    assay: 16S
+    profiler: "16S rRNA gene sequencing; multivariate models adjusting for age, sex, BMI, proton-pump inhibitor use and sequencing depth"
+    n_cases: 30
+    n_controls: 965
+    country: Netherlands
+    population_note: >
+      University Medical Center Groningen, embedded in the LifeLines-DEEP
+      population cohort. 30 SLE patients and 39 primary Sjögren's syndrome
+      patients against 965 GENERAL-POPULATION controls — by far the largest and
+      most representative control group in this dossier, and the only one drawn
+      from a population cohort rather than convenience-recruited volunteers.
+      NOTABLY, this is also the only study here that explicitly ADJUSTED FOR
+      PROTON-PUMP INHIBITOR USE, which li_2022_bmc_microbiol_ppi identifies as
+      the dominant confounder.
+    disease_activity: >
+      TRAIT. No activity stratification reported. The study's contribution is
+      about disease SPECIFICITY, not activity.
+    findings:
+      - taxon: bacterial_richness
+        rank: community_metric
+        direction: decreased
+        effect_size: "lower bacterial richness in both SLE and pSS versus population controls"
+        statistic: "not quantified in the abstract; adjusted for age, sex, BMI, PPI use, sequencing depth"
+        replicated_in: [park_2025_j_transl_med, gui_2024_arthritis_res_ther]
+        trait_or_state: trait
+        caveat: >
+          The most credible richness result in the dossier because of the 965
+          population controls and the confounder adjustment — including for the
+          exact drug that erased the diversity signal in
+          li_2022_bmc_microbiol_ppi.
+      - taxon: Firmicutes_Bacteroidetes_ratio
+        rank: phylum_ratio
+        direction: decreased
+        effect_size: "lower F/B ratio in both SLE and pSS versus population controls"
+        statistic: "not quantified in the abstract"
+        replicated_in: [hevia_2014_mbio, rodriguez_carrio_2017_front_immunol, toumi_2022_front_immunol]
+        trait_or_state: trait
+        caveat: >
+          Independent geographic replication of the Spanish F/B result in a
+          different country with a proper population control group — BUT it was
+          equally present in Sjögren's syndrome, so it is not an SLE feature. It
+          is a systemic-autoimmunity feature at best.
+      - taxon: Bacteroides
+        rank: genus
+        direction: increased
+        effect_size: "higher relative abundance of Bacteroides species"
+        statistic: "not quantified in the abstract"
+        replicated_in: [park_2025_j_transl_med, chen_2021_arthritis_rheumatol]
+        trait_or_state: trait
+        caveat: >
+          Species not individually named in the abstract, so no species-level
+          feature is recorded. Conflicts with xiang_2022_lupus_sci_med (no
+          significant Bacteroides difference on meta-analysis).
+      - taxon: SLE_vs_Sjogren_faecal_composition
+        rank: community_metric
+        direction: unchanged
+        effect_size: "faecal microbiota composition did NOT differ between SLE and primary Sjögren's syndrome"
+        statistic: "explicitly reported as non-significant between the two diseases, while both differed from population controls"
+        trait_or_state: trait
+        caveat: >
+          THE DISEASE-SPECIFICITY NULL, and it is decisive for how any SLE gut
+          index may honestly be described. The stool signature separates
+          systemic autoimmunity from health but CANNOT separate SLE from another
+          systemic autoimmune disease. Oral microbiota DID differ between the
+          two diseases — so the disease-discriminating information exists, but
+          not in stool. Corroborated by wang_2022_ebiomedicine ("little
+          evidence of disease specificity of gut microbes") and
+          zhou_2025_ard (notable overlap between SLE and IBD).
+    limitations: >
+      Only 30 SLE patients despite the large control group. 16S. No numeric
+      effect sizes in the abstract. Dutch population. Oral dryness in pSS
+      partially explained the oral findings, indicating residual confounding by
+      disease manifestation rather than disease identity. The specificity null
+      is the single most important constraint in this dossier on what an SLE
+      stool report may claim.
+
+  - study_id: toumi_2022_front_immunol
+    citation: "Toumi E, Goutorbe B, Plauzolles A, et al. Gut microbiota in systemic lupus erythematosus patients and lupus mouse model: a cross species comparative analysis for biomarker discovery. Front Immunol 2022;13:943241"
+    doi: "10.3389/fimmu.2022.943241"
+    url: "https://www.frontiersin.org/articles/10.3389/fimmu.2022.943241/full"
+    design: cross_sectional
+    assay: 16S
+    profiler: "16S rRNA amplicon; Shannon alpha diversity; Bray-Curtis beta diversity; DESeq2 differential abundance (adjusted p<0.05, |log2FC|>1, per-group prevalence >0.333); hierarchical clustering with Ward linkage"
+    n_cases: 16
+    n_controls: 76
+    country: France
+    population_note: >
+      European Hospital of Marseille, France. 16 SLE patients and 76 sex-and-age
+      matched healthy controls. Mean age 42 (range 19-70), female-to-male ratio
+      7:1. SLEDAI 0-12 with 9 of 16 patients INACTIVE (SLEDAI=0). TREATMENT IS
+      FULLY REPORTED, which is rare: 12/16 on hydroxychloroquine, 4/16 on
+      prednisone, 1/16 on immunosuppressants. Patients with severe anaemia
+      (Hb <7 g/dl) and pregnancy were excluded.
+    disease_activity: >
+      TRAIT_AND_STATE. The overall case-control contrast was significant, and
+      separately an unsupervised clustering of SLE patients into two groups —
+      one with more severely altered microbiota — was strongly correlated with
+      SLEDAI (p=0.03, odds ratio 15). This is the best-quantified
+      activity-association in the dossier and it is at the level of a COMMUNITY
+      CLUSTER, not a single taxon.
+    findings:
+      - taxon: Firmicutes_Bacteroidetes_ratio
+        rank: phylum_ratio
+        direction: decreased
+        effect_size: "lower F/B ratio in SLE"
+        statistic: "p<0.05 (Wilcoxon)"
+        replicated_in: [hevia_2014_mbio, rodriguez_carrio_2017_front_immunol, van_der_meulen_2019_j_autoimmun]
+        trait_or_state: trait_and_state
+        caveat: >
+          Third independent European geography (Spain, Netherlands, France) with
+          a decreased F/B ratio. Still contradicted by luo_2018_aem in the USA
+          and not reproduced in the Chinese shotgun cohorts.
+      - taxon: alpha_diversity
+        rank: community_metric
+        direction: decreased
+        effect_size: "significant decrease across ALL qualitative, quantitative and phylogenetic-aware metrics"
+        statistic: "PERMANOVA p<0.01 for composition; alpha diversity significant on all metrics tested"
+        replicated_in: [azzouz_2019_ard, park_2025_j_transl_med, gui_2024_arthritis_res_ther]
+        trait_or_state: trait
+        caveat: >
+          Unusually robust because it held across every metric class, unlike the
+          richness-only result in park_2025_j_transl_med and the null Shannon in
+          hevia_2014_mbio.
+      - taxon: Alistipes_onderdonkii
+        rank: species
+        direction: increased
+        effect_size: "not quantified beyond DESeq2 thresholds (adjusted p<0.05, |log2FC|>1)"
+        statistic: "p<0.001 at species level; drove the genus-level Alistipes signal (p<0.05)"
+        trait_or_state: trait
+        caveat: >
+          Cleanly measurable by MetaPhlAn 3/4 and one of only a handful of
+          species-level SLE findings from Europe. But it is a single 16-patient
+          cohort, it is a 16S species assignment, and it is not replicated
+          anywhere else in this dossier. Alistipes abundance also tracks
+          protein-rich and low-fibre diets independently of disease.
+      - taxon: Parabacteroides
+        rank: genus
+        direction: increased
+        effect_size: "not quantified beyond DESeq2 thresholds"
+        statistic: "p<0.01"
+        trait_or_state: trait
+      - taxon: Tannerellaceae
+        rank: family
+        direction: increased
+        effect_size: "not quantified beyond DESeq2 thresholds"
+        statistic: "p<0.01"
+        trait_or_state: trait
+      - taxon: Flintibacter
+        rank: genus
+        direction: increased
+        effect_size: "not quantified beyond DESeq2 thresholds"
+        statistic: "p<0.05"
+        trait_or_state: trait
+        caveat: "Poorly represented in MetaPhlAn reference databases; mapping must be verified before use."
+      - taxon: Tenericutes
+        rank: phylum
+        direction: decreased
+        effect_size: "not quantified beyond DESeq2 thresholds"
+        statistic: "p<0.05"
+        trait_or_state: trait
+        caveat: >
+          Consistent in spirit with the Synergistetes reduction reported from
+          the Spanish cohort, but these are different phyla and this is not a
+          replication.
+    limitations: >
+      Only 16 patients. 9 of 16 inactive, which limits activity inference even
+      though the clustering-SLEDAI correlation was significant. 12/16 on
+      hydroxychloroquine — the treatment confound is documented but not
+      controlled. Five of the six differentially abundant human taxa were shared
+      with the pristane-induced mouse model, which the authors present as
+      cross-species validation; a pristane model is a chemically induced
+      lupus-like state and shared taxa may reflect inflammation generally. 16S.
+
+  # =========================================================================
+  # OTHER GEOGRAPHY AND CROSS-COHORT REANALYSIS
+  # =========================================================================
+  - study_id: joseph_2026_lupus
+    citation: "Joseph J, Patnaik SK, Abraham D, Mathew J, Alexander J. Gut and oral microbiota characterized in systemic lupus erythematosus patients from India: A pilot study. Lupus 2026;35(7):667-677"
+    doi: "10.1177/09612033261432163"
+    url: "https://doi.org/10.1177/09612033261432163"
+    design: cross_sectional
+    assay: shotgun_metagenomics
+    profiler: "metagenomic shotgun sequencing of faecal and salivary samples; paired peripheral immune cell phenotyping"
+    country: India
+    population_note: >
+      Christian Medical College, Vellore, Tamil Nadu, India, with SUNY Buffalo.
+      Explicitly a PILOT STUDY. Exact n for cases and controls is not stated in
+      the abstract and full text was not retrievable, so n_cases and n_controls
+      are OMITTED. This is the only South Asian cohort in the dossier and the
+      only Indian one — a substantial geographic gap elsewhere, since Indian gut
+      microbiome composition differs markedly from East Asian and European
+      baselines.
+    disease_activity: >
+      Not resolved. The abstract reports case-control differences and immune
+      cell correlations but no activity stratification.
+    findings:
+      - taxon: Veillonella
+        rank: genus
+        direction: variable
+        effect_size: "not quantified in the abstract"
+        statistic: "reported as ALTERED in both gut and oral microbiomes"
+        replicated_in: [li_2019_clin_sci, park_2025_j_transl_med]
+        trait_or_state: unresolved
+        caveat: >
+          Direction recorded as VARIABLE because the abstract says "altered" and
+          does not state a direction — writing "increased" here to match the
+          Chinese and Korean cohorts would be importing an expectation rather
+          than reporting a result. Oral-origin genus found in both niches, which
+          the authors read as gut-oral overlap.
+      - taxon: Pasteurellaceae
+        rank: family
+        direction: variable
+        effect_size: "not quantified in the abstract"
+        statistic: "reported as ALTERED in both gut and oral microbiomes"
+        trait_or_state: unresolved
+        caveat: >
+          Direction not stated in the abstract, so recorded as variable. Note
+          that in rheumatoid arthritis (Zhang 2015, and this repository's own
+          `ra.yaml`) Haemophilus — a Pasteurellaceae member — is DEPLETED, so
+          the direction here genuinely matters and should not be assumed.
+    limitations: >
+      Pilot, with n not verifiable and therefore omitted. No effect sizes, no
+      directions for the two named taxa, no corrected p values in the abstract.
+      Included ONLY to document that a shotgun Indian cohort exists and that its
+      reported taxa (Veillonella, Pasteurellaceae) are oral-associated rather
+      than the RG or Streptococcus anginosus features that dominate the US and
+      Japanese literature. The authors' own framing is "a potential exploratory
+      tool ... in larger, adequately powered cohorts".
+
+  - study_id: zhou_2025_ard
+    citation: "Zhou H, Balint D, Shi Q, Vartanian T, Kriegel MA, Brito I. Lupus and inflammatory bowel disease share a common set of microbiome features distinct from other autoimmune disorders. Ann Rheum Dis 2025;84(1):93-105"
+    doi: "10.1136/ard-2024-225829"
+    url: "https://doi.org/10.1136/ard-2024-225829"
+    design: case_control
+    assay: shotgun_metagenomics
+    profiler: "reanalysis of published shotgun metagenomic datasets across six autoimmune conditions plus colorectal cancer; species profiles and functional genes; predictive biomarker modelling; protein-protein interaction analysis"
+    country: multinational
+    population_note: >
+      Cornell / Weill Cornell / Münster / Yale. A CROSS-COHORT REANALYSIS rather
+      than a new cohort: metagenomes from SLE, IBD, multiple sclerosis,
+      myasthenia gravis, Graves' disease and ankylosing spondylitis, contrasted
+      against colorectal cancer metagenomes. Registered as NCT02394964. Per-
+      cohort sample sizes and constituent study identities are not stated in the
+      abstract and full text was not retrieved, so n_cases and n_controls are
+      OMITTED. Because it pools public datasets, its SLE arm almost certainly
+      overlaps cohorts already listed in this dossier — it must NOT be counted
+      as independent replication.
+    disease_activity: >
+      TRAIT. Cross-sectional pooled metagenomes with no activity stratification
+      reported.
+    findings:
+      - taxon: SLE_IBD_shared_signature
+        rank: community_metric
+        direction: variable
+        effect_size: "not quantified in the abstract"
+        statistic: "distinct microbial signatures across autoimmune disorders with 'notable overlaps between SLE and IBD'"
+        trait_or_state: trait
+        caveat: >
+          A SECOND SPECIFICITY PROBLEM, and a worse one than the Sjögren's
+          overlap in van_der_meulen_2019_j_autoimmun. R. gnavus — the flagship
+          SLE pathobiont — is a well-established IBD-associated organism, and
+          the 34 "adaptation genes" in azzouz_2023_ard were drawn from an
+          IBD-derived gene list. If the SLE stool signature substantially
+          overlaps the IBD signature, then an elevated SLE index in an
+          unselected person is at least as consistent with subclinical gut
+          inflammation as with lupus. Individual discriminative species are not
+          named in the abstract, so no species-level features are recorded.
+    functional_findings:
+      - pathway: "bacterial effector-like proteins interacting with host glucocorticoid receptor (NR3C1)"
+        direction: variable
+        note: >
+          Experimentally confirmed interactions between NR3C1 and specific gut
+          bacteria-derived proteins, plus predicted interactions targeting
+          antigen presentation and IL-12 signalling. Mechanistically striking
+          given how many SLE patients are on glucocorticoids, and it suggests
+          the drug-microbiome interaction runs in both directions. Requires
+          gene-resolved profiling plus interaction modelling; not a routine
+          pipeline output.
+    limitations: >
+      Reanalysis of public data, so cohort composition, sequencing protocols and
+      batch effects are heterogeneous and inherited. Sample sizes not verifiable
+      and therefore omitted. No named species-level biomarkers extractable from
+      the abstract, so this study contributes a constraint (SLE/IBD overlap)
+      rather than directional features. One author is a Moderna employee and
+      shareholder; the senior collaborator holds a patent on microbiota
+      manipulation for immune-mediated disease.
+
+  - study_id: papo_2025_rheumatology
+    citation: "Papo M, Cappy P, Degachi A, et al. Lymphadenopathy in systemic lupus erythematosus: no microbial trigger found by shotgun metagenomics in a retrospective study on 38 patients. Rheumatology (Oxford) 2025;64(6):3906-3909"
+    doi: "10.1093/rheumatology/keae578"
+    url: "https://doi.org/10.1093/rheumatology/keae578"
+    design: case_control
+    assay: shotgun_metagenomics
+    profiler: "shotgun metagenomics for microbial RNA and/or DNA on lymph node biopsy tissue"
+    n_cases: 38
+    country: France
+    population_note: >
+      Pitié-Salpêtrière national reference centre for lupus, Paris. 38 SLE
+      patients who underwent LYMPH NODE BIOPSY, retrospective and monocentric.
+      No healthy control arm, hence n_controls is omitted. Clinically active
+      population: 29% febrile, 47% cutaneous manifestations, 32% polyarthritis,
+      18% lupus nephritis, 13% serositis, 50% raised CRP, 35% low C3, 65%
+      hypergammaglobulinaemia. Histology showed follicular/paracortical
+      hyperplasia in 73.7% and histiocytic necrotizing lymphadenitis in 23.7%.
+    disease_activity: >
+      STATE — sampled at the time of a classical flare manifestation, in a
+      cohort selected for active lymphadenopathy. If a microbial trigger were
+      detectable in tissue during a flare, this was a well-designed opportunity
+      to find it.
+    findings:
+      - taxon: any_microbial_DNA_in_lymph_node
+        rank: community_metric
+        direction: unchanged
+        effect_size: "absence of microbial DNA in 92% of patients; CMV in very small quantities in 2 patients; HHV-7 in low quantities in 1 patient"
+        statistic: "descriptive; no infectious trigger identified"
+        trait_or_state: state
+        caveat: >
+          A CLEAN, WELL-POWERED-FOR-ITS-QUESTION NULL. It does not test stool
+          taxa, so it does not contradict any gut finding directly — but it
+          removes one of the mechanistic props under the whole field. The
+          translocation model (manfredo_vieira_2018_science) predicts viable
+          bacteria in extraintestinal tissue; 38 lymph nodes from actively
+          flaring lupus patients were essentially sterile. Included because a
+          study that looked and found nothing is evidence.
+    limitations: >
+      Retrospective, monocentric, no control group, and the tissue is lymph node
+      rather than stool or liver, so it is not a direct test of the E. gallinarum
+      liver-translocation claim. Formalin-fixed or archival material can degrade
+      microbial nucleic acid, and the paper does not resolve whether a negative
+      reflects biology or specimen quality. The authors themselves call for
+      "further and better-designed studies". Its role here is to prevent the
+      dossier from reading as uniformly confirmatory.
+
+  # =========================================================================
+  # PATHOBIONT TRANSLOCATION — Enterococcus gallinarum and Lactobacillus reuteri
+  # =========================================================================
+  - study_id: manfredo_vieira_2018_science
+    citation: "Manfredo Vieira S, Hiltensperger M, Kumar V, et al. Translocation of a gut pathobiont drives autoimmunity in mice and humans. Science 2018;359(6380):1156-1161"
+    doi: "10.1126/science.aar7201"
+    url: "https://www.science.org/doi/10.1126/science.aar7201"
+    design: mechanistic_animal
+    assay: culture
+    profiler: "bacterial culture of internal organs; E. gallinarum-specific PCR on human liver biopsies; 16S rDNA sequencing of human liver tissue; hepatocyte co-culture; (NZW x BXSB)F1 mice, n=15 per antibiotic arm"
+    country: USA
+    population_note: >
+      Yale School of Medicine. The human component is SMALL AND TISSUE-BASED,
+      not a stool cohort: liver biopsies from three SLE patients plus autoimmune
+      hepatitis patients with lupus serology, against six controls from healthy
+      liver transplant donors with normal histology. In those controls, four of
+      six were positive for OTHER Enterococcus species but not E. gallinarum.
+      A separate SLE stool analysis showed raised faecal albumin and
+      calprotectin, i.e. impaired barrier function. Total human n across the
+      study is characterised as 15 by bagavant_2021_front_immunol.
+      An erratum exists (Science 2018;360(6388):eaat9922).
+    disease_activity: >
+      STATE at best, and in practice not a state marker either — the measured
+      human quantity is bacterial DNA in LIVER TISSUE, obtained by biopsy. There
+      is no stool abundance threshold in this paper that identifies who has
+      translocation.
+    findings:
+      - taxon: Enterococcus_gallinarum
+        rank: species
+        direction: increased
+        effect_size: "E. gallinarum-specific DNA recovered from liver biopsies of autoimmune patients; not recovered from healthy liver transplant donor controls (4/6 of whom carried other Enterococcus species)"
+        statistic: "descriptive presence/absence in a very small tissue series"
+        replicated_in: [gronke_2025_sci_transl_med]
+        trait_or_state: state
+        caveat: >
+          NOT SUPPORTABLE FROM STOOL. The pathogenic event is TRANSLOCATION to
+          liver and other systemic tissues, not gut abundance. E. gallinarum is
+          a normal low-abundance gut commensal and this paper does not
+          demonstrate that SLE patients carry MORE of it in the gut — it
+          demonstrates that it appears where it should not be. A MetaPhlAn stool
+          abundance for E. gallinarum therefore carries no information about the
+          mechanism, and E. gallinarum is in any case frequently below the
+          reliable detection floor of a routine-depth stool run and is easily
+          confused with E. casseliflavus and E. faecium in short-read data.
+      - taxon: gut_barrier_permeability
+        rank: host_marker
+        direction: increased
+        effect_size: "increased faecal albumin and faecal calprotectin in SLE patients"
+        statistic: "not quantified in the retrieved text"
+        trait_or_state: unresolved
+        caveat: >
+          These ARE stool measurements but they are NOT sequencing
+          measurements — faecal calprotectin and albumin are immunoassays. A
+          metagenomic pipeline cannot produce them. Worth flagging as the
+          cheapest orthogonal test that would actually add information to an SLE
+          stool report.
+    functional_findings:
+      - pathway: "pathobiont translocation and autoantibody induction"
+        direction: increased
+        note: >
+          In mice: monocolonisation and translocation induced autoantibodies and
+          mortality; antibiotics prevented mortality, suppressed tissue growth
+          and eliminated pathogenic autoantibodies and T cells; an intramuscular
+          vaccine targeting the pathobiont was protective. Hepatocyte-
+          E. gallinarum co-culture induced autoimmune-promoting factors in both
+          mouse and human cells. Strong causal evidence, zero stool-measurable
+          content.
+    limitations: >
+      Three SLE liver biopsies and six donor controls is a very small human
+      series for a claim of this weight. Genetically predisposed mouse strains.
+      An erratum was published. Most importantly for this dossier: the
+      subsequent, much larger human serological test of this hypothesis
+      (bagavant_2021_front_immunol, n=303 vs 66) found NO overall difference in
+      anti-E. gallinarum antibody titres between SLE patients and healthy
+      controls — so the human generalisation of this finding is weaker than its
+      citation count suggests.
+
+  - study_id: bagavant_2021_front_immunol
+    citation: "Bagavant H, Araszkiewicz AM, Ingram JK, et al. Immune response to Enterococcus gallinarum in lupus patients is associated with a subset of lupus-associated autoantibodies. Front Immunol 2021;12:635072"
+    doi: "10.3389/fimmu.2021.635072"
+    url: "https://www.frontiersin.org/articles/10.3389/fimmu.2021.635072/full"
+    design: case_control
+    assay: serology
+    profiler: "ELISA for IgG and IgA against formalin-fixed whole E. gallinarum and E. faecalis; anti-human-RNA and anti-dsRNA assays; SELENA-SLEDAI and BILAG-2004 activity indices"
+    n_cases: 303
+    n_controls: 66
+    country: USA
+    population_note: >
+      Oklahoma Medical Research Foundation, using banked sera from the Oklahoma
+      Rheumatic Disease Research Core Center collected between May 2002 and
+      October 2014. 303 SLE patients and 66 de-identified healthy volunteers.
+      This is the LARGEST human test of the E. gallinarum hypothesis and was
+      explicitly designed to follow up the small (n=15) human component of
+      manfredo_vieira_2018_science.
+    disease_activity: >
+      Neither cleanly — the association is with AUTOANTIBODY SUBSET rather than
+      with activity or diagnosis. Higher anti-E. gallinarum IgG titres were
+      associated with the presence of anti-Ribosomal P, anti-dsDNA and anti-Sm
+      autoantibodies, not with SLE status as such.
+    findings:
+      - taxon: Enterococcus_gallinarum
+        rank: species
+        direction: unchanged
+        effect_size: "anti-E. gallinarum IgG detected in ALL sera tested from both groups; antibody titres NOT different between SLE patients and healthy controls"
+        statistic: "explicitly reported as no difference between groups"
+        trait_or_state: unresolved
+        caveat: >
+          THE KEY PARTIAL NULL FOR THE E. GALLINARUM STORY, and it is far larger
+          than the study it follows up. Everyone — patients and healthy controls
+          alike — is seroreactive to E. gallinarum, and the titres do not
+          separate the groups. The signal only appears in an autoantibody-defined
+          SUBSET. Direction is recorded as unchanged because that is the
+          headline group comparison. Any report implying that E. gallinarum
+          abundance or exposure distinguishes SLE patients from healthy people
+          is contradicted by this study.
+      - taxon: anti_E_gallinarum_IgG_in_autoantibody_subsets
+        rank: host_marker
+        direction: increased
+        effect_size: "SLE patients with anti-Ribosomal P had higher anti-E. gallinarum IgG than healthy controls; higher titres also significantly associated with anti-dsDNA and anti-Sm; in the anti-Ribosomal-P-and-anti-dsDNA subset, titres correlated with antibodies to human RNA (anti-human-RNA vs anti-dsRNA Spearman r=0.782, p=2.57e-13, n=59)"
+        statistic: "subgroup analyses; anti-Ribosomal P positive n=26 vs randomly selected Ribosomal P negative n=33"
+        replicated_in: [gronke_2025_sci_transl_med]
+        trait_or_state: unresolved
+        caveat: >
+          NOT MEASURABLE FROM STOOL. This is serum IgG stratified by serum
+          autoantibody profile. It requires anti-Ribosomal P / anti-dsDNA /
+          anti-Sm serology to interpret, none of which a stool pipeline has.
+    limitations: >
+      Banked sera collected 2002-2014, so no contemporaneous stool samples and
+      NO MICROBIOME DATA AT ALL — exposure is inferred from antibody titre, a
+      surrogate the authors acknowledge. Subgroup analyses on 26 and 33 patients
+      after a null primary comparison invite multiple-comparison optimism.
+      Single-centre US cohort. The honest summary is that the largest human test
+      of E. gallinarum in SLE returned a null on the primary comparison.
+
+  - study_id: gronke_2025_sci_transl_med
+    citation: "Gronke K, Nguyen M, Fuhrmann H, et al. Translocating gut pathobiont Enterococcus gallinarum induces TH17 and IgG3 anti-RNA-directed autoimmunity in mouse and human. Sci Transl Med 2025;17(784):eadj6294"
+    doi: "10.1126/scitranslmed.adj6294"
+    url: "https://www.science.org/doi/10.1126/scitranslmed.adj6294"
+    design: mechanistic_human
+    assay: serology
+    profiler: "human TH17 differentiation assays; IgG3 subclass anti-E. gallinarum RNA antibodies; TLR8 reporter and human monocyte activation assays; gnotobiotic murine lupus models"
+    country: multinational
+    population_note: >
+      Roche Innovation Center Basel (Switzerland), Yale (USA), University of
+      Münster (Germany), UMC Hamburg-Eppendorf (Germany). Human subjects were
+      patients with SLE and with autoimmune hepatitis. Cohort sizes are not
+      stated in the abstract and full text was not retrieved, so n_cases and
+      n_controls are OMITTED. Industry-led (Roche), with the senior author
+      holding a patent on microbiota manipulation for immune-mediated disease.
+    disease_activity: >
+      STATE — anti-RNA autoantibody titres correlated with DISEASE ACTIVITY in
+      SLE patients and with renal autoimmune pathophysiology in gnotobiotic mice.
+      Not a diagnostic trait contrast.
+    findings:
+      - taxon: Enterococcus_gallinarum
+        rank: species
+        direction: increased
+        effect_size: "not quantified in the abstract"
+        statistic: "IgG3 subclass switch of anti-E. gallinarum RNA antibodies correlated with anti-human-RNA autoantibody responses in SLE and autoimmune hepatitis; translocation raised anti-RNA titres correlating with disease activity"
+        replicated_in: [manfredo_vieira_2018_science, bagavant_2021_front_immunol]
+        trait_or_state: state
+        caveat: >
+          NOT SUPPORTABLE FROM STOOL, on two counts. First, the measured human
+          quantity is a serum antibody SUBCLASS (IgG3) against bacterial RNA —
+          not a stool abundance. Second, the mechanism is translocation, not
+          overgrowth. This paper meaningfully strengthens the causal case for
+          E. gallinarum while confirming that the usable human biomarker is
+          serological. Read together with bagavant_2021_front_immunol, the
+          picture is that total anti-E. gallinarum IgG does NOT separate SLE
+          from health but the IgG3 anti-RNA subclass response does track
+          activity — a level of immunological refinement no stool assay can
+          approach.
+    functional_findings:
+      - pathway: "E. gallinarum RNA -> TLR8 -> monocyte activation -> human TH17 induction"
+        direction: increased
+        note: >
+          E. gallinarum RNA, but NOT human RNA, triggered TLR8; TLR8-mediated
+          human monocyte activation promoted human TH17 induction. Note this is
+          TLR8, distinct from the TLR2 pathway in amarnani_2026_ard and the TLR7
+          pathway in zegarra_ruiz_2019_cell_host_microbe — three different
+          innate receptors for three different pathobionts. None of it is
+          measurable from stool.
+    limitations: >
+      Sample sizes not verifiable and therefore omitted. Human data are
+      correlative; causality rests on gnotobiotic mice. Industry-led with
+      declared patent interests. Every human readout is blood-based.
+
+  - study_id: zegarra_ruiz_2019_cell_host_microbe
+    citation: "Zegarra-Ruiz DF, El Beidaq A, Iñiguez AJ, et al. A diet-sensitive commensal Lactobacillus strain mediates TLR7-dependent systemic autoimmunity. Cell Host Microbe 2019;25(1):113-127.e6"
+    doi: "10.1016/j.chom.2018.11.009"
+    url: "https://doi.org/10.1016/j.chom.2018.11.009"
+    design: mechanistic_animal
+    assay: 16S
+    profiler: "16S rDNA sequencing of human stool (rarefied to 10,000 sequences per sample) and of murine faecal, caecal and tissue samples; culture of internal organs; TLR7-dependent murine SLE models; gnotobiotic colonisation"
+    n_cases: 12
+    n_controls: 22
+    country: USA
+    population_note: >
+      Yale. The human arm is a LONGITUDINAL cohort of 12 FEMALE SLE patients
+      aged 18 or older and 22 sex- and age-matched (+/-5 years) healthy
+      controls, sampled at up to three visits (baseline, week 4, week 8). Only
+      female subjects were studied, the authors noting the ~9:1 female-to-male
+      ratio in adult SLE. Treatment status not stated in the retrieved text.
+      The bulk of the paper is murine.
+    disease_activity: >
+      Not resolved in the human arm — the design is longitudinal but the
+      reported human contrast is SLE versus control, not activity-stratified.
+      The causal mechanism is entirely murine.
+    findings:
+      - taxon: Lactobacillus
+        rank: genus
+        direction: increased
+        effect_size: "Lactobacillus spp. increased in the longitudinal SLE cohort versus healthy controls; faecal enrichment described as present in A SUBSET of SLE patients"
+        statistic: "not quantified in the retrieved text"
+        replicated_in: [ling_2023_front_immunol]
+        trait_or_state: unresolved
+        caveat: >
+          THREE SEPARATE PROBLEMS, all of which must be stated if this is ever
+          reported. (1) STRAIN-LEVEL: the pathobiont is L. reuteri
+          specifically, and the mechanism is TLR7-dependent translocation with
+          plasmacytoid dendritic cell expansion and interferon signalling —
+          genus-level or even species-level Lactobacillus abundance does not
+          identify it. (2) SUBSET, not cohort-wide: enrichment was in a subset
+          of patients, so most SLE patients do not show it. (3) DRUG CONFOUND:
+          li_2022_bmc_microbiol_ppi showed faecal Lactobacillus rises with
+          proton pump inhibitors, and Lactobacillus is also the most common
+          ingredient in over-the-counter probiotics — so an elevated reading in
+          a real patient is more likely to be a supplement or a PPI than lupus.
+          Reporting "increased Lactobacillus" as a lupus finding to a consumer
+          who takes a probiotic would be actively misleading.
+      - taxon: Clostridiales
+        rank: order
+        direction: decreased
+        effect_size: "Clostridiales decreased in Lactobacillus-POSITIVE SLE stool samples compared with Lactobacillus-negative SLE samples; also reduced in lupus-prone mice and rescued by resistant starch"
+        statistic: "not quantified in the retrieved text"
+        trait_or_state: unresolved
+        caveat: >
+          Note the comparison is WITHIN SLE patients (Lactobacillus-positive vs
+          Lactobacillus-negative), not SLE versus healthy. It is a
+          co-occurrence structure, not a disease contrast, and cannot be scored
+          as a case-control direction.
+    functional_findings:
+      - pathway: "L. reuteri translocation -> plasmacytoid dendritic cells -> type I interferon"
+        direction: increased
+        note: >
+          Murine, TLR7-dependent. L. reuteri colonisation worsened autoimmunity
+          and increased pDCs and interferon signalling. THE INTERFERON WORK THE
+          REQUEST ASKED ABOUT IS ENTIRELY MURINE AND ENTIRELY BLOOD/TISSUE-BASED
+          — there is no human stool readout of interferon signalling.
+      - pathway: "dietary resistant starch -> short-chain fatty acids -> suppression of L. reuteri"
+        direction: decreased
+        note: >
+          Resistant starch suppressed L. reuteri abundance and translocation via
+          SCFAs (butyrate inhibited its growth dose-dependently in vitro), and
+          decreased pDCs, interferon pathways, organ involvement and mortality
+          in mice. This is the most actionable dietary hypothesis in the SLE
+          microbiome literature — and it has NOT been tested as an intervention
+          in human SLE. Presenting it as an actionable recommendation from a
+          stool report would outrun the evidence.
+    limitations: >
+      Human arm is 12 patients. All female. Treatment status unreported. No
+      numeric effect sizes extracted. The human finding is a genus-level
+      enrichment in a subset; the mechanism is a murine strain-level story with
+      a different innate receptor (TLR7) from the other pathobiont papers.
+      Declared industry funding and consulting for the senior author.
+
+  # =========================================================================
+  # META-ANALYSES — pooled effect sizes, and the specificity problem
+  # =========================================================================
+  - study_id: xiang_2022_lupus_sci_med
+    citation: "Xiang S, Qu Y, Qian S, et al. Association between systemic lupus erythematosus and disruption of gut microbiota: a meta-analysis. Lupus Sci Med 2022;9(1):e000599"
+    doi: "10.1136/lupus-2021-000599"
+    url: "https://lupus.bmj.com/content/9/1/e000599"
+    design: meta_analysis
+    assay: 16S
+    profiler: "pooled random-effects meta-analysis of published case-control studies (Stata/MP v16), with Bonferroni correction for multiple testing"
+    n_cases: 373
+    n_controls: 1288
+    country: multinational
+    population_note: >
+      11 case-control studies, 373 SLE patients and 1288 healthy controls,
+      performed in FIVE COUNTRIES and NINE CITIES. Predominantly 16S. The
+      country and city spread is the point: this is the closest thing available
+      to a geography-averaged estimate.
+    disease_activity: >
+      TRAIT. Pooled case-control contrasts. The study does, however, contain the
+      most explicit TREATMENT finding in the dossier: SLE patients on HIGH-DOSE
+      GLUCOCORTICOIDS had altered microbiota by Chao1, and HYDROXYCHLOROQUINE
+      use appeared to REDUCE Enterobacteriaceae abundance.
+    findings:
+      - taxon: Ruminococcaceae
+        rank: family
+        direction: decreased
+        effect_size: "SMD = -0.49 (95% CI -0.84 to -0.15)"
+        statistic: "p=0.005 — THE ONLY TAXON THAT SURVIVED BONFERRONI CORRECTION (threshold p=0.0071)"
+        replicated_in: [wang_2022_ebiomedicine]
+        trait_or_state: trait
+        caveat: >
+          THE SINGLE MOST STATISTICALLY DEFENSIBLE TAXONOMIC FINDING IN THE
+          ENTIRE SLE GUT LITERATURE — and it is at FAMILY level, not species
+          level. That is an awkward result for a species-level pipeline: it can
+          be aggregated from MetaPhlAn species calls, but the aggregate is not
+          what any species-level score would weight. Note also the tension with
+          the RG story: Ruminococcaceae is DEPLETED, while R. gnavus (which
+          belongs to Lachnospiraceae, not Ruminococcaceae, despite its name) is
+          reported as expanded.
+      - taxon: Shannon_diversity
+        rank: community_metric
+        direction: decreased
+        effect_size: "weighted mean difference = -0.22 (95% CI -0.32 to -0.13)"
+        statistic: "p<0.001"
+        replicated_in: [wang_2022_ebiomedicine]
+        trait_or_state: trait
+        caveat: >
+          A pooled WMD of -0.22 Shannon units is a SMALL effect — well within
+          the range that diet, transit time, DNA extraction kit and sequencing
+          platform can produce. Statistically robust, clinically near-useless at
+          the individual level.
+      - taxon: Chao1_richness
+        rank: community_metric
+        direction: decreased
+        effect_size: "SMD = -0.62 (95% CI -1.04 to -0.21)"
+        statistic: "p=0.003"
+        replicated_in: [wang_2022_ebiomedicine, park_2025_j_transl_med]
+        trait_or_state: trait
+      - taxon: Enterobacteriaceae
+        rank: family
+        direction: increased
+        effect_size: "SMD = 0.45 (95% CI 0.01 to 0.89)"
+        statistic: "p=0.045 — DID NOT survive Bonferroni correction (threshold p=0.0071)"
+        replicated_in: [gui_2024_arthritis_res_ther]
+        trait_or_state: trait
+        caveat: >
+          Nominally significant, NOT robust. The CI lower bound of 0.01 is
+          effectively touching zero. Anyone citing "Enterobacteriaceae increased
+          in SLE" as an established finding is over-reading this. Also
+          drug-labile in both directions: hydroxychloroquine reduced it in this
+          same analysis, and PPIs reduced Escherichia in
+          li_2022_bmc_microbiol_ppi.
+      - taxon: Enterococcaceae
+        rank: family
+        direction: increased
+        effect_size: "SMD = 0.53 (95% CI 0.05 to 1.01)"
+        statistic: "p=0.03 — DID NOT survive Bonferroni correction"
+        trait_or_state: trait
+        caveat: >
+          Not robust. Relevant to the E. gallinarum story at family level, but
+          it cannot bear that weight after failing correction, and
+          bagavant_2021_front_immunol found no serological separation for
+          E. gallinarum in 303 patients.
+      - taxon: Lachnospiraceae
+        rank: family
+        direction: unchanged
+        effect_size: "no significant difference"
+        statistic: "p>0.05"
+        trait_or_state: trait
+        caveat: >
+          NULL, AND IT MATTERS: R. gnavus is a Lachnospiraceae member, and
+          azzouz_2019_ard identifies it as "of the Lachnospiraceae family". At
+          the family level containing the flagship SLE pathobiont, pooled
+          analysis across 11 studies found nothing. Consistent with RG being a
+          transient bloom in a subset rather than a stable population shift.
+      - taxon: Bacteroides
+        rank: genus
+        direction: unchanged
+        effect_size: "no significant difference"
+        statistic: "p>0.05"
+        trait_or_state: trait
+        caveat: >
+          NULL, contradicting park_2025_j_transl_med and
+          van_der_meulen_2019_j_autoimmun, both of which found Bacteroides
+          enriched. Also sits awkwardly with the decreased-F/B story, whose
+          denominator is Bacteroidetes.
+    functional_findings: []
+    limitations: >
+      Only 11 studies and 373 patients pooled, heterogeneous 16S protocols and
+      pipelines across five countries — the between-study heterogeneity is
+      itself part of what is being averaged. Published-literature meta-analysis,
+      so subject to publication bias toward positive findings. Family and genus
+      level throughout: NO SPECIES-LEVEL POOLED ESTIMATE EXISTS. The authors'
+      own conclusion that "beneficial bacteria decrease and harmful bacteria
+      increase" is considerably stronger than their own Bonferroni result,
+      where exactly one taxon out of five tested survived.
+
+  - study_id: wang_2022_ebiomedicine
+    citation: "Wang Y, Wei J, Zhang W, et al. Gut dysbiosis in rheumatic diseases: a systematic review and meta-analysis of 92 observational studies. EBioMedicine 2022;80:104055"
+    doi: "10.1016/j.ebiom.2022.104055"
+    url: "https://doi.org/10.1016/j.ebiom.2022.104055"
+    design: meta_analysis
+    assay: 16S
+    profiler: "random-effects meta-analysis of alpha-diversity SMDs; qualitative synthesis of beta diversity and relative abundance; PubMed/Embase/Cochrane to 11 March 2022"
+    country: multinational
+    population_note: >
+      92 observational studies, 11,998 participants across rheumatic diseases,
+      with 68 studies contributing alpha-diversity data. The SLE-specific
+      estimates below are a subset; the exact SLE participant count is not
+      stated in the abstract and is therefore OMITTED. The cross-disease design
+      is what makes this study indispensable: it is the only entry that can
+      answer whether an SLE gut finding is SLE-specific.
+    disease_activity: >
+      TRAIT. Pooled case-control contrasts with no activity stratification.
+    findings:
+      - taxon: Chao1_richness
+        rank: community_metric
+        direction: decreased
+        effect_size: "SLE-specific SMD = -1.60 (95% CI -2.54 to -0.66)"
+        statistic: "pooled random-effects; the LARGEST alpha-diversity effect size for any rheumatic disease in the analysis"
+        replicated_in: [xiang_2022_lupus_sci_med, park_2025_j_transl_med, azzouz_2019_ard]
+        trait_or_state: trait
+        caveat: >
+          An SMD of -1.60 is a very large effect — but note it is far larger
+          than the -0.62 for the same index in xiang_2022_lupus_sci_med, on an
+          overlapping literature. That three-fold discrepancy between two
+          meta-analyses of substantially the same studies is itself a warning
+          about how protocol-sensitive richness estimates are. The wide CI
+          (-2.54 to -0.66) reflects severe between-study heterogeneity. Do not
+          treat -1.60 as a calibratable individual-level expectation.
+      - taxon: Shannon_diversity
+        rank: community_metric
+        direction: decreased
+        effect_size: "SLE-specific SMD = -0.63 (95% CI -1.08 to -0.18)"
+        statistic: "pooled random-effects"
+        replicated_in: [xiang_2022_lupus_sci_med]
+        trait_or_state: trait
+        caveat: >
+          Again roughly three times the magnitude of the equivalent estimate in
+          xiang_2022_lupus_sci_med (WMD -0.22), and contradicted outright by
+          hevia_2014_mbio (no Shannon difference) and partially by
+          park_2025_j_transl_med (Shannon and Simpson PRESERVED, only richness
+          reduced).
+      - taxon: Faecalibacterium
+        rank: genus
+        direction: decreased
+        effect_size: "qualitative synthesis; not pooled numerically"
+        statistic: "shared alteration reported across rheumatoid arthritis, Sjögren's syndrome AND SLE"
+        replicated_in: [ling_2023_front_immunol, xiang_2022_lupus_sci_med]
+        trait_or_state: trait
+        caveat: >
+          NOT SLE-SPECIFIC. Depleted in three different rheumatic diseases.
+          Well measured by MetaPhlAn (F. prausnitzii), and probably the single
+          most reliable direction in the dossier — but it is a general
+          inflammation/anti-inflammatory-commensal marker, not a lupus marker,
+          and it is depleted in this repository's IBD, Crohn's, UC, CRC and
+          many other profiles too.
+      - taxon: Streptococcus
+        rank: genus
+        direction: increased
+        effect_size: "qualitative synthesis; not pooled numerically"
+        statistic: "shared alteration reported across rheumatoid arthritis, Sjögren's syndrome AND SLE"
+        replicated_in: [tomofuji_2021_ard, li_2019_clin_sci, park_2025_j_transl_med]
+        trait_or_state: trait
+        caveat: >
+          NOT SLE-SPECIFIC either. The same caveat as Faecalibacterium: the two
+          most reproducible directional findings in SLE are both shared
+          pan-rheumatic markers. This is the finding that most constrains what
+          an SLE-labelled index can honestly claim.
+      - taxon: disease_specificity_of_gut_microbes
+        rank: community_metric
+        direction: unchanged
+        effect_size: "'little evidence of disease specificity of gut microbes was found'"
+        statistic: "authors' explicit conclusion: associations are 'principally with potentially non-specific, shared alterations of microbes'"
+        trait_or_state: trait
+        caveat: >
+          THE MOST IMPORTANT SINGLE SENTENCE IN THIS DOSSIER, from its largest
+          evidence base (92 studies, 11,998 participants). Independently
+          corroborated by van_der_meulen_2019_j_autoimmun (SLE indistinguishable
+          from Sjögren's in stool) and zhou_2025_ard (SLE overlaps IBD). Also
+          note: beta-diversity differences reached consistent significance in
+          ankylosing spondylitis and IgG4-related disease, and alpha diversity
+          INCREASED in systemic sclerosis (Shannon SMD +1.25) — so the direction
+          is not even uniform across autoimmune conditions.
+    functional_findings: []
+    limitations: >
+      SLE-specific participant count not stated and therefore omitted.
+      Heterogeneous protocols across 92 studies; alpha-diversity CIs are wide;
+      taxon-level results are QUALITATIVE synthesis rather than pooled effect
+      sizes, so no numeric taxon estimates can be taken from it. Overlapping
+      source literature with xiang_2022_lupus_sci_med while producing effect
+      sizes ~3x larger for the same indices — the two should not be cited as
+      independent confirmations of each other. Publication bias applies.
+
+# ===========================================================================
+# SYNTHESIS
+# ===========================================================================
+synthesis:
+
+  most_replicated_increased:
+    - taxon: Streptococcus_anginosus
+      rank: species
+      study_ids: [tomofuji_2021_ard, li_2019_clin_sci]
+      note: >
+        The best species-level increase available: found by SHOTGUN in Japan
+        with internal validation, and independently by 16S in China where it
+        correlated with activity. Cross-geography, cross-platform, and directly
+        measurable by MetaPhlAn 3/4. Weakness: only two primary cohorts, and
+        Streptococcus enrichment is a shared pan-rheumatic marker
+        (wang_2022_ebiomedicine), not SLE-specific. Stool abundance is also
+        partly a function of oral health and swallowed saliva.
+    - taxon: Streptococcus
+      rank: genus
+      study_ids: [tomofuji_2021_ard, li_2019_clin_sci, park_2025_j_transl_med, wang_2022_ebiomedicine]
+      note: >
+        Four sources, three countries (Japan, China, Korea) plus a 92-study
+        meta-analysis. The most replicated increase in the literature at any
+        rank. Explicitly NOT SLE-specific: also enriched in rheumatoid
+        arthritis and Sjögren's syndrome.
+    - taxon: Escherichia_coli
+      rank: species
+      study_ids: [gui_2024_arthritis_res_ther, xiang_2022_lupus_sci_med]
+      note: >
+        Best-designed single result in the dossier (16S discovery -> shotgun
+        species confirmation -> mouse gavage) and species-level measurable. But
+        Enterobacteriaceae failed Bonferroni correction in meta-analysis
+        (p=0.045 vs 0.0071 threshold), and Escherichia moves DOWN with proton
+        pump inhibitors (li_2022_bmc_microbiol_ppi) and down with
+        hydroxychloroquine (xiang_2022_lupus_sci_med) — both common in SLE.
+    - taxon: Ruminococcus_gnavus
+      rank: species
+      study_ids: [azzouz_2019_ard, azzouz_2023_ard, amarnani_2026_ard]
+      note: >
+        Deliberately ranked FOURTH, not first, despite being the highest-profile
+        SLE taxon. Three papers, but ONE research group and largely one
+        overlapping NYU population; the 2023 follow-up reclassified it as a
+        transient bloom rather than a stable elevation; genus-level Ruminococcus
+        was DEPLETED in the largest cohort (park_2025_j_transl_med); family-level
+        Lachnospiraceae showed no difference across 11 pooled studies
+        (xiang_2022_lupus_sci_med); and the pathogenic property is strain-
+        restricted. High biological interest, low suitability as a scoring
+        feature.
+    - taxon: Bacteroides
+      rank: genus
+      study_ids: [park_2025_j_transl_med, van_der_meulen_2019_j_autoimmun, chen_2021_arthritis_rheumatol]
+      note: >
+        Three cohorts across Korea, the Netherlands and China, and consistent
+        with the decreased-F/B story. CONTRADICTED by
+        xiang_2022_lupus_sci_med (no significant difference on meta-analysis),
+        so listed with that conflict attached.
+
+  most_replicated_decreased:
+    - taxon: Ruminococcaceae
+      rank: family
+      study_ids: [xiang_2022_lupus_sci_med, wang_2022_ebiomedicine]
+      note: >
+        SMD -0.49 (95% CI -0.84 to -0.15), p=0.005 — THE ONLY TAXON IN THE SLE
+        LITERATURE TO SURVIVE BONFERRONI CORRECTION IN META-ANALYSIS. It is,
+        statistically, the most defensible taxonomic finding in this dossier.
+        The problem for a species-level pipeline is that it is a FAMILY, and a
+        large heterogeneous one; aggregating MetaPhlAn species into it is
+        possible but discards the species resolution the pipeline exists to
+        provide.
+    - taxon: Faecalibacterium
+      rank: genus
+      study_ids: [wang_2022_ebiomedicine, ling_2023_front_immunol, xiang_2022_lupus_sci_med]
+      note: >
+        Consistently depleted, cleanly measurable at species level as
+        F. prausnitzii, and mechanistically coherent (butyrate, Th17/Treg). But
+        explicitly SHARED across rheumatoid arthritis and Sjögren's syndrome,
+        and depleted in most inflammatory gut conditions. It is the most
+        reliable direction here and simultaneously the least SLE-specific.
+    - taxon: Bifidobacterium
+      rank: genus
+      study_ids: [li_2019_clin_sci, park_2025_j_transl_med]
+      note: >
+        Two independent cohorts, two countries (China, Korea), depleted, with an
+        inverse relationship to disease activity in the Chinese cohort and
+        supporting interventional mouse data (Wu L, et al. Rheumatology 2025;
+        64:5518-5528, doi 10.1093/rheumatology/keaf271, which also reported
+        reduced Bifidobacterium in 61 SLE patients). Heavily confounded by dairy
+        intake and probiotic supplementation, neither of which was recorded in
+        either cohort.
+    - taxon: alpha_diversity_richness
+      rank: community_metric
+      study_ids: [azzouz_2019_ard, toumi_2022_front_immunol, gui_2024_arthritis_res_ther, park_2025_j_transl_med, van_der_meulen_2019_j_autoimmun, xiang_2022_lupus_sci_med, wang_2022_ebiomedicine]
+      note: >
+        The most widely replicated finding of any kind — seven sources, six
+        countries. See the `diversity` field for why it is nonetheless a poor
+        individual-level feature.
+    - taxon: Firmicutes_Bacteroidetes_ratio
+      rank: phylum_ratio
+      study_ids: [hevia_2014_mbio, rodriguez_carrio_2017_front_immunol, van_der_meulen_2019_j_autoimmun, toumi_2022_front_immunol]
+      note: >
+        Four European sources, three countries. Contradicted in the USA
+        (luo_2018_aem, explicit null) and not reproduced in Chinese shotgun
+        cohorts, where the phylum-level story was Proteobacteria expansion
+        instead (gui_2024_arthritis_res_ther). See `firmicutes_bacteroidetes`.
+    - taxon: Bacteroides_uniformis
+      rank: species
+      study_ids: [azzouz_2019_ard]
+      note: >
+        Listed because it is one of very few SPECIES-level decreases with a
+        monotonic activity gradient (healthy 2.11% -> SLEDAI-low 0.87% ->
+        SLEDAI-high 0.34%) and is cleanly measurable by MetaPhlAn. NOT
+        replicated: single cohort, single uncorrected p value (0.014) from a
+        p<0.10 screening table. Included as a candidate, not as established.
+
+  diversity: >
+    Reduced alpha diversity is the most replicated finding in SLE and also one
+    of the least usable at the individual level. Seven sources across six
+    countries agree on the direction. But the literature disagrees on WHICH
+    index moves, by HOW MUCH, and whether it survives medication.
+
+    WHICH INDEX: park_2025_j_transl_med, the largest single cohort (157 vs 50),
+    found RICHNESS significantly reduced (Chao1, ACE, Fisher) while EVENNESS was
+    PRESERVED (Shannon, Simpson). hevia_2014_mbio, the founding study, found
+    Shannon UNCHANGED. toumi_2022_front_immunol found significance across all
+    metric classes. The coherent reading is that SLE loses rare taxa without
+    redistributing abundant ones, which means Shannon is the wrong index and
+    Chao1 or observed-species is the right one — and richness is precisely the
+    metric most sensitive to sequencing depth, DNA extraction and 16S-vs-shotgun
+    platform, so it transfers worst across studies.
+
+    BY HOW MUCH: the two meta-analyses of substantially overlapping literature
+    disagree by roughly three-fold. Chao1: SMD -0.62 (xiang_2022_lupus_sci_med)
+    vs -1.60 (wang_2022_ebiomedicine). Shannon: WMD -0.22 vs SMD -0.63. Two
+    analyses of the same evidence cannot pin the effect to within a factor of
+    three, so no individual-level calibration is defensible.
+
+    WHETHER IT SURVIVES MEDICATION: it does not, reliably.
+    li_2022_bmc_microbiol_ppi found the diversity deficit present ONLY in
+    PPI-naive SLE patients and ERASED in patients taking a proton pump
+    inhibitor, whose diversity became similar to healthy controls — and PPI use
+    out-explained every clinical variable tested.
+    xiang_2022_lupus_sci_med separately found high-dose glucocorticoids altered
+    Chao1. A diversity-based SLE index computed without PPI and steroid status
+    is substantially measuring medication.
+
+    AND IT IS NOT SPECIFIC: alpha diversity is reduced in rheumatoid arthritis,
+    gout and fibromyalgia in the same meta-analysis, INCREASED in systemic
+    sclerosis (Shannon SMD +1.25), and equally reduced in Sjögren's syndrome in
+    a head-to-head comparison (van_der_meulen_2019_j_autoimmun). Low diversity
+    is a marker of being unwell, not of having lupus.
+
+  firmicutes_bacteroidetes: >
+    ORIGIN: hevia_2014_mbio, mBio 2014, 20 Spanish SLE patients IN REMISSION vs
+    20 matched controls. Median F/B 1.97 in SLE vs 4.86 in controls, P<0.002,
+    independently corroborated by qPCR. The direction is DECREASED F/B — i.e.
+    relatively more Bacteroidetes — which is the opposite of what people who
+    remember "F/B ratio" from the obesity literature often assume, and worth
+    stating explicitly to avoid a sign error.
+
+    REPLICATION: yes in Europe, no in the USA, unclear in Asia.
+    - Spain: rodriguez_carrio_2017_front_immunol (same group, overlapping
+      recruitment base — corroboration, not independent replication).
+    - Netherlands: van_der_meulen_2019_j_autoimmun, decreased F/B versus 965
+      general-population controls with adjustment for age, sex, BMI, PPI use and
+      sequencing depth. Methodologically the strongest replication.
+    - France: toumi_2022_front_immunol, lower F/B, p<0.05.
+    - China: He Z, et al. Gut Pathog 2016;8:64 (doi 10.1186/s13099-016-0146-9)
+      reported depletion of Firmicutes and enrichment of Bacteroidetes in
+      Chinese SLE patients, explicitly consistent with the Spanish result, and
+      concluded gut profiles are "more influenced by disease than ethnicity".
+      Not included as a full study entry above, but it is a real, verified,
+      independent geographic replication.
+    - USA: luo_2018_aem — EXPLICIT NULL. "The Firmicutes/Bacteroidetes ratios
+      did not differ between the SLE microbiota and the non-SLE microbiota in
+      our human cohort." This is the only F/B test in a North American
+      population, and the population most like a US customer base.
+    - China, shotgun: gui_2024_arthritis_res_ther did not report a Firmicutes
+      depletion; it reported an elevated PROTEOBACTERIA/Bacteroidetes ratio
+      instead. That is a disagreement about which phylum moves, not merely about
+      a ratio.
+
+    VERDICT: do not use F/B as a scoring feature. It is derivable from a
+    MetaPhlAn profile, but it is a two-number summary of a thousand-species
+    community, it is notoriously sensitive to DNA extraction and sequencing
+    protocol and to fibre intake, it failed in the only US cohort that tested
+    it, and where it does replicate it is equally present in Sjögren's syndrome
+    and therefore not an SLE feature. It belongs in the report as historical
+    context, at zero weight.
+
+  strain_level_only:
+    - finding: "Ruminococcus_gnavus lipoglycan-producing lupus-nephritis strains"
+      study_ids: [azzouz_2019_ard, azzouz_2023_ard, silverman_2022_front_immunol, amarnani_2026_ard]
+      why: >
+        ONLY LN-derived strains expressed the cell-membrane lipoglycan. Gut RG
+        abundance correlated with serum antibodies to just 1 of 8 RG strains
+        tested. In gnotobiotic mice, lupus-derived and healthy-donor RG strains
+        colonised equally well but only the lupus strains induced zonulin-
+        mediated permeability and autoimmunity. Two people with identical
+        MetaPhlAn RG abundance can therefore carry strains with opposite
+        biological effects. Requires StrainPhlAn, lipoglycan-locus detection, or
+        bacterial isolation and glycan chemistry — none of which a species-level
+        shotgun pipeline performs.
+    - finding: "Ruminococcus_gnavus 34-gene host-adaptation set"
+      study_ids: [azzouz_2023_ard]
+      why: >
+        34 of 199 previously published IBD-associated RG genes, at a 70%
+        homology cut-off, in whole-genome sequences of 27 isolates cultured from
+        TWO active-LN patients. Requires cultured isolates and gene-resolved
+        analysis. Not a validated signature and not measurable from stool
+        metagenomes at routine depth.
+    - finding: "Lactobacillus_reuteri as a TLR7-dependent pathobiont"
+      study_ids: [zegarra_ruiz_2019_cell_host_microbe]
+      why: >
+        The pathogenic entity is a specific L. reuteri strain and the mechanism
+        is translocation with pDC/interferon activation. Genus-level or even
+        species-level Lactobacillus abundance cannot identify it — and elevated
+        faecal Lactobacillus is more likely to indicate a probiotic supplement
+        or PPI use than lupus.
+    - finding: "Oral-origin strains identified in the SLE gut by SNP-level analysis"
+      study_ids: [chen_2021_arthritis_rheumatol]
+      why: >
+        The oral origin of gut species was established by single-nucleotide-
+        polymorphism-based STRAIN-level analysis. Species-level abundance of
+        Atopobium rimae, Shuttleworthia satelles or Actinomyces massiliensis in
+        stool cannot distinguish genuine gut colonisation from swallowed oral
+        bacteria, which is the entire interpretive question.
+    - finding: "Enterococcus_gallinarum translocation competence"
+      study_ids: [manfredo_vieira_2018_science, gronke_2025_sci_transl_med]
+      why: >
+        The pathogenic event is escape from the gut, not abundance within it.
+        Additionally, E. gallinarum is easily confounded with E. casseliflavus
+        and E. faecium in short-read data and typically sits near or below the
+        reliable detection floor of a routine-depth stool run.
+
+  activity_dependent_only:
+    - finding: "Ruminococcus_gnavus blooms"
+      study_ids: [azzouz_2023_ard, amarnani_2026_ard]
+      why: >
+        Transient spikes above ~1% relative abundance against a healthy mean of
+        0.15%, occurring at times of high disease activity and detected in
+        almost half of patients DURING lupus nephritis flares, with abundance
+        fluctuating greatly over time within the same patient. A single
+        cross-sectional sample lands at a random point on a volatile
+        trajectory, and a low value is uninformative.
+    - finding: "Alpha diversity restriction at SLEDAI>=8"
+      study_ids: [azzouz_2019_ard]
+      why: >
+        SLE vs control p=0.038; SLEDAI>=8 vs control p=0.003. The signal is
+        concentrated in high activity. CONTRADICTED in the largest cohort:
+        park_2025_j_transl_med found no significant microbial difference between
+        high and low activity groups.
+    - finding: "Activity-correlated genera: Streptococcus, Campylobacter, Veillonella, S. anginosus, V. dispar, Bifidobacterium"
+      study_ids: [li_2019_clin_sci]
+      why: >
+        These were identified as correlates of lupus ACTIVITY, and the authors
+        needed a SEPARATE random forest model to predict activity (AUC 0.811)
+        from the one that separated SLE from RA and healthy controls (AUC
+        0.792). Two models for two questions is direct evidence that the trait
+        and state signatures differ. Both AUCs are internally derived without
+        external validation.
+    - finding: "SLEDAI-correlated microbiota cluster"
+      study_ids: [toumi_2022_front_immunol]
+      why: >
+        Unsupervised clustering separated a subgroup with more severely altered
+        microbiota, strongly correlated with SLEDAI (p=0.03, odds ratio 15).
+        The unit of the finding is a COMMUNITY CLUSTER, not a taxon, and
+        assigning a new sample to a cluster requires the original cohort's
+        clustering solution.
+    - finding: "E. coli pathway and epitope associations with SLEDAI and renal involvement"
+      study_ids: [gui_2024_arthritis_res_ther]
+      why: >
+        Purine nucleotide salvage and peptidoglycan maturation pathway
+        abundances were associated with SLEDAI, and E. coli epitopes with
+        activity or renal phenotype. Shotgun-measurable in principle, but the
+        association is with activity rather than diagnosis.
+    - finding: "Community temporal instability"
+      study_ids: [azzouz_2023_ard]
+      why: >
+        Arguably the most robust finding in the SLE gut literature — the disease
+        signal is VARIANCE over time, not a mean shift, and it was absent in
+        healthy controls. It requires >=2 and preferably 3+ samples per person
+        and is categorically unmeasurable from one stool sample. Notably it did
+        NOT correlate with disease duration, sampling interval, maximal
+        activity, activity range, or medication.
+
+  shotgun_measurable:
+    - taxon: Streptococcus_anginosus
+      confidence: moderate
+      note: "Species-level, shotgun-validated in Japan, 16S-corroborated in China. Activity-associated. Not SLE-specific; confounded by oral health."
+    - taxon: Streptococcus_intermedius
+      confidence: moderate
+      note: "Species-level, shotgun-identified AND internally validated (tomofuji_2021_ard). Single primary cohort. Not SLE-specific."
+    - taxon: Escherichia_coli
+      confidence: moderate
+      note: "Species-level, shotgun-confirmed after 16S discovery, with mouse gavage support. Failed Bonferroni at family level in meta-analysis; drug-labile (PPIs down, hydroxychloroquine down)."
+    - taxon: Faecalibacterium_prausnitzii
+      confidence: moderate
+      note: "Well measured by MetaPhlAn 3/4. Consistently decreased. Pan-rheumatic and pan-inflammatory, not SLE-specific."
+    - taxon: Bacteroides_fragilis
+      confidence: low
+      note: "Increased in Chinese shotgun data (chen_2021_arthritis_rheumatol); NON-SIGNIFICANT in US 16S data (azzouz_2019_ard, p=0.081). Conflicted."
+    - taxon: Bacteroides_uniformis
+      confidence: low
+      note: "Species-level decrease with a monotonic activity gradient, but one cohort and one uncorrected p value (0.014) from a p<0.10 screening table."
+    - taxon: Alistipes_onderdonkii
+      confidence: low
+      note: "Species-level increase, p<0.001 by DESeq2, but one 16-patient French cohort, 16S-derived, unreplicated. Alistipes tracks low-fibre/high-protein diet independently of disease."
+    - taxon: Ruminococcus_gnavus
+      confidence: low
+      note: >
+        Technically well quantified by MetaPhlAn 3/4 — the measurement is not
+        the problem. The problem is that the quantity measured is not the
+        quantity that matters (strain, and transient bloom timing), that
+        genus-level Ruminococcus went the OPPOSITE way in the largest cohort,
+        and that Lachnospiraceae showed no difference across 11 pooled studies.
+    - taxon: Bifidobacterium (genus and species)
+      confidence: low_to_moderate
+      note: "Decreased in two Asian cohorts; heavily confounded by dairy and probiotic intake, which is not recorded in either."
+    - taxon: Veillonella (genus, and V. dispar)
+      confidence: low
+      note: "Increased in China and Korea, direction NOT STATED in the Indian shotgun pilot, and DECREASED with PPI use. Oral-origin confound."
+    - pathway: "lipopolysaccharide biosynthesis"
+      confidence: moderate
+      note: "Genuinely shotgun-measurable as gene/pathway abundance (chen_2021_arthritis_rheumatol). Genomic capacity only, not LPS exposure."
+    - pathway: "branched-chain amino acid biosynthesis"
+      confidence: low_to_moderate
+      note: "Decreased; shotgun-measurable as pathway abundance. Single cohort."
+    - pathway: "sulfur metabolism"
+      confidence: low
+      note: "Reported as ALTERED, not directionally resolved, in tomofuji_2021_ard. Shotgun-measurable but the direction is not established."
+    - pathway: "flagellar assembly"
+      confidence: low
+      note: "Reported as altered. Shotgun-measurable. Direction not established in the primary source."
+    - pathway: "purine nucleotide salvage / peptidoglycan maturation"
+      confidence: low
+      note: "Shotgun-measurable and SLEDAI-associated (gui_2024_arthritis_res_ther), but activity-dependent rather than diagnostic."
+    - metric: Chao1_or_observed_species_richness
+      confidence: moderate_direction_poor_calibration
+      note: >
+        Direction is the most replicated in the field, but the two
+        meta-analyses disagree three-fold on magnitude, the deficit is erased by
+        PPI use, and it is not SLE-specific. Usable as a descriptive
+        observation, not as a calibrated index component.
+
+  not_measurable_from_stool:
+    - finding: "Serum IgG / IgG2 anti-R. gnavus strain-restricted lipoglycan"
+      study_ids: [azzouz_2019_ard, azzouz_2023_ard, amarnani_2026_ard]
+      why: "Serology. Correlated with SLEDAI (Spearman p=0.04), anti-native DNA, and inversely with C3/C4. This — not stool RG abundance — is the biomarker the NYU programme actually validated."
+    - finding: "Platelet factor 4, NET release, platelet/neutrophil/monocyte activation"
+      study_ids: [amarnani_2026_ard]
+      why: "Serum proteins and cellular functional assays."
+    - finding: "Bulk-blood RNA sequencing transcriptomic profiles"
+      study_ids: [amarnani_2026_ard, zhou_2025_ard]
+      why: "Blood transcriptome."
+    - finding: "Anti-E. gallinarum IgG and IgG3 anti-RNA subclass responses"
+      study_ids: [bagavant_2021_front_immunol, gronke_2025_sci_transl_med]
+      why: "Serology, and only interpretable when stratified by anti-Ribosomal P / anti-dsDNA / anti-Sm status."
+    - finding: "E. gallinarum DNA in liver tissue"
+      study_ids: [manfredo_vieira_2018_science]
+      why: "Requires liver biopsy. The pathogenic event is translocation out of the gut."
+    - finding: "Serum zonulin and mesenteric lymph node translocation"
+      study_ids: [silverman_2022_front_immunol]
+      why: "Serum assay and animal tissue dissection."
+    - finding: "Anti-curli/eDNA complex antibodies and persistent bacteriuria"
+      study_ids: []
+      why: >
+        From Pachucki RJ, et al. Arthritis Rheumatol 2020;72(11):1872-1881 (doi
+        10.1002/art.41400): plasma anti-curli/eDNA IgG and IgA in 96 SLE
+        patients vs 54 matched healthy controls correlated with asymptomatic
+        persistent bacteriuria and with flare occurrence, and curli/eDNA
+        cross-reacted with anti-dsDNA. Verified but not entered as a study above
+        because the specimen is plasma and URINE, not stool. Notable as evidence
+        that a relevant microbial trigger in SLE may sit in the urinary tract,
+        entirely outside a stool assay's reach.
+    - finding: "Commensal Ro60 ortholog cross-reactivity"
+      study_ids: []
+      why: >
+        From Greiling TM, et al. Sci Transl Med 2018;10(434):eaan2306 (doi
+        10.1126/scitranslmed.aan2306): Ro60 orthologs were found in skin, oral
+        and gut commensal species of BOTH lupus patients and healthy controls;
+        the disease-relevant readout was immunoprecipitation of commensal Ro60
+        ribonucleoproteins by patient sera and activation of patient-derived
+        Ro60-specific CD4 memory T cell clones. Verified but not entered as a
+        study above because it defines no stool-measurable taxon contrast — the
+        ortholog-carrying species are present in healthy people too.
+    - finding: "Host GWAS / MWAS-GWAS pathway overlap"
+      study_ids: [tomofuji_2021_ard]
+      why: "Requires host germline genotype."
+    - finding: "Plasma metabolome (acylcarnitine correlation with S. intermedius)"
+      study_ids: [tomofuji_2021_ard]
+      why: "Blood metabolomics."
+    - finding: "Faecal SCFA concentrations and serum free fatty acids"
+      study_ids: [rodriguez_carrio_2017_front_immunol]
+      why: >
+        Faecal SCFA is a chemical assay, not a sequencing output; serum FFA is a
+        blood measure. A shotgun pipeline can only estimate the GENE CAPACITY
+        to produce SCFAs, which is a much weaker claim. Note the informative
+        quantity in that study was a stool-serum CORRELATION, which a stool-only
+        assay cannot compute at all.
+    - finding: "Faecal calprotectin and faecal albumin"
+      study_ids: [manfredo_vieira_2018_science]
+      why: >
+        Stool specimens but immunoassays, not sequencing. Flagged because they
+        are the cheapest orthogonal measurements that would genuinely add
+        information to an SLE stool report, and because barrier dysfunction is
+        the most mechanistically central and most consistently supported concept
+        in this literature.
+    - finding: "Host DNA methylation of IRF5, STAT1, IFIH1"
+      study_ids: []
+      why: >
+        From Zhang B, et al. J Autoimmun 2023;141:103047 (doi
+        10.1016/j.jaut.2023.103047): 14 SLE FMT trial participants (8
+        responders, 6 non-responders); genome-wide methylation rose after FMT in
+        responders. Peripheral blood epigenetics; verified but not entered as a
+        study above because it contains no stool-taxon contrast.
+    - finding: "Immune cell phenotypes and cytokines (Th17/Treg, IL-6, IL-17A)"
+      study_ids: [joseph_2026_lupus, ling_2023_front_immunol]
+      why: "Flow cytometry and serum cytokine assays."
+
+  # -------------------------------------------------------------------------
+  # Bottom line for the pipeline
+  # -------------------------------------------------------------------------
+  fitness_for_purpose:
+    supports_species_level_directional_index_from_single_stool: false
+    supports_flare_state_marker_from_single_stool: false
+    supports_flare_state_marker_from_serial_stool: partially
+    honest_assessment: >
+      This literature does NOT support a species-level directional SLE index
+      from a single stool sample. It also does not support a flare-state marker
+      from a single stool sample. What it supports, at best, is a
+      non-specific inflammatory-dysbiosis descriptor plus an explicit statement
+      of what could not be measured.
+
+      Five independent reasons, each sufficient on its own:
+
+      (1) NO DISEASE SPECIFICITY. The largest evidence base available (92
+      studies, 11,998 participants; wang_2022_ebiomedicine) concludes there is
+      "little evidence of disease specificity of gut microbes" in rheumatic
+      disease. Head-to-head, stool microbiota could not distinguish SLE from
+      primary Sjögren's syndrome (van_der_meulen_2019_j_autoimmun) — while ORAL
+      microbiota could. SLE substantially overlaps IBD
+      (zhou_2025_ard). The two most reproducible directions —
+      Streptococcus up, Faecalibacterium down — are both shared pan-rheumatic
+      markers. An index built on them measures systemic inflammation, and
+      labelling it "lupus" would be a claim the data do not support.
+
+      (2) THE FLAGSHIP FINDING IS STRAIN-LEVEL AND THIS PIPELINE IS
+      SPECIES-LEVEL. Healthy-donor and lupus-donor R. gnavus strains colonise
+      mice equally well but only lupus strains induce zonulin-mediated
+      permeability and autoimmunity (silverman_2022_front_immunol). Only
+      LN-derived strains express the lipoglycan (azzouz_2023_ard). Gut RG
+      abundance correlated with antibodies to 1 of 8 strains tested
+      (azzouz_2019_ard). MetaPhlAn quantifies RG accurately — and that number
+      does not answer the question that matters.
+
+      (3) THE FLAGSHIP FINDING IS A TRANSIENT BLOOM, NOT A LEVEL. RG abundance
+      "fluctuated greatly overtime" within individual patients; blooms occurred
+      during LN flares in about half of patients (azzouz_2023_ard). One stool
+      sample is one draw from a volatile process. A low RG value tells you
+      almost nothing, and a high one is ambiguous between flare and ordinary
+      carriage.
+
+      (4) THE ACTIVITY SIGNAL FAILED IN THE LARGEST COHORT. In 157 Korean SLE
+      patients vs 50 controls — the largest single cohort in this dossier —
+      there were NO significant microbial differences between lupus-nephritis-
+      positive and -negative patients, and NONE between high and low disease
+      activity (park_2025_j_transl_med). Functional prediction likewise showed
+      minimal differences. The activity associations reported elsewhere
+      (azzouz_2019_ard, li_2019_clin_sci, toumi_2022_front_immunol,
+      gui_2024_arthritis_res_ther) come from cohorts of 16-61 patients with
+      largely uncorrected statistics. The best-powered test of the state
+      hypothesis returned a null.
+
+      (5) MEDICATION MOVES THE BIOMARKERS AS MUCH AS THE DISEASE DOES. Proton
+      pump inhibitors ERASED the alpha-diversity deficit and were the ONLY
+      significant explanatory variable for composition among SLE patients
+      (li_2022_bmc_microbiol_ppi). High-dose glucocorticoids altered Chao1 and
+      hydroxychloroquine reduced Enterobacteriaceae
+      (xiang_2022_lupus_sci_med). In azzouz_2023_ard every patient was on
+      hydroxychloroquine. In toumi_2022_front_immunol 12 of 16 were. Only
+      chen_2021_arthritis_rheumatol enrolled a large treatment-naive cohort —
+      and it showed the SLE-enriched species were REDUCED AFTER TREATMENT,
+      demonstrating the confound directly. Nearly every real SLE patient is on
+      at least one of these drugs, so a treated patient's profile cannot be read
+      against an untreated-cohort finding.
+
+      SERIAL SAMPLING IS THE ONLY DESIGN THE EVIDENCE ACTUALLY ENDORSES, and
+      only partially. The most robust finding in the field is that SLE gut
+      communities are TEMPORALLY UNSTABLE in a way healthy communities are not,
+      with instability independent of disease duration, sampling interval,
+      activity range and medication (azzouz_2023_ard). That is a within-person
+      variance measure requiring >=2 and preferably 3+ samples. It is arguably a
+      better product than a single-sample index — and it is a different product.
+
+      WHAT I WOULD SHIP. A small profile, explicitly labelled non-specific:
+      Faecalibacterium prausnitzii down and Streptococcus anginosus /
+      S. intermedius up as the only species-level features with cross-geography,
+      cross-platform support, at low weight, described as inflammation-
+      associated rather than lupus-specific; Ruminococcaceae down noted at
+      family level as the only Bonferroni-surviving taxonomic finding; richness
+      reported descriptively with PPI and steroid status required as input or
+      the finding suppressed; R. gnavus quantified and reported with the strain
+      and bloom caveats stated in the body text, NOT contributing to a score;
+      F/B computed but at zero weight, as historical context with the US null
+      attached. Everything in `not_measurable_from_stool` declared as not
+      computable rather than silently omitted, because the single most
+      informative thing this dossier can tell a reader is that the validated
+      lupus biomarkers in this literature are serological.
+
+      WHAT WOULD CHANGE THIS. A shotgun cohort of >=200 treatment-naive SLE
+      patients with matched controls, StrainPhlAn-level R. gnavus typing against
+      a defined lipoglycan locus, and >=3 serial samples per subject. No such
+      study exists in this dossier.
+
+  # -------------------------------------------------------------------------
+  # Verification and gaps
+  # -------------------------------------------------------------------------
+  verification_notes:
+    study_count: 25
+    # All counts below were computed from this file by parsing it, not written
+    # by hand. by_assay sums to 25; by_country sums to 25.
+    by_assay:
+      16S: 14                      # incl. the 2 meta-analyses, whose pooled source literature is predominantly 16S
+      shotgun_metagenomics: 5      # tomofuji_2021, chen_2021, joseph_2026, zhou_2025, papo_2025
+      serology: 3                  # amarnani_2026, bagavant_2021, gronke_2025
+      culture: 2                   # silverman_2022, manfredo_vieira_2018
+      mixed_16S_shotgun: 1         # gui_2024
+      by_design:
+        cross_sectional: 9
+        case_control: 8
+        mechanistic_animal: 3
+        meta_analysis: 2
+        mechanistic_human: 2
+        longitudinal: 1
+      note: >
+        THE HEADLINE NUMBER FOR A SHOTGUN PIPELINE: of the 5 shotgun studies,
+        papo_2025_rheumatology sequenced LYMPH NODE tissue rather than stool,
+        zhou_2025_ard is a reanalysis of already-published metagenomes, and
+        joseph_2026_lupus is an unpowered pilot with n omitted. That leaves
+        THREE primary shotgun stool cohorts in SLE — tomofuji_2021_ard (Japan,
+        47 vs 203), chen_2021_arthritis_rheumatol (China, 117 untreated vs 115)
+        and gui_2024_arthritis_res_ther (China, 124 vs 97, mixed assay). Two of
+        the three are Chinese. Fourteen of 25 studies are 16S while the target
+        pipeline is shotgun, and only ONE study in this dossier is longitudinal.
+    by_country:
+      USA: 8            # luo_2018, azzouz_2019, azzouz_2023, amarnani_2026, silverman_2022, bagavant_2021, manfredo_vieira_2018, zegarra_ruiz_2019
+      China: 5          # chen_2021, gui_2024, li_2019, ling_2023, li_2022
+      multinational: 4  # zhou_2025, xiang_2022, wang_2022, gronke_2025
+      Spain: 2          # hevia_2014, rodriguez_carrio_2017
+      France: 2         # toumi_2022, papo_2025
+      Japan: 1          # tomofuji_2021
+      South_Korea: 1    # park_2025
+      Netherlands: 1    # van_der_meulen_2019
+      India: 1          # joseph_2026
+      note: >
+        The USA count is 8 by attribution but several are the SAME research
+        programme: azzouz_2019, azzouz_2023, silverman_2022 and amarnani_2026
+        are all Silverman lab / NYU with overlapping populations, and
+        manfredo_vieira_2018, zegarra_ruiz_2019 and gronke_2025 are all
+        Kriegel lab. Counting them as independent US replications would
+        substantially overstate the evidence. gronke_2025 is attributed to
+        multinational (Switzerland/USA/Germany). NO cohort from Africa, Latin
+        America, the Middle East (outside one excluded Iranian RCT) or any
+        Indigenous population appears anywhere in this literature, despite SLE
+        being more prevalent and more severe in people of African ancestry —
+        the single largest geographic gap, and directly relevant since the US
+        cohorts here are urban NYU populations whose ancestry composition is not
+        reported in the retrieved text.
+    findings_tally:
+      total_findings: 88
+      by_direction:
+        increased: 43
+        decreased: 29
+        unchanged: 11
+        variable: 5
+      by_trait_or_state:
+        trait: 50
+        unresolved: 16
+        state: 12
+        trait_and_state: 10
+      note: >
+        11 `unchanged` and 5 `variable` entries are deliberate: they are the
+        null and conflicting results this dossier was asked to include. The 16
+        `unresolved` entries are findings where the source does not permit a
+        trait/state call, most often because the study is mechanistic or
+        serological rather than a stool case-control contrast. Read together,
+        only 50 of 88 findings are clean trait-level contrasts, and of those a
+        large share are community metrics or family/genus-level rather than
+        species-level.
+    fields_omitted_for_lack_of_verification:
+      - "luo_2018_aem: n_cases, n_controls (abstract says only 'a small group'; PMC returned abstract-only text). Also the directions of the Odoribacter, Blautia and Rikenellaceae findings, which are therefore absent from `findings` entirely rather than guessed."
+      - "amarnani_2026_ard: n_cases, n_controls, all effect sizes and statistics (Elsevier paywall; only the structured abstract was verifiable)."
+      - "joseph_2026_lupus: n_cases, n_controls, and the DIRECTION of both named taxa (abstract says 'altered')."
+      - "zhou_2025_ard: n_cases, n_controls, and all named discriminative species."
+      - "gronke_2025_sci_transl_med: n_cases, n_controls, effect sizes."
+      - "manfredo_vieira_2018_science: n_controls for the stool barrier-function analysis; effect sizes for faecal albumin and calprotectin."
+      - "Numeric effect sizes were unavailable in the abstracts of tomofuji_2021_ard, chen_2021_arthritis_rheumatol, gui_2024_arthritis_res_ther, li_2019_clin_sci, ling_2023_front_immunol, li_2022_bmc_microbiol_ppi, park_2025_j_transl_med, van_der_meulen_2019_j_autoimmun and rodriguez_carrio_2017_front_immunol. Every such field is recorded as 'not quantified in the abstract' rather than filled with an estimate."
+    known_gaps:
+      - "Three published comments/critiques of azzouz_2019_ard exist (Ann Rheum Dis 2019;78:867-869; 2021;80:e177; 2021;80:e178) and were NOT retrieved. Given how much weight the RG finding carries, these should be read before the study is weighted at all."
+      - "No study in this dossier reports a species-level POOLED effect size for any taxon. Both meta-analyses stop at family/genus level. There is no meta-analytic species-level estimate for SLE."
+      - "Ancestry composition is unreported in every cohort here. Wen X, et al. ACR Open Rheumatol 2024;6:365-374 (doi 10.1002/acr2.11664) reports racial differences in plasma microbial translocation in SLE and was verified but not entered because the specimen is plasma."
+      - "No head-to-head comparison of 16S-derived and shotgun-derived SLE effect sizes on the same samples exists, except a 16-sample internal cross-check in azzouz_2023_ard showing 16S and shotgun RG abundance were highly correlated. Twelve of the 25 studies here are 16S while the target pipeline is shotgun."
+      - "Intervention evidence exists but is thin and was not entered as study records: Huang C, et al. J Autoimmun 2022;130:102844 (doi 10.1016/j.jaut.2022.102844) — single-arm, non-randomised oral encapsulated FMT in 20 active SLE patients (SLEDAI>=6), SRI-4 response 42.12% at week 12, with an erratum at J Autoimmun 2022;131:102862; and Mirfeizi Z, et al. J Food Sci 2024;89:9835-9845 (doi 10.1111/1750-3841.17460) — a randomised double-blind placebo-controlled synbiotic trial in 50 Iranian SLE patients reporting reduced IL-17A and SLEDAI-2K within the synbiotic group. Neither reports taxon-level directions usable for a scoring profile, and the FMT trial's lack of a control arm means the 42% response rate cannot be attributed to the intervention."
+      - "Wu L, et al. Rheumatology 2025;64:5518-5528 (doi 10.1093/rheumatology/keaf271) reported reduced Bifidobacterium in 61 SLE patients with supporting MRL/lpr mouse interventions; verified and cited in synthesis but not entered as a study record because the human arm is predominantly immunophenotyping."
+      - "He Z, et al. Gut Pathog 2016;8:64 (doi 10.1186/s13099-016-0146-9) independently replicated Firmicutes depletion and Bacteroidetes enrichment in a Chinese cohort; verified and cited in the firmicutes_bacteroidetes synthesis but not entered as a study record to keep the count within the requested range."
+      - "Tomofuji Y, et al. Ann Rheum Dis 2022;81:278-288 (doi 10.1136/annrheumdis-2021-221267) analysed the gut VIROME of 476 Japanese and found crAss-like phages decreased in SLE and RA and Podoviridae decreased in SLE, with a Podoviridae-Faecalibacterium symbiosis and Ruminococcus spp. as crAss-like phage targets. Verified; not entered because the pipeline profiles bacteria, but it is the only viral evidence and it bears directly on the Faecalibacterium and Ruminococcus findings."

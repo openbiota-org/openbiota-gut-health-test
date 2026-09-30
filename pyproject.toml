@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openbiota"
+dynamic = ["version"]
+description = "OpenBiota Gut Health Test: turns raw shotgun stool metagenome reads (FASTQ) into a readable, evidence-linked gut-health report — species composition, metabolite pathway capacity, a published gut-health index, disease-pattern resemblance, pathogen screening and microbiome age."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "PolyForm-Noncommercial-1.0.0" }
+authors = [{ name = "OpenBiota contributors" }]
+keywords = ["metagenomics", "microbiome", "gut-health", "fastq", "diamond", "metaphlan", "gut-metabolites", "openbiota"]
+classifiers = [
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+  "License :: Other/Proprietary License",
+]
+# Everything the report needs at run time. Optional extras below cover the
+# reference-building and development paths that most users never take.
+dependencies = ["PyYAML>=6.0", "numpy>=1.26", "reportlab>=4.0"]
+
+[project.optional-dependencies]
+# Rebuilding the age-model baselines and the curatedMetagenomicData cohort.
+refs = ["scikit-learn>=1.3", "rdata>=0.11"]
+dev = ["pytest>=7.4", "ruff>=0.4", "pymupdf>=1.24", "pypdf>=4.0"]
+# A16 model-assisted scenarios. Pinned exactly: the published replay fixture
+# in BUILD_SPEC_v0.8.3 section 11.7 was produced with MICOM 0.37.0, and a
+# different version moves every predicted flux.
+simulation = ["micom==0.37.0", "osqp>=0.6", "highspy>=1.7", "openpyxl>=3.1", "pandas>=2.0"]
+docs = ["mkdocs>=1.6,<2", "mkdocs-material>=9.5"]
+
+[project.scripts]
+openbiota = "openbiota.cli:main"
+
+[project.urls]
+Homepage = "https://openbiota.com"
+Documentation = "https://openbiota.com/docs/"
+Source = "https://github.com/openbiota-org/openbiota-gut-health-test"
+
+[tool.setuptools.dynamic]
+# One source of truth for the build version; the report header reads the same file.
+version = { file = "specs/build_version.txt" }
+
+[tool.setuptools]
+packages = ["openbiota", "openbiota.extension"]
+
+[tool.setuptools.package-data]
+openbiota = ["py.typed", "data/*.json", "data/*.png"]
+"openbiota.extension" = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "C4", "SIM", "RET", "PTH", "ARG", "TID"]
+ignore = ["E501"]

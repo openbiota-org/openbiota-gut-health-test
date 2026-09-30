@@ -1,0 +1,111 @@
+name: ibs_m
+version: 1.0.0
+spec_version: 3
+label: "IBS mixed type — gut pattern"
+disease: irritable_bowel_syndrome
+task: ibs_m_vs_healthy
+family: ibs
+body_site: stool
+population: mixed_adult_cohorts
+status: experimental
+evidence_maturity: P1
+
+summary: >-
+  Mixed-type IBS has no subtype-specific microbial marker of its own: the
+  methanogen direction that separates IBS-C from IBS-D is undefined here, so
+  it is left out entirely rather than scored in either direction. What
+  remains is the shared IBS depletion pattern. This profile exists so the
+  library is complete and so the subtype is not silently absorbed into the
+  parent; it should score close to the parent and rarely above it.
+
+references:
+  primary:
+    source: null
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  shared_dysbiosis:
+    label: "Shared IBS depletion pattern"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    assay_transport: amplicon_taxon_to_shotgun
+    study_group: pittayanon_2019
+    maturity: P2
+    weight_in_combined: 1.0
+    sources: ["Pittayanon R, et al. Gastroenterology 2019;157:97-108"]
+    features:
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.6
+        s: 0.2
+        c: 0.7
+        mapping_confidence: high
+      - name: Bifidobacterium_adolescentis
+        level: species
+        direction: lower_in_case
+        cluster: bifidobacterium
+        w: 0.7
+        q: 0.6
+        s: 0.3
+        c: 0.7
+        mapping_confidence: medium
+      - name: Bifidobacterium_longum
+        level: species
+        direction: lower_in_case
+        cluster: bifidobacterium
+        w: 0.5
+        q: 0.6
+        s: 0.3
+        c: 0.7
+        mapping_confidence: medium
+      - name: Ruminococcus_gnavus
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.5
+        s: 0.2
+        c: 0.6
+        mapping_confidence: medium
+      - name: Escherichia_coli
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.5
+        s: 0.2
+        c: 0.6
+        mapping_confidence: medium
+
+  mechanism:
+    label: "Butyrate capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P1
+    features:
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        w: 0.8
+        q: 0.7
+        s: 0.2
+        c: 0.8
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    No microbial marker distinguishes mixed-type IBS from the other subtypes
+    or from general dysbiosis. This profile is the shared IBS pattern with the
+    subtype-specific methanogen direction deliberately omitted.
+
+citation: >-
+  Pittayanon R, et al. Gut microbiota in patients with irritable bowel
+  syndrome — a systematic review. Gastroenterology 2019;157:97-108.

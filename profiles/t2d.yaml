@@ -1,0 +1,324 @@
+name: t2d
+version: 1.0.0
+spec_version: 3
+label: "Type 2 diabetes — gut pattern (metformin-gated)"
+disease: type_2_diabetes
+task: t2d_vs_normoglycaemic
+family: cardiometabolic
+body_site: stool
+population: mixed_european_chinese_cohorts
+status: research_beta
+evidence_maturity: P3
+mandatory_match: [metformin]
+
+summary: >-
+  Type 2 diabetes has large shotgun cohorts in China and Europe, and the
+  first replicated lesson from them was a confounding one: much of the
+  "diabetes signature" in early studies was metformin. Forslund et al. showed
+  that metformin-treated patients carry more Escherichia and less
+  Intestinibacter, and that the untreated-diabetes signal is a different,
+  weaker pattern of butyrate-producer depletion. This profile therefore
+  needs metformin status. In participant mode it abstains without it,
+  because a score that cannot separate the drug from the disease measures
+  the drug. In research and clinician mode an unsupplied medication list is
+  read as "no metformin", the untreated-diabetes modules are scored on that
+  stated assumption, and the card says how the reading would change if
+  metformin were in fact being taken.
+
+references:
+  primary:
+    source: null
+    note: >-
+      Normoglycaemic controls matched on BMI are rare; most cohorts are
+      confounded by adiposity as well as metformin.
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  forslund_2015_untreated:
+    label: "Forslund 2015 metformin-disentangled T2D signature"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: forslund_2015
+    maturity: P3
+    weight_in_combined: 1.0
+    note: >-
+      784 shotgun metagenomes across Danish, Swedish and Chinese cohorts,
+      stratified by metformin. These are the directions that remain in
+      untreated diabetes after the metformin effect is removed.
+    sources: ["Forslund K, et al. Nature 2015;528:262-266"]
+    features:
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.9
+        q: 0.8
+        s: 0.3
+        c: 0.8
+      - name: Roseburia_hominis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.8
+        s: 0.3
+        c: 0.8
+      - name: Eubacterium_rectale
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.8
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: Clostridium_bolteae
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: Lactobacillus_gasseri
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.6
+      - name: Streptococcus_mutans
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.6
+        conflict_note: "Genus Streptococcus is on the conflicted list; species only."
+
+  qin_2012_china:
+    label: "Qin 2012 Chinese MGWAS"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: qin_2012
+    maturity: P3
+    note: >-
+      345 Chinese participants, the first large T2D shotgun study. Not
+      metformin-stratified, so its Escherichia direction is partly drug; that
+      feature is left out and the butyrate producers retained.
+    sources: ["Qin J, et al. Nature 2012;490:55-60"]
+    features:
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.7
+        s: 0.3
+        c: 0.7
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.7
+        s: 0.2
+        c: 0.7
+      - name: Eubacterium_rectale
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.7
+        s: 0.2
+        c: 0.7
+      - name: Clostridium_bolteae
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.6
+      - name: Bacteroides_caccae
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.6
+      - name: Akkermansia_muciniphila
+        level: species
+        direction: higher_in_case
+        w: 0.4
+        q: 0.5
+        s: 0.3
+        c: 0.4
+        direction_conflict: material
+        conflict_note: >-
+          Higher in Qin's Chinese T2D cohort; lower in European cohorts and
+          protective in most metabolic literature. Reported with the conflict.
+
+  karlsson_2013_sweden:
+    label: "Karlsson 2013 Swedish postmenopausal women"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: karlsson_2013
+    maturity: P3
+    note: "145 European women; a discriminative model built on the Chinese cohort transferred poorly, which is itself a finding about population transportability."
+    sources: ["Karlsson FH, et al. Nature 2013;498:99-103"]
+    features:
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.7
+        q: 0.7
+        s: 0.3
+        c: 0.7
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.7
+        s: 0.2
+        c: 0.7
+      - name: Lactobacillus_gasseri
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.6
+      - name: Streptococcus_mutans
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.6
+      - name: Clostridium_clostridioforme
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.6
+
+  functional:
+    label: "Metabolite gene capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P3
+    note: >-
+      Butyrate capacity falls with the producers. Imidazole propionate
+      impairs insulin signalling through mTORC1 and is elevated in T2D
+      serum; urdA is the responsible gene. Branched-chain amino acid
+      biosynthesis potential was higher in insulin resistance in the Pedersen
+      cohort. Bile salt hydrolase changes track metformin more than disease.
+    sources:
+      - "Koh A, et al. Cell 2018;175:947 (imidazole propionate)"
+      - "Pedersen HK, et al. Nature 2016;535:376 (BCAA)"
+    features:
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        w: 1.0
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: urda
+        engine: diamond
+        direction: increased
+        w: 0.8
+        q: 0.7
+        s: 0.5
+        c: 0.7
+      - name: bcaa
+        engine: diamond
+        direction: increased
+        w: 0.6
+        q: 0.6
+        s: 0.4
+        c: 0.6
+      - name: cutc
+        engine: diamond
+        direction: increased
+        w: 0.4
+        q: 0.5
+        s: 0.3
+        c: 0.5
+
+  carriers:
+    label: "Butyrate carriers"
+    type: mechanism_lane
+    evidence_type: CARRIER_ABUNDANCE
+    claim_level: carrier_proxy
+    maturity: P2
+    features:
+      - name: butyrate
+        engine: carrier
+        direction: decreased
+        w: 0.8
+        q: 0.8
+        s: 0.2
+        c: 0.8
+
+confounders:
+  - name: Metformin
+    effect: "Raises Escherichia, lowers Intestinibacter; the largest single confounder in T2D cohorts"
+    handling: "Mandatory: abstains without metformin status in participant mode; assumed absent and stated in research and clinician mode"
+  - name: Adiposity
+    effect: "Most T2D cohorts are heavier than their controls; obesity has its own ecological pattern"
+    handling: "Recorded in the ledger; BMI matched where the stratum allows"
+  - name: Geography
+    effect: "Chinese and European cohorts do not transfer models to one another"
+    handling: "population_transportability reported"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+  - missing_metadata: metformin
+
+caveats:
+  - >-
+    Type 2 diabetes is diagnosed with fasting glucose, HbA1c or a glucose
+    tolerance test. Those are cheap, direct and definitive. This profile is
+    none of those things.
+  - >-
+    Metformin status decides how to read this pattern. With metformin, the
+    Escherichia expansion is the drug; in an untreated subject it may not
+    be. The two cannot be told apart from stool alone, so when no medication
+    list is supplied the score is printed on the stated assumption of no
+    metformin, and would need re-reading if that assumption is wrong.
+  - >-
+    Butyrate-producer depletion is shared with every other dysbiosis
+    pattern; see the specificity column in the confidence vector.
+
+effect_size_note: >-
+  Forslund 2015: 784 metagenomes. Qin 2012: 345 Chinese. Karlsson 2013: 145
+  Swedish women. Cross-population model transfer was poor.
+
+citation: >-
+  Forslund K, et al. Disentangling type 2 diabetes and metformin treatment
+  signatures in the human gut microbiota. Nature 2015;528:262-266; Qin J, et
+  al. A metagenome-wide association study of gut microbiota in type 2 diabetes.
+  Nature 2012;490:55-60; Karlsson FH, et al. Gut metagenome in European women
+  with normal, impaired and diabetic glucose control. Nature 2013;498:99-103;
+  Koh A, et al. Microbially produced imidazole propionate impairs insulin
+  signaling through mTORC1. Cell 2018;175:947.

@@ -1,0 +1,53 @@
+name: mucin_degraders
+label: "Mucin degraders"
+category: function
+higher_means: context-dependent
+reader_direction: adverse
+direction_note: >-
+  A healthy mucus layer needs some turnover, but a high reading means more of the community is living on the mucus barrier itself. Thinning of that layer is the mechanism behind several inflammatory conditions, and it is what a high reading here points at.
+description: >-
+  Species that cleave the sugars from intestinal mucin glycoproteins.
+  Mucin turnover is normal and necessary — the mucus layer is continuously
+  replaced, and its degradation products feed a cross-feeding network that
+  supports butyrate production. Excess mucin degradation, particularly when
+  fermentable fibre is scarce, thins the mucus barrier. Both directions are
+  in the literature and the group is reported as context-dependent for that
+  reason.
+
+summary: >-
+  Bacteria that feed on the mucus layer lining your gut. This is normal and
+  part of how the mucus layer renews itself. When dietary fibre is scarce,
+  these organisms turn to mucin as their main carbon source and the barrier
+  thins — an effect demonstrated cleanly in gnotobiotic mice.
+
+members:
+  - Akkermansia muciniphila
+  - Ruminococcus gnavus
+  - Ruminococcus torques
+  - Bacteroides fragilis
+  - Bacteroides thetaiotaomicron
+  - Bacteroides caccae
+  - Barnesiella intestinihominis
+  - Bifidobacterium bifidum
+
+caveats:
+  - >-
+    Akkermansia muciniphila carries the strongest and most contradictory
+    literature of any species here. It is depleted in obesity and metabolic
+    syndrome and improved insulin sensitivity in a human trial when given as
+    a pasteurised supplement; it is elevated in Parkinson's disease and
+    multiple sclerosis. Whether it is desirable depends on the question being
+    asked, which is why this group is not scored as favourable.
+  - >-
+    Ruminococcus gnavus is a mucin degrader and is enriched in inflammatory
+    bowel disease, where its glucorhamnan polysaccharide induces TNF-alpha.
+    Same functional group, very different clinical company.
+  - >-
+    A high reading with low fibre intake is the combination the mouse work
+    identifies as barrier-thinning. Fibre intake is not measured here.
+
+citation: >-
+  Desai M.S., Seekatz A.M., Koropatkin N.M., et al., "A dietary fiber-deprived
+  gut microbiota degrades the colonic mucus barrier and enhances pathogen
+  susceptibility", Cell 167:1339-1353 (2016), doi:10.1016/j.cell.2016.10.043;
+  Tailford L.E. et al., Front Genet 6:81 (2015).

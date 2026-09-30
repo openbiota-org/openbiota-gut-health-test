@@ -1,0 +1,166 @@
+name: cutc
+description: >-
+  Trimethylamine (TMA) production. cutC is the glycyl-radical choline
+  TMA-lyase (choline route); cntA is the Rieske-type carnitine monooxygenase
+  oxygenase subunit (carnitine route). Host hepatic FMO3 oxidises TMA to TMAO.
+metabolite: Trimethylamine / TMAO
+pathway: >-
+  choline -> TMA (cutC/cutD) and L-carnitine -> TMA (cntA/cntB); TMA is then
+  oxidised to TMAO by host hepatic FMO3
+
+organisms:
+  - Klebsiella pneumoniae
+  - Escherichia coli
+  - Proteus mirabilis
+  - Clostridium sporogenes
+  - Desulfovibrio desulfuricans
+  - Citrobacter freundii
+
+targets:
+  # HARD CONSTRAINT, do not "simplify" this query.
+  #
+  # `gene:cutC` in UniProt returns ~6,300 entries of which the overwhelming
+  # majority are "PF03932 family protein CutC" — the *copper homeostasis*
+  # protein CutC, ~248 aa, entirely unrelated to choline metabolism. A naive
+  # gene-name fetch plus an identity threshold produces a confidently wrong
+  # number, exactly as the build spec warns.
+  #
+  # Matching on the recommended protein name instead yields ~370 entries with
+  # a tight ~847 aa median, consistent with the 454 curated cutC proteins that
+  # Rath et al. 2017 recovered by HMM score, signature-residue conservation and
+  # phylogenetic distance across 67,134 genomes. The trailing NOT excludes
+  # CutD, the ~310 aa radical-SAM activating enzyme, which shares the name.
+  - id: CUTC
+    label: cutC (choline TMA-lyase)
+    gene: cutC
+    source: uniprot
+    query: '(protein_name:"choline trimethylamine-lyase") AND (taxonomy_id:2) NOT (protein_name:"activating enzyme")'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.25
+
+  # `gene:cntA` is the same trap: it mostly returns the metal-staphylopine
+  # binding protein CntA. The oxygenase-subunit protein name gives ~340 clean
+  # entries at a tight 371-374 aa, and also captures YeaW, the functionally
+  # equivalent homolog that UniProt annotates under the same recommended name.
+  - id: CNTA
+    label: cntA (carnitine monooxygenase, oxygenase subunit)
+    gene: cntA
+    source: uniprot
+    query: '(protein_name:"carnitine monooxygenase oxygenase subunit")'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.25
+
+decoys:
+  # Named in the build spec as the principal cutC confounder. Restricted by an
+  # explicit length window because the same protein names cover the ~246 aa
+  # radical-SAM activase, which is not a cutC-length decoy.
+  - id: PFLB
+    label: pflB (pyruvate formate-lyase / formate acetyltransferase)
+    gene: pflB
+    source: uniprot
+    query: '((protein_name:"formate acetyltransferase") OR (protein_name:"pyruvate formate-lyase")) AND (taxonomy_id:2) NOT (protein_name:"activating enzyme") NOT (protein_name:"activase")'
+    min_identity: 50.0
+    max_sequences: 3000
+    length_range: [600, 950]
+    note: >-
+      By far the most abundant glycyl-radical enzyme in a gut metagenome, so it
+      is the decoy that does the most work in this panel.
+
+  - id: ISEG
+    label: iseG (isethionate sulfite-lyase) and related glycyl-radical enzymes
+    source: uniprot
+    query: '((protein_name:"isethionate sulfite-lyase") OR (protein_name:"trans-4-hydroxy-L-proline dehydratase") OR (protein_name:"glycerol dehydratase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 2000
+    length_range: [500, 1000]
+    note: >-
+      Additional characterised members of the glycyl-radical enzyme family at
+      cutC-like length. Deliberately *not* the generic "glycyl radical enzyme"
+      name bucket: that bucket contains unannotated sequences which may
+      themselves be genuine cutC, and a decoy set overlapping the target would
+      make best-hit competition arbitrary.
+
+  - id: RIESKE
+    label: Rieske-type non-heme iron oxygenases (cntA family background)
+    source: uniprot
+    query: '((protein_name:"Rieske 2Fe-2S domain-containing protein") OR (protein_name:"3-phenylpropionate dioxygenase") OR (protein_name:"choline monooxygenase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 2000
+    length_range: [300, 460]
+    note: cntA-length background from the same Rieske oxygenase fold.
+
+aggregate: sum
+aggregate_reason: >-
+  cutC and cntA are independent substrate routes to the same metabolite, so the
+  panel total is the summed TMA-producing capacity. Per-gene values are
+  reported separately and are the more interpretable numbers.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+caveats:
+  - >-
+    cutC/cutD synteny — a strong specificity signal in the Rath et al. curated
+    screen — requires assembled contigs and is unavailable in read-level
+    search. The same applies to cntA/cntB.
+  - >-
+    The Rath et al. HMM discrimination cutoffs (bit score 906.4 for cutC,
+    440.6 for cntA) are defined on full-length predicted proteins. A 33-50
+    residue read fragment cannot reach a score in that range regardless of how
+    good the match is, so those cutoffs are not transferable to read-level
+    search and are not applied here. See README, "cutC specificity".
+  - >-
+    Rath et al. published genome and taxonomy lists (1,107 cutC-positive and
+    6,738 cntA-positive genomes) as supplementary tables, but not the protein
+    FASTA itself. Their curated genus list is used as an independent
+    cross-check on the organism attribution rather than as the search database.
+
+interpretation:
+  what_it_is: >-
+    Trimethylamine (TMA), which the liver converts into trimethylamine N-oxide
+    (TMAO).
+  made_from: Dietary choline (eggs, liver, soy) and L-carnitine (red meat)
+  higher_means: adverse
+  evidence_strength: moderate
+  summary: >-
+    TMAO is the most consistently reported gut metabolite association in
+    Alzheimer's disease research. It is elevated in the cerebrospinal fluid of
+    people with Alzheimer's, and dietary TMAO accelerates brain ageing and
+    cognitive decline in mice.
+  cognitive_evidence: >-
+    Vogt et al. found TMAO elevated in the cerebrospinal fluid of people with
+    Alzheimer's disease and mild cognitive impairment, correlating with
+    biomarkers of tau pathology and neuronal damage. TMAO has also been linked
+    to amyloid-beta accumulation, tau aggregation and synaptic damage through
+    mitochondrial impairment. Separately, higher circulating TMAO is
+    associated with cardiovascular disease and newly diagnosed diabetes, both
+    of which raise dementia risk.
+  implications:
+    higher: >-
+      More of your gut bacteria can convert choline and carnitine into TMA,
+      which your liver turns into TMAO. This is the metabolite with the most
+      consistent Alzheimer's association in the literature — elevated in the
+      cerebrospinal fluid of people with the disease, and linked to
+      cardiovascular risk. Dietary choline and L-carnitine are the raw material,
+      which is the practical handle if this matters to you.
+    typical: >-
+      TMAO has the strongest reported cognitive association of any metabolite
+      in this panel, so being unremarkable here is genuinely worth knowing.
+      Dietary choline and L-carnitine are the raw material if this ever
+      becomes relevant.
+    lower: >-
+      Fewer of your gut bacteria can make TMA than in most people. Since higher
+      TMAO is the direction linked to both cardiovascular and cognitive
+      outcomes, low capacity is the favourable direction here.
+  citation: >-
+    Vogt N.M. et al., Alzheimers Res Ther 10:124 (2018),
+    doi:10.1186/s13195-018-0451-2; Buawangpong N. et al., J Cell Physiol
+    237:1661-1685 (2022), doi:10.1002/jcp.30706
+
+citation: >-
+  Rath S., Heidrich B., Pieper D.H., Vital M., "Uncovering the trimethylamine-
+  producing bacteria of the human gut microbiota", Microbiome 5:54 (2017),
+  doi:10.1186/s40168-017-0271-9. TMAO and cognition: Vogt N.M. et al.,
+  Alzheimers Res Ther 10:124 (2018), doi:10.1186/s13195-018-0451-2.

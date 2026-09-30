@@ -1,0 +1,108 @@
+name: indole
+description: >-
+  Indole production from tryptophan by tryptophanase (tnaA). Host sulfation of
+  absorbed indole yields indoxyl sulfate, a uraemic solute.
+metabolite: Indole / indoxyl sulfate
+pathway: L-tryptophan -> indole + pyruvate + ammonia (tnaA)
+
+organisms:
+  - Escherichia coli
+  - Bacteroides ovatus
+  - Parabacteroides distasonis
+  - Clostridium (Paraclostridium) bifermentans
+  - Providencia rettgeri
+
+targets:
+  # The bare "tryptophanase" name query pulls in tryptophan 2,3-dioxygenase
+  # (~298 aa, an unrelated haem enzyme) and the 24-residue tryptophanase
+  # operon leader peptide. Both are excluded by name; the length window then
+  # holds the set at the ~466 aa tnaA median.
+  - id: TNAA
+    label: tnaA (tryptophanase / L-tryptophan indole-lyase)
+    gene: tnaA
+    source: uniprot
+    query: '(protein_name:"tryptophanase") AND (taxonomy_id:2) NOT (protein_name:"dioxygenase") NOT (protein_name:"leader peptide")'
+    min_identity: 60.0
+    max_sequences: 3000
+    length_tolerance: 0.20
+
+decoys:
+  # Tyrosine phenol-lyase is tnaA's closest relative: same fold-type I
+  # PLP-dependent beta-eliminating lyase family, ~456 aa against tnaA's
+  # ~466 aa, and it makes phenol from tyrosine rather than indole from
+  # tryptophan. Without this decoy the tnaA count is not trustworthy.
+  - id: TPL
+    label: tpl (tyrosine phenol-lyase)
+    gene: tpl
+    source: uniprot
+    query: '(protein_name:"tyrosine phenol-lyase") AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 2000
+    length_tolerance: 0.20
+
+  - id: PLPLYASE
+    label: fold-type I PLP-dependent lyase background
+    source: uniprot
+    query: '((protein_name:"cystathionine beta-lyase") OR (protein_name:"cystathionine gamma-lyase") OR (protein_name:"methionine gamma-lyase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 3000
+    length_tolerance: 0.25
+
+aggregate: sum
+aggregate_reason: single target gene
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+caveats:
+  - >-
+    tnaA is common in Enterobacteriaceae and Bacteroidales, so this panel has
+    higher prevalence and lower discriminating power than urda or bai.
+
+interpretation:
+  what_it_is: >-
+    Indole, which the host converts to indoxyl sulfate — a compound that builds
+    up when kidney function is impaired.
+  made_from: Dietary tryptophan
+  higher_means: context-dependent
+  reader_direction: favourable
+  direction_note: >-
+    Indole from tryptophan tightens the gut barrier and signals through the AhR receptor; the exception is advanced kidney disease, where its metabolite indoxyl sulfate accumulates.
+  evidence_strength: limited
+  summary: >-
+    Tryptophan can be routed down several paths, and they do not all point the
+    same way. Indole itself has antioxidant properties, but its host-derived
+    product indoxyl sulfate is a uraemic toxin. Read this panel alongside
+    indole-3-propionate, which is the clearly beneficial branch.
+  cognitive_evidence: >-
+    Microbial tryptophan metabolites influence neuroinflammation and the
+    gut-brain axis, and people with obesity or diabetes show reduced levels of
+    the beneficial indole derivatives. Whether high tryptophanase capacity is
+    good or bad depends on which downstream products dominate, which this test
+    cannot determine. Indoxyl sulfate accumulation is primarily a concern in
+    reduced kidney function.
+  implications:
+    higher: >-
+      More of your gut bacteria can convert tryptophan into indole than in most
+      people. The direction of effect depends on what happens next: indole
+      itself has antioxidant properties, but the compound your body makes from
+      it, indoxyl sulfate, accumulates when kidney function declines. Read this
+      alongside indole-3-propionate, which is the clearly beneficial branch of
+      tryptophan metabolism.
+    typical: >-
+      Tryptophan can be routed down several different paths and this test
+      cannot tell which one dominates, so read this number together with
+      indole-3-propionate below. Your capacity for the indole route itself is
+      unremarkable.
+    lower: >-
+      Less of your tryptophan is likely being routed to indole than in most
+      people. Because tryptophan diverted away from indole may go down other
+      paths — some beneficial, some not — this is not straightforwardly good
+      or bad on its own.
+  citation: >-
+    Roager H.M., Licht T.R., Nat Commun 9:3294 (2018),
+    doi:10.1038/s41467-018-05470-4
+
+citation: >-
+  Roager H.M., Licht T.R., "Microbial tryptophan catabolites in health and
+  disease", Nat Commun 9:3294 (2018), doi:10.1038/s41467-018-05470-4.

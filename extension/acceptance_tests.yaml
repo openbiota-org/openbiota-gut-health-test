@@ -1,0 +1,884 @@
+# The acceptance tests of BUILD_SPEC_v0.8.3 section 15, extracted from the
+# specification's own table and joined to the tests that exercise them.
+#
+# `covered_by` is refreshed from the test files themselves, so it cannot
+# drift: a file that stops naming an ID stops covering it. Anything with
+# no coverage carries a reason, and the count of those is in `summary`
+# rather than left to be discovered by counting.
+
+schema_version: openbiota.acceptance-ledger/1.0
+spec_version: 0.8.3
+tests:
+- id: AT001
+  requirement: With extension off, canonical legacy results equal the captured baseline, excluding
+    explicitly enumerated volatile run metadata.
+  covered_by:
+  - test_preservation.py
+  - test_tinyhealth_concordance.py
+- id: AT002
+  requirement: With extension on, existing numerical outputs and labels remain identical for identical
+    baseline inputs.
+  covered_by:
+  - test_acceptance_v083.py
+  - test_preservation.py
+- id: AT003
+  requirement: Existing disease, GMWI2, donor, strain, pathogen, biofilm, fungal and functional
+    result objects remain unchanged.
+  covered_by:
+  - test_acceptance_v083.py
+  - test_preservation.py
+  - test_tinyhealth_concordance.py
+- id: AT004
+  requirement: New metadata, reference cohorts or feature values cannot silently enter a legacy
+    model's input graph.
+  covered_by:
+  - test_preservation.py
+- id: AT005
+  requirement: Existing numerical content is preserved; authorized functional-title changes, page-3
+    relocation and section-25 insertion match the placement contract.
+  covered_by:
+  - test_placement_contract.py
+  - test_preservation.py
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT006
+  requirement: Existing CLI entrypoints and consumers of legacy `results.json` remain compatible.
+  covered_by:
+  - test_preservation.py
+- id: AT007
+  requirement: Cached mode completes without FASTQs/network downloads and lists the precise unavailable
+    extension analyses.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT008
+  requirement: A new functional database invalidates only dependent extension caches, not unrelated
+    outputs.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT009
+  requirement: Every required A01–A16 feature and every coverage-appendix metric has an implementation
+    mapping and an exercised fixture; an unimplemented placeholder is not marked data-limited.
+  covered_by:
+  - test_acceptance_v083.py
+  - test_extension_schema.py
+- id: AT010
+  requirement: All downloaded assets have actual version, license/source record and verified checksums;
+    no production asset is pinned only to `latest`.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT011
+  requirement: Fragment multi-mapping and paired-end overlap cannot multiply one molecule's total
+    assignment weight beyond its defined allocation.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT012
+  requirement: Protein versus nucleotide length normalization and partial-reference handling produce
+    the documented unit, with depth-doubling invariance on simulated data.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT013
+  requirement: A single generic GH13 hit supports broad amylolysis but does not activate complete
+    resistant-starch utilization.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT014
+  requirement: Inulin/FOS and lactose/GOS can share evidence without duplicated aggregate fragment
+    counts.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT015
+  requirement: All 14 carbohydrate views render, with appropriate complete/partial/no-supported-hit/not-assayed
+    states.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT016
+  requirement: A complete supported alternative B6 route is accepted without requiring the other
+    route; one isolated homolog remains partial.
+  covered_by:
+  - test_extension_schema.py
+- id: AT017
+  requirement: B1/B3/B5/B6 synthesis is separated from salvage/uptake and does not generate host
+    vitamin-deficiency text.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT018
+  requirement: B2/B7/B9/B12/K2 dashboard cells reference unchanged existing result objects.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT019
+  requirement: AMP-forming `acs` alone does not prove acetate production; assimilation, ADP-forming
+    alternatives and Wood–Ljungdahl CODH/ACS remain distinct.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT020
+  requirement: GABA production and degradation have separate IDs, values and evidence; a percentile
+    subtraction cannot be labelled net GABA.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT021
+  requirement: BCAA biosynthesis, amino-acid fermentation and BCFA generation cannot share one
+    biochemical identity.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT022
+  requirement: Community-distributed route genes do not receive `genome_linked` completeness without
+    linkage evidence.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT023
+  requirement: UrdA-positive/urolithin-negative fixture does not activate new urolithin or equol
+    modules.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT024
+  requirement: PQ855390.1-positive fixture supports the specified ucdCFO reaction; a near xanthine-dehydrogenase
+    homolog alone does not.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT025
+  requirement: Equol component aliases resolve by source/strain identity, not gene-name similarity.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT026
+  requirement: Glucosinolate core rule accepts BT2158 plus BT2156 or BT2157, with supporting context;
+    generic hydrolases remain nonspecific.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT027
+  requirement: Mucin enzyme fixtures preserve substrate/linkage specificity and the colonic versus
+    gastric evidence context.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT028
+  requirement: Hydrogen-producing and hydrogen-consuming classes are separate; high hydrogen potential
+    alone is not an adverse score.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT029
+  requirement: Bile transformation routes allow supported alternative chemistry; human percentiles
+    cannot be calibrated from rumen cohorts.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT030
+  requirement: P9 protein/CDS downloads match the specified hashes and coding orientation; Amuc_1831
+    fails the P9 identity fixture.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT031
+  requirement: P9 matches are tested against related proteases; unresolved homologs do not become
+    measured secretion or GLP-1 response.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT032
+  requirement: Historical GBM identifiers retain namespace/version and AND/OR semantics; unresolved
+    mappings cannot silently acquire a current gene identity.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT033
+  requirement: Tryptamine, serotonin, melatonin and receptor-active derivatives remain distinct
+    chemical entities.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT034
+  requirement: Generic `adhE` does not yield a high-alcohol strain name, measured ethanol value
+    or auto-brewery diagnosis.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT035
+  requirement: New reference percentiles are reproducible, participant/study aware and method
+    compatible; raw results remain visible without a reference.
+  covered_by:
+  - test_extension_schema.py
+- id: AT036
+  requirement: A sparse zero-valued reference distinguishes whole-cohort prevalence from positive-carrier
+    percentiles.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT037
+  requirement: For `p=(0.5,0.5)`, new effective Shannon and inverse Simpson both equal 2, and
+    Gini-Simpson equals 0.5.
+  covered_by:
+  - test_extension_ecology.py
+- id: AT038
+  requirement: For `p=(1)`, effective diversity equals 1; empty profiles return unavailable, not
+    fabricated zeros.
+  covered_by:
+  - test_extension_ecology.py
+- id: AT039
+  requirement: New genus/family charts are disjoint within each view and reconcile to their declared
+    denominator.
+  covered_by:
+  - test_extension_ecology.py
+- id: AT040
+  requirement: Zero-denominator ratios are undefined/censored; genus and species ratio definitions
+    are not swapped.
+  covered_by:
+  - test_extension_ecology.py
+- id: AT041
+  requirement: For `A=.2,N=.6,U=.2`, aerotolerant fraction=.25, trait coverage=.8 and MAPI=`ln(1/3)`;
+    `A=0` yields censored MAPI.
+  covered_by:
+  - test_extension_ecology.py
+- id: AT042
+  requirement: Missing or conflicting oxygen phenotypes remain unresolved and reduce reported
+    coverage.
+  covered_by:
+  - test_extension_ecology.py
+- id: AT043
+  requirement: Gut-type assignment uses frozen medoids, feature universe and reference; mixed
+    assignment is allowed and displayed.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT044
+  requirement: HACK-derived output reproduces the published native definition/test data and distinguishes
+    taxon index from sample score.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT045
+  requirement: Same-FASTQ reports from different methods cannot be shown as biological improvement
+    over time.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT046
+  requirement: Identical compositions have Bray–Curtis distance 0; disjoint unit-sum compositions
+    have distance 1.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT047
+  requirement: Two timepoints yield change, not measured resilience; recovery requires displacement
+    above the declared empirical envelope and is shown only at/after the observed peak.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT048
+  requirement: Host-filtered reads without provider counts yield unavailable original host fraction;
+    read/pair denominators cannot mix.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT049
+  requirement: Every taxonomy label in section 16.4 resolves or produces an explicit split/merge/unresolved
+    state; none is silently dropped.
+  covered_by:
+  - test_acceptance_v083.py
+  - test_extension_explorer.py
+- id: AT050
+  requirement: Species/subspecies and alias identities are not double counted; no fixed species-count
+    target creates false detections.
+  covered_by:
+  - test_extension_explorer.py
+- id: AT051
+  requirement: Named-target coverage includes all targets in section 7.2 with actual installed/reference/assay/execution
+    states.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT052
+  requirement: DNA-only input cannot report an assessed negative for the listed RNA viruses.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT053
+  requirement: A species detection does not automatically receive an unobserved toxin, pathotype,
+    commercial probiotic strain or resistance phenotype.
+  covered_by:
+  - test_extension_explorer.py
+- id: AT054
+  requirement: AMR class totals deduplicate alleles, family aliases and parent/child drug categories;
+    ambiguous carriers remain explicit.
+  covered_by:
+  - test_extension_resistance.py
+- id: AT055
+  requirement: New action cards retain animal/ex-vivo/in-vitro evidence visibly; lack of an RCT
+    alone never removes a supported research option.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT056
+  requirement: Combination, formulation, strain and host-species differences prevent unsupported
+    transfer of an intervention claim.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT057
+  requirement: Null/contrary study findings are retained and cannot be converted into positive
+    target-suppression evidence.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT058
+  requirement: A study concentration or animal dose cannot become a human regimen through automatic
+    unit conversion.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT059
+  requirement: Reported allergy/intolerance changes new action prioritization; unknown recorded
+    facts remain distinct from visible effective defaults and are never relabelled as patient-confirmed
+    negatives.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT060
+  requirement: Duplicate food/action items merge with all supported targets and tradeoffs; overlapping
+    targets do not create a clinical net-benefit score.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT061
+  requirement: Imported laboratory values retain identity, method, matrix, date, censoring and
+    original units; supported inputs link to relevant findings/actions and section-25 provenance;
+    DNA proxies cannot occupy measured-analyte fields.
+  covered_by:
+  - test_extension_schema.py
+- id: AT062
+  requirement: With no external labs, section 25 displays “Not supplied”; the report runs with
+    declared context defaults and contains no fabricated normal/zero assay values or repeated
+    empty laboratory charts.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT063
+  requirement: Model scenarios report coverage, assumptions, feasible status and uncertainty,
+    and never modify protected scores.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT064
+  requirement: Missing food-DNA evidence cannot be interpreted as zero dietary intake.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT065
+  requirement: Each new displayed value matches its canonical object across summary, detail, index,
+    HTML, PDF and export.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT066
+  requirement: Existing domain overviews and the complete deeper index cover every supported reading;
+    page-3 contents lists only major overview destinations and is not an exhaustive metric index.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT067
+  requirement: Mobile cards, long taxonomy names, wide evidence tables and printable action lists
+    render without clipping.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT068
+  requirement: PDF bookmarks and internal links reach correct pages; external HTML links have
+    the required target/rel attributes.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT069
+  requirement: New numerical graphics distinguish scale meaning, reference position, evidence
+    coverage and health interpretation without colour alone.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT070
+  requirement: All new claims/actions resolve to embedded source IDs/URLs; source corrections
+    and access restrictions are preserved.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT071
+  requirement: Every A01–A16 output has an explicit existing-section placement or the authorized
+    section-25 context placement; no standalone feature chapters are created from capability IDs.
+  covered_by:
+  - test_extension_schema.py
+- id: AT072
+  requirement: Cover and report sections 10/20 consistently use the new Microbial Functions &
+    Metabolism umbrella; all previous and new functions remain discoverable with unchanged canonical
+    values.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT073
+  requirement: Page 3 contains none of the old content beginning with “Two independent measurements,
+    two reference groups”; that reference explanation, QC and assumptions are present at their
+    specified new destinations.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT074
+  requirement: The complete major-overview contents fits page 3 with readable typography; every
+    row reaches its actual overview in both HTML and PDF, and no detailed-page inventory is included
+    in that table.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT075
+  requirement: Every new reading/detail pair has working detail, Back to overview and Contents
+    links; PDF destinations and HTML keyboard/touch behavior are verified.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT076
+  requirement: Report section 25 is Your Information & Report Context; old section 25 becomes
+    26, old26→27, old27→28 and old28→29, with all references/bookmarks updated.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT077
+  requirement: All influential supplied inputs and assumptions appear in section 25 with effective
+    value, provenance, rationale and consuming result/action; a missing optional input does not
+    block unrelated analyses.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT078
+  requirement: A supplied value replaces its applicable default through declared dependencies;
+    the recorded fact and prior assumption remain distinguishable, and prior reports remain immutable.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT079
+  requirement: The baseline existing-default behavior is preserved; new defaults are versioned
+    and testable, and neither invented diagnoses nor invented numerical laboratory values are
+    used as fallbacks.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT080
+  requirement: A compatible supplied SCFA or other mapped assay appears beside the associated
+    functional result as a separately labelled measurement and links to its section-25 record;
+    no new standalone laboratory chapter appears.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT081
+  requirement: Wrong-participant, incompatible-matrix, conflicting or stale imports cannot silently
+    change another sample's interpretation; their status and any allowed use are explicit.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT082
+  requirement: Context-only versus calculation/interpretation/action use is visible; a record
+    without an implemented consumer is labelled recorded/not used rather than falsely integrated.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT083
+  requirement: Time trends, scenario views, action summaries, strain details and AMR additions
+    stay within their existing domain sections rather than generating a second overview or new
+    top-level feature sections.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT084
+  requirement: New layout regressions are checked on the report with no optional context and with
+    a populated context/lab fixture, including page 3, the expanded functional overviews, section
+    25, mobile layout and final pagination.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT085
+  requirement: Core synbiotic evidence mode works from valid cached findings without a metabolic
+    solver, private cohort or commercial product API.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT086
+  requirement: All SYN001–SYN017 records are ingested or carry a precise incomplete-field state;
+    sources, identities, preparation, comparator and outcome type are preserved.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT087
+  requirement: IVS-1 and BB-12 GOS factorial fixtures retain no demonstrated added combination
+    benefit; component benefits cannot flip the interaction result positive.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT088
+  requirement: Bi-07/XOS preserves its component-only comparators and absence of added strain
+    enrichment; missing arms in other trials remain missing.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT089
+  requirement: PLMB0001 adult evidence cannot map to PBI001 mouse evidence; LAHUC cannot map to
+    DSM14662/L1-92.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT090
+  requirement: A species-only sample detection, a supplier label and high genome ANI cannot independently
+    resolve a commercial probiotic strain.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT091
+  requirement: The DS-01 trial is one 24-strain bundle record with AFU units; it cannot generate
+    24 independently proven pair effects or a personalized allocation claim.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT092
+  requirement: Measured growth-table observations and predicted 3,083-genome utilization entries
+    have distinct evidence types; unknown and tested-negative remain different.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT093
+  requirement: Substrate aliases preserve chain length, mixtures, residual sugars and hydrolysis;
+    intact beta-glucan cannot silently inherit hydrolysate findings.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT094
+  requirement: No-addition, substrate-only and probiotic-only alternatives are retained; fibre-only
+    is allowed to outrank every combination.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT095
+  requirement: A reported allergy or explicit contraindication changes start-here eligibility
+    with a cited reason; the research record remains visible.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT096
+  requirement: Animal, infant, ex-vivo and adult outcomes retain population/model applicability
+    and cannot silently become the same human clinical evidence.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT097
+  requirement: With equal weights and two of three supported goals, goal coverage is 66.666…%;
+    one pair-supported goal is 33.333…%; neither field is labelled efficacy probability.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT098
+  requirement: No goals or all-zero goal weights yield null coverage; negative/nonfinite weights
+    are rejected; contrary evidence is visible and unknown tradeoffs cannot masquerade as measured
+    zero harm.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT099
+  requirement: Ranking is deterministic for identical inputs/policy; preference and goal changes
+    recompute only dependent new actions and record their reasons.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT100
+  requirement: Novel multi-component candidates do not inherit whole-bundle efficacy or sum pairwise
+    effects; dropping components and single-option comparisons are supported.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT101
+  requirement: Probiotic input perturbations preserve total abundance one; .95 plus five .04 additions
+    fails the mass fixture rather than entering production silently.
+  covered_by:
+  - test_extension_simulation.py
+- id: AT102
+  requirement: Model mapping reports retained abundance and threshold losses on the declared bacterial
+    denominator; unmapped organisms are not reassigned to convenient models.
+  covered_by:
+  - test_extension_simulation.py
+- id: AT103
+  requirement: Missing target exchange or nonoptimal solver status returns unavailable with its
+    reason, not zero flux or a successful prediction.
+  covered_by:
+  - test_extension_simulation.py
+- id: AT104
+  requirement: Four-arm values 1,3,4,8 produce pair delta7, over-substrate4, over-probiotic5 and
+    interaction2; missing any arm prevents that contrast.
+  covered_by:
+  - test_acceptance_v083.py
+  - test_extension_lpsolve.py
+  - test_extension_simulation.py
+- id: AT105
+  requirement: Scenario media record added-versus-substituted carbon, exchange IDs and units;
+    model uptake caps cannot become oral doses.
+  covered_by:
+  - test_extension_simulation.py
+- id: AT106
+  requirement: Strict OOXML S5 ingestion succeeds or emits a specific format failure; it cannot
+    accept zero sheets as an empty valid dataset.
+  covered_by:
+  - test_extension_simulation.py
+- id: AT107
+  requirement: The section-11.7 S5 sample reproduces the raw-flux fixture and its fibre-only winner
+    with declared numerical tolerance.
+  covered_by:
+  - test_extension_simulation.py
+- id: AT108
+  requirement: The same sample has maltodextrin first under the separate growth-normalized objective;
+    raw and normalized flux units/order cannot be swapped.
+  covered_by:
+  - test_extension_simulation.py
+- id: AT109
+  requirement: A published-output replay and an actually solved model example have different execution
+    states and provenance; neither is called a measured user outcome.
+  covered_by:
+  - test_extension_simulation.py
+- id: AT110
+  requirement: The 154-input/156-output discrepancy is audited by sample ID; missing inputs and
+    conflicting growth thresholds are not silently repaired with fabricated data.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT111
+  requirement: Predeclared scenario sensitivity displays a range/rank stability, not an empirical
+    confidence interval or treatment-success probability.
+  covered_by:
+  - test_extension_simulation.py
+- id: AT112
+  requirement: The MiRNN adapter accepts its defined culture domain and cannot present arbitrary-patient
+    metagenome input as validated personalization.
+  covered_by:
+  - test_extension_simulation.py
+- id: AT113
+  requirement: Strain/participant/study-aware validation keeps synonyms, repeated participants
+    and technical wells out of both training and held-out sets.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT114
+  requirement: Synbiotic options render inside report15 and mechanism details inside report20
+    with working links; no new top-level section is created.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT115
+  requirement: Every A01–A16 feature exposes separate source/retrieval/registry/reproduction/application
+    readiness; not-implemented is not labelled scientifically unresolvable.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT116
+  requirement: New percentile/model outputs require their actual frozen reference/trained artifact;
+    missing references do not suppress supported raw measurements.
+  covered_by:
+  - test_extension_schema.py
+- id: AT117
+  requirement: F17 protein retrieval matches 624 aa and its normalized sequence hash; the candidate
+    enzyme is not labelled serotonin-specific based only on tryptamine activity.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT118
+  requirement: F17 reference MAG and reconstructed study construct remain distinct; a retrieved
+    homolog cannot become a verified WL68 genome.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT119
+  requirement: The missing ABS author FASTA/metadata are explicitly tracked; an independent ethanol
+    panel cannot claim exact author-panel reproduction.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT120
+  requirement: Source file checksums, conditional access, archive-specific terms and mutable URLs
+    are recorded; an HTTP-success check alone cannot mark an asset installed/validated.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT121
+  requirement: A target-matched controlled culture experiment produces a normal finding-specific
+    candidate without any human study; default report/API retrieval contains it.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT122
+  requirement: Animal, biochemical, ex-vivo, organoid, culture and human fixtures preserve their
+    setting and actual endpoint; no setting is relabelled clinical efficacy.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT123
+  requirement: An unrelated human trial cannot promote or replace a directly target-matched inhibition
+    observation; ranking reasons expose the target/endpoint joins.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT124
+  requirement: A laboratory-supported compound with unknown intestinal exposure remains visible
+    as an option with unresolved exposure, rather than “ineffective” or contraindicated.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT125
+  requirement: An enteric-delivery hypothesis is retained, but cannot become a verified retail
+    preparation or measured colonic concentration without its own evidence.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT126
+  requirement: Pure allicin, standardized garlic preparations, aged garlic extract and garlic
+    oil remain distinct; neither efficacy nor bioavailability is transferred by ingredient-name
+    similarity alone.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT127
+  requirement: Growth inhibition, bacterial killing, prevention of attachment, mature-biofilm
+    biomass, viable-cell reduction and dispersal have separate endpoint fixtures; crystal-violet
+    reduction cannot become eradication.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT128
+  requirement: Existing biofilm scores retrieve related options without claiming physical biofilm
+    quantity was measured or changing the score.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT129
+  requirement: Existing high/low/undetected organism, pathogen, mycobiome, function and symptom
+    findings each have a typed option-lookup record and a working action link.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT130
+  requirement: “Not searched,” failed search, incomplete extraction, no matching record, conflicting
+    evidence and supported options are distinct states; none automatically renders “untreatable.”
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT131
+  requirement: The complete candidate count and expandable list agree with canonical output; the
+    top-three view does not discard additional or preclinical options.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT132
+  requirement: AOR/TO-A and CBM588/MIYAIRI588 records cannot exchange strain-specific efficacy
+    or survival evidence.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT133
+  requirement: A partial 16S accession cannot pass a whole-genome identity check; a manufacturer
+    sequence link is verified for accession type.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT134
+  requirement: Verified T-110/TO-A/TO-A product identities, constituent quantities and lactose
+    carrier remain attached to the correct market-label snapshot; single-component evidence is
+    not a whole-bundle result.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT135
+  requirement: Live recovery during ingestion, sequence detection, washout persistence and human
+    benefit are independent fields; absent permanent engraftment cannot eliminate a supported
+    option.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT136
+  requirement: The exact TO-A culture butyrate edge and animal consortium butyrate edge retain
+    different preparations, hosts and endpoints.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT137
+  requirement: Strain-specific HMO growth positives and tested negatives are preserved; 2′FL/3FL/3′SL/LNT/LNnT
+    cannot collapse to one “HMO selectivity” flag.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT138
+  requirement: A branded HMO product with undisclosed constituent structures cannot inherit a
+    specific purified-HMO experiment; composition uncertainty is displayed without discarding
+    relevant category-level research.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT139
+  requirement: R. gnavus monoculture inability to consume intact starch cannot erase measured
+    cross-feeding via another organism's starch breakdown products.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT140
+  requirement: Glutamine-related genes or generic nitrogen requirements cannot independently label
+    oral glutamine as feeding an undesirable organism or contraindicate it.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT141
+  requirement: Beneficial and unfavorable ecological effects of the same ingredient remain separate
+    context-specific edges, including conflicting berberine directions where documented.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT142
+  requirement: KPV cell/animal observations and BPC-157 preclinical observations remain visible
+    as investigational candidates with actual delivery route; no human efficacy, safety or dosing
+    is fabricated.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT143
+  requirement: Zinc-carnosine and glutamine host-permeability observations do not relabel stool
+    sequence proxies as a direct permeability measurement.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT144
+  requirement: Exact-strain competitive-colonization prevention cannot become clearance of established
+    carriage; challenge timing and antibiotic conditioning are retained.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT145
+  requirement: Positive and null trials for the same exact probiotic/target remain independently
+    retrievable; a favorable-only import fails validation.
+  covered_by:
+  - test_acceptance_v083.py
+- id: AT146
+  requirement: NPASS/ChEMBL/PubChem copies of the same experimental observation count once; independent
+    replication excludes shared-cohort publications and technical replicate wells.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT147
+  requirement: ChEMBL whole-organism target-assignment confidence 1 is not rejected by a protein-target
+    confidence cutoff; database confidence is never displayed as therapeutic efficacy.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT148
+  requirement: MIC values with inequality signs, units, salt forms and media remain intact; no
+    conversion to a human oral dose occurs.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT149
+  requirement: Docking, genome prediction and simulated metabolism are visible as mechanisms/models,
+    never experimentally observed antimicrobial activity.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT150
+  requirement: A supplied allergy/interaction can exclude a candidate from start-here with an
+    explicit reason; unknown patient facts and absent trials cannot do so.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT151
+  requirement: Compound-first and target-first discovery paths operate across all evidence settings;
+    no implicit human-only/RCT filter is present in default queries.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT152
+  requirement: Cached recommendation rendering succeeds offline; source timeouts, changed schemas
+    and access failures produce retrieval errors, not negative evidence.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT153
+  requirement: Every source-derived card resolves to an exact publication/assay locator and supported
+    extraction level; missing concentrations or strain identifiers stay null.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT154
+  requirement: Unknown product availability and experimental delivery are displayed separately
+    from effect evidence; ingredient-level options work without affiliate/retail links.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT155
+  requirement: The version-2 ranker is deterministic; unrelated targets cannot gain rank via favorable
+    studies, and incomplete tradeoff assessment cannot be treated as zero harm.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT156
+  requirement: Unsupported simultaneous combinations do not inherit additive efficacy or synergy;
+    component antagonism and unresolved interactions remain visible.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT157
+  requirement: All embedded new resource/seed rows import with unique local IDs, provenance and
+    explicit unresolved fields; no research-note path is required at runtime or for implementation.
+  covered_by:
+  - test_seed_records_import_cleanly.py
+- id: AT158
+  requirement: An obsolete/unmaintained source is dated and labelled; a guide whose official site
+    is on hold cannot be presented as a current authoritative complete catalogue.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT159
+  requirement: Existing metric values and protected computation fingerprints remain unchanged;
+    recommendation/ranking changes are confined to the authorized new planner and its evidence
+    records.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+- id: AT160
+  requirement: Rendered finding cards show target, preparation, evidence setting, actual effect,
+    delivery and tradeoffs clearly, with all primary links and existing section navigation functioning.
+  covered_by: []
+  reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
+    test names this identifier yet, so it is counted as uncovered rather than claimed.
+summary:
+  n_tests: 160
+  n_covered: 116
+  n_owed: 44

@@ -1,0 +1,272 @@
+name: ra
+version: 1.0.0
+spec_version: 3
+label: "Rheumatoid arthritis — gut pattern"
+disease: rheumatoid_arthritis
+task: ra_vs_healthy
+family: autoimmune
+body_site: stool
+population: mixed_us_chinese_cohorts
+status: research_beta
+evidence_maturity: P3
+
+summary: >-
+  The rheumatoid arthritis finding is strain-level, which is a problem for a
+  species-level pipeline. Scher et al. found Prevotella copri expanded in
+  new-onset untreated RA, and later work showed immune reactivity to specific
+  P. copri peptides in a subset of patients. Since P. copri is also high in
+  healthy people on high-fibre and non-Western diets, species abundance alone
+  cannot carry the finding.
+
+  Three later results constrain this profile further, and are the reason the
+  species feature is an anchor rather than a scored direction.
+
+  First, replication is poor. Several cohorts, including a 2024 preclinical-RA
+  study, could not reproduce group-wise Prevotellaceae or P. copri differences,
+  and attempts to reproduce the anti-P. copri antibody finding returned only
+  modest or null results with reactivity varying by strain.
+
+  Second, the direction is not even consistent within the species. In a
+  comprehensively phenotyped anti-CCP-positive at-risk cohort (2024), three
+  Prevotellaceae strains were enriched and five were depleted in those
+  progressing towards arthritis. A single species-level abundance cannot
+  represent a signal whose components move in opposite directions.
+
+  Third, and decisively for the clade question: Manghi et al. resolved the
+  Segatella (formerly Prevotella) copri complex into 13 species-level clades
+  and tested them against 1,635 disease cases and 1,854 controls across 22
+  studies, including a rheumatoid arthritis cohort. None of the complex's
+  species was associated with any health condition. So there is no established
+  RA clade to score against, even though the clades themselves are now
+  measurable (see `copri_complex` below).
+
+  What remains is this: P. copri expansion is the finding. Where the organism
+  is absent, the profile does not assert the pattern at all — the accessory
+  taxa from Scher's cohort cannot carry it alone.
+
+  Zhang et al. added a Chinese shotgun cohort with oral and gut samples,
+  finding Haemophilus depleted and Lactobacillus salivarius enriched, partly
+  normalised by treatment.
+
+references:
+  primary:
+    source: null
+    note: "Untreated new-onset RA is the informative population; treated RA is confounded by methotrexate and biologics."
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  scher_2013:
+    label: "Scher 2013 new-onset untreated RA (16S, US)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    assay_transport: amplicon_taxon_to_shotgun
+    study_group: scher_2013
+    maturity: P3
+    weight_in_combined: 1.0
+    note: >-
+      44 new-onset untreated RA, 26 chronic treated, 16 psoriatic arthritis,
+      28 controls. P. copri expansion was in the untreated group specifically
+      and inversely related to Bacteroides. The species direction here is
+      kept at low weight because the finding is a strain.
+
+      P. copri is the anchor: this module's claim is "P. copri expanded", and
+      the two Bacteroides features are the taxa that fell as it rose in that
+      cohort. In a sample with no P. copri there is no expansion to resemble,
+      and a depleted Bacteroides species on its own is not this pattern — it
+      is the commonest ordinary variation in a Western gut. Without the anchor
+      this module reported the 79th percentile for a sample with zero
+      Prevotella of any species, on one absent Bacteroides alone.
+    anchor_features: [Prevotella_copri]
+    sources: ["Scher JU, et al. eLife 2013;2:e01202"]
+    features:
+      - name: Prevotella_copri
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.2
+        c: 0.5
+        direction_conflict: material
+        conflict_note: >-
+          Genus Prevotella is on the conflicted list. P. copri at species
+          level is elevated in healthy high-fibre and non-Western
+          populations; only the RA-associated clade carries the finding.
+        mapping_confidence: high
+      - name: Bacteroides_vulgatus
+        level: species
+        direction: lower_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.3
+        c: 0.6
+        mapping_confidence: medium
+      - name: Bacteroides_uniformis
+        level: species
+        direction: lower_in_case
+        w: 0.4
+        q: 0.6
+        s: 0.3
+        c: 0.6
+        mapping_confidence: medium
+
+  scher_2013_strain:
+    label: "RA-associated P. copri clade"
+    type: direction_panel
+    evidence_type: STRAIN
+    claim_level: observed
+    study_group: scher_2013
+    maturity: P3
+    note: >-
+      Pianta et al. found immune reactivity to specific P. copri peptides in a
+      subset of RA patients — a strain- and peptide-level finding, below the
+      resolution of any species abundance. It remains unbound here, and the
+      reason is no longer only technical: there is no clade or strain with an
+      established RA direction to measure against. Manghi et al. tested all 13
+      clades of the complex against 1,635 cases including rheumatoid arthritis
+      and found none associated with any condition, and the anti-P. copri
+      antibody result has replicated only weakly, with reactivity varying by
+      strain.
+
+      What *is* measurable is which clades are present. The extended SGB lane
+      resolves all 13, and the result is reported under `copri_complex` in
+      results.json and in the profile section of the report. So the report can
+      state a definite complex-wide absence, or name the clades present,
+      instead of leaving this as an unresolved species-level reading. It still
+      carries no score, because composition without a published direction is
+      an observation, not evidence of resemblance.
+    sources:
+      - "Pianta A, et al. Arthritis Rheumatol 2017;69:964"
+      - "Tett A, et al. Cell Host Microbe 2019;26:666-679"
+      - "Manghi P, et al. Cell Host Microbe 2023;31:1856-1872"
+    features:
+      - {name: Prevotella_copri_RA_clade, direction: higher_in_case}
+
+  zhang_2015:
+    label: "Zhang 2015 Chinese RA shotgun (gut)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: zhang_2015
+    maturity: P3
+    note: "77 treatment-naive RA, 80 controls plus treated and validation sets; gut, dental and salivary samples."
+    sources: ["Zhang X, et al. Nat Med 2015;21:895-905"]
+    features:
+      - name: Haemophilus_parainfluenzae
+        level: species
+        direction: lower_in_case
+        w: 0.8
+        q: 0.8
+        s: 0.6
+        c: 0.8
+        note: "Depleted in RA at all three body sites, and negatively correlated with autoantibody titres. Opposite to its direction in CD and cirrhosis, which helps specificity."
+      - name: Lactobacillus_salivarius
+        level: species
+        direction: higher_in_case
+        w: 0.8
+        q: 0.8
+        s: 0.5
+        c: 0.8
+        note: "Over-represented in RA, more so in very active disease."
+      - name: Bifidobacterium_dentium
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.6
+      - name: Ruminococcus_lactaris
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.5
+        c: 0.6
+      - name: Clostridium_asparagiforme
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.5
+        c: 0.6
+      - name: Klebsiella_pneumoniae
+        level: species
+        direction: lower_in_case
+        w: 0.4
+        q: 0.5
+        s: 0.4
+        c: 0.5
+        direction_conflict: low
+        conflict_note: "Lower in Zhang's RA gut samples; higher in most other inflammatory cohorts."
+
+  functional:
+    label: "Metabolite gene capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P2
+    note: >-
+      Butyrate promotes Treg differentiation and its producers are depleted
+      in RA (Zhang). Zhang also reported altered redox and iron transport
+      genes; those are not panels here.
+    features:
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        w: 0.8
+        q: 0.7
+        s: 0.2
+        c: 0.7
+
+confounders:
+  - name: Methotrexate and biologics
+    effect: "Treatment partly normalised the RA pattern in Zhang's cohort; treated samples are less informative"
+    handling: "Recorded in the ledger when supplied"
+  - name: Diet and geography
+    effect: "P. copri abundance tracks fibre intake and non-Western diet far more than RA"
+    handling: "population_transportability reported; the species feature is weighted down"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Rheumatoid arthritis is diagnosed clinically with serology (RF,
+    anti-CCP) and imaging. This profile does not diagnose or predict it.
+  - >-
+    The central RA finding is a Prevotella copri strain this pipeline cannot
+    resolve. The species is common in healthy people. The strain module is
+    reported as not computable, and the profile score rests mostly on the
+    Chinese cohort.
+  - >-
+    P. copri is the anchor of the Scher module. Where it is absent, that
+    module reports `anchor_absent` and takes no part in the score: a sample
+    with no Prevotella cannot resemble a Prevotella-expansion signature,
+    however its Bacteroides species happen to fall. In that case the profile
+    score reflects the Chinese cohort alone and should be read as such.
+  - >-
+    The complex's clade composition is resolved separately from the 13-clade
+    SGB catalogue and reported under `copri_complex`. No clade has an
+    established disease direction, so that section is composition only and
+    contributes nothing to the score.
+  - >-
+    Replication of the species-level association is weak. Several cohorts found
+    no group-wise difference, and in an at-risk cohort the strains moved in
+    both directions at once. A high reading here is a weak signal from one
+    Chinese cohort's accessory taxa, not evidence of arthritis risk.
+
+effect_size_note: >-
+  Scher 2013: 44 new-onset untreated RA; P. copri in 75% of NORA vs 21% of
+  controls. Zhang 2015: 77 treatment-naive RA, 80 controls, shotgun.
+
+citation: >-
+  Scher JU, et al. Expansion of intestinal Prevotella copri correlates with
+  enhanced susceptibility to arthritis. eLife 2013;2:e01202; Zhang X, et al.
+  The oral and gut microbiomes are perturbed in rheumatoid arthritis and
+  partly normalized after treatment. Nat Med 2015;21:895-905; Pianta A, et al.
+  Evidence of the immune relevance of Prevotella copri, a gut microbe, in
+  patients with rheumatoid arthritis. Arthritis Rheumatol 2017;69:964.

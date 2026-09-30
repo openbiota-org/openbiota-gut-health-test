@@ -1,0 +1,174 @@
+name: ibs_d
+version: 1.0.0
+spec_version: 3
+label: "IBS with diarrhoea — gut pattern"
+disease: irritable_bowel_syndrome
+task: ibs_d_vs_healthy
+family: ibs
+body_site: stool
+population: mixed_adult_cohorts
+status: experimental
+evidence_maturity: P1
+
+summary: >-
+  Diarrhoea-predominant IBS overlaps with bile acid malabsorption in roughly a
+  quarter to a third of patients, and the community pattern follows: higher
+  secondary bile acid conversion, lower methanogens, and a larger dysbiotic
+  subgroup than IBS-C. The parent IBS pattern is inherited; the bile acid and
+  methanogen directions are the subtype-specific part.
+
+references:
+  primary:
+    source: null
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  jeffery_2020_bam:
+    label: "Jeffery 2020 IBS-D / bile acid malabsorption shotgun"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: jeffery_2020
+    maturity: P2
+    weight_in_combined: 1.0
+    note: >-
+      Shotgun cohort of IBS with and without bile acid malabsorption. Species
+      directions from the diarrhoea-predominant dysbiotic subgroup.
+    sources: ["Jeffery IB, et al. Gastroenterology 2020;158:1016-1028"]
+    features:
+      - name: Methanobrevibacter_smithii
+        level: species
+        direction: lower_in_case
+        w: 0.8
+        q: 0.7
+        s: 0.5
+        c: 0.8
+        note: "Opposite direction to IBS-C, which is what makes the subtypes separable."
+      - name: Bacteroides_vulgatus
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.6
+        s: 0.3
+        c: 0.6
+      - name: Ruminococcus_gnavus
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.6
+        s: 0.2
+        c: 0.6
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.6
+        s: 0.2
+        c: 0.7
+      - name: Eubacterium_rectale
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.5
+        q: 0.6
+        s: 0.2
+        c: 0.7
+
+  mars_2020:
+    label: "Mars 2020 longitudinal IBS-D shotgun"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: mars_2020
+    maturity: P2
+    sources: ["Mars RAT, et al. Cell 2020;182:1460-1473"]
+    features:
+      - name: Bacteroides_fragilis
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.3
+        c: 0.6
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.5
+        q: 0.6
+        s: 0.3
+        c: 0.7
+
+  bile_acid_capacity:
+    label: "Secondary bile acid conversion capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P2
+    note: >-
+      Deoxycholic and chenodeoxycholic acid are secretagogues; excess
+      secondary bile acid in the colon drives diarrhoea. Elevated bai
+      capacity is the gene-level correlate of the bile acid malabsorption
+      phenotype. Tryptamine accelerates transit via intestinal 5-HT4
+      receptors and is a second mechanism lane. Methane capacity should run
+      low with the methanogen feature.
+    sources:
+      - "Jeffery 2020 Gastroenterology"
+      - "Bhattarai Y, et al. Cell Host Microbe 2018;23:775"
+    features:
+      - name: bai
+        engine: diamond
+        direction: increased
+        w: 1.0
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: bsh
+        engine: diamond
+        direction: increased
+        w: 0.5
+        q: 0.6
+        s: 0.2
+        c: 0.5
+      - name: tryptamine
+        engine: diamond
+        direction: increased
+        w: 0.5
+        q: 0.5
+        s: 0.4
+        c: 0.5
+      - name: methane
+        engine: diamond
+        direction: decreased
+        w: 0.6
+        q: 0.6
+        s: 0.5
+        c: 0.7
+
+cross_engine_checks:
+  - taxonomic_feature: Methanobrevibacter_smithii
+    functional_feature: methane
+    expect: concordant
+    on_disagreement: downgrade_confidence
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    IBS subtypes are defined by stool form, not stool DNA. Bile acid
+    malabsorption is diagnosed with SeHCAT retention or serum C4, not with a
+    gene count.
+  - >-
+    Recent gastroenteritis, antibiotics, and any cause of diarrhoea reproduce
+    this pattern. It is not specific to IBS-D.
+
+citation: >-
+  Jeffery IB, et al. Gastroenterology 2020;158:1016-1028; Mars RAT, et al. Cell
+  2020;182:1460-1473; Bhattarai Y, et al. Cell Host Microbe 2018;23:775.

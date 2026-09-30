@@ -1,0 +1,132 @@
+name: mucinlps
+description: >-
+  Enzymes for foraging mucin glycans, and the lipid A machinery behind the
+  endotoxin structure. Mucin foraging is physiological; capacity is not an
+  image of an eroded barrier.
+metabolite: Mucin glycans and lipid A
+pathway: >-
+  mucin glycan -> sialidase, fucosidase and sulfatase -> released sugars;
+  separately, lipid A biosynthesis and its modifications
+category: detox
+
+extension: true
+
+targets:
+  - id: NANH
+    label: nanH (exo-alpha-sialidase)
+    gene: nanH
+    source: uniprot
+    query: '(protein_name:"Exo-alpha-sialidase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: FUCA
+    label: fucA (alpha-L-fucosidase)
+    gene: fucA
+    source: uniprot
+    query: '(protein_name:"Alpha-L-fucosidase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: SULF
+    label: sulfatase
+    gene: sulf
+    source: uniprot
+    query: '(protein_name:"Arylsulfatase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: LPXA
+    label: lpxA (UDP-GlcNAc acyltransferase)
+    gene: lpxA
+    source: uniprot
+    query: '(protein_name:"UDP-N-acetylglucosamine acyltransferase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: LPXC
+    label: lpxC (UDP-3-O-acyl-GlcNAc deacetylase)
+    gene: lpxC
+    source: uniprot
+    query: '(protein_name:"UDP-3-O-acyl-N-acetylglucosamine deacetylase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: LPXL
+    label: lpxL (lauroyl acyltransferase)
+    gene: lpxL
+    source: uniprot
+    query: '(protein_name:"Lipid A biosynthesis lauroyl acyltransferase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 2588
+    length_tolerance: 0.3
+
+  - id: HDHA
+    label: hdhA (7-alpha-hydroxysteroid dehydrogenase)
+    gene: hdhA
+    source: uniprot
+    query: '(protein_name:"7-alpha-hydroxysteroid dehydrogenase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 766
+    length_tolerance: 0.3
+
+aggregate: sum
+aggregate_from: [NANH, FUCA, LPXA]
+aggregate_reason: >-
+  Two mucin-foraging enzymes and one lipid A marker. They are summed only
+  as a breadth measure; the mucin and lipid A readings are judged
+  separately because they answer unrelated questions.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+expected_copies_per_genome: 2
+
+citation: >-
+  Tailford L.E. et al., "Mucin glycan foraging in the human gut
+  microbiome", Front Genet 6:81 (2015), doi:10.3389/fgene.2015.00081.
+
+interpretation:
+  what_it_is: >-
+    Capacity to forage the mucus layer's sugars, and to build the lipid A
+    core of endotoxin.
+  made_from: >-
+    Host mucin glycans; bacterial outer-membrane biosynthesis
+  summary: >-
+    Mucin foraging is a normal part of how a gut community makes its
+    living. These genes do not resolve an endotoxin structure or measure
+    barrier damage.
+  evidence_detail: >-
+    Mucin-foraging organisms are ordinary residents and the mucus layer is
+    continuously renewed, so carrying these enzymes is physiological
+    rather than damaging; the question of barrier integrity needs a
+    measurement this test does not make. For lipid A, the immune effect
+    depends on how many acyl chains the finished molecule carries, and one
+    modification gene does not resolve that structure. Total Gram-negative
+    abundance resolves it even less. Where the structure cannot be
+    determined the gene evidence is shown with its uncertainty rather than
+    converted into an endotoxin figure.
+  higher_means: context-dependent
+  evidence_strength: limited
+  implications:
+    higher: >-
+      More mucin-foraging and lipid A capacity than most samples.
+      Foraging capacity is not barrier damage, and lipid A genes are not
+      an endotoxin level.
+    typical: >-
+      Mid-range capacity for mucin foraging and lipid A synthesis, which
+      is the usual finding. Mucin-foraging organisms are ordinary
+      residents of a healthy gut and this is not a measure of barrier
+      damage.
+    lower: >-
+      Less mucin-foraging and lipid A capacity than most samples carry.
+      Mucin foragers are ordinary residents, so a lower reading here is
+      a description of your community rather than a sign of a healthier
+      barrier.
+  citation: >-
+    Tailford L.E. et al., "Mucin glycan foraging in the human gut
+    microbiome", Front Genet 6:81 (2015), doi:10.3389/fgene.2015.00081.

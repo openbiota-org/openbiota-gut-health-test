@@ -1,0 +1,136 @@
+name: ipa
+description: >-
+  Indole-3-propionate (IPA) production by the reductive tryptophan pathway of
+  Clostridium sporogenes and relatives: fldH reduces indole-3-pyruvate to
+  indole-3-lactate, and the fldBC dehydratase with its fldI activator carries
+  it to indole-3-acrylate and then IPA.
+metabolite: Indole-3-propionate (IPA)
+pathway: >-
+  L-tryptophan -> indole-3-pyruvate -> indole-3-lactate (fldH) ->
+  indole-3-acrylyl-CoA (fldBC) -> indole-3-propionate
+
+organisms:
+  - Clostridium sporogenes
+  - Clostridium botulinum (non-toxigenic relatives)
+  - Peptostreptococcus anaerobius
+  - Peptostreptococcus russellii
+  - Clostridium cadaveris
+
+targets:
+  - id: FLDBC
+    label: fldB/fldC (phenyllactate dehydratase subunits)
+    gene: fldBC
+    source: uniprot
+    query: '(protein_name:"phenyllactate dehydratase") AND (taxonomy_id:2) NOT (protein_name:"activator")'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.25
+
+  - id: FLDH
+    label: fldH ((R)-phenyllactate dehydrogenase)
+    gene: fldH
+    source: uniprot
+    query: '((gene:fldH) OR (protein_name:"phenyllactate dehydrogenase")) AND (taxonomy_id:2)'
+    # High floor: fldH belongs to the D-isomer-specific 2-hydroxyacid
+    # dehydrogenase family, which includes the near-universal D-lactate
+    # dehydrogenases. Without a high threshold plus the ldhD decoy below, this
+    # entry would report the D-LDH content of the sample.
+    min_identity: 70.0
+    max_sequences: 2000
+    length_tolerance: 0.25
+    note: Low-specificity target; interpret only alongside FLDBC.
+
+decoys:
+  - id: LDHD
+    label: D-lactate dehydrogenase / 2-hydroxyacid dehydrogenase background
+    source: uniprot
+    query: '((protein_name:"D-lactate dehydrogenase") OR (protein_name:"D-2-hydroxyacid dehydrogenase") OR (protein_name:"glyoxylate reductase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 3000
+    length_tolerance: 0.25
+
+  - id: HADEHYD
+    label: 2-hydroxyacyl-CoA dehydratase background (fldBC fold)
+    source: uniprot
+    query: '((protein_name:"2-hydroxyacyl-CoA dehydratase") OR (protein_name:"lactoyl-CoA dehydratase") OR (protein_name:"(R)-2-hydroxyisocaproyl-CoA dehydratase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 2000
+    length_tolerance: 0.30
+
+# fldBC and fldH act in series in one pathway, so the median is the pathway
+# estimate; the sum would double-count and the pathway is only complete if
+# both are present.
+aggregate: median
+aggregate_from: [FLDBC]
+aggregate_reason: >-
+  fldBC only. It is the committed dehydratase step, it sits at one copy per
+  positive genome, and its reference set is large enough to distinguish
+  carriage from fold-level similarity. fldH is reported separately and kept
+  out of the headline because it shares a fold with the near-universal
+  D-lactate dehydrogenases and cannot be separated from them at read level.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+caveats:
+  - >-
+    fldH shares a fold with the near-universal D-lactate dehydrogenases. Treat
+    a high FLDH value with a low FLDBC value as a specificity failure of FLDH,
+    not as evidence of IPA production.
+  - >-
+    The fld pathway is confined to a narrow group of Clostridia, so like `bai`
+    this panel routinely lands in the statistically unstable range.
+  - >-
+    FLDH is reference-limited (~30 sequences) and in testing accepted fragments
+    at only ~73% mean identity, which is distant-homolog capture from the
+    D-2-hydroxyacid dehydrogenase fold rather than carriage. FLDBC, with a
+    larger reference set, reached ~97% mean identity on the same sample. Where
+    the two disagree, believe FLDBC.
+
+interpretation:
+  what_it_is: >-
+    Indole-3-propionate (IPA), one of the more strongly neuroprotective gut
+    metabolites described so far.
+  made_from: Dietary tryptophan, via a reductive pathway in a narrow group of bacteria
+  higher_means: favourable
+  evidence_strength: moderate
+  summary: >-
+    IPA crosses into the brain, where it neutralises hydroxyl radicals, reduces
+    DNA damage, calms inflammatory activity in astrocytes and microglia, and
+    interferes with the formation of amyloid-beta fibrils. It is reduced in
+    people with obesity and diabetes.
+  cognitive_evidence: >-
+    After absorption from the intestine, IPA transits to the brain where it
+    neutralises hydroxyl radicals, decreases DNA damage, alleviates
+    neuroinflammation by inhibiting astrocytes and microglia, and hinders the
+    formation of amyloid-beta fibrils. Clinical studies show significantly
+    reduced indole metabolites, including IPA, in people who are obese or
+    diabetic, tracking with gut dysbiosis.
+  implications:
+    higher: >-
+      Your gut has more indole-3-propionate capacity than most people, which is
+      the favourable direction. IPA crosses into the brain, where it neutralises
+      hydroxyl radicals, reduces DNA damage, calms inflammatory activity in
+      astrocytes and microglia, and interferes with the formation of
+      amyloid-beta fibrils. It is reduced in people with obesity and diabetes,
+      so having plenty of capacity is a good sign.
+    typical: >-
+      The bacteria that make indole-3-propionate are a narrow group, so this
+      pathway sits at low absolute numbers in almost everyone, and yours is in
+      the usual range. IPA is among the more clearly neuroprotective gut
+      metabolites described so far.
+    lower: >-
+      Your gut has less indole-3-propionate capacity than most people, which is
+      the less favourable direction. IPA is among the more clearly
+      neuroprotective gut metabolites described so far, and reduced indole
+      metabolites are reported in people with obesity and diabetes.
+  citation: >-
+    Pappolla M.A. et al., Neurobiol Dis 156:105403 (2021),
+    doi:10.1016/j.nbd.2021.105403; Dodd D. et al., Nature 551:648-652 (2017),
+    doi:10.1038/nature24661
+
+citation: >-
+  Dodd D. et al., "A gut bacterial pathway metabolizes aromatic amino acids
+  into nine circulating metabolites", Nature 551:648-652 (2017),
+  doi:10.1038/nature24661. IPA neuroprotection: Pappolla M.A. et al.,
+  Neurobiol Dis 156:105403 (2021), doi:10.1016/j.nbd.2021.105403.

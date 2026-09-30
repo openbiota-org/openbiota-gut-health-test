@@ -1,0 +1,40 @@
+{
+  "source_id": "hrom",
+  "files": {
+    "supplements/hrom/HROM-Species-metadata.tsv": {
+      "url": "https://www.decodebiome.org/HROM/data/genome_catalog/HROM-Species-metadata.tsv",
+      "size": 1934321,
+      "retrieved_at": "2026-09-26T23:13:26-07:00",
+      "sha256": "8070364f94b3420cbf9d2d18bacfb30cb5f3145d7792fe8bce0204fe60fbf080",
+      "verified": true,
+      "publisher_checksum": null,
+      "note": "",
+      "verification": "size matched Content-Length; no publisher checksum published"
+    },
+    "supplements/hrom/HROM_Conspecific-genomes-metadata.tsv": {
+      "url": "https://www.decodebiome.org/HROM/data/genome_catalog/HROM_Conspecific-genomes-metadata.tsv",
+      "size": 23804527,
+      "retrieved_at": "2026-09-26T23:13:33-07:00",
+      "sha256": "370abbc697fa8a853e691cb431401e890ab6288b9ac35d5fd24dcd528191b10e",
+      "verified": true,
+      "publisher_checksum": null,
+      "note": "",
+      "verification": "size matched Content-Length; no publisher checksum published"
+    },
+    "supplements/hrom/README.txt": {
+      "url": "https://www.decodebiome.org/HROM/data/genome_catalog/README.txt",
+      "size": 973,
+      "retrieved_at": "2026-09-26T23:13:36-07:00",
+      "sha256": "65418132dca86b4a682c00be3304e8ff708bbcc87a810cf965be0a8a3c580319",
+      "verified": true,
+      "publisher_checksum": null,
+      "note": "",
+      "verification": "size matched Content-Length; no publisher checksum published"
+    }
+  },
+  "release_id": "HROM",
+  "taxonomy_release": "",
+  "license": "see file",
+  "count_unit": "",
+  "source_count": null
+}

@@ -1,0 +1,1964 @@
+# The embedded research register of BUILD_SPEC_v0.8.3 section 15.
+#
+# Every claim and every action in the extension resolves to one of these IDs.
+# Generated from the specification so URLs, DOIs, accessions and checksums
+# cannot be mistyped; the licence, restriction and caution fields carry the
+# specification's own wording, because a paraphrased licence is how an
+# academic-noncommercial binary ends up as a production dependency.
+#
+# `readiness` starts at source_identified only. A reachable URL is not an
+# installed, validated database (section 15.6), so retrievable/bytes_verified
+# are set by the asset verifier after it has actually fetched and hashed the
+# bytes - never by hand.
+
+schema_version: openbiota.source-register/1.0
+spec_version: 0.8.3
+
+schema_version: openbiota.source-register/1.0
+spec_version: 0.8.3
+functional:
+- id: F01
+  note: 'dbCAN3 original methods: https://pmc.ncbi.nlm.nih.gov/articles/PMC10320055/; DOI 10.1093/nar/gkad328.'
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC10320055/
+  dois:
+  - 10.1093/nar/gkad328
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F02
+  note: 'dbCAN-seq CGC/PUL substrate expansion: https://pmc.ncbi.nlm.nih.gov/articles/PMC9825555/.'
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC9825555/
+  dois: []
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F03
+  note: 'official V5 code: https://github.com/bcb-unl/run_dbcan; GPL-3.0 code.'
+  urls:
+  - https://github.com/bcb-unl/run_dbcan
+  dois: []
+  accessions: []
+  licence:
+  - GPL-3.0
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F04
+  note: 'exact database documentation: https://run-dbcan.readthedocs.io/en/latest/getting_started/database_description.html;
+    substrate rules https://run-dbcan.readthedocs.io/en/latest/user_guide/predict_CGC_substrate.html .'
+  urls:
+  - https://run-dbcan.readthedocs.io/en/latest/getting_started/database_description.html
+  - https://run-dbcan.readthedocs.io/en/latest/user_guide/predict_CGC_substrate.html
+  dois: []
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F05
+  note: 'open data distribution: https://registry.opendata.aws/run_dbcan/; declares no restrictions on use of data;
+    https://pro.unl.edu/dbCAN2/ latest HMM release. Optional SignalP6/DeepTMHMM binaries are not bundled and have
+    separate installation/license terms.'
+  urls:
+  - https://pro.unl.edu/dbCAN2/
+  - https://registry.opendata.aws/run_dbcan/
+  dois: []
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F06
+  note: 'Magnúsdóttir et al., Systematic genome assessment of B-vitamin biosynthesis (2015): https://pmc.ncbi.nlm.nih.gov/articles/PMC4403557/;
+    DOI 10.3389/fgene.2015.00148. Curated eight-vitamin reconstructions across 256 gut bacteria.'
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC4403557/
+  dois:
+  - 10.3389/fgene.2015.00148
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F07
+  note: 'Rodionov et al., Micronutrient Requirements and Sharing Capabilities of the Human Gut Microbiome (2019):
+    https://pmc.ncbi.nlm.nih.gov/articles/PMC6593275/. Curated biosynthesis/salvage/uptake for B1/B2/B3/B5/B6/B7/B9/B12
+    and queuosine over 2,228 genomes, 690 cultured species; supplementary pathway/gene matrices are the import source.
+    These genome phenotype priors support validation; read evidence still determines individual sample output.'
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC6593275/
+  dois: []
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F08
+  note: 'Vital et al. butyrate pathways: https://pmc.ncbi.nlm.nih.gov/articles/PMC3994512/; DOI 10.1128/mBio.00889-14.
+    Four alternative upstream pathways (acetyl-CoA, glutarate, lysine, 4-aminobutyrate) and different terminal enzymes.
+    Use published sequences and functional assignments, not but alone for all capacity.'
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC3994512/
+  dois:
+  - 10.1128/mBio.00889-14
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F09
+  note: 'Reichardt et al. propionate pathways: https://pmc.ncbi.nlm.nih.gov/articles/PMC4030238/; DOI 10.1038/ismej.2014.14.
+    Succinate, acrylate and propanediol routes; diagnostic candidates mmdA, lcdA, pduP need pathway context and
+    near-homolog discrimination. Existing propionate output remains untouched; new pathway breakdown makes the chemistry
+    clear.'
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC4030238/
+  dois:
+  - 10.1038/ismej.2014.14
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F10
+  note: 'Dodd et al. aromatic routes (2017): https://www.nature.com/articles/nature24661. Genetics establishes a
+    shared aromatic reductive pathway; FldABC/FldH/FldI/AcdA evidence must not be called IPA-exclusive without substrate
+    context.'
+  urls:
+  - https://www.nature.com/articles/nature24661
+  dois: []
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F11
+  note: 'Liu et al. Stickland metabolism (2022): https://www.nature.com/articles/s41564-022-01109-9; PMC9089323.
+    Pathway and knockout data distinguish fermentation from de novo biosynthesis.'
+  urls:
+  - https://www.nature.com/articles/s41564-022-01109-9
+  dois: []
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F12
+  note: 'Phenylacetate/PAGln microbial versus host steps: https://pmc.ncbi.nlm.nih.gov/articles/PMC9839529/. PorA/PPFOR
+    pathways produce microbial precursors; host conjugation creates PAGln. Report precursor capacity, not circulating
+    PAGln.'
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC9839529/
+  dois: []
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F13
+  note: 'p-cresol hpdBCA experimentally tested: https://pmc.ncbi.nlm.nih.gov/articles/PMC7925072/; DOI 10.1128/JB.00282-20.
+    Substrate-driven expression important. New 2026 upstream route: https://pmc.ncbi.nlm.nih.gov/articles/PMC13285125/
+    adds tyrosine→HPA biochemistry; preserve HpdBCA versus generic decarboxylases.'
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC13285125/
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC7925072/
+  dois:
+  - 10.1128/JB.00282-20
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F14
+  note: 'Multiple substrate sources of TMA: https://pmc.ncbi.nlm.nih.gov/articles/PMC8364193/; https://www.nature.com/articles/s41564-021-01010-x
+    . Add anaerobic gamma-butyrobetaine bbu/gbu route details as aliases with validated exact accession mappings,
+    and split oxygen-dependent CntAB from anaerobic route. TMAO is host-converted; no stool gene measure of serum
+    TMAO.'
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC8364193/
+  - https://www.nature.com/articles/s41564-021-01010-x
+  dois: []
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F15
+  note: 'Valles-Colomer et al. 2019 GBMs: https://www.nature.com/articles/s41564-018-0337-x; https://raeslab.org/software/gbms.html
+    .'
+  urls:
+  - https://raeslab.org/software/gbms.html
+  - https://www.nature.com/articles/s41564-018-0337-x
+  dois: []
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F16
+  note: https://github.com/omixer/omixer-rpmR , commit 184f1cc99aefed722e20eb00eda082348a064c4e; files inst/extdata/GBMs.v1.0.names
+    and GBMs.v1.0.txt. README wrapper GPL3, bundled omixer-rpm.jar academic noncommercial . Do not redistribute
+    under blanket open commercial claim.
+  urls:
+  - https://github.com/omixer/omixer-rpmR
+  dois: []
+  accessions: []
+  licence:
+  - GPL-3.0
+  access_restrictions:
+  - noncommercial
+  code_commit:
+  - 184f1cc99aefed722e20eb00eda082348a064c4e
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F17
+  note: 'Moretti 2025, DOI https://doi.org/10.1016/j.celrep.2025.116434 ; full primary text https://pub.epsilon.slu.se/38878/1/moretti-c-h-et-al-20251117.pdf
+    . The original Ls consortium supports 5-HTP→serotonin; isolated L. ruminis WL43/L. mucosae WL68 and reconstituted
+    cultures are not interchangeable with it. Raw project PRJEB96399 has 211 public FASTQ run records at source
+    verification. Candidate protein WP_407418999.1 is currently retrievable despite the paper''s removed-record
+    warning: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&id=WP_407418999.1&rettype=fasta&retmode=text
+    . Its 624-aa uppercase unwrapped sequence SHA256 is 3b161781132370598a9462d8d0573589ca4c72d5ee04bbb8c88cb3bab9ffcf62.
+    Reference contig NZ_JAZOPK010000041.1, assembly GCF_045655505.1, BioSample SAMN37894531, belongs to a reference
+    MAG, not a deposited WL68 isolate. The reconstructed study CDS was 1,875 bp with a 60-bp reference-derived gap
+    fill; the exact study construct remains to be resolved. Purified-enzyme evidence uses tryptophan and produces
+    tryptamine; serotonin-specific activity is not established by that assay. Preserve candidate-enzyme versus consortium
+    evidence. Human clinical metadata are request/approval-dependent. Do not invent a validated serotonin marker.'
+  urls:
+  - https://doi.org/10.1016/j.celrep.2025.116434
+  - https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&id=WP_407418999.1&rettype=fasta&retmode=text
+  - https://pub.epsilon.slu.se/38878/1/moretti-c-h-et-al-20251117.pdf
+  dois:
+  - 10.1016/j.celrep.2025.116434
+  accessions:
+  - GCF_045655505.1
+  - PRJEB96399
+  - SAMN37894531
+  - WP_407418999.1
+  access_restrictions:
+  - request/approval
+  sha256:
+  - 3b161781132370598a9462d8d0573589ca4c72d5ee04bbb8c88cb3bab9ffcf62
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F18
+  note: 'Tingler et al. (online Dec 2025 / issue Feb 2026): https://pmc.ncbi.nlm.nih.gov/articles/PMC12860712/;
+    DOI 10.1016/j.isci.2025.114424. In vitro eight-commensal panel produced diverse compounds, but none made serotonin
+    or norepinephrine under tested conditions. Context and strain specificity matter; broad microbial neurotransmitter
+    marketing is not a calibrated test.'
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC12860712/
+  dois:
+  - 10.1016/j.isci.2025.114424
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F19
+  note: 'Pidgeon et al. (2025): https://www.nature.com/articles/s41467-025-56266-2; experimentally validated ucdCFO
+    and public operon sequence. DNA prevalent but expression determines ex vivo conversion.'
+  urls:
+  - https://www.nature.com/articles/s41467-025-56266-2
+  dois: []
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F20
+  note: 'additional independent 2025 urolithin enzymes: https://www.pnas.org/doi/10.1073/pnas.2501312122; novel
+    regioselective pathways https://pmc.ncbi.nlm.nih.gov/articles/PMC12658268/. Import only validated sequences
+    and distinguish molecular products.'
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC12658268/
+  - https://www.pnas.org/doi/10.1073/pnas.2501312122
+  dois:
+  - 10.1073/pnas.2501312122
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F21
+  note: 'equol purified enzymes: https://pubmed.ncbi.nlm.nih.gov/22286043/; https://journals.asm.org/doi/10.1128/aem.00410-12;
+    Transcript/cluster support https://pmc.ncbi.nlm.nih.gov/articles/PMC6566806/.'
+  urls:
+  - https://journals.asm.org/doi/10.1128/aem.00410-12
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC6566806/
+  - https://pubmed.ncbi.nlm.nih.gov/22286043/
+  dois:
+  - 10.1128/aem.00410-12
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F22
+  note: 'UrdA near-homolog discrimination: https://www.nature.com/articles/s41467-021-21548-y; https://pmc.ncbi.nlm.nih.gov/articles/PMC7676231/.
+    Align reference numbering: published position 373 Y/M vs H distinguishes supported UrdA from fumarate reductase
+    homologs; a raw read offset 373 is invalid. Incomplete coverage of distinguishing residues means unresolved
+    specificity.'
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC7676231/
+  - https://www.nature.com/articles/s41467-021-21548-y
+  dois: []
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F23
+  note: 'Liou et al. (2020), A Metabolic Pathway for Activation of Dietary Glucosinolates by a Human Gut Symbiont:
+    https://pubmed.ncbi.nlm.nih.gov/32084341/; primary https://www.sciencedirect.com/science/article/pii/S0092867420301045.
+    Genetic transfer, knockout, enzyme and mouse assays.'
+  urls:
+  - https://pubmed.ncbi.nlm.nih.gov/32084341/
+  - https://www.sciencedirect.com/science/article/pii/S0092867420301045
+  dois: []
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F24
+  note: 'Welsh et al. (2025): https://www.nature.com/articles/s41564-025-02154-w; Group B [FeFe]-hydrogenase dominates
+    healthy gut H2 production; study uses HydDB, DIAMOND, identity/length filters and 14 single-copy ribosomal markers
+    for genome-equivalent normalization. Data PRJEB45397, PRJEB70412. High H2 potential is not automatically bad.'
+  urls:
+  - https://www.nature.com/articles/s41564-025-02154-w
+  dois: []
+  accessions:
+  - PRJEB45397
+  - PRJEB70412
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F25
+  note: HydDB current official repository https://github.com/GreeningLab/HydDB; old Aarhus site unmaintained. Pin
+    HMMs, sequence classifier and citation separately; missing explicit license in repository landing page requires
+    verify before bundling, not before using published biochemical facts.
+  urls:
+  - https://github.com/GreeningLab/HydDB
+  dois: []
+  accessions: []
+  access_restrictions:
+  - requires verify
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F26
+  note: 'taurine/isethionate sulfide route: https://pmc.ncbi.nlm.nih.gov/articles/PMC6386719/ , IslA plus cognate
+    activase IslB and sulfite reduction, not generic GRE or Bilophila abundance. Sulfoacetate route SauCD/SauS/TauF:
+    https://pmc.ncbi.nlm.nih.gov/articles/PMC10413351/. B. wadsworthia is sulfite-reducing; do not call it a sulfate
+    reducer from genus identity.'
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC10413351/
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC6386719/
+  dois: []
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F27
+  note: 'cysteine sulfide mechanisms: https://pubmed.ncbi.nlm.nih.gov/34745023/; curated primary/secondary/erroneous
+    enzymes across UHGG. Gene specificity and culture context must be retained. Stool potential cannot replace breath
+    tests or diagnose SIBO/intestinal methanogen overgrowth.'
+  urls:
+  - https://pubmed.ncbi.nlm.nih.gov/34745023/
+  dois: []
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F28
+  note: 'Liu et al. (2023): https://pmc.ncbi.nlm.nih.gov/articles/PMC10421625/; DOI 10.1016/j.cell.2023.06.010;
+    data PRJNA850627, paper Data S1 gut contigs.'
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC10421625/
+  dois:
+  - 10.1016/j.cell.2023.06.010
+  accessions:
+  - PRJNA850627
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F29
+  note: 'Kasahara et al. (2023): https://pmc.ncbi.nlm.nih.gov/articles/PMC10311284/; data PRJNA904303, PRJNA911264,
+    PRJNA903666, controlled human EGAS00001004480.'
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC10311284/
+  dois: []
+  accessions:
+  - EGAS00001004480
+  - PRJNA903666
+  - PRJNA904303
+  - PRJNA911264
+  access_restrictions:
+  - controlled
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F30
+  note: 'CAPA spermidine route: https://pmc.ncbi.nlm.nih.gov/articles/PMC10599626/; DOI 10.1126/sciadv.adj9075.'
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC10599626/
+  dois:
+  - 10.1126/sciadv.adj9075
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F31
+  note: '2025 polyamine stable-isotope/multi-omics: https://pmc.ncbi.nlm.nih.gov/articles/PMC11812404/; public validation
+    can use IBDMDB metatranscriptome/metabolome.'
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC11812404/
+  dois: []
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F32
+  note: '2026 E. rectale glutathione: https://link.springer.com/article/10.1186/s40168-026-02457-y; canonical fusion
+    enzyme biochemical primary https://pmc.ncbi.nlm.nih.gov/articles/PMC1112035/.'
+  urls:
+  - https://link.springer.com/article/10.1186/s40168-026-02457-y
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC1112035/
+  dois:
+  - 10.1186/s40168-026-02457-y
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F33
+  note: 'bai pathway biochemical reconstitution: https://www.nature.com/articles/s41586-020-2396-4; (six required
+    catalytic enzymes for CA→DCA; transporter/context tracked separately).'
+  urls:
+  - https://www.nature.com/articles/s41586-020-2396-4
+  dois: []
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F34
+  note: 'BSH is dual hydrolase/acyltransferase, two independent 2024 Nature papers: https://www.nature.com/articles/s41586-023-06990-w
+    and https://www.nature.com/articles/s41586-024-07017-8;'
+  urls:
+  - https://www.nature.com/articles/s41586-023-06990-w
+  - https://www.nature.com/articles/s41586-024-07017-8
+  dois: []
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F35
+  note: '2026 direct conjugated-BA transformation: https://www.nature.com/articles/s41467-026-68556-4; published
+    2026-02-23. Some HSDHs transform conjugated BAs before deconjugation; BSH is not prerequisite for every possible
+    secondary transformation.'
+  urls:
+  - https://www.nature.com/articles/s41467-026-68556-4
+  dois: []
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F36
+  note: 'BileActome (2026, 27 HMM families) https://github.com/1362996609zby/BileActome; DOI 10.1093/ismeco/ycag205;
+    commit 2641f51eed97c6880adaedf87ab374033f84850c (2026-08-16), CC BY4.0 original repo material. Download database
+    file/*.hmm and example scripts. Families: BSH_g/BSH_t; 3α/β,7α/β,12α/β HSDH subtypes; BaiA1/A2/B/CD/E/F/G/H/I/J/K/N/O/P.
+    HMM default full-sequence E≤1e-3 is the authors'' starting rule, not a clinical validation threshold. Rumen
+    validation, not a human healthy-reference cohort: validate human sequences using F33–F35; do not import rumen
+    abundance norms.'
+  urls:
+  - https://github.com/1362996609zby/BileActome
+  dois:
+  - 10.1093/ismeco/ycag205
+  accessions: []
+  licence:
+  - CC-BY-4.0
+  code_commit:
+  - 2641f51eed97c6880adaedf87ab374033f84850c
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F37
+  note: HUMAnN official https://github.com/biobakery/humann. Supports stratified gene families, reactions, pathways
+    and pathway coverage with community/taxon contributions. Pin compatible tool and database versions; do not simply
+    mix HUMAnN3 ChocoPhlAn with arbitrary MP4 output without documented compatibility. Existing tables are reused
+    only when provenance matches.
+  urls:
+  - https://github.com/biobakery/humann
+  dois: []
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F38
+  note: 'Enteropathway (2024): https://pmc.ncbi.nlm.nih.gov/articles/PMC11367760/; DOI 10.1093/bib/bbae419; 3,269
+    compounds, 3,677 reactions, 876 modules. Not unconditional commercial open data: current 2026-07-07 official
+    terms https://comp.life.isct.ac.jp/enteropathway_info/ CC BY-NC-SA4.0, commercial use paid agreement, academic-login
+    download/API. Use as optional properly licensed adapter/research navigator, not mandatory bundled database.
+    Core independently curated routes from public papers must remain usable without it.'
+  urls:
+  - https://comp.life.isct.ac.jp/enteropathway_info/
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC11367760/
+  dois:
+  - 10.1093/bib/bbae419
+  accessions: []
+  licence:
+  - CC-BY-NC-SA-4.0
+  access_restrictions:
+  - academic-login
+  - commercial use paid
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F39
+  note: 'GUS substrate classes: https://pmc.ncbi.nlm.nih.gov/articles/PMC5533298/ and https://pmc.ncbi.nlm.nih.gov/articles/PMC6351562/;
+    Add substrate/loop-structure detail to a new beta-glucuronidase table; total GUS genes cannot specify estrogen
+    reactivation. More recent atlas https://www.nature.com/articles/s41467-025-65679-y requires GUS domains plus
+    catalytic/recognition motifs, not generic GH2 alone.'
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC5533298/
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC6351562/
+  - https://www.nature.com/articles/s41467-025-65679-y
+  dois: []
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F40
+  note: 'Digoxin mechanism source clarification for new independent drug-metabolism evidence card: https://pmc.ncbi.nlm.nih.gov/articles/PMC3736355/
+    (Haiser2013) and https://pmc.ncbi.nlm.nih.gov/articles/PMC5953540/ (Koppel2018). Arginine inhibits, not increases,
+    Cgr-mediated digoxin reduction in these experiments. Use as biochemical context, not an individual drug concentration
+    or dose instruction.'
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC3736355/
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC5953540/
+  dois: []
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F41
+  note: 'Bakshani et al. 2025: https://www.nature.com/articles/s41564-024-01911-7; https://pmc.ncbi.nlm.nih.gov/articles/PMC11790493/;'
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC11790493/
+  - https://www.nature.com/articles/s41564-024-01911-7
+  dois: []
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F42
+  note: 'Dey et al., 27 July 2026: https://www.nature.com/articles/s41564-026-02424-1. Colonic-mucin-specific sulfatase
+    work, including Amuc1755 and Amuc0953, cellular localization, mutations and structural validation. Eight of
+    ten S1 sulfatases were kinetically characterized; substrate presentation matters. Use this study''s corrected
+    version (publisher correction 9 September 2026, https://doi.org/10.1038/s41564-026-02504-2). A. muciniphila
+    mucin utilization alone supports neither blanket favorable nor unfavorable direction. Sequence potential cannot
+    establish excessive host mucus consumption.'
+  urls:
+  - https://doi.org/10.1038/s41564-026-02504-2
+  - https://www.nature.com/articles/s41564-026-02424-1
+  dois:
+  - 10.1038/s41564-026-02504-2
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: F43
+  note: 'GLP-1 mechanistic primary sources: Tolhurst et al. 2012, https://pubmed.ncbi.nlm.nih.gov/22190648/ and
+    https://pmc.ncbi.nlm.nih.gov/articles/PMC3266401/ (, ), SCFA-triggered host GLP-1 secretion via FFAR2 in experimental
+    systems; Chimerel et al. 2014, https://pubmed.ncbi.nlm.nih.gov/25456122/ and https://pmc.ncbi.nlm.nih.gov/articles/PMC4308618/
+    (, ), indole effects differ with exposure duration, including prolonged reduction in GLP-1 secretion. Thus even
+    an ''indole activator'' one-direction label would be inaccurate. Link each source in the new host-signaling
+    explanation rather than manufacturing a hormone concentration from microbial genes.'
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC3266401/
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC4308618/
+  - https://pubmed.ncbi.nlm.nih.gov/22190648/
+  - https://pubmed.ncbi.nlm.nih.gov/25456122/
+  dois: []
+  accessions: []
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+ecology:
+- id: E01
+  note: https://www.nature.com/articles/nature09944
+  urls:
+  - https://www.nature.com/articles/nature09944
+  dois: []
+  accessions: []
+  caution: Arumugam 2011, enterotypes; foundational community-configuration analysis
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: E02
+  note: https://www.nature.com/articles/s41564-017-0072-8
+  urls:
+  - https://www.nature.com/articles/s41564-017-0072-8
+  dois: []
+  accessions: []
+  caution: Costea 2018, enterotypes across the composition landscape; supports mixed/continuous interpretation
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: E03
+  note: https://www.nature.com/articles/nature24460
+  urls:
+  - https://www.nature.com/articles/nature24460
+  dois: []
+  accessions: []
+  caution: Vandeputte 2017, quantitative microbiome profiling; relative abundance versus microbial load
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: E04
+  note: https://www.sciencedirect.com/science/article/pii/S2452231718300150
+  urls:
+  - https://www.sciencedirect.com/science/article/pii/S2452231718300150
+  dois: []
+  accessions: []
+  caution: 2018 gut-redox/MAPI work; aerotolerant-to-anaerobe log ratio
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: E05
+  note: https://doi.org/10.1128/spectrum.00271-25 ; https://pmc.ncbi.nlm.nih.gov/articles/PMC12323360/
+  urls:
+  - https://doi.org/10.1128/spectrum.00271-25
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC12323360/
+  dois:
+  - 10.1128/spectrum.00271-25
+  accessions: []
+  caution: 2025 MAPI assessment; research ecological association, not direct oxygen measurement
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: E06
+  note: https://academic.oup.com/nar/article/53/D1/D748/7848838 ; https://api.bacdive.dsmz.de/ ; https://hub.dsmz.de/wiki/bacdive/api/
+  urls:
+  - https://academic.oup.com/nar/article/53/D1/D748/7848838
+  - https://api.bacdive.dsmz.de/
+  - https://hub.dsmz.de/wiki/bacdive/api/
+  dois: []
+  accessions: []
+  caution: BacDive 2025; cultured strain phenotypes, including oxygen tolerance
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: E07
+  note: https://academic.oup.com/nar/article/54/D1/D835/8343513 ; https://metatraits.embl.de/ ; https://github.com/grp-bork/porTraits
+  urls:
+  - https://academic.oup.com/nar/article/54/D1/D835/8343513
+  - https://github.com/grp-bork/porTraits
+  - https://metatraits.embl.de/
+  dois: []
+  accessions: []
+  caution: metaTraits 2026 and porTraits; large genome/trait resource, with measured versus predicted evidence retained
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: E08
+  note: https://www.nature.com/articles/s41467-025-66888-1 ; https://github.com/waldronlab/curatedMetagenomicData
+    ; https://waldronlab.io/curatedMetagenomicData/articles/curatedMetagenomicData.html
+  urls:
+  - https://github.com/waldronlab/curatedMetagenomicData
+  - https://waldronlab.io/curatedMetagenomicData/articles/curatedMetagenomicData.html
+  - https://www.nature.com/articles/s41467-025-66888-1
+  dois: []
+  accessions: []
+  caution: curatedMetagenomicData 3; cohort discovery, participant metadata, compatible profiles and new-reference
+    construction
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: E09
+  note: https://www.nature.com/articles/s41586-025-09854-7 ; Supplementary Table 5; public profiles/basic metadata
+    https://doi.org/10.5281/zenodo.15307999 ; analysis archive https://doi.org/10.5281/zenodo.17236261 ; https://github.com/SegataLab/inverse_var_weight
+    ; raw projects PRJEB75460, PRJEB75462, PRJEB75463, PRJEB75464
+  urls:
+  - https://doi.org/10.5281/zenodo.15307999
+  - https://doi.org/10.5281/zenodo.17236261
+  - https://github.com/SegataLab/inverse_var_weight
+  - https://www.nature.com/articles/s41586-025-09854-7
+  dois:
+  - 10.5281/zenodo.15307999
+  - 10.5281/zenodo.17236261
+  accessions:
+  - PRJEB75460
+  - PRJEB75462
+  - PRJEB75463
+  - PRJEB75464
+  caution: Asnicar 2025 online/2026 issue, gut microorganisms associated with health/nutrition; published 661-SGB
+    association ranks
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: E10
+  note: https://doi.org/10.1016/j.celrep.2025.115378 ; https://github.com/tsg-microbiome/HACK_index_2024 ; https://doi.org/10.5281/zenodo.14742683
+  urls:
+  - https://doi.org/10.1016/j.celrep.2025.115378
+  - https://doi.org/10.5281/zenodo.14742683
+  - https://github.com/tsg-microbiome/HACK_index_2024
+  dois:
+  - 10.1016/j.celrep.2025.115378
+  - 10.5281/zenodo.14742683
+  accessions: []
+  caution: HACK 2025; health/core/stability-associated taxon index and distinct top-17 sample score
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: E11
+  note: https://doi.org/10.1186/s40168-026-02344-6 ; https://pmc.ncbi.nlm.nih.gov/articles/PMC13045140/ ; microbial
+    reads PRJNA1265906 are human-filtered and cannot reproduce the original host fraction; some adult data are controlled
+  urls:
+  - https://doi.org/10.1186/s40168-026-02344-6
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC13045140/
+  dois:
+  - 10.1186/s40168-026-02344-6
+  accessions:
+  - PRJNA1265906
+  caution: Mazzoni 2026, host-derived fecal DNA/inflammation; use corrected article and prefilter counts
+  access_restrictions:
+  - controlled
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: E12
+  note: https://www.nature.com/articles/s41597-026-06652-2
+  urls:
+  - https://www.nature.com/articles/s41597-026-06652-2
+  dois: []
+  accessions: []
+  caution: BactoTraits 2026; additional curated bacterial trait evidence
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: E13
+  note: https://doi.org/10.1038/nbt.3960
+  urls:
+  - https://doi.org/10.1038/nbt.3960
+  dois:
+  - 10.1038/nbt.3960
+  accessions: []
+  caution: Costea 2017, processing standards; specimen/method comparability
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: E14
+  note: https://www.nature.com/articles/s41467-021-27098-7 ; https://www.nature.com/articles/s41598-024-75477-z
+  urls:
+  - https://www.nature.com/articles/s41467-021-27098-7
+  - https://www.nature.com/articles/s41598-024-75477-z
+  dois: []
+  accessions: []
+  caution: Daily quantitative microbiome variability and stool-marker variability; repeated-sample context
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: E15
+  note: https://pmc.ncbi.nlm.nih.gov/articles/PMC4950857/ ; https://doi.org/10.1128/mSystems.00046-17 ; https://doi.org/10.1038/s41564-025-01930-y
+  urls:
+  - https://doi.org/10.1038/s41564-025-01930-y
+  - https://doi.org/10.1128/mSystems.00046-17
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC4950857/
+  dois:
+  - 10.1038/s41564-025-01930-y
+  - 10.1128/mSystems.00046-17
+  accessions: []
+  caution: Lipid-A/LPS structure and context-specific immune effects; validate new structure/interpretation fields
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: E16
+  note: https://www.nature.com/articles/s42255-025-01220-1 ; https://github.com/Gibbons-Lab/medi ; https://github.com/Gibbons-Lab/medi-paper/blob/main/db/data/manifest.csv
+  urls:
+  - https://github.com/Gibbons-Lab/medi
+  - https://github.com/Gibbons-Lab/medi-paper/blob/main/db/data/manifest.csv
+  - https://www.nature.com/articles/s42255-025-01220-1
+  dois: []
+  accessions: []
+  caution: MEDI final 2025 food-DNA study; optional dietary-exposure context
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: E17
+  note: https://www.nature.com/articles/ijo2017220 ; https://www.nature.com/articles/s41366-018-0093-2
+  urls:
+  - https://www.nature.com/articles/ijo2017220
+  - https://www.nature.com/articles/s41366-018-0093-2
+  dois: []
+  accessions: []
+  caution: Prevotella:Bacteroides diet-response studies; descriptive ratio context, not universal cutoffs
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: E18
+  note: https://doi.org/10.1373/clinchem.2018.289728 ; https://pubmed.ncbi.nlm.nih.gov/29914865/
+  urls:
+  - https://doi.org/10.1373/clinchem.2018.289728
+  - https://pubmed.ncbi.nlm.nih.gov/29914865/
+  dois:
+  - 10.1373/clinchem.2018.289728
+  accessions: []
+  caution: Species-specific colorectal qPCR ratio research; do not substitute genus-level shotgun ratios
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+context:
+- id: C01
+  note: https://doi.org/10.1136/gutjnl-2014-307913 ; https://pubmed.ncbi.nlm.nih.gov/25500202/
+  urls:
+  - https://doi.org/10.1136/gutjnl-2014-307913
+  - https://pubmed.ncbi.nlm.nih.gov/25500202/
+  dois:
+  - 10.1136/gutjnl-2014-307913
+  accessions: []
+  caution: Chambers 2015, targeted colonic propionate and human appetite/PYY/GLP-1 responses
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: C02
+  note: https://www.nature.com/articles/s41564-021-00880-5 ; https://doi.org/10.1007/s11274-024-04012-z ; https://doi.org/10.1186/s12866-021-02415-8
+    ; original sequence-identifying supplement https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41564-021-00880-5/MediaObjects/41564_2021_880_MOESM3_ESM.xlsx
+  urls:
+  - https://doi.org/10.1007/s11274-024-04012-z
+  - https://doi.org/10.1186/s12866-021-02415-8
+  - https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41564-021-00880-5/MediaObjects/41564_2021_880_MOESM3_ESM.xlsx
+  - https://www.nature.com/articles/s41564-021-00880-5
+  dois:
+  - 10.1007/s11274-024-04012-z
+  - 10.1186/s12866-021-02415-8
+  accessions: []
+  caution: Yoon 2021 P9 experiments; Di 2024 heterologous P9 expression; independent genomic mapping
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: C03
+  note: https://www.nature.com/articles/s41564-025-02225-y ; https://pmc.ncbi.nlm.nih.gov/articles/PMC13244660/
+    ; PRJNA1257465 ; https://github.com/hlfreund/ABS_CHsu
+  urls:
+  - https://github.com/hlfreund/ABS_CHsu
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC13244660/
+  - https://www.nature.com/articles/s41564-025-02225-y
+  dois: []
+  accessions:
+  - PRJNA1257465
+  caution: Hsu 2026, gut microbial ethanol metabolism in an auto-brewery observational cohort
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: C04
+  note: https://doi.org/10.1016/j.cmet.2019.08.018 ; https://pubmed.ncbi.nlm.nih.gov/31543403/
+  urls:
+  - https://doi.org/10.1016/j.cmet.2019.08.018
+  - https://pubmed.ncbi.nlm.nih.gov/31543403/
+  dois:
+  - 10.1016/j.cmet.2019.08.018
+  accessions: []
+  caution: Yuan 2019, high-alcohol-producing Klebsiella strains and fatty-liver experiments
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: C05
+  note: https://www.nature.com/articles/s41591-022-02016-6
+  urls:
+  - https://www.nature.com/articles/s41591-022-02016-6
+  dois: []
+  accessions: []
+  caution: Meijnikman 2022, microbial ethanol and human fatty-liver context
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: C06
+  note: https://doi.org/10.1038/s44321-024-00179-y ; https://pmc.ncbi.nlm.nih.gov/articles/PMC11821874/
+  urls:
+  - https://doi.org/10.1038/s44321-024-00179-y
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC11821874/
+  dois:
+  - 10.1038/s44321-024-00179-y
+  accessions: []
+  caution: 2025 microbial metabolites, amygdala excitability and anxiety-linked behavior; experimental mechanism
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: C07
+  note: https://www.nature.com/articles/s41564-024-01739-1 ; corrections https://www.nature.com/articles/s41564-024-01900-w
+    and https://www.nature.com/articles/s41564-026-02496-z ; PRJNA943687 ; https://github.com/qsu123/ASD_multi-kingdom_diagnosis
+  urls:
+  - https://github.com/qsu123/ASD_multi-kingdom_diagnosis
+  - https://www.nature.com/articles/s41564-024-01739-1
+  - https://www.nature.com/articles/s41564-024-01900-w
+  - https://www.nature.com/articles/s41564-026-02496-z
+  dois: []
+  accessions:
+  - PRJNA943687
+  caution: Su 2024, pediatric multikingdom/functional autism markers; corrected source and metadata access
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: C08
+  note: https://doi.org/10.1016/j.cell.2021.10.015 ; use publisher's corrected version
+  urls:
+  - https://doi.org/10.1016/j.cell.2021.10.015
+  dois:
+  - 10.1016/j.cell.2021.10.015
+  accessions: []
+  caution: Yap 2021, autism-related dietary preferences and microbiome associations; confounding context
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: C09
+  note: https://doi.org/10.1016/j.cell.2015.02.047 ; https://pmc.ncbi.nlm.nih.gov/articles/PMC4393509/
+  urls:
+  - https://doi.org/10.1016/j.cell.2015.02.047
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC4393509/
+  dois:
+  - 10.1016/j.cell.2015.02.047
+  accessions: []
+  caution: Yano 2015, microbiota regulation of host serotonin biosynthesis
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: C10
+  note: https://pmc.ncbi.nlm.nih.gov/articles/PMC4260654/
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC4260654/
+  dois: []
+  accessions: []
+  caution: Williams 2014, characterized microbial tryptophan decarboxylases
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: C11
+  note: https://doi.org/10.1080/19490976.2024.2313769 ; https://doi.org/10.1021/acschembio.5c00313
+  urls:
+  - https://doi.org/10.1021/acschembio.5c00313
+  - https://doi.org/10.1080/19490976.2024.2313769
+  dois:
+  - 10.1021/acschembio.5c00313
+  - 10.1080/19490976.2024.2313769
+  accessions: []
+  caution: Host melatonin modulation and distinct tryptamine-derived receptor-active compounds
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: C12
+  note: https://doi.org/10.1172/JCI130976 ; https://pmc.ncbi.nlm.nih.gov/articles/PMC6934182/
+  urls:
+  - https://doi.org/10.1172/JCI130976
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC6934182/
+  dois:
+  - 10.1172/JCI130976
+  accessions: []
+  caution: Zhao, bile-acid-associated IBS-D subset and experimental mechanisms
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: C13
+  note: https://doi.org/10.1126/scitranslmed.abj1895 ; https://pubmed.ncbi.nlm.nih.gov/35895832/
+  urls:
+  - https://doi.org/10.1126/scitranslmed.abj1895
+  - https://pubmed.ncbi.nlm.nih.gov/35895832/
+  dois:
+  - 10.1126/scitranslmed.abj1895
+  accessions: []
+  caution: De Palma 2022, microbial histamine and strain-dependent visceral-pain mechanisms
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: C14
+  note: https://doi.org/10.1186/s12916-024-03562-1 ; https://doi.org/10.1080/29933935.2024.2438621
+  urls:
+  - https://doi.org/10.1080/29933935.2024.2438621
+  - https://doi.org/10.1186/s12916-024-03562-1
+  dois:
+  - 10.1080/29933935.2024.2438621
+  - 10.1186/s12916-024-03562-1
+  accessions: []
+  caution: 2024 fructan/gluten crossover and site-specific wheat-sensitivity work
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: C15
+  note: https://doi.org/10.1186/s12967-024-05876-3 ; https://pmc.ncbi.nlm.nih.gov/articles/PMC11577717/
+  urls:
+  - https://doi.org/10.1186/s12967-024-05876-3
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC11577717/
+  dois:
+  - 10.1186/s12967-024-05876-3
+  accessions: []
+  caution: 2024 Hashimoto stool-metagenome/host-transcriptome study; 31 cases/30 controls, all female
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: C16
+  note: https://doi.org/10.3390/microorganisms13112643 ; https://pmc.ncbi.nlm.nih.gov/articles/PMC12654992/
+  urls:
+  - https://doi.org/10.3390/microorganisms13112643
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC12654992/
+  dois:
+  - 10.3390/microorganisms13112643
+  accessions: []
+  caution: 2025 adult subclinical-hypothyroidism shotgun association study
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: C17
+  note: https://doi.org/10.1038/s41591-018-0324-z ; https://pmc.ncbi.nlm.nih.gov/articles/PMC6408964/
+  urls:
+  - https://doi.org/10.1038/s41591-018-0324-z
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC6408964/
+  dois:
+  - 10.1038/s41591-018-0324-z
+  accessions: []
+  caution: Feehley 2019, infant-microbiota transfer and food-allergy protection experiments
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: C18
+  note: https://doi.org/10.1038/s41591-019-0461-z ; https://pmc.ncbi.nlm.nih.gov/articles/PMC6677395/ ; PRJNA525231
+    is 16S, not a shotgun training cohort
+  urls:
+  - https://doi.org/10.1038/s41591-019-0461-z
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC6677395/
+  dois:
+  - 10.1038/s41591-019-0461-z
+  accessions:
+  - PRJNA525231
+  caution: Abdel-Gadir 2019, defined microbiota and immune-tolerance mechanisms
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: C19
+  note: https://pmc.ncbi.nlm.nih.gov/articles/PMC11239278/ ; https://pubmed.ncbi.nlm.nih.gov/38906158/
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC11239278/
+  - https://pubmed.ncbi.nlm.nih.gov/38906158/
+  dois: []
+  accessions: []
+  caution: 2024 Anaerostipes caccae/lactulose synbiotic food-allergy experiments in mice
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+benchmark:
+- id: D01
+  note: https://www.nature.com/articles/s41587-024-02412-y ; PRJEB52977 ; https://forgemia.inra.fr/metagenopolis/benchmark_mock
+  urls:
+  - https://forgemia.inra.fr/metagenopolis/benchmark_mock
+  - https://www.nature.com/articles/s41587-024-02412-y
+  dois: []
+  accessions:
+  - PRJEB52977
+  caution: Sylph primary methods and publicly described mocks
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: D02
+  note: https://academic.oup.com/nar/article/53/W1/W102/8126258
+  urls:
+  - https://academic.oup.com/nar/article/53/W1/W102/8126258
+  dois: []
+  accessions: []
+  caution: CAMI benchmarking resource
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: D03
+  note: https://doi.org/10.1371/journal.pone.0331288 ; https://pmc.ncbi.nlm.nih.gov/articles/PMC12404398/
+  urls:
+  - https://doi.org/10.1371/journal.pone.0331288
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC12404398/
+  dois:
+  - 10.1371/journal.pone.0331288
+  accessions: []
+  caution: 2025 shotgun infectious-gastroenteritis validation
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: D04
+  note: https://pmc.ncbi.nlm.nih.gov/articles/PMC8208984/ ; https://pmc.ncbi.nlm.nih.gov/articles/PMC9455714/
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC8208984/
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC9455714/
+  dois: []
+  accessions: []
+  caution: AMRFinderPlus primary methods and curation
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: D05
+  note: https://github.com/ncbi/amr
+  urls:
+  - https://github.com/ncbi/amr
+  dois: []
+  accessions: []
+  caution: NCBI AMRFinderPlus implementation/database documentation
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: D06
+  note: https://card.mcmaster.ca/ ; pin database and tool releases independently
+  urls:
+  - https://card.mcmaster.ca/
+  dois: []
+  accessions: []
+  caution: CARD/RGI curated resistance ontology and sequence models
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: D07
+  note: https://www.ebi.ac.uk/merops/ ; use bacterial proteins and retain family/sequence provenance
+  urls:
+  - https://www.ebi.ac.uk/merops/
+  dois: []
+  accessions: []
+  caution: MEROPS peptidases, substrates and experimentally characterized specificity
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+intervention:
+- id: R01
+  note: https://doi.org/10.1016/j.chom.2020.01.006 ; https://pubmed.ncbi.nlm.nih.gov/32004499/
+  urls:
+  - https://doi.org/10.1016/j.chom.2020.01.006
+  - https://pubmed.ncbi.nlm.nih.gov/32004499/
+  dois:
+  - 10.1016/j.chom.2020.01.006
+  accessions: []
+  caution: Deehan 2020, structure-specific resistant-starch intervention
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: R02
+  note: https://doi.org/10.1016/j.cell.2021.06.019 ; https://pmc.ncbi.nlm.nih.gov/articles/PMC9020749/
+  urls:
+  - https://doi.org/10.1016/j.cell.2021.06.019
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC9020749/
+  dois:
+  - 10.1016/j.cell.2021.06.019
+  accessions: []
+  caution: Wastyk 2021, dietary fibre versus fermented foods
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: R03
+  note: https://pubmed.ncbi.nlm.nih.gov/35483363/ ; https://pmc.ncbi.nlm.nih.gov/articles/PMC9187607/
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC9187607/
+  - https://pubmed.ncbi.nlm.nih.gov/35483363/
+  dois: []
+  accessions: []
+  caution: Lancaster 2022, distinct isolated dietary-fibre responses
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: R04
+  note: https://www.nature.com/articles/s41522-025-00817-4
+  urls:
+  - https://www.nature.com/articles/s41522-025-00817-4
+  dois: []
+  accessions: []
+  caution: Sardá 2025, baseline-dependent unripe-banana/inulin response
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: R05
+  note: https://www.nature.com/articles/s41467-025-66498-x ; https://pmc.ncbi.nlm.nih.gov/articles/PMC12749054/
+    ; raw projects CRA016259, CRA016260, CRA026307; clinical metadata require approved access and have noncommercial
+    restrictions
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC12749054/
+  - https://www.nature.com/articles/s41467-025-66498-x
+  dois: []
+  accessions:
+  - CRA016259
+  - CRA016260
+  - CRA026307
+  caution: Song 2025, fibre-response prediction in prediabetes
+  access_restrictions:
+  - approved access
+  - noncommercial
+  - require approved access
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: R06
+  note: https://www.nature.com/articles/s41589-026-02272-4 ; https://github.com/VenturelliLab/Connors-Thompson_et_al_2026
+    ; source/supplementary experimental tables accompany the article
+  urls:
+  - https://github.com/VenturelliLab/Connors-Thompson_et_al_2026
+  - https://www.nature.com/articles/s41589-026-02272-4
+  dois: []
+  accessions: []
+  caution: Connors 2026, active-learning fibre/community experiments
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: R07
+  note: https://www.nature.com/articles/s41564-024-01728-4 ; https://github.com/Gibbons-Lab/scfa_predictions ; public
+    validation projects PRJNA937304, PRJNA640404, PRJNA939256, PRJNA1033794; some human data require agreements
+  urls:
+  - https://github.com/Gibbons-Lab/scfa_predictions
+  - https://www.nature.com/articles/s41564-024-01728-4
+  dois: []
+  accessions:
+  - PRJNA1033794
+  - PRJNA640404
+  - PRJNA937304
+  - PRJNA939256
+  caution: Quinn-Bohmann 2024, community-model SCFA predictions
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: R08
+  note: https://doi.org/10.1371/journal.pbio.3003638 ; https://github.com/Gibbons-Lab/2024_probiotic_engraftment
+    ; https://zenodo.org/records/18037976 ; use final peer-reviewed methods, not superseded preprint performance
+    claims; some source trial data are request-only
+  urls:
+  - https://doi.org/10.1371/journal.pbio.3003638
+  - https://github.com/Gibbons-Lab/2024_probiotic_engraftment
+  - https://zenodo.org/records/18037976
+  dois:
+  - 10.1371/journal.pbio.3003638
+  accessions: []
+  caution: Quinn-Bohmann 2026, prebiotic/probiotic modelling across human trials
+  access_restrictions:
+  - request-only
+  readiness:
+    source_identified: true
+    retrievable: true
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: true
+    application_validated: false
+    note: published-output replay reproduced at 1e-8 for the section 11.7 fixture; a solved model is a separate
+      state
+- id: R09
+  note: https://doi.org/10.1053/j.gastro.2022.09.034 ; https://doi.org/10.1038/s41586-022-05380-y ; retain ex-vivo/animal
+    model and population distinctions
+  urls:
+  - https://doi.org/10.1038/s41586-022-05380-y
+  - https://doi.org/10.1053/j.gastro.2022.09.034
+  dois:
+  - 10.1038/s41586-022-05380-y
+  - 10.1053/j.gastro.2022.09.034
+  accessions: []
+  caution: Fibre-tolerance counterevidence in specific contexts
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+synbiotic:
+- id: S01
+  note: 'ISAPP synbiotic consensus: https://www.nature.com/articles/s41575-020-0344-2'
+  urls:
+  - https://www.nature.com/articles/s41575-020-0344-2
+  dois: []
+  accessions: []
+  caution: Terminology and complementary/synergistic criteria; distinguish design intent from demonstrated host
+    benefit.
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: S02
+  note: 'Arzamasov 2025: https://doi.org/10.1038/s41564-025-02056-x ; raw growth: https://pmc.ncbi.nlm.nih.gov/articles/instance/12313528/bin/41564_2025_2056_MOESM7_ESM.xlsx
+    ; metadata/substrates/validation: https://pmc.ncbi.nlm.nih.gov/articles/instance/12313528/bin/41564_2025_2056_MOESM4_ESM.xlsx
+    ; references: https://doi.org/10.6084/m9.figshare.26053936 ; genomes PRJNA1126848 ; https://github.com/Arzamasov/compendium_manuscript
+    ; https://github.com/Arzamasov/glycobif'
+  urls:
+  - https://doi.org/10.1038/s41564-025-02056-x
+  - https://doi.org/10.6084/m9.figshare.26053936
+  - https://github.com/Arzamasov/compendium_manuscript
+  - https://github.com/Arzamasov/glycobif
+  - https://pmc.ncbi.nlm.nih.gov/articles/instance/12313528/bin/41564_2025_2056_MOESM4_ESM.xlsx
+  - https://pmc.ncbi.nlm.nih.gov/articles/instance/12313528/bin/41564_2025_2056_MOESM7_ESM.xlsx
+  dois:
+  - 10.1038/s41564-025-02056-x
+  - 10.6084/m9.figshare.26053936
+  accessions:
+  - PRJNA1126848
+  caution: Import measured growth separately from predicted pathways; store substrate identity and assay context.
+    Pin code and archive versions during ingestion.
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: S03
+  note: 'dbCAN-PUL: https://academic.oup.com/nar/article/49/D1/D523/5907960 ; https://pro.unl.edu/static/DBCAN-PUL/
+    ; https://pro.unl.edu/dbCAN_PUL/dbCAN_PUL/help'
+  urls:
+  - https://academic.oup.com/nar/article/49/D1/D523/5907960
+  - https://pro.unl.edu/dbCAN_PUL/dbCAN_PUL/help
+  - https://pro.unl.edu/static/DBCAN-PUL/
+  dois: []
+  accessions: []
+  caution: Public directory includes dbCAN-PUL_Feb-2025.xlsx, older versioned workbooks and sequence assets. Choose
+    a compatible full snapshot; confirm terms for the exact files. Experimental locus evidence does not make every
+    homolog a proven substrate user.
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: S04
+  note: 'BacDive: https://academic.oup.com/nar/article/53/D1/D748/7848838 ; https://hub.dsmz.de/wiki/bacdive/api/
+    ; example https://api.bacdive.dsmz.de/v2/fetch/5621 ; terms https://bacdive.dsmz.de/about'
+  urls:
+  - https://academic.oup.com/nar/article/53/D1/D748/7848838
+  - https://api.bacdive.dsmz.de/v2/fetch/5621
+  - https://bacdive.dsmz.de/about
+  - https://hub.dsmz.de/wiki/bacdive/api/
+  dois: []
+  accessions: []
+  caution: API v2 is public without authentication as checked September 2026; retain measured/predicted distinction
+    and collection aliases. Preserve CC-BY-4.0 and the site's additional commercial-use notice in terms metadata;
+    do not flatten different notices into a software license.
+  licence:
+  - CC-BY-4.0
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: S05
+  note: 'Probio-Ichnos: https://www.mdpi.com/2076-2607/12/10/1955 ; https://github.com/Mtsif/probio-ichnos ; https://raw.githubusercontent.com/Mtsif/probio-ichnos/main/probioIchnos.json'
+  urls:
+  - https://github.com/Mtsif/probio-ichnos
+  - https://raw.githubusercontent.com/Mtsif/probio-ichnos/main/probioIchnos.json
+  - https://www.mdpi.com/2076-2607/12/10/1955
+  dois: []
+  accessions: []
+  caution: 'Download checked: 3,265,140 bytes, 12,962 records, SHA256 d352ac33d84e8dd127906eb27a430b12910c26483339e4eed2275c8ff01545a4.
+    Repo MIT. Contains PMID/species/strain and phenotype evidence; no genome-accession fields. Resolve publications
+    and identity rather than treating scraped fields as validated clinical outcomes.'
+  licence:
+  - MIT
+  sha256:
+  - d352ac33d84e8dd127906eb27a430b12910c26483339e4eed2275c8ff01545a4
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: S06
+  note: 'Integrated Probiotic Database: https://probiogenomics.unipr.it/index.php?route=/tools ; https://probiogenomics.unipr.it/files/IPDB_latest.zip
+    ; https://www.oaepublish.com/articles/mrr.2024.11'
+  urls:
+  - https://probiogenomics.unipr.it/files/IPDB_latest.zip
+  - https://probiogenomics.unipr.it/index.php?route=/tools
+  - https://www.oaepublish.com/articles/mrr.2024.11
+  dois: []
+  accessions: []
+  caution: ZIP endpoint and header verified, announced size 100,125,954 bytes; full archive ingestion remains an
+    implementation task. Mutable filename requires content hash and extracted inventory. Confirm archive terms independently
+    of article terms. Optional genome discovery, not efficacy/availability evidence.
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: S07
+  note: 'NCBI identity and downloads: https://www.ncbi.nlm.nih.gov/datasets/docs/v2/how-tos/genomes/download-genome/
+    ; https://www.ncbi.nlm.nih.gov/datasets/docs/v2/command-line-tools/using-dataformat/genome-data-reports/ ; https://www.ncbi.nlm.nih.gov/biosample/docs/'
+  urls:
+  - https://www.ncbi.nlm.nih.gov/biosample/docs/
+  - https://www.ncbi.nlm.nih.gov/datasets/docs/v2/command-line-tools/using-dataformat/genome-data-reports/
+  - https://www.ncbi.nlm.nih.gov/datasets/docs/v2/how-tos/genomes/download-genome/
+  dois: []
+  accessions: []
+  caution: Resolve exact culture/BioSample/assembly aliases; retain versioned GCA/GCF and nucleotide records, not
+    first species-name search hit. Download genomes/annotations/proteins with manifests and hashes.
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: S08
+  note: 'Anaerostipes hadrus strain niches: https://pmc.ncbi.nlm.nih.gov/articles/PMC12503163/ ; growth https://pmc.ncbi.nlm.nih.gov/articles/instance/12503163/bin/table_s4_ycaf163.xlsx
+    ; strain details https://pmc.ncbi.nlm.nih.gov/articles/instance/12503163/bin/table_s1_ycaf163.docx'
+  urls:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC12503163/
+  - https://pmc.ncbi.nlm.nih.gov/articles/instance/12503163/bin/table_s1_ycaf163.docx
+  - https://pmc.ncbi.nlm.nih.gov/articles/instance/12503163/bin/table_s4_ycaf163.xlsx
+  dois: []
+  accessions: []
+  caution: Additional experimentally tested carbon-source edges; strain variation matters. Not clinical response
+    evidence.
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: S09
+  note: 'van Zanten 2012: https://doi.org/10.1371/journal.pone.0047212 ; growth figures https://pmc.ncbi.nlm.nih.gov/articles/instance/3474826/bin/pone.0047212.s001.tif'
+  urls:
+  - https://doi.org/10.1371/journal.pone.0047212
+  - https://pmc.ncbi.nlm.nih.gov/articles/instance/3474826/bin/pone.0047212.s001.tif
+  dois:
+  - 10.1371/journal.pone.0047212
+  accessions: []
+  caution: NCFM/Bl-04 carbohydrate screening and selected colon-culture pairs. Import tested outcomes, not merely
+    a list of candidate carbohydrates.
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: S10
+  note: 'R08 model code: https://github.com/Gibbons-Lab/2024_probiotic_engraftment/tree/a494f4e21c8510cf02618af1861f8649d92fe698
+    ; archive https://zenodo.org/records/18037976'
+  urls:
+  - https://github.com/Gibbons-Lab/2024_probiotic_engraftment/tree/a494f4e21c8510cf02618af1861f8649d92fe698
+  - https://zenodo.org/records/18037976
+  dois: []
+  accessions: []
+  caution: Archive metadata CC-BY-4.0; 21,628,338-byte ZIP MD5 f29ee44aae961d76edcf6d3dfd955380. Pin source commit
+    and each data file. Source discrepancies and reproduction recipe are in section 11.7.
+  licence:
+  - CC-BY-4.0
+  md5:
+  - f29ee44aae961d76edcf6d3dfd955380
+  code_commit:
+  - a494f4e21c8510cf02618af1861f8649d92fe698
+  readiness:
+    source_identified: true
+    retrievable: true
+    bytes_verified: true
+    registry_validated: true
+    example_reproduced: true
+    application_validated: false
+    note: four pinned files downloaded; all four SHA-256 match the specification
+  pinned_files:
+  - path: figures/source_data/S5_Data.xlsx
+    local: refs/micom/s10/S5_Data.xlsx
+    sha256: 19ad4e8e2eea635f3c577df0d1bc04ba852249f368bac25d2519abbe71bd8c3e
+    bytes: 1206235
+    format: Strict OOXML
+    use: released-output replay fixture
+  - path: data/arivale-metagenomes.csv
+    local: refs/micom/s10/arivale-metagenomes.csv
+    sha256: e811818f16a1067a4e8d365a047bb0dbdf4c0fc3d185b89e840a53c3dd0edeea
+    bytes: 9377120
+    use: public example input, 154 unique sample IDs
+  - path: european_medium.csv
+    local: refs/micom/s10/european_medium.csv
+    sha256: 0299fdd9b9d1ba2938681a6b078d54ddde73add1912a6b3582c8c9dffbea8f61
+    bytes: 18806
+    use: frozen baseline medium
+  - path: high_fiber_medium.csv
+    local: refs/micom/s10/high_fiber_medium.csv
+    sha256: b29a95fc3bf1639b78bca65ea32d78ee7498753aa37ad653d366df9e2198d526
+    bytes: 19090
+    use: alternative-medium sensitivity
+- id: S11
+  note: 'AGORA2 species model: https://zenodo.org/records/7739096/files/agora201_refseq216_species_1.qza?download=1
+    ; model method https://www.nature.com/articles/s41587-022-01628-0 ; workflows https://github.com/micom-dev/databases'
+  urls:
+  - https://github.com/micom-dev/databases
+  - https://www.nature.com/articles/s41587-022-01628-0
+  - https://zenodo.org/records/7739096/files/agora201_refseq216_species_1.qza?download=1
+  dois: []
+  accessions: []
+  caution: Model archive CC-BY-SA-4.0, MD5 6a13da2a3fd9b1bc059987d6344f32b6, approximately 264.4 MB. Workflow Apache-2.0
+    differs from model-data terms. These species models do not establish exact commercial-strain behavior.
+  licence:
+  - Apache-2.0
+  - CC-BY-SA-4.0
+  md5:
+  - 6a13da2a3fd9b1bc059987d6344f32b6
+  readiness:
+    source_identified: true
+    retrievable: true
+    bytes_verified: true
+    registry_validated: true
+    example_reproduced: true
+    application_validated: false
+    note: agora201_refseq216_species_1.qza downloaded; MD5 6a13da2a3fd9b1bc059987d6344f32b6 matches
+  pinned_files:
+  - local: refs/micom/agora201_refseq216_species_1.qza
+    md5: 6a13da2a3fd9b1bc059987d6344f32b6
+    bytes: 264422408
+    n_models: 1746
+    rank: species
+    use: AGORA2 species models for the A16 scenarios
+    terms: model archive CC-BY-SA-4.0; the MICOM workflow code is Apache-2.0
+- id: S12
+  note: 'R06 culture design: https://doi.org/10.1038/s41589-026-02272-4 ; https://github.com/VenturelliLab/Connors-Thompson_et_al_2026/tree/b2fd741027a8243a59aad6bbd1883aed935e60d7
+    ; code https://doi.org/10.5281/zenodo.20336398 ; experimental data https://doi.org/10.5281/zenodo.19210709'
+  urls:
+  - https://doi.org/10.1038/s41589-026-02272-4
+  - https://doi.org/10.5281/zenodo.19210709
+  - https://doi.org/10.5281/zenodo.20336398
+  - https://github.com/VenturelliLab/Connors-Thompson_et_al_2026/tree/b2fd741027a8243a59aad6bbd1883aed935e60d7
+  dois:
+  - 10.1038/s41589-026-02272-4
+  - 10.5281/zenodo.19210709
+  - 10.5281/zenodo.20336398
+  accessions:
+  - PRJNA1233340
+  - PRJNA1391539
+  caution: Archived code v1.0.1 and experiment metadata CC-BY-4.0. Synthetic/fecal projects PRJNA1233340/PRJNA1391539.
+    Optional culture-domain reproduction; not a human personalized dosing engine.
+  licence:
+  - CC-BY-4.0
+  code_commit:
+  - b2fd741027a8243a59aad6bbd1883aed935e60d7
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: S13
+  note: 'Personalized-formulation precedent: https://journals.asm.org/doi/10.1128/msystems.00503-24 ; formulation
+    supplement msystems.00503-24-s0002.csv on article'
+  urls:
+  - https://journals.asm.org/doi/10.1128/msystems.00503-24
+  dois:
+  - 10.1128/msystems.00503-24
+  accessions: []
+  caution: Open-label study with paired microbiome data and formulation records; allocation algorithm is proprietary.
+    Do not label it an open trained recommender or causal validation of personalization. Published ingredients can
+    inform curation within applicable reuse terms.
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: S14
+  note: 'DS-01 whole-formulation trial: https://doi.org/10.3390/nu18020255 ; https://www.mdpi.com/2072-6643/18/2/255
+    ; NCT06009614'
+  urls:
+  - https://doi.org/10.3390/nu18020255
+  - https://www.mdpi.com/2072-6643/18/2/255
+  dois:
+  - 10.3390/nu18020255
+  accessions:
+  - NCT06009614
+  caution: Six-week adult placebo trial; 350 baseline, 219 evaluable at week six. Gastrointestinal outcomes support
+    the tested bundle, not individual components or microbiome-guided allocation. Preserve attrition, funding and
+    request-only data status.
+  access_restrictions:
+  - request-only
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false
+- id: S15
+  note: 'Peng 2025 consortium/substrate screening: https://doi.org/10.1080/19490976.2025.2541028 ; supplement https://pmc.ncbi.nlm.nih.gov/articles/instance/12326573/bin/KGMI_A_2541028_SM0243.zip
+    ; PRJNA1211324/PRJCA033703'
+  urls:
+  - https://doi.org/10.1080/19490976.2025.2541028
+  - https://pmc.ncbi.nlm.nih.gov/articles/instance/12326573/bin/KGMI_A_2541028_SM0243.zip
+  dois:
+  - 10.1080/19490976.2025.2541028
+  accessions:
+  - PRJCA033703
+  - PRJNA1211324
+  caution: 73-strain consortium (44 commensals + 29 potential probiotics) with 28 edible substrates; not a 44×28
+    monoculture matrix. Some substrates are minerals, not established prebiotics. Human arm tested tablets alone.
+    Preserve these distinctions and verify current raw-data access.
+  readiness:
+    source_identified: true
+    retrievable: false
+    bytes_verified: false
+    registry_validated: false
+    example_reproduced: false
+    application_validated: false

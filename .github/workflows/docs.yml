@@ -1,0 +1,81 @@
+# Publishes web/openbiota.com/ — the landing page at the root and the
+# documentation at /docs/ — on every push to main.
+#
+# The documentation is rebuilt (strict) into web/openbiota.com/docs/ first,
+# so the live site always matches docs/*.md even if someone forgot to run
+# `make docs-build` before committing. The folder is host-agnostic: plain
+# .html files with relative links. GitHub Pages is used here because it is
+# free and needs no credentials; S3 is the commented alternative at the end.
+#
+# One-time GitHub Pages setup:
+#   1. Settings → Pages → Source: "GitHub Actions".
+#   2. Settings → Pages → Custom domain: openbiota.com (the CNAME written
+#      below keeps that setting across deploys).
+#   3. DNS: A/AAAA records for openbiota.com → GitHub Pages, per
+#      https://docs.github.com/pages/configuring-a-custom-domain-for-your-github-pages-site
+#
+# Pull requests get the strict build only (no deploy), so a broken link fails
+# the check rather than the live site.
+
+name: site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - "web/**"
+      - "mkdocs.yml"
+      - ".github/workflows/docs.yml"
+  pull_request:
+    paths:
+      - "docs/**"
+      - "web/**"
+      - "mkdocs.yml"
+      - ".github/workflows/docs.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install "mkdocs>=1.6,<2" "mkdocs-material>=9.5"
+      - name: Rebuild the documentation (strict) and the root sitemap
+        run: |
+          mkdocs build --strict
+          rm -f web/openbiota.com/docs/sitemap.xml web/openbiota.com/docs/sitemap.xml.gz
+          python scripts/build_site.py --no-docs
+          rm -f web/openbiota.com/README.md web/openbiota.com/.DS_Store
+          echo "openbiota.com" > web/openbiota.com/CNAME
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web/openbiota.com
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+      # S3 instead of GitHub Pages: replace the step above with
+      #   - uses: actions/download-artifact@v4   (artifact: github-pages)
+      #   - run: aws s3 sync web/openbiota.com/ s3://openbiota.com --delete
+      # and add AWS credentials as repository secrets.

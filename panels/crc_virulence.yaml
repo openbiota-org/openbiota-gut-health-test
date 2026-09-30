@@ -1,0 +1,245 @@
+# PRESENCE-GRADE PANEL.
+#
+# The three genes here are the mechanistically specific colorectal cancer
+# virulence factors, and each has a real causal literature behind it. The
+# problem is reference coverage, and it is worth stating plainly rather than
+# hiding behind a number.
+#
+# UniProt carries roughly a dozen colibactin-biosynthesis proteins and
+# roughly nine fragilysin proteins that survive an honest protein-name query.
+# Gene-name queries are useless for all three: `gene:clbA` returns catfish
+# MHC class I chains, `gene:clbN` returns Drosophila NEMF, `gene:bft` returns
+# human pituitary homeobox 1, and `gene:fadA` returns fatty acid degradation
+# proteins from every organism that has them.
+#
+# Every other shipped panel rests on 300-2,000 reference sequences. At a
+# dozen, panel sensitivity is not merely low, it is unmeasurable: the
+# validation harness builds ground truth from full-length reference
+# proteomes, and there are not enough proteomes carrying these genes to
+# establish a detection limit.
+#
+# So this panel is shipped with `nominal_status: presence_only`. It reports
+# detected / not detected, never a percentile, and never enters a fused
+# profile score. A zero means "not detected at this depth with this reference
+# set", which is a different statement from "absent". Revisit when UniProt
+# coverage of the pks island improves.
+name: crc_virulence
+description: >-
+  Colorectal cancer virulence factors: fadA (Fusobacterium nucleatum adhesin,
+  which binds E-cadherin and activates beta-catenin signalling), bft
+  (Bacteroides fragilis toxin / fragilysin, which cleaves E-cadherin and
+  drives IL-17 colitis), and clbB (a colibactin pks island NRPS-PKS, whose
+  product alkylates DNA and leaves a distinctive mutational signature in
+  human colorectal tumours).
+metabolite: Colibactin and bacterial toxins (virulence factors, not metabolites)
+pathway: >-
+  fadA: adhesin -> E-cadherin binding -> beta-catenin/Wnt activation;
+  bft: metalloprotease -> E-cadherin cleavage -> IL-17 mucosal inflammation;
+  clbB: pks island NRPS-PKS -> colibactin -> interstrand DNA crosslinks
+category: virulence
+
+organisms:
+  - Fusobacterium nucleatum
+  - Bacteroides fragilis (enterotoxigenic strains only)
+  - Escherichia coli (pks+ strains, phylogroup B2)
+
+extension: true
+
+targets:
+  - id: FADA
+    label: fadA (Fusobacterium adhesin A)
+    gene: fadA
+    source: uniprot
+    query: '(protein_name:"FadA") AND (taxonomy_id:848)'
+    min_identity: 70.0
+    max_sequences: 500
+    length_tolerance: 0.30
+    note: >-
+      Restricted to Fusobacterium (taxonomy_id:848) because the gene symbol
+      collides with fatty acid degradation proteins across all bacteria.
+      FadA is small (~129 aa), which further limits read-level sensitivity.
+
+  - id: BFT
+    label: bft (Bacteroides fragilis toxin / fragilysin)
+    gene: bft
+    source: uniprot
+    query: '((protein_name:"fragilysin") OR (protein_name:"Bacteroides fragilis toxin")) AND (taxonomy_id:816)'
+    min_identity: 70.0
+    max_sequences: 300
+    length_range: [380, 430]
+    scope:
+      exclude_name_contains:
+        - "MP-II"
+        - "metalloprotease II"
+        - "metalloproteinase"
+        - "N-terminal domain-containing"
+      reason: >-
+        Three separate filters, each fixing a distinct way this target
+        acquired references that are not the toxin.
+
+        Taxonomy: the query was scoped to taxonomy_id:2, which is all
+        Bacteria, not Bacteroides. A protein-name search for "fragilysin"
+        across the whole domain admits any organism whose annotation happens
+        to carry the word. The sister target FADA was already scoped to
+        Fusobacterium for exactly this reason; BFT was not. It is now scoped
+        to Bacteroides (816).
+
+        Name: B. fragilis carries characterised paralogues in the same
+        fragilysin family that are not the enterotoxin - metalloprotease II
+        (MP-II, O68424, 396 aa) is the documented one. They share the M10
+        fold and the HExxH zinc motif, so a read from MP-II would otherwise
+        best-hit a genuine BFT reference and be counted as toxin. Excluded
+        by name here, and recaptured by the BFTPARA decoy below so those
+        reads compete rather than disappear.
+
+        Length: the enterotoxin is a 397-405 aa pro-protein (pro-domain plus
+        mature metalloprotease domain) across the reviewed entry P54355 and
+        the bft-1/2/3 alleles. A median-relative window let in
+        A0ABN0BG93, a 364 aa entry named only "Fragilysin" with no bft gene
+        name. It is a different locus in the same genome as a genuine bft
+        (BFAG_00644 alongside BFAG_00571) and tblastn against the published
+        bft-1 allele AB026625 aligns 15 aa at 60% identity, E=0.011 - the
+        shared zinc motif and nothing else. An absolute 380-430 aa window
+        anchored on the real pro-protein length excludes it without
+        depending on whatever the median of the day happens to be.
+
+        Effect on results: this combination is what produced a spurious
+        "100% identity bft hit" that nucleotide mapping against the
+        canonical alleles then contradicted with zero reads. The
+        contradiction was real and the nucleotide lane was right.
+
+  - id: CLBB
+    label: clbB and pks island colibactin biosynthesis proteins
+    gene: clbB
+    source: uniprot
+    query: '(protein_name:"colibactin") AND (taxonomy_id:2)'
+    min_identity: 70.0
+    max_sequences: 300
+    length_tolerance: 0.50
+    note: >-
+      Length tolerance is wide because the colibactin proteins span 82 to
+      3,206 aa across eight different enzymes, so no single window fits them.
+      This is the entry with the least reference support in the whole panel
+      set.
+
+decoys:
+  - id: METALLOBG
+    label: M10 metalloprotease background (bft fold)
+    source: uniprot
+    query: '((protein_name:"matrixin family metalloprotease") OR (protein_name:"peptidase M10") OR (protein_name:"serralysin")) AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 2000
+    length_tolerance: 0.30
+
+  - id: BFTPARA
+    label: fragilysin-family paralogues that are not the enterotoxin
+    source: uniprot
+    query: '((protein_name:"fragilysin family metalloproteinase") OR (protein_name:"metalloprotease II") OR (protein_name:"fragilysin N-terminal domain-containing protein")) AND (taxonomy_id:816)'
+    min_identity: 55.0
+    max_sequences: 500
+    length_tolerance: 0.30
+    note: >-
+      Bacteroides carries fragilysin-family metalloproteases that are not
+      the enterotoxin: MP-II (O68424) is the characterised one, and several
+      genomes carry additional loci annotated "Fragilysin" that do not
+      align to the published bft alleles outside the zinc motif. These are
+      the nearest possible neighbours of the BFT target, so they belong in
+      the decoy pool rather than nowhere. Without them a paralogue read
+      falls through to a genuine BFT reference and is counted as toxin.
+
+  - id: NRPSBG
+    label: NRPS / PKS module background (clbB fold)
+    source: uniprot
+    query: '((protein_name:"amino acid adenylation domain-containing protein") OR (protein_name:"non-ribosomal peptide synthetase") OR (protein_name:"polyketide synthase")) AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 4000
+    length_tolerance: 0.50
+    note: >-
+      Secondary metabolite megasynthases are abundant in gut genomes and
+      share domain architecture with the pks island. Without this competition,
+      any NRPS read would be counted as colibactin.
+
+  - id: FADBG
+    label: fatty acid degradation background (fadA name collision)
+    source: uniprot
+    query: '((protein_name:"3-ketoacyl-CoA thiolase") OR (protein_name:"acetyl-CoA acetyltransferase")) AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 2500
+    length_tolerance: 0.30
+
+nominal_status: presence_only
+
+aggregate: sum
+aggregate_reason: >-
+  The three genes come from three different organisms and three different
+  mechanisms; the sum is a convenience for the presence display only and
+  should not be read as a combined virulence score. The per-gene detections
+  are the meaningful output.
+
+min_fragments_for_stability: 5
+min_alignment_aa: 25
+
+caveats:
+  - >-
+    Presence-grade only. Reference coverage is too thin to establish a
+    detection limit, so this panel reports detected or not detected and never
+    a percentile. Not detected does not mean absent.
+  - >-
+    Carriage of a virulence gene is not disease. pks+ Escherichia coli is
+    carried by roughly 20% of healthy adults, enterotoxigenic Bacteroides
+    fragilis by a substantial minority, and most carriers never develop
+    colorectal cancer.
+  - >-
+    Detection here changes nothing about screening. Colorectal cancer
+    screening is faecal immunochemical testing, multi-target stool DNA
+    testing, or colonoscopy, on a schedule set by a clinician, and a virulence
+    gene result should not alter that schedule in either direction.
+
+interpretation:
+  what_it_is: >-
+    Three specific bacterial genes whose products damage or transform colon
+    cells: a Fusobacterium adhesin, a Bacteroides fragilis toxin, and the
+    colibactin biosynthesis machinery of certain Escherichia coli.
+  made_from: Not a metabolite — these are toxins and biosynthetic enzymes
+  higher_means: adverse
+  evidence_strength: moderate
+  summary: >-
+    These are the mechanistically specific colorectal cancer virulence
+    factors, with genuine causal evidence in animal models and, for
+    colibactin, a distinctive mutational signature in human tumours. They are
+    also carried by many healthy people, and this panel can only report
+    detected or not detected.
+  evidence_detail: >-
+    Colibactin has the strongest evidence: Pleguezuelos-Manzano et al. exposed
+    human intestinal organoids to pks+ E. coli and produced a mutational
+    signature they then found in human colorectal tumours — a direct
+    molecular fingerprint linking the bacterium to the mutations. Rubinstein
+    et al. showed FadA binds E-cadherin and activates beta-catenin
+    signalling, and Wu et al. showed enterotoxigenic B. fragilis drives
+    IL-17-dependent colon tumorigenesis in mice. Against acting on any of
+    this: pks+ E. coli is carried by around a fifth of healthy adults, ETBF
+    by a substantial minority, and the overwhelming majority never develop
+    colorectal cancer. Carriage is a risk factor at population scale, not a
+    prediction for an individual.
+  implications:
+    higher: >-
+      One or more of these virulence genes was detected in your sample. This
+      is common — pks+ Escherichia coli alone is carried by roughly a fifth of
+      healthy adults — and it is not a cancer finding. It does not change what
+      colorectal cancer screening you should have or when, which is a decision
+      based on your age, family history and symptoms.
+    typical: >-
+      The three colorectal-cancer-associated virulence genes measured here — FadA, the Bacteroides fragilis toxin and the colibactin polyketide synthase — are at levels seen in most of the reference population. Low-level carriage of these organisms is common and is not itself a finding.
+    lower: >-
+      None of these virulence genes was detected. Given the thin reference
+      coverage behind this panel, that means "not detected at this sequencing
+      depth", not "absent", and it is not reassurance about anything.
+  citation: >-
+    Pleguezuelos-Manzano C. et al., Nature 580:269-273 (2020),
+    doi:10.1038/s41586-020-2080-8; Rubinstein M.R. et al., Cell Host Microbe
+    14:195-206 (2013); Wu S. et al., Nat Med 15:1016-1022 (2009)
+
+citation: >-
+  Pleguezuelos-Manzano C., Puschhof J., Rosendahl Huber A., et al., "Mutational
+  signature in colorectal cancer caused by genotoxic pks+ E. coli", Nature
+  580:269-273 (2020), doi:10.1038/s41586-020-2080-8.

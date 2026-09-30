@@ -1,0 +1,172 @@
+name: nitrogen
+description: >-
+  Protein and amino-acid handling: peptide uptake, amino-acid fermentation
+  including Stickland pairs, branched-chain fatty acid formation, and the
+  non-urease routes to ammonia. Urease keeps its own reading.
+metabolite: Protein and nitrogen metabolism
+pathway: >-
+  protein -> peptides (peptidases, transport) -> amino acids ->
+  fermentation to branched-chain fatty acids, ammonia and aromatic
+  precursors
+category: metabolite
+
+extension: true
+
+targets:
+  - id: PEPT
+    label: pepT (tripeptide aminopeptidase)
+    gene: pepT
+    source: uniprot
+    query: '(protein_name:"Peptidase T") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: DPPA
+    label: dppA (periplasmic dipeptide transport)
+    gene: dppA
+    source: uniprot
+    query: '(protein_name:"Periplasmic dipeptide transport protein") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 672
+    length_tolerance: 0.3
+
+  - id: GRDA
+    label: grdA (glycine reductase selenoprotein A)
+    gene: grdA
+    source: uniprot
+    query: '(protein_name:"Glycine reductase complex selenoprotein A") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 203
+    length_tolerance: 0.3
+
+  - id: PRDA
+    label: prdA (D-proline reductase)
+    gene: prdA
+    source: uniprot
+    query: '(protein_name:"D-proline reductase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 1150
+    length_tolerance: 0.3
+
+  - id: ILVE
+    label: ilvE (branched-chain aminotransferase)
+    gene: ilvE
+    source: uniprot
+    query: '(protein_name:"Branched-chain-amino-acid aminotransferase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: BKDA
+    label: bkdA (2-oxoisovalerate dehydrogenase alpha)
+    gene: bkdA
+    source: uniprot
+    query: '(protein_name:"2-oxoisovalerate dehydrogenase subunit alpha") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: GDHA
+    label: gdhA (glutamate dehydrogenase)
+    gene: gdhA
+    source: uniprot
+    query: '(protein_name:"Glutamate dehydrogenase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: ASPA
+    label: aspA (aspartate ammonia-lyase)
+    gene: aspA
+    source: uniprot
+    query: '(protein_name:"Aspartate ammonia-lyase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: ANSA
+    label: ansA (asparaginase)
+    gene: ansA
+    source: uniprot
+    query: '(protein_name:"Asparaginase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: PORA
+    label: porA (indolepyruvate ferredoxin oxidoreductase)
+    gene: porA
+    source: uniprot
+    query: '(protein_name:"Indolepyruvate ferredoxin oxidoreductase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: PADI
+    label: padI (phenylacetate-CoA ligase)
+    gene: padI
+    source: uniprot
+    query: '(protein_name:"Phenylacetate-CoA ligase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+aggregate: sum
+aggregate_from: [PEPT, ILVE, GDHA]
+aggregate_reason: >-
+  Peptide cleavage, branched-chain transamination and glutamate
+  dehydrogenase: one marker each from the three arms of protein handling.
+  The near-universal housekeeping peptidases are deliberately excluded,
+  because a total containing them would track biomass.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+citation: >-
+  Diether N.E., Willing B.P., "Microbial fermentation of dietary protein:
+  an important factor in diet-microbe-host interaction", Microorganisms
+  7:19 (2019), doi:10.3390/microorganisms7010019.
+
+interpretation:
+  what_it_is: >-
+    How much of your community is set up to ferment protein rather than
+    carbohydrate.
+  made_from: >-
+    Dietary and host protein reaching the colon
+  summary: >-
+    Protein fermentation produces branched-chain fatty acids, ammonia and
+    phenolic compounds, which is a different chemistry from fibre
+    fermentation and generally a less favourable one.
+  evidence_detail: >-
+    Generic peptidase abundance is not a measurement of dietary protein
+    digestion: every organism carries peptidases for its own protein
+    turnover, so a raw count tracks how many organisms are present. The
+    informative markers are the ones specific to fermenting amino acids
+    for energy - Stickland reductases, branched-chain dehydrogenases - and
+    those are what this counts. Protein breakdown, branched-chain amino
+    acid synthesis and branched-chain amino acid fermentation are three
+    different things, and this report keeps three separate readings for
+    them.
+  higher_means: context-dependent
+  evidence_strength: limited
+  implications:
+    higher: >-
+      More protein-fermentation capacity than most samples. This
+      chemistry yields branched-chain fatty acids, ammonia and phenols
+      rather than butyrate, and it rises when fermentable fibre runs
+      short.
+    typical: >-
+      Mid-range protein-fermentation capacity, which is the usual
+      finding. This chemistry rises when fermentable fibre runs short,
+      so it is worth reading beside the carbohydrate breadth reading
+      rather than on its own.
+    lower: >-
+      Less protein-fermentation capacity than most samples carry.
+      Protein fermentation yields branched-chain fatty acids, ammonia
+      and phenols rather than butyrate, so less of it is generally the
+      more favourable direction.
+  citation: >-
+    Diether N.E., Willing B.P., "Microbial fermentation of dietary
+    protein: an important factor in diet-microbe-host interaction",
+    Microorganisms 7:19 (2019), doi:10.3390/microorganisms7010019.

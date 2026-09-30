@@ -1,0 +1,151 @@
+name: niacin
+description: >-
+  NAD synthesis by the de-novo aspartate route, kept apart from
+  nicotinamide salvage. Salvaging an intact pyridine ring is not the same
+  as building one, and the two reach NAD by different chemistry.
+metabolite: Vitamin B3 (niacin and NAD precursors)
+pathway: >-
+  aspartate -> quinolinate (nadB, nadA) -> NaMN (nadC) -> NAD
+category: vitamin
+
+extension: true
+
+targets:
+  - id: NADA
+    label: nadA (quinolinate synthase)
+    gene: nadA
+    source: uniprot
+    query: '(protein_name:"Quinolinate synthase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: NADB
+    label: nadB (L-aspartate oxidase)
+    gene: nadB
+    source: uniprot
+    query: '(protein_name:"L-aspartate oxidase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: NADC
+    label: nadC (nicotinate-nucleotide pyrophosphorylase)
+    gene: nadC
+    source: uniprot
+    query: '(protein_name:"Nicotinate-nucleotide pyrophosphorylase [carboxylating]") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: NADD
+    label: nadD (nicotinate-nucleotide adenylyltransferase)
+    gene: nadD
+    source: uniprot
+    query: '(protein_name:"Nicotinate-nucleotide adenylyltransferase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: NADE
+    label: nadE (NAD synthetase)
+    gene: nadE
+    source: uniprot
+    query: '(protein_name:"NAD synthetase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 476
+    length_tolerance: 0.3
+
+  - id: PNCA
+    label: pncA (nicotinamidase, salvage not synthesis)
+    gene: pncA
+    source: uniprot
+    query: '(protein_name:"Nicotinamidase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 2500
+    length_tolerance: 0.3
+
+  - id: PNCB
+    label: pncB (nicotinate phosphoribosyltransferase, salvage)
+    gene: pncB
+    source: uniprot
+    query: '(protein_name:"Nicotinate phosphoribosyltransferase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 2500
+    length_tolerance: 0.3
+
+  - id: PNUC
+    label: pnuC (nicotinamide riboside transporter, uptake)
+    gene: pnuC
+    source: uniprot
+    query: '(protein_name:"Nicotinamide riboside transporter") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 2500
+    length_tolerance: 0.3
+
+decoys:
+  - id: NADSALV
+    label: nicotinamide and nicotinate salvage
+    source: uniprot
+    query: '((protein_name:"Nicotinamidase") OR (protein_name:"Nicotinate phosphoribosyltransferase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 2500
+    length_tolerance: 0.3
+    note: >-
+      Salvage recovers a ring that already exists and is close to
+      universal. Holding it out of the target set is what makes this a
+      de-novo measurement rather than a census.
+
+aggregate: sum
+aggregate_from: [NADA, NADB, NADC]
+aggregate_reason: >-
+  Three consecutive steps of one obligate route from aspartate. Their sum
+  is steadier than any one of them.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+citation: >-
+  Rodionov D.A. et al., "Micronutrient requirements and sharing
+  capabilities of the human gut microbiome", Front Microbiol 10:1316
+  (2019), doi:10.3389/fmicb.2019.01316.
+
+interpretation:
+  what_it_is: >-
+    Whether your bacteria can build the niacin ring from aspartate, as
+    distinct from recycling nicotinamide that already exists.
+  made_from: >-
+    Built de novo from aspartate through quinolinate, or salvaged from
+    nicotinamide
+  summary: >-
+    The de-novo route and the salvage route both end at NAD. This measures
+    the first and deliberately excludes the second.
+  evidence_detail: >-
+    A gene count that pooled the two routes would report almost every
+    community as a producer, because salvage is close to universal.
+    Rodionov and colleagues mapped both across gut genomes and found the
+    de-novo route much less common, which is why the salvage enzymes are
+    held out as a decoy set here rather than counted as production. Niacin
+    is also one of the vitamins where host and bacterial supply are hard
+    to separate: your own cells make NAD from tryptophan, and colonic
+    absorption of bacterial niacin is limited.
+  higher_means: favourable
+  evidence_strength: limited
+  implications:
+    higher: >-
+      More of your bacteria carry the aspartate route to the niacin ring
+      than in most samples. They are building the ring rather than
+      recycling one.
+    typical: >-
+      Your community's de-novo niacin capacity is mid-range, which is
+      the usual finding. Most gut bacteria salvage nicotinamide rather
+      than building the ring from aspartate, and this reading
+      deliberately does not count that salvage.
+    lower: >-
+      Fewer bacteria here carry the de-novo route. They can still
+      salvage nicotinamide, and your own niacin status depends on diet
+      and on tryptophan rather than on this.
+  citation: >-
+    Rodionov D.A. et al., "Micronutrient requirements and sharing
+    capabilities of the human gut microbiome", Front Microbiol 10:1316
+    (2019), doi:10.3389/fmicb.2019.01316.

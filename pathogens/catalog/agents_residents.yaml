@@ -1,0 +1,107 @@
+# Ordinary residents and background signals that the screen names by
+# design, and which need a plain statement that they are not pathogens
+# rather than a treatment list. Written to close the gaps left by the three
+# lane files, all of which correctly declined to invent protocols here.
+version: 1
+lane: residents
+organisms:
+
+  bacteria.mediterraneibacter_gnavus:
+    display_name: Mediterraneibacter gnavus
+    what_it_is: >
+      A normal gut bacterium, until recently called Ruminococcus gnavus. It
+      is one of the ordinary residents of the human large intestine and is
+      found in the great majority of healthy people, often in substantial
+      amounts. It is in this catalogue as a background organism, so that
+      reads belonging to it are not mistakenly credited to something else.
+    why_it_matters: >
+      On its own it does not matter, and finding it is not a result. Some
+      research associates higher proportions of this species with Crohn's
+      disease and with inflammatory conditions, and it makes an
+      inflammatory polysaccharide in the laboratory, but that association
+      is not established as cause and it is not a diagnosis. Plenty of
+      healthy people carry a great deal of it.
+    normal_carriage: >
+      Carried by roughly nine in ten healthy adults, and among the more
+      abundant species in many perfectly ordinary samples. A large amount
+      here is common and is not by itself a sign of anything.
+    overgrowth_signal: >
+      There is no established threshold, and this test cannot supply one.
+      Published work compares group averages between patients and controls,
+      which says nothing reliable about where a single person's reading
+      sits. Take it as part of the picture of your community's composition,
+      not as a finding to act on.
+    agents: []
+    no_agents_reason: >
+      Nothing is recommended, because there is nothing here to treat. This
+      is a normal member of a healthy gut, and there is no evidence that
+      reducing it improves anything. If the wider report shows low
+      diversity or a dysbiotic pattern, the useful action is the dietary
+      one described in those sections — more plant fibre variety, which
+      shifts the whole community — not an attempt to remove one species.
+
+  other_viruses.bacteriophage_background:
+    display_name: Bacteriophage background
+    what_it_is: >
+      Viruses that infect bacteria rather than people. Every human gut
+      contains enormous numbers of them, and they are a normal and
+      necessary part of the ecosystem, keeping bacterial populations in
+      check. They cannot infect human cells.
+    why_it_matters: >
+      It does not. This entry exists so that phage sequence, which is
+      abundant in any stool sample, is recognised and set aside instead of
+      being mistaken for a human viral pathogen. Seeing it listed means the
+      screen is working as intended.
+    normal_carriage: >
+      Universal. Every healthy human gut contains billions of
+      bacteriophage particles, and their number and variety are normal
+      features of a functioning microbiome.
+    overgrowth_signal: >
+      None applies. There is no amount of gut phage that constitutes a
+      problem, and no clinical meaning attaches to how much is detected.
+    agents: []
+    no_agents_reason: >
+      Nothing to do. These viruses do not infect humans and are a normal,
+      permanent part of every gut.
+
+  protozoa.toxoplasma_gondii:
+    display_name: Toxoplasma gondii
+    what_it_is: >
+      A single-celled parasite carried by a large share of the world's
+      population, usually for life and usually without symptoms. It is
+      acquired from undercooked meat, from contaminated soil or water, or
+      from cat faeces. Cats are the only animals in which it completes its
+      sexual cycle and shed the infectious oocysts.
+    why_it_matters: >
+      In a healthy adult, established infection is generally silent and
+      needs no treatment. It matters in two situations, and both need a
+      doctor rather than a supplement: a first infection during pregnancy,
+      which can harm the developing baby, and reactivation in someone whose
+      immune system is seriously suppressed, which can cause brain
+      inflammation. Stool is the wrong specimen for answering either
+      question — humans do not shed this parasite in faeces, so sequence
+      here is far more likely to be environmental or dietary than evidence
+      of your own infection. Diagnosis is by blood antibody testing.
+    normal_carriage: >
+      Humans are not a shedding host, so it should not normally be found in
+      human stool at all. Where sequence does appear it usually reflects
+      recently eaten meat, or environmental contamination, rather than
+      infection of the person providing the sample. Lifetime infection
+      rates in people vary enormously by country, from under a tenth to
+      more than half the population.
+    overgrowth_signal: >
+      The concept does not apply. No amount of this sequence in stool
+      indicates active human infection, and none rules it out. If the
+      question matters to you — pregnancy, planned pregnancy, or
+      immunosuppression — ask for a Toxoplasma IgG and IgM blood test,
+      which is the test that actually answers it.
+    agents: []
+    no_agents_reason: >
+      No supplement is offered, for two reasons. Nothing in a stool sample
+      establishes that you are infected, so there would be nothing to
+      treat. And where treatment genuinely is needed, in pregnancy or
+      immunosuppression, it is a prescription regimen given under
+      specialist care; substituting a botanical would be actively
+      dangerous. Prevention is the useful action: cook meat thoroughly,
+      wash produce, wear gloves for gardening, and if pregnant avoid
+      handling cat litter.

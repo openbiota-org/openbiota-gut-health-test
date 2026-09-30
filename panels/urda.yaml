@@ -1,0 +1,152 @@
+name: urda
+description: >-
+  Urocanate reductase (urdA) — the terminal enzyme converting urocanate, a
+  histidine catabolite, to imidazole propionate.
+metabolite: Imidazole propionate (ImP)
+pathway: L-histidine -> urocanate (hutH) -> imidazole propionate (urdA)
+
+organisms:
+  - Streptococcus pasteurianus
+  - Shewanella oneidensis (biochemical reference organism, not a gut commensal)
+  - Eggerthella lenta
+  - Adlercreutzia equolifaciens
+
+targets:
+  - id: URDA
+    label: urdA (urocanate reductase)
+    gene: urdA
+    source: uniprot
+    # Deliberately protein-name-driven rather than gene-name-driven. UniProt's
+    # recommended name "Urocanate reductase" is assigned from family membership
+    # and signature residues, so it is already a curation layer. A bare
+    # `gene:urdA` query would drag in loosely annotated flavoproteins.
+    query: '(protein_name:"urocanate reductase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 4000
+    # Observed distribution: median 621 aa, range 208-1010 aa. The wide tail is
+    # database fragments at the low end and multi-domain fusions at the high
+    # end; both would corrupt the length normalisation, so the set is trimmed
+    # around the median.
+    #
+    # Calibrated at +/-35% (403-838 aa) rather than +/-30% because +/-30% cut
+    # off F9UNH3, the *curated* Swiss-Prot urocanate reductase of
+    # Lactiplantibacillus plantarum WCFS1, at 812 aa. Excluding a curated
+    # reference is a worse error than admitting some annotation noise, which
+    # best-hit competition and the residue check are there to handle. The
+    # S. oneidensis biochemical reference (582 aa) sits comfortably inside.
+    length_tolerance: 0.35
+
+decoys:
+  # FrdA is *the* false-positive source for urdA: same FAD-binding flavoprotein
+  # family, and the source method needed a full-length active-site residue
+  # check to separate them. Including FrdA as a decoy means a read is only
+  # accepted when its best hit across the whole database is a UrdA reference.
+  - id: FRDA
+    label: frdA (fumarate reductase flavoprotein subunit)
+    gene: frdA
+    source: uniprot
+    query: '(protein_name:"fumarate reductase flavoprotein subunit") AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 3000
+    length_tolerance: 0.30
+  - id: SDHA
+    label: sdhA (succinate dehydrogenase flavoprotein subunit)
+    gene: sdhA
+    source: uniprot
+    query: '(protein_name:"succinate dehydrogenase flavoprotein subunit") AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 3000
+    length_tolerance: 0.30
+    note: >-
+      Same flavoprotein family as FrdA and UrdA; succinate dehydrogenase is far
+      more abundant in a stool metagenome than either, so excluding it from the
+      database would leave its reads to be misassigned.
+
+residue_check:
+  enabled: true
+  # NOTE (correction): the build spec named Q8EAP8 as the S. oneidensis UrdA
+  # anchor. Q8EAP8 is a 180 aa YdbS-like PH-domain protein and cannot carry a
+  # residue 373. The urocanate reductase of S. oneidensis MR-1 is Q8CVD0
+  # (URDA_SHEON, 582 aa, gene urdA) whose residue 373 is tyrosine — which is
+  # exactly the expected Y/M identity, independently confirming both the anchor
+  # and the canonical position.
+  anchor_accession: Q8CVD0
+  canonical_position: 373
+  accepted_residues: [Y, M]
+  applies_to: [URDA]
+  description: >-
+    FAD-binding-site residue 373. Tyrosine or methionine here distinguishes
+    urocanate reductase from fumarate reductase flavoprotein in full-length
+    predicted proteins. Only the subset of reads whose alignment spans the
+    mapped position can be checked.
+
+aggregate: sum
+aggregate_reason: single target gene, so the aggregate is the gene value itself
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+upper_bound_reason: >-
+  Reads of 100-151 bp translate to only 33-50 residues, so most accepted
+  fragments do not span FAD-site residue 373 and cannot be residue-checked.
+  For those fragments, specificity rests on best-hit competition against the
+  FrdA/SdhA decoys alone, which suppresses obvious false positives but does
+  not reproduce the full-length filter. The headline count is therefore an
+  upper bound.
+
+caveats:
+  - >-
+    In the source study, of all urdA-positive genomes only Streptococcus
+    pasteurianus abundance was significantly positively associated with plasma
+    imidazole propionate. Gene carriage was a weak predictor of the metabolite
+    even across 294 samples.
+
+interpretation:
+  what_it_is: >-
+    Imidazole propionate (ImP), a small molecule made by gut bacteria from the
+    amino acid histidine.
+  made_from: Dietary histidine, via the intermediate urocanate
+  higher_means: adverse
+  evidence_strength: moderate
+  summary: >-
+    ImP interferes with insulin signalling in host cells. Higher blood ImP is
+    found in people with type 2 diabetes and prediabetes, and insulin
+    resistance is itself an established risk factor for cognitive decline.
+  cognitive_evidence: >-
+    The link to cognition is indirect but mechanistically coherent: ImP
+    activates p38-gamma and mTORC1, degrading insulin receptor substrate
+    signalling. Impaired brain insulin signalling is a recognised feature of
+    Alzheimer's disease. No study has yet shown that ImP itself causes
+    cognitive decline in humans. Note also that in the source study of 294
+    stool samples, carrying the urdA gene was only weakly related to actual
+    blood ImP levels. One overlap is worth flagging: Eggerthella, a documented
+    urdA carrier, is among the pro-inflammatory genera found enriched in
+    carriers of the APOE E4 Alzheimer's risk allele — so this pathway and that
+    risk factor share an organism, though no causal link between them has been
+    shown.
+  implications:
+    higher: >-
+      More of your gut bacteria carry the gene for making imidazole propionate
+      than in most people. In studies, higher blood ImP tracks with insulin
+      resistance and type 2 diabetes. Because carrying the gene is only weakly
+      related to how much ImP actually ends up in blood, this is a reason to pay
+      attention to metabolic health generally rather than a finding in itself.
+    typical: >-
+      Nothing here points toward the insulin-signalling effects associated
+      with high imidazole propionate. Bear in mind that carrying this gene is
+      only weakly related to how much ImP actually reaches the blood, so even
+      a high reading would be indirect evidence at best.
+    lower: >-
+      Fewer of your gut bacteria carry this gene than in most people. Since
+      higher ImP is the direction associated with insulin resistance, low
+      capacity is the reassuring direction for this pathway.
+  citation: >-
+    Koh A. et al., Cell 175:947-961 (2018), doi:10.1016/j.cell.2018.09.055;
+    Molinaro A. et al., Nat Commun 11:5881 (2020),
+    doi:10.1038/s41467-020-19589-w; Sepulveda-Rivera V. et al., Sci Rep
+    15:28505 (2025), doi:10.1038/s41598-025-13262-2
+
+citation: >-
+  Vemuganti et al., Nat Commun 17:8017 (2026) — urdA screening method,
+  including the Y/M-at-373 FAD-site filter. Imidazole propionate biology:
+  Koh A. et al., Cell 175:947-961 (2018), doi:10.1016/j.cell.2018.09.055.

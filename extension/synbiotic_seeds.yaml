@@ -1,0 +1,603 @@
+# The seventeen synbiotic evidence records of BUILD_SPEC_v0.8.3 §24.
+#
+# These are the strain-substrate pairs the A16 matching ranks against, and
+# most of them are negative. SYN001, SYN002, SYN003 and SYN005 each tested a
+# strain, a substrate, and the two together, and found the combination no
+# better than the strain alone. A registry that quietly dropped those would
+# turn a field with four careful negative results into one with none, so
+# `demonstrated_synergy: false` is recorded as a finding rather than as an
+# absence of data.
+#
+# Three things every record carries, because each is a way evidence gets
+# overstated:
+#
+#   `arms_available` and `arms_missing` - a study with no component-only arm
+#   cannot show that the combination beat its parts, whatever its outcome.
+#   `evidence_transfer_key` - what this result may be lent to. An ex-vivo
+#   reactor result is not a human outcome and a bundle is not its strains.
+#   `incomplete_fields` - what the specification says still needs extracting
+#   before production use, so a gap is visible rather than assumed filled.
+#
+# Two identity corrections are recorded as refusals because the literature
+# itself confuses them: PLMB0001 is not PBI001, and LAHUC is not DSM14662.
+
+schema_version: openbiota.synbiotic-seeds/1.0
+spec_version: 0.8.3
+
+records:
+  - syn_id: SYN001
+    source_ref: S01
+    label: Bifidobacterium adolescentis IVS-1 (iVS-1) with GOS
+    probiotic:
+      taxon: Bifidobacterium adolescentis
+      strain_designation: IVS-1 (iVS-1)
+      dose: 1e9 CFU/day
+    substrate:
+      name: galacto-oligosaccharides
+      preparation: >-
+        5 g/day GOS supplied as 6.9 g Vivinal powder, which is 72.5% GOS,
+        22.8% lactose and 4.7% monosaccharides. The lactose is not inert and
+        the placebo arm was lactose for that reason.
+      residual_sugars: lactose 22.8%, monosaccharides 4.7%
+    setting: human_randomised_trial
+    design: >-
+      Double-blind six-arm randomised controlled trial; 114 randomised, 94
+      analysed, obese adults, three weeks.
+    arms_available: [probiotic_only, substrate_only, combination, placebo_lactose]
+    arms_missing: []
+    outcome_type: strain_abundance_and_clinical_function
+    outcome: >-
+      Higher faecal abundance than BB-12. GOS did not significantly enhance
+      strain abundance or clinical function. Some permeability markers
+      improved; no functional synergism.
+    demonstrated_synergy: false
+    why_it_matters: >-
+      A critical negative-control benchmark, and one that contradicts earlier
+      successful rat results, which is exactly why it has to be kept.
+    evidence_transfer_key: exact_strain_combination
+    sources:
+      - https://doi.org/10.1186/s40168-018-0494-4
+    accessions: [PRJNA434249, SRP133159]
+    incomplete_fields: []
+
+  - syn_id: SYN002
+    source_ref: S01
+    label: B. animalis subsp. lactis BB-12 with the same Vivinal GOS
+    probiotic:
+      taxon: Bifidobacterium animalis subsp. lactis
+      strain_designation: BB-12
+      dose: 1e9 CFU/day
+    substrate:
+      name: galacto-oligosaccharides
+      preparation: as SYN001, the same Vivinal powder and the same doses
+      residual_sugars: lactose 22.8%, monosaccharides 4.7%
+    setting: human_randomised_trial
+    design: The same trial as SYN001, with independent BB-12 and BB-12+GOS arms.
+    arms_available: [probiotic_only, substrate_only, combination, placebo_lactose]
+    arms_missing: []
+    outcome_type: strain_abundance_and_barrier_markers
+    outcome: >-
+      No significant enhancement of faecal BB-12 with GOS, and no functional
+      synergism. Components showed some permeability effects; endotoxaemia
+      markers were unchanged.
+    demonstrated_synergy: false
+    why_it_matters: >-
+      A separate strain-specific negative pair. It shares a trial with SYN001
+      and must not be merged into it: the two strains behaved differently.
+    evidence_transfer_key: exact_strain_combination
+    sources:
+      - https://doi.org/10.1186/s40168-018-0494-4
+    accessions: []
+    incomplete_fields: []
+
+  - syn_id: SYN003
+    source_ref: S02
+    label: B. animalis subsp. lactis Bi-07 with XOS
+    probiotic:
+      taxon: Bifidobacterium animalis subsp. lactis
+      strain_designation: Bi-07
+      dose: 1e9 CFU/day
+    substrate:
+      name: xylo-oligosaccharides
+      preparation: 8 g/day
+      residual_sugars: null
+    setting: human_randomised_trial
+    design: >-
+      Double-blind randomised factorial crossover; 44 recruited, 41 completed,
+      21 days per treatment, with a maltodextrin control.
+    arms_available: [probiotic_only, substrate_only, combination, placebo_maltodextrin]
+    arms_missing: []
+    outcome_type: bifidogenesis_and_immune_markers
+    outcome: >-
+      XOS was bifidogenic, but faecal B. lactis was not significantly higher
+      in the combination than with Bi-07 alone: no specific ecological
+      synergy. Immune markers changed, which is not established clinical
+      benefit. Carryover meant some immune outcomes used the first period only.
+    demonstrated_synergy: false
+    why_it_matters: >-
+      A full factorial with component arms, so the absence of added strain
+      enrichment is a measured result rather than an untested assumption.
+    evidence_transfer_key: exact_strain_combination
+    sources:
+      - https://doi.org/10.1017/S0007114513004261
+      - https://pubmed.ncbi.nlm.nih.gov/24661576/
+    accessions: []
+    incomplete_fields: []
+
+  - syn_id: SYN004
+    source_ref: S03
+    label: Lactobacillus acidophilus NCFM with cellobiose
+    probiotic:
+      taxon: Lactobacillus acidophilus
+      strain_designation: NCFM (ATCC 700396)
+      dose: 1e9 CFU/day
+    substrate:
+      name: cellobiose
+      preparation: 5 g/day, 97% purity
+      residual_sugars: null
+    setting: human_randomised_trial
+    design: >-
+      Randomised double-blind crossover, 18 healthy adults, three weeks with a
+      three-week washout, combination against maltodextrin.
+    arms_available: [combination, placebo_maltodextrin]
+    arms_missing: [probiotic_only, substrate_only]
+    outcome_type: community_composition_and_fatty_acids
+    outcome: >-
+      Lactobacilli, bifidobacteria and branched-chain fatty acids increased;
+      diversity and short-chain fatty acids did not.
+    demonstrated_synergy: null
+    why_it_matters: >-
+      With no component-only arms this cannot show synergy in either
+      direction. And branched-chain fatty acids are not short-chain fatty
+      acids: the increase here is a protein-fermentation signal and must not
+      be read as an SCFA benefit.
+    evidence_transfer_key: exact_strain_combination
+    sources:
+      - https://doi.org/10.1111/1574-6941.12397
+    accessions: [NCT01716910]
+    incomplete_fields: []
+
+  - syn_id: SYN005
+    source_ref: S04
+    label: Limosilactobacillus reuteri DSM 17938 with GOS
+    probiotic:
+      taxon: Limosilactobacillus reuteri
+      strain_designation: DSM 17938
+      dose: not fully extracted
+    substrate:
+      name: galacto-oligosaccharides
+      preparation: >-
+        2014 crossover compared GOS, rhamnose and combined substrates with the
+        probiotic. A later study in 82 Thai children aged 8-14 months used GOS
+        at 400 mg per 100 mL formula, a 235 mL serving, with control and
+        2'FL-formula comparators.
+      residual_sugars: null
+    setting: human_randomised_trial
+    design: Randomised crossover (2014) and a separate single-serving isotope crossover.
+    arms_available: [probiotic_only, substrate_only, combination]
+    arms_missing: []
+    outcome_type: faecal_counts_and_persistence
+    outcome: >-
+      Substrate addition did not increase faecal counts or post-dosing
+      persistence: no added ecological benefit demonstrated.
+    demonstrated_synergy: false
+    why_it_matters: >-
+      The later iron study is a different endpoint and a different
+      formulation. It is kept as its own record and does not overturn the
+      persistence result.
+    evidence_transfer_key: exact_strain_combination
+    sources:
+      - https://www.sciencedirect.com/science/article/pii/S1756464614001881
+      - https://pubmed.ncbi.nlm.nih.gov/39179207/
+    accessions: []
+    incomplete_fields:
+      - >-
+        The 2014 full numerical design needs re-extraction before production
+        ingestion; only the primary abstract is verified.
+
+  - syn_id: SYN006
+    source_ref: S05
+    label: B. longum subsp. infantis EVC001 with purified LNnT
+    probiotic:
+      taxon: Bifidobacterium longum subsp. infantis
+      strain_designation: EVC001
+      dose: 8e9 CFU/day
+    substrate:
+      name: lacto-N-neotetraose (LNnT)
+      preparation: 1.6 g/day, purified single HMO
+      residual_sugars: null
+    setting: human_randomised_trial
+    design: >-
+      SYNERGIE single-blind randomised pilot; 62 Bangladeshi infants aged two
+      to six months with severe acute malnutrition; 28 days, follow-up to day
+      56; probiotic alone n=20, probiotic plus LNnT n=21, lactose placebo n=21.
+    arms_available: [probiotic_only, combination, placebo_lactose]
+    arms_missing: [substrate_only]
+    outcome_type: growth_anthropometry_and_colonisation
+    outcome: >-
+      EVC001 increased in both active arms and later declined. The probiotic
+      improved weight-for-age and mid-upper-arm circumference; the combination
+      improved weight-for-age against placebo. Synbiotic superiority is
+      unproven.
+    demonstrated_synergy: null
+    why_it_matters: >-
+      With no LNnT-only arm the substrate's own contribution is unmeasured.
+      Low breast-milk consumption, geography and diet all mattered, and
+      colonisation was lower than in healthy infants, so findings from
+      breastfed infants elsewhere do not transfer here.
+    evidence_transfer_key: exact_strain_combination
+    sources:
+      - https://doi.org/10.1126/scitranslmed.abk1107
+    accessions: [PRJEB45396]
+    incomplete_fields: []
+
+  - syn_id: SYN007
+    source_ref: S06
+    label: B. longum subsp. infantis LMG 11588 with a six-HMO blend
+    probiotic:
+      taxon: Bifidobacterium longum subsp. infantis
+      strain_designation: LMG 11588
+      dose: 1e8 CFU/mL
+    substrate:
+      name: six-HMO blend
+      preparation: >-
+        2.5 g total HMO per litre, as 3FL, 2FL, DFL, 3SL, 6SL and LNT. The
+        proportions differ by donor age and are part of the identity: infant
+        13.5/50.1/5.9/6.0/8.2/16.3 wt%, toddler 37.4/29.3/3.4/14.4/5.3/10.2 wt%.
+      residual_sugars: null
+    setting: ex_vivo_colonic_reactor
+    design: >-
+      48-hour colonic reactors, the same six donors sampled at about three
+      months and about twelve months. Four core conditions plus a fifth adding
+      B. lactis CNCM I-3446.
+    arms_available: [blank, probiotic_only, substrate_only, combination]
+    arms_missing: []
+    outcome_type: substrate_consumption_and_scfa
+    outcome: >-
+      The combination increased HMO consumption and SCFA production, including
+      in donors who initially responded poorly.
+    demonstrated_synergy: true
+    why_it_matters: >-
+      An ex-vivo interaction with no host health outcome. The blend's
+      composition and the donor age must travel with it, because a different
+      mixture is a different substrate.
+    evidence_transfer_key: exact_combination
+    sources:
+      - https://doi.org/10.1038/s42003-024-06628-1
+    accessions: [PRJEB71952]
+    incomplete_fields: []
+
+  - syn_id: SYN008
+    source_ref: S07
+    label: B. longum subsp. infantis M-63 with 2'FL
+    probiotic:
+      taxon: Bifidobacterium longum subsp. infantis
+      strain_designation: M-63
+      dose: 1e8 cells/mL
+    substrate:
+      name: 2'-fucosyllactose
+      preparation: 1% w/v, greater than 91% purity
+      residual_sugars: null
+    setting: ex_vivo_culture
+    design: >-
+      24-hour pH-controlled YCFA cultures; four newborn donors aged five to
+      seven days and four children aged three to five years.
+    arms_available: [control, substrate_only, combination]
+    arms_missing: [probiotic_only]
+    outcome_type: bifidobacteria_and_metabolites
+    outcome: >-
+      More bifidobacteria, acetate and aromatic lactic acids with the
+      combination than with the substrate; 2'FL alone was not significant.
+    demonstrated_synergy: null
+    why_it_matters: >-
+      With no M-63-only comparator formal synergy cannot be isolated. There is
+      no clinical trial, and the raw data are available on request only.
+    evidence_transfer_key: exact_combination
+    sources:
+      - https://doi.org/10.3389/fnut.2026.1744839
+    accessions: []
+    incomplete_fields:
+      - Raw data available on request only, so the analysis cannot be reproduced here.
+
+  - syn_id: SYN009
+    source_ref: S08
+    label: B. longum subsp. infantis EFEL8008 with 2'FL
+    probiotic:
+      taxon: Bifidobacterium longum subsp. infantis
+      strain_designation: EFEL8008
+      dose: 3.51e6 CFU/mL
+    substrate:
+      name: 2'-fucosyllactose
+      preparation: 1% w/v
+      residual_sugars: null
+    setting: in_vitro_fermentation
+    design: >-
+      In-vitro digestion followed by adult faecal fermentation; 19 volunteers
+      supplied stool; four conditions including both components and a control;
+      12 and 24 hours.
+    arms_available: [control, probiotic_only, substrate_only, combination]
+    arms_missing: []
+    outcome_type: bifidobacteria_scfa_and_tma_precursor
+    outcome: >-
+      The combination increased bifidobacteria and SCFAs and reduced
+      betaine-to-TMA conversion in this system.
+    demonstrated_synergy: true
+    why_it_matters: >-
+      No human intervention outcome. The qPCR targeted a subspecies sialidase
+      rather than anything unique to this strain, and technical triplicates do
+      not establish 19 independent donor responses.
+    evidence_transfer_key: exact_combination
+    sources:
+      - https://doi.org/10.20517/mrr.2025.35
+    accessions: []
+    incomplete_fields:
+      - >-
+        Whether the reported responses were aggregated across donors or across
+        technical replicates needs checking; raw data on request only.
+
+  - syn_id: SYN010
+    source_ref: S09
+    label: Anaerostipes caccae LAHUC with lactulose
+    probiotic:
+      taxon: Anaerostipes caccae
+      strain_designation: LAHUC
+      dose: 1e6 CFU gavage (gnotobiotic), 1e7 CFU (SPF)
+    substrate:
+      name: lactulose
+      preparation: 5 g/L in drinking fluid
+      residual_sugars: null
+    setting: animal_model
+    design: >-
+      Gnotobiotic mice carrying allergic-infant microbiota and
+      antibiotic-treated SPF mice, with component and control comparisons.
+    arms_available: [control, probiotic_only, substrate_only, combination]
+    arms_missing: []
+    outcome_type: luminal_butyrate_and_allergy_protection
+    outcome: >-
+      Luminal butyrate rose and allergy was reduced in prophylactic and
+      therapeutic mouse models. Engraftment alone did not increase butyrate,
+      and a competing resident strain impeded engraftment.
+    demonstrated_synergy: true
+    why_it_matters: >-
+      The cross-feeding is the mechanism: the strain without the substrate did
+      not raise butyrate. A preclinical candidate, not a human allergy
+      treatment.
+    evidence_transfer_key: exact_strain_combination
+    identity_refusals:
+      - LAHUC is not interchangeable with DSM14662 or HM220.
+    sources:
+      - https://doi.org/10.1016/j.chom.2024.05.019
+    accessions: [PRJNA1102404, PRJNA1091036]
+    incomplete_fields: []
+
+  - syn_id: SYN011
+    source_ref: S10
+    label: Limosilactobacillus reuteri BNCC 186135 with GOS
+    probiotic:
+      taxon: Limosilactobacillus reuteri
+      strain_designation: BNCC 186135
+      dose: 2e8 CFU/day
+    substrate:
+      name: galacto-oligosaccharides
+      preparation: 5% w/w dietary
+      residual_sugars: null
+    setting: animal_model
+    design: >-
+      Mouse DSS colitis study, six per group, with components alone, the
+      combination, and disease and healthy control arms; five weeks with DSS
+      in the final week.
+    arms_available: [control, disease, probiotic_only, substrate_only, combination]
+    arms_missing: []
+    outcome_type: colitis_and_barrier_outcomes
+    outcome: >-
+      The combination improved colitis and barrier outcomes and enriched
+      Bacteroides acidifaciens and a pentadecanoic acid pathway.
+    demonstrated_synergy: true
+    why_it_matters: >-
+      A mouse host-response synergy candidate, not human evidence. Two further
+      mouse isolates were studied alongside and are experiment-specific
+      strains that must not be conflated with this one.
+    evidence_transfer_key: exact_strain_combination
+    sources:
+      - https://doi.org/10.1038/s41467-024-53144-1
+    accessions: [PRJNA1048359, PRJNA1154812]
+    incomplete_fields: []
+
+  - syn_id: SYN012
+    source_ref: S11
+    label: B. animalis subsp. lactis CNCM I-3446 with BMOS
+    probiotic:
+      taxon: Bifidobacterium animalis subsp. lactis
+      strain_designation: CNCM I-3446
+      dose: not fully extracted
+    substrate:
+      name: bovine-milk oligosaccharides (BMOS)
+      preparation: >-
+        A demineralised-whey-derived mixture containing GOS and natural 3'- and
+        6'-sialyllactose. It is not a pure HMO and must not be recorded as one.
+      residual_sugars: present, from the whey source
+    setting: ex_vivo_culture
+    design: >-
+      48-hour infant faecal cultures; substrate screening across ten donors,
+      detailed component and combination comparison in two; the strain was also
+      pre-grown on dextrose and on BMOS.
+    arms_available: [probiotic_only, substrate_only, combination]
+    arms_missing: []
+    outcome_type: strain_abundance_and_metabolites
+    outcome: >-
+      BMOS promoted strain abundance, with the metabolic advantage strongest in
+      the donor lowest in bifidobacteria. Acetate was often similar to BMOS
+      alone, and gas increased.
+    demonstrated_synergy: null
+    why_it_matters: >-
+      An ex-vivo formulation and priming interaction rather than clinical
+      efficacy, and the acetate result shows the substrate accounted for much
+      of the effect.
+    evidence_transfer_key: exact_combination
+    sources:
+      - https://doi.org/10.3390/nu12082268
+    accessions: []
+    incomplete_fields:
+      - Exact BMOS composition and dose need extraction before production use.
+
+  - syn_id: SYN013
+    source_ref: S12
+    label: L. acidophilus NCFM with enzymatically hydrolysed oat beta-glucan
+    probiotic:
+      taxon: Lactobacillus acidophilus
+      strain_designation: NCFM
+      dose: not stated in the screen
+    substrate:
+      name: enzymatically hydrolysed oat beta-glucan (OBGH)
+      preparation: >-
+        A hydrolysate. The enzyme, the linkage and the degree of
+        polymerisation all matter, and it cannot stand in for intact oat
+        beta-glucan.
+      residual_sugars: null
+    setting: in_vitro_model
+    design: Four-stage human-colon culture model after a carbohydrate growth screen.
+    arms_available: [substrate_only, combination]
+    arms_missing: [probiotic_only]
+    outcome_type: growth_and_scfa
+    outcome: Growth and SCFA effects were observed.
+    demonstrated_synergy: null
+    why_it_matters: >-
+      An exploratory in-vitro candidate. The intact beta-glucan reading in this
+      report is a different substrate and the two are not interchangeable.
+    evidence_transfer_key: exact_combination
+    sources:
+      - https://doi.org/10.1371/journal.pone.0047212
+    accessions: []
+    incomplete_fields: []
+
+  - syn_id: SYN014
+    source_ref: S12
+    label: B. animalis subsp. lactis Bl-04 with xylobiose
+    probiotic:
+      taxon: Bifidobacterium animalis subsp. lactis
+      strain_designation: Bl-04
+      dose: not stated in the screen
+    substrate:
+      name: xylobiose
+      preparation: a defined disaccharide, not a xylo-oligosaccharide mixture
+      residual_sugars: null
+    setting: in_vitro_model
+    design: The same 2012 four-stage model and growth screen.
+    arms_available: [substrate_only, combination]
+    arms_missing: [probiotic_only]
+    outcome_type: strain_abundance_and_metabolites
+    outcome: Bl-04 increased in culture and metabolites were altered.
+    demonstrated_synergy: null
+    why_it_matters: Not an established host benefit.
+    evidence_transfer_key: exact_combination
+    sources:
+      - https://doi.org/10.1371/journal.pone.0047212
+    accessions: []
+    incomplete_fields: []
+
+  - syn_id: SYN015
+    source_ref: S12
+    label: B. animalis subsp. lactis Bl-04 with raffinose
+    probiotic:
+      taxon: Bifidobacterium animalis subsp. lactis
+      strain_designation: Bl-04
+      dose: not stated in the screen
+    substrate:
+      name: raffinose
+      preparation: a defined trisaccharide
+      residual_sugars: null
+    setting: in_vitro_model
+    design: The same 2012 four-stage model and growth screen.
+    arms_available: [substrate_only, combination]
+    arms_missing: [probiotic_only]
+    outcome_type: substrate_strain_compatibility
+    outcome: A candidate for substrate-strain compatibility screening.
+    demonstrated_synergy: null
+    why_it_matters: >-
+      The original model established neither human efficacy nor a clinical
+      factorial interaction.
+    evidence_transfer_key: exact_combination
+    sources:
+      - https://doi.org/10.1371/journal.pone.0047212
+    accessions: []
+    incomplete_fields: []
+
+  - syn_id: SYN016
+    source_ref: S13
+    label: B. longum subsp. infantis PLMB0001 with donor-milk-derived HMO concentrate
+    probiotic:
+      taxon: Bifidobacterium longum subsp. infantis
+      strain_designation: PLMB0001
+      dose: at least 8e9 CFU/day, days 1-14
+    substrate:
+      name: donor-milk-derived HMO concentrate
+      preparation: 18 g/day, days 1-28; a concentrate, not a purified single HMO
+      residual_sugars: null
+    setting: human_unblinded_study
+    design: >-
+      Unblinded healthy-adult antibiotic-perturbation study, 56 participants in
+      three cohorts: antibiotics; antibiotics with probiotic; antibiotics with
+      probiotic and HMO.
+    arms_available: [antibiotics_only, probiotic_only, combination]
+    arms_missing: [substrate_only]
+    outcome_type: engraftment_and_community_change
+    outcome: >-
+      High and variable substrate-dependent engraftment with metabolite and
+      community changes. No clinical efficacy endpoint was established.
+    demonstrated_synergy: null
+    why_it_matters: >-
+      Unblinded, with no HMO-only arm, so neither the blinding nor the
+      substrate's own effect supports a clinical claim.
+    evidence_transfer_key: exact_strain_combination
+    identity_refusals:
+      - >-
+        PBI001 was a separate isolate used in the mouse and co-culture
+        experiments. It is not the commercial probiotic given to the adults,
+        and evidence may not pass between the two.
+    sources:
+      - https://doi.org/10.1016/j.chom.2023.08.004
+    accessions: [PRJNA993161, NCT05141903]
+    incomplete_fields: []
+
+  - syn_id: SYN017
+    source_ref: S14
+    label: DS-01 bundle
+    probiotic:
+      taxon: multiple
+      strain_designation: >-
+        A 24-strain bundle. The strains are named in the source but the record
+        stays atomic.
+      dose: 53.6 billion AFU
+    substrate:
+      name: pomegranate extract
+      preparation: 400 mg, greater than 40% polyphenols
+      residual_sugars: null
+    setting: human_randomised_trial
+    design: A trial of the bundle as supplied.
+    arms_available: [bundle, control]
+    arms_missing: [component_arms]
+    outcome_type: gastrointestinal_symptoms
+    outcome: Positive gastrointestinal outcomes for the tested bundle.
+    demonstrated_synergy: null
+    why_it_matters: >-
+      The dose is in AFU and not CFU, which is a different unit and not
+      convertible. With no component arms, no personalised allocation and no
+      microbiome measurement, nothing here establishes which component caused
+      the outcome.
+    evidence_transfer_key: exact_product
+    identity_refusals:
+      - >-
+        The bundle is atomic. It cannot generate 24 independently promotable
+        single-strain records, and none of its strains inherits the bundle's
+        outcome.
+    sources: []
+    accessions: []
+    incomplete_fields:
+      - >-
+        The specification cites this record's source through the register entry
+        S14 rather than giving a DOI in §24, so the citation is resolved there
+        and no direct link is recorded here.
+      - >-
+        The 24 strain labels are named in the original section 2.3 identities
+        and are deliberately not expanded here, because expanding them is what
+        would turn one bundle into 24 promotable records.

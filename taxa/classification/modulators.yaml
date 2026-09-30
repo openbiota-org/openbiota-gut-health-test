@@ -1,0 +1,1862 @@
+# What each organism does, and what is known to move it.
+#
+# One entry per organism the report flags, at species level where the
+# evidence is species-specific and at genus level where it is not. Each
+# entry answers, in order, the questions a reader asks when they click on
+# an organism: what is this, what does it do in my gut, why does the level
+# matter, and what has been shown to change it.
+#
+# Evidence levels are stated on every item and mean exactly this:
+#   in_vitro            - culture, co-culture or cell assay; no organism, no gut
+#   animal              - mouse, rat or other model; a gut, but not ours
+#   human_observational - associations in people; no intervention
+#   human_trial         - an intervention given to people, with the organism
+#                         measured before and after
+# An in-vitro result is worth listing and worth labelling. It is not a
+# recommendation and is never presented as one.
+#
+# `survives_transit` is whether the agent reaches the colon in a form that
+# can act: spore-forming or acid-tolerant probiotics yes; most fibres and
+# polyphenols yes (poorly absorbed, fermented in the colon); fragile strains
+# or well-absorbed small molecules no. Agents that do not reach the gut are
+# not listed for a gut organism.
+#
+# Kinds: probiotic, prebiotic, food, compound, herb, drug, diet, lifestyle.
+
+modulators:
+
+  # ======================================================================= #
+  # Opportunists — the ones a reader most needs to understand
+  # ======================================================================= #
+
+  - organism: Mediterraneibacter_gnavus
+    aliases: [Ruminococcus_gnavus, "Ruminococcus_B gnavus"]
+    role: >
+      A mucus-degrading resident of most healthy adults at low levels, typically
+      well under 1%. It lives in the mucus layer coating the gut wall and eats the
+      sugars in it, which at low abundance is normal turnover. When it expands it
+      does two things the literature keeps returning to: it thins the protective
+      mucus faster than the lining rebuilds it, and it produces a glucorhamnan
+      polysaccharide that triggers TNF-alpha release from immune cells. It is among
+      the most consistently expanded organisms in Crohn's disease and in
+      spondyloarthritis flares, and it blooms after antibiotics and on a low-fibre
+      diet because it can live on host mucus when dietary fibre is scarce.
+    why_level_matters: >
+      Presence is normal. Abundance is the finding: above a few percent it is one
+      of the strongest single-organism markers of an inflamed, mucus-depleted gut.
+    decrease:
+      - agent: Dietary fibre, especially inulin and resistant starch
+        kind: prebiotic
+        evidence: human_trial
+        effect: decrease
+        survives_transit: true
+        note: >
+          Fibre feeds competitors that outgrow it and gives it an alternative to
+          host mucus. Inulin supplementation reduced R. gnavus relative abundance
+          in adults in controlled feeding studies.
+        source: "Vandeputte D et al. Gut 2017;66:1968; Holscher HD, Gut Microbes 2017"
+      - agent: Bifidobacterium longum subsp. infantis
+        kind: probiotic
+        evidence: human_trial
+        effect: decrease
+        survives_transit: true
+        note: >
+          In infants, B. infantis colonisation reduced R. gnavus and other
+          mucin-degrading Lachnospiraceae; the mechanism is competition for
+          milk oligosaccharides and mucin sugars and applies less directly in adults.
+        source: "Henrick BM et al. Cell 2021;184:3884"
+      - agent: Lactobacillus rhamnosus GG
+        kind: probiotic
+        evidence: in_vitro
+        effect: decrease
+        survives_transit: true
+        note: Co-culture and biofilm assays show LGG suppresses R. gnavus growth on mucin.
+        source: "Crost EH et al. FEMS Microbiol Rev 2023 (review of mucin degraders)"
+      - agent: Mediterranean-pattern diet (high fibre, low processed food)
+        kind: diet
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        note: Higher fibre intake is consistently associated with lower R. gnavus abundance across cohorts.
+        source: "Bolte LA et al. Gut 2021;70:1287"
+      - agent: Exclusive enteral nutrition (in Crohn's disease)
+        kind: diet
+        evidence: human_trial
+        effect: decrease
+        survives_transit: true
+        note: Clinically supervised; reduces R. gnavus alongside inflammation in paediatric Crohn's.
+        source: "Quince C et al. Am J Gastroenterol 2015;110:1718"
+    increase:
+      - agent: Broad-spectrum antibiotics
+        kind: drug
+        evidence: human_observational
+        effect: increase
+        survives_transit: true
+        note: Blooms after antibiotic courses as competitors are cleared.
+        source: "Palleja A et al. Nat Microbiol 2018;3:1255"
+      - agent: Low-fibre, high-fat Western diet
+        kind: diet
+        evidence: animal
+        effect: increase
+        survives_transit: true
+        note: Fibre deprivation drives mucus-degrader expansion in gnotobiotic mice.
+        source: "Desai MS et al. Cell 2016;167:1339"
+    competitors: [Faecalibacterium_prausnitzii, Bifidobacterium_longum, Akkermansia_muciniphila]
+
+  - organism: Mediterraneibacter_torques
+    aliases: [Ruminococcus_torques]
+    role: >
+      A close relative of R. gnavus and, like it, a mucin degrader that lives in
+      the mucus layer. Present in most adults at low abundance. Expanded in IBD and
+      in irritable bowel syndrome cohorts, and one of the organisms most associated
+      with a thinned mucus barrier.
+    why_level_matters: >
+      Same reading as R. gnavus: presence is normal, expansion tracks mucus loss
+      and inflammation.
+    decrease:
+      - agent: Dietary fibre (inulin, fructo-oligosaccharides, resistant starch)
+        kind: prebiotic
+        evidence: human_trial
+        effect: decrease
+        survives_transit: true
+        note: Fibre-fed competitors displace mucin degraders; the same interventions that lower R. gnavus lower R. torques.
+        source: "Vandeputte D et al. Gut 2017;66:1968"
+      - agent: Bifidobacterium longum / breve strains
+        kind: probiotic
+        evidence: in_vitro
+        effect: decrease
+        survives_transit: true
+        note: Compete for the same mucin-derived sugars in co-culture.
+        source: "Crost EH et al. FEMS Microbiol Rev 2023"
+    increase:
+      - agent: Antibiotics
+        kind: drug
+        evidence: human_observational
+        effect: increase
+        survives_transit: true
+        source: "Palleja A et al. Nat Microbiol 2018"
+    competitors: [Faecalibacterium_prausnitzii, Bifidobacterium_longum]
+
+  - organism: Campylobacter_hominis
+    aliases: [Campylobacter_B_hominis]
+    role: >
+      The one Campylobacter that is a normal resident rather than a food-poisoning
+      organism. It was first isolated from the stool of healthy adults and is
+      non-motile and catalase-negative, which sets it apart from the gastroenteritis
+      species C. jejuni and C. coli; it has not been linked to diarrhoeal illness.
+      It is found in a large share of healthy people at trace level. Bloodstream
+      infection has been reported only very rarely, in people with a weakened gut
+      wall or immune system.
+    why_level_matters: >
+      A trace is ordinary and a high rank here reflects how uncommon it is in the
+      reference group rather than a large amount. It is not the Campylobacter that
+      causes food poisoning, and its level carries no known health meaning on its own.
+    decrease: []
+    increase: []
+    competitors: []
+    sources:
+      - "Lawson AJ et al. Int J Syst Evol Microbiol 2001;51:651-660 (species description, from healthy human faeces)"
+
+  - organism: Asaccharobacter_celatus
+    aliases: [Adlercreutzia_equolifaciens_subsp_celatus]
+    role: >
+      An equol producer. This actinobacterium of the Eggerthellaceae converts the soy
+      isoflavone daidzein to equol, the more oestrogen-active metabolite that only some
+      people's gut communities can make. It has since been folded into the species
+      Adlercreutzia equolifaciens as a subspecies. Carriage is what makes someone an
+      "equol producer", a trait held by roughly a third of Western adults and more in
+      soy-eating populations.
+    why_level_matters: >
+      Its presence is what allows daidzein from soy to be converted to equol; without
+      an equol producer the conversion does not happen. It is a metabolic trait, not a
+      risk marker, and a high rank reflects how few reference adults carry it.
+    decrease: []
+    increase:
+      - agent: Soy isoflavones (daidzein-containing foods)
+        kind: diet
+        evidence: human_observational
+        effect: increase
+        survives_transit: true
+        note: >
+          Equol-producer status is more common in populations with habitual soy intake,
+          and the substrate is what the organism grows on; the association is
+          observational.
+        source: "Setchell KDR, Clerici C. J Nutr 2010;140:1355S-1362S"
+    competitors: []
+    sources:
+      - "Minamida K et al. Int J Syst Evol Microbiol 2008;58:1238-1240 (species description)"
+      - "Nouioui I et al. Front Microbiol 2018;9:2007 (reclassification into Adlercreutzia equolifaciens)"
+
+  - organism: Eggerthella_lenta
+    role: >
+      An actinobacterium found at low levels in most adults. Its claim to fame is
+      drug metabolism: it inactivates the heart drug digoxin, and it metabolises
+      levodopa. It is a histamine producer via histidine decarboxylase, a producer of
+      secondary bile acids, and is expanded in rheumatoid arthritis, lupus and
+      multiple sclerosis cohorts. It is an occasional cause of bloodstream infection
+      in people with a compromised gut wall.
+    why_level_matters: >
+      A trace is ordinary. Expansion is a marker seen across several autoimmune
+      cohorts and, in this report, is what drove the histamine reading.
+    decrease:
+      - agent: Dietary arginine restriction
+        kind: diet
+        evidence: animal
+        effect: decrease
+        survives_transit: true
+        note: >
+          E. lenta's digoxin-inactivating operon and growth are arginine-dependent;
+          a high-protein, arginine-rich diet increased its activity in mice and
+          restriction reduced it. Not a dietary recommendation, a mechanism.
+        source: "Haiser HJ et al. Science 2013;341:295"
+      - agent: Dietary fibre and fermentable carbohydrate
+        kind: prebiotic
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        note: Higher fibre intake associates with lower Eggerthellaceae abundance across cohorts.
+        source: "Bolte LA et al. Gut 2021"
+      - agent: Bifidobacterium and Lactobacillus multi-strain probiotics
+        kind: probiotic
+        evidence: human_trial
+        effect: decrease
+        survives_transit: true
+        note: Reduced Eggerthella in a small trial in rheumatoid arthritis; modest effect.
+        source: "Zamani B et al. Int J Rheum Dis 2016;19:869"
+    increase:
+      - agent: High-protein, high-arginine diet
+        kind: diet
+        evidence: animal
+        effect: increase
+        survives_transit: true
+        source: "Haiser HJ et al. Science 2013"
+    competitors: [Bifidobacterium_adolescentis, Lactobacillus_plantarum]
+
+  - organism: Erysipelatoclostridium_ramosum
+    aliases: [Clostridium_ramosum]
+    role: >
+      A low-level resident of the Erysipelotrichaceae. It promotes fat absorption in
+      the small intestine in mouse models, is expanded in obesity and metabolic
+      disease cohorts, and can cross a damaged gut lining, which is how it turns up
+      in occasional bloodstream infections. At trace levels it is unremarkable.
+    why_level_matters: >
+      Expansion tracks a high-fat diet and metabolic disturbance more than any
+      single disease.
+    decrease:
+      - agent: Dietary fibre, especially beta-glucan and resistant starch
+        kind: prebiotic
+        evidence: animal
+        effect: decrease
+        survives_transit: true
+        note: Fibre-fed mice show lower Erysipelotrichaceae; the family expands on high-fat, low-fibre feeding.
+        source: "Turnbaugh PJ et al. Cell Host Microbe 2008;3:213"
+      - agent: Lactobacillus plantarum
+        kind: probiotic
+        evidence: animal
+        effect: decrease
+        survives_transit: true
+        note: Reduced Erysipelotrichaceae in diet-induced obese mice.
+        source: "Park DY et al. PLoS One 2013;8:e59470"
+      - agent: Reduced saturated fat intake
+        kind: diet
+        evidence: animal
+        effect: decrease
+        survives_transit: true
+        source: "Woting A et al. mBio 2014;5:e01530 (C. ramosum and fat absorption)"
+    increase:
+      - agent: High-fat diet
+        kind: diet
+        evidence: animal
+        effect: increase
+        survives_transit: true
+        source: "Woting A et al. mBio 2014"
+    competitors: [Akkermansia_muciniphila, Bifidobacterium_longum]
+
+  - organism: Enterocloster
+    aliases: [Enterocloster_citroniae, Enterocloster_clostridioformis, Enterocloster_bolteae, Clostridium_bolteae, Clostridium_clostridioforme, Clostridium_citroniae]
+    role: >
+      A group of bile-tolerant Lachnospiraceae, formerly filed under Clostridium.
+      They are ordinary low-level residents that thrive on bile acids and are
+      expanded in autism-spectrum, IBD and post-antibiotic cohorts. E. bolteae in
+      particular has been isolated from bloodstream and abdominal infections.
+    why_level_matters: >
+      Bile tolerance means a high-fat diet feeds them; expansion is a common signal
+      of a fat-rich, fibre-poor pattern and of a recently disturbed community.
+    decrease:
+      - agent: Dietary fibre (inulin, pectin)
+        kind: prebiotic
+        evidence: human_trial
+        effect: decrease
+        survives_transit: true
+        note: Fibre shifts the Lachnospiraceae balance away from bile-tolerant members toward butyrate producers.
+        source: "So D et al. Am J Clin Nutr 2018;107:965 (meta-analysis)"
+      - agent: Bifidobacterium longum strains
+        kind: probiotic
+        evidence: animal
+        effect: decrease
+        survives_transit: true
+        source: "Wang Y et al. Front Microbiol 2020 (Clostridium cluster XIVa modulation)"
+      - agent: Lower saturated-fat intake
+        kind: diet
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        note: Bile-acid load falls with dietary fat, and with it the bile-tolerant genera.
+        source: "David LA et al. Nature 2014;505:559"
+    increase:
+      - agent: High-fat, animal-based diet
+        kind: diet
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "David LA et al. Nature 2014"
+    competitors: [Faecalibacterium_prausnitzii, Roseburia_intestinalis]
+
+  - organism: Clostridium_innocuum
+    role: >
+      A vancomycin-resistant Clostridium found at low levels in many adults. It is
+      an emerging cause of antibiotic-associated diarrhoea that mimics C. difficile
+      infection, and it is enriched in Crohn's disease, where it drives fat
+      accumulation in the gut wall ("creeping fat"). A trace is ordinary; expansion
+      after antibiotics is the concern.
+    why_level_matters: >
+      Its intrinsic vancomycin resistance means it blooms precisely when
+      C. difficile is being treated.
+    decrease:
+      - agent: Saccharomyces boulardii
+        kind: probiotic
+        evidence: animal
+        effect: decrease
+        survives_transit: true
+        note: Yeast probiotic; competes with Clostridia during and after antibiotics and is not itself affected by them.
+        source: "McFarland LV, World J Gastroenterol 2010;16:2202 (review)"
+      - agent: Dietary fibre
+        kind: prebiotic
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        source: "Ha CWY et al. Cell 2020;183:666 (C. innocuum in Crohn's)"
+    increase:
+      - agent: Vancomycin and other antibiotics
+        kind: drug
+        evidence: human_observational
+        effect: increase
+        survives_transit: true
+        source: "Cherny KE et al. J Clin Microbiol 2021;59:e01022"
+    competitors: [Lactobacillus_rhamnosus, Bifidobacterium_longum]
+
+  - organism: Clostridium_spiroforme
+    role: >
+      A low-level Clostridium best known from rabbits, where its iota-like toxin
+      causes enterotoxaemia. In humans it is an uncommon, usually silent resident;
+      the toxin genes have not been shown to act in people. Expansion is rare and
+      uninterpreted beyond "a disturbed community".
+    why_level_matters: >
+      Little human evidence. Read a high level as one more marker of disturbance
+      rather than as a specific risk.
+    decrease:
+      - agent: Dietary fibre
+        kind: prebiotic
+        evidence: animal
+        effect: decrease
+        survives_transit: true
+        note: In rabbits, fibre-rich diets suppress it; the mechanism (competition and lower gut pH) is general.
+        source: "Carman RJ, Borriello SP. Vet Rec 1984 (rabbit enterotoxaemia)"
+    increase: []
+    competitors: [Lactobacillus_plantarum]
+
+  - organism: Hungatella_hathewayi
+    aliases: [Clostridium_hathewayi]
+    role: >
+      A Lachnospiraceae member that produces trimethylamine (TMA) from dietary
+      choline; the liver turns TMA into TMAO, the cardiovascular risk marker. It is
+      expanded in several cardiometabolic and IBD cohorts and has been isolated
+      from abdominal infections.
+    why_level_matters: >
+      It is one of the organisms behind a high TMAO reading. Its level matters most
+      alongside a choline-rich diet.
+    decrease:
+      - agent: Reduced dietary choline and carnitine (red meat, eggs)
+        kind: diet
+        evidence: human_trial
+        effect: decrease
+        survives_transit: true
+        note: Removes its substrate; TMA producers fall on a plant-based pattern.
+        source: "Koeth RA et al. Nat Med 2013;19:576"
+      - agent: 3,3-dimethyl-1-butanol (DMB, in some olive oils and grape seed oil)
+        kind: compound
+        evidence: animal
+        effect: decrease
+        survives_transit: true
+        note: Inhibits microbial TMA lyase; does not kill the organism but blocks the pathway.
+        source: "Wang Z et al. Cell 2015;163:1585"
+      - agent: Dietary fibre
+        kind: prebiotic
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        source: "Bolte LA et al. Gut 2021"
+    increase:
+      - agent: High choline / red-meat diet
+        kind: diet
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Koeth RA et al. Nat Med 2013"
+    competitors: [Bifidobacterium_longum, Lactobacillus_plantarum]
+
+  - organism: Flavonifractor_plautii
+    role: >
+      A resident that breaks down dietary flavonoids such as quercetin and
+      catechins, which sounds useful but means it degrades the very polyphenols
+      that feed other beneficial organisms. It is expanded in depression, IBD and
+      colorectal cancer cohorts and lower in some others; the evidence is mixed but
+      leans adverse at high abundance.
+    why_level_matters: >
+      High levels may blunt the benefit of a polyphenol-rich diet by consuming the
+      polyphenols first.
+    decrease:
+      - agent: Dietary fibre
+        kind: prebiotic
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        source: "Bolte LA et al. Gut 2021"
+      - agent: Bifidobacterium multi-strain probiotics
+        kind: probiotic
+        evidence: human_trial
+        effect: decrease
+        survives_transit: true
+        note: Small trial; Flavonifractor fell alongside a rise in bifidobacteria.
+        source: "Ohsawa K et al. Int J Food Sci Nutr 2015 (B. breve and gut flora)"
+    increase:
+      - agent: High polyphenol intake without fibre
+        kind: diet
+        evidence: in_vitro
+        effect: increase
+        survives_transit: true
+        note: Its substrate; more relevant is that it is fed by what it degrades.
+        source: "Braune A, Blaut M. Gut Microbes 2016;7:216"
+    competitors: [Bifidobacterium_adolescentis, Akkermansia_muciniphila]
+
+  - organism: Bacteroides_fragilis
+    role: >
+      The best-studied Bacteroides. Most strains are ordinary residents with a
+      genuinely beneficial side: polysaccharide A from B. fragilis trains
+      regulatory T cells and is one of the founding examples of a bacterial
+      molecule shaping immunity. A minority of strains carry the fragilysin toxin
+      (enterotoxigenic B. fragilis, ETBF), which is linked to colorectal cancer and
+      colitis. Species-level DNA cannot tell the two apart; the toxin gene can, and
+      the pathogen screen looks for it.
+    why_level_matters: >
+      The species is common and mostly harmless. What matters is the toxin gene
+      (reported separately) and whether the whole Bacteroides group is expanded at
+      the expense of fibre-fermenting Firmicutes.
+    decrease:
+      - agent: Dietary fibre and resistant starch
+        kind: prebiotic
+        evidence: human_trial
+        effect: decrease
+        survives_transit: true
+        note: Shifts the balance toward Firmicutes fermenters; relative abundance falls.
+        source: "Walker AW et al. ISME J 2011;5:220"
+      - agent: Lactobacillus and Bifidobacterium probiotics
+        kind: probiotic
+        evidence: in_vitro
+        effect: decrease
+        survives_transit: true
+        note: Bacteriocins and acid production inhibit B. fragilis in culture.
+        source: "Lee JH et al. J Microbiol Biotechnol 2019"
+    increase:
+      - agent: High-fat, high-protein diet
+        kind: diet
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "David LA et al. Nature 2014"
+    competitors: [Faecalibacterium_prausnitzii, Roseburia_intestinalis]
+
+  - organism: Enterococcus_faecium
+    role: >
+      A hardy low-level resident that survives antibiotics, heat and bile. It is
+      the source of vancomycin-resistant Enterococcus (VRE) in hospitals, and its
+      expansion in stool predicts bloodstream infection in immunocompromised
+      patients. Some strains are sold as probiotics in animal feed; in humans the
+      species is watched rather than welcomed.
+    why_level_matters: >
+      Blooms after antibiotics mark a cleared-out community; at trace levels it
+      is unremarkable.
+    decrease:
+      - agent: Lactobacillus rhamnosus and L. plantarum
+        kind: probiotic
+        evidence: in_vitro
+        effect: decrease
+        survives_transit: true
+        note: Bacteriocin and lactic-acid inhibition of Enterococcus in co-culture; consistent across many strains.
+        source: "Todorov SD, Dicks LMT. Lett Appl Microbiol 2005"
+      - agent: Bifidobacterium longum
+        kind: probiotic
+        evidence: animal
+        effect: decrease
+        survives_transit: true
+        note: Reduced VRE colonisation density in mice.
+        source: "Ubeda C et al. J Clin Invest 2010 (Barnesiella and VRE clearance; commensal context)"
+      - agent: Dietary fibre
+        kind: prebiotic
+        evidence: animal
+        effect: decrease
+        survives_transit: true
+        note: Fibre-fed mice clear VRE faster; SCFA and competition.
+        source: "Caballero S et al. Cell Host Microbe 2017;21:592"
+    increase:
+      - agent: Antibiotics, especially cephalosporins and vancomycin
+        kind: drug
+        evidence: human_observational
+        effect: increase
+        survives_transit: true
+        source: "Taur Y et al. Clin Infect Dis 2012;55:905"
+    competitors: [Barnesiella_intestinihominis, Lactobacillus_rhamnosus, Blautia_producta]
+
+  - organism: Fusobacterium
+    aliases: [Fusobacterium_nucleatum, Fusobacterium_sp_CAG_439]
+    role: >
+      Oral anaerobes that should be rare in stool. F. nucleatum is the organism
+      most consistently enriched in colorectal cancer tissue and stool, where it
+      binds tumour cells through the FadA adhesin and drives inflammation. It also
+      turns up in stool during gum disease and IBD. Unnamed Fusobacterium bins are
+      read at genus level.
+    why_level_matters: >
+      Any consistent presence in stool is worth noting; expansion is a
+      well-replicated cancer-associated signal, though not a diagnosis.
+    decrease:
+      - agent: Oral hygiene and periodontal treatment
+        kind: lifestyle
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        note: The mouth is the reservoir; stool Fusobacterium tracks oral load.
+        source: "Komiya Y et al. Gut 2019;68:1335"
+      - agent: Dietary fibre (prudent diet)
+        kind: prebiotic
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        note: Prudent-diet adherence associates with lower F. nucleatum-positive cancers.
+        source: "Mehta RS et al. JAMA Oncol 2017;3:921"
+      - agent: Lactobacillus and Bifidobacterium probiotics
+        kind: probiotic
+        evidence: in_vitro
+        effect: decrease
+        survives_transit: true
+        note: Inhibit F. nucleatum growth and adhesion in culture.
+        source: "Guo S et al. J Oral Microbiol 2020"
+    increase:
+      - agent: Periodontal disease, smoking
+        kind: lifestyle
+        evidence: human_observational
+        effect: increase
+        survives_transit: true
+        source: "Brennan CA, Garrett WS. Nat Rev Microbiol 2019;17:156"
+    competitors: [Lactobacillus_rhamnosus, Streptococcus_salivarius]
+
+  # ======================================================================= #
+  # Beneficial organisms — mostly flagged for being low
+  # ======================================================================= #
+
+  - organism: Faecalibacterium_prausnitzii
+    role: >
+      The single most abundant butyrate producer in a healthy adult gut, often
+      5-15% of the community. Butyrate is the main fuel of the colon lining, tightens
+      the barrier, and promotes regulatory T cells; F. prausnitzii also secretes an
+      anti-inflammatory protein (MAM) of its own. Reduced F. prausnitzii is one of
+      the most replicated findings in Crohn's disease and appears across ulcerative
+      colitis, IBS, obesity and coeliac disease.
+    why_level_matters: >
+      Low means the gut lining is short of its main fuel and its main
+      anti-inflammatory resident. It is strictly anaerobic and hard to supplement
+      directly, so restoring it means feeding it.
+    increase:
+      - agent: Inulin and fructo-oligosaccharides (chicory, Jerusalem artichoke, onion)
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        note: The best-replicated prebiotic effect on F. prausnitzii; 10-15 g/day over 2-4 weeks in several RCTs.
+        source: "Ramirez-Farias C et al. Br J Nutr 2009;101:541; Vandeputte D et al. Gut 2017"
+      - agent: Resistant starch (cooled potatoes/rice, green banana, high-amylose maize)
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Venkataraman A et al. Microbiome 2016;4:33"
+      - agent: Apple pectin and other pectins
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Chung WSF et al. BMC Biol 2016;14:3"
+      - agent: "Polyphenols: pomegranate, cranberry, cocoa flavanols"
+        kind: compound
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        note: Small trials; pomegranate extract and cocoa flavanols each raised Faecalibacterium.
+        source: "Li Z et al. Food Funct 2015;6:2487; Tzounis X et al. Am J Clin Nutr 2011;93:62"
+      - agent: Mediterranean diet
+        kind: diet
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Ghosh TS et al. Gut 2020;69:1218 (NU-AGE trial)"
+      - agent: Bifidobacterium longum and Lactobacillus strains (cross-feeding)
+        kind: probiotic
+        evidence: in_vitro
+        effect: increase
+        survives_transit: true
+        note: Bifidobacteria release acetate that F. prausnitzii uses; cross-feeding shown in co-culture.
+        source: "Rios-Covian D et al. FEMS Microbiol Lett 2015"
+      - agent: Berberine
+        kind: herb
+        evidence: animal
+        effect: increase
+        survives_transit: true
+        note: Poorly absorbed, so it reaches the colon; raised Faecalibacterium in rodent models. Human data are for metabolic outcomes, not this organism.
+        source: "Zhang X et al. Sci Rep 2015;5:14405"
+    decrease:
+      - agent: Antibiotics
+        kind: drug
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        source: "Palleja A et al. Nat Microbiol 2018"
+      - agent: Low-fibre Western diet
+        kind: diet
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        source: "Sonnenburg ED, Sonnenburg JL. Nat Rev Microbiol 2019"
+    competitors: []
+
+  - organism: Akkermansia_muciniphila
+    role: >
+      A mucus-layer specialist that eats mucin and, in doing so, stimulates the
+      lining to make more of it, thickening the barrier. Higher levels track
+      metabolic health: leaner, better glucose control, lower inflammation. A
+      pasteurised preparation improved insulin sensitivity in a human trial and is
+      sold as a supplement. Very high levels alongside a low-fibre diet are a
+      different picture — the organism living on mucus because nothing else is
+      available — and it is elevated in multiple sclerosis cohorts.
+    why_level_matters: >
+      Low is the usual concern. High is normally fine and is a watch, not a flag,
+      unless fibre intake is very low.
+    increase:
+      - agent: "Polyphenols: cranberry, grape, pomegranate, green tea extract"
+        kind: compound
+        evidence: animal
+        effect: increase
+        survives_transit: true
+        note: One of the most reproducible findings in rodent nutrition studies; human confirmation is smaller.
+        source: "Anhe FF et al. Gut 2015;64:872; Roopchand DE et al. Diabetes 2015"
+      - agent: Metformin
+        kind: drug
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        note: Prescription only; listed because it is the best-evidenced human intervention for this organism.
+        source: "Wu H et al. Nat Med 2017;23:850"
+      - agent: Inulin-type fructans
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Dewulf EM et al. Gut 2013;62:1112"
+      - agent: Intermittent fasting / caloric restriction
+        kind: lifestyle
+        evidence: animal
+        effect: increase
+        survives_transit: true
+        source: "Everard A et al. PNAS 2013;110:9066"
+      - agent: Pasteurised Akkermansia muciniphila
+        kind: probiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        note: Improved insulin sensitivity and lowered inflammation markers in overweight adults; the organism itself was not measured as colonising.
+        source: "Depommier C et al. Nat Med 2019;25:1096"
+    decrease:
+      - agent: Very high fat, low fibre diet
+        kind: diet
+        evidence: animal
+        effect: decrease
+        survives_transit: true
+        source: "Everard A et al. PNAS 2013"
+    competitors: []
+
+  - organism: Roseburia
+    aliases: [Roseburia_intestinalis, Roseburia_hominis, Roseburia_faecis, Roseburia_inulinivorans]
+    role: >
+      Flagellated butyrate producers that thrive on dietary fibre, especially
+      beta-glucans and inulin. Lower levels are reported in ulcerative colitis, type
+      2 diabetes and atherosclerosis cohorts. R. intestinalis has direct
+      anti-inflammatory effects on the gut lining in cell and mouse work.
+    why_level_matters: >
+      Missing or low Roseburia is a fibre-intake signal as much as a health one:
+      these are among the first organisms to fall on a low-fibre diet and the first
+      to recover on a high-fibre one.
+    increase:
+      - agent: Oat and barley beta-glucan
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Martinez I et al. ISME J 2013;7:269"
+      - agent: Inulin and fructo-oligosaccharides
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Vandeputte D et al. Gut 2017"
+      - agent: Whole grains
+        kind: food
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Vanegas SM et al. Am J Clin Nutr 2017;105:635"
+      - agent: Resistant starch
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Walker AW et al. ISME J 2011"
+    decrease:
+      - agent: Low-fibre diet, antibiotics
+        kind: diet
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        source: "Sonnenburg ED, Sonnenburg JL. Nat Rev Microbiol 2019"
+    competitors: []
+
+  - organism: Eubacterium_rectale
+    aliases: [Agathobacter_rectalis]
+    role: >
+      With F. prausnitzii, one of the two dominant butyrate producers of the adult
+      gut, often several percent of the community. It ferments fibre and starch
+      breakdown products into butyrate. Depleted in Western disease cohorts and in
+      IBD; its abundance tracks fermentable-fibre intake closely.
+    why_level_matters: >
+      Missing E. rectale means a large share of normal butyrate capacity is absent.
+    increase:
+      - agent: Resistant starch
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        note: E. rectale is a primary responder to resistant starch, cross-feeding on Ruminococcus bromii breakdown products.
+        source: "Walker AW et al. ISME J 2011;5:220"
+      - agent: Inulin
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Vandeputte D et al. Gut 2017"
+      - agent: Whole-grain wheat and rye
+        kind: food
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Vuholm S et al. J Nutr 2017;147:2067"
+    decrease:
+      - agent: Antibiotics; low-fibre diet
+        kind: drug
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        source: "Palleja A et al. Nat Microbiol 2018"
+    competitors: []
+
+  - organism: Anaerostipes_hadrus
+    role: >
+      Converts lactate and acetate into butyrate, which keeps lactate from
+      accumulating (lactate build-up is itself pro-inflammatory) and feeds the
+      lining. One of the most common organisms in healthy adults and reduced in
+      some inflammatory and metabolic cohorts.
+    why_level_matters: >
+      Missing Anaerostipes removes a key link in the chain that turns fibre
+      fermentation into butyrate.
+    increase:
+      - agent: Inulin
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Vandeputte D et al. Gut 2017"
+      - agent: Lactate-producing probiotics (Lactobacillus, Bifidobacterium)
+        kind: probiotic
+        evidence: in_vitro
+        effect: increase
+        survives_transit: true
+        note: Supply its substrate; cross-feeding shown in culture.
+        source: "Duncan SH et al. Appl Environ Microbiol 2004;70:5810"
+      - agent: Resistant starch
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Baxter NT et al. mBio 2019;10:e02566"
+    decrease: []
+    competitors: []
+
+  - organism: Coprococcus
+    aliases: [Coprococcus_comes, Coprococcus_catus, Coprococcus_eutactus]
+    role: >
+      Butyrate and propionate producers repeatedly associated with better mental
+      health: lower in depression cohorts and higher in people reporting better
+      quality of life, in one of the largest population studies of the microbiome.
+    why_level_matters: >
+      Missing Coprococcus is one of the more consistent depletion signals in
+      mood-related cohorts.
+    increase:
+      - agent: Dietary fibre, especially from whole grains and legumes
+        kind: prebiotic
+        evidence: human_observational
+        effect: increase
+        survives_transit: true
+        source: "Valles-Colomer M et al. Nat Microbiol 2019;4:623"
+      - agent: Mediterranean diet
+        kind: diet
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Ghosh TS et al. Gut 2020"
+      - agent: Resistant starch
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Baxter NT et al. mBio 2019"
+    decrease: []
+    competitors: []
+
+  - organism: Odoribacter_splanchnicus
+    role: >
+      A butyrate producer of the Bacteroidetes, unusual in that most butyrate
+      producers are Firmicutes. Lower levels are reported in IBD, in some
+      hypertension cohorts, and in cystic fibrosis. It also produces sulfonolipids
+      with anti-inflammatory activity in cell models.
+    why_level_matters: >
+      Missing Odoribacter is a mild but consistent depletion signal across
+      inflammatory conditions.
+    increase:
+      - agent: Dietary fibre, especially pectin and inulin
+        kind: prebiotic
+        evidence: animal
+        effect: increase
+        survives_transit: true
+        source: "Bang SJ et al. Sci Rep 2018 (pectin and Bacteroidetes)"
+      - agent: Whole grains
+        kind: food
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Vanegas SM et al. Am J Clin Nutr 2017"
+    decrease: []
+    competitors: []
+
+  - organism: Ruminococcus_bromii
+    role: >
+      The keystone degrader of resistant starch: it is the organism that breaks
+      starch granules open, releasing sugars that E. rectale, Anaerostipes and
+      others then turn into butyrate. Without it, resistant starch passes through
+      largely unfermented. Present in most adults on a starch-containing diet.
+    why_level_matters: >
+      Missing R. bromii means resistant-starch prebiotics will work poorly until
+      it returns; other fibres (inulin, pectin) do not depend on it.
+    increase:
+      - agent: Resistant starch (cooled cooked potatoes and rice, green banana, high-amylose maize)
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        note: The organism's defining substrate; it responds within days.
+        source: "Walker AW et al. ISME J 2011; Venkataraman A et al. Microbiome 2016"
+      - agent: Whole-grain and legume intake
+        kind: food
+        evidence: human_observational
+        effect: increase
+        survives_transit: true
+        source: "Ze X et al. ISME J 2012;6:1535"
+    decrease:
+      - agent: Very low-carbohydrate diets
+        kind: diet
+        evidence: human_trial
+        effect: decrease
+        survives_transit: true
+        source: "Duncan SH et al. Appl Environ Microbiol 2007"
+    competitors: []
+
+  - organism: Fusicatenibacter_saccharivorans
+    role: >
+      A common butyrate-producing Lachnospiraceae member, reduced in ulcerative
+      colitis and in depression cohorts. In cell studies it induces IL-10, the
+      main anti-inflammatory cytokine, from immune cells.
+    why_level_matters: >
+      A depletion signal shared with the other butyrate producers.
+    increase:
+      - agent: Dietary fibre, whole grains
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Vanegas SM et al. Am J Clin Nutr 2017"
+      - agent: Inulin
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Vandeputte D et al. Gut 2017"
+    decrease: []
+    competitors: []
+
+  - organism: Agathobaculum_butyriciproducens
+    role: >
+      A butyrate producer studied as a next-generation probiotic: in mouse models
+      it reduced colitis and improved cognition and Parkinson's-like features.
+      Common in healthy adults, lower in some disease cohorts.
+    why_level_matters: >
+      One more butyrate producer in the depleted set; not yet available as a
+      supplement.
+    increase:
+      - agent: Dietary fibre (inulin, resistant starch)
+        kind: prebiotic
+        evidence: animal
+        effect: increase
+        survives_transit: true
+        source: "Go J et al. Int J Mol Sci 2021 (A. butyriciproducens in mice)"
+    decrease: []
+    competitors: []
+
+  - organism: Butyricimonas
+    aliases: [Butyricimonas_virosa, Butyricimonas_synergistica]
+    role: >
+      Butyrate producers of the Bacteroidetes, depleted in multiple sclerosis and
+      IBD cohorts. Common but low-abundance residents.
+    why_level_matters: >
+      A depletion signal; limited intervention evidence specific to the genus.
+    increase:
+      - agent: Dietary fibre
+        kind: prebiotic
+        evidence: human_observational
+        effect: increase
+        survives_transit: true
+        source: "Bolte LA et al. Gut 2021"
+    decrease: []
+    competitors: []
+
+  - organism: Lachnospira_eligens
+    aliases: [Eubacterium_eligens]
+    role: >
+      A pectin specialist that produces acetate and the precursors of butyrate;
+      one of the organisms most associated with plant-rich diets and lower in
+      asthma and IBD cohorts. In cell studies it strongly induces IL-10.
+    why_level_matters: >
+      Its absence is a fruit-and-vegetable intake signal; its presence at high
+      levels is good news.
+    increase:
+      - agent: Pectin (apples, citrus, carrots)
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        note: The organism's defining substrate.
+        source: "Chung WSF et al. BMC Biol 2016;14:3"
+      - agent: Fruit and vegetable intake
+        kind: food
+        evidence: human_observational
+        effect: increase
+        survives_transit: true
+        source: "Bolte LA et al. Gut 2021"
+    decrease: []
+    competitors: []
+
+  - organism: Bifidobacterium_pseudocatenulatum
+    role: >
+      One of the most common bifidobacteria in adults, alongside B. longum and
+      B. adolescentis. It ferments dietary fibre and human milk oligosaccharides
+      into acetate and lactate, lowers gut pH, and a specific strain (CECT 7765)
+      reduced inflammation and improved metabolic markers in obese mice and in a
+      small trial in obese children. Lower in several inflammatory and metabolic
+      cohorts.
+    why_level_matters: >
+      Low bifidobacteria is a general marker of a fibre-poor, disturbed
+      community; this species is one of the ones that should be there.
+    increase:
+      - agent: Galacto-oligosaccharides (GOS)
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        note: The most reliably bifidogenic prebiotic in adult trials; 5-10 g/day.
+        source: "Davis LMG et al. PLoS One 2011;6:e25200"
+      - agent: Inulin and fructo-oligosaccharides
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Vandeputte D et al. Gut 2017;66:1968"
+      - agent: Bifidobacterium pseudocatenulatum CECT 7765 (as a probiotic)
+        kind: probiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        note: Small trial in obese children with insulin resistance; improved inflammatory markers.
+        source: "Sanchis-Chorda J et al. Eur J Nutr 2019;58:2789"
+      - agent: Whole grains and resistant starch
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Martinez I et al. ISME J 2013;7:269"
+    decrease:
+      - agent: Antibiotics
+        kind: drug
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        source: "Palleja A et al. Nat Microbiol 2018;3:1255"
+    competitors: []
+
+  - organism: Bifidobacterium
+    aliases: [Bifidobacterium_longum, Bifidobacterium_adolescentis, Bifidobacterium_bifidum, Bifidobacterium_breve, Bifidobacterium_catenulatum, Bifidobacterium_animalis, Bifidobacterium_dentium]
+    role: >
+      The classic beneficial genus: fibre and milk-sugar fermenters that produce
+      acetate and lactate, lower gut pH, feed butyrate producers by cross-feeding,
+      and are among the best-studied probiotics. Dominant in breast-fed infants;
+      a few percent of a healthy adult gut. Lower in IBD, IBS, obesity and old
+      age. B. dentium is the exception - an oral organism that in stool is a
+      mouth signal.
+    why_level_matters: >
+      Low is a fibre-intake and disturbance signal; high is fine and, on a
+      fibre-rich diet, expected.
+    increase:
+      - agent: Galacto-oligosaccharides (GOS)
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Davis LMG et al. PLoS One 2011;6:e25200"
+      - agent: Inulin and fructo-oligosaccharides
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Vandeputte D et al. Gut 2017"
+      - agent: Bifidobacterium probiotics (B. longum, B. breve, B. lactis strains)
+        kind: probiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        note: Transient colonisation in most adults; effects last while taken.
+        source: "Maldonado-Gomez MX et al. Cell Host Microbe 2016;20:515"
+      - agent: Whole grains and resistant starch
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Martinez I et al. ISME J 2013"
+      - agent: Polyphenols (cocoa flavanols, berries)
+        kind: compound
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Tzounis X et al. Am J Clin Nutr 2011;93:62"
+    decrease:
+      - agent: Antibiotics
+        kind: drug
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        source: "Palleja A et al. Nat Microbiol 2018"
+    competitors: []
+
+  - organism: Eubacterium_ramulus
+    role: >
+      The gut's specialist flavonoid degrader: it breaks the ring of quercetin,
+      naringenin, luteolin and related plant polyphenols, releasing smaller
+      phenolic acids that are absorbed and act in the body. It also produces
+      butyrate. Its abundance rises with polyphenol-rich food and is lower in
+      some IBD and metabolic cohorts.
+    why_level_matters: >
+      Present means a polyphenol-rich diet is being converted into its active
+      products; low means those foods are doing less than they could.
+    increase:
+      - agent: Flavonoid-rich foods (apples, onions, berries, tea, citrus)
+        kind: food
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        note: Its substrate; quercetin and rutin feeding raised E. ramulus counts in volunteers.
+        source: "Simmering R et al. Appl Environ Microbiol 2002;68:5177"
+      - agent: Dietary fibre
+        kind: prebiotic
+        evidence: human_observational
+        effect: increase
+        survives_transit: true
+        source: "Bolte LA et al. Gut 2021;70:1287"
+    decrease:
+      - agent: Low-fibre, low-polyphenol diet
+        kind: diet
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        source: "Braune A, Blaut M. Gut Microbes 2016;7:216"
+    competitors: []
+
+  - organism: Ruminococcus_callidus
+    aliases: [Ruminococcus_E_callidus]
+    role: >
+      A fibre-degrading Ruminococcus of the Oscillospiraceae that breaks down
+      cellulose and hemicellulose from plant cell walls. Consistently lower in
+      Crohn's disease and colorectal cancer cohorts and higher in healthy
+      controls; one of the organisms whose depletion marks a fibre-poor,
+      inflamed gut.
+    why_level_matters: >
+      Missing or low means a plant-fibre degrader most adults carry is not
+      doing its job; presence at a good level is favourable.
+    increase:
+      - agent: Whole grains and plant fibre (wheat bran, vegetables)
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Martinez I et al. ISME J 2013;7:269"
+      - agent: Resistant starch
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Walker AW et al. ISME J 2011;5:220"
+    decrease:
+      - agent: Antibiotics; low-fibre diet
+        kind: drug
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        source: "Palleja A et al. Nat Microbiol 2018"
+    competitors: []
+
+  - organism: Eubacterium_siraeum
+    aliases: [Ruminococcus_E_siraeum]
+    role: >
+      A starch- and fibre-degrading resident of the Oscillospiraceae, common in
+      healthy adults and reduced in IBD, obesity and type 2 diabetes cohorts. It
+      responds to whole-grain and resistant-starch intake and is part of the
+      cross-feeding chain that ends in butyrate.
+    why_level_matters: >
+      A depletion signal shared with the other fibre-associated organisms.
+    increase:
+      - agent: Whole grains (barley, brown rice)
+        kind: food
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Martinez I et al. ISME J 2013;7:269"
+      - agent: Resistant starch
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Venkataraman A et al. Microbiome 2016;4:33"
+    decrease:
+      - agent: Antibiotics
+        kind: drug
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        source: "Palleja A et al. Nat Microbiol 2018"
+    competitors: []
+
+  - organism: Barnesiella_intestinihominis
+    aliases: [Barnesiella]
+    role: >
+      A Bacteroidales resident with two well-documented roles: in mice it clears
+      vancomycin-resistant Enterococcus from the gut, and it potentiates the
+      anti-tumour immune response to cyclophosphamide chemotherapy. Higher in
+      healthy adults than in IBD and metabolic cohorts; a mucin-associated
+      organism that sits in the mucus layer without degrading it aggressively.
+    why_level_matters: >
+      Presence is favourable; low or missing removes a colonisation-resistance
+      organism. High on its own is not a concern.
+    increase:
+      - agent: Dietary fibre, especially from vegetables and legumes
+        kind: prebiotic
+        evidence: human_observational
+        effect: increase
+        survives_transit: true
+        source: "Bolte LA et al. Gut 2021;70:1287"
+      - agent: Inulin
+        kind: prebiotic
+        evidence: animal
+        effect: increase
+        survives_transit: true
+        source: "Weitkunat K et al. Mol Nutr Food Res 2015 (inulin and Barnesiella in mice)"
+    decrease:
+      - agent: Antibiotics
+        kind: drug
+        evidence: animal
+        effect: decrease
+        survives_transit: true
+        note: Its loss after antibiotics is what lets VRE establish; its return clears it.
+        source: "Ubeda C et al. Infect Immun 2013;81:965"
+    competitors: []
+
+  - organism: Ruminococcus_lactaris
+    aliases: [Mediterraneibacter_lactaris]
+    role: >
+      A common Lachnospiraceae resident related to R. gnavus and R. torques but
+      without their mucin-degrading reputation. It ferments sugars to acetate
+      and is reported higher in healthy controls than in colorectal cancer and
+      IBD cohorts, and lower in older adults. Evidence is modest and mostly
+      observational.
+    why_level_matters: >
+      A mild depletion signal shared with the other fibre-associated
+      Lachnospiraceae; high levels are not a concern.
+    increase:
+      - agent: Dietary fibre, whole grains
+        kind: prebiotic
+        evidence: human_observational
+        effect: increase
+        survives_transit: true
+        source: "Bolte LA et al. Gut 2021"
+      - agent: Mediterranean diet
+        kind: diet
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Ghosh TS et al. Gut 2020;69:1218"
+    decrease:
+      - agent: Antibiotics
+        kind: drug
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        source: "Palleja A et al. Nat Microbiol 2018"
+    competitors: []
+
+  # ======================================================================= #
+  # Conditional organisms — normal residents that matter when expanded
+  # ======================================================================= #
+
+  - organism: Blautia
+    aliases: [Blautia_wexlerae, Blautia_obeum, Blautia_producta, Blautia_hydrogenotrophica, Blautia_massiliensis, Blautia_sp_CAG_257, Blautia_sp_N6H1_15, Ruminococcus_obeum]
+    role: >
+      One of the most abundant gut genera. Blautia species produce acetate and, in
+      some cases, butyrate, and B. producta is a documented coloniser that clears
+      vancomycin-resistant Enterococcus. The genus is reported protective against
+      visceral fat in Japanese cohorts, yet expanded in obesity, type 2 diabetes and
+      IBS in Western ones. It is a marker of a Western, starch-rich diet more than
+      of any single disease.
+    why_level_matters: >
+      High Blautia is common and mostly benign; it becomes a concern when it
+      expands at the expense of Faecalibacterium and Roseburia, which signals a
+      low-fibre, high-starch pattern.
+    decrease:
+      - agent: Increased dietary fibre diversity (vegetables, legumes over refined starch)
+        kind: diet
+        evidence: human_trial
+        effect: decrease
+        survives_transit: true
+        note: Relative abundance falls as fibre-fed competitors expand.
+        source: "Vandeputte D et al. Gut 2017"
+    increase:
+      - agent: Refined carbohydrate intake
+        kind: diet
+        evidence: human_observational
+        effect: increase
+        survives_transit: true
+        source: "Ozato N et al. NPJ Biofilms Microbiomes 2019;5:28"
+    competitors: [Faecalibacterium_prausnitzii, Roseburia_intestinalis]
+
+  - organism: Bacteroides
+    aliases: [Bacteroides_uniformis, Bacteroides_ovatus, Bacteroides_caccae, Bacteroides_stercoris, Bacteroides_xylanisolvens, Bacteroides_finegoldii, Bacteroides_thetaiotaomicron]
+    role: >
+      The dominant genus of a Western-diet gut. Bacteroides species carry vast
+      enzyme repertoires for breaking down complex plant fibres and host glycans
+      and produce propionate and acetate. B. uniformis, B. ovatus and B.
+      xylanisolvens are among the most versatile fibre degraders known. A high
+      Bacteroides share is normal in Europe and North America and unusual in
+      fibre-rich agrarian populations, where Prevotella dominates instead.
+    why_level_matters: >
+      Expansion is a dietary signal (animal protein and fat) more than a health
+      one. It matters when it comes with depletion of butyrate producers.
+    decrease:
+      - agent: Whole grains, legumes and resistant starch
+        kind: prebiotic
+        evidence: human_trial
+        effect: decrease
+        survives_transit: true
+        note: Shifts the Bacteroides-to-Firmicutes balance toward fermenters.
+        source: "Walker AW et al. ISME J 2011; David LA et al. Nature 2014"
+    increase:
+      - agent: Animal-protein, high-fat diet
+        kind: diet
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "David LA et al. Nature 2014"
+    competitors: [Prevotella_copri, Faecalibacterium_prausnitzii]
+
+  - organism: Phocaeicola
+    aliases: [Phocaeicola_vulgatus, Phocaeicola_dorei, Phocaeicola_plebeius, Bacteroides_vulgatus, Bacteroides_dorei, Bacteroides_plebeius]
+    role: >
+      Until 2019 these were Bacteroides, and P. vulgatus and P. dorei are often the
+      two most abundant organisms in adult stool. They are fibre degraders and
+      propionate producers with strain-dependent associations: some strains are
+      linked to lower cardiovascular risk and immune regulation, others to
+      inflammation in IBD models. P. plebeius carries the enzymes to digest seaweed
+      polysaccharides and is common in Japan.
+    why_level_matters: >
+      Very high Phocaeicola is common in Western guts. It is a concern mainly when
+      it dominates so completely that diversity falls and butyrate producers are
+      squeezed out.
+    decrease:
+      - agent: Increased fibre diversity, especially inulin and resistant starch
+        kind: prebiotic
+        evidence: human_trial
+        effect: decrease
+        survives_transit: true
+        source: "Vandeputte D et al. Gut 2017"
+    increase:
+      - agent: High-fat, high-protein diet
+        kind: diet
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "David LA et al. Nature 2014"
+    competitors: [Faecalibacterium_prausnitzii, Prevotella_copri]
+
+  - organism: Alistipes
+    aliases: [Alistipes_putredinis, Alistipes_finegoldii, Alistipes_onderdonkii, Alistipes_shahii, Alistipes_inops, Alistipes_timonensis]
+    role: >
+      Bile-tolerant Bacteroidetes that thrive on a protein- and fat-rich diet and
+      produce succinate and some propionate. The evidence points both ways:
+      Alistipes is reported protective in liver fibrosis, colitis models and some
+      cardiovascular cohorts, and expanded in depression, chronic fatigue and
+      colorectal cancer cohorts. A. putredinis and A. finegoldii are among the most
+      common gut species.
+    why_level_matters: >
+      High Alistipes is mostly a dietary signal. It is a mild concern in mood-related
+      contexts and otherwise neutral.
+    decrease:
+      - agent: Plant-based, lower-fat diet
+        kind: diet
+        evidence: human_trial
+        effect: decrease
+        survives_transit: true
+        source: "David LA et al. Nature 2014"
+    increase:
+      - agent: Animal-based, high-fat diet
+        kind: diet
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "David LA et al. Nature 2014"
+    competitors: []
+
+  - organism: Parabacteroides_distasonis
+    role: >
+      A common fibre degrader that produces succinate and secondary bile acids. It
+      has been called protective in obesity and colitis mouse models, where live
+      P. distasonis reduced weight gain and inflammation, and expanded in other
+      cohorts. Direction in humans is not settled.
+    why_level_matters: >
+      High levels are common and not a clear concern; read alongside the rest of
+      the Bacteroidetes.
+    decrease:
+      - agent: Increased fibre diversity
+        kind: prebiotic
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        source: "Bolte LA et al. Gut 2021"
+    increase:
+      - agent: Inulin (in mice)
+        kind: prebiotic
+        evidence: animal
+        effect: increase
+        survives_transit: true
+        source: "Wang K et al. Cell Rep 2019;26:222"
+    competitors: []
+
+  - organism: Parabacteroides
+    aliases: [Parabacteroides_merdae]
+    role: >
+      Fibre-degrading relatives of Bacteroides. P. merdae is a common resident
+      with a possible protective role in cardiovascular cohorts.
+    why_level_matters: Neutral in most contexts.
+    increase:
+      - agent: Dietary fibre
+        kind: prebiotic
+        evidence: human_observational
+        effect: increase
+        survives_transit: true
+        source: "Bolte LA et al. Gut 2021"
+    decrease: []
+    competitors: []
+
+  - organism: Clostridium
+    aliases: [Clostridium_sp_CAG_167, Clostridium_sp_CAG_58, Clostridium_sp_CAG_964, Clostridium_sp_CAG_242, Clostridium_saccharolyticum, Clostridium_symbiosum]
+    role: >
+      A large, much-divided genus. The unnamed members reported here are known only
+      from genomes assembled out of stool and are mostly fibre fermenters of the
+      Lachnospiraceae and Clostridiaceae with no specific human evidence. The
+      dangerous Clostridia (C. difficile, C. perfringens) are named species handled
+      by the pathogen screen and are not what an unnamed bin means.
+    why_level_matters: >
+      Expansion of unnamed Clostridia is a marker of disturbance rather than a
+      specific risk; there is too little evidence to say more.
+    decrease:
+      - agent: Dietary fibre diversity
+        kind: prebiotic
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        note: General competition; no organism-specific evidence for unnamed bins.
+        source: "Bolte LA et al. Gut 2021"
+    increase: []
+    competitors: [Faecalibacterium_prausnitzii]
+
+  - organism: Streptococcus
+    aliases: [Streptococcus_thermophilus, Streptococcus_mitis, Streptococcus_mutans, Streptococcus_anginosus_group, Streptococcus_salivarius, Streptococcus_parasanguinis]
+    role: >
+      Mostly oral and dairy organisms. S. thermophilus arrives with yoghurt and is
+      harmless. Oral streptococci (S. mitis, S. mutans, S. anginosus) in stool mean
+      oral organisms are surviving the stomach, which happens with low stomach acid,
+      acid-suppressing drugs, and gum disease; their expansion in stool is reported
+      in IBD, cirrhosis and IBS.
+    why_level_matters: >
+      High yoghurt streptococci are diet, not disease. High oral streptococci are a
+      signal about stomach acid and oral health.
+    decrease:
+      - agent: Oral hygiene and dental care
+        kind: lifestyle
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        note: Reduces the oral reservoir.
+        source: "Schmidt TSB et al. eLife 2019;8:e42693"
+      - agent: Review of acid-suppressing medication (PPIs) with a prescriber
+        kind: drug
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        note: PPIs let oral streptococci reach the gut; stopping is a prescriber's decision.
+        source: "Imhann F et al. Gut 2016;65:740"
+      - agent: Lactobacillus reuteri / L. salivarius oral probiotics
+        kind: probiotic
+        evidence: human_trial
+        effect: decrease
+        survives_transit: true
+        note: Lower oral S. mutans counts in dental trials.
+        source: "Nikawa H et al. Int J Food Microbiol 2004"
+    increase:
+      - agent: Proton-pump inhibitors
+        kind: drug
+        evidence: human_observational
+        effect: increase
+        survives_transit: true
+        source: "Imhann F et al. Gut 2016"
+      - agent: Yoghurt and fermented dairy (S. thermophilus only)
+        kind: food
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Veiga P et al. Sci Rep 2014;4:6328"
+    competitors: [Lactobacillus_reuteri]
+
+  - organism: Lactococcus_lactis
+    role: >
+      A dairy fermentation organism (cheese, buttermilk, kefir) that passes through
+      the gut rather than living in it. A high reading nearly always reflects recent
+      fermented-dairy intake and is not a concern.
+    why_level_matters: Diet, not disease.
+    decrease:
+      - agent: Less fermented dairy
+        kind: food
+        evidence: human_trial
+        effect: decrease
+        survives_transit: true
+        source: "Veiga P et al. Sci Rep 2014"
+    increase:
+      - agent: Kefir, cheese, buttermilk
+        kind: food
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Veiga P et al. Sci Rep 2014"
+    competitors: []
+
+  - organism: Dialister
+    aliases: [Dialister_invisus, Dialister_succinatiphilus]
+    role: >
+      Small anaerobes that consume succinate and produce propionate. Lower in
+      ankylosing spondylitis and depression cohorts; expanded in some IBS and
+      periodontal contexts. D. invisus is also an oral organism.
+    why_level_matters: >
+      Mixed evidence; high levels are a mild signal at most.
+    decrease:
+      - agent: Oral hygiene (for D. invisus)
+        kind: lifestyle
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        source: "Schmidt TSB et al. eLife 2019"
+    increase:
+      - agent: Dietary fibre
+        kind: prebiotic
+        evidence: human_observational
+        effect: increase
+        survives_transit: true
+        source: "Bolte LA et al. Gut 2021"
+    competitors: []
+
+  - organism: Sellimonas_intestinalis
+    role: >
+      A recently described Lachnospiraceae member, reported expanded after gut
+      disturbance and in the recovery phase after antibiotics, and in some IBD
+      cohorts. Very little is known about what it does.
+    why_level_matters: >
+      Read as a marker of recent disturbance; evidence is thin.
+    decrease:
+      - agent: Dietary fibre
+        kind: prebiotic
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        note: General competition only; no organism-specific studies.
+        source: "Bolte LA et al. Gut 2021"
+    increase:
+      - agent: Antibiotics (recovery phase)
+        kind: drug
+        evidence: human_observational
+        effect: increase
+        survives_transit: true
+        source: "Munoz M et al. Sci Rep 2020;10:16101"
+    competitors: []
+
+  - organism: Eisenbergiella
+    aliases: [Eisenbergiella_massiliensis, Eisenbergiella_tayi]
+    role: >
+      Butyrate-producing Lachnospiraceae, expanded in some IBS and IBD cohorts and
+      in obesity. Poorly characterised beyond that.
+    why_level_matters: >
+      A mild disturbance marker with thin evidence.
+    decrease:
+      - agent: Dietary fibre diversity
+        kind: prebiotic
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        source: "Bolte LA et al. Gut 2021"
+    increase: []
+    competitors: []
+
+  - organism: Anaerotignum_lactatifermentans
+    aliases: [Clostridium_lactatifermentans]
+    role: >
+      Ferments lactate to propionate and acetate. Reported expanded in some IBD
+      cohorts; otherwise an ordinary low-level resident.
+    why_level_matters: >
+      High levels suggest lactate is accumulating in the gut, which usually means
+      lactate producers (Lactobacillus, Bifidobacterium, Streptococcus) are
+      abundant — often a probiotic or fermented-food signal.
+    decrease:
+      - agent: Dietary fibre
+        kind: prebiotic
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        source: "Bolte LA et al. Gut 2021"
+    increase: []
+    competitors: []
+
+  - organism: Anaerotruncus_colihominis
+    role: >
+      An Oscillospiraceae member reported both depleted and expanded across
+      cohorts: associated with ageing, frailty and Parkinson's disease in some
+      studies, with butyrate production in others. It has been isolated from
+      bloodstream infections in immunocompromised patients. Direction is
+      unsettled; expansion is read as a disturbance marker.
+    why_level_matters: >
+      Mixed evidence. A high level is a signal about the community's balance
+      more than about this organism.
+    decrease:
+      - agent: Dietary fibre diversity (whole grains, legumes, vegetables)
+        kind: prebiotic
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        note: Expands when fibre-fed competitors fall; general competition, no organism-specific trial.
+        source: "Bolte LA et al. Gut 2021;70:1287"
+      - agent: Mediterranean diet
+        kind: diet
+        evidence: human_trial
+        effect: decrease
+        survives_transit: true
+        note: Frailty-associated taxa including Anaerotruncus fell over a year on the diet in older adults.
+        source: "Ghosh TS et al. Gut 2020;69:1218 (NU-AGE trial)"
+    increase:
+      - agent: Ageing; low-diversity diet
+        kind: lifestyle
+        evidence: human_observational
+        effect: increase
+        survives_transit: true
+        source: "Claesson MJ et al. Nature 2012;488:178"
+    competitors: [Faecalibacterium_prausnitzii]
+
+  - organism: Parasutterella_excrementihominis
+    role: >
+      A common Proteobacterium involved in bile-acid handling and aromatic amino
+      acid metabolism. Expanded in some IBD and obesity cohorts and in high-fat
+      feeding; a stable core resident in many healthy people.
+    why_level_matters: >
+      Mild signal when expanded; mostly diet-driven.
+    decrease:
+      - agent: Lower dietary fat
+        kind: diet
+        evidence: animal
+        effect: decrease
+        survives_transit: true
+        source: "Ju T et al. ISME J 2019;13:1520"
+    increase:
+      - agent: High-fat diet
+        kind: diet
+        evidence: animal
+        effect: increase
+        survives_transit: true
+        source: "Ju T et al. ISME J 2019"
+    competitors: []
+
+  - organism: Collinsella
+    aliases: [Collinsella_aerofaciens, Collinsella_intestinalis]
+    role: >
+      Common Actinobacteria that alter bile acids and cholesterol handling.
+      Expanded in rheumatoid arthritis, atherosclerosis and type 2 diabetes
+      cohorts, and reduced by dietary fibre in trials. C. aerofaciens increases gut
+      permeability in cell models.
+    why_level_matters: >
+      High Collinsella is one of the more consistent low-fibre and cardiometabolic
+      risk signals.
+    decrease:
+      - agent: Dietary fibre (whole grains, vegetables)
+        kind: prebiotic
+        evidence: human_trial
+        effect: decrease
+        survives_transit: true
+        note: Collinsella fell with fibre in controlled feeding and rose on low fibre.
+        source: "Gomez-Arango LF et al. Gut Microbes 2018;9:189"
+      - agent: Weight loss / caloric restriction
+        kind: lifestyle
+        evidence: human_trial
+        effect: decrease
+        survives_transit: true
+        source: "Frost F et al. PLoS One 2019"
+    increase:
+      - agent: Low-fibre diet
+        kind: diet
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Gomez-Arango LF et al. Gut Microbes 2018"
+    competitors: [Faecalibacterium_prausnitzii]
+
+  - organism: Atopobium
+    aliases: [Atopobium_deltae, Atopobium_parvulum]
+    role: >
+      Oral and vaginal lactic acid bacteria; in stool usually minor, and expansion
+      is an oral-origin signal reported in paediatric IBD.
+    why_level_matters: Oral-organism signal, like the oral streptococci.
+    decrease:
+      - agent: Oral hygiene
+        kind: lifestyle
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        source: "Schmidt TSB et al. eLife 2019"
+    increase: []
+    competitors: []
+
+  - organism: Prevotella_disiens
+    role: >
+      An oral and urogenital anaerobe, not a normal gut resident. In stool it
+      is usually trace and means oral or urogenital organisms are passing
+      through - the same signal as the oral streptococci, and it travels with
+      them when stomach acid is low or gum disease is present. It is an
+      occasional cause of pelvic and dental abscesses; in the gut it is a
+      marker, not a threat.
+    why_level_matters: >
+      Any consistent presence in stool points upstream: to the mouth, or to
+      the acid barrier that should have stopped it.
+    decrease:
+      - agent: Oral hygiene and periodontal treatment
+        kind: lifestyle
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        note: The mouth is the reservoir; oral-to-gut transmission is measurable and falls with oral load.
+        source: "Schmidt TSB et al. eLife 2019;8:e42693"
+      - agent: Review of acid-suppressing medication (PPIs) with a prescriber
+        kind: drug
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        note: PPIs let oral anaerobes reach the colon; stopping is a prescriber's decision.
+        source: "Imhann F et al. Gut 2016;65:740"
+      - agent: Lactobacillus reuteri / L. salivarius oral probiotics
+        kind: probiotic
+        evidence: human_trial
+        effect: decrease
+        survives_transit: true
+        note: Lower oral anaerobe counts and gingival inflammation in dental trials.
+        source: "Teughels W et al. J Clin Periodontol 2013;40:1025"
+    increase:
+      - agent: Proton-pump inhibitors; periodontal disease
+        kind: drug
+        evidence: human_observational
+        effect: increase
+        survives_transit: true
+        source: "Imhann F et al. Gut 2016"
+    competitors: [Lactobacillus_reuteri, Streptococcus_salivarius]
+
+  - organism: Prevotella
+    aliases: [Prevotella_copri, Segatella_copri]
+    role: >
+      Dominant in fibre-rich, plant-based diets and rare in Western guts. P. copri
+      is associated with good glucose handling in some cohorts and with rheumatoid
+      arthritis in others, and the specific clade matters. P. disiens is a
+      urogenital and oral organism; in stool it is usually trace.
+    why_level_matters: >
+      Context is everything: high Prevotella on a plant-rich diet is expected;
+      P. disiens in stool is an oral or urogenital signal.
+    decrease: []
+    increase:
+      - agent: Plant-based, high-fibre diet
+        kind: diet
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "De Filippis F et al. Gut 2016;65:1812"
+    competitors: [Bacteroides_uniformis]
+
+  - organism: Prevotella_buccalis
+    aliases: [Prevotella_timonensis, Prevotella_colorans, Prevotella_sp_S7_1_8,
+              Prevotella_oris, Prevotella_melaninogenica, Prevotella_bivia,
+              Prevotella_nigrescens, Prevotella_intermedia, Prevotella_denticola]
+    role: >
+      Prevotella species of the mouth and the genital tract rather than the gut.
+      P. buccalis, P. oris, P. melaninogenica, P. intermedia and P. nigrescens are
+      oral residents; P. timonensis and P. bivia belong to the vaginal community
+      and are raised in bacterial vaginosis; P. colorans and the unnamed S7-1-8
+      strain are little characterised. In stool these are usually swallowed oral
+      bacteria that survived passage, which is common and is greater with gum
+      disease and with reduced stomach acid. They are distinct from the
+      fibre-associated gut species P. copri.
+    why_level_matters: >
+      A high rank for this group in stool points to the mouth, or for P. timonensis
+      and P. bivia possibly the genital tract, as the source rather than to gut
+      overgrowth. Oral-to-gut transfer rises with periodontal disease and with
+      acid-suppressing medication.
+    decrease:
+      - agent: Oral hygiene and dental care
+        kind: lifestyle
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        note: >
+          Oral bacteria reach the gut in proportion to their load in the mouth, and
+          transfer is extensive and greater in periodontal disease; the mouse work
+          shows the mechanism for oral Klebsiella and Enterobacter, and the human
+          metagenomic work shows the transmission.
+        source: "Schmidt TSB et al. eLife 2019;8:e42693; Kitamoto S et al. Cell 2020;182:447"
+      - agent: Review acid-suppressing medication with a prescriber
+        kind: drug
+        evidence: human_observational
+        effect: decrease
+        survives_transit: true
+        note: >
+          Proton-pump inhibitor use shifts the gut community towards oral bacteria in
+          two large cohorts; whether stopping reverses it has not been tested in a
+          trial. Never stop a prescribed medicine without the prescriber.
+        source: "Imhann F et al. Gut 2016;65:740; Jackson MA et al. Gut 2016;65:749"
+    increase: []
+    competitors: []
+
+  - organism: Dielma_fastidiosa
+    role: >
+      A recently described Erysipelotrichaceae member with almost no functional
+      or clinical characterisation. Listed because it was found, not because
+      anything is known about its effect.
+    why_level_matters: Unknown.
+    decrease: []
+    increase: []
+    competitors: []
+
+  - organism: Ruthenibacterium_lactatiformans
+    role: >
+      A lactate-producing Oscillospiraceae member described in 2016. Reported
+      lower in some inflammatory cohorts. Little else is known.
+    why_level_matters: Thin evidence in either direction.
+    increase:
+      - agent: Dietary fibre
+        kind: prebiotic
+        evidence: human_observational
+        effect: increase
+        survives_transit: true
+        source: "Bolte LA et al. Gut 2021"
+    decrease: []
+    competitors: []
+
+  - organism: Oscillibacter
+    aliases: [Oscillibacter_sp_57_20, Oscillibacter_valericigenes]
+    role: >
+      Valerate-producing Oscillospiraceae associated with leanness and healthy
+      ageing in several cohorts; many members are known only from genomes.
+    why_level_matters: >
+      Missing Oscillibacter is a mild depletion signal shared with other
+      fibre-associated organisms.
+    increase:
+      - agent: Dietary fibre, Mediterranean diet
+        kind: diet
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Ghosh TS et al. Gut 2020"
+    decrease: []
+    competitors: []
+
+  - organism: Dorea
+    aliases: [Dorea_formicigenerans, Dorea_longicatena, Dorea_sp_CAG_317]
+    role: >
+      Gas producers (hydrogen, carbon dioxide) that break down mucus-associated
+      sugars. Expanded in IBS and some multiple sclerosis cohorts, lower in others;
+      D. longicatena is common in healthy adults. Contributes to bloating when
+      abundant.
+    why_level_matters: >
+      High Dorea with bloating is a plausible link; missing Dorea is usually
+      unremarkable.
+    decrease:
+      - agent: Low-FODMAP diet (for gas symptoms)
+        kind: diet
+        evidence: human_trial
+        effect: decrease
+        survives_transit: true
+        note: Reduces fermentable substrate for gas producers; clinically supervised.
+        source: "Halmos EP et al. Gut 2015;64:93"
+    increase:
+      - agent: Fermentable fibre
+        kind: prebiotic
+        evidence: human_trial
+        effect: increase
+        survives_transit: true
+        source: "Vandeputte D et al. Gut 2017"
+    competitors: []

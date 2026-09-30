@@ -1,0 +1,20 @@
+{
+  "source_id": "gtdb_r226",
+  "files": {
+    "gtdb/r226/sp_clusters_r226.tsv": {
+      "url": "https://data.gtdb.ecogenomic.org/releases/release226/226.0/auxillary_files/sp_clusters_r226.tsv",
+      "size": 38621586,
+      "retrieved_at": "2026-09-26T23:23:42-07:00",
+      "sha256": "3eab92f7b7bda93df425f490ed9955f155f3abaec2c1edb4d6197fa0e4490f19",
+      "verified": true,
+      "publisher_checksum": null,
+      "note": "representative accession per R226 species: the assembly membership that resolves R226 names onward to R232",
+      "verification": "size matched Content-Length; no publisher checksum published"
+    }
+  },
+  "release_id": "R226",
+  "taxonomy_release": "GTDB R226",
+  "license": "CC BY-SA 4.0",
+  "count_unit": "",
+  "source_count": null
+}

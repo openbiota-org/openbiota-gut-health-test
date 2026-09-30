@@ -1,0 +1,77 @@
+name: glucosinolate
+description: >-
+  The characterised bacterial route from glucosinolate to isothiocyanate,
+  measured against the Bacteroides thetaiotaomicron locus itself rather
+  than against an enzyme family. The reference set is three sequences
+  because the reaction is described in one organism, and the identity
+  floor is high for the same reason.
+metabolite: Glucosinolate to isothiocyanate conversion
+pathway: >-
+  glucosinolate -> isothiocyanate (BT2158 with BT2156 or BT2157)
+category: detox
+
+extension: true
+
+targets:
+  - id: BTGSL
+    label: BT2158 with BT2156/BT2157 (glucosinolate conversion)
+    gene: BT2158
+    source: uniprot
+    query: '((gene:BT2158) OR (gene:BT2156) OR (gene:BT2157)) AND (taxonomy_id:2)'
+    min_identity: 85.0
+    max_sequences: 50
+    length_tolerance: 0.3
+
+aggregate: sum
+aggregate_from: [BTGSL]
+aggregate_reason: >-
+  One locus, one reading. The three genes are summed because the in-vitro
+  core is BT2158 together with either BT2156 or BT2157.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+citation: >-
+  Liou C.S. et al., "A metabolic pathway for activation of dietary
+  glucosinolates by a human gut symbiont", Cell 180:717-728 (2020),
+  doi:10.1016/j.cell.2020.01.023.
+
+interpretation:
+  what_it_is: >-
+    Whether the characterised bacterial enzymes for converting
+    glucosinolates to isothiocyanates are present in your sample.
+  made_from: >-
+    Glucosinolates from broccoli, rocket and other cruciferous vegetables
+  summary: >-
+    Measured against the B. thetaiotaomicron locus itself at a high
+    identity floor, because this route is described in one organism rather
+    than carried by an enzyme family.
+  evidence_detail: >-
+    Three reference sequences is the right size for a reaction
+    characterised in a single organism, and the high identity floor is
+    what keeps a distant homolog from matching; the consequence is that
+    this under-calls rather than over-calls. This bacterial route is not
+    plant myrosinase, which is an enzyme of the vegetable and is destroyed
+    by cooking, and it is not the only bacterial route described. A gene
+    finding is also not a conversion: whether you actually produce
+    isothiocyanates is settled by a substrate challenge with metabolomics,
+    which can be imported beside this.
+  higher_means: context-dependent
+  evidence_strength: limited
+  implications:
+    higher: >-
+      The characterised enzymes are present at a higher level than in
+      most samples. That is capacity rather than a demonstrated
+      conversion, and a substrate challenge is what would settle it.
+    typical: >-
+      Mid-range presence of these enzymes against this reference. The
+      route is carried by particular strains rather than being
+      widespread, so a middling value is the ordinary finding.
+    lower: >-
+      Little or none of the characterised enzymes here. With only three
+      reference sequences for a strain-specific reaction, a low value is
+      weak evidence of absence rather than proof of it.
+  citation: >-
+    Liou C.S. et al., "A metabolic pathway for activation of dietary
+    glucosinolates by a human gut symbiont", Cell 180:717-728 (2020),
+    doi:10.1016/j.cell.2020.01.023.

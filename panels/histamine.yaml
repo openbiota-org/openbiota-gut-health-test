@@ -1,0 +1,146 @@
+name: histamine
+description: >-
+  Bacterial histidine decarboxylase (hdcA), which converts dietary histidine
+  to histamine in the gut. Some gut and food-fermenting organisms carry it;
+  Morganella morganii and Klebsiella are the classic high producers, and
+  Lactobacillus reuteri produces histamine that is anti-inflammatory rather
+  than pro-inflammatory, which is why direction here is not a simple line.
+metabolite: Histamine
+pathway: "L-histidine -> histamine + CO2 (hdcA, PLP- or pyruvoyl-dependent histidine decarboxylase)"
+category: neuroactive
+
+organisms:
+  - Morganella morganii
+  - Klebsiella pneumoniae
+  - Enterobacter cloacae
+  - Lactobacillus reuteri
+  - Lactobacillus vaginalis
+
+extension: true
+
+targets:
+  # Two structurally unrelated enzyme families share this name: the
+  # PLP-dependent (group II decarboxylase) form in Gram-negatives and the
+  # pyruvoyl-dependent form in Gram-positives. Both are genuine targets and
+  # both are captured by the recommended protein name; they are kept as one
+  # entry because splitting them would imply a resolution the read-level
+  # search does not have.
+  - id: HDCA
+    label: hdcA (histidine decarboxylase, both enzyme families)
+    gene: hdcA
+    source: uniprot
+    query: '(protein_name:"histidine decarboxylase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.30
+    note: >-
+      Length tolerance is wider than most panels (0.30) because the
+      pyruvoyl-dependent form is ~310 aa and the PLP-dependent form ~380 aa.
+      A tighter window would silently drop one of the two families.
+
+  - id: HDCTRANS
+    label: hdcP / histidine-histamine antiporter
+    gene: hdcP
+    source: uniprot
+    query: '((protein_name:"histidine/histamine antiporter") OR (protein_name:"amino acid-polyamine-organocation transporter")) AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 1500
+    length_tolerance: 0.30
+    note: >-
+      The antiporter travels with hdcA in the histidine decarboxylation
+      operon and exports histamine. Reported separately as an operon-context
+      check rather than folded into the headline.
+
+decoys:
+  - id: PLPDC3
+    label: group II PLP decarboxylase background
+    source: uniprot
+    query: '((protein_name:"glutamate decarboxylase") OR (protein_name:"tyrosine decarboxylase") OR (protein_name:"aromatic-L-amino-acid decarboxylase") OR (protein_name:"lysine decarboxylase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 3000
+    length_tolerance: 0.25
+    note: "The same family that confounds the GABA and dopamine panels, for the same reason."
+
+  - id: PYRUVOYL
+    label: pyruvoyl-dependent decarboxylase background
+    source: uniprot
+    query: '((protein_name:"S-adenosylmethionine decarboxylase") OR (protein_name:"aspartate 1-decarboxylase") OR (protein_name:"phosphatidylserine decarboxylase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 2500
+    length_tolerance: 0.35
+
+aggregate: sum
+aggregate_from: [HDCA]
+aggregate_reason: "hdcA carries the headline; the antiporter is reported separately as operon context."
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+caveats:
+  - >-
+    Histamine intolerance is a contested diagnosis, and no stool test
+    establishes it. The symptoms attributed to it overlap with IBS, mast cell
+    activation and ordinary food reactions.
+  - >-
+    Most dietary histamine exposure comes from fermented and aged foods
+    directly, not from bacterial production in the colon. Bacterial histamine
+    made in the distal gut is also degraded by diamine oxidase in the gut wall
+    before it reaches circulation in most people.
+  - >-
+    Direction is genuinely unclear. Lactobacillus reuteri histamine
+    suppresses TNF through the H2 receptor and is anti-inflammatory; Klebsiella
+    histamine in a subset of IBS patients was pro-nociceptive in the mouse
+    work. Same molecule, opposite consequences, depending on the producer.
+
+interpretation:
+  what_it_is: >-
+    Histamine, made by some gut bacteria from the amino acid histidine.
+  made_from: Dietary histidine; also present directly in aged and fermented foods
+  higher_means: unclear
+  reader_direction: adverse
+  direction_note: >-
+    High bacterial histamine capacity is the reading people worry about: histamine intolerance, IBS pain and mast-cell symptoms. Coloured as adverse unless the producers found are the anti-inflammatory exception.
+  driver_exceptions:
+    "Lactobacillus reuteri": favourable
+    "Limosilactobacillus reuteri": favourable
+  evidence_strength: limited
+  summary: >-
+    A subset of gut bacteria can produce histamine. One well-conducted study
+    linked Klebsiella aerogenes histamine production to visceral pain in a
+    subgroup of IBS patients, while Lactobacillus reuteri histamine has the
+    opposite, anti-inflammatory effect. Direction depends on the producer.
+  evidence_detail: >-
+    De Palma et al. identified Klebsiella aerogenes as a histamine
+    super-producer in a subset of IBS patients, showed it drove mast cell
+    accumulation and visceral hypersensitivity when transferred to mice, and
+    found that a low-fermentable-carbohydrate diet reduced both. That is a
+    strong, mechanism-backed finding in a defined subgroup. Against it,
+    Thomas et al. showed Lactobacillus reuteri histamine signalling through
+    the H2 receptor suppresses TNF production — the same molecule from a
+    different organism acting anti-inflammatorily. There is no evidence that
+    total bacterial histidine decarboxylase capacity, which is what this
+    panel measures, predicts anything on its own.
+  implications:
+    higher: >-
+      Your gut carries more histamine-producing capacity than most people's. The table above
+      names the organisms carrying the gene in your sample, and that is what decides whether it
+      matters: histamine from Klebsiella, Morganella and their relatives has been linked to
+      visceral pain in an IBS subgroup and to histamine-intolerance symptoms, while histamine
+      from Lactobacillus reuteri is anti-inflammatory. When the producers found are not the
+      anti-inflammatory exception, a high reading is worth taking seriously alongside any
+      symptoms of flushing, headache, hives or gut pain after fermented or aged foods.
+    typical: >-
+      Your histidine decarboxylase capacity sits in the middle of the reference range. Bacterial histamine production is present in most gut communities at a low level and a typical reading says nothing about histamine intolerance, which is a matter of dietary intake and the host's own breakdown enzymes.
+    lower: >-
+      Less histamine-producing capacity than most people. Note that most
+      histamine exposure is dietary rather than bacterial.
+  citation: >-
+    De Palma G. et al., Sci Transl Med 14:eabj1895 (2022),
+    doi:10.1126/scitranslmed.abj1895; Thomas C.M. et al., PLoS One 7:e31951
+    (2012), doi:10.1371/journal.pone.0031951
+
+citation: >-
+  De Palma G., Shimbori C., Reed D.E., et al., "Histamine production by the
+  gut microbiota induces visceral hyperalgesia through histamine 4 receptor
+  signaling in mice", Sci Transl Med 14:eabj1895 (2022),
+  doi:10.1126/scitranslmed.abj1895.

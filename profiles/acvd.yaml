@@ -1,0 +1,284 @@
+name: acvd
+version: 1.0.0
+spec_version: 3
+label: "Atherosclerotic cardiovascular disease — gut pattern"
+disease: atherosclerotic_cardiovascular_disease
+task: acvd_vs_healthy
+family: cardiometabolic
+body_site: stool
+population: chinese_cohort_derived
+status: research_beta
+evidence_maturity: P3
+challenge_for: [cirrhosis, t2d]
+
+summary: >-
+  Jie et al. sequenced 218 patients with atherosclerotic cardiovascular
+  disease and 187 controls and found Enterobacteriaceae and oral-origin
+  Streptococcus enriched, with Roseburia, Faecalibacterium and Bacteroides
+  depleted — the same oral-invasion plus butyrate-loss pattern as cirrhosis,
+  which is why the two are mutual challenge sets. The mechanistic layer is
+  better than the taxonomy: trimethylamine production from choline and
+  carnitine by cutC/cntA, converted to TMAO in the liver, is a replicated
+  cardiovascular risk factor with a mouse causal chain.
+
+  Statins, aspirin and PPIs are near-universal in ACVD cohorts and each
+  shifts the community.
+
+references:
+  primary:
+    source: null
+    note: "Controls with the same medication burden and no vascular disease do not exist in public data."
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  jie_2017:
+    label: "Jie 2017 Chinese ACVD MGWAS"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: jie_2017
+    maturity: P3
+    weight_in_combined: 1.0
+    sources: ["Jie Z, et al. Nat Commun 2017;8:845"]
+    features:
+      - name: Escherichia_coli
+        level: species
+        direction: higher_in_case
+        w: 0.9
+        q: 0.8
+        s: 0.3
+        c: 0.9
+      - name: Klebsiella_pneumoniae
+        level: species
+        direction: higher_in_case
+        w: 0.7
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: Enterobacter_cloacae_complex
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.6
+      - name: Streptococcus_salivarius
+        level: species
+        direction: higher_in_case
+        cluster: oral_origin
+        w: 0.7
+        q: 0.7
+        s: 0.4
+        c: 0.8
+        conflict_note: "Genus Streptococcus is on the conflicted list; species only."
+      - name: Streptococcus_parasanguinis
+        level: species
+        direction: higher_in_case
+        cluster: oral_origin
+        w: 0.6
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: Streptococcus_anginosus_group
+        level: species
+        direction: higher_in_case
+        cluster: oral_origin
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.7
+      - name: Lactobacillus_salivarius
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.6
+      - name: Ruminococcus_gnavus
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.2
+        c: 0.6
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.9
+        q: 0.8
+        s: 0.3
+        c: 0.8
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.8
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: Bacteroides_uniformis
+        level: species
+        direction: lower_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.7
+      - name: Prevotella_copri
+        level: species
+        direction: lower_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.3
+        c: 0.5
+        conflict_note: "Genus Prevotella is on the conflicted list; species only."
+      - name: Alistipes_shahii
+        level: species
+        direction: lower_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.4
+        c: 0.7
+
+  karlsson_2012:
+    label: "Karlsson 2012 symptomatic atherosclerosis (Sweden)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: karlsson_2012
+    maturity: P2
+    note: "12 stroke/TIA patients with carotid plaque, 13 controls, shotgun. Small, but European and independent."
+    sources: ["Karlsson FH, et al. Nat Commun 2012;3:1245"]
+    features:
+      - name: Collinsella_aerofaciens
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.5
+        s: 0.4
+        c: 0.6
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.5
+        s: 0.3
+        c: 0.7
+      - name: Eubacterium_rectale
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.5
+        s: 0.2
+        c: 0.7
+
+  functional:
+    label: "TMA and metabolite gene capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P3
+    note: >-
+      cutC and cntA produce trimethylamine from choline and carnitine; TMAO
+      in plasma predicts major adverse cardiac events (Tang 2013) and
+      promotes atherosclerosis in mice (Wang 2011, Koeth 2013). Butyrate
+      loss travels with the taxonomy. Bile salt hydrolase capacity governs
+      cholesterol handling through FXR.
+    sources:
+      - "Wang Z, et al. Nature 2011;472:57"
+      - "Tang WHW, et al. N Engl J Med 2013;368:1575"
+      - "Koeth RA, et al. Nat Med 2013;19:576"
+    features:
+      - name: cutc
+        engine: diamond
+        direction: increased
+        w: 1.0
+        q: 0.9
+        s: 0.6
+        c: 0.9
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        w: 0.7
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: bsh
+        engine: diamond
+        direction: decreased
+        w: 0.4
+        q: 0.5
+        s: 0.3
+        c: 0.5
+        direction_conflict: low
+        conflict_note: "BSH direction in ACVD is inconsistent between cohorts and depends on statin use."
+
+  carriers:
+    label: "Oral-origin and hexa-LPS carriers"
+    type: mechanism_lane
+    evidence_type: CARRIER_ABUNDANCE
+    claim_level: carrier_proxy
+    maturity: P2
+    features:
+      - name: oral_origin
+        engine: carrier
+        direction: increased
+        w: 0.7
+        q: 0.7
+        s: 0.4
+        c: 0.8
+      - name: hexa_lps
+        engine: carrier
+        direction: increased
+        w: 0.7
+        q: 0.7
+        s: 0.3
+        c: 0.7
+      - name: butyrate
+        engine: carrier
+        direction: decreased
+        w: 0.6
+        q: 0.8
+        s: 0.2
+        c: 0.8
+
+confounders:
+  - name: Statins
+    effect: "Statin use is associated with lower Bacteroides2 enterotype prevalence and shifts composition (Vieira-Silva 2020)"
+    handling: "Recorded in the ledger when supplied"
+  - name: Proton pump inhibitors
+    effect: "Drive the oral-invasion pattern independently"
+    handling: "Recorded when supplied"
+  - name: Diet
+    effect: "Red meat and egg intake supply the choline and carnitine that cutC/cntA act on"
+    handling: "Recorded when supplied"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Atherosclerosis is assessed by imaging, lipids and risk calculators.
+    This profile is not a cardiovascular risk score.
+  - >-
+    The oral-invasion pattern is shared with cirrhosis and with PPI use; the
+    butyrate-loss pattern with everything. Only the TMA lane is specific,
+    and it is a capacity measurement, not a plasma TMAO level.
+
+effect_size_note: >-
+  Jie 2017: 218 ACVD, 187 controls, Chinese. Karlsson 2012: 12 vs 13,
+  Swedish.
+
+citation: >-
+  Jie Z, et al. The gut microbiome in atherosclerotic cardiovascular disease.
+  Nat Commun 2017;8:845; Karlsson FH, et al. Symptomatic atherosclerosis is
+  associated with an altered gut metagenome. Nat Commun 2012;3:1245; Tang WHW,
+  et al. Intestinal microbial metabolism of phosphatidylcholine and
+  cardiovascular risk. N Engl J Med 2013;368:1575.

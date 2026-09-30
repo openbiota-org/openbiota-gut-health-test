@@ -1,0 +1,130 @@
+name: oxalate
+description: >-
+  Oxalate degradation. oxc (oxalyl-CoA decarboxylase) and frc (formyl-CoA
+  transferase) are the two enzymes of the degradation pathway, best known in
+  Oxalobacter formigenes but also carried by Lactobacillus, Bifidobacterium
+  and several Clostridia. Dietary oxalate that gut bacteria do not degrade is
+  absorbed and excreted by the kidney, where it forms calcium oxalate stones.
+metabolite: Oxalate (degraded, not produced)
+pathway: >-
+  oxalate + formyl-CoA -> oxalyl-CoA + formate (frc); oxalyl-CoA ->
+  formyl-CoA + CO2 (oxc)
+category: detox
+
+organisms:
+  - Oxalobacter formigenes
+  - Lactobacillus acidophilus
+  - Bifidobacterium animalis
+  - Clostridium scindens
+  - Eubacterium lentum
+
+extension: true
+
+targets:
+  - id: OXC
+    label: oxc (oxalyl-CoA decarboxylase)
+    gene: oxc
+    source: uniprot
+    query: '(protein_name:"oxalyl-CoA decarboxylase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.25
+
+  - id: FRC
+    label: frc (formyl-CoA:oxalate CoA-transferase)
+    gene: frc
+    source: uniprot
+    query: '(protein_name:"formyl-CoA:oxalate CoA-transferase") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.25
+
+decoys:
+  # oxc is a ThDP-dependent decarboxylase and its family is large and
+  # abundant. Without this decoy the panel reads acetolactate synthase as
+  # oxalate-degrading capacity.
+  - id: THDPBG2
+    label: ThDP-dependent decarboxylase background (oxc fold)
+    source: uniprot
+    query: '((protein_name:"acetolactate synthase") OR (protein_name:"benzoylformate decarboxylase") OR (protein_name:"indole-3-pyruvate decarboxylase") OR (protein_name:"pyruvate decarboxylase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 3000
+    length_tolerance: 0.25
+
+  - id: COATBG2
+    label: family III CoA-transferase background (frc fold)
+    source: uniprot
+    query: '((protein_name:"crotonobetainyl-CoA:carnitine CoA-transferase") OR (protein_name:"L-carnitine CoA-transferase") OR (protein_name:"succinyl-CoA--D-citramalate CoA-transferase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 2000
+    length_tolerance: 0.25
+
+aggregate: sum
+aggregate_from: [OXC, FRC]
+aggregate_reason: >-
+  oxc and frc are obligate partners in the degradation cycle: neither works
+  alone. Their sum is the capacity estimate, and a large asymmetry between
+  them means the search is finding fold-level relatives rather than the real
+  pathway.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+caveats:
+  - >-
+    Direction is inverted relative to most panels here: this measures
+    degradation, so *higher* is the favourable direction. A low reading means
+    less capacity to break dietary oxalate down before it is absorbed.
+  - >-
+    Oxalobacter formigenes carriage is bimodal and has declined in populations
+    with high antibiotic exposure, since the organism is unusually sensitive
+    to common antibiotics. Absence is common and is not by itself a stone risk.
+  - >-
+    Kidney stone risk is dominated by urine volume, calcium, citrate and
+    dietary oxalate load. A 24-hour urine collection measures the thing that
+    matters; this measures one contributing factor.
+
+interpretation:
+  what_it_is: >-
+    The capacity of your gut bacteria to break down dietary oxalate before
+    your body absorbs it.
+  made_from: Dietary oxalate (spinach, rhubarb, nuts, tea, chocolate)
+  higher_means: favourable
+  evidence_strength: moderate
+  summary: >-
+    Oxalate absorbed from the gut is excreted by the kidney, where it can form
+    calcium oxalate stones. Bacteria that degrade oxalate in the gut reduce
+    how much reaches the kidney, and higher degradation capacity is the
+    favourable direction.
+  evidence_detail: >-
+    Kaufman et al. found Oxalobacter formigenes colonisation associated with
+    a roughly 70% lower odds of recurrent calcium oxalate stones in a
+    case-control study, and Sidhu et al. showed the mechanism in cystic
+    fibrosis patients, who lose the organism to repeated antibiotics and
+    develop hyperoxaluria. Against a simple reading: attempts to treat
+    hyperoxaluria by administering O. formigenes have given mixed results in
+    trials, and oxalate degradation capacity is distributed across many
+    species beyond Oxalobacter, so carriage of one organism is not the whole
+    picture. The direction of the association is consistent; the size of the
+    effect from any one person's community is not established.
+  implications:
+    higher: >-
+      Your gut carries more oxalate-degrading capacity than most people's,
+      which is the favourable direction: more dietary oxalate broken down in
+      the gut means less reaching the kidney.
+    typical: >-
+      Your community's oxalate-degrading capacity sits in the middle of the reference range. Oxalobacter formigenes and related organisms break down dietary oxalate before it can be absorbed; a typical level means the usual degree of protection against oxalate load, and says nothing about kidney stone risk by itself.
+    lower: >-
+      Less oxalate-degrading capacity than most people. More dietary oxalate
+      may be absorbed rather than degraded. If you have had calcium oxalate
+      kidney stones, this is worth mentioning to whoever manages that — along
+      with the measurements that actually drive stone risk, which are urine
+      volume, calcium, citrate and oxalate.
+  citation: >-
+    Kaufman D.W. et al., J Am Soc Nephrol 19:1197-1203 (2008),
+    doi:10.1681/ASN.2007101058; Sidhu H. et al., Lancet 352:1026-1029 (1998)
+
+citation: >-
+  Kaufman D.W., Kelly J.P., Curhan G.C., et al., "Oxalobacter formigenes may
+  reduce the risk of calcium oxalate kidney stones", J Am Soc Nephrol
+  19:1197-1203 (2008), doi:10.1681/ASN.2007101058.

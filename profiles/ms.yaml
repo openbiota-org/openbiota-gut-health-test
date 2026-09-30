@@ -1,0 +1,254 @@
+name: ms
+version: 1.0.0
+spec_version: 3
+label: "Multiple sclerosis — gut pattern"
+disease: multiple_sclerosis
+task: ms_vs_household_control
+family: autoimmune
+body_site: stool
+population: mixed_international_cohorts
+status: research_beta
+evidence_maturity: P3
+
+summary: >-
+  The iMSMS consortium is the model of how to do this: 576 MS patients each
+  paired with a genetically unrelated household control who shares their
+  diet and environment, shotgun sequenced. That design removes most of the
+  confounding that plagues every other disease here. The replicated MS
+  pattern is modest: Akkermansia muciniphila higher, Ruminococcus torques
+  and Eisenbergiella higher, and Faecalibacterium prausnitzii, Blautia and
+  Eubacterium rectale lower. Effect sizes are small — the household design
+  shows that MS shifts the gut less than diet and cohabitation do.
+
+  Disease-modifying therapies have their own effects, some larger than the
+  disease's, and are recorded in the ledger.
+
+references:
+  primary:
+    source: null
+    note: >-
+      iMSMS household controls are the best contrast in this library and are
+      not available as per-sample profiles for matching here.
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  imsms_2022:
+    label: "iMSMS 2022 household-paired shotgun (576 pairs)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: observed
+    assay_transport: native
+    study_group: imsms_2022
+    maturity: P3
+    weight_in_combined: 1.0
+    sources: ["iMSMS Consortium. Cell 2022;185:3467-3486"]
+    features:
+      - name: Akkermansia_muciniphila
+        level: species
+        direction: higher_in_case
+        w: 1.0
+        q: 0.9
+        s: 0.4
+        c: 0.9
+      - name: Ruminococcus_torques
+        level: species
+        direction: higher_in_case
+        w: 0.7
+        q: 0.8
+        s: 0.4
+        c: 0.8
+      - name: Eisenbergiella_tayi
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.7
+        s: 0.5
+        c: 0.7
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.8
+        q: 0.9
+        s: 0.2
+        c: 0.9
+      - name: Eubacterium_rectale
+        level: species
+        direction: lower_in_case
+        cluster: butyrate_producers
+        w: 0.6
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: Blautia_obeum
+        level: species
+        direction: lower_in_case
+        w: 0.5
+        q: 0.7
+        s: 0.4
+        c: 0.7
+        conflict_note: "Genus Blautia is on the conflicted list; species only."
+
+  jangi_2016:
+    label: "Jangi 2016 US cohort (16S + shotgun subset)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    assay_transport: amplicon_taxon_to_shotgun
+    study_group: jangi_2016
+    maturity: P3
+    note: "60 MS, 43 controls; the first study to report Akkermansia and Methanobrevibacter higher in MS, later replicated."
+    sources: ["Jangi S, et al. Nat Commun 2016;7:12015"]
+    features:
+      - name: Akkermansia_muciniphila
+        level: species
+        direction: higher_in_case
+        w: 0.8
+        q: 0.7
+        s: 0.4
+        c: 0.8
+        mapping_confidence: high
+      - name: Methanobrevibacter_smithii
+        level: species
+        direction: higher_in_case
+        w: 0.6
+        q: 0.7
+        s: 0.4
+        c: 0.7
+        mapping_confidence: high
+      - name: Butyricimonas_virosa
+        level: species
+        direction: lower_in_case
+        w: 0.5
+        q: 0.6
+        s: 0.5
+        c: 0.6
+        mapping_confidence: medium
+
+  cekanaviciute_2017:
+    label: "Cekanaviciute 2017 UCSF (gnotobiotic-validated)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    assay_transport: amplicon_taxon_to_shotgun
+    study_group: cekanaviciute_2017
+    maturity: P2
+    note: "71 MS, 71 controls; MS-enriched Akkermansia and Acinetobacter induced pro-inflammatory T cells in gnotobiotic mice, and Parabacteroides distasonis induced regulatory T cells."
+    sources: ["Cekanaviciute E, et al. PNAS 2017;114:10713-10718"]
+    features:
+      - name: Akkermansia_muciniphila
+        level: species
+        direction: higher_in_case
+        w: 0.7
+        q: 0.7
+        s: 0.4
+        c: 0.8
+        mapping_confidence: high
+      - name: Parabacteroides_distasonis
+        level: species
+        direction: lower_in_case
+        w: 0.7
+        q: 0.7
+        s: 0.5
+        c: 0.7
+        mapping_confidence: high
+
+  functional:
+    label: "Metabolite gene capacity"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P2
+    note: >-
+      Butyrate and propionate both promote regulatory T cells; propionate
+      supplementation in MS patients raised Treg counts and reduced relapse
+      rate in a small trial (Duscha 2020). Tryptophan metabolites acting on
+      the aryl hydrocarbon receptor in astrocytes limit CNS inflammation
+      (Rothhammer 2016), which is the mechanistic case for indole-3-
+      propionate capacity.
+    sources:
+      - "Duscha A, et al. Cell 2020;180:1067"
+      - "Rothhammer V, et al. Nat Med 2016;22:586"
+    features:
+      - name: butyrate
+        engine: diamond
+        direction: decreased
+        w: 0.8
+        q: 0.8
+        s: 0.2
+        c: 0.8
+      - name: propionate
+        engine: diamond
+        direction: decreased
+        w: 0.7
+        q: 0.7
+        s: 0.3
+        c: 0.7
+      - name: ipa
+        engine: diamond
+        direction: decreased
+        w: 0.6
+        q: 0.6
+        s: 0.4
+        c: 0.6
+
+  carriers:
+    label: "Mucin degraders and butyrate carriers"
+    type: mechanism_lane
+    evidence_type: CARRIER_ABUNDANCE
+    claim_level: carrier_proxy
+    maturity: P2
+    features:
+      - name: mucin_degraders
+        engine: carrier
+        direction: increased
+        w: 0.7
+        q: 0.7
+        s: 0.4
+        c: 0.7
+      - name: butyrate
+        engine: carrier
+        direction: decreased
+        w: 0.7
+        q: 0.8
+        s: 0.2
+        c: 0.8
+
+confounders:
+  - name: Disease-modifying therapy
+    effect: "Interferon-beta, glatiramer, dimethyl fumarate and ocrelizumab each shift composition; some effects exceed the disease's"
+    handling: "Recorded in the ledger when supplied"
+  - name: Household and diet
+    effect: "iMSMS showed cohabitation explains more variance than MS"
+    handling: "Not adjustable here; noted"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Multiple sclerosis is diagnosed by MRI, clinical course and
+    cerebrospinal fluid. This profile does not diagnose or predict it.
+  - >-
+    The household-controlled design shows the MS gut effect is small. A
+    modest score here is the expected result in MS, and a high score is more
+    likely dysbiosis of another cause.
+  - >-
+    Akkermansia is higher in MS and in Parkinson's, and lower in most
+    metabolic disease. Its direction here is disease-specific and the
+    reason this profile has some specificity.
+
+effect_size_note: >-
+  iMSMS 2022: 576 MS patients, 576 household controls, shotgun. Effect sizes
+  small; treatment effects comparable to disease effects.
+
+citation: >-
+  iMSMS Consortium. Gut microbiome of multiple sclerosis patients and paired
+  household healthy controls reveal associations with disease risk and course.
+  Cell 2022;185:3467-3486; Jangi S, et al. Alterations of the human gut
+  microbiome in multiple sclerosis. Nat Commun 2016;7:12015; Cekanaviciute E,
+  et al. Gut bacteria from multiple sclerosis patients modulate human T cells
+  and exacerbate symptoms in mouse models. PNAS 2017;114:10713-10718.

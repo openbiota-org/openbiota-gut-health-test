@@ -1,0 +1,41 @@
+{#-
+  The docs header is the main site's header: the same elements in the same
+  positions — wordmark, the three section links, the two report buttons with
+  their icons — so nothing moves when a reader crosses from openbiota.com to
+  the docs and back. On phones it collapses the same way the main site does:
+  wordmark left, menu icon right, the report buttons in a bar at the bottom
+  of the screen.
+
+  Material's drawer toggle is kept (it opens the page list on narrow
+  screens); there is no search, as on the main site.
+
+  The landing page is the folder above the docs, so every link to it is
+  relative: the whole of web/openbiota.com/ works from disk, a staging domain
+  or any host without the production domain baked in.
+-#}
+{% set site_home = base_url ~ "/../index.html" %}
+<header class="md-header ob-header" data-md-component="header">
+  <nav class="md-header__inner ob-header__inner" aria-label="{{ lang.t('header') }}">
+    <a href="{{ site_home }}" class="ob-brand" aria-label="OpenBiota home" data-md-component="logo">
+      <img src="{{ 'images/openbiota-logo.svg' | url }}" alt="OpenBiota" width="166" height="38">
+    </a>
+    <nav class="ob-nav" aria-label="OpenBiota">
+      <a href="{{ site_home }}#report">The report</a>
+      <a href="{{ site_home }}#technology">The science</a>
+      <a href="{{ site_home }}#story">The reason</a>
+    </nav>
+    <div class="ob-actions">
+      <a class="ob-button ob-button--quiet" href="{{ site_home }}#sample-report">
+        <svg class="icon icon-stack" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 3h13v15H7zM4 6v15h13M10 8h7M10 12h7"/></svg>
+        <span>See an example</span>
+      </a>
+      <a class="ob-button ob-button--dark" href="{{ site_home }}#get-report">
+        <svg class="icon icon-document" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
+        <span>Free Gut Report</span>
+      </a>
+    </div>
+    <label class="md-header__button md-icon ob-drawer" for="__drawer" aria-label="Open navigation">
+      <svg class="icon icon-menu" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </label>
+  </nav>
+</header>

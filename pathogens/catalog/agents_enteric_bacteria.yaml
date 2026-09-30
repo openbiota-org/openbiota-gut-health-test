@@ -1,0 +1,2455 @@
+version: 1
+lane: enteric_bacteria
+
+# Research reference for a metagenomic stool-screening report.
+# Every citation below was retrieved and checked against the NCBI PubMed API.
+# Evidence tiers are literal: `in_vitro` means culture-dish work only, with no
+# human data. Nothing here is medical advice, and nothing here replaces a
+# clinician for the organisms that need one.
+
+organisms:
+
+  # ---------------------------------------------------------------------------
+  bacteria.salmonella_enterica_serovar_typhi:
+    display_name: Salmonella enterica serovar Typhi
+    what_it_is: >
+      A bacterium that causes typhoid fever. Unlike the ordinary Salmonella that
+      gives people short-lived food poisoning, this one lives only in humans and
+      spreads through water or food contaminated with human sewage. It does not
+      stay in the bowel; it crosses the gut wall and travels in the bloodstream.
+    why_it_matters: >
+      It causes typhoid fever: prolonged high fever, headache, abdominal pain
+      and weakness building over one to two weeks, and in untreated cases
+      perforation or bleeding of the bowel, which can be fatal. This needs
+      urgent medical care and prescription antibiotics, and in most countries it
+      is a notifiable infection that public health authorities must be told
+      about. Supplements are not a substitute for that care, and delaying
+      treatment while trying them is dangerous. A minority of people who recover
+      keep carrying the organism in the gallbladder for a year or more and can
+      pass it to others without feeling ill.
+    normal_carriage: >
+      Healthy people do not normally carry it. It is not part of anyone's normal
+      gut flora and it has no animal reservoir, so in countries with safe water
+      and sewage treatment it is found almost only in returning travellers. The
+      one exception is chronic carriage after a past infection, which happens in
+      roughly two to five in every hundred untreated cases. Finding it at all is
+      abnormal and should be acted on.
+    overgrowth_signal: >
+      There is no threshold below which this is incidental, so the question of
+      overgrowth does not apply. Any confident detection matters. The real
+      caveat runs the other way: short sequencing reads cannot reliably separate
+      Typhi from the many other Salmonella enterica serovars, which are far more
+      common and much less severe, so a sequencing hit needs confirming by
+      culture and serotyping, plus blood culture if the person is unwell.
+    agents:
+      - name: Eugenol (clove oil)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Killed Salmonella Typhi in culture by breaking down the bacterial cell
+          membrane, causing leakage of cell contents. Growth inhibition and
+          membrane damage were shown in the laboratory only; there is no human
+          data on treating typhoid with clove oil or eugenol.
+        dose_studied: "not established"
+        reaches_gut: >
+          Eugenol is a small oily phenol that survives stomach acid, but it is
+          absorbed and conjugated quickly in the upper small intestine, so most
+          of a plain oral dose never reaches the colon. It is also largely
+          irrelevant here, because Typhi's damage is done from inside cells and
+          the bloodstream rather than in the gut lumen.
+        citation_title: "Eugenol (an essential oil of clove) acts as an antibacterial agent against Salmonella typhi by disrupting the cellular membrane"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/20435121/"
+        caution: >
+          This does not treat typhoid fever and must not be used instead of
+          seeing a doctor. Concentrated clove oil irritates the mouth, gullet
+          and stomach lining, can damage the liver in overdose, and has been
+          reported to slow blood clotting. Avoid in pregnancy and in children.
+
+      - name: Berberine
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Reduced the activity and gene expression of arylamine
+          N-acetyltransferase in Salmonella Typhi in culture, an enzyme the
+          organism uses in its own metabolism. This is a laboratory finding
+          about a single bacterial enzyme; it is not a demonstration that
+          berberine clears the infection, and there is no human typhoid data.
+        dose_studied: "not established"
+        reaches_gut: >
+          Berberine is very poorly absorbed from the gut, with oral
+          bioavailability typically under one per cent, so most of a dose stays
+          in the intestinal lumen and reaches the colon. That makes it plausible
+          as a luminal agent in general, but Typhi mainly lives inside host
+          cells and in the bloodstream, where luminal berberine cannot reach it.
+        citation_title: "Berberine inhibits arylamine N-acetyltransferase activity and gene expression in Salmonella typhi"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/16086103/"
+        caution: >
+          Not a treatment for typhoid. Berberine inhibits the CYP3A4 and CYP2D6
+          drug-handling enzymes and the P-glycoprotein transporter, so it can
+          push up blood levels of many prescription medicines, including
+          ciclosporin and some statins. Avoid in pregnancy, when
+          breastfeeding, and in newborns, where it can displace bilirubin and
+          worsen jaundice.
+
+      - name: Garlic extract (Allium sativum)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Aqueous and solvent extracts of garlic produced clear zones of growth
+          inhibition against clinical drug-resistant isolates including
+          Salmonella Typhi in a disc-diffusion study, and garlic was the most
+          active of the extracts tested. This is culture-dish activity only,
+          with no human data.
+        dose_studied: "not established"
+        reaches_gut: >
+          Allicin, the main active compound, forms when raw garlic is crushed
+          and is unstable: it degrades in heat and in stomach acid and is
+          largely broken down or absorbed before the colon. Enteric-coated
+          preparations with measured allicin release are designed to get past
+          the stomach, but the amount surviving to the distal gut has not been
+          measured in the context of this study.
+        citation_title: "Inhibitory effect of Allium sativum and Zingiber officinale extracts on clinically important drug resistant pathogenic bacteria"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/22540232/"
+        caution: >
+          Does not treat typhoid. Garlic in supplement doses thins the blood and
+          should be stopped before surgery and used carefully with warfarin,
+          clopidogrel or aspirin. It also lowers levels of some antiretroviral
+          drugs. Common side effects are heartburn, reflux and body odour.
+
+      - name: Bovine lactoferrin
+        kind: nutrient
+        evidence_tier: in_vitro
+        effect: >
+          Reduced the ability of Salmonella enterica to invade cultured human
+          HEp-2 cells. The effect measured was on invasion of host cells rather
+          than on killing the bacterium, and the work was done in cell culture,
+          not in people.
+        dose_studied: "not established"
+        reaches_gut: >
+          Lactoferrin is a protein and is partly digested by pepsin in the
+          stomach, but it is unusually resistant compared with most dietary
+          proteins, and its acid-cleaved fragment lactoferricin is itself
+          antibacterial. Intact lactoferrin and active fragments have been
+          recovered from human stool after oral dosing, so a meaningful fraction
+          does reach the lower gut.
+        citation_title: "Bovine lactoferrin decreases the invasion of Salmonella enterica to HEp-2 cells"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/28062866/"
+        caution: >
+          Not a typhoid treatment. Bovine lactoferrin is a milk protein and must
+          be avoided by anyone with a cow's-milk protein allergy. It binds iron,
+          so people being treated for iron deficiency should discuss timing with
+          their clinician.
+
+      - name: Linalool
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          In combination with vitamin C and copper, linalool triggered reactive
+          oxygen species and DNA damage in Salmonella Typhi and inhibited its
+          growth in culture. The activity reported depended on the three-part
+          combination, not on linalool alone, and there is no human data.
+        dose_studied: "not established"
+        reaches_gut: >
+          Linalool is a small volatile terpene alcohol that is stable in acid
+          but is absorbed rapidly in the upper small intestine and cleared by
+          the liver, so very little of an oral dose reaches the colon. The
+          copper and vitamin C part of the combination would also behave quite
+          differently in the gut than in a test tube.
+        citation_title: "A Combination of Linalool, Vitamin C, and Copper Synergistically Triggers Reactive Oxygen Species and DNA Damage and Inhibits Salmonella enterica subsp. enterica Serovar Typhi and Vibrio fluvialis"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/30552187/"
+        caution: >
+          Not a treatment. Deliberately combining copper with vitamin C to
+          generate reactive oxygen species is not something to attempt at home;
+          copper is toxic in excess and is dangerous in Wilson's disease. Take
+          this as a mechanism paper, not a protocol.
+
+      - name: Oregano essential oil
+        kind: botanical
+        evidence_tier: animal
+        effect: >
+          An oregano-based feed additive reduced caecal colonisation by
+          Salmonella enterica serovar Enteritidis in young broiler chickens.
+          This was a non-typhoidal serovar of the same species in birds, stated
+          here as close-relative evidence; Typhi itself was not tested, and
+          Typhi behaves differently because it leaves the gut.
+        dose_studied: "Oregano-based feed additive included in broiler feed; poultry feed inclusion rates do not translate to a human dose"
+        reaches_gut: >
+          Carvacrol and thymol, the active phenols, are readily absorbed and
+          conjugated in the upper small intestine, which is why commercial
+          products for animals and humans use encapsulated or delayed-release
+          forms specifically to deliver them further down the gut. Plain oregano
+          oil capsules should not be assumed to reach the colon in active form.
+        citation_title: "Oregano-based feed additive reduces Salmonella enterica serovar Enteritidis colonization in young broilers"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/40446682/"
+        caution: >
+          Does not treat typhoid and does not remove the need for antibiotics.
+          Undiluted oregano oil burns mucous membranes. It is broadly
+          antibacterial and will also suppress beneficial gut species. Avoid in
+          pregnancy.
+
+  # ---------------------------------------------------------------------------
+  bacteria.shigella_boydii:
+    display_name: Shigella boydii
+    what_it_is: >
+      One of the four species of Shigella, bacteria that invade the lining of
+      the large bowel and cause dysentery, meaning diarrhoea with blood and
+      mucus. S. boydii is the least common of the four and is seen mostly in
+      South Asia and in travellers returning from there.
+    why_it_matters: >
+      It causes bacillary dysentery: cramping abdominal pain, fever, and
+      frequent small stools containing blood and mucus. It takes remarkably few
+      organisms to make someone ill, which is why it spreads easily between
+      household members and in nurseries. Dysentery with fever needs medical
+      assessment, and antibiotic-resistant Shigella is now common, so treatment
+      should be guided by culture and susceptibility testing. Supplements are
+      not a substitute for that, and anti-diarrhoeal drugs that stop the bowel
+      moving can make invasive Shigella infection worse.
+    normal_carriage: >
+      Healthy people do not normally carry it. Shigella has no environmental or
+      animal reservoir of note and is not part of the resident gut flora, so
+      finding it means recent exposure to human faecal contamination. Some
+      people shed it without symptoms for a few weeks after recovering, and a
+      small number shed for longer, which still matters for anyone handling food
+      or caring for children.
+    overgrowth_signal: >
+      Overgrowth is the wrong frame here, because any confirmed detection is
+      abnormal. The genuine difficulty is the opposite one: Shigella and
+      enteroinvasive Escherichia coli are almost indistinguishable by genome
+      sequence, and the four Shigella species are hard to separate from each
+      other by short reads. A sequencing result naming S. boydii specifically
+      should be treated as provisional until culture confirms it.
+    agents:
+      - name: Zinc (oral zinc salts)
+        kind: nutrient
+        evidence_tier: human_rct
+        effect: >
+          In a randomised trial in malnourished Bangladeshi children with
+          shigellosis, zinc given alongside standard antibiotic treatment
+          improved recovery measures and immune response. Zinc supports the
+          gut lining and the immune response rather than killing Shigella
+          directly, and it was studied as an addition to antibiotics, never as
+          a replacement for them.
+        dose_studied: "20 mg elemental zinc daily for 14 days, alongside standard antibiotic therapy, in children"
+        reaches_gut: >
+          Zinc salts dissolve in stomach acid to free zinc ions. Absorption in
+          the small intestine is saturable, so at supplemental doses a
+          substantial fraction passes onward and is present in the colon, where
+          it acts mainly on the gut lining and local immune cells.
+        citation_title: "Zinc supplementation in the management of shigellosis in malnourished children in Bangladesh"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/17554249/"
+        caution: >
+          Zinc supports recovery; it does not clear the infection. Prolonged
+          high-dose zinc causes copper deficiency and anaemia, and doses above
+          about 40 mg a day in adults are not intended for long-term use. Zinc
+          reduces absorption of tetracycline and quinolone antibiotics, so
+          separate the doses by at least two hours. Nausea on an empty stomach
+          is common.
+
+      - name: Vitamin A (retinol palmitate)
+        kind: nutrient
+        evidence_tier: human_rct
+        effect: >
+          A single large oral dose of vitamin A in a randomised double-blind
+          controlled trial in Bangladeshi children with acute shigellosis
+          improved clinical recovery compared with placebo. Again this is a
+          host-side effect on mucosal healing and immunity rather than direct
+          antibacterial action, and it was given on top of standard care.
+        dose_studied: "Single oral dose of 200,000 IU retinol palmitate (100,000 IU in children under one year)"
+        reaches_gut: >
+          Vitamin A is fat-soluble and absorbed in the small intestine, so it
+          does not act in the colon as a luminal antibacterial. It works
+          systemically, supporting the repair and immune function of the bowel
+          lining from the blood side, which is why it still helps in colonic
+          disease.
+        citation_title: "Single dose vitamin A treatment in acute shigellosis in Bangladesh children: randomised double blind controlled trial"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/9492664/"
+        caution: >
+          High-dose vitamin A is dangerous in pregnancy and causes birth
+          defects, so it must not be used by anyone who is or might become
+          pregnant. Doses of this size are a one-off intervention, not a daily
+          supplement; repeated high doses cause liver damage, raised
+          intracranial pressure and bone problems. This should be a clinician's
+          decision.
+
+      - name: Oregano volatile oil
+        kind: botanical
+        evidence_tier: animal
+        effect: >
+          Oregano volatile oil was bactericidal against dysentery bacilli in
+          culture and gave a protective effect in mice infected with Shigella
+          sonnei and Shigella flexneri. The species tested were S. sonnei and
+          S. flexneri, stated here as close-relative evidence; S. boydii itself
+          was not tested, and there is no human trial.
+        dose_studied: "not established for humans"
+        reaches_gut: >
+          Carvacrol and thymol are absorbed and conjugated high in the small
+          intestine, so plain oregano oil is unlikely to arrive in the colon in
+          active form. Products designed to deliver these phenols distally use
+          encapsulation or delayed-release coatings, and even then the delivered
+          amount is rarely measured.
+        citation_title: "Experimental study on the antibacterial effect of origanum volatile oil on dysentery bacilli in vivo and in vitro"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/15587409/"
+        caution: >
+          Not a substitute for medical assessment of bloody diarrhoea.
+          Undiluted oregano oil burns the mouth and gullet. It suppresses
+          beneficial gut bacteria as well as pathogens. Avoid in pregnancy and
+          in young children.
+
+      - name: Epigallocatechin gallate (EGCG, green tea catechin)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Inhibited growth of Shigella flexneri in culture and damaged the
+          bacterial cell membrane. This was demonstrated against S. flexneri,
+          named here as a close relative of S. boydii; no human data exists for
+          either species.
+        dose_studied: "not established"
+        reaches_gut: >
+          EGCG is very poorly absorbed, with well under five per cent of an oral
+          dose entering the circulation, so most of it travels to the colon.
+          However, it is unstable at the near-neutral pH of the small intestine
+          and is extensively transformed by gut bacteria, so what arrives in the
+          colon is partly a mixture of breakdown products rather than intact
+          EGCG.
+        citation_title: "Antibacterial Activity of Epigallocatechin Gallate (EGCG) against Shigella flexneri"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/36981585/"
+        caution: >
+          Culture-dish activity only. Concentrated green tea extracts have
+          caused liver injury, and regulators in several countries have set
+          limits on EGCG per daily dose; taking them on an empty stomach raises
+          the risk. Green tea catechins also bind non-haem iron and reduce its
+          absorption.
+
+      - name: Berberine
+        kind: botanical
+        evidence_tier: animal
+        effect: >
+          Reduced dysentery symptoms in a mouse model of Shigella flexneri
+          infection, acting both on a bacterial cell-division protein (FtsZ) and
+          on the host's inflammatory pyroptosis response. The study was in mice
+          and in cell culture, with S. flexneri as the organism, named here as a
+          close relative of S. boydii.
+        dose_studied: "not established for humans in shigellosis"
+        reaches_gut: >
+          Berberine is almost unabsorbed from the gut, so nearly all of an oral
+          dose stays in the lumen and reaches the colon, which is exactly where
+          Shigella invades. Of the agents listed here it has the strongest case
+          for arriving intact at the right place.
+        citation_title: "Berberine protects against dysentery by targeting both Shigella filamentous temperature sensitive protein Z and host pyroptosis: Resolving in vitro-vivo effect discrepancy"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/39986228/"
+        caution: >
+          Animal evidence only, and no substitute for assessment of bloody
+          diarrhoea. Berberine inhibits CYP3A4, CYP2D6 and P-glycoprotein and
+          therefore interacts with a long list of prescription drugs. It must be
+          avoided in pregnancy, when breastfeeding, and in newborns because of
+          the risk of worsening jaundice.
+
+  # ---------------------------------------------------------------------------
+  bacteria.shigella_flexneri:
+    display_name: Shigella flexneri
+    what_it_is: >
+      A bacterium that invades the cells lining the large bowel and causes
+      dysentery, meaning diarrhoea containing blood and mucus. S. flexneri is
+      the species that dominates in lower-income countries and is the one most
+      often studied in the laboratory.
+    why_it_matters: >
+      It causes bacillary dysentery with cramping pain, fever, and frequent
+      small bloody stools, and in children it is a significant cause of death
+      and of lasting growth impairment. Fewer than a hundred organisms can cause
+      illness, so it spreads readily within households, nurseries and among men
+      who have sex with men. Bloody diarrhoea with fever needs medical
+      assessment, and extensively drug-resistant S. flexneri is now circulating,
+      so antibiotic choice must be guided by culture and susceptibility testing.
+      Supplements are not a substitute for that. Drugs that stop the bowel
+      moving, such as loperamide, can prolong the illness and should be avoided.
+    normal_carriage: >
+      Healthy people do not carry it as part of normal flora. There is no
+      meaningful animal or environmental reservoir, so its presence indicates
+      recent human faecal exposure. Convalescent shedding for a few weeks after
+      symptoms settle is common, and a smaller number of people shed for months.
+    overgrowth_signal: >
+      Any confirmed detection is abnormal, so amount is not the deciding factor.
+      Sequencing has a specific limitation here: Shigella is genetically
+      indistinguishable from enteroinvasive Escherichia coli, and the boundary
+      between Shigella species is blurred, so a species-level call from short
+      reads should be confirmed by culture before it is acted on. Detection of
+      the invasion plasmid antigen genes alongside the species call makes an
+      invasive organism more likely than a harmless look-alike.
+    agents:
+      - name: Zinc (oral zinc salts)
+        kind: nutrient
+        evidence_tier: human_rct
+        effect: >
+          In a randomised trial in malnourished Bangladeshi children with
+          shigellosis, zinc added to standard antibiotic treatment improved
+          recovery and immune measures. Zinc acts on the gut lining and the
+          immune response rather than killing Shigella directly, and it was
+          tested as an addition to antibiotics, not a replacement.
+        dose_studied: "20 mg elemental zinc daily for 14 days, alongside standard antibiotic therapy, in children"
+        reaches_gut: >
+          Zinc salts dissolve in stomach acid to release zinc ions. Small
+          intestinal absorption saturates, so at supplemental doses a
+          substantial share continues into the colon, where it acts on the
+          mucosa and local immune cells.
+        citation_title: "Zinc supplementation in the management of shigellosis in malnourished children in Bangladesh"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/17554249/"
+        caution: >
+          Supports recovery; does not clear the infection. Long-term high-dose
+          zinc causes copper deficiency and anaemia. Zinc blocks absorption of
+          tetracycline and quinolone antibiotics, so space the doses by at least
+          two hours. Nausea on an empty stomach is common.
+
+      - name: Vitamin A (retinol palmitate)
+        kind: nutrient
+        evidence_tier: human_rct
+        effect: >
+          A single large oral dose improved clinical recovery from acute
+          shigellosis compared with placebo in a randomised double-blind trial
+          in Bangladeshi children. The benefit is to mucosal healing and
+          immunity rather than direct antibacterial killing, and it was given
+          in addition to standard care.
+        dose_studied: "Single oral dose of 200,000 IU retinol palmitate (100,000 IU in children under one year)"
+        reaches_gut: >
+          Vitamin A is fat-soluble and absorbed in the small intestine, so it
+          does not act as a luminal antibacterial in the colon. It works from
+          the blood side, supporting repair and immune function of the bowel
+          lining, which is why it helps in a colonic infection.
+        citation_title: "Single dose vitamin A treatment in acute shigellosis in Bangladesh children: randomised double blind controlled trial"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/9492664/"
+        caution: >
+          High-dose vitamin A causes birth defects and must not be taken by
+          anyone who is or might become pregnant. This is a one-off clinical
+          intervention, not a daily supplement; repeated high doses cause liver
+          damage, raised intracranial pressure and bone problems.
+
+      - name: Oregano essential oil
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Inhibited growth of Shigella flexneri and disrupted its biofilms in
+          culture, with the study also describing the mechanism of membrane
+          damage. This is laboratory work against S. flexneri directly; there is
+          no human trial.
+        dose_studied: "not established"
+        reaches_gut: >
+          Carvacrol and thymol are absorbed and conjugated in the upper small
+          intestine, so plain oregano oil is unlikely to reach the colon in
+          active form. Encapsulated or delayed-release forms are designed for
+          more distal delivery, but the amount actually delivered is seldom
+          measured.
+        citation_title: "Antimicrobial and Antibiofilm Efficacy and Mechanism of Oregano Essential Oil Against Shigella flexneri"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/37335913/"
+        caution: >
+          Culture-dish evidence only, and no substitute for medical assessment
+          of bloody diarrhoea. Undiluted oregano oil burns mucous membranes and
+          suppresses beneficial gut bacteria along with pathogens. Avoid in
+          pregnancy and in young children.
+
+      - name: Epigallocatechin gallate (EGCG, green tea catechin)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Inhibited the growth of Shigella flexneri in culture and damaged the
+          bacterial cell membrane. Culture-dish activity against this exact
+          species; no animal or human data.
+        dose_studied: "not established"
+        reaches_gut: >
+          EGCG is very poorly absorbed, so the great majority of an oral dose
+          travels to the colon. It is, however, unstable at small-intestinal pH
+          and heavily metabolised by gut bacteria, so much of what arrives is
+          breakdown products rather than intact EGCG.
+        citation_title: "Antibacterial Activity of Epigallocatechin Gallate (EGCG) against Shigella flexneri"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/36981585/"
+        caution: >
+          Concentrated green tea extracts have caused liver injury, and several
+          regulators cap EGCG per daily dose; the risk rises when taken on an
+          empty stomach. Catechins also reduce absorption of non-haem iron.
+
+      - name: Berberine
+        kind: botanical
+        evidence_tier: animal
+        effect: >
+          Reduced dysentery symptoms in a mouse model of Shigella flexneri
+          infection, acting on the bacterial cell-division protein FtsZ and on
+          the host's pyroptosis inflammatory pathway. Mouse and cell-culture
+          evidence against this exact species; no controlled human trial in
+          shigellosis.
+        dose_studied: "not established for humans in shigellosis"
+        reaches_gut: >
+          Berberine's oral bioavailability is under one per cent, so almost all
+          of a dose remains in the gut lumen and reaches the colon, which is
+          where Shigella invades. This is the best-placed agent on this list in
+          terms of getting to the right site.
+        citation_title: "Berberine protects against dysentery by targeting both Shigella filamentous temperature sensitive protein Z and host pyroptosis: Resolving in vitro-vivo effect discrepancy"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/39986228/"
+        caution: >
+          Animal evidence only. Berberine inhibits CYP3A4, CYP2D6 and
+          P-glycoprotein, so it raises blood levels of many prescription
+          medicines. Avoid in pregnancy, when breastfeeding, and in newborns
+          because it can worsen jaundice.
+
+      - name: Curcumin
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Inhibited growth of Shigella dysenteriae in culture in a study that
+          also tested silymarin. The organism tested was S. dysenteriae, named
+          here as a close relative within the same genus; S. flexneri was not
+          tested and there is no human data.
+        dose_studied: "not established"
+        reaches_gut: >
+          Curcumin is famously poorly absorbed, so most of an oral dose does
+          reach the colon, which suits a luminal target. The catch is that it is
+          also chemically unstable at intestinal pH and is rapidly degraded, and
+          formulations sold to improve absorption, such as those with piperine
+          or phospholipid carriers, actively reduce the amount left in the lumen.
+        citation_title: "Effects of Curcumin and Silymarin on the Shigella dysenteriae and Campylobacter jejuni In vitro"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/31482407/"
+        caution: >
+          Culture-dish evidence against a related species only. Curcumin
+          supplements have been linked to liver injury, particularly
+          high-bioavailability formulations, and can worsen gallstone symptoms
+          because they stimulate gallbladder contraction. They may add to the
+          effect of anticoagulants.
+
+  # ---------------------------------------------------------------------------
+  bacteria.shigella_sonnei:
+    display_name: Shigella sonnei
+    what_it_is: >
+      A bacterium that invades the lining of the large bowel and causes
+      diarrhoea, often with blood and mucus. S. sonnei is the species that
+      dominates in high-income countries, and it tends to cause a somewhat
+      milder, more watery illness than the other Shigella species.
+    why_it_matters: >
+      It causes bacillary dysentery with cramping abdominal pain, fever and
+      frequent small stools that may contain blood and mucus. It is highly
+      infectious, needing only a small number of organisms, so it spreads in
+      nurseries, households and sexual networks. Bloody diarrhoea with fever
+      needs medical assessment, and extensively drug-resistant S. sonnei is now
+      spreading internationally, so treatment must be guided by culture and
+      susceptibility results. Supplements are not a substitute for that.
+      Loperamide and similar drugs that slow the bowel should be avoided in
+      suspected invasive infection.
+    normal_carriage: >
+      Healthy people do not carry it as normal flora, and there is no
+      significant animal reservoir, so a positive result means recent exposure
+      to human faecal material. Shedding for two to four weeks after recovery is
+      common and is why exclusion rules apply to food handlers, healthcare
+      workers and children in nurseries.
+    overgrowth_signal: >
+      Amount is not the deciding factor; any confirmed detection is abnormal.
+      Sequencing cannot cleanly separate Shigella from enteroinvasive
+      Escherichia coli, and separating S. sonnei from other Shigella species by
+      short reads is also imperfect, so confirm by culture before acting.
+      S. sonnei is somewhat easier than the others to call correctly because of
+      its distinctive O-antigen locus, but a culture result remains the standard.
+    agents:
+      - name: Zinc (oral zinc salts)
+        kind: nutrient
+        evidence_tier: human_rct
+        effect: >
+          Randomised trial evidence in children with shigellosis showed that
+          zinc added to standard antibiotic treatment improved recovery and
+          immune measures. Zinc supports the gut lining and immune response
+          rather than killing Shigella directly, and it was tested as an
+          addition to antibiotics.
+        dose_studied: "20 mg elemental zinc daily for 14 days, alongside standard antibiotic therapy, in children"
+        reaches_gut: >
+          Zinc salts dissolve in stomach acid to free zinc ions, and because
+          small intestinal absorption saturates, a substantial fraction of a
+          supplemental dose continues into the colon where the infection sits.
+        citation_title: "Zinc supplementation in the management of shigellosis in malnourished children in Bangladesh"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/17554249/"
+        caution: >
+          Supports recovery; does not clear the infection. Prolonged high-dose
+          zinc causes copper deficiency and anaemia. It reduces absorption of
+          tetracycline and quinolone antibiotics, so separate the doses by at
+          least two hours.
+
+      - name: Vitamin A (retinol palmitate)
+        kind: nutrient
+        evidence_tier: human_rct
+        effect: >
+          A single large oral dose improved clinical recovery from acute
+          shigellosis compared with placebo in a randomised double-blind trial
+          in children. The mechanism is support of mucosal healing and immunity,
+          not direct antibacterial killing.
+        dose_studied: "Single oral dose of 200,000 IU retinol palmitate (100,000 IU in children under one year)"
+        reaches_gut: >
+          Vitamin A is fat-soluble and absorbed in the small intestine, so it
+          does not reach the colon as a luminal antibacterial. It acts
+          systemically on the bowel lining's repair and immune function, which
+          is how it helps in a colonic infection.
+        citation_title: "Single dose vitamin A treatment in acute shigellosis in Bangladesh children: randomised double blind controlled trial"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/9492664/"
+        caution: >
+          High-dose vitamin A causes birth defects and must not be taken by
+          anyone who is or might become pregnant. It is a single clinical
+          intervention, not a daily supplement; repeated high doses damage the
+          liver and bones and can raise intracranial pressure.
+
+      - name: Oregano volatile oil
+        kind: botanical
+        evidence_tier: animal
+        effect: >
+          Killed dysentery bacilli in culture and protected mice infected with
+          Shigella sonnei and Shigella flexneri. S. sonnei was one of the two
+          species tested directly, though the model was intraperitoneal
+          infection in mice rather than oral gut infection, and there is no
+          human trial.
+        dose_studied: "not established for humans"
+        reaches_gut: >
+          Carvacrol and thymol are absorbed and conjugated high in the small
+          intestine, so plain oregano oil capsules are unlikely to deliver
+          active compound to the colon. Delayed-release or encapsulated forms
+          are designed for distal delivery, but the delivered amount is rarely
+          quantified.
+        citation_title: "Experimental study on the antibacterial effect of origanum volatile oil on dysentery bacilli in vivo and in vitro"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/15587409/"
+        caution: >
+          Not a substitute for medical assessment of bloody diarrhoea.
+          Undiluted oregano oil burns the mouth and gullet, and it suppresses
+          beneficial gut bacteria as well as pathogens. Avoid in pregnancy and
+          in young children.
+
+      - name: Epigallocatechin gallate (EGCG, green tea catechin)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Inhibited growth of Shigella flexneri in culture and damaged the
+          bacterial cell membrane. The species tested was S. flexneri, named
+          here as a close relative within the same genus; S. sonnei was not
+          tested.
+        dose_studied: "not established"
+        reaches_gut: >
+          EGCG is poorly absorbed and most of an oral dose reaches the colon,
+          but it degrades at small-intestinal pH and is extensively transformed
+          by gut bacteria, so a good share of what arrives is breakdown products
+          rather than intact EGCG.
+        citation_title: "Antibacterial Activity of Epigallocatechin Gallate (EGCG) against Shigella flexneri"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/36981585/"
+        caution: >
+          Culture-dish evidence against a related species only. Concentrated
+          green tea extracts have caused liver injury and several regulators cap
+          the EGCG allowed per daily dose. Catechins reduce non-haem iron
+          absorption.
+
+      - name: Berberine
+        kind: botanical
+        evidence_tier: animal
+        effect: >
+          Reduced dysentery symptoms in a mouse model of Shigella flexneri
+          infection by targeting the bacterial cell-division protein FtsZ and
+          damping the host's pyroptosis response. The species tested was
+          S. flexneri, a close relative of S. sonnei; there is no controlled
+          human trial in shigellosis.
+        dose_studied: "not established for humans in shigellosis"
+        reaches_gut: >
+          Oral bioavailability is under one per cent, so almost the entire dose
+          stays in the gut lumen and reaches the colon, which is where Shigella
+          invades the mucosa.
+        citation_title: "Berberine protects against dysentery by targeting both Shigella filamentous temperature sensitive protein Z and host pyroptosis: Resolving in vitro-vivo effect discrepancy"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/39986228/"
+        caution: >
+          Animal evidence only. Berberine inhibits CYP3A4, CYP2D6 and
+          P-glycoprotein and interacts with many prescription drugs. Avoid in
+          pregnancy, when breastfeeding, and in newborns because of the risk of
+          worsening jaundice.
+
+  # ---------------------------------------------------------------------------
+  bacteria.escherichia_albertii:
+    display_name: Escherichia albertii
+    what_it_is: >
+      A bacterium closely related to Escherichia coli that was only recognised
+      as a separate species in 2003. It attaches to the lining of the intestine
+      in the same way as enteropathogenic E. coli, and many strains also carry
+      genes for Shiga toxin and for a DNA-damaging toxin called cytolethal
+      distending toxin.
+    why_it_matters: >
+      It causes watery diarrhoea and has been linked to outbreaks traced to
+      poultry and to contaminated water, mostly in children. Because a
+      proportion of strains carry Shiga toxin genes, the same concern applies as
+      with Shiga toxin-producing E. coli: a small number of cases can progress
+      to haemolytic uraemic syndrome, a serious condition affecting the kidneys
+      and blood. Bloody diarrhoea, reduced urine output or unusual pallor and
+      bruising need urgent medical assessment. Antibiotics are generally avoided
+      in suspected Shiga toxin-producing infection because they can increase
+      toxin release, and the same caution should be assumed for any agent that
+      kills these organisms in the gut. Supplements are not a substitute for
+      medical care.
+    normal_carriage: >
+      Healthy people are not thought to carry it routinely, though this is
+      genuinely uncertain because it is so often misidentified as E. coli or as
+      Hafnia alvei by standard laboratory methods. It has been found in healthy
+      birds, in poultry meat and in wild animals such as raccoons, so
+      environmental and food exposure occurs. Reported human carriage without
+      symptoms exists but is not well quantified.
+    overgrowth_signal: >
+      Sequencing cannot establish that a detection is clinically significant
+      here, and it frequently cannot establish the species at all: E. albertii
+      is routinely reported as E. coli by short-read pipelines unless the
+      analysis specifically looks for its distinguishing markers, such as the
+      absence of lactose and sorbitol fermentation genes together with the eae
+      and cdtB genes. What would raise concern is the presence of Shiga toxin
+      genes (stx1 or stx2) alongside the species call, combined with symptoms.
+      Read abundance alone should not be interpreted.
+    agents: []
+    no_agents_reason: >
+      No published study tests any supplement, botanical, probiotic or food
+      against Escherichia albertii. Searches of PubMed for this species combined
+      with antimicrobial, plant extract, essential oil and probiotic terms
+      return only work on culture media and detection methods, because the
+      species has only been recognised since 2003 and is usually misidentified.
+      Evidence for related E. coli pathotypes was deliberately not carried over
+      here, for a safety reason rather than a bibliographic one: many
+      E. albertii strains carry Shiga toxin genes, and agents that damage or
+      lyse Shiga toxin-producing bacteria in the gut can increase the amount of
+      toxin released, which is the mechanism thought to make antibiotics
+      hazardous in these infections. Recommending gut-active antibacterials on
+      close-genus grounds would therefore be an unsafe extrapolation rather
+      than a conservative one. Supportive care and prompt medical assessment
+      are what the evidence supports.
+
+  # ---------------------------------------------------------------------------
+  bacteria.edwardsiella_tarda:
+    display_name: Edwardsiella tarda
+    what_it_is: >
+      A bacterium that lives in fresh and brackish water and in the gut of fish,
+      eels, reptiles and amphibians. It is a well-known problem in fish farming,
+      and it occasionally infects people, usually after contact with water, fish
+      or reptiles or after eating undercooked freshwater fish.
+    why_it_matters: >
+      In people it most often causes a self-limiting gastroenteritis with watery
+      diarrhoea. Less commonly it causes deeper infection: wound infection,
+      abscesses in the liver, and bloodstream infection. Serious disease is
+      mainly seen in people with liver disease, iron overload conditions such as
+      haemochromatosis or thalassaemia, diabetes, or a weakened immune system,
+      in whom it can be life-threatening and needs prompt medical treatment.
+      For a healthy adult with mild diarrhoea, it is usually a passing
+      infection.
+    normal_carriage: >
+      Healthy people do not usually carry it as part of their gut flora, but
+      transient carriage after eating freshwater fish or after recreational
+      water exposure is recognised and is common enough that a detection in a
+      well person is often incidental. It is far more prevalent in warmer
+      regions and in populations that eat raw or lightly cooked freshwater fish.
+      Carriage in the absence of symptoms does not by itself require treatment.
+    overgrowth_signal: >
+      Sequencing cannot establish clinical significance for this organism. What
+      matters is the clinical picture rather than the read count: diarrhoea,
+      fever, abdominal pain, or any sign of deeper infection in someone with
+      liver disease or iron overload. A high relative abundance in a person with
+      no symptoms is most consistent with recent dietary or water exposure.
+      Note also that Edwardsiella tarda has been split into several species,
+      including E. anguillarum and E. piscicida, and older references and some
+      databases still lump them together.
+    agents:
+      - name: Lactobacillus rhamnosus
+        kind: probiotic
+        evidence_tier: animal
+        effect: >
+          Protected tilapia against experimental Edwardsiella tarda infection,
+          reducing mortality, with the study describing effects on the fish's
+          immune response as the mechanism. This is a fish study, which is the
+          setting in which this organism is most researched; there is no human
+          data.
+        dose_studied: "Dietary supplementation in tilapia; fish feed inclusion rates do not translate to a human dose"
+        reaches_gut: >
+          Lactobacillus rhamnosus is acid and bile tolerant, which is the basis
+          for its use as a probiotic, and viable organisms are recoverable from
+          human stool during supplementation. Delivery to the colon in live form
+          is therefore well established, independent of this particular study.
+        citation_title: "Protective effects and mechanisms of a probiotic bacterium Lactobacillus rhamnosus against experimental Edwardsiella tarda infection in tilapia (Oreochromis niloticus)"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/16870266/"
+        caution: >
+          Fish evidence only. Live probiotics should be avoided by people who
+          are severely immunosuppressed, have a central venous catheter, or have
+          a damaged gut barrier, because rare cases of probiotic bloodstream
+          infection have occurred in such patients. This does not treat invasive
+          Edwardsiella infection.
+
+      - name: Lactobacillus pentosus PL11
+        kind: probiotic
+        evidence_tier: animal
+        effect: >
+          Dietary supplementation improved growth, immune and antioxidant
+          measures in Japanese eels challenged with Edwardsiella tarda. The
+          endpoints were mainly host immune and growth parameters rather than
+          direct bacterial killing, and this was a fish study.
+        dose_studied: "Dietary supplementation in Japanese eel; not translatable to a human dose"
+        reaches_gut: >
+          Lactobacillus pentosus is a lactic acid bacterium of the same broad
+          group as other food-fermentation lactobacilli, which survive gastric
+          transit reasonably well and can be recovered live from stool. Strain
+          PL11 itself has not been characterised for survival through the human
+          gut.
+        citation_title: "Effects of dietary supplementation of Lactobacillus pentosus PL11 on the growth performance, immune and antioxidant systems of Japanese eel Anguilla japonica challenged with Edwardsiella tarda"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/23261510/"
+        caution: >
+          Fish evidence only, and this specific strain is not sold as a human
+          product. Live probiotics are not appropriate for severely
+          immunosuppressed people or those with central lines.
+
+      - name: Bacillus velezensis
+        kind: probiotic
+        evidence_tier: animal
+        effect: >
+          Both the live probiotic and its heat-treated postbiotic form improved
+          immunity, growth and antioxidant measures and increased resistance to
+          Edwardsiella tarda infection in pangasius catfish. Aquaculture
+          evidence; no human data.
+        dose_studied: "Dietary supplementation in pangasius; not translatable to a human dose"
+        reaches_gut: >
+          Bacillus species form spores that are highly resistant to stomach
+          acid and bile, and spore-forming Bacillus probiotics are recovered
+          alive from human stool, so gut delivery is not the limiting problem
+          for this genus. The species offered in human supplements is more often
+          B. subtilis or B. coagulans than B. velezensis.
+        citation_title: "Probiotic and postbiotic effects of Bacillus velezensis AAHM-BV2354 on boosting immunity, growth performance, antioxidant activity and resistance to Edwardsiella tarda infection in pangasius (Pangasianodon hypophthalmus)"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/40653180/"
+        caution: >
+          Fish evidence only. Bacillus probiotics have occasionally been
+          associated with bacteraemia in immunocompromised patients and should
+          be avoided in that group. This is not a treatment for invasive
+          Edwardsiella disease.
+
+      - name: Rhubarb root extract (Rheum officinale)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Showed strong bactericidal activity in culture against six aquatic
+          pathogens including Edwardsiella tarda, with minimum inhibitory and
+          bactericidal concentrations reported. The same study fed the extract
+          to grouper and measured immune effects, but the direct anti-Edwardsiella
+          activity was demonstrated in culture.
+        dose_studied: "not established for humans"
+        reaches_gut: >
+          The active anthraquinones in rhubarb root, such as emodin and rhein,
+          are poorly absorbed as glycosides and are carried to the colon, where
+          gut bacteria release the free aglycones. That is exactly why rhubarb
+          root works as a stimulant laxative, and it means the active compounds
+          do reach the large bowel.
+        citation_title: "Rheum officinale extract promotes the innate immunity of orange-spotted grouper (Epinephelus coioides) and exerts strong bactericidal activity against six aquatic pathogens"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/32305503/"
+        caution: >
+          Culture-dish activity only. Rhubarb root is a stimulant laxative and
+          will cause cramping and diarrhoea, which is unhelpful and potentially
+          harmful in someone who already has diarrhoea. Prolonged use causes
+          potassium loss and bowel dependence. Avoid in pregnancy, when
+          breastfeeding, in children, and in anyone with inflammatory bowel
+          disease or bowel obstruction.
+
+  # ---------------------------------------------------------------------------
+  bacteria.aliarcobacter_skirrowii:
+    display_name: Aliarcobacter skirrowii
+    what_it_is: >
+      A curved, spiral bacterium related to Campylobacter, previously called
+      Arcobacter skirrowii. It is found in livestock, particularly in cattle and
+      sheep with diarrhoea, and in raw meat, milk and water. Unlike
+      Campylobacter it can grow at room temperature and in normal air, which
+      helps it survive in food and water.
+    why_it_matters: >
+      It is an uncommon cause of human diarrhoea, most often watery and
+      self-limiting, though bloodstream infection has been reported in people
+      with other serious illness. It is much less frequently implicated in human
+      disease than its relative Aliarcobacter butzleri, and the overall evidence
+      that it causes illness in people is thinner. Persistent diarrhoea, or any
+      fever and systemic illness, should be assessed by a clinician.
+    normal_carriage: >
+      Human carriage is uncommon and poorly characterised, largely because
+      routine stool cultures are not set up to grow this organism, so it is
+      almost never looked for. Detection in someone without symptoms most likely
+      reflects recent exposure through undercooked meat, unpasteurised dairy or
+      untreated water rather than established colonisation. It is not considered
+      part of the normal gut flora.
+    overgrowth_signal: >
+      Sequencing cannot establish that a detection is causing illness. There is
+      no accepted abundance threshold for this organism, and because it is a
+      recognised contaminant of food and water it can turn up transiently. A
+      detection is more meaningful if it is at high relative abundance,
+      persistent on repeat sampling, accompanied by diarrhoea, and other causes
+      have been excluded. Note also that Aliarcobacter species are easily
+      confused with each other and with Campylobacter by short reads.
+    agents:
+      - name: Rosemary essential oil
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Showed strong inhibitory activity against Arcobacter strains including
+          Aliarcobacter skirrowii by disc diffusion, and completely inhibited
+          A. butzleri in a cooked minced beef system at 0.5 per cent. This is
+          laboratory and food-model work; there is no human data on treating gut
+          infection.
+        dose_studied: "0.5% (vol/wt) rosemary essential oil in a cooked minced beef food model"
+        reaches_gut: >
+          The principal actives, 1,8-cineole and camphor, are volatile terpenes
+          that are stable in acid but absorbed rapidly in the upper small
+          intestine, so plain rosemary oil is unlikely to arrive in the colon in
+          meaningful amounts. This finding is best read as relevant to food
+          hygiene, which is where exposure happens, rather than to treatment.
+        citation_title: "Inhibitory effects of some plant essential oils against Arcobacter butzleri and potential for rosemary oil as a natural food preservative"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/21142947/"
+        caution: >
+          Culture and food-model evidence only. Rosemary oil taken orally in
+          quantity can cause stomach irritation and, in large doses, seizures;
+          camphor-containing oils are particularly hazardous. Avoid in
+          pregnancy, in children, and in anyone with epilepsy.
+
+      - name: Clove essential oil (eugenol)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Had strong inhibitory activity against Arcobacter strains including
+          Aliarcobacter skirrowii in the same disc-diffusion screen. Growth
+          inhibition in culture only; no human data.
+        dose_studied: "not established"
+        reaches_gut: >
+          Eugenol survives stomach acid but is absorbed and conjugated quickly
+          in the upper small intestine, so little of a plain oral dose reaches
+          the colon. Delivery would require an enteric or delayed-release
+          formulation, and none has been tested against this organism.
+        citation_title: "Inhibitory effects of some plant essential oils against Arcobacter butzleri and potential for rosemary oil as a natural food preservative"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/21142947/"
+        caution: >
+          Culture-dish evidence only. Concentrated clove oil irritates and can
+          burn the mouth, gullet and stomach lining, and overdose causes liver
+          injury, particularly in children. It may add to the effect of
+          anticoagulant medicines.
+
+      - name: Cinnamon essential oil (cinnamaldehyde)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Showed strong inhibitory activity against Arcobacter strains including
+          Aliarcobacter skirrowii in the same screen, while cumin, mint and sage
+          oils largely did not. Culture-dish activity only.
+        dose_studied: "not established"
+        reaches_gut: >
+          Cinnamaldehyde is reactive and is substantially absorbed and oxidised
+          to cinnamic acid in the upper gut, so plain cinnamon oil is unlikely
+          to deliver much active compound to the colon. Encapsulated forms exist
+          for animal feed for exactly this reason but have not been tested here.
+        citation_title: "Inhibitory effects of some plant essential oils against Arcobacter butzleri and potential for rosemary oil as a natural food preservative"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/21142947/"
+        caution: >
+          Culture-dish evidence only. Cassia cinnamon, the common supermarket
+          type, is high in coumarin, which is toxic to the liver in regular
+          large amounts; Ceylon cinnamon contains far less. Cinnamon oil is a
+          strong mucosal irritant undiluted, and cinnamon may add to the effect
+          of blood-glucose-lowering medicines.
+
+      - name: Bergamot essential oil (and its component linalool)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Bergamot was the most inhibitory of the citrus oils tested against
+          Arcobacter butzleri in culture, with linalool the most effective
+          single component, and it reduced counts on cabbage leaf and chicken
+          skin. The organism tested was A. butzleri, named here as a close
+          relative in the same genus; A. skirrowii was not included in this
+          particular study.
+        dose_studied: "not established"
+        reaches_gut: >
+          Linalool and the other citrus terpenes are absorbed high in the small
+          intestine and cleared by the liver, so essentially none reaches the
+          colon after an ordinary oral dose. The authors themselves frame this
+          as a food-decontamination finding rather than a therapeutic one.
+        citation_title: "The survival of three strains of Arcobacter butzleri in the presence of lemon, orange and bergamot essential oils and their components in vitro and on food"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/17451515/"
+        caution: >
+          Culture and food-surface evidence against a related species only.
+          Bergamot oil is strongly phototoxic on skin. Bergamot also contains
+          furanocoumarins that inhibit CYP3A4, the same mechanism as the
+          grapefruit juice interaction, so it can raise blood levels of many
+          prescription medicines.
+
+  # ---------------------------------------------------------------------------
+  bacteria.clostridioides_difficile:
+    display_name: Clostridioides difficile
+    what_it_is: >
+      A spore-forming bacterium that lives in the large bowel. Its spores
+      survive for a long time on surfaces and resist alcohol hand gel. Only some
+      strains carry the genes for the toxins that cause disease; strains without
+      those genes do not cause the illness.
+    why_it_matters: >
+      When antibiotics wipe out the normal gut bacteria, toxin-producing
+      C. difficile can multiply and release toxins that inflame and damage the
+      colon. This causes watery diarrhoea, abdominal pain and fever, and in
+      severe cases pseudomembranous colitis, toxic megacolon, bowel perforation
+      and death. It is a leading cause of healthcare-associated infection.
+      Suspected C. difficile infection needs medical assessment and prescription
+      treatment such as vancomycin or fidaxomicin, and recurrent cases may need
+      faecal microbiota transplantation. Supplements are not a substitute for
+      that, and delaying treatment in someone who is unwell is dangerous. Drugs
+      that slow the bowel should be avoided.
+    normal_carriage: >
+      Carriage without illness is common and usually harmless. Roughly three to
+      fifteen in every hundred healthy adults carry it in the gut, and rates are
+      much higher in specific groups: over half of infants under one year, and a
+      substantial minority of hospital and care-home residents. What turns
+      harmless carriage into disease is the combination of a toxin-producing
+      strain and a disturbed gut microbiome, most often from recent antibiotics,
+      but also from proton pump inhibitors, advanced age, chemotherapy and
+      prolonged hospital stay. In infants, carriage of toxigenic strains is
+      normal and usually causes no illness, because their gut cells lack the
+      mature toxin receptors.
+    overgrowth_signal: >
+      Sequencing on its own cannot establish that C. difficile is causing
+      illness, and this is the single most important caveat for this organism.
+      Diagnosis requires diarrhoea plus laboratory evidence of toxin, usually a
+      toxin immunoassay interpreted alongside a glutamate dehydrogenase or
+      nucleic acid test. Two things make a sequencing hit more meaningful:
+      detection of the toxin genes tcdA and tcdB, and better still the binary
+      toxin genes cdtA and cdtB or the tcdC deletion associated with more
+      virulent strains, and a clear clinical picture of new diarrhoea after
+      antibiotics. A detection in someone with formed stools and no symptoms
+      should be treated as carriage, and treating asymptomatic carriage is
+      explicitly not recommended.
+    agents:
+      - name: Saccharomyces boulardii
+        kind: probiotic
+        evidence_tier: human_rct
+        effect: >
+          In a randomised controlled trial of 120 patients with mild to moderate
+          C. difficile infection, adding S. boulardii to vancomycin gave a
+          higher global cure rate (96.6 per cent versus 85.3 per cent) and a
+          lower recurrence rate (1.7 per cent versus 13.1 per cent). It was
+          tested as an addition to antibiotic treatment, not instead of it.
+        dose_studied: "Two 250 mg capsules (500 mg) every 12 hours alongside vancomycin"
+        reaches_gut: >
+          S. boulardii is a yeast, not a bacterium, so it is unaffected by
+          antibacterial drugs and can be given at the same time as vancomycin.
+          It tolerates gastric acid and bile and is recovered live in stool
+          during dosing, reaching steady-state colonic concentrations within
+          about three days and clearing within days of stopping.
+        citation_title: "Efficacy and safety of Saccharomyces boulardii as adjunct therapy with Vancomycin in treating Clostridioides difficile infection: A randomized controlled trial"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/40457042/"
+        caution: >
+          An addition to treatment, not a replacement for it. S. boulardii must
+          be avoided in critically ill patients, in people who are severely
+          immunosuppressed, and in anyone with a central venous catheter,
+          because fungaemia has occurred in these groups, sometimes from
+          airborne contamination when capsules are opened at the bedside. Avoid
+          in anyone with a yeast allergy.
+
+      - name: Multi-strain probiotics (preventive, during antibiotics)
+        kind: probiotic
+        evidence_tier: human_rct
+        effect: >
+          A 2025 Cochrane review of 38 randomised trials in 13,179 participants
+          found that probiotics taken alongside antibiotics may halve the
+          incidence of C. difficile-associated diarrhoea, from 3.2 per cent to
+          1.6 per cent, with a number needed to treat of about 65. The evidence
+          was graded low certainty, and this is prevention during antibiotic
+          courses, not treatment of established infection.
+        dose_studied: "Varies by trial; typically 10^9 to 10^10 colony-forming units daily, started within about two days of the antibiotic and continued for its duration"
+        reaches_gut: >
+          The strains used in these trials, mainly Lactobacillus,
+          Bifidobacterium and Saccharomyces species, are selected for acid and
+          bile tolerance and are recoverable live from stool during
+          supplementation. Bacterial strains can be killed by the concurrent
+          antibiotic, which is one argument for the yeast-based options.
+        citation_title: "Probiotics for the prevention of Clostridioides difficile-associated diarrhea in adults and children"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/40931979/"
+        caution: >
+          Preventive only; this does not treat an established infection, and the
+          certainty of the evidence is low. Live probiotics should not be given
+          to severely immunosuppressed people, those with central venous
+          catheters, or critically ill patients, in whom bloodstream infection
+          from the probiotic organism has been reported.
+
+      - name: Berberine
+        kind: botanical
+        evidence_tier: animal
+        effect: >
+          Blocked relapse of C. difficile infection in mice after standard
+          vancomycin treatment, with a follow-up study describing the mechanisms
+          involved. Mouse evidence for prevention of relapse; there is no
+          controlled human trial in C. difficile infection.
+        dose_studied: "not established for humans in C. difficile infection"
+        reaches_gut: >
+          Berberine's oral bioavailability is under one per cent, so nearly all
+          of a dose stays in the gut lumen and reaches the colon, which is
+          precisely where C. difficile grows and releases toxin. Of the
+          botanicals listed here it has the clearest case for reaching the
+          target site.
+        citation_title: "Berberine blocks the relapse of Clostridium difficile infection in C57BL/6 mice after standard vancomycin treatment"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/25824219/"
+        caution: >
+          Animal evidence only, and no substitute for prescription treatment.
+          Berberine inhibits CYP3A4, CYP2D6 and P-glycoprotein, so it raises
+          levels of many prescription drugs, which matters particularly in the
+          older, multi-medicated patients who get C. difficile. Avoid in
+          pregnancy, when breastfeeding, and in newborns.
+
+      - name: Carvacrol
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Reduced C. difficile sporulation and spore outgrowth in culture, and
+          in a separate study reduced toxin production and the toxicity of
+          culture supernatant to cells. Both findings are from culture-dish
+          experiments; there is no human data.
+        dose_studied: "not established"
+        reaches_gut: >
+          Carvacrol is absorbed and conjugated in the upper small intestine, so
+          a plain oregano oil capsule delivers little to the colon. Reaching
+          C. difficile in the large bowel would need a delayed-release or
+          encapsulated formulation, and none has been tested in people for this
+          purpose.
+        citation_title: "Carvacrol reduces Clostridium difficile sporulation and spore outgrowth in vitro"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/28786786/"
+        caution: >
+          Culture-dish evidence only, and it does not treat infection. Broad
+          antibacterial botanicals are a questionable idea in C. difficile
+          precisely because the illness is caused by loss of normal gut
+          bacteria, and carvacrol suppresses commensals too. Undiluted oregano
+          oil burns mucous membranes. Avoid in pregnancy.
+
+      - name: trans-Cinnamaldehyde
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Reduced C. difficile toxin production and the cytotoxicity of its
+          culture supernatant to cells, alongside carvacrol, at concentrations
+          below those that inhibited growth. This is an anti-toxin effect shown
+          in culture only, with no animal or human data.
+        dose_studied: "not established"
+        reaches_gut: >
+          Cinnamaldehyde is chemically reactive and is largely absorbed and
+          oxidised to cinnamic acid in the upper gut, so ordinary cinnamon oil
+          or cinnamon powder is unlikely to deliver active compound to the
+          colon. Encapsulated forms are used in animal feed for this reason but
+          have not been tested against C. difficile in people.
+        citation_title: "Carvacrol and trans-cinnamaldehyde reduce Clostridium difficile toxin production and cytotoxicity in vitro"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/24625665/"
+        caution: >
+          Culture-dish evidence only. Cassia cinnamon contains coumarin, which
+          is toxic to the liver in regular large amounts. Cinnamon oil is a
+          strong mucosal irritant when undiluted, and cinnamon may add to the
+          effect of blood-glucose-lowering medicines.
+
+      - name: Epigallocatechin gallate (EGCG, green tea catechin)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Reduced virulence measures of the hypervirulent C. difficile PCR
+          ribotype 027 strain in culture, including effects on toxin activity.
+          The endpoint was virulence rather than killing the organism, and the
+          work was entirely in culture.
+        dose_studied: "not established"
+        reaches_gut: >
+          EGCG is very poorly absorbed, so most of an oral dose does reach the
+          colon, which suits this target. Against that, it is unstable at
+          small-intestinal pH and is extensively broken down by gut bacteria, so
+          a fair proportion of what arrives is metabolites rather than intact
+          EGCG.
+        citation_title: "Inhibitory Effect of Epigallocatechin Gallate on the Virulence of Clostridium difficile PCR Ribotype 027"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/26556797/"
+        caution: >
+          Culture-dish evidence only, and no substitute for prescription
+          treatment. Concentrated green tea extracts have caused liver injury,
+          and several regulators limit EGCG per daily dose; taking them on an
+          empty stomach increases the risk. Catechins reduce non-haem iron
+          absorption.
+
+  # ---------------------------------------------------------------------------
+  bacteria.clostridium_botulinum:
+    display_name: Clostridium botulinum
+    what_it_is: >
+      A spore-forming bacterium found in soil, dust and sediment. It only grows
+      where there is no oxygen, and when it does grow it produces botulinum
+      neurotoxin, the most potent biological toxin known. The bacterium itself
+      is not invasive; essentially all the harm comes from the toxin.
+    why_it_matters: >
+      Botulism causes a descending paralysis: drooping eyelids, double vision,
+      slurred speech and difficulty swallowing, progressing to weakness of the
+      breathing muscles and respiratory failure. This is a medical emergency
+      requiring immediate hospital care, botulinum antitoxin, and often
+      mechanical ventilation, and it is a notifiable condition that public
+      health authorities must be told about at once. Supplements have no role in
+      treating it and must never be used instead of emergency care; every hour
+      of delay before antitoxin worsens the outcome. Most adult cases come from
+      eating preformed toxin in improperly preserved food, in which case killing
+      the bacterium achieves nothing because the toxin is already made. In
+      infants under one year, and in some adults with altered gut flora, the
+      spores can instead germinate and produce toxin inside the intestine, which
+      is why honey must not be given to infants under twelve months.
+    normal_carriage: >
+      Healthy people do not normally carry it. The spores are widespread in soil
+      and are swallowed regularly without consequence, because a normal adult
+      gut microbiome prevents them from germinating. Detection of C. botulinum
+      DNA in an adult stool sample is uncommon and most often reflects
+      transient spore passage rather than colonisation. Intestinal colonisation
+      does occur in infants under one year, whose gut flora is not yet
+      established, and occasionally in adults after bowel surgery, prolonged
+      antibiotics or with severe inflammatory bowel disease.
+    overgrowth_signal: >
+      Sequencing cannot establish that this is causing harm, and it is the wrong
+      tool for the question. Botulism is diagnosed by detecting botulinum toxin
+      in serum, stool or the suspect food, not by measuring bacterial abundance.
+      Two things would raise concern: detection of a botulinum neurotoxin gene
+      (bont) rather than just the species, and any neurological symptom at all,
+      particularly double vision, drooping eyelids, difficulty swallowing or
+      slurred speech, or in an infant, constipation with a weak cry, poor
+      feeding and floppiness. Any of these means emergency care immediately, not
+      further testing. Note also that botulinum toxin genes occur in several
+      other clostridia, so a species-level call alone is not conclusive.
+    agents: []
+    no_agents_reason: >
+      No supplement, botanical, probiotic or food has credible evidence for
+      treating or preventing botulism in people, and listing any here would be
+      actively unsafe. The relevant literature that does exist is food
+      preservation research, not treatment research. Two verified examples
+      illustrate the gap: mastic resin and its essential oil inhibited the
+      growth of proteolytic C. botulinum in laboratory media
+      (https://pubmed.ncbi.nlm.nih.gov/15246242/), and a screen of Finnish spice
+      essential oils by agar diffusion found C. botulinum among the most
+      sensitive organisms tested, with oregano, savory and thyme the broadest
+      acting (https://pubmed.ncbi.nlm.nih.gov/14717375/). Both describe stopping
+      the organism from growing in a food or a culture plate before anyone eats
+      it. Neither says anything about a person who has already been exposed,
+      and this distinction is decisive for three reasons. First, in the common
+      foodborne form the toxin is already made before the food is eaten, so
+      killing the bacterium changes nothing. Second, these phenolic compounds
+      are absorbed in the upper small intestine and do not reach the colon in
+      active form, so they fail the requirement that an agent must arrive
+      intact. Third, and most importantly, botulism kills by paralysing the
+      breathing muscles, and the only effective treatments are botulinum
+      antitoxin and intensive supportive care, both of which are time critical.
+      Anything that encouraged someone to try a supplement first would be
+      dangerous. For prevention, the evidence supports safe home canning
+      practice and not giving honey to infants under twelve months, rather than
+      any supplement.
+
+  # ---------------------------------------------------------------------------
+  bacteria.clostridium_butyricum:
+    display_name: Clostridium butyricum (neurotoxigenic)
+    what_it_is: >
+      Most Clostridium butyricum is a harmless gut bacterium that produces
+      butyrate, a beneficial short-chain fatty acid, and some strains are sold
+      as probiotics. A very small number of strains have acquired the genes for
+      type E botulinum neurotoxin on a plasmid, and those strains can cause
+      botulism. This entry refers only to the neurotoxin-producing strains.
+    why_it_matters: >
+      Neurotoxigenic C. butyricum causes type E botulism, clinically the same as
+      botulism from C. botulinum: descending paralysis starting with the eyes
+      and swallowing and progressing to respiratory failure. Reported cases have
+      mostly been infant botulism in Italy and food-associated outbreaks in
+      China. This is a medical emergency needing immediate hospital care and
+      botulinum antitoxin, and it is notifiable. Supplements have no role and
+      must not delay emergency treatment. The distinction from ordinary
+      butyrate-producing C. butyricum matters a great deal, because the ordinary
+      form is beneficial and common.
+    normal_carriage: >
+      Ordinary non-toxigenic C. butyricum is a normal and generally beneficial
+      member of the gut flora, present in a large proportion of healthy people,
+      and the MIYAIRI 588 strain is widely used as a probiotic in Japan and
+      elsewhere. Neurotoxigenic strains, by contrast, are rare: they have been
+      found in soil and sediment in a few regions, notably northern Italy and
+      parts of China, and human carriage is very unusual. A species-level
+      detection of C. butyricum in stool is therefore expected and normal, and
+      almost certainly refers to the harmless form.
+    overgrowth_signal: >
+      Species-level abundance is not informative here and can be actively
+      misleading, since finding C. butyricum in stool is ordinary. The only
+      thing that changes the interpretation is detection of the type E botulinum
+      neurotoxin gene (bont/E) carried on the plasmid, and even that needs
+      laboratory confirmation because plasmid-borne genes are easily mis-called
+      from short reads and can be assigned to the wrong organism in a mixed
+      sample. Any neurological symptom, particularly double vision, drooping
+      eyelids, slurred speech or difficulty swallowing, or in an infant
+      constipation with poor feeding and floppiness, means emergency care at
+      once regardless of what the sequencing shows.
+    agents: []
+    no_agents_reason: >
+      There is no published study of any supplement, botanical, probiotic or
+      food against neurotoxigenic Clostridium butyricum. Searches return only
+      case reports, outbreak investigations and genomic characterisation of the
+      neurotoxin plasmid. The reasoning that applies to C. botulinum applies
+      here in full: the illness is caused by a neurotoxin rather than by
+      bacterial invasion, the only effective treatment is botulinum antitoxin
+      with intensive supportive care, and both are time critical, so presenting
+      any self-administered option would risk a fatal delay. There is a further
+      reason to give no agents for this entry specifically. Non-toxigenic
+      C. butyricum, including the MIYAIRI 588 probiotic strain, is a beneficial
+      butyrate producer that many people deliberately take, and the two forms
+      are the same species. Any agent listed as active against C. butyricum
+      would read as an argument for suppressing a helpful gut organism, which
+      would be the wrong conclusion for almost every person reading this report.
+
+  # ---------------------------------------------------------------------------
+  bacteria.clostridium_perfringens:
+    display_name: Clostridium perfringens
+    what_it_is: >
+      A spore-forming bacterium found widely in soil, in raw meat and poultry,
+      and in the gut of humans and animals. It grows very fast in cooked food
+      left to cool slowly, and different strains carry different toxin genes,
+      which is what determines whether and how they cause illness.
+    why_it_matters: >
+      The most common problem is food poisoning: cramping abdominal pain and
+      watery diarrhoea starting eight to sixteen hours after eating, usually
+      settling within a day, caused by enterotoxin (CPE) released when the
+      bacteria form spores in the gut. It is one of the most frequent causes of
+      foodborne illness. Less commonly it causes antibiotic-associated
+      diarrhoea, and rarely a severe necrotising enteritis. Separately, and
+      through a different mechanism, it causes gas gangrene in wounds, which is
+      a surgical emergency. For an otherwise healthy person, food poisoning from
+      this organism is self-limiting and needs fluids rather than treatment, but
+      severe abdominal pain, bloody diarrhoea or symptoms lasting more than a
+      couple of days need medical assessment.
+    normal_carriage: >
+      Carriage is common and usually harmless. C. perfringens is found in the
+      gut of a large proportion of healthy adults, with reported carriage rates
+      commonly in the range of a third to two thirds depending on the detection
+      method, and it is present in almost all infants. What changes the picture
+      is not presence but strain: only strains carrying the enterotoxin gene cpe
+      cause food poisoning, and these are a small minority of the total.
+      Recent antibiotics, hospital or care-home residence, and constipation with
+      slow transit all increase the chance of a problematic overgrowth.
+    overgrowth_signal: >
+      Detection alone means very little because carriage is normal. What would
+      make a result concerning is the combination of a high relative abundance,
+      detection of the enterotoxin gene cpe or of the necrotic-enteritis toxin
+      gene netB, and matching symptoms within the right time window after a
+      suspect meal. Confirming food poisoning properly requires detecting
+      enterotoxin in stool or counting at least a million spores per gram, which
+      sequencing alone cannot do. A moderate abundance in a well person with
+      formed stools is ordinary carriage.
+    agents:
+      - name: Carvacrol
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Inhibited C. perfringens spore germination and outgrowth in ground
+          turkey during chilling, alongside cinnamaldehyde, oregano oil and
+          thymol. This is a food-matrix laboratory study aimed at food safety;
+          it was not a study of treating a person.
+        dose_studied: "not established for humans"
+        reaches_gut: >
+          Carvacrol is absorbed and conjugated in the upper small intestine, so
+          plain oregano oil delivers little to the colon. Encapsulated and
+          delayed-release forms are used in animal feed specifically to get past
+          the small intestine, and a poultry study has confirmed that
+          encapsulated plant compounds can be detected in the chicken gut, but
+          equivalent human data is lacking.
+        citation_title: "Carvacrol, cinnamaldehyde, oregano oil, and thymol inhibit Clostridium perfringens spore germination and outgrowth in ground turkey during chilling"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/17265885/"
+        caution: >
+          Food-matrix evidence only. Undiluted oregano oil burns mucous
+          membranes, and it suppresses beneficial gut bacteria along with
+          C. perfringens. Avoid in pregnancy and in young children. This is most
+          useful read as a food-handling insight: cool cooked food quickly and
+          reheat thoroughly.
+
+      - name: Thymol
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Inhibited C. perfringens spore germination and outgrowth in ground
+          turkey during chilling in the same study. A separate screen of spice
+          essential oils by agar diffusion found C. perfringens among the most
+          sensitive organisms tested, with thyme one of the three broadest
+          acting oils. Culture and food-matrix evidence only.
+        dose_studied: "not established for humans"
+        reaches_gut: >
+          Thymol behaves like carvacrol: it is rapidly absorbed and conjugated
+          in the upper small intestine, and only a small fraction of a plain
+          oral dose reaches the colon. Delayed-release preparations are designed
+          to change this but have not been tested against this organism in
+          people.
+        citation_title: "Carvacrol, cinnamaldehyde, oregano oil, and thymol inhibit Clostridium perfringens spore germination and outgrowth in ground turkey during chilling"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/17265885/"
+        caution: >
+          Laboratory evidence only. Thymol and thyme oil irritate the stomach
+          and can cause nausea; concentrated thyme oil is toxic in overdose.
+          Avoid in pregnancy. As with carvacrol, it does not spare beneficial
+          gut bacteria.
+
+      - name: trans-Cinnamaldehyde
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Inhibited C. perfringens spore germination and outgrowth in ground
+          turkey during chilling in the same food-matrix study. No animal or
+          human treatment data for this organism.
+        dose_studied: "not established for humans"
+        reaches_gut: >
+          Cinnamaldehyde is reactive and is largely absorbed and oxidised to
+          cinnamic acid in the upper gut, so ordinary cinnamon does not deliver
+          much to the colon. Encapsulated forms are used in poultry feed for
+          exactly this reason, and detectable gut concentrations have been shown
+          in chickens, but not in people.
+        citation_title: "Carvacrol, cinnamaldehyde, oregano oil, and thymol inhibit Clostridium perfringens spore germination and outgrowth in ground turkey during chilling"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/17265885/"
+        caution: >
+          Food-matrix evidence only. Cassia cinnamon is high in coumarin, which
+          harms the liver in regular large amounts; Ceylon cinnamon contains
+          much less. Cinnamon oil is a strong mucosal irritant undiluted, and
+          cinnamon may add to the effect of blood-glucose-lowering medicines.
+
+      - name: Bacillus subtilis (probiotic)
+        kind: probiotic
+        evidence_tier: animal
+        effect: >
+          A systematic review and meta-analysis of broiler trials found that
+          Bacillus subtilis probiotic supplementation reduced necrotic
+          enteritis, the disease caused by C. perfringens in chickens. This is
+          pooled animal evidence in a specific agricultural disease; it does not
+          establish an effect on human C. perfringens food poisoning.
+        dose_studied: "Varies by trial; typically 10^5 to 10^9 colony-forming units per gram of broiler feed, which does not translate to a human dose"
+        reaches_gut: >
+          Bacillus subtilis forms spores that survive stomach acid and bile
+          almost completely, germinating in the small intestine, and
+          spore-forming Bacillus probiotics are reliably recovered alive from
+          human stool. Gut delivery is well established for this genus.
+        citation_title: "Efficacy of Bacillus subtilis probiotic in preventing necrotic enteritis in broilers: a systematic review and meta-analysis"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/38776185/"
+        caution: >
+          Poultry evidence only. Bacillus probiotics have occasionally caused
+          bacteraemia in immunocompromised patients and should be avoided by
+          people who are severely immunosuppressed or have a central venous
+          catheter. This does not treat food poisoning that has already started.
+
+      - name: Berberine
+        kind: botanical
+        evidence_tier: animal
+        effect: >
+          Improved intestinal structure, altered the gut microbial community and
+          modulated immune function in broiler chickens challenged with
+          C. perfringens to induce necrotic enteritis. The measured outcomes
+          were largely host and microbiome effects rather than direct killing of
+          the organism, and this was a poultry study.
+        dose_studied: "Dietary berberine supplementation in broiler feed; poultry inclusion rates do not translate to a human dose"
+        reaches_gut: >
+          Berberine is almost unabsorbed, with oral bioavailability under one
+          per cent, so nearly all of a dose remains in the gut lumen and reaches
+          the colon where C. perfringens grows.
+        citation_title: "The Impact of Berberine on Intestinal Morphology, Microbes, and Immune Function of Broilers in Response to Necrotic Enteritis Challenge"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/34712727/"
+        caution: >
+          Poultry evidence only. Berberine inhibits CYP3A4, CYP2D6 and
+          P-glycoprotein and raises blood levels of many prescription medicines.
+          Avoid in pregnancy, when breastfeeding, and in newborns.
+
+      - name: Essential oil component blends (thymol and cinnamaldehyde type)
+        kind: botanical
+        evidence_tier: animal
+        effect: >
+          Two different blends of essential oil components fed to broiler
+          chickens reduced C. perfringens proliferation in the intestine. This
+          is a feed-additive study in birds measuring intestinal counts; there
+          is no equivalent human study.
+        dose_studied: "Blends of essential oil components included in broiler feed; not translatable to a human dose"
+        reaches_gut: >
+          This study is one of the few that measured the organism in the
+          intestine rather than in a dish, so it is direct evidence that fed
+          essential oil components can act in a live gut. Commercial products
+          achieve this through encapsulation, and the same delivery problem
+          applies to human supplements, where uncoated capsules release their
+          contents in the stomach and upper small intestine.
+        citation_title: "The effect of two different blends of essential oil components on the proliferation of Clostridium perfringens in the intestines of broiler chickens"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/15109065/"
+        caution: >
+          Poultry evidence only, and it does not treat established food
+          poisoning. Broad-spectrum plant antimicrobials also suppress
+          beneficial gut bacteria. Avoid concentrated essential oils in
+          pregnancy and in children.
+
+  # ---------------------------------------------------------------------------
+  bacteria.bacillus_cereus_sensu_lato:
+    display_name: Bacillus cereus sensu lato
+    what_it_is: >
+      A group of closely related spore-forming bacteria found in soil, dust,
+      rice, pasta, dried herbs and spices. The spores survive cooking, and if
+      food is then left at room temperature the bacteria multiply and can
+      produce toxins. The group also includes Bacillus anthracis and Bacillus
+      thuringiensis, which is why the name says "sensu lato", meaning in the
+      broad sense.
+    why_it_matters: >
+      It causes two distinct kinds of food poisoning. The vomiting type comes
+      from cereulide, a heat-stable toxin already formed in the food, typically
+      reheated rice, and causes nausea and vomiting within one to six hours. The
+      diarrhoeal type comes from toxins produced in the intestine and causes
+      cramping and watery diarrhoea eight to sixteen hours after eating. Both
+      usually settle within a day. Rarely, high doses of cereulide have caused
+      liver failure and death, and the organism can cause serious eye, wound and
+      bloodstream infections outside the gut. Persistent vomiting with
+      dehydration, or any severe illness, needs medical care.
+    normal_carriage: >
+      Transient presence is common and usually harmless. Spores are eaten daily
+      in ordinary food, and B. cereus is detectable in the stool of a
+      substantial proportion of healthy people, with reported figures often
+      around a tenth to a third depending on the method. It is generally
+      considered a passer-through rather than a resident coloniser. What changes
+      the picture is the toxin genes a strain carries and, for the vomiting
+      illness, whether the toxin was formed in the food before it was eaten
+      rather than anything happening in the gut.
+    overgrowth_signal: >
+      Sequencing cannot establish clinical significance here, and abundance is a
+      poor guide because dietary spores come and go. Two things help: detection
+      of the cereulide synthetase genes (ces) for the vomiting type, or of the
+      enterotoxin genes nhe, hbl and cytK for the diarrhoeal type, and a timing
+      match to a suspect meal. Standard food-poisoning confirmation uses counts
+      of at least a hundred thousand organisms per gram of the suspect food, not
+      stool sequencing. Bear in mind too that short reads cannot cleanly
+      separate B. cereus from B. thuringiensis, which is used as an agricultural
+      biopesticide and turns up on fresh produce.
+    agents:
+      - name: Carvacrol
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Showed clear bactericidal activity against B. cereus in carrot broth,
+          working synergistically with refrigeration; five microlitres per 100
+          millilitres of inoculated broth was effective at refrigeration
+          temperature. A food-model laboratory study, not a treatment study.
+        dose_studied: "5 microlitres per 100 millilitres of inoculated carrot broth (food model)"
+        reaches_gut: >
+          Carvacrol is absorbed and conjugated in the upper small intestine, so
+          plain oregano oil reaches the colon in only small amounts. This
+          finding is best understood as relevant to food storage, which is the
+          point at which B. cereus becomes dangerous, rather than to treating
+          someone who is already ill.
+        citation_title: "Synergistic bactericidal effect of carvacrol, cinnamaldehyde or thymol and refrigeration to inhibit Bacillus cereus in carrot broth"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/16942988/"
+        caution: >
+          Food-model evidence only. It does not neutralise cereulide, which is
+          the toxin responsible for the vomiting illness and is already present
+          in the food before it is eaten. Undiluted oregano oil burns mucous
+          membranes and suppresses beneficial gut bacteria. Avoid in pregnancy.
+
+      - name: Thymol
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Showed clear antibacterial activity against B. cereus in carrot broth
+          in combination with refrigeration, at 20 milligrams per 100
+          millilitres. Food-model laboratory evidence only.
+        dose_studied: "20 mg per 100 millilitres of inoculated carrot broth (food model)"
+        reaches_gut: >
+          Like carvacrol, thymol is rapidly absorbed and conjugated in the upper
+          small intestine, so little of a plain oral dose reaches the colon.
+          Enteric or delayed-release formulations would be needed, and none has
+          been tested for this purpose in people.
+        citation_title: "Synergistic bactericidal effect of carvacrol, cinnamaldehyde or thymol and refrigeration to inhibit Bacillus cereus in carrot broth"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/16942988/"
+        caution: >
+          Food-model evidence only, and no effect on preformed cereulide toxin.
+          Thyme oil irritates the stomach and is toxic in overdose. Avoid in
+          pregnancy.
+
+      - name: trans-Cinnamaldehyde
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Was effective against B. cereus in reconstituted infant rice cereal,
+          and was the only one of the tested compounds that remained effective
+          at a mild temperature-abuse condition of 12 degrees Celsius in carrot
+          broth. A separate study described its mechanism against B. cereus
+          spores in ready-to-eat beef. Food-matrix laboratory evidence only.
+        dose_studied: "not established for humans; tested at food-preservative concentrations in reconstituted infant rice cereal"
+        reaches_gut: >
+          Cinnamaldehyde is reactive and largely absorbed and oxidised in the
+          upper gut, so it does not reach the colon in quantity from ordinary
+          cinnamon. Its practical value here is as a food additive at the point
+          of storage rather than as something taken afterwards.
+        citation_title: "Antimicrobial efficacy of phytochemicals against Bacillus cereus in reconstituted infant rice cereal"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/28941901/"
+        caution: >
+          Food-matrix evidence only, and it does not neutralise preformed
+          toxin. Cassia cinnamon is high in coumarin, which damages the liver in
+          regular large amounts. Do not treat this as a reason to add cinnamon
+          to infant food; the study concerned an industrial preservative
+          application, and the practical advice for infant cereal is to prepare
+          it fresh and discard leftovers.
+
+      - name: Nisin
+        kind: food
+        evidence_tier: in_vitro
+        effect: >
+          Extended the lag phase before activated B. cereus spores began growing
+          in cooked white rice and in milk, delaying but not preventing
+          outgrowth. Nisin is a bacteriocin made by Lactococcus lactis and is a
+          permitted food preservative (E234). This is a food-model study of
+          preservation, not of treatment.
+        dose_studied: "25 micrograms of nisin per millilitre in cooked rice and milk food models"
+        reaches_gut: >
+          Nisin is a small peptide and is digested by stomach and pancreatic
+          enzymes, so essentially none of it reaches the colon in active form
+          after being eaten. It works in the food before consumption, and it
+          cannot be expected to act as a gut antimicrobial.
+        citation_title: "The effect of nisin on growth kinetics from activated Bacillus cereus spores in cooked rice and in milk"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/11848578/"
+        caution: >
+          This is a food preservative, not a supplement, and it fails the test
+          of reaching the gut intact. It delays rather than prevents spore
+          outgrowth, so it is not a substitute for refrigerating cooked rice
+          promptly, which remains the effective control.
+
+      - name: Lactobacillus plantarum ZDY2013
+        kind: probiotic
+        evidence_tier: in_vitro
+        effect: >
+          Antagonised pathogenic B. cereus during milk fermentation and reduced
+          its adhesion to cultured Caco-2 intestinal cells. Both endpoints were
+          measured in the laboratory, in a fermentation system and a cell line;
+          there is no animal or human data for this pairing.
+        dose_studied: "not established"
+        reaches_gut: >
+          Lactobacillus plantarum is notably acid and bile tolerant, among the
+          more robust probiotic species in gastric transit, and viable cells are
+          recovered from human stool during supplementation. Delivery of live
+          organisms to the colon is well established for the species, though
+          strain ZDY2013 specifically is a research strain.
+        citation_title: "Antagonistics against pathogenic Bacillus cereus in milk fermentation by Lactobacillus plantarum ZDY2013 and its anti-adhesion effect on Caco-2 cells against pathogens"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/26830743/"
+        caution: >
+          Laboratory evidence only, and this particular strain is a research
+          isolate rather than a commercial product. Live probiotics should be
+          avoided by people who are severely immunosuppressed or have a central
+          venous catheter. This has no effect on preformed cereulide toxin.
+
+  # ---------------------------------------------------------------------------
+  bacteria.staphylococcus_aureus:
+    display_name: Staphylococcus aureus
+    what_it_is: >
+      A common bacterium that lives on skin and in the nose of many healthy
+      people. Some strains produce toxins, and some, known as MRSA, are
+      resistant to several antibiotics. It is not a typical gut organism, but it
+      can be found in the intestine, particularly in infants and in people who
+      have recently been in hospital.
+    why_it_matters: >
+      In the gut its main relevance is food poisoning: if the bacteria grow in
+      food left unrefrigerated, they produce heat-stable enterotoxins that cause
+      sudden vomiting and cramping within one to six hours of eating. This is
+      caused by toxin already in the food, settles within a day, and needs
+      fluids rather than antibiotics. Separately, gut carriage matters as a
+      reservoir: people who carry S. aureus in the intestine are more likely to
+      develop infections elsewhere, such as skin abscesses, and more likely to
+      spread it. Very rarely, heavy overgrowth after antibiotics causes
+      staphylococcal enterocolitis. Spreading skin infection, fever, or an
+      unwell patient with a line or prosthetic joint needs medical assessment.
+    normal_carriage: >
+      Skin and nasal carriage is entirely normal, in roughly a third of healthy
+      people at any one time, and it usually causes no problem. Intestinal
+      carriage is also common and usually harmless, found in roughly a fifth of
+      healthy adults and much more often in infants, where it is close to
+      universal in the first weeks of life. What changes the picture is toxin
+      genes, recent antibiotics that clear the competing flora, a
+      hospital-acquired resistant strain, or the presence of a prosthetic joint,
+      catheter or line that the organism could seed.
+    overgrowth_signal: >
+      Sequencing cannot establish that gut S. aureus is causing illness, and in
+      most people a modest detection is normal carriage. A result becomes more
+      interesting at high relative abundance in someone with recent antibiotics
+      and unexplained diarrhoea, or with detection of enterotoxin genes (sea to
+      see) alongside a food-poisoning history, or with methicillin resistance
+      (mecA or mecC) in someone awaiting surgery or carrying an implanted
+      device. Food poisoning is confirmed by finding enterotoxin in the suspect
+      food, not by stool sequencing.
+    agents:
+      - name: Bacillus subtilis (probiotic, fengycin-producing strains)
+        kind: probiotic
+        evidence_tier: human_observational
+        effect: >
+          In a rural Thai population, people whose gut contained Bacillus
+          bacteria had no detectable S. aureus intestinal colonisation at all,
+          an association the authors describe as comprehensive. The mechanism
+          was worked out experimentally: Bacillus lipopeptides called fengycins
+          block the S. aureus quorum sensing system it needs to colonise, and
+          feeding fengycin-producing Bacillus eliminated S. aureus gut and nasal
+          colonisation in mice. The human part of this work is observational
+          rather than a randomised trial.
+        dose_studied: "not established in humans; mouse experiments used oral administration of fengycin-producing Bacillus subtilis spores"
+        reaches_gut: >
+          Bacillus subtilis is taken as spores, which are almost completely
+          resistant to stomach acid and bile and germinate in the intestine.
+          Fengycin production happens in the gut from the germinated bacteria
+          rather than being swallowed as a preformed compound, which sidesteps
+          the usual problem of an active molecule being destroyed or absorbed on
+          the way down.
+        citation_title: "Pathogen elimination by probiotic Bacillus via signalling interference"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/30305736/"
+        caution: >
+          The human evidence is a correlation, not a trial, and not every
+          commercial B. subtilis product makes fengycin, so an off-the-shelf
+          supplement may not reproduce the effect. Bacillus probiotics have
+          occasionally caused bacteraemia in immunocompromised patients and
+          should be avoided by anyone severely immunosuppressed or with a
+          central venous catheter. This does not treat an active S. aureus
+          infection.
+
+      - name: Monolaurin (glycerol monolaurate)
+        kind: nutrient
+        evidence_tier: animal
+        effect: >
+          Gave partial protection in rodents challenged with S. aureus, with 50
+          to 70 per cent survival compared with essentially none in controls,
+          and comparable to vancomycin in that model. Notably, the coconut oils
+          tested in the same study performed no better than control, so the
+          effect was specific to monolaurin rather than to coconut oil.
+        dose_studied: "Aqueous monolaurin administered to rodents; a human dose is not established"
+        reaches_gut: >
+          Monolaurin is a monoglyceride and is a substrate for pancreatic
+          lipase, so a proportion is hydrolysed and absorbed in the small
+          intestine. Some does survive to the lower gut, but the fraction is not
+          well characterised in people, and this is a genuine limitation on
+          treating it as a colonic agent.
+        citation_title: "In vitro and in vivo effects of two coconut oils in comparison to monolaurin on Staphylococcus aureus: rodent studies"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/23767861/"
+        caution: >
+          Rodent evidence only, and no substitute for antibiotics in an active
+          infection. Note specifically that eating coconut oil did not work in
+          this study, so the popular equivalence between coconut oil and
+          monolaurin is not supported. High doses commonly cause loose stools
+          and stomach upset.
+
+      - name: Oregano essential oil (carvacrol-rich)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          A carvacrol-rich oregano essential oil showed potent bactericidal
+          activity against S. aureus in culture, and a separate study found
+          oregano, carvacrol and thymol active against S. aureus biofilms.
+          Culture-dish activity only; there is no human data on clearing gut or
+          nasal carriage.
+        dose_studied: "not established"
+        reaches_gut: >
+          Carvacrol is absorbed and conjugated in the upper small intestine, so
+          plain oregano oil capsules deliver little to the colon. If the target
+          is intestinal carriage rather than a skin infection, this delivery
+          problem is the main obstacle, and no formulation has been shown to
+          overcome it in people for this purpose.
+        citation_title: 'A Carvacrol-Rich Essential Oil Extracted From Oregano (Origanum vulgare "Hot & Spicy") Exerts Potent Antibacterial Effects Against Staphylococcus aureus'
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/34803958/"
+        caution: >
+          Culture-dish evidence only. Undiluted oregano oil burns mucous
+          membranes and must be diluted for any topical use. Taken orally it
+          suppresses beneficial gut bacteria along with S. aureus. Avoid in
+          pregnancy and in young children.
+
+      - name: Epigallocatechin gallate (EGCG, green tea catechin)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Altered gene expression in S. aureus in culture, including genes
+          related to resistance and stress response, consistent with a direct
+          antibacterial effect. This is a mechanistic culture study; it does not
+          show that drinking green tea or taking an extract clears carriage.
+        dose_studied: "not established"
+        reaches_gut: >
+          EGCG is poorly absorbed, so most of an oral dose reaches the colon,
+          which suits an intestinal target. It is unstable at small-intestinal
+          pH and heavily metabolised by gut bacteria, so much of what arrives is
+          in the form of breakdown products.
+        citation_title: "Effect of epigallocatechin gallate on gene expression of Staphylococcus aureus"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/32679222/"
+        caution: >
+          Culture-dish evidence only. Concentrated green tea extracts have
+          caused liver injury and several regulators cap EGCG per daily dose,
+          with higher risk on an empty stomach. Catechins reduce absorption of
+          non-haem iron.
+
+      - name: Lactoferrin
+        kind: nutrient
+        evidence_tier: in_vitro
+        effect: >
+          Reduced the resilience of S. aureus colonies in culture, with the
+          study identifying an optimal concentration and noting that the effect
+          was not simply dose-proportional. Laboratory evidence only, with no
+          human data on gut carriage.
+        dose_studied: "not established for this indication"
+        reaches_gut: >
+          Lactoferrin is partly digested by pepsin in the stomach but is more
+          resistant than most dietary proteins, and its cleavage product
+          lactoferricin is itself antibacterial. Intact lactoferrin and active
+          fragments have been recovered from stool after oral dosing, so a
+          useful fraction does reach the lower gut.
+        citation_title: "Optimal dose of lactoferrin reduces the resilience of in vitro Staphylococcus aureus colonies"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/35960734/"
+        caution: >
+          Culture-dish evidence only. Bovine lactoferrin is a milk protein and
+          must be avoided by anyone with cow's-milk protein allergy. It binds
+          iron, so people being treated for iron deficiency should discuss
+          timing with their clinician. This does not treat an active infection.
+
+  # ---------------------------------------------------------------------------
+  bacteria.yersinia_enterocolitica:
+    display_name: Yersinia enterocolitica
+    what_it_is: >
+      A bacterium found mainly in pigs, which carry it in the throat and
+      tonsils without being ill. People usually catch it from undercooked pork,
+      especially raw pork products, from unpasteurised milk, or from
+      contaminated water. Unlike most gut bacteria it grows well in the cold, so
+      it can multiply in refrigerated food.
+    why_it_matters: >
+      It causes fever, abdominal pain and diarrhoea that may be bloody. In older
+      children and young adults the pain often settles in the lower right
+      abdomen and mimics appendicitis closely enough that people have had
+      unnecessary operations. Most cases resolve without antibiotics in one to
+      three weeks. Complications include reactive arthritis and a skin rash
+      called erythema nodosum, occurring weeks after the gut illness, and
+      bloodstream infection in people with iron overload conditions such as
+      haemochromatosis or thalassaemia, or who are having iron chelation
+      treatment, in whom it is dangerous and needs prompt medical care.
+      Persistent fever, bloody diarrhoea or severe right-sided pain should be
+      assessed by a clinician.
+    normal_carriage: >
+      Healthy people do not usually carry it long term. Importantly, only some
+      biotypes and serotypes cause disease; many environmental Y. enterocolitica
+      strains, particularly biotype 1A, are widespread in soil, water and food
+      and are generally considered non-pathogenic. So a species-level detection
+      is not by itself evidence of a disease-causing strain. Shedding continues
+      for several weeks after symptoms settle, sometimes for two to three
+      months.
+    overgrowth_signal: >
+      Abundance is less informative here than strain type, and sequencing often
+      cannot settle that question. What matters is whether the virulence
+      plasmid (pYV, carrying yadA and the ysc genes) and the chromosomal ail
+      gene are present, since pathogenic biotypes carry these and the common
+      environmental biotype 1A does not. A detection without those markers, in
+      someone with no symptoms, most likely reflects a harmless environmental
+      strain or recent dietary exposure. A detection with them, alongside fever
+      and abdominal pain, is meaningful.
+    agents:
+      - name: Lactobacillus plantarum (kefir isolate)
+        kind: probiotic
+        evidence_tier: animal
+        effect: >
+          A Lactobacillus plantarum strain isolated from kefir protected mice
+          against intestinal infection with Yersinia enterocolitica O9 and
+          modulated the immune response. This is a mouse study using a defined
+          strain; there is no human trial.
+        dose_studied: "Oral administration to mice; a human dose is not established"
+        reaches_gut: >
+          Lactobacillus plantarum is among the more acid and bile tolerant
+          probiotic species, and live organisms are recoverable from human stool
+          during supplementation, so colonic delivery of viable cells is well
+          established for the species. The specific kefir isolate used here is a
+          research strain.
+        citation_title: "A Lactobacillus plantarum strain isolated from kefir protects against intestinal infection with Yersinia enterocolitica O9 and modulates immunity in mice"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/26272025/"
+        caution: >
+          Mouse evidence only, using a specific strain that may not match what
+          is in a commercial product. Live probiotics should be avoided by
+          people who are severely immunosuppressed or have a central venous
+          catheter. This does not treat bloodstream infection, which is the
+          serious form in people with iron overload.
+
+      - name: Levilactobacillus brevis
+        kind: probiotic
+        evidence_tier: animal
+        effect: >
+          Protected mice against Yersinia enterocolitica infection, with the
+          study attributing the effect to regulation of the MAPK and NF-kappa-B
+          inflammatory signalling pathways. Mouse evidence; no human data.
+        dose_studied: "Oral administration to mice; a human dose is not established"
+        reaches_gut: >
+          Levilactobacillus brevis, formerly Lactobacillus brevis, is a
+          fermentation organism found in sauerkraut, kimchi and sourdough, and
+          it tolerates acid and bile well enough to be recovered live from stool
+          during supplementation.
+        citation_title: "Protective Effect of Levilactobacillus brevis Against Yersinia enterocolitica Infection in Mouse Model via Regulating MAPK and NF-κB Pathway"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/35665480/"
+        caution: >
+          Mouse evidence only. The mechanism described is anti-inflammatory
+          rather than directly antibacterial, so it should not be assumed to
+          clear the organism. Live probiotics are not appropriate for severely
+          immunosuppressed people or those with central lines.
+
+      - name: Bifidobacterium adolescentis
+        kind: probiotic
+        evidence_tier: animal
+        effect: >
+          Inhibited Yersinia enterocolitica infection in mice, with the study
+          showing that plasmacytoid dendritic cells, a type of immune cell, were
+          necessary for the effect. This is host-immune-mediated protection in a
+          mouse model, not direct killing, and there is no human data.
+        dose_studied: "Oral administration to mice; a human dose is not established"
+        reaches_gut: >
+          Bifidobacterium adolescentis is a normal resident of the adult human
+          colon, so it is adapted to that environment. Bifidobacteria are more
+          sensitive to stomach acid and oxygen than lactobacilli, which is why
+          commercial products use protective coatings or high doses, but viable
+          delivery to the colon is achievable and documented.
+        citation_title: "Plasmacytoid dendritic cells are crucial in Bifidobacterium adolescentis-mediated inhibition of Yersinia enterocolitica infection"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/23977019/"
+        caution: >
+          Mouse evidence only. Because the protection depends on a functioning
+          immune cell population, it cannot be assumed to work in people who are
+          immunosuppressed, who are also the ones at greatest risk. Live
+          probiotics should be avoided in severe immunosuppression and with
+          central venous catheters.
+
+      - name: Oregano essential oil
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Inhibited the growth and survival of Yersinia enterocolitica in
+          barbecued chicken, a food-matrix study that also tested nutmeg oil and
+          Listeria monocytogenes. Other work confirms in-vitro activity of
+          oregano and thyme oils against this organism. Food-model and culture
+          evidence only.
+        dose_studied: "not established for humans; tested at food-preservative concentrations in barbecued chicken"
+        reaches_gut: >
+          Carvacrol and thymol are absorbed and conjugated in the upper small
+          intestine, so plain oregano oil delivers little to the lower gut.
+          Since Y. enterocolitica invades the terminal ileum and the lymphoid
+          tissue there rather than the colon, an upper-gut-acting agent is at
+          least better positioned here than for a colonic organism, but this has
+          not been tested in people.
+        citation_title: "Effects of essential oils of oregano and nutmeg on growth and survival of Yersinia enterocolitica and Listeria monocytogenes in barbecued chicken"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/18044446/"
+        caution: >
+          Food-matrix evidence only. Undiluted oregano oil burns mucous
+          membranes and suppresses beneficial gut bacteria. Avoid in pregnancy
+          and in young children. The practical lesson from this literature is
+          about cooking pork thoroughly rather than about taking a supplement.
+
+  # ---------------------------------------------------------------------------
+  bacteria.campylobacter_jejuni:
+    display_name: Campylobacter jejuni
+    what_it_is: >
+      A curved, spiral bacterium that lives harmlessly in the gut of chickens
+      and other birds. It is the most common bacterial cause of diarrhoea in
+      most high-income countries, and people usually catch it from undercooked
+      chicken, from cross-contamination in the kitchen, or from unpasteurised
+      milk.
+    why_it_matters: >
+      It causes an unpleasant but usually self-limiting illness: fever, severe
+      cramping abdominal pain and diarrhoea that is often bloody, typically
+      lasting three to seven days. Most people recover without antibiotics.
+      The complications are what make it matter more than the acute illness
+      suggests. It is the commonest identified trigger of Guillain-Barre
+      syndrome, a paralysing nerve condition, and it also causes reactive
+      arthritis and can precipitate post-infectious irritable bowel syndrome.
+      Antibiotic resistance, particularly to fluoroquinolones, is now common.
+      Bloody diarrhoea with high fever, illness lasting more than a week, or any
+      new weakness or tingling in the limbs after a gut infection needs medical
+      assessment.
+    normal_carriage: >
+      Healthy people in high-income countries do not normally carry it, and
+      detection generally means recent infection or exposure. The picture is
+      different in low-income settings with heavy poultry contact, where
+      asymptomatic carriage in children is common and repeated infections lead
+      to partial immunity. Shedding continues for two to seven weeks after
+      symptoms settle, which is often longer than people expect and matters for
+      food handlers and nursery staff.
+    overgrowth_signal: >
+      Sequencing cannot on its own establish that a detection is causing
+      illness, though it is more informative here than for a commensal organism
+      because carriage is not normal in most adults. A result is more meaningful
+      at high relative abundance with matching symptoms, and less meaningful at
+      trace level in a well person, where it may reflect recent dietary exposure
+      or reads misassigned from another Campylobacter species. Distinguishing
+      C. jejuni from C. coli by short reads is imperfect, and the two are
+      treated similarly in any case.
+    agents:
+      - name: Carvacrol
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Inhibited Campylobacter jejuni motility and reduced its infection of
+          epithelial cells in culture. Because C. jejuni depends on its
+          corkscrew motility to reach and invade the gut lining, this is a
+          mechanistically relevant target, but the work was done in cell culture
+          with no human data.
+        dose_studied: "not established for humans"
+        reaches_gut: >
+          Carvacrol is absorbed and conjugated in the upper small intestine, so
+          little of a plain oregano oil dose reaches the lower bowel where
+          C. jejuni sits. Encapsulated formulations designed for distal release
+          exist, and one carvacrol-based product has been studied for its
+          pharmacokinetics against this organism, but human gut delivery for
+          treatment is not established.
+        citation_title: "The natural antimicrobial carvacrol inhibits Campylobacter jejuni motility and infection of epithelial cells"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/23049787/"
+        caution: >
+          Culture-dish evidence only, and no substitute for medical assessment
+          of bloody diarrhoea with fever. Undiluted oregano oil burns mucous
+          membranes and suppresses beneficial gut bacteria. Avoid in pregnancy
+          and in young children.
+
+      - name: Caprylic acid (octanoic acid, a medium-chain fatty acid)
+        kind: nutrient
+        evidence_tier: animal
+        effect: >
+          Fed at 0.35 and 0.7 per cent of the diet, caprylic acid consistently
+          decreased Campylobacter jejuni counts in the caecal contents of
+          market-aged broiler chickens, with the effect confirmed across
+          multiple trials by the same group. This is well-replicated animal
+          evidence in the natural host of the organism, but a later study by the
+          same group found the effect variable when given in drinking water
+          instead of feed, and there is no human trial.
+        dose_studied: "0.35% to 0.7% caprylic acid in broiler feed for the last 7 days before slaughter; not translatable to a human dose"
+        reaches_gut: >
+          Medium-chain fatty acids are absorbed efficiently in the upper small
+          intestine and taken directly to the liver by the portal vein, which
+          means plain caprylic acid does not reach the colon in quantity. The
+          poultry work delivered it continuously in feed, maintaining luminal
+          concentrations along the whole gut, which a single human capsule does
+          not reproduce. Enteric-coated and salt forms are sold to address this,
+          but distal delivery has not been verified for this purpose.
+        citation_title: "The natural feed additive caprylic acid decreases Campylobacter jejuni colonization in market-aged broiler chickens"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/19096058/"
+        caution: >
+          Poultry evidence only. Caprylic acid commonly causes nausea, reflux
+          and loose stools, and undiluted it irritates the gullet. Effects on
+          the organism in chickens do not establish a benefit for a person who
+          is already ill.
+
+      - name: Curcumin
+        kind: botanical
+        evidence_tier: animal
+        effect: >
+          Oral curcumin given in drinking water before infection reduced the
+          severity of acute campylobacteriosis in mice, lessening clinical
+          disease and pro-inflammatory responses in the gut and in distant
+          organs. Note that this was given as prophylaxis before infection
+          rather than as a treatment afterwards, and it was a mouse study.
+          Separate culture work has shown direct activity against C. jejuni.
+        dose_studied: "Synthetic curcumin in drinking water from one week before infection in mice; a human dose is not established"
+        reaches_gut: >
+          Curcumin is very poorly absorbed, so most of an oral dose reaches the
+          colon, which suits a luminal target. It is chemically unstable at
+          intestinal pH, and formulations designed to boost absorption, such as
+          those with piperine or phospholipid carriers, deliberately reduce the
+          amount remaining in the lumen, so a high-bioavailability product may
+          be the wrong choice for a gut target.
+        citation_title: "Oral curcumin ameliorates acute murine campylobacteriosis"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/38855111/"
+        caution: >
+          Mouse evidence, and given before infection rather than during it.
+          Curcumin supplements have been linked to liver injury, particularly
+          the high-bioavailability formulations, and they stimulate gallbladder
+          contraction, which can worsen gallstone symptoms. They may add to the
+          effect of anticoagulants.
+
+      - name: Cranberry extract (high-molecular-weight fraction)
+        kind: food
+        evidence_tier: in_vitro
+        effect: >
+          A high-molecular-weight fraction of cranberry extract reduced the
+          adherence of Campylobacter jejuni and Campylobacter coli strains to
+          cultured HEp-2 cells, alongside mannan oligosaccharides. The endpoint
+          was reduced attachment rather than killing, measured in cell culture
+          only.
+        dose_studied: "Up to 3 mg/mL of the high-molecular-weight cranberry fraction in cell culture"
+        reaches_gut: >
+          Cranberry proanthocyanidins are large polymeric molecules that are
+          essentially unabsorbed, so they travel intact through the small
+          intestine to the colon. This is the same property that underlies their
+          use against urinary tract bacteria, and it means the anti-adhesion
+          activity is at least plausible in the gut lumen.
+        citation_title: "Adherence Reduction of Campylobacter jejuni and Campylobacter coli Strains to HEp-2 Cells by Mannan Oligosaccharides and a High-Molecular-Weight Component of Cranberry Extract"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/26219363/"
+        caution: >
+          Cell-culture evidence only. Cranberry products are acidic and high in
+          oxalate, so they can worsen reflux and increase the risk of calcium
+          oxalate kidney stones in susceptible people. Large amounts may
+          interact with warfarin. Cranberry juice drinks are usually high in
+          sugar.
+
+      - name: Tannin extracts (hydrolysable and condensed)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Both hydrolysable and condensed tannin extracts were bactericidal
+          against Campylobacter jejuni in culture, meaning they killed the
+          organism rather than merely slowing it. Laboratory evidence only, with
+          no animal or human data in this study.
+        dose_studied: "not established"
+        reaches_gut: >
+          Tannins are large polyphenols that are poorly absorbed and pass
+          largely intact into the colon, where gut bacteria break them down.
+          Delivery to the lower gut is therefore not the limiting problem;
+          the limitation is that tannins bind proteins indiscriminately, so
+          their behaviour in a real gut full of food and mucus differs a lot
+          from a clean culture medium.
+        citation_title: "Bactericidal effect of hydrolysable and condensed tannin extracts on Campylobacter jejuni in vitro"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/22528299/"
+        caution: >
+          Culture-dish evidence only. Tannins bind dietary protein and non-haem
+          iron and reduce their absorption, which matters for anyone with iron
+          deficiency. In quantity they cause nausea and stomach irritation.
+          Some hydrolysable tannin preparations have been associated with liver
+          toxicity at high intakes.
+
+      - name: Lactobacillus helveticus
+        kind: probiotic
+        evidence_tier: in_vitro
+        effect: >
+          A specific Lactobacillus helveticus strain inhibited Campylobacter
+          jejuni invasion of human intestinal epithelial cells in culture. The
+          study emphasised that the effect was strain-specific, so it cannot be
+          generalised to lactobacilli as a class or to other L. helveticus
+          products.
+        dose_studied: "not established"
+        reaches_gut: >
+          Lactobacillus helveticus is a dairy fermentation organism used in
+          cheese making, and lactobacilli of this group tolerate gastric acid
+          and bile well enough to be recovered live from stool during
+          supplementation, so viable colonic delivery is achievable.
+        citation_title: "Strain-specific probiotic (Lactobacillus helveticus) inhibition of Campylobacter jejuni invasion of human intestinal epithelial cells"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/19765084/"
+        caution: >
+          Cell-culture evidence only, and explicitly strain-specific, so a
+          commercial product naming the species is not evidence of the same
+          effect. Live probiotics should be avoided by people who are severely
+          immunosuppressed or have a central venous catheter.
+
+  # ---------------------------------------------------------------------------
+  bacteria.helicobacter_pylori:
+    display_name: Helicobacter pylori
+    what_it_is: >
+      A spiral bacterium that lives in the mucus layer lining the stomach. It is
+      one of the most common chronic bacterial infections in the world, usually
+      acquired in childhood and carried for life unless it is treated. It
+      survives stomach acid by producing an enzyme, urease, that generates
+      ammonia to neutralise the acid immediately around it.
+    why_it_matters: >
+      It causes long-term inflammation of the stomach lining, and in a minority
+      of people this leads to stomach and duodenal ulcers, which can bleed or
+      perforate. It is also classified as a definite human carcinogen and is the
+      main cause of stomach cancer and of a lymphoma called gastric MALT
+      lymphoma. Current guidelines recommend that anyone found to have it should
+      be offered eradication treatment, which is a prescription combination of
+      two or more antibiotics with an acid-suppressing drug. That is what
+      actually clears it. The supplements below have been studied as additions
+      to that treatment or as ways of reducing bacterial load, not as
+      replacements for it.
+    normal_carriage: >
+      Carriage is extremely common and often causes no symptoms at all. Roughly
+      half the world's population carries it, with prevalence above 70 per cent
+      in parts of Africa, Asia and South America and typically 20 to 40 per cent
+      in Western Europe and North America. Most carriers never develop an ulcer
+      or cancer. What raises risk is a strain carrying the cagA and vacA s1/m1
+      virulence genes, a family history of stomach cancer, long duration of
+      infection, smoking, and a high-salt diet. Because the lifetime risk is
+      real and eradication is straightforward, current guidance treats
+      detection as a reason for treatment even without symptoms.
+    overgrowth_signal: >
+      This organism is a special case for stool metagenomics: it lives in the
+      stomach, not the colon, so stool sequencing is not the standard way to
+      detect it and often misses it. Read abundance in stool is not a measure of
+      gastric bacterial load. Detection at all is meaningful because carriage is
+      not benign, but it should be confirmed with a urea breath test, a stool
+      antigen test or endoscopic biopsy before treatment. Detection of the cagA
+      gene alongside the species raises the risk profile. A negative stool
+      sequencing result does not rule the organism out.
+    agents:
+      - name: Mastic gum (Pistacia lentiscus resin)
+        kind: botanical
+        evidence_tier: human_rct
+        effect: >
+          In a randomised single-blind pilot trial of 64 adults, adding mastic
+          gum to standard bismuth quadruple therapy raised the eradication rate
+          from 67 to 85 per cent, but this did not reach statistical
+          significance (p = 0.19) and so the trial missed its primary endpoint.
+          It did significantly improve dyspepsia symptom scores and was well
+          tolerated. Separate laboratory work confirms mastic essential oil is
+          active against drug-resistant H. pylori in culture.
+        dose_studied: "Mastic gum added to a two-week course of standard bismuth quadruple therapy in a pilot trial"
+        reaches_gut: >
+          Mastic gum is chewed or swallowed as a resin and acts in the stomach
+          itself, which is exactly where H. pylori lives, so the usual problem
+          of surviving to a distal site does not arise. It is not appreciably
+          absorbed, and it has been used traditionally as a gastric remedy for
+          this reason.
+        citation_title: "Mastic gum as an adjunct therapy to standard bismuth quadruple therapy for Helicobacter pylori eradication: A randomized single-blind pilot study"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/41832367/"
+        caution: >
+          An addition to eradication therapy, not a replacement, and the main
+          result was not statistically significant, so treat it as promising
+          rather than proven. Mastic is a tree resin and can cause allergic
+          reactions, particularly in people sensitive to other Pistacia species
+          such as pistachio. Mild stomach upset and headache have been reported.
+
+      - name: Broccoli sprouts (sulforaphane)
+        kind: food
+        evidence_tier: human_rct
+        effect: >
+          In a randomised trial, 48 H. pylori-infected patients ate 70 grams of
+          broccoli sprouts daily for 8 weeks or an equal weight of alfalfa
+          sprouts as placebo. The broccoli sprout group showed reduced urea
+          breath test values and stool antigen levels, both markers of bacterial
+          load, and reduced markers of gastric inflammation. Importantly, the
+          values returned to baseline two months after stopping, so this
+          suppressed the infection rather than eradicating it.
+        dose_studied: "70 g of broccoli sprouts daily, containing 420 micromol of sulforaphane precursor (glucoraphanin), for 8 weeks"
+        reaches_gut: >
+          Glucoraphanin in broccoli sprouts is converted to active sulforaphane
+          by the plant enzyme myrosinase when the sprouts are chewed, and by gut
+          bacteria further down. The conversion happens in the mouth and stomach
+          on eating, which is where H. pylori lives, so the active compound is
+          generated at the right site. Cooking destroys myrosinase, which is why
+          raw sprouts were used.
+        citation_title: "Dietary sulforaphane-rich broccoli sprouts reduce colonization and attenuate gastritis in Helicobacter pylori-infected mice and humans"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/19349290/"
+        caution: >
+          This reduced bacterial load but did not eradicate the infection, and
+          the effect disappeared after stopping, so it does not remove the need
+          for eradication therapy or the associated cancer risk. Raw sprouts
+          carry a recognised risk of Salmonella and E. coli contamination and
+          are not recommended for pregnant women, young children, older people
+          or anyone immunosuppressed. Large amounts of raw brassicas can affect
+          thyroid function in people who are iodine deficient.
+
+      - name: Cranberry juice (proanthocyanidin-standardised)
+        kind: food
+        evidence_tier: human_rct
+        effect: >
+          In a double-blind randomised placebo-controlled dose-ranging trial,
+          proanthocyanidin-standardised cranberry juice twice daily suppressed
+          H. pylori infection, with the effective dose being 44 mg
+          proanthocyanidin per 240 mL serving taken twice daily for 8 weeks.
+          Encapsulated cranberry powder was not significantly effective at
+          either time point, so the form mattered.
+        dose_studied: "240 mL of cranberry juice standardised to 44 mg proanthocyanidin, twice daily for 8 weeks"
+        reaches_gut: >
+          Cranberry proanthocyanidins are large polymers that are essentially
+          unabsorbed. In this case the relevant site is the stomach, which the
+          juice reaches directly and bathes, and the proposed mechanism is
+          blocking bacterial adhesion to the gastric lining rather than killing
+          the organism.
+        citation_title: "Suppression of Helicobacter pylori infection by daily cranberry intake: A double-blind, randomized, placebo-controlled trial"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/32783238/"
+        caution: >
+          Suppression is not eradication, and this does not remove the need for
+          standard treatment or the long-term cancer risk. The capsule form did
+          not work in this trial. Cranberry juice is acidic and may worsen
+          reflux, is high in oxalate and can raise kidney stone risk, and in
+          large amounts may interact with warfarin. Commercial cranberry drinks
+          are usually high in sugar.
+
+      - name: Bovine lactoferrin
+        kind: nutrient
+        evidence_tier: human_rct
+        effect: >
+          A meta-analysis of five randomised or quasi-randomised controlled
+          trials covering 682 subjects found that adding bovine lactoferrin to
+          eradication therapy improved H. pylori eradication rates. It was
+          studied as an addition to antibiotic regimens, never on its own.
+        dose_studied: "Varies across the pooled trials; commonly 200 to 400 mg of bovine lactoferrin daily alongside a standard eradication regimen"
+        reaches_gut: >
+          Lactoferrin resists gastric digestion better than most dietary
+          proteins, and its acid-cleaved fragment lactoferricin is itself
+          antibacterial, so active material is present in the stomach where
+          H. pylori lives. The proposed mechanism is iron sequestration, denying
+          the bacterium an essential nutrient.
+        citation_title: "Meta-analysis: efficacy of bovine lactoferrin in Helicobacter pylori eradication"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/19183156/"
+        caution: >
+          An adjunct to eradication therapy, not a replacement. Bovine
+          lactoferrin is a milk protein and must be avoided by anyone with
+          cow's-milk protein allergy. Because it binds iron, people being
+          treated for iron deficiency should discuss timing with their
+          clinician. This meta-analysis is now some years old and the pooled
+          trials were relatively small.
+
+      - name: Limosilactobacillus reuteri DSM 17648
+        kind: probiotic
+        evidence_tier: human_rct
+        effect: >
+          In a randomised double-blind placebo-controlled trial, L. reuteri DSM
+          17648 given as an adjunct for four weeks significantly increased the
+          H. pylori eradication rate and reduced symptoms and treatment side
+          effects. This strain works by co-aggregating with H. pylori so that it
+          is cleared from the stomach, rather than by producing an antibiotic
+          substance. Broader meta-analyses of Lactobacillus supplementation in
+          eradication support a modest benefit.
+        dose_studied: "L. reuteri DSM 17648 daily for 4 weeks alongside standard eradication therapy"
+        reaches_gut: >
+          The relevant site is the stomach rather than the colon, and this
+          strain is selected specifically for binding H. pylori under gastric
+          conditions. Notably, the DSM 17648 preparation works even in
+          heat-inactivated form, since the co-aggregation depends on surface
+          binding rather than on the organism being alive, which removes the
+          usual concern about survival through the stomach.
+        citation_title: "Probiotic containing Lactobacillus reuteri DSM 17648 as an adjunct treatment for Helicobacter pylori infection: A randomized, double-blind, placebo-controlled trial"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/37614081/"
+        caution: >
+          An adjunct, not a replacement for antibiotics, and the effect is
+          strain-specific, so a generic L. reuteri product is not the same
+          thing. Live probiotics should be avoided by people who are severely
+          immunosuppressed or have a central venous catheter, though the
+          inactivated form avoids that concern.
+
+      - name: Saccharomyces boulardii
+        kind: probiotic
+        evidence_tier: human_rct
+        effect: >
+          A systematic review and meta-analysis of 11 randomised controlled
+          trials in 2,200 participants found that adding S. boulardii to
+          standard eradication therapy raised the eradication rate from 71 to 80
+          per cent, and significantly reduced treatment side effects. The
+          authors noted that even with the improvement the rate remained below
+          what is considered a good result, so this helps at the margin.
+        dose_studied: "Varies across the pooled trials; typically 500 mg to 1 g daily (roughly 10^9 to 10^10 colony-forming units) for the duration of eradication therapy and often for two to four weeks in total"
+        reaches_gut: >
+          S. boulardii is a yeast and is unaffected by the antibiotics given
+          alongside it, which is its main practical advantage in this setting.
+          It tolerates gastric acid and bile and is recovered live from stool
+          during dosing. Much of its benefit here is in reducing
+          antibiotic-associated diarrhoea, which improves the chance of people
+          completing the course.
+        citation_title: "Systematic review with meta-analysis: Saccharomyces boulardii supplementation and eradication of Helicobacter pylori infection"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/25898944/"
+        caution: >
+          An adjunct only. S. boulardii must be avoided in critically ill
+          patients, in severe immunosuppression, and in anyone with a central
+          venous catheter, because fungaemia has occurred in these groups,
+          sometimes from airborne spread when capsules are opened at the
+          bedside. Avoid in yeast allergy.
+
+  # ---------------------------------------------------------------------------
+  bacteria.morganella_morganii:
+    display_name: Morganella morganii
+    what_it_is: >
+      A bacterium found in soil, sewage and the intestines of humans and
+      animals. In the gut it is usually a minor and harmless resident. It is
+      best known for two things: causing infections outside the gut, especially
+      urinary tract infections and wound infections, and converting the amino
+      acid histidine in fish into histamine.
+    why_it_matters: >
+      As a gut organism it rarely causes diarrhoea directly, and its presence in
+      stool is not usually the problem. Where it matters is elsewhere: it is a
+      recognised cause of urinary tract infection, wound infection and
+      bloodstream infection, mostly in hospital patients, older people and those
+      with catheters or recent surgery, and it is naturally resistant to several
+      common antibiotics including ampicillin and first-generation
+      cephalosporins, so treatment needs susceptibility testing. Its other role
+      is in scombroid fish poisoning: when fish such as tuna and mackerel are
+      not chilled promptly, M. morganii converts histidine to histamine, and
+      eating the fish causes flushing, headache, palpitations and a rash within
+      minutes to an hour. That reaction is caused by histamine already in the
+      fish, so it is treated with antihistamines and has nothing to do with gut
+      bacteria.
+    normal_carriage: >
+      Yes, healthy people commonly carry it, and this is normal. Morganella
+      morganii is a regular if minor member of the human gut flora, reported in
+      a substantial minority of healthy adults, generally at low abundance. It
+      is a member of the Enterobacteriaceae, the same broad family as
+      Escherichia coli. Carriage alone is not a reason for concern or for
+      treatment. What changes the picture is a urinary catheter, recent
+      hospitalisation, a wound, immunosuppression, or an unusually high relative
+      abundance following broad-spectrum antibiotics that have cleared the
+      competing flora.
+    overgrowth_signal: >
+      Sequencing cannot establish clinical significance, and for this organism a
+      low-level detection in stool should be read as normal flora. What would
+      make it worth noting is a marked increase in relative abundance,
+      particularly after broad-spectrum antibiotics or in a person with
+      inflammatory bowel disease, since Enterobacteriaceae expansion is a
+      recognised marker of a disturbed gut microbiome rather than a specific
+      infection. Symptoms elsewhere, especially urinary, matter far more than
+      the stool reading, and any such infection needs culture and susceptibility
+      testing rather than interpretation of a stool sequence.
+    agents:
+      - name: Allyl isothiocyanate (from mustard, horseradish and wasabi)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Allyl isothiocyanate vapour had the highest antibacterial activity of
+          14 essential oils tested against Morganella morganii, and it
+          suppressed growth of histamine-producing bacteria and histamine
+          accumulation in tuna and mackerel stored at 12 degrees Celsius. This
+          is food-preservation work; there is no study of taking it to reduce
+          gut carriage.
+        dose_studied: "not established for humans; tested as a vapour at minimum inhibitory dose in a fish storage model"
+        reaches_gut: >
+          Allyl isothiocyanate is formed when mustard, horseradish or wasabi
+          tissue is broken, through the action of the plant enzyme myrosinase.
+          It is volatile, highly reactive and readily absorbed and conjugated in
+          the upper gut, so very little reaches the colon in active form. Its
+          demonstrated value is in the food before eating rather than in the
+          intestine.
+        citation_title: "Antibacterial activity of essential oil vapor for histamine-producing bacteria"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/22200745/"
+        caution: >
+          Food-model evidence only, and it fails the requirement of reaching the
+          colon intact. Allyl isothiocyanate is a potent irritant to the eyes,
+          airways and stomach lining, and concentrated preparations are not
+          suitable for ingestion. This does not address gut carriage, which in
+          most people needs no treatment anyway.
+
+      - name: Meadowsweet extract (Filipendula ulmaria ellagitannins)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Ellagitannins from meadowsweet, including rugosin D, rugosin A methyl
+          ester and tellimagrandin II, inhibited Morganella morganii histidine
+          decarboxylase at low micromolar concentrations and reduced histamine
+          accumulation in mackerel muscle. This targets the enzyme that makes
+          histamine rather than killing the bacterium, and it was demonstrated
+          in enzyme assays and a fish model.
+        dose_studied: "Half-maximal inhibitory concentrations of 1.5 to 6.8 micromolar against the bacterial enzyme in vitro; no human dose established"
+        reaches_gut: >
+          Ellagitannins are large polyphenols that are poorly absorbed and reach
+          the colon largely intact, where gut bacteria convert them to
+          urolithins. So the parent compounds do arrive in the large bowel,
+          though the microbial conversion means the molecules that were active
+          in the enzyme assay are not necessarily the ones present there.
+        citation_title: "Inhibition of Morganella morganii Histidine Decarboxylase Activity and Histamine Accumulation in Mackerel Muscle Derived from Filipendula ulumaria Extracts"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/26939657/"
+        caution: >
+          Enzyme and food-model evidence only. Meadowsweet contains salicylates,
+          so it should be avoided by anyone allergic to aspirin, by people
+          taking anticoagulants, and by children with a feverish illness because
+          of the theoretical Reye's syndrome risk. It also has no established
+          role in reducing gut carriage.
+
+      - name: Aloe vera leaf extract (Aloe barbadensis)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          A crude extract of Aloe barbadensis inhibited a panel of clinically
+          isolated bacterial pathogens that included Morganella morganii, along
+          with Escherichia coli, Proteus species and Pseudomonas aeruginosa.
+          Growth inhibition in culture only, with no animal or human data.
+        dose_studied: "not established"
+        reaches_gut: >
+          Aloe latex contains anthraquinone glycosides such as aloin, which are
+          poorly absorbed and are carried to the colon where gut bacteria
+          release the active aglycones, which is why aloe latex acts as a
+          stimulant laxative. The inner-leaf gel, which is what most aloe
+          supplements and drinks contain, is a different preparation with a
+          different composition, and the study extract is not necessarily
+          equivalent to either.
+        citation_title: "Antibacterial activities of crude extract of Aloe barbadensis to clinically isolated bacterial pathogens"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/19263248/"
+        caution: >
+          Culture-dish evidence only, against an organism that in most people
+          needs no treatment. Aloe latex is a stimulant laxative that causes
+          cramping and potassium loss, and prolonged use leads to bowel
+          dependence; it has been withdrawn from over-the-counter laxative use
+          in the United States on safety grounds. Whole-leaf aloe extract has
+          shown carcinogenic activity in rodent studies. Avoid in pregnancy,
+          when breastfeeding, and in children.
+
+      - name: Palmarosa essential oil (geraniol)
+        kind: botanical
+        evidence_tier: in_vitro
+        effect: >
+          Palmarosa essential oil and its main component geraniol showed
+          antibacterial activity against clinical isolates including Morganella
+          morganii, with a minimum inhibitory concentration of 350 micrograms
+          per millilitre reported. The isolates in this study came from
+          respiratory, skin and soft tissue infections rather than from the gut,
+          and the work was entirely in culture.
+        dose_studied: "Minimum inhibitory concentration of 350 micrograms per millilitre against M. morganii in vitro; no human dose established"
+        reaches_gut: >
+          Geraniol is a small terpene alcohol that is stable in acid but is
+          rapidly absorbed in the upper small intestine and metabolised by the
+          liver, so essentially none of an oral dose reaches the colon in active
+          form. This is a clear failure of the requirement that the substance
+          must arrive intact where the organism lives.
+        citation_title: "Antibacterial Activity of Palmarosa (Cymbopogon martini (Roxb.) Will.Watson) Essential Oil and Geraniol Against Clinical Isolates from Respiratory, Skin, and Soft Tissue Infections"
+        citation_url: "https://pubmed.ncbi.nlm.nih.gov/41599146/"
+        caution: >
+          Culture-dish evidence only, and it does not reach the colon. Palmarosa
+          oil is intended for topical and aromatic use, not for ingestion, and
+          concentrated essential oils irritate the gullet and stomach. Avoid in
+          pregnancy and in children. Bear in mind that suppressing normal gut
+          Morganella is not a goal supported by any evidence.

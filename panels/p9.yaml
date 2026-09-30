@@ -1,0 +1,107 @@
+name: p9
+description: >-
+  One Akkermansia muciniphila protein with experimental evidence for an
+  effect on GLP-1 secretion, detected from the exact sequence that was
+  tested rather than from the species. The protease family it belongs to
+  competes against it here instead of counting towards it.
+metabolite: P9 protein (experimental)
+pathway: >-
+  Amuc_1631, a carboxyl-terminal protease of the peptidase S41A family,
+  reported to act on a host receptor in cell and mouse experiments
+category: metabolite
+
+extension: true
+
+targets:
+  - id: P9
+    label: P9 / Amuc_1631 (the exact experimentally tested sequence)
+    gene: Amuc_1631
+    source: uniprot
+    query: '(accession:B2UM07) AND (taxonomy_id:2)'
+    min_identity: 85.0
+    max_sequences: 1
+    length_tolerance: 0.3
+
+decoys:
+  - id: S41A
+    label: the wider carboxyl-terminal protease family this protein belongs to
+    source: uniprot
+    query: '((protein_name:"Carboxyl-terminal processing protease") OR (protein_name:"Tail-specific protease") OR (protein_name:"Carboxyl-terminal protease")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 2500
+    length_tolerance: 0.3
+    note: >-
+      P9 belongs to the peptidase S41A family, so its relatives are the
+      most likely source of a false match. They are counted here,
+      against the target rather than with it: a homolog of a protease
+      family is not the protein that was tested.
+
+  - id: WRONGID
+    label: Amuc_1831, the identifier this protein is sometimes confused with
+    source: uniprot
+    query: '((accession:B2UN38) OR (protein_name:"Four helix bundle protein")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 800
+    length_tolerance: 0.3
+    note: >-
+      Amuc_1831 is a 98-residue four helix bundle protein against P9's
+      748 residues, and belongs to no protease family. It has been cited
+      for P9 in error, so it is searched for separately: a read that
+      belongs to it lands here and not on the target.
+
+aggregate: sum
+aggregate_from: [P9]
+aggregate_reason: >-
+  One target, because the specification requires this detector to be the
+  experimentally tested sequence. The family and the misattributed
+  identifier are measured as competitors and are never added in.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+citation: >-
+  Yoon H.S. et al., "Akkermansia muciniphila secretes a protein P9 that
+  improves glucose homeostasis", Nat Microbiol 6:563-573 (2021),
+  doi:10.1038/s41564-021-00880-5.
+
+interpretation:
+  what_it_is: >-
+    Whether the reads carry the exact Akkermansia protein that was tested
+    in the GLP-1 experiments, as opposed to something in the same family.
+  made_from: >-
+    not a metabolite; this is a bacterial protein-coding gene
+  summary: >-
+    A single protein with preclinical evidence. Finding its gene is a long
+    way from a hormone response, and this is not comparable to a GLP-1
+    medication.
+  evidence_detail: >-
+    The protein was purified and tested in cell and mouse work, where it
+    increased GLP-1 secretion through a host receptor. That is
+    experimental evidence about a protein, not about a person: what this
+    screen can say is whether reads map to the tested sequence at high
+    identity. Detection is deliberately strict. One reference sequence
+    means a diverged version in another strain will not reach the identity
+    floor, and is reported as unresolved rather than counted, because
+    transferring a functional annotation onto a divergent homolog is
+    exactly the error the specification forbids here. Neither secretion
+    nor any GLP-1 level is measured by these reads.
+  higher_means: context-dependent
+  evidence_strength: preliminary
+  implications:
+    higher: >-
+      Reads map to the experimentally tested sequence. That is a gene
+      being present, not a protein being made or secreted, and it says
+      nothing about your own GLP-1 or about GLP-1 medication.
+    typical: >-
+      A mid-range amount of read evidence on the tested sequence, read
+      beside the family competition shown with it. Neither number is a
+      hormone level, and the evidence for an effect is preclinical.
+    lower: >-
+      Little or no read evidence on the exact tested sequence. Because
+      the detector is one sequence, a diverged version in another strain
+      would also read this way, so this is not evidence that no such
+      protein is present.
+  citation: >-
+    Yoon H.S. et al., "Akkermansia muciniphila secretes a protein P9 that
+    improves glucose homeostasis", Nat Microbiol 6:563-573 (2021),
+    doi:10.1038/s41564-021-00880-5.

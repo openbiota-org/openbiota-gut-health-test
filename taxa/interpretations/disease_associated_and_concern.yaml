@@ -1,0 +1,671 @@
+# Species interpretation registry — disease-associated taxa and potential
+# concern signals (spec v04 §6.5–6.6). A concern polarity is a FLAG that names
+# the qualification it would need (strain, toxin, virulence or clinical test);
+# it is never an infection, overgrowth or eradication statement.
+species_interpretations:
+  - species: Ruminococcus_gnavus
+    polarity: disease_associated
+    evidence_state: human_association_only
+    guilds: [mucin_degraders]
+    summary: >
+      Mucin-degrading Lachnospiraceae member present in most healthy adults at low level.
+      Blooms are one of the most consistent features of active Crohn's disease and it produces
+      an inflammatory glucorhamnan polysaccharide. It is an ecological pathobiont, not an
+      infectious agent, and must not share an infection rule with Enterobacterales.
+    assertions:
+      - direction: higher
+        statement: R. gnavus blooms during inflammatory bowel disease flares in longitudinal metagenomes.
+        citation: "Hall AB et al. Genome Med 2017;9:103. PMID 29183332"
+      - direction: higher
+        statement: R. gnavus synthesises a glucorhamnan that induces TNF-alpha via TLR4 in dendritic cells.
+        citation: "Henke MT et al. PNAS 2019;116:12672. PMID 31235834"
+    tags: [ibd_enriched, mucin_degrader]
+    prohibited_language: ["R. gnavus infection", "eradication"]
+    last_reviewed: "2026-09-07"
+
+  - species: Bilophila_wadsworthia
+    polarity: disease_associated
+    evidence_state: human_association_only
+    guilds: [sulfate_reducers]
+    summary: >
+      Taurine-respiring, hydrogen-sulfide-producing member of the Desulfovibrionaceae that
+      expands on high-saturated-fat diets. It aggravated colitis in genetically susceptible
+      mice and metabolic dysfunction in high-fat-fed mice; human data are associative and it is
+      a normal low-abundance commensal.
+    assertions:
+      - direction: higher
+        statement: Milk-fat diet promoted taurocholate-driven B. wadsworthia expansion and colitis in IL-10-deficient mice.
+        citation: "Devkota S et al. Nature 2012;487:104. PMID 22722865"
+      - direction: higher
+        statement: B. wadsworthia aggravated high-fat-diet-induced metabolic dysfunction in mice.
+        citation: "Natividad JM et al. Nat Commun 2018;9:2802. PMID 30006546"
+    tags: [sulfate_reducer, h2s]
+    last_reviewed: "2026-09-07"
+
+  - species: Fusobacterium_nucleatum
+    polarity: potential_pathobiont
+    evidence_state: human_association_only
+    guilds: [oral_origin, opportunistic_pathogens]
+    summary: >
+      Oral anaerobe enriched in colorectal tumour tissue and stool across many CRC cohorts;
+      FadA adhesin and Fap2 mediate epithelial and immune effects. Stool detection is a
+      CRC-associated signal and a screening reminder, not a diagnosis; no trial shows that
+      removing it prevents cancer, and periodontal treatment lowered stool F. nucleatum without
+      demonstrated cancer benefit.
+    qualification_needed: conventional colorectal screening; fadA/fap2 fragments with carrier attribution are association evidence only
+    prohibited_language: ["cancer detected", "eradicate F. nucleatum", "treat F. nucleatum from a profile"]
+    assertions:
+      - direction: higher
+        statement: F. nucleatum enrichment in colorectal carcinoma tissue versus matched normal tissue.
+        citation: "Kostic AD et al. Genome Res 2012;22:292. PMID 22009990"
+      - direction: higher
+        statement: F. nucleatum enrichment in CRC tissue confirmed by RNA-seq and qPCR in an independent series.
+        citation: "Castellarin M et al. Genome Res 2012;22:299. PMID 22009989"
+      - direction: higher
+        statement: Meta-analysis of stool metagenomes across eight CRC cohorts confirms F. nucleatum among the most reproducible CRC-enriched species.
+        citation: "Wirbel J et al. Nat Med 2019;25:679. PMID 30936547"
+    tags: [crc_enriched, oral_origin]
+    last_reviewed: "2026-09-07"
+
+  - species: Bacteroides_fragilis
+    polarity: potential_pathobiont
+    evidence_state: human_association_only
+    guilds: [opportunistic_pathogens]
+    summary: >
+      Common commensal whose non-toxigenic strains have immunomodulatory properties (PSA), while
+      enterotoxigenic strains carrying bft are associated with colorectal neoplasia and
+      inflammatory diarrhoea. The species name does not separate the two.
+    qualification_needed: bft (fragilysin) gene detection with carrier attribution
+    prohibited_language: ["B. fragilis infection", "eradication"]
+    assertions:
+      - direction: presence
+        statement: Enterotoxigenic B. fragilis (bft) was enriched in colorectal cancer mucosa, particularly late-stage tumours.
+        citation: "Boleij A et al. Clin Infect Dis 2015;60:208. PMID 25305284"
+      - direction: any
+        statement: Non-toxigenic B. fragilis polysaccharide A directs host immune development in mice.
+        citation: "Mazmanian SK et al. Cell 2005;122:107. PMID 16009137"
+    tags: [bacteroides, etbf]
+    last_reviewed: "2026-09-07"
+
+  - species: Enterococcus_faecalis
+    polarity: potential_pathobiont
+    evidence_state: human_association_only
+    guilds: [opportunistic_pathogens]
+    summary: >
+      Common low-abundance commensal that expands after antibiotics and dominates the stool of
+      many hospitalised patients; a major cause of hospital infection with vancomycin-resistant
+      lineages. Stool abundance is not infection. Its tyrosine decarboxylase metabolises
+      levodopa, relevant to Parkinson's medication.
+    qualification_needed: clinical culture and susceptibility; AMR genes with carrier attribution
+    prohibited_language: ["Enterococcus infection", "eradication"]
+    assertions:
+      - direction: any
+        statement: Review of Enterococcus pathogenesis, antibiotic resistance and gut domination after antibiotics.
+        citation: "Fiore E et al. Microbiol Spectr 2019;7:GPP3-0053-2018. PMID 31298205"
+      - direction: any
+        statement: E. faecalis tyrosine decarboxylase converts levodopa to dopamine in the gut; tdc abundance correlated with levodopa dose requirement.
+        citation: "Maini Rekdal V et al. Science 2019;364:eaau6323. PMID 31196984"
+    tags: [levodopa_metabolism]
+    last_reviewed: "2026-09-07"
+
+  - species: Enterococcus_faecium
+    polarity: potential_pathobiont
+    evidence_state: human_association_only
+    guilds: [opportunistic_pathogens]
+    summary: Hospital-adapted lineages are a leading VRE cause; community strains are common low-level colonists. Stool abundance is not infection or resistance.
+    qualification_needed: clinical culture and susceptibility; vanA/vanB with carrier attribution
+    prohibited_language: ["Enterococcus infection", "eradication"]
+    assertions:
+      - direction: any
+        statement: Review of Enterococcus pathogenesis and resistance.
+        citation: "Fiore E et al. Microbiol Spectr 2019;7:GPP3-0053-2018. PMID 31298205"
+    tags: []
+    last_reviewed: "2026-09-07"
+
+  - species: Clostridioides_difficile
+    polarity: potential_pathobiont
+    evidence_state: curated_human_action_evidence
+    guilds: [opportunistic_pathogens]
+    summary: >
+      Asymptomatic carriage is common, particularly in infants and after hospitalisation; disease
+      requires toxin production (tcdA/tcdB) and a clinical picture. Species DNA in stool is not
+      C. difficile infection. Recurrent CDI is the only indication with approved microbiota
+      products (REBYOTA, VOWST, adults ≥18, after antibacterial treatment).
+    qualification_needed: toxin gene (tcdA/tcdB) detection plus a clinical stool toxin test and symptoms
+    prohibited_language: ["C. difficile infection (from DNA)", "eradication"]
+    assertions:
+      - direction: presence
+        statement: "Primer on C. difficile infection: carriage versus disease, toxins and diagnosis."
+        citation: "Smits WK et al. Nat Rev Dis Primers 2016;2:16020. PMID 27158839"
+      - direction: presence
+        statement: AGA 2024 conditionally recommends fecal microbiota-based therapies for prevention of recurrent CDI in selected adults after standard antibiotics.
+        citation: "Peery AF et al. Gastroenterology 2024;166:409. PMID 38395525"
+        claim: intervention_context
+    tags: [toxin_dependent]
+    last_reviewed: "2026-09-07"
+
+  - species: Clostridium_perfringens
+    polarity: potential_pathobiont
+    evidence_state: human_association_only
+    guilds: [opportunistic_pathogens]
+    summary: Common low-level gut commensal; toxinotypes carrying cpe or netB cause food poisoning and enteritis. Species detection is not toxin production.
+    qualification_needed: toxin genes (cpe, cpb, netB) and a clinical picture
+    prohibited_language: ["C. perfringens infection", "eradication"]
+    assertions:
+      - direction: any
+        statement: Review of C. perfringens toxins and their role in human and animal enteric disease by toxinotype.
+        citation: "Uzal FA et al. Future Microbiol 2014;9:361. PMID 24762309"
+    tags: [toxin_dependent]
+    last_reviewed: "2026-09-07"
+
+  - species: Salmonella_enterica
+    polarity: validated_pathogen_signal
+    evidence_state: human_association_only
+    guilds: [opportunistic_pathogens]
+    summary: Not a normal stool resident; detection at qualifying coverage is a clinical concern that requires confirmatory testing (culture/PCR) and clinical assessment. Antibiotic choice is a clinical decision, not a report output.
+    qualification_needed: confirmatory stool culture or PCR; clinical assessment per IDSA infectious-diarrhoea guidance
+    prohibited_language: ["treat with", "antibiotic recommended"]
+    assertions:
+      - direction: presence
+        statement: IDSA guideline on diagnosis and management of infectious diarrhoea, including when antimicrobial therapy is and is not indicated.
+        citation: "Shane AL et al. Clin Infect Dis 2017;65:e45. PMID 29053792"
+    tags: [enteric_pathogen]
+    last_reviewed: "2026-09-07"
+
+  - species: Campylobacter_jejuni
+    polarity: validated_pathogen_signal
+    evidence_state: human_association_only
+    guilds: [opportunistic_pathogens]
+    summary: Leading bacterial cause of gastroenteritis; not a normal resident. Detection at qualifying coverage warrants confirmatory testing and clinical assessment.
+    qualification_needed: confirmatory stool culture or PCR and clinical assessment
+    prohibited_language: ["treat with", "antibiotic recommended"]
+    assertions:
+      - direction: presence
+        statement: IDSA infectious-diarrhoea guideline.
+        citation: "Shane AL et al. Clin Infect Dis 2017;65:e45. PMID 29053792"
+    tags: [enteric_pathogen]
+    last_reviewed: "2026-09-07"
+
+  - species: Helicobacter_pylori
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Gastric organism whose DNA is occasionally shed into stool; stool metagenomic detection is not a validated H. pylori test (stool antigen, urea breath test or biopsy are). Carriage is common worldwide.
+    assertions:
+      - direction: presence
+        statement: Maastricht VI/Florence consensus on H. pylori diagnosis and management.
+        citation: "Malfertheiner P et al. Gut 2022;71:1724. PMID 35944925"
+    tags: [gastric]
+    prohibited_language: ["H. pylori infection (from stool metagenomics)"]
+    last_reviewed: "2026-09-07"
+
+  - species: Staphylococcus_aureus
+    polarity: potential_pathobiont
+    evidence_state: human_association_only
+    guilds: [opportunistic_pathogens]
+    summary: Skin and nasal colonist occasionally detected in stool, more often in infants and after antibiotics. Stool DNA is not infection and says nothing about MRSA status without mecA attribution.
+    qualification_needed: clinical culture; mecA with carrier attribution for resistance
+    prohibited_language: ["staph infection", "MRSA (from stool abundance)"]
+    assertions:
+      - direction: any
+        statement: Review of S. aureus colonisation and infection epidemiology.
+        citation: "Tong SYC et al. Clin Microbiol Rev 2015;28:603. PMID 26016486"
+    tags: []
+    last_reviewed: "2026-09-07"
+
+  - species: Pseudomonas_aeruginosa_group
+    polarity: potential_pathobiont
+    evidence_state: human_association_only
+    guilds: [opportunistic_pathogens]
+    summary: Environmental opportunist; gut carriage rises with hospitalisation and antibiotics and can seed infection in immunocompromised hosts. Not a normal dominant member.
+    qualification_needed: clinical culture and host context (immunocompromise, hospitalisation)
+    prohibited_language: ["Pseudomonas infection", "eradication"]
+    assertions:
+      - direction: any
+        statement: Intestinal P. aeruginosa carriage as a source of infection in critically ill and immunocompromised patients.
+        citation: "Gómez-Zorrilla S et al. Antimicrob Agents Chemother 2015;59:5213. PMID 26077248"
+    tags: []
+    last_reviewed: "2026-09-07"
+
+  - species: Enterobacter_cloacae_complex
+    polarity: potential_pathobiont
+    evidence_state: human_association_only
+    guilds: [opportunistic_pathogens, hexa_lps]
+    summary: Enterobacterales commensal and hospital opportunist; expansion follows antibiotics and inflammation. Species-complex detection is not infection.
+    qualification_needed: clinical culture; AMR genes with carrier attribution
+    prohibited_language: ["Enterobacter infection", "eradication"]
+    assertions:
+      - direction: any
+        statement: Review of the E. cloacae complex as an opportunistic nosocomial pathogen.
+        citation: "Mezzatesta ML et al. Future Microbiol 2012;7:887. PMID 22827309"
+    tags: [enterobacterales]
+    last_reviewed: "2026-09-07"
+
+  - species: Citrobacter_freundii
+    polarity: potential_pathobiont
+    evidence_state: human_association_only
+    guilds: [opportunistic_pathogens, hexa_lps]
+    summary: Enterobacterales commensal and occasional opportunist. Stool abundance is not infection.
+    qualification_needed: clinical culture and context
+    prohibited_language: ["Citrobacter infection", "eradication"]
+    assertions:
+      - direction: higher
+        statement: Enterobacteriaceae expansion as a marker of inflammation-associated dysbiosis in IBD metagenomes.
+        citation: "Lloyd-Price J et al. Nature 2019;569:655. PMID 31142855"
+    tags: [enterobacterales]
+    last_reviewed: "2026-09-07"
+
+  - species: Proteus_mirabilis
+    polarity: potential_pathobiont
+    evidence_state: human_association_only
+    guilds: [opportunistic_pathogens]
+    summary: Urease-rich Enterobacterales member; a common urinary pathogen and gut colonist. Stool detection is not infection.
+    qualification_needed: clinical culture and context
+    prohibited_language: ["Proteus infection", "eradication"]
+    assertions:
+      - direction: any
+        statement: Review of P. mirabilis pathogenesis including urease and urinary tract infection.
+        citation: "Armbruster CE et al. EcoSal Plus 2018;8. PMID 29424333"
+    tags: [enterobacterales, urease]
+    last_reviewed: "2026-09-07"
+
+  - species: Morganella_morganii
+    polarity: potential_pathobiont
+    evidence_state: human_association_only
+    guilds: [opportunistic_pathogens]
+    summary: Enterobacterales commensal and opportunist; a histamine producer relevant to food-borne histamine. Stool detection is not infection.
+    qualification_needed: clinical culture and context
+    prohibited_language: ["Morganella infection", "eradication"]
+    assertions:
+      - direction: any
+        statement: Review of M. morganii as an emerging opportunistic pathogen.
+        citation: "Liu H et al. Front Med (Lausanne) 2016;3:24. PMID 27379289"
+    tags: [enterobacterales, histamine]
+    last_reviewed: "2026-09-07"
+
+  - species: Hafnia_alvei
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Enterobacterales member found in foods and stool; rarely pathogenic. Context-dependent.
+    assertions:
+      - direction: any
+        statement: Review of Hafnia as an environmental/food-associated Enterobacterales member with rare opportunistic infections.
+        citation: "Janda JM, Abbott SL. Clin Microbiol Rev 2006;19:12. PMID 16418520"
+    tags: [enterobacterales]
+    last_reviewed: "2026-09-07"
+
+  - species: Escherichia_fergusonii
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [hexa_lps]
+    summary: Close relative of E. coli, occasionally detected in stool; a rare opportunist. Context-dependent.
+    assertions:
+      - direction: any
+        statement: Pathotype-defined virulence in Escherichia; species names do not carry it.
+        citation: "Kaper JB et al. Nat Rev Microbiol 2004;2:123. PMID 15040260"
+    tags: [enterobacterales]
+    last_reviewed: "2026-09-07"
+
+  - species: Streptococcus_gallolyticus
+    polarity: disease_associated
+    evidence_state: human_association_only
+    guilds: [opportunistic_pathogens]
+    summary: Formerly S. bovis biotype I; bacteraemia and endocarditis with this organism are strongly associated with colorectal neoplasia, and colonoscopic evaluation is standard after such infections. Stool detection is a screening reminder, not a diagnosis.
+    assertions:
+      - direction: presence
+        statement: Meta-analysis of S. bovis/gallolyticus infection and colorectal neoplasia.
+        citation: "Boleij A et al. Clin Infect Dis 2011;53:870. PMID 21960713"
+    tags: [crc_associated]
+    last_reviewed: "2026-09-07"
+
+  - species: Collinsella_aerofaciens
+    polarity: disease_associated
+    evidence_state: human_association_only
+    summary: Common Actinobacterium enriched in rheumatoid arthritis and symptomatic atherosclerosis cohorts and responsive to dietary fibre reduction; common in healthy people too.
+    assertions:
+      - direction: higher
+        statement: Collinsella expanded in rheumatoid arthritis and increased gut permeability and IL-17A in mouse and cell models.
+        citation: "Chen J et al. Genome Med 2016;8:43. PMID 27102666"
+      - direction: higher
+        statement: Collinsella enriched in symptomatic atherosclerosis patients versus controls.
+        citation: "Karlsson FH et al. Nat Commun 2012;3:1245. PMID 23212374"
+    tags: [ra_enriched]
+    last_reviewed: "2026-09-07"
+
+  - species: Hungatella_hathewayi
+    polarity: disease_associated
+    evidence_state: human_association_only
+    summary: Among the species most reproducibly enriched in colorectal cancer stool across international cohorts. A screening reminder, not a diagnosis.
+    assertions:
+      - direction: higher
+        statement: H. hathewayi among core CRC-enriched species in an eight-cohort meta-analysis.
+        citation: "Wirbel J et al. Nat Med 2019;25:679. PMID 30936547"
+    tags: [crc_enriched]
+    last_reviewed: "2026-09-07"
+
+  - species: Parvimonas_micra
+    polarity: disease_associated
+    evidence_state: human_association_only
+    guilds: [oral_origin]
+    summary: Oral anaerobe among the most reproducible CRC-enriched stool species; also periodontal. Screening reminder only.
+    assertions:
+      - direction: higher
+        statement: P. micra among core CRC-enriched species across cohorts.
+        citation: "Wirbel J et al. Nat Med 2019;25:679. PMID 30936547"
+      - direction: higher
+        statement: P. micra enrichment confirmed in an independent multi-cohort CRC meta-analysis.
+        citation: "Thomas AM et al. Nat Med 2019;25:667. PMID 30936548"
+    tags: [crc_enriched, oral_origin]
+    last_reviewed: "2026-09-07"
+
+  - species: Peptostreptococcus_stomatis
+    polarity: disease_associated
+    evidence_state: human_association_only
+    guilds: [oral_origin]
+    summary: Oral anaerobe reproducibly enriched in CRC stool across cohorts. Screening reminder only.
+    assertions:
+      - direction: higher
+        statement: P. stomatis among core CRC-enriched species.
+        citation: "Wirbel J et al. Nat Med 2019;25:679. PMID 30936547"
+    tags: [crc_enriched, oral_origin]
+    last_reviewed: "2026-09-07"
+
+  - species: Gemella_morbillorum
+    polarity: disease_associated
+    evidence_state: human_association_only
+    guilds: [oral_origin]
+    summary: Oral commensal enriched in CRC stool across cohorts; common in the mouth. Screening reminder only.
+    assertions:
+      - direction: higher
+        statement: G. morbillorum among CRC-enriched species across cohorts.
+        citation: "Thomas AM et al. Nat Med 2019;25:667. PMID 30936548"
+    tags: [crc_enriched, oral_origin]
+    last_reviewed: "2026-09-07"
+
+  - species: Porphyromonas_asaccharolytica
+    polarity: disease_associated
+    evidence_state: human_association_only
+    guilds: [oral_origin]
+    summary: Anaerobe reproducibly enriched in CRC stool across cohorts. Screening reminder only.
+    assertions:
+      - direction: higher
+        statement: P. asaccharolytica among core CRC-enriched species.
+        citation: "Wirbel J et al. Nat Med 2019;25:679. PMID 30936547"
+    tags: [crc_enriched]
+    last_reviewed: "2026-09-07"
+
+  - species: Solobacterium_moorei
+    polarity: disease_associated
+    evidence_state: human_association_only
+    guilds: [oral_origin]
+    summary: Oral anaerobe (halitosis-associated) enriched in CRC stool across cohorts. Screening reminder only.
+    assertions:
+      - direction: higher
+        statement: S. moorei among CRC-enriched species across cohorts.
+        citation: "Wirbel J et al. Nat Med 2019;25:679. PMID 30936547"
+    tags: [crc_enriched, oral_origin]
+    last_reviewed: "2026-09-07"
+
+  - species: Streptococcus_anginosus_group
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [oral_origin, opportunistic_pathogens]
+    summary: Oral streptococci that can cause abscesses; in stool they mark oral-to-gut transmission, which rises with proton-pump inhibitors, low gut biomass and some cancers. Relative enrichment is not oral invasion of the gut.
+    assertions:
+      - direction: higher
+        statement: Extensive oral-to-gut transmission of streptococci and other oral taxa quantified across 470 individuals.
+        citation: "Schmidt TSB et al. eLife 2019;8:e42693. PMID 30747106"
+    tags: [oral_origin]
+    last_reviewed: "2026-09-07"
+
+  - species: Streptococcus_salivarius
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [oral_origin]
+    summary: Dominant oral commensal routinely detected in stool via swallowing; higher with PPIs and low gut biomass. One small unreplicated Long-COVID cohort reported enrichment; the species is also used as an oral probiotic. Not universally pro-inflammatory.
+    assertions:
+      - direction: higher
+        statement: Oral-to-gut transmission of S. salivarius and other oral taxa quantified across cohorts.
+        citation: "Schmidt TSB et al. eLife 2019;8:e42693. PMID 30747106"
+      - direction: higher
+        statement: PPI use is the strongest medication correlate of oral-bacteria enrichment in stool.
+        citation: "Imhann F et al. Gut 2016;65:740. PMID 26657899"
+    tags: [oral_origin, ppi_responsive]
+    last_reviewed: "2026-09-07"
+
+  - species: Streptococcus_parasanguinis
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [oral_origin]
+    summary: Oral commensal seen in stool through swallowing; enriched with PPIs and in some disease cohorts (including the small Long-COVID cohort). Oral-origin marker, not a pathogen call.
+    assertions:
+      - direction: higher
+        statement: Oral-to-gut transmission quantified across cohorts.
+        citation: "Schmidt TSB et al. eLife 2019;8:e42693. PMID 30747106"
+    tags: [oral_origin]
+    last_reviewed: "2026-09-07"
+
+  - species: Streptococcus_vestibularis
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [oral_origin]
+    summary: Oral commensal; oral-origin marker in stool.
+    assertions:
+      - direction: higher
+        statement: Oral-to-gut transmission quantified across cohorts.
+        citation: "Schmidt TSB et al. eLife 2019;8:e42693. PMID 30747106"
+    tags: [oral_origin]
+    last_reviewed: "2026-09-07"
+
+  - species: Streptococcus_mitis
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [oral_origin]
+    summary: Oral commensal; oral-origin marker in stool.
+    assertions:
+      - direction: higher
+        statement: Oral-to-gut transmission quantified across cohorts.
+        citation: "Schmidt TSB et al. eLife 2019;8:e42693. PMID 30747106"
+    tags: [oral_origin]
+    last_reviewed: "2026-09-07"
+
+  - species: Veillonella_parvula
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [oral_origin]
+    summary: Oral lactate-fermenting anaerobe seen in stool through swallowing; higher with PPIs, in cirrhosis and in some cancer cohorts. Oral-origin marker.
+    assertions:
+      - direction: higher
+        statement: Oral-to-gut transmission quantified across cohorts.
+        citation: "Schmidt TSB et al. eLife 2019;8:e42693. PMID 30747106"
+    tags: [oral_origin]
+    last_reviewed: "2026-09-07"
+
+  - species: Veillonella_atypica
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [oral_origin]
+    summary: Oral Veillonella enriched in PDAC stool in Kartal et al. and in endurance athletes after exercise in another study — an oral-origin, context-dependent organism.
+    assertions:
+      - direction: higher
+        statement: V. atypica among species enriched in pancreatic ductal adenocarcinoma stool.
+        citation: "Kartal E et al. Gut 2022;71:1359. PMID 35260444"
+    tags: [oral_origin, pdac_enriched]
+    last_reviewed: "2026-09-07"
+
+  - species: Veillonella_dispar
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [oral_origin]
+    summary: Oral Veillonella; oral-origin marker in stool.
+    assertions:
+      - direction: higher
+        statement: Oral-to-gut transmission quantified across cohorts.
+        citation: "Schmidt TSB et al. eLife 2019;8:e42693. PMID 30747106"
+    tags: [oral_origin]
+    last_reviewed: "2026-09-07"
+
+  - species: Haemophilus_parainfluenzae
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [oral_origin]
+    summary: Oropharyngeal commensal detected in stool by swallowing; enriched in some IBD and cirrhosis cohorts. Oral-origin marker.
+    assertions:
+      - direction: higher
+        statement: Oral-to-gut transmission quantified across cohorts.
+        citation: "Schmidt TSB et al. eLife 2019;8:e42693. PMID 30747106"
+    tags: [oral_origin]
+    last_reviewed: "2026-09-07"
+
+  - species: Rothia_mucilaginosa
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [oral_origin]
+    summary: Oral commensal; oral-origin marker in stool.
+    assertions:
+      - direction: higher
+        statement: Oral-to-gut transmission quantified across cohorts.
+        citation: "Schmidt TSB et al. eLife 2019;8:e42693. PMID 30747106"
+    tags: [oral_origin]
+    last_reviewed: "2026-09-07"
+
+  - species: Actinomyces_odontolyticus
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [oral_origin]
+    summary: Oral commensal; oral-origin marker in stool, enriched in some CRC cohorts.
+    assertions:
+      - direction: higher
+        statement: Oral-to-gut transmission quantified across cohorts.
+        citation: "Schmidt TSB et al. eLife 2019;8:e42693. PMID 30747106"
+    tags: [oral_origin]
+    last_reviewed: "2026-09-07"
+
+  - species: Granulicatella_adiacens
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [oral_origin]
+    summary: Oral commensal; oral-origin marker in stool.
+    assertions:
+      - direction: higher
+        statement: Oral-to-gut transmission quantified across cohorts.
+        citation: "Schmidt TSB et al. eLife 2019;8:e42693. PMID 30747106"
+    tags: [oral_origin]
+    last_reviewed: "2026-09-07"
+
+  - species: Atopobium_parvulum
+    polarity: context_dependent
+    evidence_state: human_association_only
+    guilds: [oral_origin]
+    summary: Oral anaerobe; higher in paediatric Crohn's disease in one cohort and an oral-origin marker in stool.
+    assertions:
+      - direction: higher
+        statement: A. parvulum was among oral taxa enriched in treatment-naive paediatric Crohn's disease.
+        citation: "Gevers D et al. Cell Host Microbe 2014;15:382. PMID 24629344"
+    tags: [oral_origin]
+    last_reviewed: "2026-09-07"
+
+  - species: Flavonifractor_plautii
+    polarity: disease_associated
+    evidence_state: human_association_only
+    summary: Flavonoid-degrading Clostridiales member enriched in several CRC and metabolic cohorts; common at low level in healthy adults.
+    assertions:
+      - direction: higher
+        statement: F. plautii among species enriched in CRC across cohorts in a multi-cohort meta-analysis.
+        citation: "Thomas AM et al. Nat Med 2019;25:667. PMID 30936548"
+    tags: [crc_enriched]
+    last_reviewed: "2026-09-07"
+
+  - species: Clostridium_bolteae
+    polarity: disease_associated
+    evidence_state: human_association_only
+    summary: Lachnospiraceae member (Enterocloster bolteae) enriched in several dysbiosis-associated cohorts (IBD, autism, MS); a normal low-abundance member in many adults.
+    assertions:
+      - direction: higher
+        statement: C. bolteae among species enriched in multiple sclerosis across the iMSMS cohorts.
+        citation: "iMSMS Consortium. Cell 2022;185:3467. PMID 36113426"
+    tags: []
+    last_reviewed: "2026-09-07"
+
+  - species: Clostridium_innocuum
+    polarity: potential_pathobiont
+    evidence_state: human_association_only
+    guilds: [opportunistic_pathogens]
+    summary: Vancomycin-resistant Erysipelotrichaceae member implicated in antibiotic-associated diarrhoea and creeping fat in Crohn's disease; a common low-level commensal.
+    qualification_needed: clinical context and culture; stool abundance is not infection
+    prohibited_language: ["C. innocuum infection", "eradication"]
+    assertions:
+      - direction: higher
+        statement: C. innocuum translocation drives creeping fat in Crohn's disease.
+        citation: "Ha CWY et al. Cell 2020;183:666. PMID 32991841"
+    tags: []
+    last_reviewed: "2026-09-07"
+
+  - species: Erysipelatoclostridium_ramosum
+    polarity: disease_associated
+    evidence_state: human_association_only
+    summary: Common Erysipelotrichaceae member enriched in obesity and some IBD cohorts; promoted fat absorption in mice.
+    assertions:
+      - direction: higher
+        statement: C. ramosum promoted high-fat-diet-induced obesity in gnotobiotic mice.
+        citation: "Woting A et al. mBio 2014;5:e01530-14. PMID 25271283"
+    tags: []
+    last_reviewed: "2026-09-07"
+
+  - species: Ruminococcus_torques
+    polarity: disease_associated
+    evidence_state: human_association_only
+    guilds: [mucin_degraders]
+    summary: Mucin-degrading Lachnospiraceae member enriched in IBD and IBS cohorts; a common commensal at low level.
+    assertions:
+      - direction: higher
+        statement: R. torques among mucolytic bacteria increased in IBD mucosal biopsies.
+        citation: "Png CW et al. Am J Gastroenterol 2010;105:2420. PMID 20648002"
+    tags: [ibd_enriched, mucin_degrader]
+    last_reviewed: "2026-09-07"
+
+  - species: Fusobacterium_mortiferum
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Gut Fusobacterium, distinct from F. nucleatum; enriched in some East Asian cohorts and in T2D. Context-dependent.
+    assertions:
+      - direction: any
+        statement: Fusobacterium species other than F. nucleatum show geography-dependent prevalence in the gut.
+        citation: "Thomas AM et al. Nat Med 2019;25:667. PMID 30936548"
+    tags: []
+    last_reviewed: "2026-09-07"
+
+  - species: Fusobacterium_varium
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Gut Fusobacterium implicated in ulcerative colitis in Japanese studies; context-dependent.
+    assertions:
+      - direction: higher
+        statement: F. varium invaded colonic mucosa and was implicated in ulcerative colitis.
+        citation: "Ohkusa T et al. Gut 2003;52:79. PMID 12477765"
+    tags: []
+    last_reviewed: "2026-09-07"
+
+  - species: Anaerotruncus_colihominis
+    polarity: context_dependent
+    evidence_state: human_association_only
+    summary: Common low-abundance Ruminococcaceae member with mixed associations.
+    assertions:
+      - direction: any
+        statement: Among taxa with mixed associations across CRC and metabolic meta-analyses.
+        citation: "Thomas AM et al. Nat Med 2019;25:667. PMID 30936548"
+    tags: []
+    last_reviewed: "2026-09-07"
+
+  - species: Serratia_marcescens
+    polarity: potential_pathobiont
+    evidence_state: human_association_only
+    guilds: [opportunistic_pathogens]
+    summary: Environmental Enterobacterales member and hospital opportunist; rarely a stool resident. Detection is not infection.
+    qualification_needed: clinical culture and context
+    prohibited_language: ["Serratia infection", "eradication"]
+    assertions:
+      - direction: any
+        statement: Review of Serratia as an opportunistic nosocomial pathogen.
+        citation: "Mahlen SD. Clin Microbiol Rev 2011;24:755. PMID 21976608"
+    tags: [enterobacterales]
+    last_reviewed: "2026-09-07"

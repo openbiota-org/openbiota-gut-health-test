@@ -1,0 +1,162 @@
+name: thiamine
+description: >-
+  Thiamine synthesis. The thiazole and pyrimidine rings are built
+  separately and joined by thiamine phosphate synthase, so all three are
+  measured: either ring on its own makes an intermediate and stops.
+metabolite: Vitamin B1 (thiamine)
+pathway: >-
+  thiazole (thiG) + hydroxymethylpyrimidine (thiC) -> thiE -> thiamine
+  phosphate
+category: vitamin
+
+extension: true
+
+targets:
+  - id: THIE
+    label: thiE (thiamine phosphate synthase)
+    gene: thiE
+    source: uniprot
+    query: '(protein_name:"Thiamine phosphate synthase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: THIC
+    label: thiC (phosphomethylpyrimidine synthase)
+    gene: thiC
+    source: uniprot
+    query: '(protein_name:"Phosphomethylpyrimidine synthase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: THID
+    label: thiD (phosphomethylpyrimidine kinase)
+    gene: thiD
+    source: uniprot
+    query: '(protein_name:"Phosphomethylpyrimidine kinase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: THIM
+    label: thiM (hydroxyethylthiazole kinase)
+    gene: thiM
+    source: uniprot
+    query: '(protein_name:"Hydroxyethylthiazole kinase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: THIG
+    label: thiG (thiazole synthase)
+    gene: thiG
+    source: uniprot
+    query: '(protein_name:"Thiazole synthase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: THIH
+    label: thiH (2-iminoacetate synthase)
+    gene: thiH
+    source: uniprot
+    query: '(protein_name:"2-iminoacetate synthase") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 2265
+    length_tolerance: 0.3
+
+  - id: THIS
+    label: thiS (sulfur carrier protein)
+    gene: thiS
+    source: uniprot
+    query: '(protein_name:"Sulfur carrier protein ThiS") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 3000
+    length_tolerance: 0.3
+
+  - id: THIB
+    label: thiB (thiamine-binding protein, uptake not synthesis)
+    gene: thiB
+    source: uniprot
+    query: '(protein_name:"Thiamine-binding periplasmic protein") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 1535
+    length_tolerance: 0.3
+
+  - id: THIP
+    label: thiP (thiamine transport permease, uptake not synthesis)
+    gene: thiP
+    source: uniprot
+    query: '(protein_name:"Thiamine transport system permease") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 1952
+    length_tolerance: 0.3
+
+  - id: THIQ
+    label: thiQ (thiamine import ATP-binding, uptake not synthesis)
+    gene: thiQ
+    source: uniprot
+    query: '(protein_name:"Thiamine import ATP-binding protein") AND (taxonomy_id:2)'
+    min_identity: 55.0
+    max_sequences: 614
+    length_tolerance: 0.3
+
+aggregate: sum
+aggregate_from: [THIE, THIC, THIG]
+aggregate_reason: >-
+  The coupling step and both rings. Their sum tracks complete synthesis
+  better than any one, and the salvage kinases are reported separately
+  because salvage is not synthesis.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+citation: >-
+  Magnusdottir S., Ravcheev D., de Crecy-Lagard V., Thiele I., "Systematic
+  genome assessment of B-vitamin biosynthesis suggests co-operation among
+  gut microbes", Front Genet 6:148 (2015), doi:10.3389/fgene.2015.00148.
+
+interpretation:
+  what_it_is: >-
+    Your gut bacteria's capacity to build thiamine from scratch, rather
+    than only take in thiamine that is already there.
+  made_from: >-
+    Built de novo by bacteria from a thiazole ring and a pyrimidine ring,
+    joined by thiamine phosphate synthase
+  summary: >-
+    Most gut species cannot make thiamine and depend on the ones that can.
+    This counts how much of your community carries the complete route.
+  evidence_detail: >-
+    Magnusdottir and colleagues reconstructed B-vitamin synthesis across
+    gut genomes and found thiamine synthesis in a minority of them, with
+    most species depending on what others make or on what arrives in food.
+    That makes thiamine one of the clearer cases of cross-feeding in the
+    gut, and it is why the two rings and their coupling step are counted
+    separately: a community can carry the branches without the synthase
+    that joins them. What this cannot tell you is your thiamine status.
+    Dietary thiamine is absorbed in the small intestine, upstream of where
+    most of this synthesis happens, and deficiency is a clinical diagnosis
+    rather than a stool one.
+  higher_means: favourable
+  evidence_strength: limited
+  implications:
+    higher: >-
+      More of your bacteria carry a complete route to thiamine than in
+      most samples. The colon absorbs little of what they make, so the
+      likeliest consequence is within the community, where
+      thiamine-dependent species have a nearer source.
+    typical: >-
+      Your community's thiamine synthesis capacity sits in the middle of
+      the reference range. Most gut species cannot make thiamine and
+      rely on the ones that can, so a middling value is the ordinary
+      arrangement rather than a shortfall.
+    lower: >-
+      Fewer complete thiamine routes than most people carry. This says
+      nothing about your vitamin B1 status, which comes from food and is
+      absorbed before the colon.
+  citation: >-
+    Magnusdottir S., Ravcheev D., de Crecy-Lagard V., Thiele I.,
+    "Systematic genome assessment of B-vitamin biosynthesis suggests
+    co-operation among gut microbes", Front Genet 6:148 (2015),
+    doi:10.3389/fgene.2015.00148.

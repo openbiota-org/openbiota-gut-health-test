@@ -1,0 +1,264 @@
+# Oxygen phenotypes for the aerotolerance balance (A09, spec section 6.3).
+#
+# Only genera whose oxygen relationship is unambiguous in standard cultivation
+# literature are listed. A genus left out is *unresolved*, which reduces the
+# reported trait coverage and moves nothing into either group - the module is
+# built so that an unknown trait costs coverage rather than inventing a side.
+#
+# `evidence` records how the phenotype was established, strongest first:
+#   cultured_strain       a resolved strain with a measured phenotype
+#   cultured_species      the species is cultured and its requirement measured
+#   genus_generalisation  the genus is uniform enough in culture to generalise
+#
+# A species entry always beats the genus entry for the same organism, and the
+# module labels a genus-derived answer as `genus_generalisation` whatever this
+# file says, so a generalisation can never be displayed as strain evidence.
+#
+# GTDB splits many of these genera with a letter suffix (Blautia_A,
+# Ruminococcus_E, Eubacterium_F). The suffix marks a new genus boundary, not a
+# different oxygen requirement, so lookups strip it. Where a split genus is
+# genuinely different, list it explicitly and it wins.
+#
+# Sources: E06 (BacDive 2025 cultivation records), E07 (metaTraits/porTraits
+# genome-derived traits, used only where cultivation agrees), E04/E05 (the
+# MAPI papers, for the aerotolerant/anaerobe partition itself).
+
+schema_version: openbiota.oxygen-traits/1.0
+spec_version: 0.8.3
+default_evidence: genus_generalisation
+default_source_id: E06
+
+# --------------------------------------------------------------------------- #
+# Strict anaerobes: growth requires the absence of oxygen.
+# --------------------------------------------------------------------------- #
+strict_anaerobe:
+  # Bacteroidota
+  - Bacteroides
+  - Phocaeicola
+  - Parabacteroides
+  - Alistipes
+  - Barnesiella
+  - Odoribacter
+  - Butyricimonas
+  - Coprobacter
+  - Prevotella
+  - Segatella
+  - Paraprevotella
+  - Tidjanibacter
+  - Coprobacillus
+  - Rikenella
+  - Mediterranea
+  - Bacteroidales
+  # Bacillota: Lachnospiraceae, Oscillospiraceae, Ruminococcaceae
+  - Faecalibacterium
+  - Gemmiger
+  - Blautia
+  - Agathobacter
+  - Agathobaculum
+  - Roseburia
+  - Anaerostipes
+  - Anaerobutyricum
+  - Fusicatenibacter
+  - Lachnospira
+  - Coprococcus
+  - Dorea
+  - Ruminococcus
+  - Mediterraneibacter
+  - Eubacterium
+  - Acetatifactor
+  - Enterocloster
+  - Monoglobus
+  - Butyribacter
+  - Anaerotignum
+  - Eisenbergiella
+  - Sellimonas
+  - Lawsonibacter
+  - Ruthenibacterium
+  - Dysosmobacter
+  - Oscillibacter
+  - Oscillospira
+  - Subdoligranulum
+  - Flavonifractor
+  - Pseudoflavonifractor
+  - Faecalicatena
+  - Faecalimonas
+  - Hungatella
+  - Clostridium
+  - Clostridioides
+  - Romboutsia
+  - Intestinibacter
+  - Terrisporobacter
+  - Turicibacter
+  - Marvinbryantia
+  - Schaedlerella
+  - Merdibacter
+  - Hominiventricola
+  - Frisingicoccus
+  - Muricomes
+  - Bariatricus
+  - Faecalibacillus
+  - Thomasclavelia
+  - Erysipelatoclostridium
+  - Holdemanella
+  - Holdemania
+  - Catenibacterium
+  - Coprosoma
+  - Solobacterium
+  # Negativicutes
+  - Dialister
+  - Veillonella
+  - Megasphaera
+  - Megamonas
+  - Mitsuokella
+  - Phascolarctobacterium
+  - Acidaminococcus
+  - Anaeroglobus
+  # Actinomycetota
+  - Bifidobacterium
+  - Collinsella
+  - Coriobacterium
+  - Eggerthella
+  - Gordonibacter
+  - Adlercreutzia
+  - Senegalimassilia
+  - Slackia
+  - Olsenella
+  - Atopobium
+  - Libanicoccus
+  - Parolsenella
+  - Anaerotardibacter
+  # Verrucomicrobiota
+  - Akkermansia
+  # Desulfobacterota and sulfidogens
+  - Bilophila
+  - Desulfovibrio
+  - Desulfomonas
+  - Mailhella
+  # Fusobacteriota
+  - Fusobacterium
+  - Leptotrichia
+  # Synergistota
+  - Cloacibacillus
+  - Synergistes
+  # Euryarchaeota
+  - Methanobrevibacter
+  - Methanosphaera
+  # Spirochaetota
+  - Treponema
+  - Brachyspira
+
+# --------------------------------------------------------------------------- #
+# Aerotolerant: facultative anaerobes, microaerophiles and aerobes that grow
+# with oxygen present. The partition the MAPI literature uses (E04/E05).
+# --------------------------------------------------------------------------- #
+aerotolerant:
+  # Enterobacteriaceae and relatives
+  - Escherichia
+  - Shigella
+  - Salmonella
+  - Klebsiella
+  - Enterobacter
+  - Citrobacter
+  - Raoultella
+  - Serratia
+  - Proteus
+  - Morganella
+  - Providencia
+  - Hafnia
+  - Cronobacter
+  - Kluyvera
+  - Pantoea
+  - Yersinia
+  # Other Pseudomonadota
+  - Pseudomonas
+  - Acinetobacter
+  - Stenotrophomonas
+  - Achromobacter
+  - Burkholderia
+  - Sutterella
+  - Parasutterella
+  - Duodenibacillus
+  - Oxalobacter
+  - Haemophilus
+  - Neisseria
+  - Moraxella
+  - Campylobacter
+  - Helicobacter
+  - Aeromonas
+  - Vibrio
+  - Plesiomonas
+  # Bacillota: lactic acid bacteria and bacilli
+  - Enterococcus
+  - Streptococcus
+  - Lactococcus
+  - Lactobacillus
+  - Lactiplantibacillus
+  - Lacticaseibacillus
+  - Limosilactobacillus
+  - Ligilactobacillus
+  - Lactiplantibacillales
+  - Leuconostoc
+  - Weissella
+  - Pediococcus
+  - Aerococcus
+  - Gemella
+  - Granulicatella
+  - Staphylococcus
+  - Bacillus
+  - Paenibacillus
+  - Lysinibacillus
+  - Listeria
+  # Actinomycetota that tolerate oxygen
+  - Rothia
+  - Micrococcus
+  - Kocuria
+  - Corynebacterium
+  - Actinomyces
+  - Mycobacterium
+  - Nocardia
+
+# --------------------------------------------------------------------------- #
+# Species-level records, where the species differs from its genus or where a
+# cultivation record is more specific than the generalisation.
+# --------------------------------------------------------------------------- #
+species:
+  Bifidobacterium animalis:
+    phenotype: strict_anaerobe
+    evidence: cultured_species
+    note: >-
+      Anaerobic, though notably oxygen-tolerant in food-processing conditions;
+      the requirement for growth is still anaerobic.
+  Cutibacterium acnes:
+    phenotype: strict_anaerobe
+    evidence: cultured_species
+    note: Aerotolerant anaerobe; requires anaerobic conditions for growth.
+  Streptococcus thermophilus:
+    phenotype: aerotolerant
+    evidence: cultured_species
+  Enterococcus faecalis:
+    phenotype: aerotolerant
+    evidence: cultured_species
+  Enterococcus faecium:
+    phenotype: aerotolerant
+    evidence: cultured_species
+  Escherichia coli:
+    phenotype: aerotolerant
+    evidence: cultured_species
+  Klebsiella pneumoniae:
+    phenotype: aerotolerant
+    evidence: cultured_species
+  Akkermansia muciniphila:
+    phenotype: strict_anaerobe
+    evidence: cultured_species
+  Faecalibacterium prausnitzii:
+    phenotype: strict_anaerobe
+    evidence: cultured_species
+    note: Extremely oxygen-sensitive; among the first organisms lost to gut oxygenation.
+  Bilophila wadsworthia:
+    phenotype: strict_anaerobe
+    evidence: cultured_species
+    note: Sulfite-reducing anaerobe, not a sulfate reducer (spec section 5.2, F26).
+  Methanobrevibacter smithii:
+    phenotype: strict_anaerobe
+    evidence: cultured_species
+    note: Methanogenic archaeon; oxygen-intolerant.

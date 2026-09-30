@@ -1,0 +1,1522 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Free, open-source software that turns raw shotgun stool-metagenome reads into a readable, evidence-linked gut health report.">
+      
+      
+        <meta name="author" content="OpenBiota contributors">
+      
+      
+        <link rel="canonical" href="https://openbiota.com/docs/profiles.html">
+      
+      
+        <link rel="prev" href="panels.html">
+      
+      
+        <link rel="next" href="fmt.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="images/openbiota-mark.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Disease patterns - OpenBiota Gut Health Test</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/openbiota.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#disease-similarity-profiles" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+<header class="md-header ob-header" data-md-component="header">
+  <nav class="md-header__inner ob-header__inner" aria-label="Header">
+    <a href="./../index.html" class="ob-brand" aria-label="OpenBiota home" data-md-component="logo">
+      <img src="images/openbiota-logo.svg" alt="OpenBiota" width="166" height="38">
+    </a>
+    <nav class="ob-nav" aria-label="OpenBiota">
+      <a href="./../index.html#report">The report</a>
+      <a href="./../index.html#technology">The science</a>
+      <a href="./../index.html#story">The reason</a>
+    </nav>
+    <div class="ob-actions">
+      <a class="ob-button ob-button--quiet" href="./../index.html#sample-report">
+        <svg class="icon icon-stack" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 3h13v15H7zM4 6v15h13M10 8h7M10 12h7"/></svg>
+        <span>See an example</span>
+      </a>
+      <a class="ob-button ob-button--dark" href="./../index.html#get-report">
+        <svg class="icon icon-document" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
+        <span>Free Gut Report</span>
+      </a>
+    </div>
+    <label class="md-header__button md-icon ob-drawer" for="__drawer" aria-label="Open navigation">
+      <svg class="icon icon-menu" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </label>
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="OpenBiota Gut Health Test" class="md-nav__button md-logo" aria-label="OpenBiota Gut Health Test" data-md-component="logo">
+      
+  <img src="images/openbiota-mark.svg" alt="logo">
+
+    </a>
+    OpenBiota Gut Health Test
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/openbiota-org/openbiota-gut-health-test" title="Go to repository" class="md-source" data-md-component="source" target="_blank" rel="noopener noreferrer">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quickstart.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="install.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="usage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="output.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reading the report
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="method.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Method
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="panels.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metabolite pathways
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Disease patterns
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="profiles.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Disease patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-a-percentile-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What a percentile means
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The library
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-contract-spec-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The contract (spec 3)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scoring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-rules-the-loader-enforces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two rules the loader enforces
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#confidence-is-a-vector-not-a-multiplier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Confidence is a vector, not a multiplier
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shape-of-the-result-spec-78" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shape of the result (spec 7.8)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-dysbiosis-anchor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The dysbiosis anchor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#abstention-and-the-confounder-ledger-spec-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abstention and the confounder ledger (spec 12)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference-contrasts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference contrasts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-a-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding a profile
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sources
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fmt.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FMT donor matching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="expanded_detection.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Organism detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="measured_capability.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Measured capability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="validation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="testing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="attribution.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-a-percentile-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What a percentile means
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The library
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-contract-spec-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The contract (spec 3)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scoring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-rules-the-loader-enforces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two rules the loader enforces
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#confidence-is-a-vector-not-a-multiplier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Confidence is a vector, not a multiplier
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shape-of-the-result-spec-78" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shape of the result (spec 7.8)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-dysbiosis-anchor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The dysbiosis anchor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#abstention-and-the-confounder-ledger-spec-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abstention and the confounder ledger (spec 12)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference-contrasts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference contrasts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-a-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding a profile
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sources
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/openbiota-org/openbiota-gut-health-test/edit/main/docs/PROFILES.md" title="Edit this page" class="md-content__button md-icon" rel="edit noopener noreferrer" target="_blank">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="disease-similarity-profiles">Disease similarity profiles<a class="headerlink" href="#disease-similarity-profiles" title="Permanent link">&para;</a></h1>
+<p>A profile is a declarative description of a published, group-level
+disease-associated microbiome pattern. It says which features were reported,
+which way each moved, how the finding was measured, and how far the evidence
+has come. It contains no scoring logic — that lives in <code>openbiota/scoring.py</code>,
+which has no knowledge of which condition it is scoring.</p>
+<p>Thirty-three profiles ship. List them with <code>openbiota profiles</code>, inspect one
+with <code>openbiota profiles --show crohns</code>. Every profile in the library is scored
+on every sample, and the result is read as a <em>shape</em> across the library rather
+than as thirty-three independent verdicts.</p>
+<h2 id="what-a-percentile-means">What a percentile means<a class="headerlink" href="#what-a-percentile-means" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>The sample is more concordant with this profile's prespecified pattern than
+that fraction of the matched reference set.</p>
+</blockquote>
+<p>It is <strong>not</strong> a probability of having the condition. Every design decision
+below follows from holding that distinction.</p>
+<h2 id="the-library">The library<a class="headerlink" href="#the-library" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Profile</th>
+<th>Family</th>
+<th>Maturity</th>
+<th>Study modules (fused)</th>
+<th>Features</th>
+<th>Evidence</th>
+<th>Challenge for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>crc</code></td>
+<td>colorectal</td>
+<td>P3</td>
+<td>5 (2)</td>
+<td>22</td>
+<td>taxa · genes · carriers</td>
+<td>adenoma, crohns, cirrhosis</td>
+</tr>
+<tr>
+<td><code>adenoma</code></td>
+<td>colorectal</td>
+<td>P3</td>
+<td>3 (2)</td>
+<td>11</td>
+<td>taxa · genes</td>
+<td>crc</td>
+</tr>
+<tr>
+<td><code>crohns</code></td>
+<td>ibd</td>
+<td>P3</td>
+<td>7 (5)</td>
+<td>41</td>
+<td>taxa · genes · carriers · ecology</td>
+<td>crc, uc</td>
+</tr>
+<tr>
+<td><code>uc</code></td>
+<td>ibd</td>
+<td>P3</td>
+<td>6 (4)</td>
+<td>19</td>
+<td>taxa · genes · carriers · ecology</td>
+<td>crohns, crc</td>
+</tr>
+<tr>
+<td><code>ibd</code></td>
+<td>ibd</td>
+<td>P3</td>
+<td>6 (4)</td>
+<td>27</td>
+<td>taxa · genes · carriers · ecology</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>ibs</code>, <code>ibs_c</code>, <code>ibs_d</code>, <code>ibs_m</code></td>
+<td>ibs</td>
+<td>P2 / P1</td>
+<td>5 (4) / 3 (2) / 3 (2) / 2 (1)</td>
+<td>19 / 4 / 11 / 6</td>
+<td>taxa · genes (· ecology)</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>t2d</code></td>
+<td>cardiometabolic</td>
+<td>P3</td>
+<td>5 (3)</td>
+<td>23</td>
+<td>taxa · genes · carriers</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>acvd</code></td>
+<td>cardiometabolic</td>
+<td>P3</td>
+<td>4 (2)</td>
+<td>22</td>
+<td>taxa · genes · carriers</td>
+<td>cirrhosis, t2d</td>
+</tr>
+<tr>
+<td><code>hypertension</code></td>
+<td>cardiometabolic</td>
+<td>P2</td>
+<td>3 (2)</td>
+<td>13</td>
+<td>taxa · genes · ecology</td>
+<td>acvd, obesity, t2d</td>
+</tr>
+<tr>
+<td><code>ckd</code></td>
+<td>cardiometabolic</td>
+<td>P2</td>
+<td>4 (2)</td>
+<td>21</td>
+<td>taxa · genes · carriers</td>
+<td>t2d, hypertension, cirrhosis</td>
+</tr>
+<tr>
+<td><code>obesity</code></td>
+<td>cardiometabolic</td>
+<td>P3</td>
+<td>6 (3)</td>
+<td>9</td>
+<td>taxa · genes · carriers · ecology</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>cirrhosis</code></td>
+<td>liver</td>
+<td>P3</td>
+<td>5 (3)</td>
+<td>23</td>
+<td>taxa · genes · carriers · ecology</td>
+<td>crc, crohns</td>
+</tr>
+<tr>
+<td><code>masld</code></td>
+<td>liver</td>
+<td>P2</td>
+<td>6 (4)</td>
+<td>16</td>
+<td>taxa · genes · carriers · ecology</td>
+<td>cirrhosis, obesity, t2d</td>
+</tr>
+<tr>
+<td><code>parkinsons</code></td>
+<td>neurodegeneration</td>
+<td>P3</td>
+<td>5 (3)</td>
+<td>30</td>
+<td>taxa · genes · carriers</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>ad_clinical</code>, <code>ad_mci</code>, <code>ad_preclinical_amyloid</code></td>
+<td>alzheimers_continuum</td>
+<td>P2</td>
+<td>4 (1) / 3 (1) / 2 (1)</td>
+<td>20 / 10 / 5</td>
+<td>taxa · genes (· pathways, unbound)</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>ms</code></td>
+<td>autoimmune</td>
+<td>P3</td>
+<td>5 (3)</td>
+<td>16</td>
+<td>taxa · genes · carriers</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>ra</code></td>
+<td>autoimmune</td>
+<td>P3</td>
+<td>4 (2)</td>
+<td>11</td>
+<td>taxa · genes (· strain, unbound)</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>t1d</code></td>
+<td>autoimmune</td>
+<td>P2</td>
+<td>5 (3)</td>
+<td>13</td>
+<td>taxa · genes · carriers · ecology</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>celiac</code></td>
+<td>autoimmune</td>
+<td>P2</td>
+<td>4 (2)</td>
+<td>14</td>
+<td>taxa · genes (· CAZy, unbound)</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>ankylosing_spondylitis</code></td>
+<td>autoimmune</td>
+<td>P2</td>
+<td>4 (2)</td>
+<td>16</td>
+<td>taxa · genes · carriers</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>mdd</code></td>
+<td>psychiatric</td>
+<td>P2</td>
+<td>4 (3)</td>
+<td>16</td>
+<td>taxa · genes</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>alopecia_areata</code></td>
+<td>alopecia_areata</td>
+<td>P1</td>
+<td>9 (5)</td>
+<td>29</td>
+<td>taxa · genes (· pathways, unbound)</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>androgenetic_alopecia</code></td>
+<td>androgenetic_alopecia</td>
+<td>P1</td>
+<td>4 (3)</td>
+<td>11</td>
+<td>taxa · genes</td>
+<td>— (sex-stratified)</td>
+</tr>
+<tr>
+<td><code>mecfs</code></td>
+<td>post_infectious</td>
+<td>P2</td>
+<td>3 (3)</td>
+<td>7</td>
+<td>taxa · genes · ecology</td>
+<td>longcovid, ibs</td>
+</tr>
+<tr>
+<td><code>longcovid</code></td>
+<td>post_infectious</td>
+<td>P1</td>
+<td>4 (3)</td>
+<td>15</td>
+<td>taxa · genes · ecology</td>
+<td>mecfs, ibs</td>
+</tr>
+</tbody>
+</table>
+<p>"Study modules" counts every module in the profile; "fused" is how many enter
+the combined score (the rest are sensitivity panels, phenotype panels, or
+modules whose evidence type has no engine yet). Measured accuracy where a
+labelled cohort exists: <a href="validation.html">VALIDATION.md</a>.</p>
+<h2 id="the-contract-spec-3">The contract (spec 3)<a class="headerlink" href="#the-contract-spec-3" title="Permanent link">&para;</a></h2>
+<p>Every profile declares what kind of claim it is making, and the loader refuses
+one that does not.</p>
+<p><strong>Evidence type</strong> — what was measured. Bound types have an engine in this
+pipeline; unbound types load, are shown, and say what would bind them.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Claim level</th>
+<th>Engine</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TAX_REL</code>, <code>TAX_PRES</code></td>
+<td>observed</td>
+<td>MetaPhlAn 3 species relative abundance / presence</td>
+<td>bound</td>
+</tr>
+<tr>
+<td><code>GENE_ABUND</code></td>
+<td>genomic_capacity</td>
+<td>DIAMOND gene panels, rpoB-normalised</td>
+<td>bound</td>
+</tr>
+<tr>
+<td><code>CARRIER_ABUNDANCE</code></td>
+<td>carrier_proxy</td>
+<td>sum of a curated carrier set (panel <code>organisms</code> or a taxon group)</td>
+<td>bound</td>
+</tr>
+<tr>
+<td><code>ECO</code></td>
+<td>observed</td>
+<td>Shannon, richness, evenness</td>
+<td>bound</td>
+</tr>
+<tr>
+<td><code>STRAIN</code>, <code>PANCNV</code></td>
+<td>observed</td>
+<td>StrainPhlAn / MIDAS2 / PanPhlAn</td>
+<td>unbound</td>
+</tr>
+<tr>
+<td><code>SEQ_HMM</code>, <code>PATH_ABUND</code>, <code>PATH_COMPL</code>, <code>CAZY</code>, <code>AMR</code></td>
+<td>genomic_capacity</td>
+<td>HMMER / HUMAnN 3 / assembly + dbCAN3 / CARD</td>
+<td>unbound</td>
+</tr>
+<tr>
+<td><code>FLUX</code>, <code>METAB</code>, <code>MODEL</code></td>
+<td>flux_predicted / external_measured / model_output</td>
+<td>AGORA2 / metabolomics file / frozen container</td>
+<td>unbound</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Evidence maturity</strong> — how far the research has come, P0 to P5:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P0</td>
+<td>animal, case report, or mechanistic hypothesis only</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>one small human cohort, amplicon-only, or inaccessible individual data</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>usable human shotgun cohort, or multiple compatible human association cohorts</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>independent human replication with coherent task and assay</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>external population validation with a frozen model and proper participant split</td>
+</tr>
+<tr>
+<td>P5</td>
+<td>prospective intended-use validation with calibrated clinical performance</td>
+</tr>
+</tbody>
+</table>
+<p>Nothing in the library is above P3. The report prints the grade beside every
+score.</p>
+<p><strong>Assay transport</strong> — whether the source study measured what this pipeline
+measures. <code>native</code> means shotgun species or genes. <code>amplicon_taxon_to_shotgun</code>
+means a 16S genus-level finding carried onto shotgun species, and is the only
+way a genus-level feature is accepted (below). <code>predicted_to_measured</code> means a
+PICRUSt inference tested against genes actually counted.</p>
+<p><strong>Study modules and fusion.</strong> A v3 profile is a set of modules, one per
+independent published cohort, each carrying a <code>study_group</code>. Modules that share
+participants share one group. Fusion is <code>study_average</code>: independent groups are
+averaged with equal weight, so a study contributing twenty correlated taxa
+cannot outweigh a study contributing one replicated feature. <code>sensitivity_panel</code>
+and <code>phenotype_panel</code> modules are scored and shown but never fused. The three
+legacy profiles (<code>crc</code>, <code>mecfs</code>, <code>longcovid</code>) keep their taxonomic /
+functional / ecological split with the documented 50/35/15 weights.</p>
+<h2 id="scoring">Scoring<a class="headerlink" href="#scoring" title="Permanent link">&para;</a></h2>
+<p><strong>1 — Per-feature robust value</strong>, against the matched reference only:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>z_i = (CLR_i(sample) − median_i(ref)) / (1.4826 × MAD_i(ref))
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>v_i = d_i × clip(z_i, −3, +3) / 3
+</code></pre></div>
+<p><code>d_i</code> is +1 for a reported increase and −1 for a decrease, so <code>v_i</code> runs from
+−1 (opposite) to +1 (strongly concordant). Zero-inflated features (carried by
+under 80% of the reference) use a prevalence-aware rank instead: absence is a
+category, not a small number, because the CLR of an absent taxon carries only
+the denominator's noise. Median and MAD, not mean and SD, because abundance
+distributions are skewed enough that one outlier otherwise sets the scale.
+Centred log-ratio, because relative abundances are compositional.</p>
+<p>Genus-level and carrier features are the log-ratio of a <em>sum</em> of species
+against the same prevalent-core frame, computed identically for the sample and
+for every reference sample.</p>
+<p><strong>2 — Module aggregation.</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>module = Σ(wᵢ vᵢ) / Σ(wᵢ)
+</code></pre></div>
+<p><code>w</code> is the evidence weight. The three other factors every feature carries —
+<code>q</code> cohort independence, <code>s</code> disease specificity, <code>c</code> cross-study direction
+agreement — are <strong>recorded for audit and printed in the decomposition table,
+not multiplied into the score</strong>. Multiplying them made every profile's number
+depend on four curator judgements at once; the v3 contract keeps them visible
+and keeps the score simple.</p>
+<p><strong>3 — Percentile.</strong> Every reference sample is scored through the identical
+path and the sample is ranked against that null. Never by rescaling the raw
+value. A bootstrap over the reference gives a likely range (the report's
+"likely 71–100").</p>
+<p><strong>4 — Fusion</strong>, as declared by the profile (<code>study_average</code> or the legacy
+weighted split).</p>
+<h2 id="two-rules-the-loader-enforces">Two rules the loader enforces<a class="headerlink" href="#two-rules-the-loader-enforces" title="Permanent link">&para;</a></h2>
+<p><strong>Genus level is conditional.</strong> Aggregating a genus reverses direction in
+practice: genus <em>Faecalibacterium</em> has been reported higher in a cohort where
+<em>F. prausnitzii</em> was lower. So a <code>genus</code> feature is accepted only when the
+module declares <code>assay_transport: amplicon_taxon_to_shotgun</code> — the source could
+not have named the species — and, for the conflicted genera
+(<em>Faecalibacterium</em>, <em>Streptococcus</em>, <em>Veillonella</em>, <em>Prevotella</em>, <em>Blautia</em>,
+<em>Lachnospiraceae</em>, <em>Alistipes</em>, <em>Bacteroides</em>, <em>Dorea</em>), only when it also
+declares <code>direction_conflict: material</code>. Shotgun-derived genus evidence is
+never accepted: the study could have named the species and did not.</p>
+<p><strong>Every feature carries all four factors and a source.</strong> A feature without
+them cannot be audited, so it is not accepted.</p>
+<h2 id="confidence-is-a-vector-not-a-multiplier">Confidence is a vector, not a multiplier<a class="headerlink" href="#confidence-is-a-vector-not-a-multiplier" title="Permanent link">&para;</a></h2>
+<p>Beside every score the report prints, and never folds into the number:</p>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Answers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>technical reliability</td>
+<td>depth, host fraction, reference match, profiler-version agreement</td>
+</tr>
+<tr>
+<td>independent feature coverage</td>
+<td>share of the pattern's independent evidence clusters this sample could measure</td>
+</tr>
+<tr>
+<td>evidence maturity</td>
+<td>the P-grade</td>
+</tr>
+<tr>
+<td>assay transportability</td>
+<td>native / transported</td>
+</tr>
+<tr>
+<td>population match</td>
+<td>how well the matched reference resembles the subject</td>
+</tr>
+<tr>
+<td>specificity</td>
+<td>empirical (challenge-cohort AUROC, where measured) or the literature-uniqueness prior</td>
+</tr>
+<tr>
+<td>out-of-distribution</td>
+<td>whether the sample sits outside the reference for the features used</td>
+</tr>
+<tr>
+<td>direction conflict</td>
+<td>none / documented / material</td>
+</tr>
+<tr>
+<td>interval width</td>
+<td>the bootstrap range</td>
+</tr>
+</tbody>
+</table>
+<p>A weak row means "less certain", not "lower".</p>
+<h2 id="shape-of-the-result-spec-78">Shape of the result (spec 7.8)<a class="headerlink" href="#shape-of-the-result-spec-78" title="Permanent link">&para;</a></h2>
+<p>Thirty percentiles are not thirty findings. After every profile is scored the
+library is read as a whole:</p>
+<ul>
+<li><strong>quiet</strong> — nothing above the 75th percentile (the report's typical band)</li>
+<li><strong>specific</strong> — one or two profiles above it, with distinctive features</li>
+<li><strong>diffuse</strong> — a large fraction above it, resting on shared features
+  (butyrate-producer loss, oral-taxa gain); the general dysbiosis index is the
+  headline, not any disease</li>
+<li><strong>mixed</strong> — several above it with partial specificity</li>
+</ul>
+<p>Each scored profile also lists its <strong>competing</strong> profiles (the next-highest
+from other families) and the <strong>top-two margin</strong>, so a 90th-percentile result
+two points ahead of its neighbour reads as what it is.</p>
+<p><strong>Specificity</strong> is empirical where the challenge-cohort matrix in
+<code>docs/profile_validation.json</code> covers the profile (worst off-target AUROC
+against its own), and otherwise the labelled <em>literature-uniqueness prior</em>:
+the mean over the profile's features of 1 / (number of profiles sharing that
+feature). The report always says which one it used.</p>
+<h2 id="the-dysbiosis-anchor">The dysbiosis anchor<a class="headerlink" href="#the-dysbiosis-anchor" title="Permanent link">&para;</a></h2>
+<p>GMWI2 runs on every sample and is reported beside every profile score. If the
+anchor is strongly negative the community is generally disturbed and a high
+score on any profile probably reflects that. The 95 published coefficients are
+stored verbatim in <code>openbiota/data/gmwi2_model.json</code>; <code>tests/test_dysbiosis.py</code>
+reproduces the authors' worked example to four decimal places.</p>
+<h2 id="abstention-and-the-confounder-ledger-spec-12">Abstention and the confounder ledger (spec 12)<a class="headerlink" href="#abstention-and-the-confounder-ledger-spec-12" title="Permanent link">&para;</a></h2>
+<p>A refused score is more useful than a confident wrong one. Profiles abstain
+when:</p>
+<ul>
+<li>broad-spectrum antibiotics fall inside the declared window (90 days)</li>
+<li>usable non-host pairs fall below 500,000</li>
+<li>required metadata is missing — <code>t2d</code> needs metformin status, <code>celiac</code> needs
+  gluten-free-diet status, <code>androgenetic_alopecia</code> needs sex</li>
+<li>a <code>mandatory_match</code> field (age band, sex) cannot be matched in the reference</li>
+</ul>
+<p>An abstaining profile renders the reasons and what would change them. Beside
+the library the report prints a <strong>confounder ledger</strong>: what was known about the
+subject when scoring (antibiotics, metformin, PPI, gluten-free diet, country,
+age, sex, stool form, hospitalisation, kidney function, medications,
+sequencing batch from the FASTQ headers), what was missing and what it would
+have changed, and which profiles abstained because of it.</p>
+<p><strong>Opt-in profiles.</strong> The mechanism exists — a profile marked <code>opt_in: true</code>
+is scored only with <code>--include-opt-in</code> — but no profile in the shipped library
+uses it. <code>mdd</code> did until the transfer evidence was reviewed: patient stool has
+induced depression-like behaviour in germ-free mice and in microbiota-depleted
+rats, so the pattern is measured and reported like every other one, under the
+same caveat that a percentile is resemblance and not a diagnosis.</p>
+<h2 id="reference-contrasts">Reference contrasts<a class="headerlink" href="#reference-contrasts" title="Permanent link">&para;</a></h2>
+<p>Profiles need two contrasts: people with the same exposure who did <em>not</em>
+develop the syndrome (primary), and general healthy adults matched on the
+non-exposure variables (secondary). For ME/CFS and Long COVID the primary
+contrast <strong>does not exist</strong> in the published cohorts; both profiles declare
+<code>primary: source: null</code>, say so in the report, and take a confidence penalty.</p>
+<h2 id="adding-a-profile">Adding a profile<a class="headerlink" href="#adding-a-profile" title="Permanent link">&para;</a></h2>
+<p>Drop a YAML file in <code>profiles/</code>. The loader checks:</p>
+<ul>
+<li><code>disease</code>, <code>task</code>, <code>body_site</code>, <code>population</code>, <code>evidence_maturity</code></li>
+<li>semantic <code>version</code> — changing any weight bumps it</li>
+<li>every module has an <code>evidence_type</code>, a <code>study_group</code>, an <code>assay_transport</code>
+  and a <code>module_type</code></li>
+<li>every feature has <code>direction</code>, <code>w q s c</code> in [0, 1], a <code>level</code>, a <code>source</code></li>
+<li>genus features obey the transport rule above</li>
+<li><code>stratify_on</code> names a subject field; <code>mandatory_match</code> fields exist</li>
+<li><code>challenge_for</code> names profiles that exist</li>
+<li>cross-engine checks name features that exist</li>
+</ul>
+<p><code>profiles/crohns.yaml</code> is the fullest v3 example (seven study modules,
+carrier features, an amplicon-transported module, challenge declarations);
+<code>profiles/mecfs.yaml</code> the fullest legacy one (duration strata, cross-engine
+check, absent primary contrast).</p>
+<h2 id="sources">Sources<a class="headerlink" href="#sources" title="Permanent link">&para;</a></h2>
+<p>Every profile carries its citations inline, per feature and at the profile
+level; <code>openbiota profiles --show &lt;name&gt; --json</code> prints them all. Method sources:</p>
+<ul>
+<li>Compositional data: Gloor et al., <em>Front Microbiol</em> 2017;8:2224,
+  <a target="_blank" rel="noopener noreferrer" href="https://doi.org/10.3389/fmicb.2017.02224">doi:10.3389/fmicb.2017.02224</a></li>
+<li>GMWI2: Chang &amp; Gupta et al., <em>Nat Commun</em> 2024;15:7447,
+  <a target="_blank" rel="noopener noreferrer" href="https://doi.org/10.1038/s41467-024-51651-9">doi:10.1038/s41467-024-51651-9</a></li>
+<li>MetaPhlAn: Blanco-Míguez et al., <em>Nat Biotechnol</em> 2023,
+  <a target="_blank" rel="noopener noreferrer" href="https://doi.org/10.1038/s41587-023-01688-w">doi:10.1038/s41587-023-01688-w</a></li>
+<li>curatedMetagenomicData: Pasolli et al., <em>Nat Methods</em> 2017;14:1023–1024,
+  <a target="_blank" rel="noopener noreferrer" href="https://doi.org/10.1038/nmeth.4468">doi:10.1038/nmeth.4468</a></li>
+<li>Colorectal cancer: Wirbel et al., <em>Nat Med</em> 2019;25:679–689; Thomas et al.,
+  <em>Nat Med</em> 2019;25:667–678</li>
+<li>ME/CFS: Guo et al. and Xiong et al., <em>Cell Host Microbe</em> 2023;31</li>
+<li>Long COVID: Liu et al., <em>Gut</em> 2022;71:544–552; Su et al., <em>Cell Host
+  Microbe</em> 2024;32:651–660</li>
+</ul>
+<p>Measured performance and limitations: <a href="validation.html">VALIDATION.md</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+  
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  <div class="md-copyright__highlight">
+    <span class="ob-foot__part">&copy; 2026 <a href="./../index.html">OpenBiota</a></span><span class="ob-foot__sep">&middot;</span>
+    <span class="ob-foot__part">Built for the good of humanity.</span><span class="ob-foot__sep">&middot;</span>
+    <span class="ob-foot__part">Free for noncommercial use</span><span class="ob-foot__sep">&middot;</span>
+    <span class="ob-foot__part">Research use only, not a diagnostic test</span>
+  </div>
+</div>
+      
+        <div class="md-social">
+  <a class="ob-code-link" href="https://github.com/openbiota-org/openbiota-gut-health-test" target="_blank" rel="noopener noreferrer" aria-label="OpenBiota on GitHub">
+    <svg class="icon icon-github" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="currentColor" stroke="none" d="M12 .75a11.25 11.25 0 0 0-3.558 21.923c.562.104.77-.244.77-.542 0-.267-.01-.974-.016-1.912-3.13.68-3.791-1.507-3.791-1.507-.512-1.301-1.25-1.647-1.25-1.647-1.023-.7.077-.686.077-.686 1.13.08 1.725 1.16 1.725 1.16 1.006 1.724 2.64 1.226 3.282.938.102-.73.394-1.227.716-1.51-2.499-.284-5.126-1.25-5.126-5.565 0-1.23.44-2.235 1.159-3.023-.116-.284-.502-1.428.11-2.976 0 0 .944-.302 3.094 1.155A10.787 10.787 0 0 1 12 6.18c.956.005 1.918.13 2.816.379 2.148-1.457 3.09-1.155 3.09-1.155.613 1.548.228 2.692.112 2.976.721.788 1.157 1.793 1.157 3.023 0 4.326-2.63 5.278-5.137 5.557.404.35.765 1.043.765 2.1 0 1.516-.013 2.738-.013 3.109 0 .3.204.65.774.541A11.251 11.251 0 0 0 12 .75Z"/></svg>
+    <span>Code</span>
+  </a>
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+  <div class="ob-mobile-actions" aria-label="Get the OpenBiota report">
+    <a class="ob-button ob-button--outline" href="./../index.html#sample-report">
+      <svg class="icon icon-stack" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 3h13v15H7zM4 6v15h13M10 8h7M10 12h7"/></svg>
+      <span>See an example</span>
+    </a>
+    <a class="ob-button ob-button--dark" href="./../index.html#get-report">
+      <svg class="icon icon-document" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
+      <span>Get Free Report</span>
+    </a>
+  </div>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.indexes", "content.code.copy", "content.action.edit", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "source_id": "singlem_globdb",
+  "files": {
+    "singlem/GlobDB_r232.metapackage_v4.smpkg.tar.gz": {
+      "url": "https://fileshare.lisc.univie.ac.at/globdb/globdb_r232/taxonomic_profiling/GlobDB_r232.metapackage_v4.smpkg.tar.gz",
+      "size": 3845940734,
+      "retrieved_at": "2026-09-26T23:14:02-07:00",
+      "sha256": "b25c011e762fe16bb44388e815e1c626fcea4b07236d2995a3fcd66c221dd82d",
+      "verified": true,
+      "publisher_checksum": "md5:b463cd6b734adbcf099de82947ea5525",
+      "note": "",
+      "verification": "publisher md5"
+    }
+  },
+  "release_id": "GlobDB_r232.metapackage_v4",
+  "taxonomy_release": "GlobDB r232",
+  "license": "CC BY-SA 4.0",
+  "count_unit": "",
+  "source_count": null
+}

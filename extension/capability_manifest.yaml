@@ -1,0 +1,2409 @@
+# The normative completeness manifest of BUILD_SPEC_v0.8.3 section 16.
+#
+# Generated from the specification's own tables, then reviewed. Every row is
+# a report *concept*: several rows may share one canonical measurement (M064
+# and M090 are the same organism seen twice), and a row bound to a legacy
+# metric must not be re-implemented. `binding` is the specification's text;
+# `implementation` is what this application actually does about it, and is
+# the field the coverage report reads.
+#
+# implementation states:
+#   legacy_surfaced      an existing measurement, newly viewed; value unchanged
+#   extension_computed   a new measurement this release calculates
+#   evidence_card        a mechanism/context card, where the spec asks for one
+#   external_assay       needs an imported laboratory result to have a value
+#   not_implemented      owed, and not yet built
+
+schema_version: openbiota.capability-manifest/1.0
+spec_version: 0.8.3
+features:
+- id: A01
+  addition: Fibre and carbohydrate utilization
+  retain: Existing SCFA panels and fibre advice
+  required_output: Fourteen distinct substrate views with shared evidence explicitly linked and
+    mandatory specificity discrimination
+  implementation: extension_computed
+  module: openbiota.extension.substrates
+  metric_ids:
+  - ext083.carb.cellulose
+  - ext083.carb.starch_general
+  - ext083.carb.resistant_starch
+  - ext083.carb.chitin
+  - ext083.carb.pectin
+  - ext083.carb.inulin
+  - ext083.carb.fos
+  - ext083.carb.gos
+  - ext083.carb.xos
+  - ext083.carb.imo
+  - ext083.carb.lactose
+  - ext083.carb.beta_glucan
+  - ext083.carb.arabinoxylan
+  - ext083.carb.galactomannan
+  tests:
+  - tests/test_extension_substrates.py
+  report_section: report.functions
+  source_ids:
+  - F01
+  - F02
+  - F03
+  - F04
+  - F05
+  note: All fourteen views and their discrimination rules are built and tested, including each of
+    the four overclaims the specification names by hand - GH13 alone is general amylolysis and not
+    resistant starch, GH32 alone cannot separate FOS from inulin, GH2/GH42 alone do not establish
+    GOS utilisation, and GH18 alone is not an intact chitin pathway. Shared families are declared
+    from both sides and a shared gene is counted once in any total. The enzyme reference set the
+    rules grade is a dbCAN snapshot installed by "make substrate-refs", which also reconciles the
+    declared families against the release's own family-substrate mapping and reports every
+    disagreement. Until it is installed every card reads not_assayed, which is not the same as
+    these enzymes were not found.
+
+- id: A02
+  addition: Fermentation network
+  retain: Existing butyrate, propionate, methane, H2S and TMA scores, unchanged
+  required_output: Acetate, lactate formation and utilization, succinate formation and
+    utilization, hydrogen production and consumption, and a substrate-intermediate-product
+    cross-feeding diagram
+  implementation: extension_computed
+  module: openbiota.extension.fermentation
+  metric_ids:
+  - ext083.fermentation.acetate_formation
+  - ext083.fermentation.lactate_formation
+  - ext083.fermentation.lactate_utilisation
+  - ext083.fermentation.succinate_formation
+  - ext083.fermentation.succinate_utilisation
+  - ext083.fermentation.hydrogen_production
+  - ext083.fermentation.hydrogen_consumption
+  tests:
+  - tests/test_extension_substrates.py
+  report_section: report.functions
+  source_ids:
+  - F08
+  - F24
+  - F25
+  note: Thirteen routes across the seven required measurements, each naming the genes it needs and
+    the genes that are suggestive but insufficient. Both discriminations the specification names
+    are enforced - an AMP-forming acs supports acetate assimilation and not formation, and a
+    glycyl-radical enzyme is not IslA without its activase - and the three propionate chemistries
+    and the separate sulfur endpoints stay apart. Production and consumption of a metabolite are
+    never netted, because a community that both makes and uses hydrogen is not one with no
+    hydrogen. Only a route with every required gene draws a solid edge; the rest are dashed
+    hypotheses. The existing five scores are read and preserved, not recomputed. Against the
+    current 25 panels every route is partial with its missing genes named, which is the honest
+    state until the F08-F14 and F24-F27 reference sets are installed.
+
+- id: A03
+  addition: Complete vitamin pathway overview
+  retain: Existing B2, B7, B9, B12 and K2 panels, unchanged
+  required_output: Nine vitamins with separate synthesis, salvage and uptake columns; B1, B3, B5
+    and B6 newly reconstructed
+  implementation: extension_computed
+  module: openbiota.extension.vitamins
+  metric_ids:
+  - ext083.vitamin.b1
+  - ext083.vitamin.b3
+  - ext083.vitamin.b5
+  - ext083.vitamin.b6
+  tests:
+  - tests/test_extension_substrates.py
+  report_section: report.functions
+  source_ids:
+  - F06
+  - F07
+  note: Four vitamins reconstructed and five reused without rescoring. Synthesis, salvage and
+    uptake are three columns and are never added, so a transport gene cannot read as production.
+    A branch is not a pathway - B1 needs both rings and the synthase that joins them, B5 needs
+    both branches and the ligase - and downstream use is not a second production route, which is
+    why coaA is absent from the B5 definition. B6 treats the DXP-dependent and DXP-independent
+    routes as genuine alternatives, so either complete route suffices and one isolated homolog
+    does not. A gene no panel searched for reads not_assayed rather than absent, and a column the
+    vitamin has no modelled route for reads not_applicable; both are distinct from a route that
+    was looked for and not found. The reused K2 and B12 details say what their genes cannot
+    establish - a chain length and a specific corrinoid respectively.
+
+- id: A04
+  addition: Protein and nitrogen metabolism
+  retain: Existing urease, indole, IPA, p-cresol, BCAA and CutC readings, unchanged
+  required_output: Proteolysis, peptide transport, amino-acid fermentation including Stickland,
+    branched-chain fatty acid formation, non-urease ammonia routes, and aromatic precursors
+  implementation: extension_computed
+  module: openbiota.extension.nitrogen
+  metric_ids:
+  - ext083.nitrogen.proteolysis
+  - ext083.nitrogen.peptide_transport
+  - ext083.nitrogen.amino_acid_fermentation
+  - ext083.nitrogen.bcfa
+  - ext083.nitrogen.ammonia
+  - ext083.nitrogen.aromatic
+  tests:
+  - tests/test_extension_substrates.py
+  report_section: report.functions
+  source_ids:
+  - F10
+  - F11
+  - F12
+  - F13
+  - F14
+  note: Six modules that keep apart what a reader blurs. Protein breakdown, BCAA synthesis and
+    BCAA fermentation are three concepts with three readings - the existing bcaa panel measures
+    the second and this adds the third, which runs the other way. Proteolysis is deliberately not
+    aggregated, because its housekeeping members would make the total track biomass rather than
+    dietary protein reaching the colon, and those members are marked so they cannot carry a
+    finding on their own. Urease keeps its own reading and the non-urease ammonia routes are
+    separate. Microbial phenylacetate and TMA are carried as precursors with the host step named,
+    so neither is printed as the circulating PAGln or TMAO the host makes from it.
+
+- id: A05
+  addition: Expanded neuroactive metabolism
+  retain: Existing GABA, dopamine, tryptamine and histamine readings
+  required_output: GABA degradation as a measured addition, synthesis and degradation side by
+    side, and the 4-aminobutyrate-to-butyrate route where supported
+  implementation: extension_computed
+  module: openbiota.extension.biotransform
+  metric_ids:
+  - ext083.neuro.gaba_synthesis
+  - ext083.neuro.gaba_degradation
+  - ext083.neuro.gaba_to_butyrate
+  tests:
+  - tests/test_extension_substrates.py
+  report_section: report.functions
+  source_ids:
+  - F15
+  - F16
+  note: Synthesis and degradation are shown side by side and never subtracted, because a
+    difference between two percentiles is not a net flux. Where a ratio is offered it uses raw
+    copies per 100 genomes, prints its formula and shows both components, and it is withheld
+    rather than dividing by zero. An independent scorer over the Gut Brain Module definitions
+    avoids making a noncommercial binary a production dependency.
+
+- id: A06
+  addition: Polyphenol and plant-compound conversion
+  retain: Existing readings unchanged
+  required_output: Urolithin 9-dehydroxylation, equol conversion and glucosinolate-to-
+    isothiocyanate as distinct metric IDs with their own reference distributions
+  implementation: extension_computed
+  module: openbiota.extension.biotransform
+  metric_ids:
+  - ext083.polyphenol.urolithin_9_dehydroxylation
+  - ext083.polyphenol.equol_daidzein_conversion
+  - ext083.diet.glucosinolate_isothiocyanate_conversion
+  tests:
+  - tests/test_extension_substrates.py
+  report_section: report.functions
+  source_ids:
+  - F19
+  - F20
+  - F21
+  - F22
+  - F23
+  note: All three ucdCFO components are required and the step is declared as one reaction of the
+    ellagitannin pathway rather than the whole of it. UrdA is a declared negative control, and a
+    panel matching it withholds the urolithin step rather than publishing the false positive,
+    because UrdA acts on urocanate and makes imidazole propionate. Equol needs the validated
+    DZNR, DHDR and THDR chemistry - a general reductase domain is not evidence, and the eqlA/B/C
+    aliases need strain-specific mapping. The glucosinolate core is carried as the boolean the
+    specification states, BT2158 with either BT2156 or BT2157, rather than flattened to a gene
+    list. DNA evidence is never a producer metabotype; that needs a substrate challenge.
+
+- id: A07
+  addition: GLP-1-related microbial mechanisms
+  retain: Existing SCFA, bile-acid and indole readings, unchanged
+  required_output: Separate channels for SCFA signalling, bile-acid transformation, indole
+    routes and experimentally supported microbial proteins
+  implementation: extension_computed
+  module: openbiota.extension.biotransform
+  metric_ids:
+  - ext083.glp1.scfa_signalling
+  - ext083.glp1.bile_acid_signalling
+  - ext083.glp1.indole_signalling
+  - ext083.glp1.microbial_protein
+  tests:
+  - tests/test_extension_substrates.py
+  report_section: report.functions
+  source_ids:
+  - F43
+  note: Four channels kept apart and never summed, because they are not measurements of the same
+    thing. FFAR2, FFAR3, GCG, TGR5 and DPP4 are named as host rather than microbial, and none of
+    them is a gene any channel searches for - a stool metagenome cannot contain them. Indole
+    routes are assigned no universal direction, since the evidence goes both ways and depends on
+    exposure and context.
+
+- id: A08
+  addition: Mucin, LPS and bile-acid detail
+  retain: Existing mucin-associated group, hexa-LPS group and bile-acid scores
+  required_output: Mucin glycan CAZymes with substrate context, a lipid-A structural evidence
+    table, and BSH preference, bai completeness, HSDH transformations and reconjugation as
+    distinct components
+  implementation: extension_computed
+  module: openbiota.extension.biotransform
+  metric_ids:
+  - ext083.mucin.glycan_foraging
+  - ext083.lps.lipid_a_modification
+  - ext083.bile.deconjugation
+  - ext083.bile.dehydroxylation
+  - ext083.bile.hsdh_transformation
+  tests:
+  - tests/test_extension_substrates.py
+  report_section: report.functions
+  source_ids:
+  - F33
+  - F34
+  - F35
+  - F36
+  - F41
+  - F42
+  note: Mucin foraging is stated as physiological - capacity is not an image of an eroded mucus
+    layer - and mucin enzymes are kept apart from the dietary-fibre CAZymes with gastric and
+    colonic substrate context preserved. Lipid A reports gene evidence and its uncertainty rather
+    than an endotoxin figure, because one modification gene does not resolve a structure and
+    total Gram-negative abundance resolves nothing. Bile chemistry is a graph rather than a
+    chain - BSH also reconjugates and some HSDHs act on conjugated substrates - and BileActome
+    models are candidate annotations whose rumen validation population supplies no human
+    percentile.
+
+- id: A09
+  addition: Ecology companion dashboard
+  retain: Existing Shannon, evenness, richness and GMWI2
+  required_output: Gut community type/context, dominance, Hill diversity, composition ratios, aerotolerance
+    balance, functional redundancy and longitudinal resilience
+  implementation: extension_computed
+  module: openbiota.extension.ecology
+  metric_ids:
+  - ext083.ecology.effective_shannon_species
+  - ext083.ecology.inverse_simpson
+  - ext083.ecology.gini_simpson
+  - ext083.ecology.dominance_top1
+  - ext083.ecology.dominance_top5
+  - ext083.ecology.aerotolerant_fraction
+  - ext083.ecology.mapi
+  - ext083.ecology.composition_unresolved_share
+  - ext083.ecology.community_type.distance
+  tests:
+  - tests/test_extension_ecology.py
+  - tests/test_extension_communitytype.py
+  report_section: report.community
+  source_ids:
+  - E01
+  - E02
+  - E03
+  - E04
+  - E05
+  - E06
+  - E07
+  note: Diversity, dominance, ratios, aerotolerance, functional redundancy, the genus composition
+    view and the community-type classifier all compute for a real sample. The classifier is a
+    frozen 2-medoid model trained by scripts/train_community_type.py on 3,027 reference samples
+    from 22 studies; nothing clusters at report time. The HACK-top-17 resilience profile is still
+    owed because it needs the published 17-taxon manifest, and longitudinal recovery needs three
+    eligible baseline samples; both say so in their own rows rather than in this one.
+
+- id: A10
+  addition: Complete organism explorer
+  retain: Existing inventory, interpretation and strain lanes
+  required_output: Searchable lineage/alias views, all named screening targets, contributor lists, confidence/coverage,
+    probiotic-strain distinctions, full printable inventory
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.organisms_listed
+  - ext083.explorer.interpretation_coverage
+  report_section: report.catalogue
+  source_ids:
+  - E08
+  - E09
+  tests:
+  - tests/test_extension_explorer.py
+  readiness:
+    source_identified: true
+    retrievable: true
+    bytes_verified: true
+    registry_validated: true
+    example_reproduced: true
+    application_validated: true
+  note: Searchable resolution over all 332 fixture labels with no unresolvable, 34 sentinels, genus rollups
+    and role coverage.
+- id: A11
+  addition: Resistance overview
+  retain: Existing resistance detections
+  required_output: Class-level abundance, determinant richness, mechanism and carrier-evidence tables
+  implementation: extension_computed
+  module: openbiota.extension.resistance
+  metric_ids:
+  - ext083.resistance.determinant_richness
+  - ext083.resistance.fragment_abundance
+  report_section: report.pathogens_detail
+  source_ids:
+  - D04
+  - D05
+  - D06
+  tests:
+  - tests/test_extension_resistance.py
+  readiness:
+    source_identified: true
+    retrievable: true
+    bytes_verified: true
+    registry_validated: true
+    example_reproduced: true
+    application_validated: true
+- id: A12
+  addition: Consolidated action planner
+  retain: Existing intervention registry, evidence cards and safety rules
+  required_output: One ranked view across every evidence card, a start-here list of one to three,
+    the full catalogue by category, tradeoffs and monitoring questions, and a deduplicated food
+    checklist
+  implementation: extension_computed
+  module: openbiota.extension.planner
+  metric_ids:
+  - ext083.planner.options
+  - ext083.planner.findings_addressed
+  tests:
+  - tests/test_extension_longitudinal.py
+  report_section: report.actions
+  note: Consolidation over the existing cards, not a replacement; every option points back at the
+    cards it came from and nothing appears that the registry does not hold. The sort is
+    deterministic down to the identifier and every reason is printed, because this is
+    prioritisation and not a predicted probability of benefit. Laboratory and animal evidence
+    appears in the ordinary list with its setting named. A supplied allergy removes an option from
+    this person start-here list only, leaving the evidence record and its card intact; an unknown
+    fact is never a contraindication. A study exposure is shown as what the study did, never
+    converted into a dose. Every option carries a question that could actually be answered, and
+    none promises colonisation or a score change. The checklist reads shopping items from each
+    intervention recorded components rather than from study titles, merges aliases such as
+    cacao and cocoa, and keeps materially different products such as cocoa husk apart.
+
+- id: A13
+  addition: Longitudinal and context views
+  retain: Existing single-sample readings and their references
+  required_output: Last-three and full-trajectory views, comparability fingerprint, Bray-Curtis and
+    Jaccard distances, recovery envelope and exposure-specific follow-up templates
+  implementation: extension_computed
+  module: openbiota.extension.longitudinal
+  metric_ids:
+  - ext083.longitudinal.bray_curtis
+  - ext083.longitudinal.jaccard_distance
+  - ext083.longitudinal.return_percent
+  tests:
+  - tests/test_extension_longitudinal.py
+  report_section: report.community
+  note: A comparability fingerprint records the specimen, participant, lane, tool and database
+    versions; a change in any blocking field makes the pair descriptive_only and no distance is
+    quoted across it, because that number would measure the method change. Re-analysing one
+    specimen keeps its identity and never becomes a second timepoint. The presence floor is fixed
+    at 0.1% so a deeper run is not a richer gut, and an empty union is undefined rather than
+    perfect agreement. Recovery is computed only for a recorded event with at least three eligible
+    baselines and a displacement clearing the baseline envelope; otherwise the displacement is
+    shown and the percentage withheld. Four follow-up templates, each with its own question and
+    interval; no universal retesting interval. A single sample renders the honest view rather than
+    suppressing the section.
+
+- id: A14
+  addition: Your information, inputs and assumptions
+  retain: Existing metadata inputs, defaults and sequence analyses
+  required_output: One combined report section 25 covering supplied facts, effective assumptions,
+    optional questionnaire inputs and useful laboratory imports linked to relevant findings
+  implementation: extension_computed
+  module: openbiota.extension.inputs
+  metric_ids:
+  - ext083.inputs.register
+  tests:
+  - tests/test_extension_inputs.py
+  report_section: report.context
+  note: One register of every supplied fact, effective assumption, absence and optional laboratory
+    import, rendered as the report's new section 25 with the four following sections renumbered.
+    The existing subject-context ledger is imported rather than redesigned. An assumption can never
+    carry a reported value, an absent assay has no imputed normal and produces no normal/abnormal
+    classification, and a stored value with no consumer is labelled "Recorded; not used in this
+    report". All eight laboratory panels of spec 10.4 are recognised with their destinations; none
+    is required for the report to render.
+
+- id: A15
+  addition: Integrated layout and navigation
+  retain: Existing section structure and readings
+  required_output: New readings in their existing domain sections; clickable major-section contents
+    on page 3; linked details, complete metric index, evidence links and printable actions
+  implementation: extension_computed
+  module: openbiota.pdfsynbiotic
+  metric_ids:
+  - ext083.report.metric_index
+  tests:
+  - tests/test_pdflinks.py
+  - tests/test_extension_communitytype.py
+  report_section: report.guide
+  note: Page 3 keeps its reading guide and scale legend; the two-engine explanation, the sample-QC
+    strip and the assumptions block are removed and their content relocated, and the released space
+    carries an "Explore your results" contents table whose every cell is a clickable link generated
+    from the stable section anchors. The cover and sections 10/20 carry the "Microbial Functions &
+    Metabolism" umbrella with its one-line description; section and metric IDs are unchanged. The
+    complete index of the additional measurements sits in the technical section with each metric's
+    ID, value, unit, status and home, separating unique measurements from unavailable ones. Section
+    numbering after the inserted register is generated from the anchors, and the outline, named
+    destinations and internal links were verified on the rendered report.
+
+- id: A16
+  addition: Personalized synbiotic options
+  retain: Existing metabolism, action and matching algorithms
+  required_output: Required strain–substrate evidence matching and transparent candidate ranking; optional
+    reproducible metabolic scenarios with explicit coverage and uncertainty
+  implementation: extension_computed
+  module: openbiota.extension.simulation
+  metric_ids:
+  - ext083.simulation.*.butyrate_flux
+  - ext083.simulation.*.interaction
+  report_section: report.actions + report.functions_detail
+  source_ids:
+  - S01
+  - S02
+  - S10
+  - S11
+  - R06
+  - R07
+  - R08
+  tests:
+  - tests/test_extension_simulation.py
+  note: 'Model-assisted scenarios implemented and running: MICOM 0.37.0, AGORA2 species models, osqp.
+    Four arms solved on a real sample; published replay reproduced at 1e-8. Evidence-matching mode (SYN
+    seeds and ranking) still owed.'
+  readiness:
+    source_identified: true
+    retrievable: true
+    bytes_verified: true
+    registry_validated: true
+    example_reproduced: true
+    application_validated: false
+    note: solved four arms end-to-end; clinical response remains unvalidated
+measurement_views:
+- id: M001
+  concept: Protein breakdown
+  binding: 'A04: proteolysis and protein/amino-acid fermentation capacities'
+  implementation: extension_computed
+  module: openbiota.extension.nitrogen
+  metric_ids:
+  - ext083.nitrogen.proteolysis
+  report_section: report.functions
+  note: Computed by A04. The reading states how specific its evidence is and the
+    one conclusion it does not support.
+- id: M002
+  concept: Trimethylamine
+  binding: Legacy TMA pathway; A15 precise TMA versus host TMAO labels
+  implementation: legacy_surfaced
+  module: openbiota.extension.nitrogen
+  legacy_metric_ids:
+  - panels.cutc
+  report_section: report.functions
+  note: The existing reading is shown unchanged and is not rescored; A04 adds
+    route or structural context beside it.
+- id: M003
+  concept: Ammonia
+  binding: Legacy urease retained; A04 adds non-urease ammonia routes
+  implementation: legacy_surfaced
+  module: openbiota.extension.nitrogen
+  legacy_metric_ids:
+  - panels.urease
+  report_section: report.functions
+  note: The existing reading is shown unchanged and is not rescored; A04 adds
+    route or structural context beside it.
+- id: M004
+  concept: Branched Chain Amino Acids
+  binding: Legacy BCAA capacity; A04 overview
+  implementation: legacy_surfaced
+  module: openbiota.extension.nitrogen
+  legacy_metric_ids:
+  - panels.bcaa
+  report_section: report.functions
+  note: The existing reading is shown unchanged and is not rescored; A04 adds
+    route or structural context beside it.
+- id: M005
+  concept: p-Cresol
+  binding: Legacy p-cresol capacity
+  implementation: legacy_surfaced
+  legacy_metric_ids:
+  - panels.pcresol
+  module: openbiota.panels
+  readiness:
+    source_identified: true
+    retrievable: true
+    bytes_verified: true
+    registry_validated: true
+    example_reproduced: true
+    application_validated: true
+    note: existing panel, value unchanged by this release
+- id: M006
+  concept: Histamine index
+  binding: Legacy histamine capacity retained; A05/A15 expose components, not an undocumented replacement
+    index
+  implementation: legacy_surfaced
+  module: openbiota.extension.biotransform
+  legacy_metric_ids:
+  - panels.histamine
+  report_section: report.functions
+  note: The existing reading is shown unchanged and is not rescored; A05 adds
+    route or structural context beside it.
+- id: M007
+  concept: Methanobrevibacter smithii
+  binding: Legacy methanogen detection; A10 archaeal taxon view
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M008
+  concept: Methane production capacity
+  binding: Legacy methane capacity
+  implementation: legacy_surfaced
+  legacy_metric_ids:
+  - panels.methane
+  module: openbiota.panels
+  readiness:
+    source_identified: true
+    retrievable: true
+    bytes_verified: true
+    registry_validated: true
+    example_reproduced: true
+    application_validated: true
+    note: existing panel, value unchanged by this release
+- id: M009
+  concept: Beta-glucuronidase capacity
+  binding: Legacy beta-glucuronidase capacity; A08/A14 distinguish DNA from measured activity
+  implementation: legacy_surfaced
+  module: openbiota.extension.biotransform
+  legacy_metric_ids:
+  - panels.bglucuronidase
+  report_section: report.functions
+  note: The existing reading is shown unchanged and is not rescored; A08 adds
+    route or structural context beside it.
+- id: M010
+  concept: GABA breakdown
+  binding: 'A05: separate GABA degradation; surface existing gabT evidence where compatible'
+  implementation: extension_computed
+  module: openbiota.extension.biotransform
+  metric_ids:
+  - ext083.neuro.gaba_degradation
+  report_section: report.functions
+  note: Computed by A05. The reading states how specific its evidence is and the
+    one conclusion it does not support.
+- id: M011
+  concept: Secondary bile acids
+  binding: Legacy secondary-bile-acid result; A08 additional transformations
+  implementation: legacy_surfaced
+  module: openbiota.extension.biotransform
+  legacy_metric_ids:
+  - panels.bai
+  report_section: report.functions
+  note: The existing reading is shown unchanged and is not rescored; A08 adds
+    route or structural context beside it.
+- id: M012
+  concept: Antibiotic-resistance abundance index
+  binding: 'A11: class-level determinant abundance; optional named ecological taxon surrogate remains
+    distinct'
+  implementation: extension_computed
+  module: openbiota.extension.resistance
+  metric_ids:
+  - ext083.resistance.class_abundance
+  report_section: report.pathogens
+  note: Computed by A11. The reading states how specific its evidence is and the
+    one conclusion it does not support.
+- id: M013
+  concept: Antibiotic-resistance richness index
+  binding: 'A11: determinant richness; optional named ecological taxon surrogate remains distinct'
+  implementation: extension_computed
+  module: openbiota.extension.resistance
+  metric_ids:
+  - ext083.resistance.class_richness
+  report_section: report.pathogens
+  note: Computed by A11. The reading states how specific its evidence is and the
+    one conclusion it does not support.
+- id: M014
+  concept: Enterobacteriaceae
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M015
+  concept: Klebsiella
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M016
+  concept: Klebsiella pneumoniae
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M017
+  concept: Klebsiella oxytoca
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M018
+  concept: Salmonella enterica
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M019
+  concept: Escherichia coli
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M020
+  concept: Escherichia flexneri
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M021
+  concept: Escherichia dysenteriae
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M022
+  concept: Citrobacter
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M023
+  concept: Enterobacter
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M024
+  concept: Morganella
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M025
+  concept: Raoultella
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M026
+  concept: Streptococcus
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M027
+  concept: Staphylococcus
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M028
+  concept: Pseudomonas aeruginosa
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M029
+  concept: Haemophilus influenzae
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M030
+  concept: Haemophilus parainfluenzae
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M031
+  concept: Enterococcus faecium
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M032
+  concept: Enterococcus faecalis
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M033
+  concept: Clostridioides difficile
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M034
+  concept: Clostridium perfringens
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M035
+  concept: Acinetobacter baumannii
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M036
+  concept: Campylobacter
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M037
+  concept: Helicobacter pylori
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M038
+  concept: Blastocystis
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M039
+  concept: Cryptosporidium
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M040
+  concept: Entamoeba histolytica
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M041
+  concept: Entamoeba dispar
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M042
+  concept: Giardia
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M043
+  concept: Yersinia enterocolitica
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M044
+  concept: Vibrio
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M045
+  concept: Vibrio cholerae
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M046
+  concept: Cyclospora cayetanensis
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M047
+  concept: Candida
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M048
+  concept: Aspergillus
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M049
+  concept: Cryptococcus
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M050
+  concept: Saccharomyces
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M051
+  concept: Rhodotorula
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M052
+  concept: Saprochaete
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M053
+  concept: Malassezia
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M054
+  concept: Microsporum
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M055
+  concept: Trichophyton
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M056
+  concept: Bacteroidota
+  binding: Legacy phylum composition; A10 hierarchical rollup
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M057
+  concept: Firmicutes
+  binding: Legacy phylum composition; A10 hierarchical rollup
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M058
+  concept: Actinobacteriota
+  binding: Legacy phylum composition; A10 alias-aware rollup
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M059
+  concept: Proteobacteria
+  binding: Legacy phylum composition; A10 alias-aware rollup
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M060
+  concept: Bacteroides
+  binding: A10 genus abundance with explicit member set
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M061
+  concept: Bacteroides fragilis
+  binding: Legacy organism result; A10 strain/toxin-qualified species view
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M062
+  concept: Prevotella
+  binding: A10 genus abundance with explicit member set
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M063
+  concept: Ruminococcus
+  binding: A10 historical-name-aware genus/group rollup
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M064
+  concept: Ruminococcus gnavus
+  binding: Legacy organism result; A10 descriptive view; shares measurement with M090
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+  shares_measurement_with:
+  - M090
+- id: M065
+  concept: Blautia
+  binding: A10 genus/group abundance
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M066
+  concept: Roseburia
+  binding: A10 genus/group abundance
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M067
+  concept: Phocaeicola dorei
+  binding: Legacy organism result; A10 alias-aware view
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M068
+  concept: Bifidobacterium
+  binding: Legacy bifidobacterial measurements; A10 genus view; shares measurement with M073
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+  shares_measurement_with:
+  - M073
+- id: M069
+  concept: Faecalibacterium
+  binding: Legacy organism group; A10 complete genus and species components
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M070
+  concept: Akkermansia
+  binding: Legacy organism result; A10 genus/species components
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M071
+  concept: Firmicutes / Bacteroidota ratio
+  binding: Legacy Firmicutes:Bacteroidota ratio unchanged; A09 companion dashboard
+  implementation: legacy_surfaced
+  module: openbiota.extension.ecology
+  legacy_metric_ids:
+  - community_profile.firmicutes_bacteroidetes_ratio
+  report_section: report.community
+- id: M072
+  concept: Proteobacteria / Actinobacteriota ratio
+  binding: 'A09: descriptive Proteobacteria:Actinobacteriota ratio'
+  implementation: extension_computed
+  module: openbiota.extension.ecology
+  metric_ids:
+  - ext083.ecology.ratio.proteobacteria_actinobacteriota
+  report_section: report.community
+  source_ids:
+  - E01
+  - E02
+  tests:
+  - tests/test_extension_ecology.py
+  readiness:
+    source_identified: true
+    retrievable: true
+    bytes_verified: true
+    registry_validated: true
+    example_reproduced: true
+    application_validated: true
+    note: computed from the declared abundance vector; spec fixtures AT037-AT042 pass
+- id: M073
+  concept: Bifidobacterium
+  binding: A10 probiotic-context genus view; same underlying total as M068
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+  shares_measurement_with:
+  - M068
+- id: M074
+  concept: Lactobacillaceae
+  binding: A10 family rollup with explicit taxonomy release
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M075
+  concept: Lacticaseibacillus rhamnosus
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M076
+  concept: Limosilactobacillus reuteri
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M077
+  concept: Lacticaseibacillus paracasei
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M078
+  concept: Lactiplantibacillus plantarum
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M079
+  concept: Lactobacillus acidophilus
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M080
+  concept: Bifidobacterium infantis
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M081
+  concept: Bifidobacterium bifidum
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M082
+  concept: Bifidobacterium longum
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M083
+  concept: Bifidobacterium breve
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M084
+  concept: Bifidobacterium animalis
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M085
+  concept: Bifidobacterium adolescentis
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M086
+  concept: Streptococcus thermophilus
+  binding: Legacy detection retained; A10 explicit taxon screening/rollup view with aliases, assay coverage
+    and strain context
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M087
+  concept: Shannon diversity
+  binding: Legacy Shannon preserved; A09 states catalogue, filtering and logarithm base
+  implementation: legacy_surfaced
+  module: openbiota.extension.ecology
+  legacy_metric_ids:
+  - community_profile.shannon_index
+  metric_ids:
+  - ext083.ecology.effective_shannon_species
+  - ext083.ecology.inverse_simpson
+  - ext083.ecology.gini_simpson
+  note: Legacy Shannon unchanged; companions state catalogue, floor and natural-log base alongside it.
+  report_section: report.community
+  tests:
+  - tests/test_extension_ecology.py
+  readiness:
+    source_identified: true
+    retrievable: true
+    bytes_verified: true
+    registry_validated: true
+    example_reproduced: true
+    application_validated: true
+    note: computed from the declared abundance vector; spec fixtures AT037-AT042 pass
+- id: M088
+  concept: Species richness
+  binding: Legacy total and reference-comparable richness preserved; A09/A10 show both
+  implementation: legacy_surfaced
+  module: openbiota.extension.ecology
+  legacy_metric_ids:
+  - community_profile.species_observed
+  report_section: report.community
+- id: M089
+  concept: Overabundant species
+  binding: Legacy organism expansion retained; A09 top-organism dominance view
+  implementation: extension_computed
+  module: openbiota.extension.ecology
+  metric_ids:
+  - ext083.ecology.dominance_top1
+  - ext083.ecology.dominance_top5
+  legacy_metric_ids:
+  - organism_verdicts
+  report_section: report.community
+  source_ids:
+  - E01
+  tests:
+  - tests/test_extension_ecology.py
+  readiness:
+    source_identified: true
+    retrievable: true
+    bytes_verified: true
+    registry_validated: true
+    example_reproduced: true
+    application_validated: true
+    note: computed from the declared abundance vector; spec fixtures AT037-AT042 pass
+- id: M090
+  concept: Ruminococcus gnavus
+  binding: Legacy expansion interpretation; A10 shares organism measurement with M064
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+  shares_measurement_with:
+  - M064
+- id: M091
+  concept: Gut resilience score
+  binding: 'A09: experimental ecological resilience potential plus measured longitudinal recovery'
+  implementation: not_implemented
+  note: The ecological half is computed by A09 - diversity, dominance, ratios, aerotolerance and
+    functional redundancy all render. The research resilience score is deliberately not
+    built - it is the published HACK-top-17 sample score, and that needs the released
+    17-taxon manifest and its native rank calculation pinned exactly. Approximating it
+    from diversity and favourable-looking species is the specific fabrication section 6.4
+    forbids. The measured longitudinal half is A13 and needs a recorded perturbation with
+    three eligible baselines.
+- id: M092
+  concept: Oral microbes
+  binding: Legacy oral-origin group; A10 components and exclusions
+  implementation: extension_computed
+  module: openbiota.extension.explorer
+  metric_ids:
+  - ext083.explorer.named_target_coverage
+  report_section: report.catalogue
+  note: Resolved by name against this sample's catalogue and reported whether or not it
+    was found, because searched-for-and-absent is an answer and omitting the row would
+    make it indistinguishable from never having looked.
+- id: M094
+  concept: Butyrate
+  binding: Legacy butyrate capacity; A02 network context
+  implementation: legacy_surfaced
+  module: openbiota.extension.fermentation
+  legacy_metric_ids:
+  - panels.butyrate
+  report_section: report.functions
+  note: The existing reading is shown unchanged and is not rescored; A02 adds
+    route or structural context beside it.
+- id: M095
+  concept: Propionate
+  binding: Legacy propionate capacity; A02 network context
+  implementation: legacy_surfaced
+  module: openbiota.extension.fermentation
+  legacy_metric_ids:
+  - panels.propionate
+  report_section: report.functions
+  note: The existing reading is shown unchanged and is not rescored; A02 adds
+    route or structural context beside it.
+- id: M096
+  concept: Acetate
+  binding: 'A02: acetate routes'
+  implementation: extension_computed
+  module: openbiota.extension.fermentation
+  metric_ids:
+  - ext083.fermentation.acetate_formation
+  report_section: report.functions
+  note: Computed by A02. The reading states how specific its evidence is and the
+    one conclusion it does not support.
+- id: M097
+  concept: Cellulose
+  binding: 'A01: cellulose utilization'
+  implementation: extension_computed
+  module: openbiota.extension.substrates
+  metric_ids:
+  - ext083.carb.cellulose
+  report_section: report.functions
+  note: Computed by A01. The reading states how specific its evidence is and the
+    one conclusion it does not support.
+- id: M098
+  concept: Resistant starch
+  binding: 'A01: resistant-starch utilization'
+  implementation: extension_computed
+  module: openbiota.extension.substrates
+  metric_ids:
+  - ext083.carb.resistant_starch
+  report_section: report.functions
+  note: Computed by A01. The reading states how specific its evidence is and the
+    one conclusion it does not support.
+- id: M099
+  concept: Chitin
+  binding: 'A01: chitin utilization'
+  implementation: extension_computed
+  module: openbiota.extension.substrates
+  metric_ids:
+  - ext083.carb.chitin
+  report_section: report.functions
+  note: Computed by A01. The reading states how specific its evidence is and the
+    one conclusion it does not support.
+- id: M100
+  concept: Pectin
+  binding: 'A01: pectin utilization'
+  implementation: extension_computed
+  module: openbiota.extension.substrates
+  metric_ids:
+  - ext083.carb.pectin
+  report_section: report.functions
+  note: Computed by A01. The reading states how specific its evidence is and the
+    one conclusion it does not support.
+- id: M101
+  concept: Fructooligosaccharides
+  binding: 'A01: fructooligosaccharide utilization'
+  implementation: extension_computed
+  module: openbiota.extension.substrates
+  metric_ids:
+  - ext083.carb.fos
+  report_section: report.functions
+  note: Computed by A01. The reading states how specific its evidence is and the
+    one conclusion it does not support.
+- id: M102
+  concept: Galactooligosaccharides
+  binding: 'A01: galactooligosaccharide utilization'
+  implementation: extension_computed
+  module: openbiota.extension.substrates
+  metric_ids:
+  - ext083.carb.gos
+  report_section: report.functions
+  note: Computed by A01. The reading states how specific its evidence is and the
+    one conclusion it does not support.
+- id: M103
+  concept: Xylooligosaccharides
+  binding: 'A01: xylooligosaccharide utilization'
+  implementation: extension_computed
+  module: openbiota.extension.substrates
+  metric_ids:
+  - ext083.carb.xos
+  report_section: report.functions
+  note: Computed by A01. The reading states how specific its evidence is and the
+    one conclusion it does not support.
+- id: M104
+  concept: Isomaltooligosaccharides
+  binding: 'A01: isomaltooligosaccharide utilization'
+  implementation: extension_computed
+  module: openbiota.extension.substrates
+  metric_ids:
+  - ext083.carb.imo
+  report_section: report.functions
+  note: Computed by A01. The reading states how specific its evidence is and the
+    one conclusion it does not support.
+- id: M105
+  concept: Vitamin B2
+  binding: Legacy riboflavin capacity; A03 complete vitamin overview
+  implementation: legacy_surfaced
+  module: openbiota.extension.vitamins
+  legacy_metric_ids:
+  - panels.riboflavin
+  report_section: report.functions
+  note: The existing reading is shown unchanged and is not rescored; A03 adds
+    route or structural context beside it.
+- id: M106
+  concept: Vitamin B7
+  binding: Legacy biotin capacity; A03 overview
+  implementation: legacy_surfaced
+  module: openbiota.extension.vitamins
+  legacy_metric_ids:
+  - panels.biotin
+  report_section: report.functions
+  note: The existing reading is shown unchanged and is not rescored; A03 adds
+    route or structural context beside it.
+- id: M107
+  concept: Vitamin B9
+  binding: Legacy folate capacity; A03 overview
+  implementation: legacy_surfaced
+  module: openbiota.extension.vitamins
+  legacy_metric_ids:
+  - panels.folate
+  report_section: report.functions
+  note: The existing reading is shown unchanged and is not rescored; A03 adds
+    route or structural context beside it.
+- id: M108
+  concept: Vitamin B12
+  binding: Legacy cobalamin capacity; A03 synthesis/salvage distinction
+  implementation: legacy_surfaced
+  module: openbiota.extension.vitamins
+  legacy_metric_ids:
+  - panels.b12
+  report_section: report.functions
+  note: The existing reading is shown unchanged and is not rescored; A03 adds
+    route or structural context beside it.
+- id: M109
+  concept: Vitamin K
+  binding: Legacy menaquinone capacity; A03 distinguishes vitamin forms
+  implementation: legacy_surfaced
+  module: openbiota.extension.vitamins
+  legacy_metric_ids:
+  - panels.k2
+  report_section: report.functions
+  note: The existing reading is shown unchanged and is not rescored; A03 adds
+    route or structural context beside it.
+- id: M110
+  concept: Indole-3-propionic acid
+  binding: Legacy indole-3-propionate capacity
+  implementation: legacy_surfaced
+  legacy_metric_ids:
+  - panels.ipa
+  module: openbiota.panels
+  readiness:
+    source_identified: true
+    retrievable: true
+    bytes_verified: true
+    registry_validated: true
+    example_reproduced: true
+    application_validated: true
+    note: existing panel, value unchanged by this release
+- id: M111
+  concept: GABA production
+  binding: Protected legacy GABA production; A05 adds separate degradation view
+  implementation: legacy_surfaced
+  module: openbiota.extension.biotransform
+  legacy_metric_ids:
+  - panels.gaba
+  report_section: report.functions
+  note: The existing reading is shown unchanged and is not rescored; A05 adds
+    route or structural context beside it.
+- id: M112
+  concept: Unconjugated bile acids
+  binding: Legacy bile-salt hydrolase/unconjugated-bile-acid result; A08 detail
+  implementation: legacy_surfaced
+  module: openbiota.extension.biotransform
+  legacy_metric_ids:
+  - panels.bsh
+  report_section: report.functions
+  note: The existing reading is shown unchanged and is not rescored; A08 adds
+    route or structural context beside it.
+- id: M113
+  concept: Urolithin-producing species
+  binding: Legacy polyphenol guild retained; A06 separate urolithin contributors and reactions
+  implementation: legacy_surfaced
+  module: openbiota.extension.biotransform
+  legacy_metric_ids:
+  - profile_similarity.community.groups.polyphenol_metabolisers
+  report_section: report.functions
+  note: The existing reading is shown unchanged and is not rescored; A06 adds
+    route or structural context beside it.
+- id: M114
+  concept: Oxalate degradation
+  binding: Legacy oxalate capacity
+  implementation: legacy_surfaced
+  legacy_metric_ids:
+  - panels.oxalate
+  module: openbiota.panels
+  readiness:
+    source_identified: true
+    retrievable: true
+    bytes_verified: true
+    registry_validated: true
+    example_reproduced: true
+    application_validated: true
+    note: existing panel, value unchanged by this release
+- id: M115
+  concept: Hexa-LPS index
+  binding: Legacy hexa-acylated-LPS carrier result; A08 additional structural-gene evidence
+  implementation: legacy_surfaced
+  module: openbiota.extension.biotransform
+  legacy_metric_ids:
+  - profile_similarity.community.groups.hexa_lps
+  report_section: report.functions
+  note: The existing reading is shown unchanged and is not rescored; A08 adds
+    route or structural context beside it.
+- id: M116
+  concept: Mucus degradation index
+  binding: Legacy mucin-degrader group retained; A08 substrate-specific enzymes
+  implementation: legacy_surfaced
+  module: openbiota.extension.biotransform
+  legacy_metric_ids:
+  - profile_similarity.community.groups.mucin_degraders
+  report_section: report.functions
+  note: The existing reading is shown unchanged and is not rescored; A08 adds
+    route or structural context beside it.
+- id: M117
+  concept: Hydrogen sulfide index
+  binding: Legacy H2S capacity; A02/A04 source-route context
+  implementation: legacy_surfaced
+  module: openbiota.extension.fermentation
+  legacy_metric_ids:
+  - panels.h2s
+  report_section: report.functions
+  note: The existing reading is shown unchanged and is not rescored; A02 adds
+    route or structural context beside it.
+- id: M118
+  concept: Host DNA
+  binding: A14/A13 provider host-DNA QC import when original prefilter denominator exists
+  implementation: not_implemented
+  note: A14 records the host-DNA context this run had. A provider prefilter denominator would let
+    the host fraction be reported as a proportion of the original reads rather than of
+    what survived filtering; without it the only honest figure is the post-filter one the
+    sequencing-quality section already carries, and inventing the pre-filter denominator
+    would misstate the host load.
+- id: M119
+  concept: Oxygen exposure index
+  binding: 'A09: ecological aerotolerance proxy; no claim of directly measured oxygen leakage'
+  implementation: extension_computed
+  module: openbiota.extension.ecology
+  metric_ids:
+  - ext083.ecology.aerotolerant_fraction
+  - ext083.ecology.mapi
+  report_section: report.community
+  source_ids:
+  - E04
+  - E05
+  - E06
+  - E07
+  tests:
+  - tests/test_extension_ecology.py
+  readiness:
+    source_identified: true
+    retrievable: true
+    bytes_verified: true
+    registry_validated: true
+    example_reproduced: true
+    application_validated: true
+    note: computed from the declared abundance vector; spec fixtures AT037-AT042 pass
+function_views:
+- id: F001
+  concept: Acetate
+  binding: M096 / A02
+  implementation: extension_computed
+  module: openbiota.extension.fermentation
+  metric_ids:
+  - ext083.fermentation.acetate_formation
+  shares_measurement_with:
+  - M096
+  report_section: report.functions
+  note: A reader-facing view of M096. It is the same measurement shown in another
+    place, counted once.
+- id: F002
+  concept: Butyrate
+  binding: M094 / protected legacy; A02 context
+  implementation: legacy_surfaced
+  legacy_metric_ids:
+  - panels.butyrate
+  module: openbiota.panels
+  readiness:
+    source_identified: true
+    retrievable: true
+    bytes_verified: true
+    registry_validated: true
+    example_reproduced: true
+    application_validated: true
+    note: existing panel, value unchanged by this release
+- id: F003
+  concept: Propionate
+  binding: M095 / protected legacy; A02 context
+  implementation: legacy_surfaced
+  legacy_metric_ids:
+  - panels.propionate
+  module: openbiota.panels
+  readiness:
+    source_identified: true
+    retrievable: true
+    bytes_verified: true
+    registry_validated: true
+    example_reproduced: true
+    application_validated: true
+    note: existing panel, value unchanged by this release
+- id: F004
+  concept: Acetylcholine
+  binding: A05 evidence and route-specific microbial capacity where demonstrated; A14 measured endpoint
+    import
+  implementation: extension_computed
+  module: openbiota.extension.biotransform
+  metric_ids:
+  - ext083.neuro.gaba_synthesis
+  report_section: report.functions
+  note: Produced by the module named here, with its own limits stated on the reading.
+- id: F005
+  concept: Dopamine
+  binding: Protected legacy tyrosine-decarboxylase result; A05 reaction-specific catecholamine handling,
+    not brain dopamine concentration
+  implementation: legacy_surfaced
+  module: openbiota.extension.biotransform
+  legacy_metric_ids:
+  - panels.gaba
+  shares_measurement_with:
+  - M111
+  report_section: report.functions
+  note: A reader-facing view of M111. It is the same measurement shown in another
+    place, counted once.
+- id: F006
+  concept: GABA
+  binding: M111 production plus M010 degradation; A05
+  implementation: legacy_surfaced
+  module: openbiota.extension.biotransform
+  legacy_metric_ids:
+  - panels.gaba
+  shares_measurement_with:
+  - M111
+  report_section: report.functions
+  note: A reader-facing view of M111. It is the same measurement shown in another
+    place, counted once.
+- id: F007
+  concept: Histamine
+  binding: M006 / protected legacy; A05
+  implementation: legacy_surfaced
+  module: openbiota.extension.biotransform
+  legacy_metric_ids:
+  - panels.histamine
+  shares_measurement_with:
+  - M006
+  report_section: report.functions
+  note: A reader-facing view of M006. It is the same measurement shown in another
+    place, counted once.
+- id: F008
+  concept: Norepinephrine
+  binding: A05 mechanistic evidence/validated reaction only; A14 measured endpoint import
+  implementation: extension_computed
+  module: openbiota.extension.biotransform
+  metric_ids:
+  - ext083.neuro.gaba_synthesis
+  report_section: report.functions
+  note: Produced by the module named here, with its own limits stated on the reading.
+- id: F009
+  concept: Serotonin
+  binding: A05 experimentally supported microbial routes and host-signalling context; A14 measured endpoint
+    import
+  implementation: extension_computed
+  module: openbiota.extension.biotransform
+  metric_ids:
+  - ext083.neuro.gaba_synthesis
+  report_section: report.functions
+  note: Produced by the module named here, with its own limits stated on the reading.
+- id: F010
+  concept: Vitamin B1 (Thiamin)
+  binding: A03 thiamine synthesis/salvage
+  implementation: extension_computed
+  module: openbiota.extension.vitamins
+  metric_ids:
+  - ext083.vitamin.b1
+  report_section: report.functions
+  note: Produced by the module named here, with its own limits stated on the reading.
+- id: F011
+  concept: Vitamin B2 (Riboflavin)
+  binding: M105 / protected legacy; A03
+  implementation: legacy_surfaced
+  module: openbiota.extension.vitamins
+  legacy_metric_ids:
+  - panels.riboflavin
+  shares_measurement_with:
+  - M105
+  report_section: report.functions
+  note: A reader-facing view of M105. It is the same measurement shown in another
+    place, counted once.
+- id: F012
+  concept: Vitamin B3 (Niacin)
+  binding: A03 niacin/NAD precursor synthesis/salvage
+  implementation: extension_computed
+  module: openbiota.extension.vitamins
+  metric_ids:
+  - ext083.vitamin.b3
+  report_section: report.functions
+  note: Produced by the module named here, with its own limits stated on the reading.
+- id: F013
+  concept: Vitamin B5 (Pantothenic Acid)
+  binding: A03 pantothenate synthesis/salvage
+  implementation: extension_computed
+  module: openbiota.extension.vitamins
+  metric_ids:
+  - ext083.vitamin.b5
+  report_section: report.functions
+  note: Produced by the module named here, with its own limits stated on the reading.
+- id: F014
+  concept: Vitamin B6 (Pyridoxine)
+  binding: A03 B6-vitamer synthesis/salvage
+  implementation: extension_computed
+  module: openbiota.extension.vitamins
+  metric_ids:
+  - ext083.vitamin.b6
+  report_section: report.functions
+  note: Produced by the module named here, with its own limits stated on the reading.
+- id: F015
+  concept: Vitamin B7 (Biotin)
+  binding: M106 / protected legacy; A03
+  implementation: legacy_surfaced
+  module: openbiota.extension.vitamins
+  legacy_metric_ids:
+  - panels.biotin
+  shares_measurement_with:
+  - M106
+  report_section: report.functions
+  note: A reader-facing view of M106. It is the same measurement shown in another
+    place, counted once.
+- id: F016
+  concept: Vitamin B9 (Folate)
+  binding: M107 / protected legacy; A03
+  implementation: legacy_surfaced
+  module: openbiota.extension.vitamins
+  legacy_metric_ids:
+  - panels.folate
+  shares_measurement_with:
+  - M107
+  report_section: report.functions
+  note: A reader-facing view of M107. It is the same measurement shown in another
+    place, counted once.
+- id: F017
+  concept: Vitamin B12 (Cobalamin)
+  binding: M108 / protected legacy; A03
+  implementation: legacy_surfaced
+  module: openbiota.extension.vitamins
+  legacy_metric_ids:
+  - panels.b12
+  shares_measurement_with:
+  - M108
+  report_section: report.functions
+  note: A reader-facing view of M108. It is the same measurement shown in another
+    place, counted once.
+- id: F018
+  concept: Vitamin K2
+  binding: M109 / protected legacy; A03
+  implementation: legacy_surfaced
+  module: openbiota.extension.vitamins
+  legacy_metric_ids:
+  - panels.k2
+  shares_measurement_with:
+  - M109
+  report_section: report.functions
+  note: A reader-facing view of M109. It is the same measurement shown in another
+    place, counted once.
+- id: F019
+  concept: Ammonia
+  binding: M003 / legacy urease plus A04 additional routes
+  implementation: legacy_surfaced
+  module: openbiota.extension.nitrogen
+  legacy_metric_ids:
+  - panels.urease
+  shares_measurement_with:
+  - M003
+  report_section: report.functions
+  note: A reader-facing view of M003. It is the same measurement shown in another
+    place, counted once.
+- id: F020
+  concept: Hydrogen sulfide
+  binding: M117 / protected legacy; source-specific routes
+  implementation: legacy_surfaced
+  module: openbiota.extension.fermentation
+  legacy_metric_ids:
+  - panels.h2s
+  shares_measurement_with:
+  - M117
+  report_section: report.functions
+  note: A reader-facing view of M117. It is the same measurement shown in another
+    place, counted once.
+- id: F021
+  concept: Lipopolysaccharides (LPS)
+  binding: M115 / legacy carrier view plus A08 lipid-A structural potential
+  implementation: legacy_surfaced
+  module: openbiota.extension.biotransform
+  legacy_metric_ids:
+  - profile_similarity.community.groups.hexa_lps
+  shares_measurement_with:
+  - M115
+  report_section: report.functions
+  note: A reader-facing view of M115. It is the same measurement shown in another
+    place, counted once.
+- id: F022
+  concept: Methane
+  binding: M008 / protected legacy
+  implementation: legacy_surfaced
+  legacy_metric_ids:
+  - panels.methane
+  module: openbiota.panels
+  readiness:
+    source_identified: true
+    retrievable: true
+    bytes_verified: true
+    registry_validated: true
+    example_reproduced: true
+    application_validated: true
+    note: existing panel, value unchanged by this release
+- id: F023
+  concept: Trimethylamine (TMA)
+  binding: M002 / protected legacy; preserve host TMAO distinction
+  implementation: legacy_surfaced
+  module: openbiota.extension.nitrogen
+  legacy_metric_ids:
+  - panels.cutc
+  shares_measurement_with:
+  - M002
+  report_section: report.functions
+  note: A reader-facing view of M002. It is the same measurement shown in another
+    place, counted once.
+- id: F024
+  concept: Beta-glucuronidase
+  binding: M009 / legacy beta-glucuronidase capacity; A14 measured activity
+  implementation: legacy_surfaced
+  module: openbiota.extension.biotransform
+  legacy_metric_ids:
+  - panels.bglucuronidase
+  shares_measurement_with:
+  - M009
+  report_section: report.functions
+  note: A reader-facing view of M009. It is the same measurement shown in another
+    place, counted once.
+- id: F025
+  concept: GLP-1 activators
+  binding: A07 component-based microbial mechanism panel; A14 measured host GLP-1
+  implementation: extension_computed
+  module: openbiota.extension.biotransform
+  metric_ids:
+  - ext083.glp1.scfa_signalling
+  report_section: report.functions
+  note: Produced by the module named here, with its own limits stated on the reading.
+- id: F026
+  concept: Indoles and Phenols
+  binding: Preserve separate legacy indole, IPA and p-cresol results; A04/A05 grouped navigation without
+    conflating products
+  implementation: extension_computed
+  module: openbiota.extension.biotransform
+  metric_ids:
+  - ext083.neuro.gaba_degradation
+  shares_measurement_with:
+  - M010
+  report_section: report.functions
+  note: A reader-facing view of M010. It is the same measurement shown in another
+    place, counted once.
+- id: F027
+  concept: Myrosinase
+  binding: A06 glucosinolate-to-isothiocyanate conversion mechanisms, distinguishing microbial routes
+    from plant enzyme
+  implementation: extension_computed
+  module: openbiota.extension.biotransform
+  metric_ids:
+  - ext083.diet.glucosinolate_isothiocyanate_conversion
+  report_section: report.functions
+  note: Produced by the module named here, with its own limits stated on the reading.
+- id: F028
+  concept: Urolithin
+  binding: M113 / A06 exact conversion reactions and taxa
+  implementation: legacy_surfaced
+  module: openbiota.extension.biotransform
+  legacy_metric_ids:
+  - profile_similarity.community.groups.polyphenol_metabolisers
+  shares_measurement_with:
+  - M113
+  report_section: report.functions
+  note: A reader-facing view of M113. It is the same measurement shown in another
+    place, counted once.
+- id: F029
+  concept: Chitin
+  binding: M099 / A01
+  implementation: extension_computed
+  module: openbiota.extension.substrates
+  metric_ids:
+  - ext083.carb.chitin
+  shares_measurement_with:
+  - M099
+  report_section: report.functions
+  note: A reader-facing view of M099. It is the same measurement shown in another
+    place, counted once.
+- id: F030
+  concept: Resistant starch
+  binding: M098 / A01
+  implementation: extension_computed
+  module: openbiota.extension.substrates
+  metric_ids:
+  - ext083.carb.resistant_starch
+  shares_measurement_with:
+  - M098
+  report_section: report.functions
+  note: A reader-facing view of M098. It is the same measurement shown in another
+    place, counted once.
+- id: F031
+  concept: Pectin
+  binding: M100 / A01
+  implementation: extension_computed
+  module: openbiota.extension.substrates
+  metric_ids:
+  - ext083.carb.pectin
+  shares_measurement_with:
+  - M100
+  report_section: report.functions
+  note: A reader-facing view of M100. It is the same measurement shown in another
+    place, counted once.
+- id: F032
+  concept: Inulin
+  binding: A01 fructan utilization with degree-of-polymerization context
+  implementation: extension_computed
+  module: openbiota.extension.substrates
+  metric_ids:
+  - ext083.carb.inulin
+  report_section: report.functions
+  note: Produced by the module named here, with its own limits stated on the reading.
+- id: F033
+  concept: Fructooligosaccharides
+  binding: M101 / A01
+  implementation: extension_computed
+  module: openbiota.extension.substrates
+  metric_ids:
+  - ext083.carb.fos
+  shares_measurement_with:
+  - M101
+  report_section: report.functions
+  note: A reader-facing view of M101. It is the same measurement shown in another
+    place, counted once.
+- id: F034
+  concept: Xylooligosaccharides
+  binding: M103 / A01
+  implementation: extension_computed
+  module: openbiota.extension.substrates
+  metric_ids:
+  - ext083.carb.xos
+  shares_measurement_with:
+  - M103
+  report_section: report.functions
+  note: A reader-facing view of M103. It is the same measurement shown in another
+    place, counted once.
+- id: F035
+  concept: Galactooligosaccharides
+  binding: M102 / A01
+  implementation: extension_computed
+  module: openbiota.extension.substrates
+  metric_ids:
+  - ext083.carb.gos
+  shares_measurement_with:
+  - M102
+  report_section: report.functions
+  note: A reader-facing view of M102. It is the same measurement shown in another
+    place, counted once.
+- id: F036
+  concept: Protein metabolizers
+  binding: M001 / A04; taxon guild distinguished from functional genes
+  implementation: extension_computed
+  module: openbiota.extension.nitrogen
+  metric_ids:
+  - ext083.nitrogen.proteolysis
+  shares_measurement_with:
+  - M001
+  report_section: report.functions
+  note: A reader-facing view of M001. It is the same measurement shown in another
+    place, counted once.
+- id: F037
+  concept: Lactose degraders
+  binding: A01 microbial lactose utilization; does not measure human lactase deficiency
+  implementation: extension_computed
+  module: openbiota.extension.substrates
+  metric_ids:
+  - ext083.carb.lactose
+  report_section: report.functions
+  note: Produced by the module named here, with its own limits stated on the reading.
+- id: F038
+  concept: Oxalate degraders
+  binding: M114 / protected legacy; distinguish taxa from pathway support
+  implementation: legacy_surfaced
+  legacy_metric_ids:
+  - panels.oxalate
+  module: openbiota.panels
+  readiness:
+    source_identified: true
+    retrievable: true
+    bytes_verified: true
+    registry_validated: true
+    example_reproduced: true
+    application_validated: true
+    note: existing panel, value unchanged by this release
+# Section 5.8 — the additional capacities. The specification calls these
+# research additions and states that research is a visible evidence level,
+# not permission to use untraceable markers, so each carries the same
+# declarations a required panel carries.
+- id: C5801
+  concept: Anaerobic urate degradation
+  binding: Curated anaerobic clusters from F28-F29; distinguish oxygen-requiring uricase
+    and purine salvage
+  implementation: extension_computed
+  module: openbiota.extension.capacities
+  metric_ids:
+  - ext083.capacity.urate_anaerobic
+  report_section: report.functions
+  source_ids: [F28, F29]
+  note: Uricase and purine salvage are measured and shown, and deliberately not summed
+    into the anaerobic route. Not a serum urate, which the card states.
+- id: C5802
+  concept: Putrescine formation
+  binding: Putrescine, agmatine and spermidine as separate capacities with
+    context-dependent interpretation
+  implementation: extension_computed
+  module: openbiota.extension.capacities
+  metric_ids:
+  - ext083.capacity.putrescine
+  report_section: report.functions
+  source_ids: [F30, F31]
+  note: Direction is context-dependent by design. Polyamines are required for
+    epithelial renewal and are elevated in tumour tissue.
+- id: C5803
+  concept: Agmatine formation
+  binding: Agmatine as a capacity separate from putrescine and spermidine
+  implementation: extension_computed
+  module: openbiota.extension.capacities
+  metric_ids:
+  - ext083.capacity.agmatine
+  report_section: report.functions
+  source_ids: [F30, F31]
+  note: The same decarboxylase serves acid resistance, so a high reading is not
+    necessarily about polyamine or neuroactive chemistry.
+- id: C5804
+  concept: Spermidine formation
+  binding: Canonical and validated carboxyaminopropylagmatine alternatives
+  implementation: extension_computed
+  module: openbiota.extension.capacities
+  metric_ids:
+  - ext083.capacity.spermidine
+  report_section: report.functions
+  source_ids: [F30, F31]
+  note: Counts the carboxyspermidine route as well as the aminopropyltransferase one.
+    Searching only for spermidine synthase reports an absence in most gut Bacteroidetes.
+- id: C5805
+  concept: Glutathione synthesis
+  binding: gshA plus gshB or validated fused gshF; distinguish utilization and recycling
+  implementation: extension_computed
+  module: openbiota.extension.capacities
+  metric_ids:
+  - ext083.capacity.glutathione
+  report_section: report.functions
+  source_ids: [F32]
+  note: Reductase and transpeptidase are measured and shown separately, because a
+    community that recycles is not one that synthesises.
+- id: C5806
+  concept: Microbial ethanol formation
+  binding: Mixed-acid and heterolactic fermentation, ethanolamine-associated pathways,
+    ethanol formation and acetaldehyde transformations where routes can be resolved
+  implementation: extension_computed
+  module: openbiota.extension.capacities
+  metric_ids:
+  - ext083.capacity.ethanol
+  report_section: report.functions
+  source_ids: [C03, C04, C05]
+  note: An independently curated adhE panel, named as such rather than claimed as the
+    authors' asset. No acetaldehyde-disposal reading is given, because the aldehyde
+    dehydrogenase family is not substrate-specific enough for a count over it to mean
+    acetaldehyde rather than any other aldehyde.
+- id: C5807
+  concept: Glucuronidase substrate detail
+  binding: Validated loop/domain and catalytic-motif classes; new substrate-specific
+    table; no automatic estrogen or drug exposure estimate
+  implementation: evidence_card
+  module: openbiota.extension.gusclasses
+  report_section: report.functions
+  source_ids: [F39]
+  note: Built, tested, and withheld by its own validation. Loop class assigned by
+    pairwise alignment to the E. coli enzyme disagrees with the published structures
+    for the divergent gut enzymes - B. fragilis came out Loop 1 where it is mini-Loop 1,
+    B. uniformis came out No Loop where it is the Loop 2 type example - so the breakdown
+    is not shown. The curated loop alignment, or a profile model built from the solved
+    structures, would unlock it; the per-reference counts it needs are already recorded.
+- id: C5808
+  concept: Microbial drug metabolism
+  binding: Experimentally characterized microbial reactions, exact drug and enzyme;
+    mechanism/context card with the existing report unchanged; no dose adjustment
+  implementation: evidence_card
+  module: openbiota.extension.capacities
+  report_section: report.functions
+  source_ids: [F40]
+  note: Four characterised reactions as cards, not measurements. The digoxin card
+    records that arginine inhibits rather than increases the reduction.
+- id: C1603
+  concept: Symptom and condition navigation
+  binding: Links from supported findings to the fifteen contexts of section 16.3, each
+    listing all contributing features rather than a truncated count
+  implementation: evidence_card
+  module: openbiota.extension.contexts
+  report_section: report.patterns_detail
+  note: No context computes a score. Existing disease profiles are linked exactly as
+    calculated, and a context without one is an evidence card. The number of
+    contributors is labelled a navigation count, not a likelihood.

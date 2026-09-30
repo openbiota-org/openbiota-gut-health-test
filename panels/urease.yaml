@@ -1,0 +1,136 @@
+name: urease
+description: >-
+  Bacterial urease, which hydrolyses urea to ammonia and carbon dioxide.
+  ureC is the large catalytic subunit and the standard marker. In the gut
+  this matters in two places: ammonia is the mechanism of hepatic
+  encephalopathy in liver disease, and urease-driven pH change is a feature
+  of the dysbiotic community in Crohn's disease and chronic kidney disease.
+metabolite: Ammonia (from urea)
+pathway: "urea + H2O -> 2 NH3 + CO2 (ureABC, nickel-dependent urease)"
+category: detox
+
+organisms:
+  - Klebsiella pneumoniae
+  - Proteus mirabilis
+  - Morganella morganii
+  - Helicobacter pylori
+  - Streptococcus salivarius
+  - Bacteroides fragilis
+
+extension: true
+
+targets:
+  # ureC has one clean recommended protein name and a tight ~570 aa length.
+  # The gene-name query is contaminated by "urease accessory protein" hits,
+  # which are the nickel-insertion chaperones ureD/ureE/ureF/ureG and are a
+  # different measurement, so the accessory proteins are excluded here and
+  # scored as their own entry.
+  - id: UREALPHA
+    label: ureC (urease alpha / catalytic subunit)
+    gene: ureC
+    source: uniprot
+    query: '(protein_name:"urease subunit alpha") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2500
+    length_tolerance: 0.25
+
+  - id: UREBETA
+    label: ureB (urease beta subunit)
+    gene: ureB
+    source: uniprot
+    query: '(protein_name:"urease subunit beta") AND (taxonomy_id:2)'
+    min_identity: 60.0
+    max_sequences: 2000
+    length_tolerance: 0.30
+
+decoys:
+  # The amidohydrolase superfamily shares the binuclear metal centre and the
+  # TIM-barrel fold with urease. Without it, this panel would count a large
+  # fraction of ordinary hydrolases.
+  - id: AMIDOBG
+    label: amidohydrolase superfamily background
+    source: uniprot
+    query: '((protein_name:"formylmethanofuran dehydrogenase") OR (protein_name:"adenine deaminase") OR (protein_name:"N-acetylglucosamine-6-phosphate deacetylase") OR (protein_name:"dihydroorotase") OR (protein_name:"cytosine deaminase")) AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 3000
+    length_tolerance: 0.30
+
+  - id: UREACC
+    label: urease accessory proteins (ureD/E/F/G)
+    source: uniprot
+    query: '(protein_name:"urease accessory protein") AND (taxonomy_id:2)'
+    min_identity: 50.0
+    max_sequences: 2500
+    length_tolerance: 0.35
+    note: >-
+      Placed as a decoy rather than a target on purpose. The accessory
+      proteins travel with the operon, so counting them would double-count
+      the same genomes and inflate the estimate.
+
+aggregate: sum
+aggregate_from: [UREALPHA]
+aggregate_reason: >-
+  ureC alone is the headline. ureB is reported separately as a consistency
+  check: the two subunits come from one operon, so a large divergence between
+  them means the search is picking up fold-level similarity rather than
+  genuine urease.
+
+min_fragments_for_stability: 20
+min_alignment_aa: 25
+
+caveats:
+  - >-
+    Urease capacity is common and normal. Its clinical relevance is confined
+    to specific settings: liver failure, where colonic ammonia drives
+    encephalopathy and is the target of lactulose and rifaximin; and advanced
+    kidney disease, where urea diffusing into the colon raises luminal pH.
+  - >-
+    A high reading in a healthy person means the community can hydrolyse
+    urea, which is what gut communities do. It is not a finding.
+  - >-
+    Nothing here measures blood ammonia, which is a direct blood test.
+
+interpretation:
+  what_it_is: >-
+    A bacterial enzyme that splits urea into ammonia, raising the pH of the
+    gut lumen.
+  made_from: Urea, which diffuses into the gut from the bloodstream
+  higher_means: context-dependent
+  reader_direction: adverse
+  direction_note: >-
+    Bacterial urease makes ammonia, the mechanism behind hepatic encephalopathy and the trait that lets Proteus form kidney stones and H. pylori survive acid.
+  evidence_strength: moderate
+  summary: >-
+    Ammonia from bacterial urease is the mechanism behind hepatic
+    encephalopathy in liver disease and rises with kidney failure. In healthy
+    people, urease capacity is common and carries no known implication.
+  evidence_detail: >-
+    Wong et al. showed that end-stage renal disease expands urease- and
+    uricase-containing families while contracting short-chain fatty acid
+    producers, which is the clearest human evidence for the pH mechanism.
+    Ni et al. found that a urease-positive community was sufficient to drive
+    dysbiosis and worsen colitis in mice, and that replacing it with a
+    urease-negative E. coli reversed the effect. In liver disease, the whole
+    therapeutic strategy for encephalopathy — lactulose to acidify the
+    colon, rifaximin to reduce the ammonia producers — is aimed at this
+    enzyme's product. None of that makes urease capacity meaningful in a
+    person with normal liver and kidney function.
+  implications:
+    higher: >-
+      Your gut carries more urease capacity than most people's. In someone
+      with healthy liver and kidney function this has no established
+      significance — urea hydrolysis is a normal gut activity. It matters in
+      liver failure, where colonic ammonia drives encephalopathy, and in
+      advanced kidney disease.
+    typical: >-
+      Your urease capacity sits in the middle of the reference range. Urea hydrolysis is a normal gut activity, part of how nitrogen is recycled between host and bacteria, and a typical level has no significance in someone with healthy liver and kidneys.
+    lower: >-
+      Less urease capacity than most people, meaning less bacterial breakdown of urea to ammonia in the colon. In liver disease this would be the favourable direction, since colonic ammonia drives hepatic encephalopathy; for anyone else nothing follows from it.
+  citation: >-
+    Wong J. et al., Am J Nephrol 39:230-237 (2014); Ni J. et al., Sci Transl
+    Med 9:eaah6888 (2017), doi:10.1126/scitranslmed.aah6888
+
+citation: >-
+  Ni J., Shen T.-C.D., Chen E.Z., et al., "A role for bacterial urease in gut
+  dysbiosis and Crohn's disease", Sci Transl Med 9:eaah6888 (2017),
+  doi:10.1126/scitranslmed.aah6888.

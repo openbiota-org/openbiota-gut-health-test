@@ -1,0 +1,219 @@
+name: androgenetic_alopecia
+version: 1.0.0
+spec_version: 3
+label: "Androgenetic alopecia — gut pattern (sex-stratified)"
+disease: androgenetic_alopecia
+task: aga_vs_control
+family: androgenetic_alopecia
+body_site: stool
+population: mixed_adult_cohorts
+status: experimental
+evidence_maturity: P1
+stratify_on: sex
+strata:
+  - name: male
+    label: "Male pattern hair loss"
+    criterion: "sex == male"
+    note: "Huang 2024 all-male cohort plus the mixed-sex Korean module."
+  - name: female
+    label: "Female pattern hair loss"
+    criterion: "sex == female"
+    note: "Savo Sardaro 2025 female-only cohort plus the mixed-sex Korean module."
+
+summary: >-
+  Androgenetic alopecia is hormonal and genetic, biologically distinct from
+  autoimmune alopecia areata, and its evidence is never merged with that
+  profile. It is stratified on sex because the two sexes have different
+  evidence: an all-male 16S cohort from China, a mixed-sex Korean cohort, and
+  a female-only Italian cohort reporting sex-specific direction differences.
+  Female pattern hair loss has different pathophysiology and cannot borrow
+  male evidence.
+
+  If sex is not supplied, the score is reported without stratification and
+  this is recorded in the confounder ledger.
+
+references:
+  primary:
+    source: null
+    note: >-
+      No cohort compares AGA against age- and androgen-matched controls with
+      preserved hair; the shared contrast is unaffected controls.
+  secondary:
+    source: curatedMetagenomicData
+    match_on: [country, age_band, sex]
+
+modules:
+  huang_2024_male:
+    label: "Huang 2024 all-male 16S (China)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    assay_transport: amplicon_taxon_to_shotgun
+    study_group: huang_2024
+    maturity: P1
+    stratum: male
+    note: >-
+      Weaker case discrimination than the alopecia areata cohorts. Reported
+      genus-level shifts bind by declared transport with a resolution penalty.
+    sources: ["Huang J, et al. Skin Res Technol 2024;30:e13578"]
+    features:
+      - name: Bifidobacterium_adolescentis
+        level: species
+        direction: lower_in_case
+        w: 0.6
+        q: 0.4
+        s: 0.3
+        c: 0.5
+        mapping_confidence: medium
+      - name: Bifidobacterium_longum
+        level: species
+        direction: lower_in_case
+        cluster: bifidobacterium
+        w: 0.5
+        q: 0.4
+        s: 0.3
+        c: 0.5
+        mapping_confidence: medium
+      - name: Escherichia_coli
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.4
+        s: 0.2
+        c: 0.5
+        mapping_confidence: medium
+      - name: Lactobacillus_ruminis
+        level: species
+        direction: lower_in_case
+        w: 0.4
+        q: 0.3
+        s: 0.3
+        c: 0.4
+        mapping_confidence: low
+
+  seo_2024_korean:
+    label: "Seo 2024 Korean cohort (mixed sex)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    assay_transport: amplicon_taxon_to_shotgun
+    study_group: seo_2024
+    maturity: P1
+    note: >-
+      Applies to both strata but reported without sex-specific directions, so
+      it cannot arbitrate between them.
+    sources: ["Seo Y, et al. Biomedicines 2024;12:2225"]
+    features:
+      - name: Faecalibacterium_prausnitzii
+        level: species
+        direction: lower_in_case
+        w: 0.5
+        q: 0.4
+        s: 0.2
+        c: 0.5
+        mapping_confidence: medium
+      - name: Ruminococcus_gnavus
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.4
+        s: 0.3
+        c: 0.5
+        mapping_confidence: medium
+      - name: Akkermansia_muciniphila
+        level: species
+        direction: lower_in_case
+        w: 0.4
+        q: 0.3
+        s: 0.3
+        c: 0.4
+        mapping_confidence: medium
+
+  savo_sardaro_2025_female:
+    label: "Savo Sardaro 2025 female-only (Italy)"
+    type: direction_panel
+    evidence_type: TAX_REL
+    claim_level: association_only
+    assay_transport: amplicon_taxon_to_shotgun
+    study_group: savo_sardaro_2025
+    maturity: P1
+    stratum: female
+    note: >-
+      The only female-specific evidence. Female pattern hair loss has its own
+      pathophysiology and this module is the whole of what can be said about
+      it from stool.
+    sources: ["Savo Sardaro ML, et al. Int J Mol Sci 2025;26:5459"]
+    features:
+      - name: Bacteroides_vulgatus
+        level: species
+        direction: higher_in_case
+        w: 0.5
+        q: 0.4
+        s: 0.3
+        c: 0.5
+        mapping_confidence: medium
+      - name: Roseburia_intestinalis
+        level: species
+        direction: lower_in_case
+        w: 0.5
+        q: 0.4
+        s: 0.3
+        c: 0.5
+        mapping_confidence: medium
+      - name: Collinsella_aerofaciens
+        level: species
+        direction: higher_in_case
+        w: 0.4
+        q: 0.3
+        s: 0.3
+        c: 0.4
+        mapping_confidence: medium
+
+  biotin_lane:
+    label: "Biotin biosynthesis capacity (mechanism, P0)"
+    type: mechanism_lane
+    evidence_type: GENE_ABUND
+    claim_level: genomic_capacity
+    maturity: P0
+    note: >-
+      The germ-free biotin-deprivation mouse model is the only mechanistic
+      link between gut microbes and hair growth, and it is not specific to
+      either alopecia. Scored in its own lane, never fused.
+    features:
+      - name: biotin
+        engine: diamond
+        direction: decreased
+        w: 0.5
+        q: 0.3
+        s: 0.2
+        c: 0.5
+        sources: ["Hayashi 2017 Cell Rep 20:1513"]
+
+confounders:
+  - name: Sex
+    effect: "Different evidence per sex; female pattern hair loss has separate pathophysiology"
+    handling: "Stratified: male and female modules only score in their stratum"
+  - name: Age
+    effect: "Prevalence rises steeply with age; unaffected controls are typically younger"
+    handling: "Reference matched on age band where the stratum is large enough"
+
+abstain_if:
+  - recent_antibiotics_days_lt: 90
+  - usable_nonhost_pairs_lt: 500000
+
+caveats:
+  - >-
+    Androgenetic alopecia is diagnosed from the pattern of hair loss and
+    family history. Nothing here predicts it, and nothing here bears on
+    treatment.
+  - >-
+    All three human cohorts are 16S with genus-level findings transported onto
+    shotgun species. The transport penalty is shown in the confidence vector.
+  - >-
+    Without a supplied sex, the sex-specific modules are withheld and the
+    score rests on the Korean mixed-sex module alone.
+
+citation: >-
+  Huang J, et al. Skin Res Technol 2024;30:e13578; Seo Y, et al. Biomedicines
+  2024;12:2225; Savo Sardaro ML, et al. Int J Mol Sci 2025;26:5459; Hayashi A,
+  et al. Cell Rep 2017;20:1513.
