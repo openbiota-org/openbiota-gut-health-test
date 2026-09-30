@@ -118,6 +118,37 @@ def test_the_headline_pathogen_count_matches_the_records(sample: str) -> None:
 
 
 @pytest.mark.parametrize("sample", SAMPLES)
+def test_every_named_fungal_pathogen_is_one_the_mycobiome_also_found(sample: str) -> None:
+    """The fungal half of the screen has a second opinion of its own: the
+    mycobiome section maps its own competitive index over 961 representative
+    genomes. A fungus named on the pathogen page that section did not see
+    would be the same contradiction the bacterial reconciliation removes."""
+    blob, _inv = _load(sample)
+    pathogens = blob.get("pathogens")
+    myco = blob.get("mycobiome")
+    if not isinstance(pathogens, dict) or not isinstance(myco, dict):
+        pytest.skip(f"{sample}: no pathogen screen or no mycobiome section")
+    names: set[str] = set()
+    for taxon in ((myco.get("genome_lane") or {}).get("taxa") or []):
+        if isinstance(taxon, dict) and taxon.get("name"):
+            names.add(str(taxon["name"]).lower())
+    for taxon in ((myco.get("marker_lane") or {}).get("fungal") or []):
+        if isinstance(taxon, dict):
+            names.add(str(taxon.get("name") or taxon.get("species") or "").lower())
+        elif isinstance(taxon, str):
+            names.add(taxon.lower())
+    named = [r for r in pathogens["results"]
+             if r.get("group") == "fungi" and r.get("sequence_status") in NAMED]
+    if not named:
+        pytest.skip(f"{sample}: no fungus named on the pathogen page")
+    if not names:
+        pytest.skip(f"{sample}: the mycobiome lanes produced no taxon list")
+    for rec in named:
+        shown = str(rec.get("display_name") or "").lower()
+        assert any(shown in n or n in shown for n in names if n), (sample, rec.get("display_name"))
+
+
+@pytest.mark.parametrize("sample", SAMPLES)
 def test_a_biofilm_card_says_when_the_pooled_methods_disagree(sample: str) -> None:
     """The card's value must be the reference catalogue's, and where the pooled
     inventory found the organism anyway, the card has to say so."""
