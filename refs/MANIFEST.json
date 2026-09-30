@@ -1,7 +1,7 @@
 {
- "written_at": "2026-09-30T03:21:40-07:00",
- "total_bytes": 1374679648807,
- "total_gb": 1374.68,
+ "written_at": "2026-09-30T10:59:23-07:00",
+ "total_bytes": 1376718741258,
+ "total_gb": 1376.72,
  "n_lock_covered_files": 46,
  "lock_problems": [],
  "consumed_archives": [
@@ -191,9 +191,9 @@
   },
   {
    "path": "refs/micom",
-   "bytes": 10148276797,
-   "gb": 10.15,
-   "files": 2904,
+   "bytes": 12187369248,
+   "gb": 12.19,
+   "files": 3166,
    "category": "AGORA2 model library + community/LP caches",
    "rebuild": "make extension-refs",
    "locked_files": 0

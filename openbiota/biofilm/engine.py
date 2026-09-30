@@ -670,20 +670,21 @@ def inventory_note(results_json: Mapping[str, Any], leaves: Sequence[str]) -> st
     for leaf in leaves:
         o = inv.get(str(leaf))
         if o is not None and o.in_primary and o.percent > 0:
-            found.append(f"{o.display} at {o.percent:.3f}%")
+            found.append(f"{o.display} {o.percent:.3f}%")
             continue
         wanted = str(leaf).replace("_", " ").lower()
         for other in inv.organisms:
             listed = {x.replace("_", " ").lower() for x in (other.formerly_listed_as or ())}
             if wanted in listed and other.in_primary and other.percent > 0:
-                renamed.append(f"the population an earlier catalogue listed as {wanted} is "
-                               f"{other.display} at {other.percent:.3f}%")
+                renamed.append(f"an earlier catalogue's {wanted} here is {other.display} "
+                               f"{other.percent:.3f}%")
                 break
     if not found and not renamed:
         return None
     parts = "; ".join([*found, *renamed])
-    return ("Measured on the reference catalogue, which is what the percentile is taken against. "
-            f"Pooling every detection method (section 6): {parts}.")
+    # Short enough for the level column beside it; the level cell already says
+    # the zero is the reference catalogue's, and the section explains why.
+    return f"pooling every method (section 6): {parts}"
 
 
 def analyze(

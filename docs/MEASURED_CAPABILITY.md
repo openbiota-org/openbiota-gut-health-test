@@ -1,6 +1,6 @@
 # Measured capability (generated)
 
-Generated 2026-09-30T03:21-07:00 by `scripts/measured_capability_doc.py` from the newest benchmark summary and the per-sample comparison. Numbers here are measurements; the spec's targets are listed beside them and are not claimed where they were not met.
+Generated 2026-09-30T10:59-07:00 by `scripts/measured_capability_doc.py` from the newest benchmark summary and the per-sample comparison. Numbers here are measurements; the spec's targets are listed beside them and are not claimed where they were not met.
 
 ## Benchmark `overnight_v4` (2026-09-29T20:30)
 

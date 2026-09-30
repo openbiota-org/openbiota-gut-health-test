@@ -1,4 +1,4 @@
-# refs/ inventory (1374.68 GB, 46 lock-covered files)
+# refs/ inventory (1376.72 GB, 46 lock-covered files)
 
 | path | GB | files | category | rebuild |
 |---|---|---|---|---|
@@ -22,7 +22,7 @@
 | refs/kraken2 | 31.05 | 19 | downloaded (locked) publisher Kraken2/Bracken database | `make refs-expanded` |
 | refs/metaphlan4_db | 91.4 | 217 | downloaded by MetaPhlAn (Jan26 + Jun23 indexes); marker dump and clade caches derived | `make refs-expanded (metaphlan --install); caches rebuild on first use` |
 | refs/metaphlan_db | 3.45 | 11 | downloaded by MetaPhlAn 3 (scoring lane) | `make setup` |
-| refs/micom | 10.15 | 2,904 | AGORA2 model library + community/LP caches | `make extension-refs` |
+| refs/micom | 12.19 | 3,166 | AGORA2 model library + community/LP caches | `make extension-refs` |
 | refs/motus | 15.25 | 15 | downloaded (locked), unpacked | `make refs-expanded` |
 | refs/mycobiome | 226.07 | 3,540 | mycobiome references | `make mycobiome-refs` |
 | refs/nii | 0.0 | 0 | references | `make setup` |

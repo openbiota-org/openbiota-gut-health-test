@@ -662,7 +662,9 @@ def _organism_phrase(card: Mapping[str, Any], colour: Any) -> str:
         return ""
     bits = []
     for o in organisms:
-        level = f"{o['value']:.1f}%" if o["detected"] else "0%, not detected"
+        level = (f"{o['value']:.1f}%" if o["detected"]
+                 else "0%, not detected by the reference catalogue" if o.get("inventory_note")
+                 else "0%, not detected")
         bits.append(
             f"<font color='{_hex(colour)}'><b><i>{_esc(o['name'])}</i></b></font> "
             f"{level} ({_ordinal(o['percentile'])})"
@@ -675,6 +677,12 @@ def _organism_phrase(card: Mapping[str, Any], colour: Any) -> str:
         tail = " \u2014 the organisms found are what lift the reading."
     else:
         tail = "."
+    notes = [str(o["inventory_note"]) for o in organisms if o.get("inventory_note")]
+    if notes:
+        # every value here is the reference catalogue's, which is what the
+        # percentile is taken against; where the pooled methods disagree the
+        # phrase says so rather than leaving two sections to contradict
+        tail += " " + notes[0]
     return "Made up of " + "; ".join(bits) + tail
 
 
