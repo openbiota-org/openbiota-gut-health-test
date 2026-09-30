@@ -932,6 +932,13 @@ def pathogen_alert(
                           else f"{n_trace} traces, unconfirmed", WATCH, WATCH_BG))
     if n_unresolved:
         chips.append(Chip(f"{n_unresolved} species unresolved", QUIET, QUIET_BG))
+    n_shared = int(((pathogens or {}).get("inventory_reconciliation") or {}).get("n_shared_sequence") or 0)
+    if n_shared:
+        # rows whose sequence belongs to relatives that are present: the
+        # reader should see that the screen looked and the answer was "these
+        # reads are not this organism's", not silence
+        chips.append(Chip(f"{n_shared} relatives' shared sequence" if n_shared > 1
+                          else "1 relative's shared sequence", QUIET, QUIET_BG))
     if n_carriage:
         chips.append(Chip(f"{n_carriage} toxin-negative", QUIET, QUIET_BG))
     if n_opportunist and hit:
