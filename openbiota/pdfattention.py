@@ -445,6 +445,10 @@ def _glance_table(story: list[Any], st: dict[str, ParagraphStyle], rows_g: list[
         role = (role[:118] + "\u2026") if len(role) > 120 else role
         name = (f"<i><b>{a.display}</b></i><br/><font color='{_hex(INK_SOFT)}' size='6.2'>{role}</font>"
                 if role else f"<i><b>{a.display}</b></i>")
+        if not a.detected and a.note:
+            # what the wider inventory holds instead sits under the name, where
+            # there is room for a sentence; the share column keeps its two lines
+            name += f"<br/><font color='{_hex(INK_FAINT)}' size='6'>{a.note}</font>"
         chip = (f"<font color='{_hex(CLASS_COLOUR[a.cls])}' size='8'>\u25cf</font> "
                 f"<font size='6.8'>{org.CLASS_LABEL[a.cls]}</font>")
         if a.detected and not a.in_primary:
@@ -466,8 +470,6 @@ def _glance_table(story: list[Any], st: dict[str, ParagraphStyle], rows_g: list[
         else:
             share = a.level_text
             sub = "not detected" + (f" \u00b7 carried by {a.prevalence:.0%}" if a.prevalence is not None else "")
-            if a.note:
-                sub += f"<br/>{a.note}"
         sub = sub.strip(" \u00b7")
         if sub:
             share += f"<br/><font size='6' color='{_hex(INK_FAINT)}'>{sub}</font>"
