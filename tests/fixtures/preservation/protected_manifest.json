@@ -3,7 +3,7 @@
     "SAMPLE1_A01": {
       "baseline_version": "0.8.4",
       "frozen_file": "SAMPLE1_A01.protected.json.gz",
-      "frozen_protected_sha256": "db006ab541ce5f0d0917bca2b7695b2199724954daca98f0910b963a7ea203e3",
+      "frozen_protected_sha256": "dc0cce2b09234117181ffeea8e249d8bdd0e4e6c8d24ea5699165d5fae2bed2d",
       "metric_id_count": 1700,
       "metric_ids": {
         "panels": [
@@ -1738,13 +1738,13 @@
         ]
       },
       "frozen_on": "2026-09-30",
-      "frozen_because": "v0.8.4 release baselines: published sample identifiers, one share per organism, level against the typical carrier; drift checker found every protected difference detection-derived",
-      "previous_protected_sha256": "dd041883e6ff74b84b21c0b788e4658ca65bb0d40d0932c353b341a11070bcb6"
+      "frozen_because": "v0.8.4 release baselines: one share per organism, level against the typical carrier, expanded-uncommon opportunists flagged, the pathogen screen reconciled with the organism inventory, every section naming the catalogue that measured it",
+      "previous_protected_sha256": "db006ab541ce5f0d0917bca2b7695b2199724954daca98f0910b963a7ea203e3"
     },
     "SAMPLE2_A02": {
       "baseline_version": "0.8.4",
       "frozen_file": "SAMPLE2_A02.protected.json.gz",
-      "frozen_protected_sha256": "bf04568f83f678df21438f129c77d6816b8b72c7017c1bfb31d521ce80e0aece",
+      "frozen_protected_sha256": "8e08a067e9a6d613c515e7d938ca382be24690cbfa0f35103374aa654306edaf",
       "metric_id_count": 1743,
       "metric_ids": {
         "panels": [
@@ -3522,13 +3522,13 @@
         ]
       },
       "frozen_on": "2026-09-30",
-      "frozen_because": "v0.8.4 release baselines: published sample identifiers, one share per organism, level against the typical carrier; drift checker found every protected difference detection-derived",
-      "previous_protected_sha256": "506758a821d8a25816702f342291dc8e96e2f1605e855cfc7c93386f7ba9e2a0"
+      "frozen_because": "v0.8.4 release baselines: one share per organism, level against the typical carrier, expanded-uncommon opportunists flagged, the pathogen screen reconciled with the organism inventory, every section naming the catalogue that measured it",
+      "previous_protected_sha256": "bf04568f83f678df21438f129c77d6816b8b72c7017c1bfb31d521ce80e0aece"
     },
     "SAMPLE3_A03": {
       "baseline_version": "0.8.4",
       "frozen_file": "SAMPLE3_A03.protected.json.gz",
-      "frozen_protected_sha256": "48f3487403268fc430a969b0135739ddb5c54b76ed6af4ad2f5437d8f5e03095",
+      "frozen_protected_sha256": "664dd6f146d9a6a2dad1bc77be726d256234dcb5845a03a89e1aaae910a5a0ed",
       "metric_id_count": 1510,
       "metric_ids": {
         "panels": [
@@ -5073,13 +5073,13 @@
         ]
       },
       "frozen_on": "2026-09-30",
-      "frozen_because": "v0.8.4 release baselines: published sample identifiers, one share per organism, level against the typical carrier; drift checker found every protected difference detection-derived",
-      "previous_protected_sha256": "88ed4bb5ba4672d3fbbe0ed8b6ad9f2c71732c6b8d865fbb756a3c78164b5494"
+      "frozen_because": "v0.8.4 release baselines: one share per organism, level against the typical carrier, expanded-uncommon opportunists flagged, the pathogen screen reconciled with the organism inventory, every section naming the catalogue that measured it",
+      "previous_protected_sha256": "48f3487403268fc430a969b0135739ddb5c54b76ed6af4ad2f5437d8f5e03095"
     },
     "SAMPLE4_A04": {
       "baseline_version": "0.8.4",
       "frozen_file": "SAMPLE4_A04.protected.json.gz",
-      "frozen_protected_sha256": "85eeefc6a9e8109db481552d609fea4ab65aec52321ae8a4c44e423998f071c1",
+      "frozen_protected_sha256": "2e6e08f27c22889a1b57ddc3c506789dca2d42271b3f72a2209e4487754aa220",
       "metric_id_count": 1846,
       "metric_ids": {
         "panels": [
@@ -6960,13 +6960,13 @@
         ]
       },
       "frozen_on": "2026-09-30",
-      "frozen_because": "v0.8.4 release baselines: published sample identifiers, one share per organism, level against the typical carrier; drift checker found every protected difference detection-derived",
-      "previous_protected_sha256": "87b9800404739e01bf09082495b73ea9b24ff1672cf73ad5d15b6c11e407a727"
+      "frozen_because": "v0.8.4 release baselines: one share per organism, level against the typical carrier, expanded-uncommon opportunists flagged, the pathogen screen reconciled with the organism inventory, every section naming the catalogue that measured it",
+      "previous_protected_sha256": "85eeefc6a9e8109db481552d609fea4ab65aec52321ae8a4c44e423998f071c1"
     },
     "SAMPLE6_A06": {
       "baseline_version": "0.8.4",
       "frozen_file": "SAMPLE6_A06.protected.json.gz",
-      "frozen_protected_sha256": "12b9ecee7d80fd1d2d52e99d671f289b7867bcb33a7cd024fbf23b1183655da6",
+      "frozen_protected_sha256": "098caa808b0fb85ff7107d21e4e6a2c3a2c8e041e185c3b3b90bfe7278e37b16",
       "metric_id_count": 1886,
       "metric_ids": {
         "panels": [
@@ -8887,12 +8887,12 @@
         ]
       },
       "frozen_on": "2026-09-30",
-      "frozen_because": "v0.8.4 release baselines: published sample identifiers, one share per organism, level against the typical carrier; drift checker found every protected difference detection-derived",
-      "previous_protected_sha256": "60ce2a431edaf22b3d522813d4d594b156fa1312821e8791386d4f9b8c1fe23b"
+      "frozen_because": "v0.8.4 release baselines: one share per organism, level against the typical carrier, expanded-uncommon opportunists flagged, the pathogen screen reconciled with the organism inventory, every section naming the catalogue that measured it",
+      "previous_protected_sha256": "12b9ecee7d80fd1d2d52e99d671f289b7867bcb33a7cd024fbf23b1183655da6"
     }
   },
   "schema_version": "openbiota.protected-manifest-set/1.0",
   "spec_version": "0.8.3",
-  "last_reason": "v0.8.4 release baselines: published sample identifiers, one share per organism, level against the typical carrier; drift checker found every protected difference detection-derived",
+  "last_reason": "v0.8.4 release baselines: one share per organism, level against the typical carrier, expanded-uncommon opportunists flagged, the pathogen screen reconciled with the organism inventory, every section naming the catalogue that measured it",
   "last_frozen_on": "2026-09-30"
 }
