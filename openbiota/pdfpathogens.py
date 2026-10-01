@@ -1090,6 +1090,13 @@ _AMOUNT_BANDS: Final[tuple[tuple[float, str, str], ...]] = (
 )
 
 
+def _SECTIONS() -> Mapping[str, int]:  # noqa: N802 - reads as the constant it stands in for
+    """The report's section numbers, imported late: pdfreport imports this module."""
+    from openbiota.pdfreport import SECTIONS
+
+    return SECTIONS
+
+
 def amount_of(record: Mapping[str, Any]) -> dict[str, Any]:
     """The quantity of one organism, in the several ways a reader needs it.
 
@@ -1673,7 +1680,8 @@ def _advice_block(
     share_pct = record.get("inventory_share_percent")
     if isinstance(share_pct, (int, float)):
         how += (
-            f" In the community composition (section 6) this organism is <b>{float(share_pct):.3f}%</b> of the "
+            f" In the community composition (section {_SECTIONS()['catalogue']}) this organism is "
+            f"<b>{float(share_pct):.3f}%</b> of the "
             "whole, measured competitively against every relative found in this sample. That is the amount; the "
             "count above is this screen's own alignment, which credits shared sequence to the target it knows."
         )

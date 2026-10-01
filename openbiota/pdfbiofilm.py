@@ -630,7 +630,10 @@ def _organisms_table(
                      + (" by the reference catalogue" if o.get("inventory_note") else "")
                      + "</font>")
         if o.get("inventory_note"):
-            name += f"<br/><font size='6' color='{_hex(INK_FAINT)}'>{_esc(str(o['inventory_note']))}</font>"
+            from openbiota.pdfreport import SECTIONS
+
+            name += (f"<br/><font size='6' color='{_hex(INK_FAINT)}'>{_esc(str(o['inventory_note']))} "
+                     f"(section {SECTIONS['catalogue']})</font>")
         rows.append([
             Paragraph(name, st["small"]),
             Paragraph(level, st["small"]),

@@ -177,7 +177,7 @@ def test_a_biofilm_card_says_when_the_pooled_methods_disagree(sample: str) -> No
                 continue
             seen = True
             assert info.get("inventory_note"), (sample, name)
-            assert "section 6" in info["inventory_note"]
+            assert "pooling every method" in info["inventory_note"]
     if not seen:
         pytest.skip(f"{sample}: reference catalogue and pooled methods agree on every biofilm feature")
 

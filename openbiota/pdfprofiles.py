@@ -51,6 +51,7 @@ from openbiota.pdfreport import (
     PANEL_BG,
     PHYLA_PALETTE,
     RULE,
+    SECTIONS,
     SLATE,
     SLATE_BG,
     Dial,
@@ -854,7 +855,7 @@ def _profile_page(
         )
     )
     story.append(Paragraph(
-        "Every species value here is the reference catalogue's own measurement (MetaPhlAn 3, the catalogue the reference cohort was profiled with), because that is what makes a percentile against that cohort mean anything. It is not the organism's share of the community in section 6, which pools nine detection methods and the current catalogues: a species that catalogue has no genome for reads as <i>absent</i> here and still has a share there. Section 6 is the account of what is present; this table is the account of what produced this score.",
+        f"Every species value here is the reference catalogue's own measurement (MetaPhlAn 3, the catalogue the reference cohort was profiled with), because that is what makes a percentile against that cohort mean anything. It is not the organism's share of the community in section {SECTIONS['catalogue']}, which pools nine detection methods and the current catalogues: a species that catalogue has no genome for reads as <i>absent</i> here and still has a share there; where that is so, the pooled share is printed beneath. Section {SECTIONS['catalogue']} is the account of what is present; this table is the account of what produced this score.",
         st["small"]))
     story.append(Spacer(1, 1.5 * mm))
     _decomposition_table(story, st, result)

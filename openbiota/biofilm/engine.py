@@ -684,7 +684,7 @@ def inventory_note(results_json: Mapping[str, Any], leaves: Sequence[str]) -> st
     parts = "; ".join([*found, *renamed])
     # Short enough for the level column beside it; the level cell already says
     # the zero is the reference catalogue's, and the section explains why.
-    return f"pooling every method (section 6): {parts}"
+    return f"pooling every method: {parts}"
 
 
 def analyze(

@@ -57,11 +57,31 @@ NEVER = re.compile(r"percentile|score|z_|robust_z|index|band|prevalence|combined
 #: inventory's own placement of an organism, copied into another block.
 DERIVED_PERCENTILES = re.compile(r"^mycobiome\.colonisation_resistance\.bacteria\[\d+\]\.percentile$")
 
+#: Rule changes made deliberately in the v0.8.4 release, each documented in
+#: docs/EXPANDED_DETECTION.md and docs/OUTPUT.md and covered by tests:
+#:   - the typical carrier's level is the interpolated median of the carrier
+#:     readings (community.carrier_median), so it and the midrank percentile
+#:     describe one distribution; the deviation follows it;
+#:   - a scoring-cohort rank that conflicts with the composition share falls
+#:     back to a lane cohort whose reading agrees with it (inventory.build);
+#:   - the pathogen screen's bacterial calls are reconciled with the organism
+#:     inventory (pathogens.reconcile): statuses, counts and statements move.
+#: Nothing else calibrated may change; a path outside this list still fails.
+RELEASE_RULE_CHANGES = [
+    r"^profile_similarity\.community\.(groups\[\d+\]\.(members\[\d+\]\.)?|species\[\d+\]\.)(reference_median|deviation_percent|carrier_percentile)$",
+    r"^organism_verdicts\.verdicts\[\d+\]\.percentile$",
+    r"^pathogens\.results\[\d+\]\.(plain_statement|reason_codes|display_qualifier|display_status|sequence_status|species_resolution|counts_as_pathogen|report_tier|inventory_\w+)$",
+    r"^pathogens\.counts\.(pathogen_count|supported|attention|opportunists|uncertain)$",
+    r"^pathogens\.inventory_reconciliation(\.|\[|$)",
+]
+
 
 def classify(path: str, baseline, candidate) -> str:  # noqa: ARG001 - the candidate value is reported by the caller
     if baseline is None:
         return "allowed"  # an addition (or a new leaf that is null): no calibrated number changed
     if DERIVED_PERCENTILES.search(path):
+        return "allowed"
+    if any(re.search(rx, path) for rx in RELEASE_RULE_CHANGES):
         return "allowed"
     if NEVER.search(path.rsplit(".", 1)[-1]) and not path.startswith("organism_inventory"):
         return "violation"

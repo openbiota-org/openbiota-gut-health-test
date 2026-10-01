@@ -207,10 +207,10 @@ def reconcile(pathogens: dict[str, Any], inv: Inventory | None, *, read_length_b
             rec["inventory_organism"] = o.display
             rec["inventory_share_percent"] = round(o.percent, 4) if o.in_primary else None
             rec["inventory_methods"] = len(o.methods or ())
-            share = (f"In the community composition it is {_pct(o.percent)} (section 6"
+            share = (f"In the community composition it is {_pct(o.percent)} (organism inventory"
                      f"{', seen by ' + str(len(o.methods)) + ' methods' if len(o.methods or ()) > 1 else ''})."
                      if o.in_primary and o.percent > 0 else
-                     f"The organism inventory found it too (section 6, {len(o.methods or ())} methods).")
+                     f"The organism inventory found it too ({len(o.methods or ())} methods).")
             fpm = rec.get("normalized_fragments_per_million")
             screen_pct = (float(fpm) / 10_000.0) if fpm is not None else None
             if (screen_pct is not None and o.in_primary and o.percent > 0
