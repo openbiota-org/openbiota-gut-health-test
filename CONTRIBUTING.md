@@ -33,11 +33,13 @@ welcome.
    computed once and both places read it. The tests in
    `tests/test_one_number_per_quantity.py` and
    `tests/test_inventory_counts_reconcile.py` enforce this for the report.
-4. **Nothing personal.** No sample from a real person, no report, no sequencing
-   read, no name, in code, tests, fixtures or documentation. Test fixtures use
-   the published sample identifiers (`SAMPLE1_A01`, …; see
-   `openbiota/samples.py`); frozen baselines are anonymised by
-   `scripts/freeze_preservation_baselines.py` before they are written.
+4. **Nothing personal, nothing frozen.** No sample from a real person, no
+   report, no sequencing read, no name, in code, tests, fixtures or
+   documentation - and no fixture that pins one sample's output. A test about
+   a report states a property every sample must satisfy and reads whatever run
+   is present locally (`tests/_data.py`), skipping when none is; synthetic
+   inventories cover the rules themselves. Published sample identifiers
+   (`SAMPLE1_A01`, …; `openbiota/samples.py`) are the only names a test may use.
 5. **Plain language on the page.** The report is for the person the sample came
    from. A sentence a reader has to look up is a sentence to rewrite; a claim
    the literature does not support is a claim to remove.

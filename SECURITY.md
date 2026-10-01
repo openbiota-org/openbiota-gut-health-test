@@ -16,11 +16,11 @@ report describes their health. Treat these as personal data at every step:
   which git ignores;
 - third-party reports (`tinyhealth/`), which git ignores.
 
-The repository tracks no reads, no results and no report. Frozen test
-baselines under `tests/fixtures/preservation/` are derived from real runs but
-carry only published sample identifiers (`SAMPLE1_A01`, …) and no paths or
-names; `scripts/freeze_preservation_baselines.py` anonymises them before they
-are written.
+The repository tracks no reads, no results, no report and no fixture derived
+from a real person's sample. Tests that need a finished run read it from the
+local `results/` directory and skip when it is absent, so the suite runs
+anywhere; every assertion about a report is a property any sample must
+satisfy, never a frozen copy of one person's numbers.
 
 ## Reporting a problem
 

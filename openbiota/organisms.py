@@ -296,7 +296,30 @@ def _family_row(o: Organism) -> dict[str, Any] | None:
 
 
 def _flag(cls: str, concern_when: str, pct: float | None) -> tuple[str, int, str]:
-    """Direction, level and reason, from class and percentile."""
+    """Direction, level and reason, from class and percentile.
+
+    This function and `_expanded_uncommon` are the whole of the rule that
+    decides whether an organism's *level* needs attention. Nothing else in the
+    report may promote or demote an organism on its level; the attention page
+    is the set of organisms this returns a flag for, plus the organisms no
+    method found that the reference adults commonly carry (missing). Written
+    out:
+
+    * an opportunist at or above the 90th percentile among the reference
+      adults who carry it is OVERGROWN; so is any non-beneficial organism at
+      or above the 97th;
+    * a conditional or unclassed resident between the 90th and 97th is WORTH
+      WATCHING;
+    * a beneficial organism that is high is not a finding - a supplement being
+      taken is not an overgrowth, and the literature that raises a beneficial
+      organism is conditional at most (its level stays in the full table; it
+      is a watch item only where its own entry says high is a concern);
+    * a beneficial organism at or below the 10th percentile among carriers is
+      DEPLETED (an issue at or below the 3rd);
+    * an opportunist that few adults carry, several times above the typical
+      carrier and in the upper quarter of carriers, is OVERGROWN
+      (`_expanded_uncommon`); one merely present is WORTH WATCHING as uncommon.
+    """
     if pct is None or concern_when in ("", "none"):
         return "", FLAG_NONE, ""
     if concern_when in ("high", "both") and pct >= HIGH_AT:
@@ -405,13 +428,20 @@ def verdict(o: Organism) -> Verdict:
     flag, level, reason = _flag(cls, concern, getattr(o, "level_percentile", o.percentile))
     if not flag:
         flag, level, reason = _expanded_uncommon(o, cls, concern) or (flag, level, reason)
-    # A population counted within a relative's share has no share of its own
-    # to be high or low: the composition carries it under the relative, and
-    # that relative's level is the one read. Flagging it as well would list
-    # one population twice, under two catalogues' names (Phocaeicola vulgatus
-    # at the 93rd percentile beside "Phocaeicola SPECIV4_34405" at the 92nd).
-    # Its own lane's percentile stays in the full table, marked as its lane's.
-    if flag and not o.in_primary and getattr(o, "share_basis", "none") in ("member", "none"):
+    # A population counted within a relative's share that is the *same*
+    # population under another catalogue's name (Phocaeicola vulgatus at the
+    # 93rd percentile beside GlobDB's "Phocaeicola SPECIV4_34405" at the 92nd,
+    # the two readings within a factor of two) is judged once, as the
+    # relative; its lane rank stays in the full table. A member the
+    # competition told apart as a distinct population - Blautia luti at 0.39%
+    # inside Blautia wexlerae's 7.2%, Faecalibacterium prausnitzii at 0.005%
+    # inside a Faecalibacterium bin - has a level of its own; and where the
+    # relative has no rank at all, the member's lane rank is the only reading
+    # of that population the report has. `judged_on_own_rank` is decided in
+    # inventory.unify_shares, where both records are in hand.
+    share_basis = getattr(o, "share_basis", "none")
+    if flag and not o.in_primary and (share_basis == "none"
+                                      or (share_basis == "member" and not getattr(o, "judged_on_own_rank", False))):
         flag, level, reason = "", FLAG_NONE, ""
     # An opportunist that few reference adults carry at all is worth a look
     # whatever its level: the level percentile ranks it among carriers, so

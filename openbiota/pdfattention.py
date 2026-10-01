@@ -191,7 +191,8 @@ GROUPS: Final[tuple[tuple[str, str, str, colors.Color], ...]] = (
     ("watch", "WORTH WATCHING \u2014 above the reference range, or uncommon to carry",
      "Conditional organisms between the 90th and 97th percentile among carriers - normal residents that have "
      "expanded, a signal about diet and balance more than a problem in themselves - and opportunists that fewer "
-     "than one in ten reference adults carry at all, whatever their level.", AMBER),
+     "than one in ten reference adults carry at all, whatever their level. A beneficial organism that is high is "
+     "not listed: a supplement being taken is not an overgrowth.", AMBER),
 )
 
 
@@ -327,31 +328,12 @@ def build(
                 note=_missing_note(t.species),
             ))
             _mark(t.species)
-        # Census high/low that the verdicts did not already flag: organisms
-        # the census placed but the merged inventory holds no record of. An
-        # organism the inventory does hold is judged there, once, on its one
-        # share and its level among carriers; the census's own rank on the
-        # reference catalogue's reading is not a second listing of it.
-        for bucket, group in ((2, "watch"), (3, "depleted")):
-            for t in list(findings.bucket(bucket)):
-                if _known(t.species) or not t.detected:
-                    continue
-                if inv is not None and inv.get(t.species) is not None:
-                    continue
-                cls = org.verdict(Organism(species=t.species, percent=float(t.percent or 0.0),
-                                           genus=t.species.split("_")[0])).cls
-                if bucket == 2 and cls == org.OPPORTUNIST:
-                    group = "overgrown"
-                word = "high" if bucket == 2 else "low"
-                items.append(Attention(
-                    species=t.species, display=t.display_name, group=group, cls=cls,
-                    percent=float(t.percent or 0.0), percentile=t.percentile, prevalence=t.prevalence,
-                    detected=True, weight=30.0 + abs((t.percentile or 50.0) - 50.0),
-                    flag_reason=f"{word} \u2014 {_ordinal(t.percentile)} percentile among carriers",
-                    verdict=None, finding=t, modulators=mods.lookup(t.species),
-                ))
-                _mark(t.species)
-
+        # The census judges no level. Every organism it could rank is in the
+        # inventory, which judges each one once, on its one share and its rank
+        # among carriers (organisms.verdict); a second judgement here on the
+        # reference catalogue's reading with another estimator put the same
+        # organism on the page twice with two percentiles, and made the page
+        # move whenever either judge changed.
     items.sort(key=lambda a: -a.weight)
     return items
 

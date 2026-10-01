@@ -234,3 +234,78 @@ def test_page_one_headline_counts_only_issues_not_watches() -> None:
                            if v.flag == "high" and v.cls in (org.OPPORTUNIST, org.CONDITIONAL)
                            and v.is_issue]
                 assert int(m.group(1)) == len(serious) - 2, path
+
+
+# --------------------------------------------------------------------------- #
+# the attention rule, every branch, on synthetic organisms
+# --------------------------------------------------------------------------- #
+
+def _ranked(species: str, percent: float, carrier_pct: float, **kw) -> inventory.Organism:
+    """An organism the scoring cohort ranked: share, rank among carriers, and
+    the fields the rule reads, with sensible defaults for the rest."""
+    base = {
+        "species": species, "percent": percent, "in_primary": True, "status": "supported",
+        "percentile": kw.pop("population_pct", carrier_pct), "carrier_percentile": carrier_pct,
+        "reference_carriers": kw.pop("carriers", 500), "reference_percent": kw.pop("typical", 0.1),
+        "reference_reading": kw.pop("reading", percent), "scoring_percent": percent,
+        "percentile_source": "scoring cohort", "prevalence": kw.pop("prevalence", 0.6),
+        "methods": kw.pop("methods", ("marker", "genome_sketch")),
+    }
+    base.update(kw)
+    return inventory.Organism(**base)
+
+
+def test_the_attention_rule_branch_by_branch() -> None:
+    """`organisms._flag` plus `_expanded_uncommon` is the whole rule; the page is
+    its image. Each row: what the organism is, where it sits, what the page says."""
+    cases = [
+        # opportunist at or above the 90th among carriers: overgrown
+        (_ranked("Ruminococcus_gnavus", 2.0, 90.0), "high", org.FLAG_ISSUE),
+        (_ranked("Ruminococcus_gnavus", 2.0, 89.9), "", org.FLAG_NONE),
+        # a conditional resident: watch between the 90th and 97th, overgrown from the 97th
+        (_ranked("Phocaeicola_vulgatus", 2.0, 92.0), "high", org.FLAG_WATCH),
+        (_ranked("Phocaeicola_vulgatus", 2.0, 97.0), "high", org.FLAG_ISSUE),
+        # a beneficial organism high is not a finding, however high
+        (_ranked("Faecalibacterium_prausnitzii", 20.0, 99.9), "", org.FLAG_NONE),
+        (_ranked("Lactobacillus_plantarum", 2.0, 100.0), "", org.FLAG_NONE),
+        # a beneficial organism low: depleted, an issue from the 3rd percentile down
+        (_ranked("Faecalibacterium_prausnitzii", 0.05, 10.0), "low", org.FLAG_WATCH),
+        (_ranked("Faecalibacterium_prausnitzii", 0.01, 3.0), "low", org.FLAG_ISSUE),
+        (_ranked("Faecalibacterium_prausnitzii", 0.2, 10.1), "", org.FLAG_NONE),
+        # an opportunist low is nothing
+        (_ranked("Ruminococcus_gnavus", 0.001, 1.0), "", org.FLAG_NONE),
+        # the expanded-uncommon opportunist: top 5% of all adults, >=3x the typical carrier, upper quarter of carriers, >1 method
+        (_ranked("Clostridium_innocuum", 0.04, 80.7, population_pct=95.5, typical=0.0183, reading=0.0863, prevalence=0.29),
+         "high", org.FLAG_ISSUE),
+        (_ranked("Clostridium_innocuum", 0.04, 80.7, population_pct=94.0, typical=0.0183, reading=0.0863, prevalence=0.29),
+         "", org.FLAG_NONE),
+        (_ranked("Clostridium_innocuum", 0.04, 80.7, population_pct=95.5, typical=0.0183, reading=0.0863, prevalence=0.29,
+                 methods=("marker",)), "", org.FLAG_NONE),
+        # an uncommon opportunist merely present: watch
+        (_ranked("Enterococcus_faecium", 0.02, 66.0, prevalence=0.05), "uncommon", org.FLAG_WATCH),
+        # no rank, no flag: not in the reference set, too few carriers, or the catalogue reads it differently
+        (_ranked("Ruminococcus_gnavus", 5.0, 99.0, carriers=4), "", org.FLAG_NONE),
+        (_ranked("Ruminococcus_gnavus", 5.0, 99.0, reference_conflict=True), "", org.FLAG_NONE),
+        (inventory.Organism(species="Ruminococcus_gnavus", percent=5.0), "", org.FLAG_NONE),
+    ]
+    for o, flag, level in cases:
+        v = org.verdict(o)
+        assert (v.flag, v.flag_level) == (flag, level), (o.species, o.percent, o.carrier_percentile, v.flag, v.flag_level, v.flag_reason)
+
+
+def test_a_population_counted_within_a_relative_is_judged_once() -> None:
+    """The same population under two catalogues' names is judged as the
+    relative; a distinct population the competition told apart, or one whose
+    relative has no rank, is judged on its own lane rank."""
+    same = _ranked("Phocaeicola_SPECIV4_34405", 0.0, 92.0, in_primary=False, share_basis="member",
+                   counted_within="Phocaeicola vulgatus", judged_on_own_rank=False, secondary_percent=11.3,
+                   gtdb="Phocaeicola SPECIV4_34405", unnamed=True, genus="Phocaeicola")
+    distinct = _ranked("Blautia_A_luti", 0.0, 100.0, in_primary=False, share_basis="member",
+                       counted_within="Blautia A wexlerae", judged_on_own_rank=True, secondary_percent=0.39,
+                       gtdb="Blautia_A luti", genus="Blautia")
+    assert not org.verdict(same).flagged
+    assert org.verdict(distinct).flagged and org.verdict(distinct).is_issue
+    # a record from before the field existed is treated as the same population: silent, never a duplicate
+    legacy = _ranked("Blautia_A_luti", 0.0, 100.0, in_primary=False, share_basis="member",
+                     counted_within="Blautia A wexlerae", secondary_percent=0.39, gtdb="Blautia_A luti", genus="Blautia")
+    assert not org.verdict(legacy).flagged

@@ -13,38 +13,50 @@ tests:
   requirement: With extension off, canonical legacy results equal the captured baseline, excluding
     explicitly enumerated volatile run metadata.
   covered_by:
-  - test_preservation.py
-  - test_tinyhealth_concordance.py
+  - test_legacy_contract.py
+  reason: The frozen per-sample baselines this rested on were derived from six real people's
+    results and could only be checked on the machine that holds their reads; they were removed
+    from the repository on 2026-09-30. The property is held generically instead - the extension
+    writes only under its own key (test_acceptance_v083.py), and every section is reconciled to
+    one account of what is present on whatever sample is run (test_report_agrees_with_itself.py).
 - id: AT002
   requirement: With extension on, existing numerical outputs and labels remain identical for identical
     baseline inputs.
   covered_by:
   - test_acceptance_v083.py
-  - test_preservation.py
+  - test_legacy_contract.py
+  reason: As AT001 - the frozen baselines were removed; the protected keys are guarded by
+    openbiota.extension.preservation.PROTECTED_KEYS and the extension's attach() refuses to write
+    into them.
 - id: AT003
   requirement: Existing disease, GMWI2, donor, strain, pathogen, biofilm, fungal and functional
     result objects remain unchanged.
   covered_by:
   - test_acceptance_v083.py
-  - test_preservation.py
-  - test_tinyhealth_concordance.py
+  - test_legacy_contract.py
+  reason: As AT001.
 - id: AT004
   requirement: New metadata, reference cohorts or feature values cannot silently enter a legacy
     model's input graph.
   covered_by:
-  - test_preservation.py
+  - test_legacy_contract.py
+  reason: Held by construction - the extension writes under its own key only
+    (openbiota.extension.engine.attach refuses a protected key) - and no longer by a frozen
+    per-sample baseline, which was removed on 2026-09-30 as derived from private samples.
 - id: AT005
   requirement: Existing numerical content is preserved; authorized functional-title changes, page-3
     relocation and section-25 insertion match the placement contract.
   covered_by:
   - test_placement_contract.py
-  - test_preservation.py
   reason: Owed. The requirement is implemented and enforced in the module it belongs to, but no
     test names this identifier yet, so it is counted as uncovered rather than claimed.
 - id: AT006
   requirement: Existing CLI entrypoints and consumers of legacy `results.json` remain compatible.
   covered_by:
-  - test_preservation.py
+  - test_legacy_contract.py
+  reason: The legacy keys are the protected set (openbiota.extension.preservation.PROTECTED_KEYS)
+    and every section renders from them through tests/test_pdf_agrees_with_the_json.py on whatever
+    run is present; the frozen per-sample baseline this rested on was removed on 2026-09-30.
 - id: AT007
   requirement: Cached mode completes without FASTQs/network downloads and lists the precise unavailable
     extension analyses.

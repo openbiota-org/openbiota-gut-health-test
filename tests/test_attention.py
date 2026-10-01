@@ -92,12 +92,19 @@ def test_no_organism_is_listed_twice_under_two_names(path: Path) -> None:
 
 @pytest.mark.parametrize("path", RESULTS, ids=lambda p: p.parent.name)
 def test_every_flagged_verdict_and_every_missing_taxon_is_in_the_list(path: Path) -> None:
+    """The page is exactly the image of the one rule: every organism the
+    verdict flags is listed, nothing listed as present is unflagged, and the
+    census adds only what no method found."""
     inv, findings = _load(path)
     items = pdfattention.build(inv, findings)
     listed = {a.species for a in items}
-    for v in organisms.verdicts(list(inv.organisms)):
-        if v.flagged:
-            assert v.organism.species in listed, f"flagged but not listed: {v.organism.species}"
+    flagged = {v.organism.species for v in organisms.verdicts(list(inv.organisms)) if v.flagged}
+    assert flagged <= listed, f"flagged but not listed: {sorted(flagged - listed)}"
+    present_listed = {a.species for a in items if a.detected}
+    assert present_listed == flagged, (
+        f"listed as present without a flag: {sorted(present_listed - flagged)}; "
+        f"flagged but missing: {sorted(flagged - present_listed)}")
+    assert len(listed) == len(items), "an organism is listed twice"
     if findings is not None:
         for t in findings.bucket(4):
             o = inv.get(t.species)

@@ -244,6 +244,14 @@ class Organism:
     marker_percent: float | None = None
     #: For a `member`: the relative whose share it is counted within.
     counted_within: str | None = None
+    #: For a `member`: True when the report judges this population on the
+    #: member's own lane rank - because its reading is far from the relative's
+    #: share (a distinct population the competition told apart), or because
+    #: the relative it is counted within has no rank of its own, so this is
+    #: the only rank the population has. False when it is the same population
+    #: as the relative under another catalogue's name, judged once, as the
+    #: relative.
+    judged_on_own_rank: bool | None = None
     #: Share the marker lane had read under a relative that the competitive
     #: confirmation rejected; the reads belong here, so the share came here.
     absorbed_percent: float | None = None
@@ -411,6 +419,8 @@ class Organism:
             out["marker_percent"] = round(self.marker_percent, 4)
         if self.counted_within:
             out["counted_within"] = self.counted_within
+        if self.judged_on_own_rank is not None:
+            out["judged_on_own_rank"] = bool(self.judged_on_own_rank)
         if self.absorbed_percent:
             out["absorbed_percent"] = round(self.absorbed_percent, 4)
             out["absorbed_from"] = list(self.absorbed_from)
@@ -677,6 +687,7 @@ def from_json(blob: Mapping[str, Any] | None) -> Inventory | None:
             share_basis=str(r.get("share_basis") or ("marker" if r.get("in_primary", True) else "none")),
             marker_percent=r.get("marker_percent"),
             counted_within=r.get("counted_within"),
+            judged_on_own_rank=r.get("judged_on_own_rank"),
             absorbed_percent=r.get("absorbed_percent"),
             absorbed_from=tuple(r.get("absorbed_from") or ()),
             reference_conflict=bool(r.get("reference_conflict")),
@@ -986,6 +997,7 @@ def unify_shares(blob: dict[str, Any], confirmation: Mapping[str, Any] | None) -
         elif basis in ("split", "estimated", "member", "absorbed", "none"):
             rec["percent"], rec["in_primary"] = 0.0, False
         rec.pop("counted_within", None)
+        rec.pop("judged_on_own_rank", None)
         rec.pop("absorbed_percent", None)
         rec.pop("absorbed_from", None)
         rec["share_basis"] = "marker" if rec.get("in_primary") else "none"
@@ -1114,6 +1126,22 @@ def unify_shares(blob: dict[str, Any], confirmation: Mapping[str, Any] | None) -
         target.setdefault("absorbed_from", []).append(_display_of(rej))
         n_absorbed += 1
         absorbed_total += share
+    # Only now, with every share final (absorption included), can a member be
+    # told apart from the relative it is counted within: the same population
+    # under another catalogue's name reads within a factor of two of that
+    # relative's share; a distinct population does not.
+    final_by_display = {_display_of(r): r for r in records}
+    for rec in records:
+        if rec.get("share_basis") != "member":
+            continue
+        anchor = final_by_display.get(str(rec.get("counted_within") or ""))
+        distinct = _distinct_from(
+            float(rec.get("secondary_percent") or 0.0),
+            float(anchor.get("percent") or 0.0) if anchor is not None else 0.0)
+        # the same population as its relative is judged once, as the
+        # relative - unless the relative has no rank, in which case the
+        # member's lane rank is the only reading of that population there is
+        rec["judged_on_own_rank"] = bool(distinct or anchor is None or level_percentile_of(anchor) is None)
     # A percentile was taken on the reference lane's reading of the marker
     # species; once the share on the page is a part of that species (split)
     # or a rescaled reading, compare the two and say "not comparable" where
@@ -1332,6 +1360,15 @@ def _separate_mislabels(merged: dict[str, dict[str, Any]], alias_of: Any) -> Non
         rec["aliases"] = keep
 
 
+def _distinct_from(reading: float, anchor_share: float) -> bool:
+    """Whether a member's own reading places it as a population distinct from
+    the relative it is counted within (see `SAME_POPULATION_FACTOR`)."""
+    if reading <= 0 or anchor_share <= 0:
+        return reading > 0
+    ratio = reading / anchor_share
+    return ratio < 1.0 / SAME_POPULATION_FACTOR or ratio > SAME_POPULATION_FACTOR
+
+
 def _reads_differently(share: float | None, scoring: float | None) -> bool:
     """Fivefold disagreement between the composition share and the scoring
     catalogue's reading, both above trace: the catalogues do not measure the
@@ -1476,6 +1513,14 @@ def _fold(merged: dict[str, dict[str, Any]], into: str, other: str) -> None:
 
 #: Fewer reference carriers than this and a rank among them is not stated.
 MIN_REFERENCE_CARRIERS: Final = 10
+#: A population counted within a relative's share whose own whole-genome
+#: reading is within this factor of that share (either way) is the same
+#: population under another catalogue's name - GlobDB's "Phocaeicola
+#: SPECIV4_34405" at 11.3% beside Phocaeicola vulgatus at 11.7% - and is not
+#: judged a second time. One further from it is a distinct population the
+#: competition told apart (Blautia luti at 0.39% inside Blautia wexlerae's
+#: 7.2%), and its own lane rank stands.
+SAME_POPULATION_FACTOR: Final = 2.0
 
 #: The installed union the expansion is benchmarked against (spec §1):
 #: MetaPhlAn 3 scoring, MetaPhlAn 4 Jun23, GTDB R232 sylph.

@@ -516,3 +516,51 @@ def test_an_uncommon_opportunist_far_above_its_carriers_is_overgrown() -> None:
     # a conditional resident that is simply present in a population that often lacks it stays off the page
     plebeius = replace(innocuum, species="Phocaeicola_plebeius", genus="Phocaeicola", percent=3.747)
     assert org.verdict(plebeius).cls != org.OPPORTUNIST and not org.verdict(plebeius).is_issue
+
+
+def test_a_member_is_judged_on_its_own_rank_only_when_it_is_a_distinct_population() -> None:
+    """GlobDB's "Phocaeicola SPECIV4_34405" at 11.3% inside Phocaeicola vulgatus's
+    11.7% is the same population under another catalogue's name and is judged
+    once, as vulgatus. Blautia luti at 0.39% inside Blautia wexlerae's 7.2% is a
+    distinct population the competition told apart, with a level of its own.
+    And where the relative has no rank at all, the member's lane rank is the
+    only reading of that population the report has."""
+    from openbiota import organisms as org
+
+    blob = {"primary_lane": "jan26", "unclassified_percent": 5.0, "organisms": [
+        {"species": "Phocaeicola_vulgatus", "gtdb": "Phocaeicola vulgatus", "percent": 11.75, "in_primary": True,
+         "genus": "Phocaeicola", "status": "supported", "detected_by": ["jan26", "globdb"], "percentile": 93.4,
+         "carrier_percentile": 92.9, "reference_carriers": 2687, "reference_percent": 4.29, "reference_reading": 22.3},
+        {"species": "Phocaeicola_SPECIV4_34405", "gtdb": "Phocaeicola SPECIV4_34405", "percent": 0.0, "in_primary": False,
+         "genus": "Phocaeicola", "unnamed": True, "status": "supported", "detected_by": ["globdb", "kraken"],
+         "secondary_percent": 11.27, "percentile": 92.0, "carrier_percentile": 91.9, "reference_carriers": 60,
+         "percentile_source": "globdb cohort, n=100", "reference_percent": 3.0, "reference_reading": 11.27},
+        {"species": "Blautia_A_wexlerae", "gtdb": "Blautia_A wexlerae", "percent": 7.21, "in_primary": True,
+         "genus": "Blautia", "status": "supported", "detected_by": ["jan26", "globdb"], "reference_conflict": True,
+         "percentile": 13.9, "carrier_percentile": 13.9, "reference_carriers": 2644},
+        {"species": "Blautia_A_luti", "gtdb": "Blautia_A luti", "percent": 0.0, "in_primary": False, "genus": "Blautia",
+         "status": "supported", "detected_by": ["globdb", "motus"], "secondary_percent": 0.391,
+         "percentile": 100.0, "carrier_percentile": 100.0, "reference_carriers": 40,
+         "percentile_source": "globdb cohort, n=100", "reference_percent": 0.05, "reference_reading": 0.391},
+        {"species": "Blautia_A_MGYG000001338", "gtdb": "Blautia_A MGYG000001338", "percent": 0.0, "in_primary": False,
+         "genus": "Blautia", "unnamed": True, "status": "supported", "detected_by": ["globdb", "kraken"],
+         "secondary_percent": 6.35, "percentile": 90.3, "carrier_percentile": 90.3, "reference_carriers": 70,
+         "percentile_source": "globdb cohort, n=100", "reference_percent": 2.0, "reference_reading": 6.35},
+    ]}
+    inventory.unify_shares(blob, {"genomes": {}})
+    by = {o["species"]: o for o in blob["organisms"]}
+    assert by["Phocaeicola_SPECIV4_34405"]["share_basis"] == "member"
+    assert by["Phocaeicola_SPECIV4_34405"]["judged_on_own_rank"] is False      # same population, vulgatus has a rank
+    assert by["Blautia_A_luti"]["judged_on_own_rank"] is True                  # distinct population
+    assert by["Blautia_A_MGYG000001338"]["judged_on_own_rank"] is True         # same population, but wexlerae has no rank
+    inv = inventory.from_json(blob)
+    assert inv is not None
+    flags = {v.organism.species: v for v in org.verdicts(list(inv.organisms))}
+    assert flags["Phocaeicola_vulgatus"].flagged and not flags["Phocaeicola_SPECIV4_34405"].flagged
+    assert flags["Blautia_A_luti"].flagged and flags["Blautia_A_luti"].is_issue
+    assert flags["Blautia_A_MGYG000001338"].flagged
+    # the flag survives a round trip through results.json
+    again = inventory.from_json(inv.to_json())
+    assert again is not None and again.get("Blautia_A_luti").judged_on_own_rank is True
+    assert inventory._distinct_from(0.39, 7.2) and inventory._distinct_from(0.09, 0.008)
+    assert not inventory._distinct_from(11.27, 11.75) and not inventory._distinct_from(10.2, 6.4)

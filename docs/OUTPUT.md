@@ -60,7 +60,7 @@ in there" is the question that follows "what is flagged".
 | 2 | What stood out, in prose: the flagged organisms, the functions, the evidence-card tally, the age estimate |
 | 3 | Your gut community: composition by class, diversity and evenness as *neutral* range strips (none has a favourable direction on its own) |
 | 4 | Your microbial groups at a glance: the curated groups (butyrate producers, mucin degraders, oral-origin, opportunists …) on reference bars, each with its level against the typical carrier |
-| 5 | Organisms that need attention: **overgrown** (above the 90th percentile among carriers for an opportunist, above the 97th for anything, or — for an opportunist most people do not carry — several times above the level of the people who do), **missing** (commonly carried, not detected where the detection model says it should have been), **depleted**, **worth watching** (expanded, or uncommon to carry). Each with its share, the typical carrier's level, its deviation and its rank among carriers |
+| 5 | Organisms that need attention — one rule, `organisms.verdict`, applied once to every organism on its one share and its rank among the reference adults who carry it: **overgrown** (an opportunist at or above the 90th percentile among carriers; any non-beneficial organism at or above the 97th; an opportunist most people do not carry that is several times above the people who do), **worth watching** (a conditional resident between the 90th and 97th; an opportunist fewer than one in ten adults carry), **depleted** (a beneficial organism at or below the 10th), **missing** (commonly carried, not detected where the detection model says it should have been), **depleted**, **worth watching** (expanded, or uncommon to carry). Each with its share, the typical carrier's level, its deviation and its rank among carriers |
 | 6 | Your organisms, classified: every organism detected, one share of the whole each, largest first; the thirty most abundant described one by one; the organisms furthest above and below the reference; then the full table with class, share, level against the typical carrier, how many reference adults carry it, percentile, strain |
 | 7 | Pathogens: every target searched, graded (see below), with each bacterial call reconciled against the organism inventory |
 | 8 | Estimated biological age of biota: point estimate on the training-support histogram, conformal intervals, what moved it, the model card |
@@ -109,6 +109,23 @@ rank is stated. Where the reference catalogue reads a species fivefold
 differently from the composition, the organism is ranked instead in the
 population of a lane whose reading agrees with the share (marked ‡, the
 population named); where none does, the row says *not comparable*.
+
+**One judge of levels.** Whether an organism's level needs attention is
+decided in exactly one place, `openbiota.organisms.verdict`, from its one
+share and its rank among the reference adults who carry it; the attention
+page is the set of organisms that rule flags, plus the organisms no method
+found that the reference adults commonly carry. No other section judges a
+level — the reference catalogue's own census ranks nothing on this page any
+more, because a second judge with its own estimator put the same organism on
+the page twice and moved the page whenever either judge changed. A population
+counted within a relative's share is judged as that relative when it is the
+same population under another catalogue's name (its reading within a factor
+of two of the relative's share), and on its own lane rank when it is a
+distinct population or the relative has no rank. A beneficial organism that
+is high is not a finding: a supplement being taken is not an overgrowth. The
+rule is tested branch by branch on synthetic organisms
+(`tests/test_organisms.py`), and on any run present the page is checked to be
+exactly the image of the rule (`tests/test_attention.py`).
 
 **One account of what is present.** The pathogen screen aligns reads to its
 own 485 reference genomes, so sequence an organism shares with a relative the

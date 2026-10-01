@@ -512,8 +512,9 @@ pipelines, one set of DNA.
 Tiny Health is not treated as ground truth. Where the two disagree, the
 question is which is right, and the answer comes from the sequence evidence.
 
-Reproduce with `python -m tools.compare_tinyhealth`; the properties are locked
-in `tests/test_tinyhealth_concordance.py`.
+Reproduce with `python -m tools.compare_tinyhealth` against your own Tiny
+Health report and run. The comparison is a tool, not a fixture: nothing from
+these samples is pinned in the test suite.
 
 ### What is comparable, and what it shows
 
@@ -548,8 +549,7 @@ vitamin B9 (268.7 vs 271; 77.4th) and `SAMPLE6_A06` hydrogen sulfide index
 (9.01 vs 9.15; 77.5th). For propionate and B9 the rank order of the three
 same-template samples is *identical* on both platforms — the two agree about
 the values and differ about where a band starts. The comparison tool reports
-these separately and `tests/test_tinyhealth_concordance.py` requires any
-straddle to pass the rank-order check.
+these separately and applies the rank-order check to every straddle.
 
 ### The three opposite calls, resolved
 
@@ -571,8 +571,8 @@ identity**, best-matching *Bacteroides clarus* (592), *Phocaeicola dorei*
 sample that is **34% Bacteroidaceae**. *Bacteroides* is the dominant genus of
 gut GABA producers (Strandwitz et al., *Nature Microbiology* 4:396–403, 2019,
 doi:10.1038/s41564-018-0307-3). A third of the community cannot carry the gene
-and produce a zero. `tests/test_tinyhealth_concordance.py` asserts this
-pipeline can never report that combination.
+and produce a zero; this pipeline counts the gene whatever organism carries
+it, so it cannot report that combination.
 
 ### One pair excluded as not like-for-like
 
