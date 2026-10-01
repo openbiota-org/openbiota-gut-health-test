@@ -40,7 +40,7 @@ Ordered by dependency: nothing below can start before the blockers above it.
 
 ## Website
 
-- **[YOU]** Turn on GitHub Pages for the repo and point the apex domain at it (the `docs.yml` workflow already builds `web/openbiota.com` and `/docs/`).
+- **[YOU]** Turn on GitHub Pages for the repo and point the apex domain at it (the `docs.yml` workflow already builds `web/openbiota.com` and `/docs/`): set the repository variable `DEPLOY_PAGES=true`, then Settings → Pages → Source "GitHub Actions". The deploy job stays skipped until the variable exists, so the strict build is the only check meanwhile. Pages on a private organisation repository needs a paid plan; it is free once the repository is public.
 - **[ME]** Verify every claim on the page against current output — organism counts, catalogue sizes, page counts and section numbers all moved this week.
 - **[ME]** Add the privacy/terms links to the footer once those pages exist.
 - **[ME, done]** Add OG/Twitter cards, favicon set, `robots.txt`, `sitemap.xml`, and a 404 page. — done 2026-09-29: `scripts/build_site.py` (run by `make docs-build` and the site workflow) writes the root sitemap, robots.txt, the icon set, site.webmanifest and the head tags; the docs 404 page exists.

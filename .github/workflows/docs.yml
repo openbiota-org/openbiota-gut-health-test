@@ -8,6 +8,8 @@
 # free and needs no credentials; S3 is the commented alternative at the end.
 #
 # One-time GitHub Pages setup:
+#   0. Settings → Secrets and variables → Actions → Variables: DEPLOY_PAGES = true
+#      (the deploy job is skipped until this exists).
 #   1. Settings → Pages → Source: "GitHub Actions".
 #   2. Settings → Pages → Custom domain: openbiota.com (the CNAME written
 #      below keeps that setting across deploys).
@@ -66,7 +68,11 @@ jobs:
           path: web/openbiota.com
 
   deploy:
-    if: github.event_name != 'pull_request'
+    # Deploys only once Pages is switched on (Settings -> Pages -> Source:
+    # "GitHub Actions") and the repository variable DEPLOY_PAGES is set to
+    # "true". Until then the strict build above is the check, and a missing
+    # Pages site is not reported as a failed workflow.
+    if: github.event_name != 'pull_request' && vars.DEPLOY_PAGES == 'true'
     needs: build
     runs-on: ubuntu-latest
     environment:
