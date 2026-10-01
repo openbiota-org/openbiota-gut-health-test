@@ -45,7 +45,6 @@ def test_the_acceptance_ledger_covers_every_test_in_the_specification():
     entry with neither is the failure this catches.
     """
     import re
-    import subprocess
 
     ledger = yaml.safe_load(LEDGER.read_text(encoding="utf-8"))
     spec = (REPO / "specs" / "BUILD_SPEC_v0.8.3.md").read_text(encoding="utf-8")
@@ -56,12 +55,10 @@ def test_the_acceptance_ledger_covers_every_test_in_the_specification():
         f"unknown {sorted(in_ledger - in_spec)}"
     )
 
-    found = subprocess.run(  # noqa: S603
-        ["rg", "-o", "--no-filename", "--no-heading", "-N", r"AT\d{3}",
-         str(REPO / "tests")],
-        capture_output=True, text=True, check=False,
-    ).stdout.split()
-    exercised = {token for token in found if re.fullmatch(r"AT\d{3}", token)}
+    # a plain scan of the test tree: no dependence on a search tool being installed
+    exercised: set[str] = set()
+    for path in (REPO / "tests").rglob("*.py"):
+        exercised.update(re.findall(r"AT\d{3}", path.read_text(encoding="utf-8", errors="ignore")))
     unaccounted = [
         row["id"] for row in ledger["tests"]
         if row["id"] not in exercised and not str(row.get("reason") or "").strip()

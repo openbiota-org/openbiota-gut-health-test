@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import gzip
+import shutil
 from pathlib import Path
 
 import pytest
@@ -222,6 +223,11 @@ def test_subsample_rejects_empty_input(tmp_path: Path, reporter):
 # --------------------------------------------------------------------------- #
 
 
+#: `build_command` resolves the executable, so these need DIAMOND on PATH; a
+#: clean checkout without it skips them rather than failing on the dependency.
+needs_diamond = pytest.mark.skipif(shutil.which("diamond") is None, reason="diamond is not installed")
+
+
 def test_output_fields_toggle_residue_columns():
     assert output_fields(with_residues=False) == BASE_FIELDS
     assert output_fields(with_residues=True) == BASE_FIELDS + RESIDUE_FIELDS
@@ -229,6 +235,7 @@ def test_output_fields_toggle_residue_columns():
     assert "qseq_gapped" not in output_fields(with_residues=False)
 
 
+@needs_diamond
 def test_command_carries_the_required_flags(tmp_path: Path):
     config = SearchConfig(threads=24, block_size=8.0, index_chunks=1, sensitivity="default")
     cmd = build_command(
@@ -251,6 +258,7 @@ def test_command_carries_the_required_flags(tmp_path: Path):
     assert not any(c.endswith("-sensitive") for c in cmd)
 
 
+@needs_diamond
 def test_sensitivity_flag_is_applied(tmp_path: Path):
     cmd = build_command(
         config=SearchConfig(sensitivity="very-sensitive"),
@@ -273,6 +281,7 @@ def test_count_lines(tmp_path: Path):
     assert count_lines(path) == 3
 
 
+@needs_diamond
 def test_cache_manifest_ignores_thread_count_and_paths(tmp_path: Path):
     """A laptop and a workstation screening the same reads share one cache.
 
