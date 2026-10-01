@@ -8,7 +8,7 @@
  * See README.md for the small request/response contract.
  */
 const OPENBIOTA = {
-  repositoryUrl: 'https://github.com/openbiota/OpenBiota-Gut-Health-Report',
+  repositoryUrl: 'https://github.com/openbiota-org/openbiota-gut-health-test',
   emailEndpoint: '',
   eventsEndpoint: ''
 };

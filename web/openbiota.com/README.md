@@ -56,7 +56,7 @@ change them all, then rebuild the docs with `make docs-build`.
 
 Edit the `OPENBIOTA` settings at the top of `script.js`:
 
-- `repositoryUrl`: the GitHub repository URL (`https://github.com/openbiota/OpenBiota-Gut-Health-Report`).
+- `repositoryUrl`: the GitHub repository URL (`https://github.com/openbiota-org/openbiota-gut-health-test`).
 - `emailEndpoint`: your own form service or server endpoint. Leave blank while
   previewing; no email address is submitted or claimed to be saved.
 - `eventsEndpoint`: optional analytics endpoint. Leave blank to disable network
