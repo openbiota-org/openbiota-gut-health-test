@@ -431,19 +431,22 @@ def _glance_table(story: list[Any], st: dict[str, ParagraphStyle], rows_g: list[
             # what the wider inventory holds instead sits under the name, where
             # there is room for a sentence; the share column keeps its two lines
             name += f"<br/><font color='{_hex(INK_FAINT)}' size='6'>{a.note}</font>"
+        if a.detected and not a.in_primary:
+            # likewise for a population judged on its own lane rank: where it is
+            # counted and what that lane read go under the name
+            where = f"counted within <i>{a.counted_within}</i>" if a.counted_within else "counted within a relative"
+            if a.lane_reading:
+                where += f" \u00b7 whole-genome reading {_pct(a.lane_reading)}"
+            name += f"<br/><font color='{_hex(INK_FAINT)}' size='6'>{where}</font>"
         chip = (f"<font color='{_hex(CLASS_COLOUR[a.cls])}' size='8'>\u25cf</font> "
                 f"<font size='6.8'>{org.CLASS_LABEL[a.cls]}</font>")
         if a.detected and not a.in_primary:
             # counted within a relative in the composition: no share of its
-            # own; the level is the whole-genome lane's reading of it
+            # own; where it is counted and the lane reading sit under the name
             share = f"<font size='6.4' color='{_hex(INK_FAINT)}'>no share of its own</font>"
-            sub = f"within <i>{a.counted_within}</i>" if a.counted_within else "counted within a relative"
-            if a.lane_reading:
-                sub += f" \u00b7 whole-genome reading {_pct(a.lane_reading)}"
-            if a.prevalence is not None:
-                sub += f" \u00b7 carried by {a.prevalence:.0%}"
+            sub = f"carried by {a.prevalence:.0%}" if a.prevalence is not None else ""
             if a.typical_percent and a.deviation is not None:
-                sub += f" \u00b7 typical {_pct(a.typical_percent)}"
+                sub += (" \u00b7 " if sub else "") + f"typical {_pct(a.typical_percent)}"
         elif a.detected:
             share = _pct(a.percent)
             sub = f"carried by {a.prevalence:.0%}" if a.prevalence is not None else ""
