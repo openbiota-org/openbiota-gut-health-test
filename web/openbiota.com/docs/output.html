@@ -1288,7 +1288,7 @@ in there" is the question that follows "what is flagged".</p>
 </tr>
 <tr>
 <td>5</td>
-<td>Organisms that need attention: <strong>overgrown</strong> (above the 90th percentile among carriers for an opportunist, above the 97th for anything, or — for an opportunist most people do not carry — several times above the level of the people who do), <strong>missing</strong> (commonly carried, not detected where the detection model says it should have been), <strong>depleted</strong>, <strong>worth watching</strong> (expanded, or uncommon to carry). Each with its share, the typical carrier's level, its deviation and its rank among carriers</td>
+<td>Organisms that need attention — one rule, <code>organisms.verdict</code>, applied once to every organism on its one share and its rank among the reference adults who carry it: <strong>overgrown</strong> (an opportunist at or above the 90th percentile among carriers; any non-beneficial organism at or above the 97th; an opportunist most people do not carry that is several times above the people who do), <strong>worth watching</strong> (a conditional resident between the 90th and 97th; an opportunist fewer than one in ten adults carry), <strong>depleted</strong> (a beneficial organism at or below the 10th), <strong>missing</strong> (commonly carried, not detected where the detection model says it should have been), <strong>depleted</strong>, <strong>worth watching</strong> (expanded, or uncommon to carry). Each with its share, the typical carrier's level, its deviation and its rank among carriers</td>
 </tr>
 <tr>
 <td>6</td>
@@ -1414,6 +1414,22 @@ rank is stated. Where the reference catalogue reads a species fivefold
 differently from the composition, the organism is ranked instead in the
 population of a lane whose reading agrees with the share (marked ‡, the
 population named); where none does, the row says <em>not comparable</em>.</p>
+<p><strong>One judge of levels.</strong> Whether an organism's level needs attention is
+decided in exactly one place, <code>openbiota.organisms.verdict</code>, from its one
+share and its rank among the reference adults who carry it; the attention
+page is the set of organisms that rule flags, plus the organisms no method
+found that the reference adults commonly carry. No other section judges a
+level — the reference catalogue's own census ranks nothing on this page any
+more, because a second judge with its own estimator put the same organism on
+the page twice and moved the page whenever either judge changed. A population
+counted within a relative's share is judged as that relative when it is the
+same population under another catalogue's name (its reading within a factor
+of two of the relative's share), and on its own lane rank when it is a
+distinct population or the relative has no rank. A beneficial organism that
+is high is not a finding: a supplement being taken is not an overgrowth. The
+rule is tested branch by branch on synthetic organisms
+(<code>tests/test_organisms.py</code>), and on any run present the page is checked to be
+exactly the image of the rule (<code>tests/test_attention.py</code>).</p>
 <p><strong>One account of what is present.</strong> The pathogen screen aligns reads to its
 own 485 reference genomes, so sequence an organism shares with a relative the
 bundle carries no reference for lands on the nearest target and reads as a

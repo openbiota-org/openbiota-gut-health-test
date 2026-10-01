@@ -2321,8 +2321,9 @@ metagenomics service, ran the same five stool specimens. Two independent
 pipelines, one set of DNA.</p>
 <p>Tiny Health is not treated as ground truth. Where the two disagree, the
 question is which is right, and the answer comes from the sequence evidence.</p>
-<p>Reproduce with <code>python -m tools.compare_tinyhealth</code>; the properties are locked
-in <code>tests/test_tinyhealth_concordance.py</code>.</p>
+<p>Reproduce with <code>python -m tools.compare_tinyhealth</code> against your own Tiny
+Health report and run. The comparison is a tool, not a fixture: nothing from
+these samples is pinned in the test suite.</p>
 <h3 id="what-is-comparable-and-what-it-shows">What is comparable, and what it shows<a class="headerlink" href="#what-is-comparable-and-what-it-shows" title="Permanent link">&para;</a></h3>
 <p>Absolute values are not comparable — Tiny Health reports RPKM against their
 reference population, this pipeline reports copies per 100 bacterial genomes
@@ -2383,8 +2384,7 @@ vitamin B9 (268.7 vs 271; 77.4th) and <code>SAMPLE6_A06</code> hydrogen sulfide 
 (9.01 vs 9.15; 77.5th). For propionate and B9 the rank order of the three
 same-template samples is <em>identical</em> on both platforms — the two agree about
 the values and differ about where a band starts. The comparison tool reports
-these separately and <code>tests/test_tinyhealth_concordance.py</code> requires any
-straddle to pass the rank-order check.</p>
+these separately and applies the rank-order check to every straddle.</p>
 <h3 id="the-three-opposite-calls-resolved">The three opposite calls, resolved<a class="headerlink" href="#the-three-opposite-calls-resolved" title="Permanent link">&para;</a></h3>
 <p><strong>Branched-chain amino acids, <code>SAMPLE1_A01</code> and <code>SAMPLE2_A02</code></strong> — reference
 population, not measurement. On the three samples that share a Tiny Health
@@ -2403,8 +2403,8 @@ identity</strong>, best-matching <em>Bacteroides clarus</em> (592), <em>Phocaeic
 sample that is <strong>34% Bacteroidaceae</strong>. <em>Bacteroides</em> is the dominant genus of
 gut GABA producers (Strandwitz et al., <em>Nature Microbiology</em> 4:396–403, 2019,
 doi:10.1038/s41564-018-0307-3). A third of the community cannot carry the gene
-and produce a zero. <code>tests/test_tinyhealth_concordance.py</code> asserts this
-pipeline can never report that combination.</p>
+and produce a zero; this pipeline counts the gene whatever organism carries
+it, so it cannot report that combination.</p>
 <h3 id="one-pair-excluded-as-not-like-for-like">One pair excluded as not like-for-like<a class="headerlink" href="#one-pair-excluded-as-not-like-for-like" title="Permanent link">&para;</a></h3>
 <p><strong>Histamine.</strong> Tiny Health's v4.8.3 metric is "Histamine-producing species":
 the summed abundance of a <em>curated species list</em>. This pipeline's is <code>hdcA</code>
