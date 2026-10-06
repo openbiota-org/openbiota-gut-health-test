@@ -7,14 +7,15 @@ once the one above it is done; items marked *done* stay for the record.
 
 The operating principle: **the fewest accounts, no recurring cost until there
 is real interest, and nothing to run.** Four accounts in total — GitHub (have),
-Cloudflare, one email service, Zenodo — and the only bill is the domain.
+Cloudflare, Brevo, Zenodo — and the only bill is the domain.
 
 ---
 
 ## 0. Decisions that gate everything else
 
 - **[YOU]** Hosting and DNS: `openbiota.com` on **Cloudflare** (free plan). DNS, static hosting (Pages), inbound mail forwarding (Email Routing), cookieless analytics (Web Analytics), and a backend path later (Workers / Pages Functions on `api.openbiota.com`) in one account. Transfer the registrar to Cloudflare at cost (~$10/yr) or just point the nameservers. *Decided against GitHub Pages: static-only, no headers/redirects/functions, and it was a placeholder I chose for convenience, not a product decision.*
-- **[YOU]** Email service for the interest list: **Kit** (free to 10,000 subscribers; forms, double opt-in, unsubscribe, unlimited broadcasts) or **MailerLite** (free to 1,000 subscribers / 12,000 emails a month, same features, plainer look). Either replaces the Worker + KV + Turnstile + Resend build entirely. *Not SendGrid (free tier gone, $19.95/mo), not Mailchimp (500 contacts), not SES (cheapest per email but an AWS account and deliverability you run yourself).*
+- **[YOU]** Email service for the interest list: **Brevo** — the one service priced by emails *sent*, not contacts *held*: unlimited contacts on every plan including free, 300 emails/day free (~9,000/month), double opt-in forms, unsubscribe, campaigns, transactional API and SMTP included; monthly paid plans from about $9 for the one month you mail a large list, then back to free. Confirm current numbers on their pricing page. It replaces the Worker + KV + Turnstile + Resend build entirely. *Not Kit, MailerLite, Loops, Beehiiv, Buttondown or Mailchimp — all priced per contact, so a list you rarely email costs money every month. Not SendGrid (free tier gone, $19.95/mo). Amazon SES ($0.10 per 1,000, no contact pricing) with the list in Cloudflare KV is the fallback if Brevo ever changes terms: cheapest at any scale, most to run.*
+- **[YOU]** Do not gate the sample report behind an email address: link the PDF directly on the site. The list is then purely "notify me of updates" — fewer people join, nothing has to be sent promptly to anyone, and the privacy obligations shrink to a newsletter's.
 - **[YOU]** The sending address: `hello@openbiota.com`, verified in the email service (SPF, DKIM, DMARC records at Cloudflare), with replies forwarded to your existing mailbox by Email Routing. No Google Workspace unless you want a separate real inbox ($7/user/mo). Not `no-reply@`: a reply-able address is better for trust and deliverability.
 - **[YOU]** The public sample report: your own report (you can consent to your own; the id is redacted to `SAMPLE2_A02` already) or a synthetic one from `openbiota simulate`. Real reads better; synthetic avoids the question entirely.
 - **[YOU]** Copyright holder's legal name in `LICENSE` (currently "Erick Miller (OpenBiota)"). An entity later means re-licensing with contributors in the tree.
@@ -43,9 +44,9 @@ Cloudflare, one email service, Zenodo — and the only bill is the domain.
 
 - **[YOU]** Cloudflare account; add `openbiota.com`; point nameservers (or transfer); enable Email Routing with `hello@`, `privacy@`, `security@` forwarding to your mailbox; enable Web Analytics (cookieless).
 - **[ME]** Replace the GitHub Pages deploy with Cloudflare Pages: connect the repository in the Cloudflare dashboard (build command `mkdocs build --strict && python scripts/build_site.py --no-docs`, output `web/openbiota.com`), or swap the deploy step for `wrangler-action`. Remove the `DEPLOY_PAGES` gate and the Pages job; keep the strict build as the pull-request check. Custom domain + HTTPS on Pages. Add the analytics snippet.
-- **[YOU]** Email service account; verify `openbiota.com` as the sending domain (add the SPF/DKIM/DMARC records it gives you at Cloudflare); create the "sample report" form with double opt-in; write nothing else — the service handles confirmation, unsubscribe and the suppression list.
-- **[ME]** Point the site's existing dialog at the service's form endpoint (keep our markup, the honeypot and the live region; drop `emailEndpoint`/Worker assumptions from `script.js`); confirmation email copy and the "generate your own" guide email, written in the service's editor.
-- **[ME]** The public sample report once decided (section 0): redacted, read end to end against a checklist, hosted as a PDF on the site.
+- **[YOU]** Brevo account; verify `openbiota.com` as the sending domain (add the SPF/DKIM/DMARC records it gives you at Cloudflare); create one "updates" list with double opt-in; write nothing else — Brevo handles confirmation, unsubscribe and the suppression list.
+- **[ME]** Point the site's existing dialog at Brevo's form endpoint (keep our markup, the honeypot and the live region; drop `emailEndpoint`/Worker assumptions from `script.js`); the confirmation email and the first "what's new" template, written in Brevo's editor.
+- **[ME]** The public sample report once decided (section 0): redacted, read end to end against a checklist, linked directly from the site as a PDF — no signup in front of it.
 - **[ME]** Verify every claim on the page against current output (counts, catalogue sizes, page counts, section numbers) and tone the hero copy to the measured capability. Add the privacy/terms links. Accessibility and performance pass (alt text, contrast, keyboard path through the dialog, Lighthouse). Test on mobile.
 - **[ME, done]** OG/Twitter cards, favicon set, `robots.txt`, root `sitemap.xml`, 404 page — `scripts/build_site.py`. — 2026-09-29.
 
@@ -117,6 +118,6 @@ derived files. We host none of the upstream data and never use S3 (egress on a
 |---|---|---|---|
 | Code, CI, releases, issues, discussions | GitHub (have) | $0 | public repo: unlimited |
 | DNS, hosting, inbound mail, analytics, future backend | Cloudflare | $0 | Pages unlimited bandwidth; Workers 100k requests/day; R2 10 GB |
-| Interest list, double opt-in, broadcasts, sending domain | Kit or MailerLite | $0 | 10,000 subscribers (Kit) / 1,000 subscribers (MailerLite) |
+| Interest list, double opt-in, campaigns, sending domain | Brevo | $0 | unlimited contacts; 300 emails/day — pay (~$9+) only in a month you mail more than that |
 | Citable data and software snapshots | Zenodo | $0 | 50 GB per record |
 | Domain | registrar | ~$10/yr | — |
