@@ -1,112 +1,123 @@
 # Release TODO
 
-Everything not yet done, to be live with a working site.
-**[YOU]** needs an account, a card, a legal decision or a secret.
-**[ME]** is code, config or content I can write.
-Ordered by dependency: nothing below can start before the blockers above it.
+Everything between here and a public repository, a live site and a release
+anyone can install. **[YOU]** needs an account, a decision or a secret;
+**[ME]** is code, config or content. Ordered so that each section can start
+once the one above it is done; items marked *done* stay for the record.
+
+The operating principle: **the fewest accounts, no recurring cost until there
+is real interest, and nothing to run.** Four accounts in total — GitHub (have),
+Cloudflare, one email service, Zenodo — and the only bill is the domain.
 
 ---
 
-## Blockers — nothing ships until these are done
+## 0. Decisions that gate everything else
 
-- **[YOU]** Register/confirm `openbiota.com` and point DNS at Cloudflare (or wherever the Worker lives). Every URL in the code and the docs already assumes this domain.
-- **[ME, done]** GitHub: the repository is `openbiota-org/openbiota-gut-health-test`, created private, with a single squashed release commit authored as Erick Miller and no personal data in the tree or the history. — done 2026-09-30. **[YOU]** to decide when it goes public, and to delete the stray `erickmiller/gut-health-metagenomic-screen`. The dormant `github.com/Openbiota` account (created 2023-07-12, no activity) can be requested through GitHub support if the shorter name matters.
-- **[YOU]** Decide the copyright holder's legal name for `LICENSE` (currently "Erick Miller (OpenBiota)"). An LLC later means re-licensing with contributors in the tree — much harder after the fact.
-- **[YOU]** Decide: is there a paid product at launch, or is this free + email list only? Everything in the "If selling" section below is dead weight until this is answered.
-- **[ME, done]** Pre-flight the first commit: confirm `.gitignore` covers `refs/`, `results/`, `fastq/`, `tinyhealth/`, `.venv*`, `web/**/.DS_Store`; prove no participant data, raw reads or PDFs are tracked; squash to one initial commit. — done 2026-09-29: `.gitignore` covers `fastq/`, `results/`, `refs/*`, `tinyhealth/`, `.venv*`, `vendor/`, secrets; tracked files carry only published sample identifiers (`openbiota/samples.py`); no fixture derived from a real sample is tracked; verified by `git grep` for names, local ids and absolute paths.
+- **[YOU]** Hosting and DNS: `openbiota.com` on **Cloudflare** (free plan). DNS, static hosting (Pages), inbound mail forwarding (Email Routing), cookieless analytics (Web Analytics), and a backend path later (Workers / Pages Functions on `api.openbiota.com`) in one account. Transfer the registrar to Cloudflare at cost (~$10/yr) or just point the nameservers. *Decided against GitHub Pages: static-only, no headers/redirects/functions, and it was a placeholder I chose for convenience, not a product decision.*
+- **[YOU]** Email service for the interest list: **Kit** (free to 10,000 subscribers; forms, double opt-in, unsubscribe, unlimited broadcasts) or **MailerLite** (free to 1,000 subscribers / 12,000 emails a month, same features, plainer look). Either replaces the Worker + KV + Turnstile + Resend build entirely. *Not SendGrid (free tier gone, $19.95/mo), not Mailchimp (500 contacts), not SES (cheapest per email but an AWS account and deliverability you run yourself).*
+- **[YOU]** The sending address: `hello@openbiota.com`, verified in the email service (SPF, DKIM, DMARC records at Cloudflare), with replies forwarded to your existing mailbox by Email Routing. No Google Workspace unless you want a separate real inbox ($7/user/mo). Not `no-reply@`: a reply-able address is better for trust and deliverability.
+- **[YOU]** The public sample report: your own report (you can consent to your own; the id is redacted to `SAMPLE2_A02` already) or a synthetic one from `openbiota simulate`. Real reads better; synthetic avoids the question entirely.
+- **[YOU]** The name. *OpenBiome* is a well-known stool bank one letter away. Do a trademark and confusion check before any wide announcement; decide whether to proceed as-is, and whether to request the dormant `github.com/Openbiota` account through GitHub support.
+- **[YOU]** Copyright holder's legal name in `LICENSE` (currently "Erick Miller (OpenBiota)"). An entity later means re-licensing with contributors in the tree.
+- **[YOU]** Paid product at launch, or free + interest list only? Section 9 is dead weight until this is answered.
+- **[ME, done]** Repository `openbiota-org/openbiota-gut-health-test`, private, single squashed release commit authored as Erick Miller, no personal data in tree or history; `.gitignore` covers reads, results, references, third-party reports, secrets; no fixture derived from a real sample is tracked. — 2026-09-30.
+- **[ME, done]** Report self-agreement: one judge of levels (`organisms.verdict`), one account of what is present (pathogen screen reconciled with the inventory, biofilm and disease tables name their catalogue and print the pooled reading), levels and deviations never point opposite ways; all held by tests that run on any sample. — 2026-09-30.
 
-- **[ME, done]** Report self-agreement: the pathogen screen is reconciled against the organism inventory, so no section may name an organism another section says is absent; an opportunist far above the adults who carry it reaches the attention page however few carry it; the biofilm cards and disease-pattern tables name the catalogue that measured them and print the pooled reading beside a non-detection. `tests/test_report_agrees_with_itself.py` holds all of it. — done 2026-09-30.
+## 1. Make the repository public (this week; nothing else depends on the site)
 
-## Legal and licensing
+- **[ME]** README status block at the top: measured recall/precision against the spec targets, the modules still labelled research-grade (mycobiome support rule, Myco-Score, determinant panels, pathogen rule, microbiome age, disease patterns), hardware and disk needed, and "research use only, not a diagnostic test". A visitor reads the limits before the claims.
+- **[ME]** Pre-flight: `git grep` for secrets, tokens, absolute paths and local ids (done once; repeat at the moment of flipping); confirm `LICENSE`, `CITATION.cff` (new), `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `SECURITY.md`, issue and PR templates are in place.
+- **[YOU]** Flip to public: `gh repo edit openbiota-org/openbiota-gut-health-test --visibility public --accept-visibility-change-consequences`. Then in Settings: branch protection on `main` requiring the `tests` check; enable Dependabot alerts + security updates, secret scanning + push protection (all free on public repos); enable Discussions as the support channel; set description, topics, website; upload the social preview image (`web/openbiota.com/img/openbiota-ogimg.png`). Delete the stray `erickmiller/gut-health-metagenomic-screen`.
+- **[ME]** `CODEOWNERS`, Dependabot config (pip + GitHub Actions, weekly), and a `CHANGELOG.md` starting at v0.8.4.
+- **[ME]** Tag `v0.8.4` with release notes; attach the small derived artefacts (section 4). Connect GitHub to Zenodo so every release gets a DOI automatically; cite it from README and the report's technical page.
 
-- **[YOU]** Add a CLA or DCO before the first outside contribution. PolyForm Noncommercial + reserved commercial rights only works if contributors grant those rights.
-- **[YOU]** Privacy policy and terms pages — required before collecting a single email address (GDPR/CAN-SPAM), and again if you ever accept a sample.
-- **[YOU]** Decide the research-use-only posture in writing. The report says it everywhere; the site should too, and it's what keeps this outside FDA LDT territory.
-- **[ME, done]** Fix the "100% free open source" wording on the homepage and closing section — PolyForm Noncommercial is not OSI-approved. Suggested: "free and open — source available, free forever for non-commercial use". — done 2026-09-29: hero, closing section and footer now say free and open / source available under PolyForm Noncommercial.
-- **[ME, done]** Write `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, issue and PR templates. — done 2026-09-29.
-- **[ME, done]** Add third-party licence attribution page (GTDB CC BY-SA, MetaPhlAn, curatedMetagenomicData, every panel source). We redistribute nothing, but we must attribute. — done 2026-09-29: `docs/ATTRIBUTION.md`, generated by `scripts/attribution_doc.py` from the reference locks and the tool pins.
+## 2. Legal and policy (before the first email address is collected)
 
-## Email funnel
+- **[ME]** Draft the privacy policy and terms pages (static HTML in `web/openbiota.com/`): what the site collects (an email address, via the named email service as processor; cookieless analytics), why, retention, how to unsubscribe and be deleted, contact `privacy@openbiota.com`, research-use-only statement, no medical advice. **[YOU]** review before publishing.
+- **[ME]** Footer links to privacy, terms, contact and the research-use statement on every page.
+- **[YOU]** DCO (simplest) or CLA before the first outside contribution. PolyForm Noncommercial with reserved commercial rights only works if contributors grant those rights; a DCO sign-off line in `CONTRIBUTING.md` is enough to start.
+- **[YOU]** Decide the research-use-only posture in writing; the report says it everywhere, the site must too.
+- **[ME, done]** Homepage wording: "free and open — source available under PolyForm Noncommercial", not "open source". — 2026-09-29.
+- **[ME, done]** Third-party attribution (`docs/ATTRIBUTION.md`, generated from the reference locks and tool pins). — 2026-09-29.
 
-- **[YOU]** Create the Cloudflare account; create the Worker and a KV namespace; enable Turnstile (free).
-- **[YOU]** Create the Resend account and verify the sending domain: SPF, DKIM, DMARC records on `openbiota.com`. Without these the welcome mail goes to spam and the funnel is wasted.
-- **[YOU]** Store the secrets in the Worker (Resend API key, Turnstile secret). Never in the repo.
-- **[YOU]** Decide what the sample report actually is: a real report from a consenting donor, or a synthetic one. If real, you need that consent in writing.
-- **[ME]** Write the Worker: validate Turnstile, normalise + validate the address, reject the honeypot (`website`), rate-limit by IP, write to KV with `interest_kind`/`placement`/timestamp/consent, call Resend.
-- **[ME]** Wire `script.js` to the Worker endpoint and add invisible Turnstile; keep the existing optimistic UI and the `interest-status` live region.
-- **[ME]** Write the two emails (HTML + plain text): sample-report delivery, and the "generate your own" guide linking to the docs.
-- **[ME]** Double opt-in flow, unsubscribe link and a suppression list. Legally required and protects the domain's reputation.
-- **[ME]** Generate the shareable sample report once the source is decided (real or `openbiota simulate`), redacted and reviewed.
+## 3. Site and interest list (Cloudflare + the email service)
 
-## Website
+- **[YOU]** Cloudflare account; add `openbiota.com`; point nameservers (or transfer); enable Email Routing with `hello@`, `privacy@`, `security@` forwarding to your mailbox; enable Web Analytics (cookieless).
+- **[ME]** Replace the GitHub Pages deploy with Cloudflare Pages: connect the repository in the Cloudflare dashboard (build command `mkdocs build --strict && python scripts/build_site.py --no-docs`, output `web/openbiota.com`), or swap the deploy step for `wrangler-action`. Remove the `DEPLOY_PAGES` gate and the Pages job; keep the strict build as the pull-request check. Custom domain + HTTPS on Pages. Add the analytics snippet.
+- **[YOU]** Email service account; verify `openbiota.com` as the sending domain (add the SPF/DKIM/DMARC records it gives you at Cloudflare); create the "sample report" form with double opt-in; write nothing else — the service handles confirmation, unsubscribe and the suppression list.
+- **[ME]** Point the site's existing dialog at the service's form endpoint (keep our markup, the honeypot and the live region; drop `emailEndpoint`/Worker assumptions from `script.js`); confirmation email copy and the "generate your own" guide email, written in the service's editor.
+- **[ME]** The public sample report once decided (section 0): redacted, read end to end against a checklist, hosted as a PDF on the site.
+- **[ME]** Verify every claim on the page against current output (counts, catalogue sizes, page counts, section numbers) and tone the hero copy to the measured capability. Add the privacy/terms links. Accessibility and performance pass (alt text, contrast, keyboard path through the dialog, Lighthouse). Test on mobile.
+- **[ME, done]** OG/Twitter cards, favicon set, `robots.txt`, root `sitemap.xml`, 404 page — `scripts/build_site.py`. — 2026-09-29.
 
-- **[YOU]** Turn on GitHub Pages for the repo and point the apex domain at it (the `docs.yml` workflow already builds `web/openbiota.com` and `/docs/`): set the repository variable `DEPLOY_PAGES=true`, then Settings → Pages → Source "GitHub Actions". The deploy job stays skipped until the variable exists, so the strict build is the only check meanwhile. Pages on a private organisation repository needs a paid plan; it is free once the repository is public.
-- **[ME]** Verify every claim on the page against current output — organism counts, catalogue sizes, page counts and section numbers all moved this week.
-- **[ME]** Add the privacy/terms links to the footer once those pages exist.
-- **[ME, done]** Add OG/Twitter cards, favicon set, `robots.txt`, `sitemap.xml`, and a 404 page. — done 2026-09-29: `scripts/build_site.py` (run by `make docs-build` and the site workflow) writes the root sitemap, robots.txt, the icon set, site.webmanifest and the head tags; the docs 404 page exists.
-- **[ME]** Accessibility and performance pass: alt text on every figure, colour contrast on the status palette, keyboard path through the dialog, Lighthouse run.
-- **[ME]** Test the site on mobile — the report showcase and tables are the risk.
+## 4. Reference data: an install anyone can reproduce
 
-## Reference data distribution
+`refs/` is **1.3 TB** on the development machine and is three different things:
+~960 GB of **upstream** databases that are not ours to ship (GlobDB 545, mycobiome
+211, MetaPhlAn 85, sylph 48, SingleM 20, mOTUs 14, UHGG Kraken 16, host/decoys/
+genomes ~18); ~145 GB of **cohort reads** downloaded once to build 14 MB of
+cohort files that are already in git; and ~135 GB **derived by us** (pathogen
+bundle 120 — competitive index 82, sequences 10, k-mer index 9, decoy k-mers 9,
+assets 10 — rescue-panel Kraken DB 13, DIAMOND DBs 5) plus ~100 MB of small
+derived files. We host none of the upstream data and never use S3 (egress on a
+135 GB package is ~$12 per download).
 
-`refs/` is ~245 GB but almost none of it is ours to ship. Three tiers:
+- **[ME]** Tier A, in git (~20 MB, done): curated YAML, age models, `reference_ranges.json`, cohort manifests and files, pathogen catalogue, resolution cache, crosswalk summaries.
+- **[ME]** Tier B lockfile `refs/MANIFEST.lock`: every upstream artefact with source URL, accession, byte size, SHA-256, licence, retrieval date — including the sylph GTDB database, MetaPhlAn Jan26 and the mycobiome set (`refs/mycobiome/reference_lock.json` already hashes those).
+- **[ME]** `openbiota fetch-refs`: resumable, digest-verified download of Tier B from the publishers; `--verify-only`; `--build` to regenerate the derived artefacts from the existing scripts (pathogen bundle, rescue panel, DIAMOND DB) — the default path, zero hosting; `--download` to take the Zenodo snapshot instead where one exists.
+- **[ME]** Install profiles with measured disk: *standard* (no GlobDB genome archive — confirmation fetches genomes on demand into `refs/genomes`) and *full*. Fix `docs/INSTALL.md`, which says ~300 GB.
+- **[YOU]** Zenodo account (GitHub login) and a dataset record for the derived snapshot that fits a 50 GB record: k-mer index, decoy k-mers, rescue panel, DIAMOND DBs, small derived files (~36 GB). The 82 GB competitive index stays rebuild-only unless people ask; then Cloudflare R2 (~$1.30/month at 85 GB, zero egress) on the account you already have.
+- **[ME]** Cite the dataset DOI from README, `docs/INSTALL.md` and the report's technical page; a scheduled CI job re-verifies every lockfile URL and digest so a moved upstream file is caught before a user hits it.
+- **[ME]** `openbiota doctor` tells a new user exactly what is missing and the command that fixes it, lane by lane.
+- **[ME]** `make demo`: `openbiota simulate` on a small synthetic community against the standard profile, end to end to a PDF, so a visitor sees the pipeline work before committing a terabyte.
 
-- **[ME]** Tier A — in git (~20 MB): curated YAML, trained age models, `reference_ranges.json`, taxonomic-cohort manifest, pathogen catalogue, resolution cache. Nobody else can regenerate these.
-- **[ME]** Tier B — `refs/MANIFEST.lock`: every external artefact with source URL, accession, byte size, SHA-256, licence, retrieval date. We redistribute nothing.
-- **[ME]** Write `openbiota fetch-refs` to hydrate a clean checkout from that lockfile: resumable, digest-verified, with `--verify-only`. This is the single biggest gap for a new user — `refs/` is gitignored and there is no bootstrap path today.
-- **[ME]** Add the Sylph GTDB database (20 GB) and MetaPhlAn Jan26 to the lockfile; `make genome-lane` already fetches Sylph but is not in the manifest.
-- **[YOU]** Create the Zenodo record and reserve the concept DOI for Tier C (derived artefacts too expensive to rebuild — the pathogen k-mer index is ~1 h, the bowtie2 index ~3.5 h). Free, 50 GB/record.
-- **[ME]** Decide and document which derived artefacts are archived vs rebuilt locally; cite the DOI from README, `docs/METHOD.md` and the report's technical page.
-- **[ME]** CI job on a schedule that re-verifies every lockfile URL and digest, so a moved upstream file is caught before a user hits it.
-- **[ME]** Fold the mycobiome references (~90 GB: EukDetect2 DB, FungiGutDB, 1,696 fungal assemblies, Li 2022 isolate reads, decoys; `refs/mycobiome/reference_lock.json` already hashes every file) into the same lockfile and `fetch-refs`. `make mycobiome-refs` is the bootstrap today.
+## 5. Validation still owed before the numbers are claims
 
-## Mycobiome module (v08.2) — what remains before its numbers are claims
+- **[ME]** Share accuracy on mock communities: the lane benchmark measures detection (94.2% recall, 92.6% precision); nothing yet measures how far a split, estimated or absorbed share lands from a known abundance. Add the abundance-error measure to `scripts/benchmark_lanes.py` and print it in `docs/MEASURED_CAPABILITY.md`.
+- **[ME]** Widen the lane cohort: the expansion-only organisms are ranked against 100 prefix-sampled adults, which is coarse. More ENA samples cost only compute.
+- **[ME]** Mycobiome: qualify the support rule and discovery threshold on the Avershina 2025 mock workflow plus simulated 0.0001–1% fungal fractions (the "starting values, not yet qualified on mocks" label stays until then); run FungiGut unmodified as the reproduction baseline; strain validation on downsampled isolate reads and mixtures; the determinant panel (ERG11/FKS, ECE1) with species-specific coordinates; donor–recipient strain comparison; rebuild the species-discovery index split so it runs in ~30 GB.
+- **[YOU]** Whether the Myco-Score (weights are policy, labelled Experimental) appears on the public sample report before the mock qualification lands.
+- **[ME]** Modulator-registry coverage test: a flagged organism in any run with no registry entry fails, so a new organism forces a curated entry. **[YOU]** review cadence for its citations (suggest: each reference release).
 
-- **[ME]** Qualify the support rule (20 fragments / 3 regions) and the discovery threshold on the Avershina 2025 mock workflow plus simulated 0.0001–1% fungal fractions at 8/14/30 M pairs (spec §12.1–12.2). Until then the report labels the rule "starting values, not yet qualified on mocks" — that label must stay until this is done.
-- **[ME]** Run FungiGut unmodified as the documented reproduction baseline on the five samples and record gained/lost calls (MYC-45); the deposit is fetched but not yet run.
-- **[ME]** Strain validation (spec §12): downsampled isolate reads at 0.1×–50× and 95:5 / 80:20 mixtures through the panels; measure named-reference precision and unresolved rate. Positive fixtures exist (Li 2022 isolates, P4013B); the harness does not.
-- **[ME]** Determinant panel (ERG11/FKS hotspots, ECE1 variation) with species-specific coordinates and the alternative yeast nuclear code; FungAMR import under its CC BY-NC-ND terms as an optional adapter. Today every determinant is `not_assessed: reference_panel_missing`, stated on the card.
-- **[ME]** Donor–recipient fungal strain comparison (`mycobiome strains compare`) over shared callable masks; the per-sample strain records exist, the pairwise step does not.
-- **[ME]** Memory: the species-discovery index (961 representative genomes, 87 GB on disk) needs ~96 GB resident per alignment; a machine-wide lock now serialises them. Rebuild it as a split index (`-I 12G`) so the step runs in ~30 GB, and re-verify identical discovery counts on the five samples.
-- **[ME]** The single Myco-Score (`myco-score-v1`: neutral 50; +20 when opportunistic fungi are below 1% of fungal DNA and none is confirmed; down to −30 by opportunist share, −10 more for a confirmed opportunist; ±evidence rules; ≤20 with an alert-route pathogen) is a product decision on top of the spec's evidence-only MHS-E1, which remains the traced component in section 23. Its weights are policy; state that on the page (done) and revisit once a compatible healthy cohort exists.
-- **[YOU]** Decide whether the Myco-Score appears on the public sample report before the mock qualification lands. It is labelled Experimental everywhere; the question is whether a reader should see it yet.
+## 6. Software release hygiene
 
-## Software release
+- **[ME, done]** CI runs ruff and the suite on Python 3.11–3.13 on every push; data-dependent tests skip on a clean checkout. — 2026-09-29.
+- **[ME]** Pin and lock Python dependencies (`requirements.lock` covers only the strain tools today).
+- **[ME]** Report versioning: `make bump-patch|minor|major`, `CHANGELOG.md`, the report-surface test that fails when the report gains or loses a reading without a version bump, and `reference_release` as a version string with the rule for when a reference change forces a bump.
+- **[ME]** Release workflow on tag: run the suite, build the small derived artefacts, attach them, publish notes; Zenodo DOI via the integration.
+- **[YOU]** PyPI or not. If yes, register `openbiota` and store a token as a repository secret.
 
-- **[ME]** Report versioning: `make bump-patch|minor|major`, `CHANGELOG.md`, and the report-surface test that fails when the report gains or loses a reading without a version bump.
-- **[ME]** Define `reference_release` as a version string and the rule for when a reference change forces a report version bump.
-- **[ME, done]** CI: run the test suite on push (currently only docs deploy exists). The suite is ~2.5 min and 1,200+ tests; it should gate merges. — done 2026-09-29: `.github/workflows/tests.yml` runs ruff and the suite on Python 3.11-3.13; tests that read a finished run or built references skip on a clean checkout.
-- **[ME]** Pin and lock Python dependencies for reproducibility (`requirements.lock` exists for strain tools only).
-- **[ME]** Release workflow: tag `v1.0.0`, attach the small derived artefacts, publish notes.
-- **[YOU]** Decide whether to publish to PyPI. If yes: register the `openbiota` name and store a PyPI token.
-- **[ME]** First-run experience: `openbiota doctor` should tell a new user exactly what is missing and what command fixes it, including the new genome lane.
+## 7. Documentation
 
-## Documentation
+- **[ME, done]** `docs/` current for the merged inventory, detection lanes, one share per organism, level against the reference, attention rule, pathogen reconciliation. — 2026-09-30.
+- **[ME]** "Interpreting your report" guide — the most-requested thing a reader will want and the target of the second email.
+- **[ME]** Document `--strict-cdiff` and every other non-default interpretation rule in `docs/USAGE.md`.
+- **[ME, done]** Hardware and runtime expectations measured from the six runs — `docs/INSTALL.md` (disk figure to be corrected under section 4). — 2026-09-29.
 
-- **[ME, done]** Update `docs/` for everything added since they were written: the merged organism inventory, the GTDB genome lane, organism classification, the drivers, biofilm, strict-cdiff, the organism modulator registry (`taxa/classification/modulators.yaml`) and the levers page it feeds. — done 2026-09-29 for the organism inventory, detection lanes, one share per organism and the level against the reference (`docs/EXPANDED_DETECTION.md`, `docs/OUTPUT.md`, `docs/INSTALL.md`, README).
-- **[ME]** Modulator registry coverage rule: a test fails when a flagged organism in any `results/` sample has no registry entry, so every new sample that surfaces a new organism forces a curated entry before its report ships. Extend the registry as the sample set grows; 46 entries cover the five samples today.
-- **[YOU]** Decide the review cadence for the modulator registry's citations (suggest: each reference release). Every item carries a source, but sources age.
-- **[ME]** Write the "interpreting your report" guide — the single most-requested thing a reader will want, and the target of the funnel's second email.
-- **[ME]** Document the strict-cdiff flag and any other non-default interpretation rules in `docs/USAGE.md`.
-- **[ME, done]** Hardware and runtime expectations: ~35 min/sample on 32 threads, ~300 GB disk for a full reference set. — done 2026-09-29: `docs/INSTALL.md`, measured from `run.resources` of the six runs.
+## 8. Before the first real reader
 
-## If selling a product (skip entirely if free-only at launch)
-
-- **[YOU]** Entity, business bank account, and an accountant conversation about state nexus for sales tax.
-- **[YOU]** Stripe account; decide the price and whether the kit is bundled.
-- **[YOU]** Choose the sequencing partner and agree per-sample pricing and turnaround. This is the long pole — everything below depends on it.
-- **[YOU]** Sample-collection kits: supplier, labelling, shipping category (UN3373), and return postage.
-- **[YOU]** CLIA/CAP posture. Research-use-only avoids this, but the moment a report is marketed as informing a health decision the analysis changes. Get an opinion in writing.
-- **[YOU]** Liability insurance and a customer-support channel with a real SLA.
-- **[ME]** Order flow: Stripe Checkout, order record, kit-dispatch trigger, tracking email.
-- **[ME]** Sample intake: barcode → order mapping, chain of custody, status page for the customer.
-- **[ME]** Secure results delivery: authenticated download, expiring links, encryption at rest, deletion policy and a data-export path.
-- **[ME]** Pipeline automation: queue, retries, failure alerting, and a per-sample cost/runtime ledger.
-- **[ME]** Capacity plan: the pipeline is ~35 min/sample single-box today; decide the concurrency model before the first ten orders arrive.
-
-## Before the first real user
-
-- **[ME, done]** Run the full suite plus a clean-checkout install on a machine that has never seen this project — the only honest test of the bootstrap path. — done 2026-09-29 on a fresh worktree: `pip install -e '.[dev]'` in 30 s, lint clean, suite green with 287 data-dependent skips.
-- **[ME]** Read one complete report end to end, all ~230 pages, against a checklist.
+- **[ME]** Read one complete report end to end, all ~330 pages, against a checklist.
 - **[YOU]** Have a clinician read the report and confirm nothing reads as a diagnosis.
 - **[YOU]** Decide what happens when a report finds something genuinely alarming. There is no protocol today, and the pathogen section can produce one.
+
+## 9. If selling a product (skip entirely if free-only at launch)
+
+- **[YOU]** Entity, business bank account, accountant conversation about sales-tax nexus.
+- **[YOU]** Stripe account; price; whether the kit is bundled.
+- **[YOU]** Sequencing partner, per-sample pricing and turnaround — the long pole.
+- **[YOU]** Collection kits: supplier, labelling, UN3373 shipping category, return postage.
+- **[YOU]** CLIA/CAP posture in writing. Research-use-only avoids it; marketing a report as informing a health decision changes the analysis.
+- **[YOU]** Liability insurance and a support channel with a real SLA.
+- **[ME]** Order flow (Stripe Checkout, order record, kit-dispatch trigger, tracking email); sample intake (barcode → order, chain of custody, status page); secure results delivery (authenticated download, expiring links, encryption at rest, deletion policy, data export); pipeline automation (queue, retries, alerting, per-sample cost ledger); capacity plan (~35 min/sample on one box today).
+
+---
+
+### Cost summary
+
+| | Account | Monthly cost | Ceiling before anything costs money |
+|---|---|---|---|
+| Code, CI, releases, issues, discussions | GitHub (have) | $0 | public repo: unlimited |
+| DNS, hosting, inbound mail, analytics, future backend | Cloudflare | $0 | Pages unlimited bandwidth; Workers 100k requests/day; R2 10 GB |
+| Interest list, double opt-in, broadcasts, sending domain | Kit or MailerLite | $0 | 10,000 subscribers (Kit) / 1,000 subscribers (MailerLite) |
+| Citable data and software snapshots | Zenodo | $0 | 50 GB per record |
+| Domain | registrar | ~$10/yr | — |
