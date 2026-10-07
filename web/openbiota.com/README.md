@@ -7,12 +7,12 @@ The complete landing page as plain HTML, CSS, JavaScript, and images.
 Open `index.html` in your browser, or upload the contents of this folder to
 your own repository and any static web host. No installation or build step.
 Keep `index.html`, `research.html`, `style.css`, `script.js`, `research.js`,
-`research-data.js`, and `img/` together. Relative paths also work when the page
+`research-data.js`, `fonts/` and `img/` together. Relative paths also work when the page
 is served from a subfolder.
 
 The design, navigation, expandable sections, sticky buttons, and email modal
-work immediately. The original DM Sans and Manrope fonts load from Google
-Fonts; offline, the page uses its system-font fallbacks. All images are included.
+work immediately. The DM Sans and Manrope fonts are included in `fonts/`;
+the page makes no third-party requests. All images are included.
 
 ## The research catalog page
 
@@ -26,7 +26,7 @@ so that a source cited by both appears once. `research.js` renders and filters
 them in the browser. When a catalog changes, regenerate the data file:
 
 ```
-python3 tools/build_research_data.py
+python3 web/tools/build_research_data.py
 ```
 
 The page itself needs no build step and works from disk, because the data is a

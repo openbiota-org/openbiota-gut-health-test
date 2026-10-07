@@ -1,0 +1,28 @@
+# OpenBiota Gut Health Test
+
+> Open-source software that turns the paired-end FASTQ files of a shotgun stool metagenome into a 300+ page gut-health report: nine detection methods over the current reference catalogues, one reconciled share per organism, levels against the reference adults who carry each organism, a 485-target pathogen screen, 25 metabolite-pathway capacities, disease-pattern resemblance, and graded intervention evidence. Every number in the PDF is also in results.json. Research use only; not a diagnostic test.
+
+The software is source-available under the PolyForm Noncommercial licence at https://github.com/openbiota-org/openbiota-gut-health-test. The documentation below is the authoritative description of what the report contains and how each reading is computed; the markdown files are the same text as the HTML pages.
+
+## Documentation
+
+- [OpenBiota Gut Health Test](https://openbiota.com/docs/index.html.md): what the software does, in one page
+- [Quickstart](https://openbiota.com/docs/quickstart.html.md): from FASTQ files to a report in a few commands
+- [Installation](https://openbiota.com/docs/install.html.md): tools, reference data (sizes, sources), hardware and runtime
+- [Usage](https://openbiota.com/docs/usage.html.md): every command-line flag of `openbiota run` and the other subcommands
+- [Reading the output](https://openbiota.com/docs/output.html.md): the report section by section, and every field of results.json
+- [Method](https://openbiota.com/docs/method.html.md): how each reading is computed
+- [Pathways](https://openbiota.com/docs/panels.html.md): the 25 metabolite-pathway panels and their gene families
+- [Disease similarity profiles](https://openbiota.com/docs/profiles.html.md): the disease-pattern profiles, their sources and how they are scored
+- [FMT donor matching](https://openbiota.com/docs/fmt.html.md): donor matching for faecal microbiota transplantation
+- [Expanded gut bacterial and archaeal recognition (spec 0.8.4)](https://openbiota.com/docs/expanded_detection.html.md): the nine detection lanes, competitive confirmation, one share per organism, levels against the reference
+- [Measured capability (generated)](https://openbiota.com/docs/measured_capability.html.md): recall, precision and false-positive rates measured on simulated communities with known truth
+- [Validation, accuracy and limitations](https://openbiota.com/docs/validation.html.md): cross-platform concordance and the benchmark design
+- [Testing and development](https://openbiota.com/docs/testing.html.md): the test suite and what it guarantees
+- [Attribution](https://openbiota.com/docs/attribution.html.md): every reference database and tool, with licences
+
+## Optional
+
+- [Landing page](https://openbiota.com/): what the project is, for a general reader
+- [Research](https://openbiota.com/research.html): the published studies behind each reading
+- [Source repository](https://github.com/openbiota-org/openbiota-gut-health-test): code, tests, issues

@@ -99,7 +99,7 @@ TRACS_COMMIT      ?= de9282a64fba8e3d4386ce114e50d55e7fddc440
 TRACS_REPORTS_VERSION ?= 1.1.3
 
 .DEFAULT_GOAL := run
-.PHONY: tools-expanded refs-expanded refs-globdb-genomes expansion-cohorts expansion-crosswalks expansion-reconcile expansion extension-refs substrate-refs help setup doctor panels build-db cohort validate depth-check all smoke run compact json test lint docs docs-build clean clean-all profilers strain-tools strain-system-deps strain-tools-report strain-tools-lock refs-strain refs-strain-verify refs-ctnpc instrain kleborate-optional vendor-tools genome-lane mycobiome-refs
+.PHONY: web-setup web-deploy web-deploy-dry tools-expanded refs-expanded refs-globdb-genomes expansion-cohorts expansion-crosswalks expansion-reconcile expansion extension-refs substrate-refs help setup doctor panels build-db cohort validate depth-check all smoke run compact json test lint docs docs-build clean clean-all profilers strain-tools strain-system-deps strain-tools-report strain-tools-lock refs-strain refs-strain-verify refs-ctnpc instrain kleborate-optional vendor-tools genome-lane mycobiome-refs
 
 help:
 	@echo "OpenBiota Gut Health Test — targets"
@@ -148,7 +148,8 @@ help:
 	@echo "  make test        unit tests"
 	@echo "  make lint        ruff, if installed"
 	@echo "  make docs        preview the documentation site at http://127.0.0.1:8000"
-	@echo "  make docs-build  strict build of the documentation into web/openbiota.com/docs/, plus the site sitemap, robots and icons"
+	@echo "  make docs-build  strict build of the documentation into web/openbiota.com/docs/, plus the site sitemap, robots, llms.txt and icons"
+	@echo "  make web-deploy  build and publish the website to S3 + CloudFront (web/deploy_site.sh); web-deploy-dry to preview"
 	@echo "  make prune       list superseded reference databases (make prune-all deletes them)"
 	@echo "  make clean       remove $(RESULTS)/"
 	@echo "  make clean-all   remove $(RESULTS)/, refs/ and $(VENV)/"
@@ -519,7 +520,20 @@ docs: $(VENV)/bin/mkdocs
 	@$(VENV)/bin/mkdocs serve
 
 docs-build: $(VENV)/bin/mkdocs
-	@$(PY) scripts/build_site.py
+	@$(PY) web/build_site.py
+
+# The website's own tooling (boto3, Pillow) lives in web/.venv so the site can
+# move to its own repository; see web/README.md.
+web/.venv/bin/python:
+	@python3 -m venv web/.venv && web/.venv/bin/pip install --quiet boto3 pillow
+
+web-setup: web/.venv/bin/python
+
+web-deploy: $(VENV)/bin/mkdocs web/.venv/bin/python
+	@web/deploy_site.sh
+
+web-deploy-dry: $(VENV)/bin/mkdocs web/.venv/bin/python
+	@web/deploy_site.sh --dry-run
 
 
 prune: setup

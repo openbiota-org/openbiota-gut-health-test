@@ -60,7 +60,7 @@ make setup                 # virtualenv and the package
 make test                  # the suite
 make lint                  # ruff
 make docs                  # documentation preview at http://127.0.0.1:8000
-scripts/build_site.py      # rebuild web/openbiota.com (docs, sitemap, icons)
+web/build_site.py      # rebuild web/openbiota.com (docs, sitemap, icons)
 ```
 
 A full report needs the reference data and the profilers described in

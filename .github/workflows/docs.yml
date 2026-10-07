@@ -1,23 +1,8 @@
-# Publishes web/openbiota.com/ — the landing page at the root and the
-# documentation at /docs/ — on every push to main.
-#
-# The documentation is rebuilt (strict) into web/openbiota.com/docs/ first,
-# so the live site always matches docs/*.md even if someone forgot to run
-# `make docs-build` before committing. The folder is host-agnostic: plain
-# .html files with relative links. GitHub Pages is used here because it is
-# free and needs no credentials; S3 is the commented alternative at the end.
-#
-# One-time GitHub Pages setup:
-#   0. Settings → Secrets and variables → Actions → Variables: DEPLOY_PAGES = true
-#      (the deploy job is skipped until this exists).
-#   1. Settings → Pages → Source: "GitHub Actions".
-#   2. Settings → Pages → Custom domain: openbiota.com (the CNAME written
-#      below keeps that setting across deploys).
-#   3. DNS: A/AAAA records for openbiota.com → GitHub Pages, per
-#      https://docs.github.com/pages/configuring-a-custom-domain-for-your-github-pages-site
-#
-# Pull requests get the strict build only (no deploy), so a broken link fails
-# the check rather than the live site.
+# Checks that the website still builds: the documentation renders under
+# mkdocs --strict (a broken link fails the check) and web/build_site.py
+# completes. This workflow deploys nothing. The site is published from a
+# developer's machine with web/deploy_site.sh (S3 + CloudFront, see
+# web/README.md), so a documentation typo never goes live by itself.
 
 name: site
 
@@ -39,12 +24,6 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
 
 jobs:
   build:
@@ -55,33 +34,10 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-      - run: pip install "mkdocs>=1.6,<2" "mkdocs-material>=9.5"
-      - name: Rebuild the documentation (strict) and the root sitemap
+      - run: pip install "mkdocs>=1.6,<2" "mkdocs-material>=9.5" pillow
+      - name: Build the site (strict)
+        run: python web/build_site.py
+      - name: The built site carries no secrets, no results and no sample identifiers
         run: |
-          mkdocs build --strict
-          rm -f web/openbiota.com/docs/sitemap.xml web/openbiota.com/docs/sitemap.xml.gz
-          python scripts/build_site.py --no-docs
-          rm -f web/openbiota.com/README.md web/openbiota.com/.DS_Store
-          echo "openbiota.com" > web/openbiota.com/CNAME
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: web/openbiota.com
-
-  deploy:
-    # Deploys only once Pages is switched on (Settings -> Pages -> Source:
-    # "GitHub Actions") and the repository variable DEPLOY_PAGES is set to
-    # "true". Until then the strict build above is the check, and a missing
-    # Pages site is not reported as a failed workflow.
-    if: github.event_name != 'pull_request' && vars.DEPLOY_PAGES == 'true'
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
-      # S3 instead of GitHub Pages: replace the step above with
-      #   - uses: actions/download-artifact@v4   (artifact: github-pages)
-      #   - run: aws s3 sync web/openbiota.com/ s3://openbiota.com --delete
-      # and add AWS credentials as repository secrets.
+          ! grep -rIl -E "AKIA[0-9A-Z]{16}|BEGIN (RSA|OPENSSH) PRIVATE KEY" web/openbiota.com
+          ! grep -rIl -E "ERICK_|MONICA_|KRY799|FCG748|BGE623|BXP835|AMD614|FXX745" web/openbiota.com

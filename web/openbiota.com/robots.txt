@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://openbiota.com/sitemap.xml
+# Agents: a curated map of this site is at https://openbiota.com/llms.txt

@@ -43,12 +43,12 @@ Cloudflare, Brevo, Zenodo — and the only bill is the domain.
 ## 3. Site and interest list (Cloudflare + the email service)
 
 - **[YOU]** Cloudflare account; add `openbiota.com`; point nameservers (or transfer); enable Email Routing with `hello@`, `privacy@`, `security@` forwarding to your mailbox; enable Web Analytics (cookieless).
-- **[ME]** Replace the GitHub Pages deploy with Cloudflare Pages: connect the repository in the Cloudflare dashboard (build command `mkdocs build --strict && python scripts/build_site.py --no-docs`, output `web/openbiota.com`), or swap the deploy step for `wrangler-action`. Remove the `DEPLOY_PAGES` gate and the Pages job; keep the strict build as the pull-request check. Custom domain + HTTPS on Pages. Add the analytics snippet.
+- **[ME]** Replace the GitHub Pages deploy with Cloudflare Pages: connect the repository in the Cloudflare dashboard (build command `mkdocs build --strict && python web/build_site.py --no-docs`, output `web/openbiota.com`), or swap the deploy step for `wrangler-action`. Remove the `DEPLOY_PAGES` gate and the Pages job; keep the strict build as the pull-request check. Custom domain + HTTPS on Pages. Add the analytics snippet.
 - **[YOU]** Brevo account; verify `openbiota.com` as the sending domain (add the SPF/DKIM/DMARC records it gives you at Cloudflare); create one "updates" list with double opt-in; write nothing else — Brevo handles confirmation, unsubscribe and the suppression list.
 - **[ME]** Point the site's existing dialog at Brevo's form endpoint (keep our markup, the honeypot and the live region; drop `emailEndpoint`/Worker assumptions from `script.js`); the confirmation email and the first "what's new" template, written in Brevo's editor.
 - **[ME]** The public sample report once decided (section 0): redacted, read end to end against a checklist, linked directly from the site as a PDF — no signup in front of it.
 - **[ME]** Verify every claim on the page against current output (counts, catalogue sizes, page counts, section numbers) and tone the hero copy to the measured capability. Add the privacy/terms links. Accessibility and performance pass (alt text, contrast, keyboard path through the dialog, Lighthouse). Test on mobile.
-- **[ME, done]** OG/Twitter cards, favicon set, `robots.txt`, root `sitemap.xml`, 404 page — `scripts/build_site.py`. — 2026-09-29.
+- **[ME, done]** OG/Twitter cards, favicon set, `robots.txt`, root `sitemap.xml`, 404 page — `web/build_site.py`. — 2026-09-29.
 
 ## 4. Reference data: an install anyone can reproduce
 
