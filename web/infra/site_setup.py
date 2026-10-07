@@ -124,12 +124,12 @@ def oac(c: Clients, env: dict[str, str]) -> str:
     if env.get("OAC_ID"):
         return env["OAC_ID"]
     for it in c.cf.list_origin_access_controls().get("OriginAccessControlList", {}).get("Items", []):
-        if it["Name"] == f"{DOMAIN}-s3":
+        if it["Name"] in (f"{DOMAIN}-s3", f"{DOMAIN.replace(chr(46), chr(45))}-s3"):
             env["OAC_ID"] = it["Id"]
             write_env(env)
             return it["Id"]
     res = c.cf.create_origin_access_control(OriginAccessControlConfig={
-        "Name": f"{DOMAIN}-s3", "Description": f"CloudFront -> s3://{BUCKET}", "SigningProtocol": "sigv4",
+        "Name": f"{DOMAIN.replace(chr(46), chr(45))}-s3", "Description": f"CloudFront -> s3://{BUCKET}", "SigningProtocol": "sigv4",
         "SigningBehavior": "always", "OriginAccessControlOriginType": "s3"})
     env["OAC_ID"] = res["OriginAccessControl"]["Id"]
     write_env(env)
@@ -138,7 +138,7 @@ def oac(c: Clients, env: dict[str, str]) -> str:
 
 
 def response_headers_policy(c: Clients) -> str:
-    name = f"{DOMAIN}-security-headers"
+    name = f"{DOMAIN.replace(chr(46), chr(45))}-security-headers"
     for p in c.cf.list_response_headers_policies(Type="custom").get("ResponseHeadersPolicyList", {}).get("Items", []):
         if p["ResponseHeadersPolicy"]["ResponseHeadersPolicyConfig"]["Name"] == name:
             return p["ResponseHeadersPolicy"]["Id"]

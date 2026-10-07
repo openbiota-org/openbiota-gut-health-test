@@ -81,8 +81,9 @@ def build_docs() -> None:
         sys.exit(f"no mkdocs.yml at {DOCS_SOURCE}; set DOCS_SOURCE to the checkout that holds docs/ and mkdocs.yml")
     subprocess.run([*_mkdocs(), "build", "--strict", "--config-file", str(config), "--site-dir", str(SITE / "docs")],
                    cwd=DOCS_SOURCE, check=True)
-    for stray in ("sitemap.xml", "sitemap.xml.gz"):
-        (SITE / "docs" / stray).unlink(missing_ok=True)
+    # mkdocs writes its own sitemap; the theme's navigation fetches it, so it
+    # stays (the root sitemap is the one robots.txt names). The .gz twin goes.
+    (SITE / "docs" / "sitemap.xml.gz").unlink(missing_ok=True)
     # a markdown twin beside every page, for agents (llms.txt points at these)
     for md in sorted((DOCS_SOURCE / "docs").glob("*.md")):
         html = SITE / "docs" / (md.stem.lower() + ".html")

@@ -6,7 +6,7 @@
 :root {
   --paper:#f6f6ef;
   --ink:#193e30;
-  --muted:#61765b;
+  --muted:#5e7358;
   --line:#d7dfd0;
   --forest:#092b22;
   --serif:Georgia,'Times New Roman',serif;
@@ -88,7 +88,7 @@ p {
   letter-spacing:.1em;
   line-height:1.6;
   font-weight:550;
-  color:#5f7c68
+  color:#58735f
 }
 .eyebrow-line {
   width:24px;
@@ -308,7 +308,7 @@ p {
   margin-top:auto;
   font-size:.875rem;
   letter-spacing:.02em;
-  color:#64795b
+  color:#5c7054
 }
 .hero-art {
   position:relative;
@@ -808,7 +808,7 @@ p {
 .small-label {
   font-size:.8125rem;
   letter-spacing:.025em;
-  color:#637b57
+  color:#5a7150
 }
 .pipeline h3 {
   font-size:1.15rem;
@@ -834,7 +834,7 @@ p {
   border:1px solid #d0dcc3;
   border-radius:5px;
   padding:4px 8px;
-  color:#5e784f;
+  color:#536e45;
   background:#ecf1e5
 }
 .technology-analysis {
@@ -2493,11 +2493,11 @@ p {
   font-size:.8125rem;
   line-height:1.6;
   letter-spacing:.05em;
-  color:#7b8e73;
+  color:#5e7358;
   text-align:center
 }
 .report-research-band:hover>p {
-  color:#5f7c68;
+  color:#58735f;
   text-decoration:underline;
   text-underline-offset:4px
 }
@@ -2761,7 +2761,7 @@ p {
   height:34px;
   border-radius:50%;
   background:transparent;
-  color:#5f7c68;
+  color:#58735f;
   flex:0 0 auto
 }
 .research-clear:hover {
@@ -2820,7 +2820,7 @@ p {
   font:550 .8125rem/1.5 var(--heading);
   letter-spacing:.05em;
   text-transform:uppercase;
-  color:#5f7c68;
+  color:#58735f;
   white-space:nowrap
 }
 .research-table .col-name {
@@ -2881,7 +2881,7 @@ p {
   display:block;
   margin-top:4px;
   font-size:.8125rem;
-  color:#7b8e73
+  color:#5e7358
 }
 .research-flag {
   padding:1px 7px;
@@ -2935,7 +2935,7 @@ p {
   display:block;
   margin-top:5px;
   font-size:.8125rem;
-  color:#7b8e73;
+  color:#5e7358;
   overflow-wrap:anywhere
 }
 .research-detail>td {
@@ -3144,7 +3144,7 @@ p {
     font:550 .75rem/1.5 var(--heading);
     letter-spacing:.05em;
     text-transform:uppercase;
-    color:#7b8e73
+    color:#5e7358
   }
   .research-name {
     font-size:1.0625rem;

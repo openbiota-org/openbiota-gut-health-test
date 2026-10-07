@@ -25,9 +25,10 @@ web/
 served as they are — edit them and deploy. No build step applies to them except
 the deploy script's cache-busting stamp on `?v=` asset URLs.
 
-Images: put the original in `img-src/`, make the rendition with
-`tools/img-to-webp.py` (WebP at display width, quality ~80), reference the
-`.webp` from the page with explicit `width`/`height`. The Open Graph image is
+Images: put the original in `img-src/`, make the renditions with
+`tools/img-to-webp.py` (WebP, quality ~80, one file per display width), and
+reference them from the page with `srcset`/`sizes` and explicit
+`width`/`height` so phones download the small one and nothing shifts. The Open Graph image is
 `img/openbiota-og.jpg`, 1200×630 JPEG — scrapers (Facebook, LinkedIn, iMessage,
 Slack) do not reliably render WebP and reject large files.
 
