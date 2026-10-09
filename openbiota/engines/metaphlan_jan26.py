@@ -55,6 +55,13 @@ def available(db_dir: Path) -> bool:
     return _tool() is not None and database_ready(db_dir) and shutil.which("bowtie2") is not None
 
 
+def cache_file(work_dir: Path, r1: Path, r2: Path | None) -> Path:
+    """Where this lane's result for these reads is cached. One place, so a tool
+    that renames inputs can re-key the cache instead of recomputing the lane."""
+    sha = input_sha256([r1, r2])
+    return work_dir / f"metaphlan_jan26.{cache_key(str(CACHE_VERSION), TOOL_VERSION, INDEX, sha)}.json"
+
+
 def run_metaphlan_jan26(
     *,
     sample: str,
@@ -71,8 +78,7 @@ def run_metaphlan_jan26(
     work_dir.mkdir(parents=True, exist_ok=True)
     strain_dir.mkdir(parents=True, exist_ok=True)
     sha = input_sha256([r1, r2])
-    key = cache_key(str(CACHE_VERSION), TOOL_VERSION, INDEX, sha)
-    cached = work_dir / f"metaphlan_jan26.{key}.json"
+    cached = cache_file(work_dir, r1, r2)
     hit = read_cached(cached)
     if hit is not None and Path(hit.raw_result_uri).is_file():
         return hit

@@ -559,8 +559,9 @@ tools-expanded: setup
 	@mkdir -p vendor/bin
 	@for f in mafft trimal brewsci/bio/raxml brewsci/bio/fasttree; do HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_INSTALL_UPGRADE=1 brew install $$f >/dev/null 2>&1 || true; done
 	@test -e vendor/bin/raxmlHPC || ln -sf /usr/local/bin/raxmlHPC-PTHREADS-SSE3 vendor/bin/raxmlHPC
-	@test -e vendor/bin/blastn || ln -sf "$(CURDIR)/vendor/ncbi-blast-$(BLAST_VERSION)+/bin/blastn" vendor/bin/blastn
-	@test -e vendor/bin/makeblastdb || ln -sf "$(CURDIR)/vendor/ncbi-blast-$(BLAST_VERSION)+/bin/makeblastdb" vendor/bin/makeblastdb
+	@# relative links, so the checkout can be moved or renamed without breaking them
+	@test -e vendor/bin/blastn || ln -sf "../ncbi-blast-$(BLAST_VERSION)+/bin/blastn" vendor/bin/blastn
+	@test -e vendor/bin/makeblastdb || ln -sf "../ncbi-blast-$(BLAST_VERSION)+/bin/makeblastdb" vendor/bin/makeblastdb
 	@$(PY) scripts/lock_tools.py
 
 refs-expanded: setup

@@ -346,6 +346,24 @@ def run_confirmation(
         "roles_sha": hashlib.sha256("\n".join(sorted(f"{gid}\t{genome_of[gid]}\t{roles[gid]}" for gid in lengths)).encode()).hexdigest()[:12],
     }
     cache_file = work_dir / f"{sample}.confirmation.{fingerprint}.json"
+    if not cache_file.is_file():
+        # The fingerprint names the read files. A sample whose reads were
+        # renamed (same bytes, same size) with the same genomes and the same
+        # candidates is the same competition: adopt that cache under the new
+        # name rather than mapping eight million pairs again.
+        for other in sorted(work_dir.glob("*.confirmation.*.json")):
+            try:
+                prior = json.loads(other.read_text()).get("cache_inputs") or {}
+            except (OSError, ValueError):
+                continue
+            same = (prior.get("genomes_sha") == cache_inputs["genomes_sha"]
+                    and prior.get("candidates_sha") == cache_inputs["candidates_sha"]
+                    and prior.get("roles_sha") == cache_inputs["roles_sha"]
+                    and [x.rsplit(":", 1)[-1] for x in prior.get("reads", [])]
+                    == [x.rsplit(":", 1)[-1] for x in cache_inputs["reads"]])
+            if same:
+                other.rename(cache_file)
+                break
     if cache_file.is_file():
         try:
             cached = json.loads(cache_file.read_text())

@@ -173,6 +173,22 @@ def _species_reps(db: Path) -> dict[int, str]:
     return reps
 
 
+def cache_file(work_dir: Path, r1: Path, r2: Path | None, *, refs_dir: Path, panel: str = "uhgg",
+               version: str | None = None) -> Path:
+    """Where this lane's result for these reads is cached (see metaphlan_jan26.cache_file)."""
+    spec = PANELS[panel]
+    db = refs_dir / "kraken2" / spec["dirname"]
+    sha = input_sha256([r1, r2])
+    if version is None:
+        version = kraken_version()
+    build_stamp = ""
+    if panel == "rescue" and (db / "build.json").is_file():
+        build_stamp = str(json.loads((db / "build.json").read_text()).get("built_at", ""))
+    key = cache_key(str(CACHE_VERSION), version, spec["release"], build_stamp, str(CONFIDENCE), str(MIN_HIT_GROUPS),
+                    str(BRACKEN_THRESHOLD), sha)
+    return work_dir / f"kraken.{key}.json"
+
+
 def run_kraken(
     *,
     sample: str,
@@ -194,9 +210,7 @@ def run_kraken(
     build_stamp = ""
     if panel == "rescue":
         build_stamp = str(json.loads((db / "build.json").read_text()).get("built_at", ""))
-    key = cache_key(str(CACHE_VERSION), version, spec["release"], build_stamp, str(CONFIDENCE), str(MIN_HIT_GROUPS),
-                    str(BRACKEN_THRESHOLD), sha)
-    cached = work_dir / f"kraken.{key}.json"
+    cached = cache_file(work_dir, r1, r2, refs_dir=refs_dir, panel=panel, version=version)
     hit = read_cached(cached)
     if hit is not None:
         return hit

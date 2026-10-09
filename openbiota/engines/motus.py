@@ -86,6 +86,14 @@ def database_motu_count(refs_dir: Path) -> int | None:
     return None
 
 
+def cache_file(work_dir: Path, r1: Path, r2: Path | None) -> Path:
+    """Where this lane's result for these reads is cached (see metaphlan_jan26.cache_file)."""
+    sha = input_sha256([r1, r2])
+    key = cache_key(str(CACHE_VERSION), TOOL_VERSION, DB_RELEASE, str(MIN_MARKER_GENES),
+                    str(MIN_ALIGNMENT_LENGTH), COUNT_MODE, sha)
+    return work_dir / f"motus.{key}.json"
+
+
 def run_motus(
     *,
     sample: str,
@@ -100,9 +108,7 @@ def run_motus(
         return None
     work_dir.mkdir(parents=True, exist_ok=True)
     sha = input_sha256([r1, r2])
-    key = cache_key(str(CACHE_VERSION), TOOL_VERSION, DB_RELEASE, str(MIN_MARKER_GENES),
-                    str(MIN_ALIGNMENT_LENGTH), COUNT_MODE, sha)
-    cached = work_dir / f"motus.{key}.json"
+    cached = cache_file(work_dir, r1, r2)
     hit = read_cached(cached)
     if hit is not None:
         return hit

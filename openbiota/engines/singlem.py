@@ -83,6 +83,15 @@ def available(refs_dir: Path) -> bool:
     return exe is not None and ensure_extracted(refs_dir)
 
 
+def cache_file(work_dir: Path, r1: Path, r2: Path | None, *, version: str | None = None) -> Path:
+    """Where this lane's result for these reads is cached (see metaphlan_jan26.cache_file)."""
+    if version is None:
+        exe = _tool()
+        version = _version(exe) if exe is not None else ""
+    sha = input_sha256([r1, r2])
+    return work_dir / f"singlem.{cache_key(str(CACHE_VERSION), version, DB_RELEASE, str(ASSEMBLY_COVERAGE), sha)}.json"
+
+
 def run_singlem(
     *,
     sample: str,
@@ -96,10 +105,9 @@ def run_singlem(
     if exe is None or not ensure_extracted(refs_dir):
         return None
     work_dir.mkdir(parents=True, exist_ok=True)
-    sha = input_sha256([r1, r2])
     version = _version(exe)
-    key = cache_key(str(CACHE_VERSION), version, DB_RELEASE, str(ASSEMBLY_COVERAGE), sha)
-    cached = work_dir / f"singlem.{key}.json"
+    sha = input_sha256([r1, r2])
+    cached = cache_file(work_dir, r1, r2, version=version)
     hit = read_cached(cached)
     if hit is not None:
         return hit

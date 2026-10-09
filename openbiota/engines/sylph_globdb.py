@@ -91,6 +91,13 @@ def taxonomy(refs_dir: Path) -> dict[str, str]:
     return out
 
 
+def cache_file(work_dir: Path, r1: Path, r2: Path | None) -> Path:
+    """Where this lane's result for these reads is cached (see metaphlan_jan26.cache_file)."""
+    sha = input_sha256([r1, r2])
+    key = cache_key(str(CACHE_VERSION), SYLPH_VERSION, DATABASE_FILE, TAXONOMY_FILE, str(MINIMUM_ANI), str(SKETCH_C), sha)
+    return work_dir / f"sylph_globdb.{key}.json"
+
+
 def run_sylph_globdb(
     *,
     sample: str,
@@ -105,8 +112,7 @@ def run_sylph_globdb(
         return None
     work_dir.mkdir(parents=True, exist_ok=True)
     sha = input_sha256([r1, r2])
-    key = cache_key(str(CACHE_VERSION), SYLPH_VERSION, DATABASE_FILE, TAXONOMY_FILE, str(MINIMUM_ANI), str(SKETCH_C), sha)
-    cached = work_dir / f"sylph_globdb.{key}.json"
+    cached = cache_file(work_dir, r1, r2)
     hit = read_cached(cached)
     if hit is not None:
         return hit

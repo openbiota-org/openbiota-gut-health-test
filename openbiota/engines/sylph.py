@@ -184,6 +184,15 @@ def _fingerprint(*parts: str) -> str:
     return hashlib.sha256("\n".join(parts).encode()).hexdigest()[:16]
 
 
+def cache_file(work_dir: Path, r1: Path, r2: Path | None) -> Path:
+    """Where this lane's result for these reads is cached (see metaphlan_jan26.cache_file)."""
+    key = _fingerprint(
+        str(CACHE_VERSION), SYLPH_VERSION, DATABASE_FILE, TAXONOMY_ID, str(MINIMUM_ANI),
+        str(SKETCH_C), _file_stamp(r1), _file_stamp(r2) if r2 else "",
+    )
+    return work_dir / f"sylph.{key}.json"
+
+
 def run_sylph(
     *,
     sample: str,
@@ -204,11 +213,7 @@ def run_sylph(
         return None
 
     work_dir.mkdir(parents=True, exist_ok=True)
-    key = _fingerprint(
-        str(CACHE_VERSION), SYLPH_VERSION, DATABASE_FILE, TAXONOMY_ID, str(MINIMUM_ANI),
-        str(SKETCH_C), _file_stamp(r1), _file_stamp(r2) if r2 else "",
-    )
-    cached = work_dir / f"sylph.{key}.json"
+    cached = cache_file(work_dir, r1, r2)
     if cached.is_file():
         data = json.loads(cached.read_text())
         return _profile_from_json(data, cached=True)
