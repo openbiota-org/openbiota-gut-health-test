@@ -2,6 +2,8 @@
 
 **Raw shotgun sequencing reads in. A gut-health report you can actually read out.**
 
+[![tests](https://github.com/openbiota-org/openbiota-gut-health-test/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/openbiota-org/openbiota-gut-health-test/actions/workflows/tests.yml)
+
 [openbiota.com](https://openbiota.com) · [Documentation](https://openbiota.com/docs/) · [Quickstart](docs/QUICKSTART.md)
 
 The OpenBiota software (`openbiota` on the command line) is a bioinformatics
