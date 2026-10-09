@@ -1,0 +1,6 @@
+# The website's tooling environment:  python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+# Nothing here is needed to run the software itself.
+mkdocs>=1.6,<2          # renders docs/*.md into openbiota.com/docs/ (build_site.py, mkdocs.yml)
+mkdocs-material>=9.5    # the theme that docs-theme/ customises
+pillow                  # tools/img-to-webp.py
+boto3                   # infra/site_setup.py

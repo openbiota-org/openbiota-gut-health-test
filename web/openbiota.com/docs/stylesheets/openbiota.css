@@ -1,7 +1,7 @@
 /* ==========================================================================
    OpenBiota documentation — the main site's design applied to MkDocs Material.
 
-   Tokens, type and components are lifted from web/openbiota.com/style.css so
+   Tokens, type and components are lifted from openbiota.com/style.css so
    openbiota.com and openbiota.com/docs/ read as one site: paper background,
    forest ink, Georgia display headings, DM Sans body, Manrope labels,
    hairline rules, white cards, dark 8px buttons.
@@ -117,7 +117,7 @@ body {
   transition: none;
 }
 .ob-header[hidden] { transform: none; }
-/* Same row as web/openbiota.com/style.css .header: 16px vertical padding,
+/* Same row as openbiota.com/style.css .header: 16px vertical padding,
    30px gaps, the wrap's horizontal padding formula. */
 .ob-header__inner {
   position: relative;
@@ -642,11 +642,22 @@ body {
     border-top: 1px solid var(--line);
     box-shadow: 0 -8px 30px rgba(9, 43, 34, 0.02);
   }
-  .ob-mobile-actions .ob-button { min-height: 52px; font-size: 15px; padding: 13px 14px; }
+  /* Sized as the main site's bar: two labels, "Get sample report" and
+     "Get Free Report", side by side on a 375px phone. */
+  .ob-mobile-actions .ob-button { min-height: 48px; font-size: 14px; gap: 8px; padding: 13px 8px; }
+  .ob-mobile-actions .icon { width: 18px; height: 18px; }
   /* The open menu stops above the report bar so its last entries stay reachable. */
   .md-sidebar--primary .md-sidebar__scrollwrap { max-height: calc(100vh - var(--ob-header-height) - 90px); }
   .ob-mobile-actions .ob-button--outline { background: var(--paper); }
   .md-footer { padding-bottom: 88px; }
+}
+/* Narrow phones (360px): both labels stay on one line. */
+@media (max-width: 370px) {
+  .ob-mobile-actions .ob-button { font-size: 13px; gap: 6px; padding-inline: 6px; }
+}
+/* The smallest phones (320px): the bar drops its icons so the labels fit. */
+@media (max-width: 340px) {
+  .ob-mobile-actions .icon { display: none; }
 }
 
 /* Responsive fine-tuning */

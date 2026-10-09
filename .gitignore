@@ -57,6 +57,3 @@ refs/crosswalk/*
 secrets/
 # the local mapping from published sample identifiers to this machine's sample names
 results/.sample_aliases.json
-
-# site tooling environment (web/)
-web/.venv/

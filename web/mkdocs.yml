@@ -1,9 +1,18 @@
-# Documentation site for the OpenBiota Gut Health Test.
+# The documentation pages of openbiota.com, rendered from the software
+# repository's docs/*.md with mkdocs + Material.
 #
-#   make docs          live preview at http://127.0.0.1:8000/docs/
-#   make docs-build    strict build into web/openbiota.com/docs/
+#   build_site.py --serve   live preview at http://127.0.0.1:8000/docs/
+#   build_site.py           strict build into openbiota.com/docs/
 #
-# The built pages are committed: web/openbiota.com/ is the complete site —
+# Everything about how the pages look lives in this folder: this file, the
+# theme in docs-theme/ (templates, hooks, stylesheet). The only input from
+# outside is the Markdown itself, docs_dir - the software repository's docs/
+# folder (with its screenshots and the validation JSON the pages link to),
+# the parent folder by default (the layout inside the software repository).
+# build_site.py points it at any other checkout (DOCS_SOURCE) with a derived
+# config that inherits this one.
+#
+# The built pages are committed: openbiota.com/ is the complete site —
 # the landing page at its root and the documentation at /docs/ — browsable
 # from disk and deployable to any static host as one folder.
 # `use_directory_urls: false` makes every page a plain .html file with
@@ -16,27 +25,25 @@ site_description: >-
   Free, open-source software that turns raw shotgun stool-metagenome reads
   into a readable, evidence-linked gut health report.
 site_author: OpenBiota contributors
-# The footer line lives in docs/overrides/partials/copyright.html so its link
+# The footer line lives in docs-theme/partials/copyright.html so its link
 # to the landing page can be relative.
 
 repo_url: https://github.com/openbiota-org/openbiota-gut-health-test
 repo_name: GitHub
 edit_uri: edit/main/docs/
 
-docs_dir: docs
-site_dir: web/openbiota.com/docs
+docs_dir: ../docs
+site_dir: openbiota.com/docs
 strict: true
 use_directory_urls: false
-# The theme overrides live inside docs/ so the site is one folder, but they
-# are templates, not pages.
-exclude_docs: |
-  overrides/
 
 theme:
   name: material
-  custom_dir: docs/overrides
-  logo: images/openbiota-mark.svg
-  favicon: images/openbiota-mark.svg
+  custom_dir: docs-theme
+  # The marks are the site's own, one folder up from /docs/; the theme keeps
+  # no copy. docs-theme/stylesheets/openbiota.css reaches the fonts the same way.
+  logo: ../img/openbiota-mark.svg
+  favicon: ../img/openbiota-mark.svg
   # Fonts come from the stylesheet (the same Google Fonts request as the main
   # site, including the 550 weight Material would not load).
   font: false
@@ -54,17 +61,19 @@ theme:
 # No search: the docs are short and the main site has none.
 plugins: []
 
-# External links open in a new tab (docs/overrides/hooks/external_links.py).
+# Lower-case URLs for the upper-case source names; external links open in a
+# new tab. Both are hooks in the theme folder.
 hooks:
-  - docs/overrides/hooks/lowercase_urls.py
-  - docs/overrides/hooks/external_links.py
+  - docs-theme/hooks/lowercase_urls.py
+  - docs-theme/hooks/external_links.py
 
+# Copied from docs-theme/ into the built site with the theme's other static files.
 extra_css:
   - stylesheets/openbiota.css
 
 extra:
   generator: false
-  # The footer's Code link (docs/overrides/partials/social.html) uses repo_url.
+  # The footer's Code link (docs-theme/partials/social.html) uses repo_url.
   social: [{icon: fontawesome/brands/github, link: https://github.com/openbiota-org/openbiota-gut-health-test}]
 
 markdown_extensions:

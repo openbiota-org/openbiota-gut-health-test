@@ -30,7 +30,6 @@ dev = ["pytest>=7.4", "ruff>=0.4", "pymupdf>=1.24", "pypdf>=4.0"]
 # in BUILD_SPEC_v0.8.3 section 11.7 was produced with MICOM 0.37.0, and a
 # different version moves every predicted flux.
 simulation = ["micom==0.37.0", "osqp>=0.6", "highspy>=1.7", "openpyxl>=3.1", "pandas>=2.0"]
-docs = ["mkdocs>=1.6,<2", "mkdocs-material>=9.5"]
 
 [project.scripts]
 openbiota = "openbiota.cli:main"

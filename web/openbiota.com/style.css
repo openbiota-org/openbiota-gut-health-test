@@ -1768,7 +1768,9 @@ p {
     right:24px
   }
   .report-showcase h2 {
-    font-size:2.8rem
+    /* "gut health metrics." measures 7.4em; the two-column layout gives the
+       copy half of the wrap less the gap, so size from that on tablets. */
+    font-size:min(2.8rem,calc((100vw - 108px) / 2 / 7.6))
   }
   .science-journals>div {
     grid-template-columns:repeat(2,minmax(0,1fr));
@@ -1876,18 +1878,25 @@ p {
   }
   .hero {
     grid-template-columns:1fr;
-    gap:32px;
-    padding-top:24px;
+    gap:0;
+    padding-top:32px;
     padding-bottom:45px
   }
+  /* On a phone the portrait sits between the intro and the actions, so the
+     picture is on the first screen rather than below every button. The copy
+     wrapper becomes transparent to the grid and its children are ordered:
+     eyebrow, title, intro, portrait, then the disclosure and the actions. */
   .hero-copy {
-    padding-top:8px
+    display:contents
+  }
+  .hero-disclosure,.hero-actions,.cta-caption,.hero-footnote {
+    order:1
   }
   .hero h1 {
-    /* The wider line, "gut health insights.", measures 7.4em at this
-       tracking; sizing from the column width keeps it on two lines and
-       edge to edge on every phone. */
-    font-size:min(calc((100vw - 40px) / 7.6),4rem);
+    /* The wider line, "Radically great AI", measures 7em at this tracking;
+       sizing from the column width keeps it on two lines and edge to edge on
+       every phone. */
+    font-size:min(calc((100vw - 40px) / 7.2),4rem);
     margin:20px 0 22px;
     line-height:1.05
   }
@@ -1897,7 +1906,7 @@ p {
   }
   .hero-disclosure {
     max-width:none;
-    margin-top:20px
+    margin-top:28px
   }
   .hero-actions {
     gap:12px;
@@ -1915,6 +1924,7 @@ p {
   }
   .hero-art {
     min-height:520px;
+    margin-top:30px;
     border-radius:22px
   }
   .hero-art>img {
@@ -1943,7 +1953,7 @@ p {
     padding-bottom:32px
   }
   .report-showcase h2 {
-    font-size:2.7rem
+    font-size:min(2.7rem,calc((100vw - 40px) / 7.6))
   }
   .report-showcase-sheet {
     margin-right:12px;
@@ -2280,6 +2290,15 @@ p {
     grid-template-columns:repeat(2,minmax(0,1fr))
   }
 }
+/* Below 480px two journal columns are narrower than the word "Communications"
+   (179px at this size), which ran into its neighbour and off the right edge
+   of the page; one name per line instead. */
+@media(max-width:480px) {
+  .science-journals>div {
+    grid-template-columns:1fr;
+    gap:10px
+  }
+}
 @media(max-width:420px) {
   .footer-main>img {
     width:112px
@@ -2451,7 +2470,16 @@ p {
   font-weight:550;
   text-shadow:0 1px 1px rgba(3,20,15,.85),0 0 4px rgba(3,20,15,.60),0 2px 10px rgba(3,20,15,.45)
 }
-/* The smallest phones (320px): the footer row still fits on one line. */
+/* Narrow phones (360px): "Get sample report" stays on one line in the bar. */
+@media(max-width:370px) {
+  .mobile-report-actions .button {
+    font-size:.8125rem;
+    gap:6px;
+    padding-inline:6px
+  }
+}
+/* The smallest phones (320px): the footer row still fits on one line, and
+   the report bar drops its icons so both labels do too. */
 @media(max-width:340px) {
   .footer-main>img {
     width:96px
@@ -2459,6 +2487,9 @@ p {
   .footer-links .text-link {
     font-size:.75rem;
     gap:6px
+  }
+  .mobile-report-actions .icon {
+    display:none
   }
 }
 /* ── Institution logo band (home) and the research catalog page ─────────── */

@@ -1,0 +1,6 @@
+# the tooling environment and editor litter
+.venv/
+__pycache__/
+.DS_Store
+# written and removed by build_site.py when DOCS_SOURCE is another checkout
+.mkdocs.docs-source.yml

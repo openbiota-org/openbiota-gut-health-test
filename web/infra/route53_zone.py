@@ -6,8 +6,8 @@ Idempotent: re-running updates records in place (UPSERT). Verifies every
 record against the new zone's own nameservers afterwards and refuses to call
 the migration ready until each one answers identically.
 
-    python3 web/infra/route53_zone.py --profile personal            # create + verify
-    python3 web/infra/route53_zone.py --profile personal --verify   # verify only
+    .venv/bin/python infra/route53_zone.py --profile personal            # create + verify
+    .venv/bin/python infra/route53_zone.py --profile personal --verify   # verify only
 
 What is copied (read live from the authoritative GoDaddy servers at run time,
 so nothing is typed by hand):

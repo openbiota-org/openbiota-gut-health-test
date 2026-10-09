@@ -155,14 +155,21 @@ interestForm.addEventListener('submit',async event=>{
 function openRequestHash(){if(location.hash==='#get-report')openReportRequest('own_report','shared-link');if(location.hash==='#sample-report')openReportRequest('sample','shared-link');}
 window.addEventListener('hashchange',openRequestHash);openRequestHash();
 
-// Section URLs. As the home page scrolls, the address bar names the section
-// under the middle of the viewport, so any part of the page can be shared or
-// reloaded; above the first section it is the bare home page. Writes wait
-// for scrolling to settle and happen only on change: Safari refuses more
-// than 100 history updates in 30 seconds, and replaceState never scrolls or
-// adds history entries, so the back button still follows the reader's clicks.
+// Section URLs. As the reader scrolls the home page, the address bar names
+// the section under the middle of the viewport, so any part of the page can
+// be shared or reloaded. Scrolling never names a section marked
+// data-section-url="none" — the first and the last: there, as above the
+// first section, scrolling leaves the bare home page. A link the reader
+// followed is another matter: the navigation's "The report" puts #report in
+// the address bar and it stays while the reader is in that section, like any
+// other link. A freshly opened page shows the URL it was opened with, however
+// tall the screen: nothing is written until the reader scrolls. Writes wait
+// for scrolling to settle and happen only on change: Safari refuses more than
+// 100 history updates in 30 seconds, and replaceState never scrolls or adds
+// history entries, so the back button still follows the reader's clicks.
 const sectionRoot=document.querySelector('main[data-section-urls]');
 const sections=sectionRoot?[...sectionRoot.querySelectorAll(':scope>section[id]')]:[];
+const hashFor=section=>section.dataset.sectionUrl==='none'?'':'#'+section.id;
 function replaceHash(hash){
   if((location.hash||'')===hash)return;
   try{history.replaceState(history.state,'',location.pathname+location.search+hash);}catch{/* file:// may refuse history changes. */}
@@ -172,16 +179,15 @@ function syncSectionUrl(){
   const middle=window.innerHeight/2;let current=null;
   for(const section of sections){if(section.getBoundingClientRect().top<=middle)current=section;else break;}
   if(!current){replaceHash('');return;}
-  // A deep link into the section — an expandable, an article — is more precise than the section itself; keep it until the reader moves on.
+  // A link the reader followed — the section itself, or a deep link into it: an expandable, an article — is kept until the reader moves on.
   let target=null;try{target=document.getElementById(decodeURIComponent(location.hash.slice(1)));}catch{/* Malformed hash: replace it. */}
-  if(target&&target!==current&&current.contains(target))return;
-  replaceHash('#'+current.id);
+  if(target&&current.contains(target))return;
+  replaceHash(hashFor(current));
 }
 if(sections.length){
   let settle=0;const schedule=()=>{clearTimeout(settle);settle=setTimeout(syncSectionUrl,150);};
   window.addEventListener('scroll',schedule,{passive:true});
   window.addEventListener('resize',schedule);
-  schedule();
 }
 
 })();

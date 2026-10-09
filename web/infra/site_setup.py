@@ -11,13 +11,23 @@ profile with S3, CloudFront, ACM, Route 53 and STS permissions).
   distribution  CloudFront: HTTP/2+3, redirect to HTTPS, TLS 1.2 (2021),
                 Brotli/gzip compression at the edge, security headers, 404
                 page, PriceClass_All.
+  function      the clean-URL CloudFront Function (infra/clean_urls.js:
+                /index.html -> /, /docs/index.html -> /docs/, folder paths
+                served from their index.html), created or updated to match
+                the file, checked with CloudFront's test runner, published
+                and attached to the distribution's viewer requests.
   dns           apex + www ALIAS A/AAAA records to the distribution.
 
-    web/.venv/bin/python web/infra/site_setup.py --profile personal
+    .venv/bin/python infra/site_setup.py --profile personal
 
 Re-run until it reports every step complete; the certificate step waits for
 validation, which takes a few minutes once the zone is live. Writes the ids
-it creates to web/deploy.env for web/deploy_site.sh.
+it creates to deploy.env for deploy_site.sh.
+
+    .venv/bin/python infra/site_setup.py --profile personal --clean-urls
+
+does the function step alone - deploy_site.sh runs it on every deploy, so an
+edit to clean_urls.js goes live with the site and nothing else is touched.
 """
 
 from __future__ import annotations
@@ -41,6 +51,22 @@ ENV_FILE = Path(__file__).resolve().parents[1] / "deploy.env"
 CLOUDFRONT_HOSTED_ZONE = "Z2FDTNDATAQYW2"   # fixed id for every CloudFront distribution alias
 #: AWS managed cache policy "CachingOptimized": honours origin Cache-Control, compression-aware keys
 CACHING_OPTIMIZED = "658327ea-f89d-4fab-a63d-7e88639e58f6"
+FUNCTION_NAME = f"{DOMAIN.replace(chr(46), chr(45))}-clean-urls"
+FUNCTION_SOURCE = Path(__file__).with_name("clean_urls.js")
+#: What the function must do with a request path (and query) before it is published:
+#: a new path to serve, or the Location of a redirect.
+FUNCTION_CHECKS = (
+    ("/", {}, {"uri": "/index.html"}),
+    ("/index.html", {}, {"location": "/"}),
+    ("/index.html", {"utm_source": "hn"}, {"location": "/?utm_source=hn"}),
+    ("/docs/index.html", {}, {"location": "/docs/"}),
+    ("/docs", {}, {"location": "/docs/"}),
+    ("/docs/", {}, {"uri": "/docs/index.html"}),
+    ("/docs/install.html", {}, {"uri": "/docs/install.html"}),
+    ("/research.html", {}, {"uri": "/research.html"}),
+    ("/style.css", {"v": "202610071500"}, {"uri": "/style.css"}),
+    ("/llms.txt", {}, {"uri": "/llms.txt"}),
+)
 
 
 class Clients:
@@ -64,8 +90,10 @@ def read_env() -> dict[str, str]:
 
 
 def write_env(env: dict[str, str]) -> None:
-    lines = ["# Deployment targets for web/deploy_site.sh. Nothing here is a secret.",
-             "# Written by web/infra/site_setup.py; edit by hand only to point at other resources."]
+    lines = ["# Deployment targets for deploy_site.sh. Nothing here is a secret.",
+             "# Written by infra/site_setup.py; edit by hand to point at other resources, or to add",
+             "# DOCS_SOURCE=\"../openbiota-gut-health-test\" (the software checkout, relative to this folder)",
+             "# once the site has its own repository."]
     lines += [f'{k}="{v}"' for k, v in sorted(env.items())]
     ENV_FILE.write_text("\n".join(lines) + "\n")
 
@@ -155,10 +183,60 @@ def response_headers_policy(c: Clients) -> str:
     return res["ResponseHeadersPolicy"]["Id"]
 
 
-def distribution(c: Clients, env: dict[str, str], cert_arn: str, oac_id: str) -> tuple[str, str]:
+def clean_urls_function(c: Clients) -> str:
+    """The clean-URL function, brought level with infra/clean_urls.js: created if missing, updated if
+    the code differs, run through FUNCTION_CHECKS on CloudFront's test runner, then published. Returns its ARN."""
+    code = FUNCTION_SOURCE.read_bytes()
+    config = {"Comment": "index.html out of the address bar; folder paths served from their index.html",
+              "Runtime": "cloudfront-js-2.0"}
+    try:
+        desc = c.cf.describe_function(Name=FUNCTION_NAME, Stage="DEVELOPMENT")
+        etag, arn = desc["ETag"], desc["FunctionSummary"]["FunctionMetadata"]["FunctionARN"]
+        if c.cf.get_function(Name=FUNCTION_NAME, Stage="DEVELOPMENT")["FunctionCode"].read() != code:
+            etag = c.cf.update_function(Name=FUNCTION_NAME, IfMatch=etag, FunctionConfig=config, FunctionCode=code)["ETag"]
+            print("clean-url function updated from clean_urls.js")
+        else:
+            print("clean-url function matches clean_urls.js")
+    except c.cf.exceptions.NoSuchFunctionExists:
+        res = c.cf.create_function(Name=FUNCTION_NAME, FunctionConfig=config, FunctionCode=code)
+        etag, arn = res["ETag"], res["FunctionSummary"]["FunctionMetadata"]["FunctionARN"]
+        print(f"clean-url function created: {arn}")
+    for uri, query, expected in FUNCTION_CHECKS:
+        event = {"version": "1.0", "context": {"eventType": "viewer-request"}, "viewer": {"ip": "203.0.113.1"},
+                 "request": {"method": "GET", "uri": uri, "querystring": {k: {"value": v} for k, v in query.items()},
+                             "headers": {"host": {"value": DOMAIN}}, "cookies": {}}}
+        result = c.cf.test_function(Name=FUNCTION_NAME, IfMatch=etag, Stage="DEVELOPMENT",
+                                    EventObject=json.dumps(event).encode())["TestResult"]
+        if result.get("FunctionErrorMessage"):
+            sys.exit(f"clean-url function fails on {uri}: {result['FunctionErrorMessage']}")
+        out = json.loads(result["FunctionOutput"])
+        got = ({"location": out["response"]["headers"]["location"]["value"]} if out.get("response")
+               else {"uri": out["request"]["uri"]})
+        if got != expected:
+            sys.exit(f"clean-url function: {uri} {query or ''} -> {got}, expected {expected}; not published")
+    c.cf.publish_function(Name=FUNCTION_NAME, IfMatch=etag)
+    print(f"clean-url function: {len(FUNCTION_CHECKS)} checks passed, published")
+    return arn
+
+
+def attach_function(c: Clients, dist_id: str, function_arn: str) -> None:
+    """The clean-URL function on every viewer request of the distribution; nothing happens when it already is."""
+    res = c.cf.get_distribution_config(Id=dist_id)
+    config, etag = res["DistributionConfig"], res["ETag"]
+    wanted = [{"FunctionARN": function_arn, "EventType": "viewer-request"}]
+    if config["DefaultCacheBehavior"].get("FunctionAssociations", {}).get("Items") == wanted:
+        print("distribution: clean-url function attached")
+        return
+    config["DefaultCacheBehavior"]["FunctionAssociations"] = {"Quantity": 1, "Items": wanted}
+    c.cf.update_distribution(Id=dist_id, IfMatch=etag, DistributionConfig=config)
+    print("distribution: clean-url function attached to viewer requests - deploying, ~5 min")
+
+
+def distribution(c: Clients, env: dict[str, str], cert_arn: str, oac_id: str, function_arn: str) -> tuple[str, str]:
     if env.get("DISTRIBUTION_ID"):
         d = c.cf.get_distribution(Id=env["DISTRIBUTION_ID"])["Distribution"]
         print(f"distribution exists: {d['Id']} ({d['DomainName']}) status {d['Status']}")
+        attach_function(c, d["Id"], function_arn)
         return d["Id"], d["DomainName"]
     rhp_id = response_headers_policy(c)
     config = {
@@ -177,6 +255,7 @@ def distribution(c: Clients, env: dict[str, str], cert_arn: str, oac_id: str) ->
             "TargetOriginId": "s3-site", "ViewerProtocolPolicy": "redirect-to-https",
             "AllowedMethods": {"Quantity": 2, "Items": ["GET", "HEAD"], "CachedMethods": {"Quantity": 2, "Items": ["GET", "HEAD"]}},
             "Compress": True, "CachePolicyId": CACHING_OPTIMIZED, "ResponseHeadersPolicyId": rhp_id,
+            "FunctionAssociations": {"Quantity": 1, "Items": [{"FunctionARN": function_arn, "EventType": "viewer-request"}]},
         },
         "CustomErrorResponses": {"Quantity": 2, "Items": [
             {"ErrorCode": 403, "ResponsePagePath": "/404.html", "ResponseCode": "404", "ErrorCachingMinTTL": 10},
@@ -209,9 +288,19 @@ def dns(c: Clients, cf_domain: str) -> None:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--profile", default="personal")
+    ap.add_argument("--clean-urls", action="store_true",
+                    help="only publish the clean-URL function and attach it to the existing distribution (what deploy_site.sh runs)")
     args = ap.parse_args()
     c = Clients(args.profile)
     env = read_env()
+    if args.clean_urls:
+        if not env.get("DISTRIBUTION_ID"):
+            sys.exit("no DISTRIBUTION_ID in deploy.env - run the full setup first")
+        try:
+            attach_function(c, env["DISTRIBUTION_ID"], clean_urls_function(c))
+        except ClientError as exc:
+            sys.exit(f"cloudfront: {exc}")
+        return 0
     env.setdefault("AWS_PROFILE", args.profile)
     env.setdefault("BUCKET", BUCKET)
     env.setdefault("BUCKET_REGION", BUCKET_REGION)
@@ -235,11 +324,12 @@ def main() -> int:
             print("certificate not issued yet; re-run after the nameservers point at Route 53")
             return 2
     try:
-        _dist_id, cf_domain = distribution(c, env, cert_arn, oac_id)
+        function_arn = clean_urls_function(c)
+        _dist_id, cf_domain = distribution(c, env, cert_arn, oac_id, function_arn)
     except ClientError as exc:
         sys.exit(f"cloudfront: {exc}")
     dns(c, cf_domain)
-    print(f"\nsetup complete. deploy with: web/deploy_site.sh   (targets in {ENV_FILE})")
+    print(f"\nsetup complete. deploy with: ./deploy_site.sh   (targets in {ENV_FILE})")
     return 0
 
 

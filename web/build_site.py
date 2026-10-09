@@ -1,14 +1,19 @@
 #!/usr/bin/env python3
-"""Build the website in web/openbiota.com: documentation, icons, sitemap, robots, llms.txt.
+"""Build the website in openbiota.com/: documentation, icons, sitemap, robots, llms.txt.
 
-    web/build_site.py              everything
-    web/build_site.py --no-docs    skip the mkdocs build (icons, sitemap, robots, head tags only)
-    web/build_site.py --check      report what is missing or stale, change nothing
+    build_site.py              everything
+    build_site.py --no-docs    skip the mkdocs build (icons, sitemap, robots, head tags only)
+    build_site.py --check      report what is missing or stale, change nothing
+    build_site.py --serve      live preview of the documentation at http://127.0.0.1:8000/docs/
 
-Everything the site needs lives under web/. The one outside input is the
-documentation source (docs/*.md + mkdocs.yml), found through DOCS_SOURCE
-(default: the parent of web/, i.e. this repository; set it to another
-checkout when the site moves to its own repository).
+Everything the site needs is in this folder: the pages, the mkdocs config and
+theme (mkdocs.yml, docs-theme/), the tooling. The one outside input is the
+documentation text - the software repository's docs/*.md with its screenshots
+and validation JSON. That checkout is DOCS_SOURCE: the environment variable,
+else the DOCS_SOURCE line of deploy.env (a relative path there is relative to
+this folder: DOCS_SOURCE="../openbiota-gut-health-test" is a sibling checkout),
+else the folder above this one, the layout while the site lived inside the
+software repository.
 
 The landing pages (`index.html`, `research.html`) are hand-written; the
 documentation under `docs/` is generated from `docs/*.md` by mkdocs. This
@@ -30,6 +35,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import hashlib
 import json
 import os
 import re
@@ -40,10 +46,35 @@ from pathlib import Path
 
 WEB = Path(__file__).resolve().parent
 SITE = WEB / "openbiota.com"
-#: The one input that lives outside web/: the documentation sources and the
-#: mkdocs config that renders them into openbiota.com/docs/. Point
-#: DOCS_SOURCE at another checkout when the site has its own repository.
-DOCS_SOURCE = Path(os.environ.get("DOCS_SOURCE", WEB.parent)).resolve()
+MKDOCS_CONFIG = WEB / "mkdocs.yml"
+DEPLOY_ENV = WEB / "deploy.env"
+
+
+def _deploy_env(key: str) -> str:
+    """One value from deploy.env (KEY="value" lines; written by infra/site_setup.py), or ""."""
+    if DEPLOY_ENV.is_file():
+        for line in DEPLOY_ENV.read_text(encoding="utf-8").splitlines():
+            if line.startswith(key + "="):
+                return line.split("=", 1)[1].strip().strip('"')
+    return ""
+
+
+def _docs_source() -> Path:
+    """The checkout of the software repository whose docs/ holds the documentation Markdown (and whose
+    specs/research/ feeds tools/build_research_data.py) - the one input from outside this folder.
+
+    DOCS_SOURCE in the environment, relative to the current directory like any path typed on a command
+    line; else the DOCS_SOURCE line of deploy.env, relative to this folder, so "../openbiota-gut-health-test"
+    names a sibling checkout wherever the command is run from; else the folder above this one - where
+    the Markdown is while the site lives inside the software repository."""
+    if os.environ.get("DOCS_SOURCE"):
+        return Path(os.environ["DOCS_SOURCE"]).expanduser().resolve()
+    if _deploy_env("DOCS_SOURCE"):
+        return (WEB / Path(_deploy_env("DOCS_SOURCE")).expanduser()).resolve()
+    return WEB.parent
+
+
+DOCS_SOURCE = _docs_source()
 BASE_URL = "https://openbiota.com"
 MARK = SITE / "img" / "openbiota-mark.svg"
 OG_IMAGE = "img/openbiota-og.jpg"
@@ -65,22 +96,42 @@ def _git_date(path: Path) -> str:
 
 
 def _mkdocs() -> list[str]:
-    """The mkdocs to run: the docs checkout's venv if it has one, else whatever is on PATH."""
-    venv_mkdocs = DOCS_SOURCE / ".venv" / "bin" / "mkdocs"
-    if venv_mkdocs.is_file():
-        return [str(venv_mkdocs)]
+    """The mkdocs to run: the site's own venv (.venv, from requirements.txt), else the one on PATH."""
+    for candidate in (WEB / ".venv" / "bin" / "mkdocs", DOCS_SOURCE / ".venv" / "bin" / "mkdocs"):
+        if candidate.is_file():
+            return [str(candidate)]
     if shutil.which("mkdocs"):
         return ["mkdocs"]
     return [sys.executable, "-m", "mkdocs"]
 
 
+def _mkdocs_run(*args: str) -> None:
+    """Run mkdocs with mkdocs.yml, its docs_dir pointed at DOCS_SOURCE/docs.
+
+    mkdocs.yml says `docs_dir: ../docs`, the layout inside the software repository.
+    For any other checkout a one-line config beside it inherits everything and
+    overrides docs_dir; it sits in this folder so the relative paths in
+    mkdocs.yml (theme, hooks, site_dir) keep resolving the same way."""
+    docs_dir = DOCS_SOURCE / "docs"
+    if not any(docs_dir.glob("*.md")):
+        sys.exit(f"no documentation at {docs_dir}; set DOCS_SOURCE (environment or deploy.env) to a checkout "
+                 "of the software repository, whose docs/ holds the Markdown")
+    config, derived = MKDOCS_CONFIG, None
+    if docs_dir != WEB.parent / "docs":
+        derived = config = WEB / ".mkdocs.docs-source.yml"
+        derived.write_text(f"INHERIT: {MKDOCS_CONFIG.name}\ndocs_dir: {docs_dir}\n", encoding="utf-8")
+    try:
+        subprocess.run([*_mkdocs(), *args, "--config-file", str(config)], cwd=WEB, check=True)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        if derived is not None:
+            derived.unlink(missing_ok=True)
+
+
 def build_docs() -> None:
-    """Render DOCS_SOURCE/docs/*.md into the site's docs/ with the checkout's mkdocs.yml (strict)."""
-    config = DOCS_SOURCE / "mkdocs.yml"
-    if not config.is_file():
-        sys.exit(f"no mkdocs.yml at {DOCS_SOURCE}; set DOCS_SOURCE to the checkout that holds docs/ and mkdocs.yml")
-    subprocess.run([*_mkdocs(), "build", "--strict", "--config-file", str(config), "--site-dir", str(SITE / "docs")],
-                   cwd=DOCS_SOURCE, check=True)
+    """Render DOCS_SOURCE/docs/*.md into the site's docs/ with mkdocs.yml and docs-theme/ (strict)."""
+    _mkdocs_run("build", "--strict", "--site-dir", str(SITE / "docs"))
     # mkdocs writes its own sitemap; the theme's navigation fetches it, so it
     # stays (the root sitemap is the one robots.txt names). The .gz twin goes.
     (SITE / "docs" / "sitemap.xml.gz").unlink(missing_ok=True)
@@ -89,6 +140,23 @@ def build_docs() -> None:
         html = SITE / "docs" / (md.stem.lower() + ".html")
         if html.is_file():
             shutil.copyfile(md, html.with_suffix(".html.md"))
+    # mkdocs names the front page /docs/index.html; it is served at /docs/ (the
+    # clean-URL function redirects the file name there), so its canonical link
+    # and the theme's sitemap say /docs/
+    for name, old, new in (("index.html", f'href="{BASE_URL}/docs/index.html"', f'href="{BASE_URL}/docs/"'),
+                           ("sitemap.xml", f"<loc>{BASE_URL}/docs/index.html</loc>", f"<loc>{BASE_URL}/docs/</loc>")):
+        path = SITE / "docs" / name
+        if path.is_file():
+            path.write_text(path.read_text(encoding="utf-8").replace(old, new), encoding="utf-8")
+    # The deploy script caches every stylesheet for a year. The theme's own
+    # bundles carry a content hash in their file names; the site's stylesheet
+    # gets one in its URL, so a browser fetches it again only when it changed.
+    css = SITE / "docs" / "stylesheets" / "openbiota.css"
+    if css.is_file():
+        stamp = hashlib.sha256(css.read_bytes()).hexdigest()[:8]
+        for page in (SITE / "docs").glob("*.html"):
+            html = page.read_text(encoding="utf-8")
+            page.write_text(html.replace('stylesheets/openbiota.css"', f'stylesheets/openbiota.css?v={stamp}"'), encoding="utf-8")
 
 
 def build_icons(*, check: bool = False) -> list[str]:
@@ -178,7 +246,9 @@ def build_sitemap() -> int:
         source = DOCS_SOURCE / "docs" / (page.stem.upper() + ".md")
         if not source.is_file():
             source = DOCS_SOURCE / "docs" / (page.stem + ".md")
-        entries.append((f"{BASE_URL}/docs/{page.name}", _git_date(source if source.is_file() else page)))
+        # the docs front page lives at /docs/ (CloudFront redirects /docs/index.html there)
+        loc = f"{BASE_URL}/docs/" if page.name == "index.html" else f"{BASE_URL}/docs/{page.name}"
+        entries.append((loc, _git_date(source if source.is_file() else page)))
     lines = ['<?xml version="1.0" encoding="UTF-8"?>',
              '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for loc, lastmod in entries:
@@ -277,6 +347,10 @@ def build_root_404() -> None:
         # the docs 404 is built with paths relative to /docs/; make them absolute
         html = html.replace('href="assets/', 'href="/docs/assets/').replace('src="assets/', 'src="/docs/assets/')
         html = html.replace('href="stylesheets/', 'href="/docs/stylesheets/').replace('src="javascripts/', 'src="/docs/javascripts/')
+        # mkdocs gives the 404 page an absolute base (/docs/), so the theme's
+        # links one folder up - the marks in /img/, the landing page - come out
+        # as "/docs/../img/x.svg" or "/docs//../index.html"; resolve them
+        html = re.sub(r'"/docs/{1,2}\.\./', '"/', html)
         (SITE / "404.html").write_text(html, encoding="utf-8")
 
 
@@ -284,7 +358,11 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--no-docs", action="store_true", help="skip the mkdocs build")
     ap.add_argument("--check", action="store_true", help="report only")
+    ap.add_argument("--serve", action="store_true", help="live preview of the documentation (mkdocs serve); builds nothing")
     a = ap.parse_args()
+    if a.serve:
+        _mkdocs_run("serve")
+        return 0
     if a.check:
         missing = build_icons(check=True)
         stale_heads = [p.name for p in (SITE / "index.html", SITE / "research.html") if add_head_tags(p, check=True)]

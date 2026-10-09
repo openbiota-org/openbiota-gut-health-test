@@ -1,13 +1,14 @@
 #!/bin/bash
-# Deploy web/openbiota.com to S3 + CloudFront.
+# Deploy openbiota.com/ to S3 + CloudFront.
 #
-#   web/deploy_site.sh            build, confirm, upload, invalidate
-#   web/deploy_site.sh --dry-run  build and show what would be uploaded
-#   web/deploy_site.sh --no-docs  skip the documentation build (landing-page edits only)
+#   ./deploy_site.sh            build, confirm, publish the edge function, upload, invalidate
+#   ./deploy_site.sh --dry-run  build and show what would be uploaded
+#   ./deploy_site.sh --no-docs  skip the documentation build (landing-page edits only)
 #
-# Targets come from web/deploy.env (written by web/infra/site_setup.py; not
-# secret). The documentation source is found through DOCS_SOURCE (default:
-# the parent of web/); see web/README.md.
+# Targets come from deploy.env (written by infra/site_setup.py; not secret).
+# The documentation Markdown comes from the software repository's checkout,
+# DOCS_SOURCE (environment, or the DOCS_SOURCE line of deploy.env, relative to
+# this folder: "../openbiota-gut-health-test" for a sibling checkout); see README.md.
 #
 # Cache policy: HTML, XML, TXT and the manifest are `no-cache` so browsers
 # revalidate them on every visit and pick up new asset versions; CSS, JS,
@@ -33,12 +34,12 @@ for arg in "$@"; do
   esac
 done
 
-[ -f "$ENV_FILE" ] || { echo "no $ENV_FILE - run web/infra/site_setup.py first" >&2; exit 1; }
+[ -f "$ENV_FILE" ] || { echo "no $ENV_FILE - run infra/site_setup.py first" >&2; exit 1; }
 # shellcheck disable=SC1090
 source "$ENV_FILE"
 : "${AWS_PROFILE:?}" "${BUCKET:?}" "${BUCKET_REGION:?}"
 if [ -z "$DRY_RUN" ]; then
-  : "${DISTRIBUTION_ID:?missing in deploy.env - web/infra/site_setup.py has not finished (certificate still validating?)}"
+  : "${DISTRIBUTION_ID:?missing in deploy.env - infra/site_setup.py has not finished (certificate still validating?)}"
 fi
 
 command -v aws >/dev/null || { echo "aws CLI not found (brew install awscli)" >&2; exit 1; }
@@ -61,6 +62,14 @@ if [ -z "$DRY_RUN" ]; then
   echo "This uploads $SITE to s3://$BUCKET and invalidates CloudFront $DISTRIBUTION_ID (https://openbiota.com)."
   read -r -p "Deploy? [y/N] " answer
   [ "$answer" = "y" ] || { echo "not deployed"; exit 1; }
+fi
+
+if [ -z "$DRY_RUN" ]; then
+  echo "== edge"
+  # the clean-URL function (infra/clean_urls.js) is part of the site: published and
+  # attached to the distribution here, so an edit to it ships with the next deploy;
+  # a no-op when nothing changed
+  "$PY" "$WEB/infra/site_setup.py" --profile "$AWS_PROFILE" --clean-urls
 fi
 
 echo "== stamp"
