@@ -22,13 +22,13 @@ communities sit at opposite ends of the scale.
 <div class="grid" markdown>
 
 <figure markdown>
-  ![Page 1 of the broadly disturbed report](images/em1/summary-page.png){ width="360" }
-  <figcaption><strong>Broadly disturbed.</strong> Index −1.35: an opportunist overgrown at ×110 its typical carrier, six core species missing, butyrate at the 5th percentile. <a href="https://github.com/openbiota-org/openbiota-gut-health-test/blob/main/sample-reports/EM1_AMD614_report.pdf">Read the full report (PDF)</a></figcaption>
+  [![Page 1 of the broadly disturbed report](images/em1/summary-page.png){ width="360" }](https://raw.githubusercontent.com/openbiota-org/openbiota-gut-health-test/main/sample-reports/EM1_AMD614_report.pdf)
+  <figcaption><strong>Broadly disturbed.</strong> Index −1.35: an opportunist overgrown at ×110 its typical carrier, six core species missing, butyrate at the 5th percentile. <a href="https://raw.githubusercontent.com/openbiota-org/openbiota-gut-health-test/main/sample-reports/EM1_AMD614_report.pdf">Download the full report (PDF, 2.1 MB)</a></figcaption>
 </figure>
 
 <figure markdown>
-  ![Page 1 of the healthy-range report](images/mm1/summary-page.png){ width="360" }
-  <figcaption><strong>Healthy range.</strong> Index +2.00: 26 health markers to 3 disease markers, a protective gut lining at 97/100, two organisms modestly above their typical carrier. <a href="https://github.com/openbiota-org/openbiota-gut-health-test/blob/main/sample-reports/MM1_FXX745_report.pdf">Read the full report (PDF)</a></figcaption>
+  [![Page 1 of the healthy-range report](images/mm1/summary-page.png){ width="360" }](https://raw.githubusercontent.com/openbiota-org/openbiota-gut-health-test/main/sample-reports/MM1_FXX745_report.pdf)
+  <figcaption><strong>Healthy range.</strong> Index +2.00: 26 health markers to 3 disease markers, a protective gut lining at 97/100, two organisms modestly above their typical carrier. <a href="https://raw.githubusercontent.com/openbiota-org/openbiota-gut-health-test/main/sample-reports/MM1_FXX745_report.pdf">Download the full report (PDF, 1.9 MB)</a></figcaption>
 </figure>
 
 </div>
