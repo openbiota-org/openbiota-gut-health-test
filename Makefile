@@ -99,7 +99,7 @@ TRACS_COMMIT      ?= de9282a64fba8e3d4386ce114e50d55e7fddc440
 TRACS_REPORTS_VERSION ?= 1.1.3
 
 .DEFAULT_GOAL := run
-.PHONY: tools-expanded refs-expanded refs-globdb-genomes expansion-cohorts expansion-crosswalks expansion-reconcile expansion extension-refs substrate-refs help setup doctor panels build-db cohort validate depth-check all smoke run compact json test lint clean clean-all profilers strain-tools strain-system-deps strain-tools-report strain-tools-lock refs-strain refs-strain-verify refs-ctnpc instrain kleborate-optional vendor-tools genome-lane mycobiome-refs
+.PHONY: sample-reports tools-expanded refs-expanded refs-globdb-genomes expansion-cohorts expansion-crosswalks expansion-reconcile expansion extension-refs substrate-refs help setup doctor panels build-db cohort validate depth-check all smoke run compact json test lint clean clean-all profilers strain-tools strain-system-deps strain-tools-report strain-tools-lock refs-strain refs-strain-verify refs-ctnpc instrain kleborate-optional vendor-tools genome-lane mycobiome-refs
 
 help:
 	@echo "OpenBiota Gut Health Test — targets"
@@ -142,6 +142,7 @@ help:
 	@echo "  make all         every build step in order, then run"
 	@echo "  make smoke       fast end-to-end test on the first $(SUBSAMPLE) read pairs"
 	@echo "  make run         full screen on $(FASTQ_DIR)  [default target]"
+	@echo "  make sample-reports  regenerate the two published sample reports and the docs screenshots"
 	@echo "  make run-all     screen every sample in $(FASTQ_DIR) and compare them"
 	@echo "  make compact     full screen, one-screen output"
 	@echo "  make json        full screen, JSON to stdout"
@@ -495,6 +496,11 @@ run: setup
 
 run-all: setup
 	@$(OPENBIOTA) run-all --fastq-dir $(FASTQ_DIR) --out $(RESULTS) --threads $(THREADS)
+
+# The two published sample reports (sample-reports/) and the documentation
+# screenshots (docs/images/em1, docs/images/mm1); run after a report change.
+sample-reports: setup
+	@$(PY) scripts/generate_sample_reports.py --threads $(THREADS)
 
 compact: setup
 	@$(OPENBIOTA) run --fastq-dir $(FASTQ_DIR) --out $(RESULTS) --threads $(THREADS) --compact

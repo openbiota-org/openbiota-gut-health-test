@@ -16,8 +16,10 @@ placed on **one shared seven-band scale** against thousands of reference
 metagenomes, and every number traces back to the reads that produced it.
 
 <p align="center">
-  <img src="docs/images/summary-page.png" alt="Page 1 of the report: the gut-health dial, headline findings, metabolite pathways on the shared scale, community donut, and disease-pattern resemblance bars" width="82%">
+  <a href="sample-reports/EM1_AMD614_report.pdf"><img src="docs/images/em1/summary-page.png" alt="Page 1 of a broadly disturbed report: gut-health index -1.35, an opportunist overgrown, core species missing, butyrate low" width="41%"></a>
+  <a href="sample-reports/MM1_FXX745_report.pdf"><img src="docs/images/mm1/summary-page.png" alt="Page 1 of a healthy-range report: gut-health index +2.00, 26 health markers to 3 disease markers" width="41%"></a>
 </p>
+<p align="center"><sub><b>Two sample reports from real samples</b>, produced by the same software: a community the index places as <a href="sample-reports/EM1_AMD614_report.pdf">broadly disturbed</a> (left) and one in the <a href="sample-reports/MM1_FXX745_report.pdf">healthy range</a> (right). Click either page to read the whole report.</sub></p>
 
 ```bash
 brew install diamond bowtie2 && make setup
@@ -26,12 +28,12 @@ make run-all      # every sample in ./fastq, plus a side-by-side comparison
 ```
 
 <p align="center">
-  <img src="docs/images/organisms-page.png" width="24%" alt="Organisms that need attention: missing, low, high, unusual, needs qualification">
-  <img src="docs/images/evidence-page.png" width="24%" alt="What the research says you can do about it: one line per evidence card">
-  <img src="docs/images/age-page.png" width="24%" alt="Estimated microbiome age with conformal intervals and model card">
-  <img src="docs/images/profile-page.png" width="24%" alt="Disease-pattern page with module scores and decomposition">
+  <img src="docs/images/em1/organisms-page.png" width="24%" alt="Organisms that need attention in the broadly disturbed report: overgrown, missing, low">
+  <img src="docs/images/em1/evidence-page.png" width="24%" alt="What the research says you can do about it: one line per evidence card">
+  <img src="docs/images/em1/age-page.png" width="24%" alt="Estimated microbiome age with conformal intervals and model card">
+  <img src="docs/images/em1/profile-page.png" width="24%" alt="Disease-pattern page with module scores and decomposition">
 </p>
-<p align="center"><sub><b>Part A, at a glance:</b> summary · what stood out · validity and neutral community metrics · 25 functions · 10 microbial groups · organisms missing / low / high / unusual · every disease pattern · evidence overview · microbiome age. <b>Part B, in detail:</b> every reading broken down, with the human research on changing it under each one.</sub></p>
+<p align="center"><sub><b>Part A, at a glance:</b> summary · what stood out · validity and neutral community metrics · 25 functions · 10 microbial groups · organisms missing / low / high / unusual · every disease pattern · evidence overview · microbiome age. <b>Part B, in detail:</b> every reading broken down, with the human research on changing it under each one. Pages shown from the broadly disturbed report; the <a href="docs/images/mm1/">healthy-range pages</a> are in the documentation.</sub></p>
 
 ---
 

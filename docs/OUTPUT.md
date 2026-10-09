@@ -22,7 +22,7 @@ results/
 
 | File | Contents |
 |---|---|
-| `<sample>_report.pdf` | The report, in two parts (see below). Part A puts every reading in front of the reader as a graphic in fourteen short sections; Part B breaks each one down and, under each, shows what the human research says about changing it. Every percentile uses one seven-band scale (notably low → notably high) |
+| `<sample>_report.pdf` | The report, in two parts (see below). Part A puts every reading in front of the reader as a graphic in fourteen short sections; Part B breaks each one down and, under each, shows what the human research says about changing it. Every percentile uses one seven-band scale (notably low → notably high). Two finished examples: [`sample-reports/`](https://github.com/openbiota-org/openbiota-gut-health-test/tree/main/sample-reports) |
 | `summary.txt` | Full technical summary, one section per subject |
 | `results.json` | Everything in the text report, plus more, machine-readable |
 | `run.log` | Versions, flags, timings, reference set sizes, stage progress |

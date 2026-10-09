@@ -13,10 +13,45 @@ microbiome patterns, a 485-target pathogen screen and an estimated microbiome
 age. Page one is the whole answer in graphics; the pages behind it are the
 evidence, and every number traces back to the reads that produced it.
 
+## Two sample reports
+
+Two complete reports from real samples ship with the project, so you can read
+one before sequencing anything. The same software produced both; the two
+communities sit at opposite ends of the scale.
+
+<div class="grid" markdown>
+
 <figure markdown>
-  ![Page 1 of the report](images/summary-page.png){ width="720" }
-  <figcaption>Page 1: the gut-health dial, headline findings, metabolite pathways on one shared scale, the community donut and disease-pattern resemblance.</figcaption>
+  ![Page 1 of the broadly disturbed report](images/em1/summary-page.png){ width="360" }
+  <figcaption><strong>Broadly disturbed.</strong> Index −1.35: an opportunist overgrown at ×110 its typical carrier, six core species missing, butyrate at the 5th percentile. <a href="https://github.com/openbiota-org/openbiota-gut-health-test/blob/main/sample-reports/EM1_AMD614_report.pdf">Read the full report (PDF)</a></figcaption>
 </figure>
+
+<figure markdown>
+  ![Page 1 of the healthy-range report](images/mm1/summary-page.png){ width="360" }
+  <figcaption><strong>Healthy range.</strong> Index +2.00: 26 health markers to 3 disease markers, a protective gut lining at 97/100, two organisms modestly above their typical carrier. <a href="https://github.com/openbiota-org/openbiota-gut-health-test/blob/main/sample-reports/MM1_FXX745_report.pdf">Read the full report (PDF)</a></figcaption>
+</figure>
+
+</div>
+
+Page 1 is the whole answer in graphics: the gut-health dial, what stood out,
+every metabolite pathway on one shared scale, the community donut and
+disease-pattern resemblance. Behind it, the same pages for each report:
+
+<p align="center">
+  <img src="images/em1/organisms-page.png" width="24%" alt="Organisms that need attention, broadly disturbed report">
+  <img src="images/em1/evidence-page.png" width="24%" alt="What you can do about it, broadly disturbed report">
+  <img src="images/em1/age-page.png" width="24%" alt="Estimated age, broadly disturbed report">
+  <img src="images/em1/profile-page.png" width="24%" alt="Disease patterns, broadly disturbed report">
+</p>
+<p align="center"><small><strong>Broadly disturbed:</strong> organisms that need attention · what you can do about it · estimated age · disease patterns</small></p>
+
+<p align="center">
+  <img src="images/mm1/organisms-page.png" width="24%" alt="Organisms that need attention, healthy-range report">
+  <img src="images/mm1/evidence-page.png" width="24%" alt="What you can do about it, healthy-range report">
+  <img src="images/mm1/age-page.png" width="24%" alt="Estimated age, healthy-range report">
+  <img src="images/mm1/profile-page.png" width="24%" alt="Disease patterns, healthy-range report">
+</p>
+<p align="center"><small><strong>Healthy range:</strong> the same four pages</small></p>
 
 !!! note "Research use only"
     The report measures *genetic capacity* and *community resemblance*. It does

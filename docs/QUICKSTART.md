@@ -16,7 +16,10 @@ make run                             # → results/SAMPLE/SAMPLE_report.pdf
 ```
 
 The rest of this page explains each step, what it costs, and where the report
-ends up.
+ends up. To see what you are working towards first, two finished reports from
+real samples are in
+[`sample-reports/`](https://github.com/openbiota-org/openbiota-gut-health-test/tree/main/sample-reports):
+one community the index places as broadly disturbed, one in the healthy range.
 
 ## 1. What you need
 
