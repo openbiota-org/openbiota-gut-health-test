@@ -1,6 +1,7 @@
 # OpenBiota Gut Health Test
 
-**Input: Raw shotgun gene sequencing data (FASTQ files). Output: The world's most in-depth gut-health test report (PDF file).**
+**Input: Raw shotgun gene sequencing data (FASTQ files).** <br>
+**Output: The world's most in-depth gut-health test report (PDF file).**
 
 [![tests](https://github.com/openbiota-org/openbiota-gut-health-test/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/openbiota-org/openbiota-gut-health-test/actions/workflows/tests.yml)
 
