@@ -3013,11 +3013,13 @@ def cmd_run(
     from openbiota.resolution import loci as loci_mod
 
     try:
-        locus_calls = loci_mod.run_all(
-            sample_id=str(sample_input.sample),
-            reads=[p for p in (r1, r2) if p is not None],
-            threads=args.threads,
-        )
+        with reporter.stage("nucleotide locus mapping"):
+            locus_calls = loci_mod.run_all(
+                sample_id=str(sample_input.sample),
+                reads=[p for p in (r1, r2) if p is not None],
+                threads=args.threads,
+                work_dir=out_dir,
+            )
         results_json["locus_resolution"] = {
             "targets": [c.to_json() for c in locus_calls],
             "what_this_is": (

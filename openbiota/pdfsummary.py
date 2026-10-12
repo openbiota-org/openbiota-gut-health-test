@@ -464,6 +464,9 @@ def summary_page(
     age_meta: dict[str, Any] | None = None,
     pathogens: Mapping[str, Any] | None = None,
     pathogen_section: int = 0,
+    solutions_section: int = 0,
+    n_problems: int = 0,
+    n_options: int = 0,
     results: Mapping[str, Any] | None = None,
     inv: Any = None,
 ) -> None:
@@ -523,7 +526,9 @@ def summary_page(
         return SUMMARY_MIN_ROWS
 
     # Parts that do not change with the row budget, measured once.
-    foot = _foot(st, pathogens=pathogens, pathogen_section=pathogen_section)
+    foot = _foot(st, pathogens=pathogens, pathogen_section=pathogen_section,
+                 solutions_section=solutions_section, n_problems=n_problems,
+                 n_options=n_options)
     h_foot = height(foot, CONTENT_WIDTH) + (BLOCK_GAP if foot else 0.0)
     # Section-level elements: the whole block is one link to its section.
     right_top: list[Any] = []
@@ -689,12 +694,18 @@ def _foot(
     *,
     pathogens: Mapping[str, Any] | None,
     pathogen_section: int,
+    solutions_section: int = 0,
+    n_problems: int = 0,
+    n_options: int = 0,
 ) -> list[Any]:
-    """The pathogen verdict, or nothing if the pathogen branch did not run."""
+    """The pathogen verdict and the way in to what can be done about it."""
     from openbiota import pdfpathogens
 
     foot: list[Any] = []
-    pdfpathogens.pathogen_alert(foot, st, pathogens=pathogens, section=pathogen_section)
+    pdfpathogens.pathogen_alert(
+        foot, st, pathogens=pathogens, section=pathogen_section,
+        solutions_section=solutions_section, n_problems=n_problems, n_options=n_options,
+    )
     return foot
 
 

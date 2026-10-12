@@ -21,6 +21,130 @@ Required Notice: Copyright (c) 2026 Erick Miller (OpenBiota) (https://openbiota.
 
 --------------------------------------------------------------------------------
 
+# NO WARRANTY, NO MEDICAL ADVICE, NO LIABILITY
+
+These terms apply to the software, to the reference data distributed with
+it, and to every output it produces, including any report, score, figure,
+percentile, evidence card, suggested option or JSON record (together, the
+"Output"). They apply to any use, by anyone, for any purpose, and they
+survive termination of any licence. If any part is held unenforceable, the
+remainder stays in force and the unenforceable part is limited to the
+minimum extent necessary rather than struck out.
+
+NOT A MEDICAL DEVICE. NOT MEDICAL ADVICE. The software is research
+software. It is not a medical device, an in-vitro diagnostic, a clinical
+decision-support system or a laboratory-developed test. It has not been
+reviewed, cleared, approved, authorised, certified or registered by the
+U.S. Food and Drug Administration, the European Medicines Agency, the UK
+MHRA, any notified body, any CLIA or CAP programme, or any other
+regulatory authority anywhere. It is not CE-marked and carries no UKCA
+mark. Nothing it produces diagnoses, treats, cures, mitigates or prevents
+any disease or condition, and nothing it produces is a prescription, a
+dosage instruction, a dietary prescription, a laboratory result or a
+recommendation to start, stop or change any medication, supplement, food,
+procedure or treatment. No physician-patient, clinician-patient,
+dietitian-client, practitioner-client, advisory, fiduciary or professional
+relationship of any kind is created by using the software, reading its
+Output, or communicating with the licensor or any contributor. Always seek
+the advice of a qualified physician or other qualified health provider
+with any question about a medical condition, and never disregard
+professional medical advice or delay seeking it because of anything in the
+Output. If you may be having a medical emergency, contact emergency
+services immediately.
+
+RESEARCH USE ONLY, AND YOU ASSUME ALL RISK. The Output is a research
+observation about DNA sequence in a sample. Measured capacity is not
+measured activity; community resemblance is not disease; a percentile is
+not a reference range; a detected sequence is not an infection; an
+evidence record is not a finding about you. You use the software and act
+on the Output entirely at your own risk and on your own judgement, and you
+are solely responsible for any decision you, or anyone relying on you,
+make as a result. Any option, lever, food, compound, supplement, botanical,
+probiotic, drug, product, protocol, clinical route or procedure that the
+Output describes is a description of published research, not a
+recommendation, endorsement, guarantee or claim of safety, suitability,
+efficacy, legality or availability for you or for anyone. Interventions
+described in the research literature can interact with medication, can be
+unsafe in pregnancy, in childhood, in immune compromise or in structural
+gastrointestinal disease, and can cause harm. Discuss anything you are
+considering with a qualified clinician first.
+
+AS IS, AS AVAILABLE, NO WARRANTY OF ANY KIND. TO THE MAXIMUM EXTENT
+PERMITTED BY APPLICABLE LAW, THE SOFTWARE, THE REFERENCE DATA AND THE
+OUTPUT ARE PROVIDED "AS IS" AND "AS AVAILABLE", WITH ALL FAULTS AND
+DEFECTS, AND WITHOUT WARRANTY, CONDITION, REPRESENTATION, GUARANTEE OR
+TERM OF ANY KIND, WHETHER EXPRESS, IMPLIED, STATUTORY OR ARISING FROM
+COURSE OF DEALING, COURSE OF PERFORMANCE OR USAGE OF TRADE. THE LICENSOR
+AND EVERY CONTRIBUTOR EXPRESSLY DISCLAIM ALL IMPLIED WARRANTIES AND
+CONDITIONS OF MERCHANTABILITY, SATISFACTORY QUALITY, FITNESS FOR A
+PARTICULAR OR ANY PURPOSE, ACCURACY, CORRECTNESS, COMPLETENESS,
+RELIABILITY, CURRENCY, SCIENTIFIC OR CLINICAL VALIDITY, ANALYTICAL OR
+CLINICAL PERFORMANCE, REPRODUCIBILITY, TITLE, QUIET ENJOYMENT AND
+NON-INFRINGEMENT. NO ADVICE OR INFORMATION, WHETHER ORAL OR WRITTEN,
+OBTAINED FROM THE LICENSOR, ANY CONTRIBUTOR, THE DOCUMENTATION, THE
+WEBSITE OR THE OUTPUT CREATES ANY WARRANTY. THE LICENSOR DOES NOT WARRANT
+THAT THE SOFTWARE WILL RUN WITHOUT INTERRUPTION OR ERROR, THAT DEFECTS
+WILL BE CORRECTED, THAT ANY RESULT IS ACCURATE OR FIT FOR ANY USE, OR
+THAT ANY THIRD-PARTY TOOL, REFERENCE DATABASE, PUBLICATION OR CITATION
+REFERRED TO IS ACCURATE, CURRENT, UNRETRACTED OR CORRECTLY INTERPRETED.
+
+NO LIABILITY WHATSOEVER. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE
+LAW, IN NO EVENT WILL THE LICENSOR, ITS OWNERS, OFFICERS, EMPLOYEES,
+AGENTS, AFFILIATES OR ANY CONTRIBUTOR BE LIABLE TO YOU OR TO ANY THIRD
+PARTY FOR ANY DAMAGES OF ANY KIND — DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, PUNITIVE OR CONSEQUENTIAL — OR FOR ANY PERSONAL
+INJURY, ILLNESS, DISABILITY OR DEATH, ANY MISDIAGNOSIS, MISSED DIAGNOSIS,
+DELAYED DIAGNOSIS OR DELAYED, FOREGONE OR INAPPROPRIATE TREATMENT, ANY
+ADVERSE REACTION OR INTERACTION, ANY LOSS OF PROFITS, REVENUE, BUSINESS,
+GOODWILL, DATA, PRIVACY OR ANTICIPATED SAVINGS, ANY EMOTIONAL DISTRESS,
+OR ANY BUSINESS INTERRUPTION OR COST OF SUBSTITUTE GOODS OR SERVICES,
+ARISING OUT OF OR RELATING IN ANY WAY TO THESE TERMS, THE SOFTWARE, THE
+REFERENCE DATA, THE OUTPUT, ANY RELIANCE ON ANY OF THEM, OR ANY FAILURE OR
+INABILITY TO USE ANY OF THEM, UNDER ANY THEORY OF LIABILITY WHATSOEVER —
+CONTRACT, TORT (INCLUDING NEGLIGENCE AND GROSS NEGLIGENCE), STRICT
+LIABILITY, PRODUCT LIABILITY, STATUTE, EQUITY OR OTHERWISE — AND WHETHER
+OR NOT THE LICENSOR HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES
+AND EVEN IF ANY STATED REMEDY IS FOUND TO HAVE FAILED OF ITS ESSENTIAL
+PURPOSE. WHERE LIABILITY CANNOT LAWFULLY BE EXCLUDED, THE TOTAL AGGREGATE
+LIABILITY OF THE LICENSOR AND ALL CONTRIBUTORS FOR ALL CLAIMS IS LIMITED
+TO THE GREATER OF THE AMOUNT YOU ACTUALLY PAID THE LICENSOR FOR THE
+SOFTWARE IN THE TWELVE MONTHS BEFORE THE EVENT GIVING RISE TO THE CLAIM,
+OR ONE US DOLLAR (US$1.00).
+
+YOUR INDEMNITY. You will indemnify, defend and hold harmless the licensor
+and every contributor against all claims, demands, proceedings, losses,
+liabilities, damages, penalties, costs and expenses (including reasonable
+legal fees) arising out of or relating to your use of the software, the
+reference data or the Output; any Output you generate, publish,
+redistribute or act on; any service, product, report or advice you provide
+to any other person using them; and any breach by you of these terms or of
+any law or third-party right.
+
+YOU OPERATE IT, SO YOU ARE RESPONSIBLE FOR IT. The software runs on your
+own hardware, on data you supply. You alone are responsible for lawfully
+obtaining any sample and sequence data you analyse, for any consent
+required, for the privacy and security of that data and of any Output, and
+for complying with every law and regulation that applies to you — medical
+device, clinical laboratory, diagnostic, health information, data
+protection, consumer protection, food, drug, supplement and advertising law
+included. Requirements differ by country and by jurisdiction. Nothing here
+grants permission to offer any clinical, diagnostic, screening or health
+service to anyone.
+
+THIRD-PARTY TOOLS, DATA AND RESEARCH. The software orchestrates
+third-party tools and reference databases and cites third-party
+publications, each under its own terms and licence and each with its own
+errors, revisions, retractions and limits. The licensor does not control
+them, does not verify them and is not responsible for them. Published
+research cited anywhere in the Output is described, not endorsed, and may
+be superseded, contradicted, corrected or retracted at any time.
+
+NO GUARANTEE OF SUPPORT. Nothing obliges the licensor to provide support,
+maintenance, updates, bug fixes, continued availability of any reference
+data, or continued operation of any website or service.
+
+--------------------------------------------------------------------------------
+
 # PolyForm Noncommercial License 1.0.0
 
 <https://polyformproject.org/licenses/noncommercial/1.0.0>

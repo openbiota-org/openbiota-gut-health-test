@@ -28,6 +28,8 @@ that still needs linkage evidence.
 
 from __future__ import annotations
 
+import contextlib
+import json
 import shutil
 import subprocess
 import tempfile
@@ -192,38 +194,55 @@ def _depth_profile(bam: Path, lengths: Mapping[str, int]) -> dict[str, RefCovera
     }
 
 
-def map_locus(
-    target: LocusTarget,
+def map_loci(
+    targets: Sequence[LocusTarget],
     *,
     reads: Sequence[Path],
     threads: int = 8,
     panels: Path = PANELS,
-) -> dict[str, RefCoverage] | None:
-    """Align the sample's reads to a target's references.
+) -> dict[str, dict[str, RefCoverage]] | None:
+    """Align the sample's reads to every target's references, in one pass.
 
-    Returns per-reference coverage, or None when the stage cannot run. A
-    competitive index over all of a target's references at once is deliberate:
-    for the bft alleles it is what makes the best-supported one meaningful.
+    Returns per-target, per-reference coverage, or None when the stage cannot
+    run. A competitive index over all of a target's references at once is
+    deliberate: for the bft alleles it is what makes the best-supported one
+    meaningful. Every target's references go into the *same* index because the
+    cost here is reading the library, not the index: a separate index per
+    target meant streaming all 16 million reads once per target, which was
+    two and a half minutes of a seven-minute run for two loci of 1.5 kb and
+    55 kb. The alleles of a target still compete with each other exactly as
+    before; the targets themselves are unrelated sequence, so a read that
+    would have been a bft alignment cannot become a pks alignment.
     """
-    fastas = [panels / f"{name}.fasta" for name in target.references]
-    if not _tools_present() or not all(f.exists() for f in fastas):
+    wanted = [
+        (t, [panels / f"{name}.fasta" for name in t.references]) for t in targets
+    ]
+    usable = [
+        (t, fastas) for t, fastas in wanted if all(f.exists() for f in fastas)
+    ]
+    if not _tools_present() or not usable:
         return None
 
     with tempfile.TemporaryDirectory() as tmp:
         work = Path(tmp)
         combined = work / "refs.fasta"
         lengths: dict[str, int] = {}
+        by_target: dict[str, tuple[str, ...]] = {}
         with combined.open("w") as handle:
-            for name, fasta in zip(target.references, fastas, strict=True):
-                seq = "".join(
-                    line.strip()
-                    for line in fasta.read_text().splitlines()
-                    if not line.startswith(">")
-                )
-                lengths[name] = len(seq)
-                handle.write(f">{name}\n")
-                for i in range(0, len(seq), 70):
-                    handle.write(seq[i : i + 70] + "\n")
+            for target, fastas in usable:
+                by_target[target.target_id] = target.references
+                for name, fasta in zip(target.references, fastas, strict=True):
+                    if name in lengths:  # a reference shared by two targets
+                        continue
+                    seq = "".join(
+                        line.strip()
+                        for line in fasta.read_text().splitlines()
+                        if not line.startswith(">")
+                    )
+                    lengths[name] = len(seq)
+                    handle.write(f">{name}\n")
+                    for i in range(0, len(seq), 70):
+                        handle.write(seq[i : i + 70] + "\n")
 
         index = work / "idx"
         subprocess.run(
@@ -231,24 +250,45 @@ def map_locus(
              str(combined), str(index)],
             check=True, capture_output=True,
         )
-        sam = work / "aln.sam"
+        bam = work / "aln.bam"
         argv = [
             "bowtie2", "--quiet", "--threads", str(threads),
-            "--very-sensitive", "--no-unal", "-x", str(index), "-S", str(sam),
+            "--very-sensitive", "--no-unal", "-x", str(index),
         ]
         if len(reads) >= 2:
             argv += ["-1", str(reads[0]), "-2", str(reads[1])]
         else:
             argv += ["-U", str(reads[0])]
-        subprocess.run(argv, check=True, capture_output=True)
-
-        bam = work / "aln.bam"
-        subprocess.run(
-            ["samtools", "sort", "-@", str(threads), "-o", str(bam), str(sam)],
-            check=True, capture_output=True,
-        )
+        # Pipe SAM straight into the sort: the uncompressed SAM for a whole
+        # library is gigabytes of writes and reads that nothing ever needs.
+        with subprocess.Popen(argv, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL) as aligner:
+            subprocess.run(
+                ["samtools", "sort", "-@", str(threads), "-o", str(bam), "-"],
+                stdin=aligner.stdout, check=True, capture_output=True,
+            )
+            if aligner.stdout is not None:
+                aligner.stdout.close()
+            if aligner.wait() != 0:
+                raise subprocess.CalledProcessError(aligner.returncode, argv)
         subprocess.run(["samtools", "index", str(bam)], check=True, capture_output=True)
-        return _depth_profile(bam, lengths)
+        profile = _depth_profile(bam, lengths)
+
+    return {
+        target_id: {name: profile[name] for name in refs if name in profile}
+        for target_id, refs in by_target.items()
+    }
+
+
+def map_locus(
+    target: LocusTarget,
+    *,
+    reads: Sequence[Path],
+    threads: int = 8,
+    panels: Path = PANELS,
+) -> dict[str, RefCoverage] | None:
+    """One target's coverage. Kept for callers that want a single locus."""
+    out = map_loci([target], reads=reads, threads=threads, panels=panels)
+    return None if out is None else out.get(target.target_id)
 
 
 def call_for(
@@ -410,18 +450,103 @@ def call_for(
     )
 
 
-def run_all(
-    *, sample_id: str, reads: Sequence[Path], threads: int = 8, panels: Path = PANELS
-) -> list[ResolutionCall]:
-    """Map every locus target for one sample."""
-    out: list[ResolutionCall] = []
+#: Bumped when anything that changes the measured coverage changes.
+CACHE_VERSION: Final = 1
+
+
+def cache_file(work_dir: Path, reads: Sequence[Path], *, panels: Path = PANELS) -> Path:
+    """Where this sample's locus coverage is cached.
+
+    Keyed on the reads and on every reference file's identity, so a new
+    reference or a new read set re-measures and nothing else does.
+    """
+    from openbiota.engines.lanebase import cache_key, input_sha256  # noqa: PLC0415
+
+    refs: list[str] = []
     for target in TARGETS:
+        for name in target.references:
+            fasta = panels / f"{name}.fasta"
+            try:
+                stat = fasta.stat()
+                refs.append(f"{name}:{stat.st_size}:{int(stat.st_mtime)}")
+            except OSError:
+                refs.append(f"{name}:missing")
+    key = cache_key(str(CACHE_VERSION), input_sha256(reads), "|".join(sorted(refs)))
+    return work_dir / "loci" / f"locus.{key}.json"
+
+
+def _read_cache(path: Path) -> dict[str, dict[str, RefCoverage]] | None:
+    try:
+        payload = json.loads(path.read_text())
+    except (OSError, ValueError):
+        return None
+    if payload.get("cache_version") != CACHE_VERSION:
+        return None
+    out: dict[str, dict[str, RefCoverage]] = {}
+    try:
+        for target_id, refs in (payload.get("coverage") or {}).items():
+            out[target_id] = {
+                name: RefCoverage(
+                    reference=rec["reference"], length=rec["length"],
+                    covered_bases=rec["covered_bases"], total_depth=rec["total_depth"],
+                    windows=tuple(rec["windows"]), reads=rec["reads"],
+                )
+                for name, rec in refs.items()
+            }
+    except (KeyError, TypeError):
+        return None
+    return out
+
+
+def _write_cache(path: Path, coverage: Mapping[str, Mapping[str, RefCoverage]]) -> None:
+    payload = {
+        "cache_version": CACHE_VERSION,
+        "coverage": {
+            target_id: {
+                name: {
+                    "reference": c.reference, "length": c.length,
+                    "covered_bases": c.covered_bases, "total_depth": c.total_depth,
+                    "windows": list(c.windows), "reads": c.reads,
+                }
+                for name, c in refs.items()
+            }
+            for target_id, refs in coverage.items()
+        },
+    }
+    with contextlib.suppress(OSError):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(payload))
+
+
+def run_all(
+    *,
+    sample_id: str,
+    reads: Sequence[Path],
+    threads: int = 8,
+    panels: Path = PANELS,
+    work_dir: Path | None = None,
+) -> list[ResolutionCall]:
+    """Map every locus target for one sample, in one pass over the reads.
+
+    Only the measured coverage is cached. The calls themselves are re-derived
+    from it on every run, so a change to how a call is made takes effect
+    without re-reading the library.
+    """
+    cache = cache_file(work_dir, reads, panels=panels) if work_dir is not None else None
+    coverage: dict[str, dict[str, RefCoverage]] | None = None
+    if cache is not None and cache.is_file():
+        coverage = _read_cache(cache)
+    if coverage is None:
         try:
-            coverage = map_locus(target, reads=reads, threads=threads, panels=panels)
+            coverage = map_loci(TARGETS, reads=reads, threads=threads, panels=panels)
         except (subprocess.CalledProcessError, OSError):
             coverage = None
-        out.append(call_for(target, coverage, sample_id=sample_id))
-    return out
+        if coverage is not None and cache is not None:
+            _write_cache(cache, coverage)
+    return [
+        call_for(target, (coverage or {}).get(target.target_id), sample_id=sample_id)
+        for target in TARGETS
+    ]
 
 
 def self_test() -> int:

@@ -461,6 +461,19 @@ probability of disease.
 This is not a diagnostic test, and no threshold in any output corresponds to a
 clinical decision, because none has been published for any of these pathways.
 
+> **Research software. Not a medical device. Not medical advice. No warranty,
+> no liability.** OpenBiota has not been reviewed or cleared by the FDA, EMA,
+> MHRA or any other regulator, and nothing it produces diagnoses, treats or
+> prevents any condition or tells you to start, stop or change anything. Where
+> a report describes a food, compound, supplement, botanical, probiotic, drug
+> or procedure, it is *describing published research*, not recommending it.
+> The software, its reference data and everything it outputs are provided **as
+> is**, with all faults and no warranty of any kind, and you use them entirely
+> at your own risk and on your own judgement. Talk to a qualified clinician
+> before acting on anything here. Full terms: **[DISCLAIMER.md](DISCLAIMER.md)**
+> and the *NO WARRANTY, NO MEDICAL ADVICE, NO LIABILITY* section of
+> [LICENSE](LICENSE).
+
 ---
 
 ## Documentation
@@ -494,7 +507,7 @@ Built on [DIAMOND](https://github.com/bbuchfink/diamond),
 UniProt. Full citations, with working links, in the docs and in every panel and
 profile definition.
 
-## Licence
+## Licence and terms
 
 Free for any **noncommercial** purpose — personal use, research, education,
 charities, public-health and government institutions — under the
@@ -502,3 +515,8 @@ charities, public-health and government institutions — under the
 requires a commercial licence from OpenBiota; enquire via
 [openbiota.com](https://openbiota.com). Contributions are accepted under the
 same terms.
+
+Use of the software, the reference data or anything they produce is also
+subject to **[DISCLAIMER.md](DISCLAIMER.md)** — research use only, no medical
+advice, as is, no warranty, no liability, and you are responsible for
+complying with every law that applies to you.

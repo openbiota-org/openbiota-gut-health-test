@@ -1553,15 +1553,22 @@ def test_the_page_one_band_stays_within_its_height_budget() -> None:
     assert _band_height_mm(_band(clean)) <= _BAND_CLEAR_MM
 
 
-def test_partial_coverage_is_signalled_beside_a_negative_verdict() -> None:
-    """"None found" must not sit beside a reassuring green coverage chip.
+def test_the_search_scope_is_carried_by_the_section_not_by_page_one() -> None:
+    """Page one carries what a reader acts on; the scope lives in the section.
 
-    A reference genuinely still missing has to show, or page one reads as two
-    reassurances rather than one claim and its scope. What must *not* show as
-    a gap is a target that was searched and answers at a rank it shares with
-    a relative, or one whose genome is RNA and cannot be in a DNA library:
-    counting those made a complete screen read "332 of 486 targets searched"
-    in amber, as though a third of the catalogue had been skipped.
+    The coverage chip used to sit on page one beside the verdict, reading
+    "all 454 targets searched" or "332 of 486 targets searched". It was the
+    chip most likely to push the row onto a second line, and at three
+    quarters of the page there is no room for a line that answers a question
+    nobody asks of a summary. It is gone from the band. What must not happen
+    is the scope going missing: `summarise` still carries the counts, and the
+    pathogen section states them per group, so "none found" can still be read
+    against what was actually looked for.
+
+    What must *not* count as a gap is a target that was searched and answers
+    at a rank it shares with a relative, or one whose genome is RNA and
+    cannot be in a DNA library: counting those made a complete screen read
+    "332 of 486 targets searched", as though a third had been skipped.
     """
     partial = {
         "results": [_result("bacteria.x", "bacteria", "not_detected")],
@@ -1577,38 +1584,6 @@ def test_partial_coverage_is_signalled_beside_a_negative_verdict() -> None:
             "searched": 486, "answerable": 486,
         },
     }
-
-    def _chips(node: Any) -> list[pdfpathogens.Chip]:
-        """Every Chip anywhere in a nested flowable/table structure."""
-        if isinstance(node, pdfpathogens.Chip):
-            return [node]
-        found: list[pdfpathogens.Chip] = []
-        for attr in ("_cellvalues", "_argW"):
-            if attr == "_cellvalues" and hasattr(node, attr):
-                for row in node._cellvalues:
-                    for cell in row:
-                        found += _chips(cell)
-        if isinstance(node, (list, tuple)):
-            for item in node:
-                found += _chips(item)
-        return found
-
-    def _coverage_chip(payload: dict) -> pdfpathogens.Chip:
-        chips = [
-            c for c in _chips(_band(payload)) if "targets searched" in c.text
-        ]
-        assert chips, "the coverage chip must always be present"
-        return chips[0]
-
-    assert _coverage_chip(partial).colour == pdfpathogens.WATCH
-    assert _coverage_chip(full).colour == pdfpathogens.CLEAR
-    assert _coverage_chip(full).text == "all 486 targets searched"
-    # Both still fit the budget.
-    assert _band_height_mm(_band(partial)) <= _BAND_CLEAR_MM
-
-    # A screen that searched everything it can answer for is not partial. The
-    # RNA viruses leave the denominator because no depth of DNA sequencing
-    # reaches them, and the rows that answer at a shared rank were searched.
     complete = {
         "results": [_result("bacteria.x", "bacteria", "not_detected")],
         "coverage": {
@@ -1617,10 +1592,70 @@ def test_partial_coverage_is_signalled_beside_a_negative_verdict() -> None:
             "out_of_assay_scope": 32,
         },
     }
-    chip = _coverage_chip(complete)
-    assert chip.colour == pdfpathogens.CLEAR
-    assert chip.text == "all 454 targets searched"
 
+    def _chips(node: Any) -> list[pdfpathogens.Chip]:
+        """Every Chip anywhere in a nested flowable/table structure."""
+        if isinstance(node, pdfpathogens.Chip):
+            return [node]
+        found: list[pdfpathogens.Chip] = []
+        if hasattr(node, "_cellvalues"):
+            for row in node._cellvalues:
+                for cell in row:
+                    found += _chips(cell)
+        if isinstance(node, (list, tuple)):
+            for item in node:
+                found += _chips(item)
+        return found
+
+    for payload in (partial, full, complete):
+        chips = _chips(_band(payload))
+        assert not [c for c in chips if "targets searched" in c.text], (
+            "the coverage chip belongs in the section, not on page one"
+        )
+        assert len(chips) <= pdfpathogens.MAX_PAGE1_CHIPS, (
+            "page one shows at most three chips, so the band's height is known"
+        )
+        assert _band_height_mm(_band(payload)) <= _BAND_CLEAR_MM
+
+    # The counts themselves are still there for the section to state, and a
+    # complete screen still reports its own denominator rather than the
+    # catalogue's.
+    assert pdfpathogens.summarise(partial)["searched"] == 332
+    assert pdfpathogens.summarise(partial)["answerable"] == 486
+    assert pdfpathogens.summarise(full)["searched"] == 486
+    assert pdfpathogens.summarise(complete)["answerable"] == 454
+
+
+def test_page_one_offers_a_way_to_what_can_be_done() -> None:
+    """A finding on page one sits beside the way in to the actions section.
+
+    Being told something was found and left to hunt for what to do about it
+    is the failure this panel exists to prevent.
+    """
+    payload = {
+        "results": [
+            _finding("bacteria.salmonella_enterica", "bacteria", "established_enteric",
+                     name="Salmonella enterica"),
+        ],
+        "coverage": {"assessed": 333, "not_assessed": 153},
+    }
+    story: list[Any] = []
+    pdfpathogens.pathogen_alert(
+        story, _styles(), pathogens=payload, section=7,
+        solutions_section=14, n_problems=9, n_options=42,
+    )
+    text = _flat_text(story)
+    assert "Possible solutions" in text
+    assert "42" in text and "9" in text
+    assert "Section 14" in text
+    # Without a section to point at, the panel is simply not drawn.
+    bare: list[Any] = []
+    pdfpathogens.pathogen_alert(bare, _styles(), pathogens=payload, section=7)
+    assert "Possible solutions" not in _flat_text(bare)
+
+
+def test_a_positive_verdict_names_what_was_found_and_still_fits() -> None:
+    """The one case where a name has to be on page one, inside its budget."""
     alarm = {
         "results": [
             _finding("bacteria.salmonella_enterica", "bacteria", "established_enteric",

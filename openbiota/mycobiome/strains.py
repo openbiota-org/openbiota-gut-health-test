@@ -23,8 +23,10 @@ one; the difference is recorded in ``analysis_status``.
 
 from __future__ import annotations
 
+import contextlib
 import shutil
 import subprocess
+from collections.abc import Mapping
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Final
@@ -142,37 +144,62 @@ def _sorted_indexed(bam: Path, work: Path, st: str) -> Path:
 
 
 def _coverage(sbam: Path, contigs: list[str], st: str, sites: set[tuple[str, int]] | None = None,
+              lengths: Mapping[str, int] | None = None,
               ) -> tuple[int, int, float, set[tuple[str, int]]]:
     """(callable bases at depth>=MIN_DEPTH_CALLABLE, bases covered >=1, summed depth,
     the panel sites that are callable) over the contigs, in one streaming pass.
 
     ``samtools depth`` emits only covered positions, so at the depth a stool
     sample gives a fungus this is a short stream; reading the panel sites
-    out of it means only callable sites are ever piled up."""
+    out of it means only callable sites are ever piled up.
+
+    The regions are handed to samtools rather than filtered here. The
+    competitive index holds every fungus in the reference lock, so its BAM is
+    hundreds of megabytes; asking for depth over the whole file and then
+    dropping the 99% of lines that belong to another species cost fifteen to
+    thirty seconds per taxon, once per taxon. With a region list samtools
+    seeks on the index and reads only this taxon's contigs. The numbers are
+    the same either way - only the lines that were going to be discarded are
+    never produced.
+    """
     if not contigs:
         return 0, 0, 0.0, set()
-    proc = subprocess.Popen([st, "depth", "-Q", str(MIN_MAPQ), "-q", str(MIN_BASEQ), str(sbam)],
-                            stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True)
     want = set(contigs)
-    callable_ = covered = 0
-    total = 0
-    hit: set[tuple[str, int]] = set()
-    assert proc.stdout is not None
-    for line in proc.stdout:
-        c, pos, d = line.rstrip("\n").split("\t")[:3]
-        if c not in want:
-            continue
-        dd = int(d)
-        if dd >= 1:
-            covered += 1
-            total += dd
-        if dd >= MIN_DEPTH_CALLABLE:
-            callable_ += 1
-            if sites is not None:
-                key = (c.split("|", 1)[1] if "|" in c else c, int(pos))
-                if key in sites:
-                    hit.add(key)
-    proc.wait()
+    argv = [st, "depth", "-Q", str(MIN_MAPQ), "-q", str(MIN_BASEQ)]
+    bed: Path | None = None
+    if lengths and (sbam.with_suffix(".bam.bai").is_file() or Path(str(sbam) + ".bai").is_file()):
+        known = [(c, lengths[c]) for c in contigs if lengths.get(c)]
+        if known and len(known) == len(contigs):
+            bed = sbam.with_name(f".depth.{abs(hash(tuple(contigs))) & 0xFFFFFFFF:08x}.bed")
+            with contextlib.suppress(OSError):
+                bed.write_text("".join(f"{c}\t0\t{n}\n" for c, n in known))
+                argv += ["-b", str(bed)]
+    try:
+        proc = subprocess.Popen([*argv, str(sbam)],
+                                stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True)
+        callable_ = covered = 0
+        total = 0
+        hit: set[tuple[str, int]] = set()
+        assert proc.stdout is not None
+        for line in proc.stdout:
+            c, pos, d = line.rstrip("\n").split("\t")[:3]
+            if c not in want:
+                continue
+            dd = int(d)
+            if dd >= 1:
+                covered += 1
+                total += dd
+            if dd >= MIN_DEPTH_CALLABLE:
+                callable_ += 1
+                if sites is not None:
+                    key = (c.split("|", 1)[1] if "|" in c else c, int(pos))
+                    if key in sites:
+                        hit.add(key)
+        proc.wait()
+    finally:
+        if bed is not None:
+            with contextlib.suppress(OSError):
+                bed.unlink()
     return callable_, covered, total, hit
 
 
@@ -204,10 +231,12 @@ def assess(*, taxon: TaxonSupport, bam: Path, lock: Lock, base: Path, work_dir: 
         work_dir.mkdir(parents=True, exist_ok=True)
         sbam = _sorted_indexed(bam, work_dir, st)
         with pysam.AlignmentFile(str(sbam), "rb") as fh:
+            ref_lengths = dict(zip(fh.references, fh.lengths, strict=True))
             contigs = [r for r in fh.references if r.startswith(bb.accession + "|")]
         panel = find_panel(base, taxon.species_taxid)
         site_keys = {(x.contig, x.pos) for x in panel.sites} if panel is not None else None
-        callable_, covered, total, callable_sites = _coverage(sbam, contigs, st, site_keys)
+        callable_, covered, total, callable_sites = _coverage(
+            sbam, contigs, st, site_keys, ref_lengths)
         rec.callable_nuclear_bases = callable_
         rec.breadth_ge1 = (covered / bb.bases) if bb.bases else None
         rec.mean_depth = (total / bb.bases) if bb.bases else None
@@ -237,7 +266,7 @@ def assess(*, taxon: TaxonSupport, bam: Path, lock: Lock, base: Path, work_dir: 
             rec.backbone_accession = panel.backbone_accession
         rec.eligible_discriminatory_loci = len(panel.sites)
         if panel.backbone_accession != bb.accession:
-            _c, _v, _t, callable_sites = _coverage(sbam, contigs, st, site_keys)
+            _c, _v, _t, callable_sites = _coverage(sbam, contigs, st, site_keys, ref_lengths)
         calls = pileup_sites(sbam, panel, rec.backbone_accession, only=callable_sites)
         return resolve(rec, panel, calls)
     except Exception as exc:  # noqa: BLE001 - a failed attempt is reported, never hidden

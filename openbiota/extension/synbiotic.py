@@ -347,6 +347,7 @@ def run_candidate(
     workers: int | None,
     progress: Callable[[str], None] | None,
     dry_run: bool = False,
+    member_detail: bool = True,
 ) -> Candidate:
     started = time.monotonic()
     candidate_id = f"{substrate.substrate_id}+consortium@{medium_id}"
@@ -354,6 +355,7 @@ def run_candidate(
         baseline, config, sample_id=sample_id, candidate_id=candidate_id,
         substrate=substrate, probiotic_species=config.added_species,
         medium_id=medium_id, workers=workers, progress=progress, dry_run=dry_run,
+        member_detail=member_detail,
     )
     candidate = Candidate(
         candidate_id=candidate_id, substrate=substrate, medium_id=medium_id,
@@ -641,6 +643,12 @@ def simulate(
     if include_sensitivity:
         media += [m for m in config.media if m.get("role") == "sensitivity"]
 
+    # The sensitivity medium exists to test whether the *ranking* survives a
+    # different diet, and the ranking is a community-level number. Its
+    # per-member tables are never read: every renderer works from the
+    # baseline-medium candidates. Planning those questions away is a smaller
+    # question set, not a smaller answer - nothing that is displayed changes.
+    baseline_id = str(media[0]["id"])
     candidates: list[Candidate] = []
     for medium in media:
         for substrate in config.substrates:
@@ -649,9 +657,9 @@ def simulate(
             candidates.append(run_candidate(
                 baseline, config, substrate, sample_id=sample_id, medium_id=str(medium["id"]),
                 contexts=contexts, workers=workers, progress=progress, dry_run=dry_run,
+                member_detail=str(medium["id"]) == baseline_id,
             ))
 
-    baseline_id = str(media[0]["id"])
     primary = [c for c in candidates if c.medium_id == baseline_id]
     rankings_raw = {
         m["id"]: rank([c for c in candidates if c.medium_id == m["id"]], objective="raw_butyrate_flux")

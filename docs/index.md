@@ -53,10 +53,24 @@ disease-pattern resemblance. Behind it, the same pages for each report:
 </p>
 <p align="center"><small><strong>Healthy range:</strong> the same four pages</small></p>
 
-!!! note "Research use only"
+!!! warning "Research software. Not a medical device. Not medical advice. No warranty, no liability."
     The report measures *genetic capacity* and *community resemblance*. It does
     not measure metabolites and it does not diagnose disease. A match to a
     disease signature is a clue for further investigation, not a diagnosis.
+
+    OpenBiota has not been reviewed or cleared by the FDA, EMA, MHRA or any
+    other regulator. Nothing it produces diagnoses, treats or prevents any
+    condition, and nothing tells you to start, stop or change a medication,
+    supplement, food or treatment. Where a report describes a food, compound,
+    supplement, botanical, probiotic, drug or procedure, it is *describing
+    published research*, not recommending it. The software, its reference data
+    and all of its output are provided **as is**, with all faults and no
+    warranty of any kind; you use them entirely at your own risk and on your
+    own judgement. Talk to a qualified clinician before acting on anything
+    here. Full terms:
+    [DISCLAIMER](https://github.com/openbiota-org/openbiota-gut-health-test/blob/main/DISCLAIMER.md)
+    and the *NO WARRANTY, NO MEDICAL ADVICE, NO LIABILITY* section of the
+    [licence](https://github.com/openbiota-org/openbiota-gut-health-test/blob/main/LICENSE).
 
 ## Where to start
 

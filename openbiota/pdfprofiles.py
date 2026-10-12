@@ -1041,6 +1041,55 @@ def limits_page(story: list[Any], st: dict[str, ParagraphStyle], *, section: int
             "a clinician and the validated tests they can order."
         ],
     )
+    _terms(story, st)
+
+
+def _terms(story: list[Any], st: dict[str, ParagraphStyle]) -> None:
+    """The terms this report is produced under, in the report itself.
+
+    A reader who never opens the repository still has to be told what this is
+    and what it is not, so the disclaimer travels with the document rather
+    than living only in a licence file.
+    """
+    story.append(Spacer(1, 4 * mm))
+    story.append(Paragraph("Terms this report is produced under", st["h2"]))
+    fine_print(
+        story,
+        st,
+        [
+            "<b>Research software. Not a medical device. Not medical advice.</b> OpenBiota is "
+            "research software. It is not a medical device, an in-vitro diagnostic, a "
+            "clinical decision-support system or a laboratory-developed test, and it has not "
+            "been reviewed, cleared, approved or certified by the FDA, the EMA, the MHRA, any "
+            "notified body, any CLIA or CAP programme or any other regulator. Nothing in this "
+            "report diagnoses, treats, cures, mitigates or prevents any disease, and nothing in "
+            "it is a prescription, a dose, a laboratory result or advice to start, stop or "
+            "change any medication, supplement, food, procedure or treatment. Reading it "
+            "creates no clinician-patient or professional relationship.",
+
+            "<b>What the options in this report are.</b> Where this report describes a food, "
+            "compound, supplement, botanical, probiotic, drug, product, protocol, clinical "
+            "route or procedure, it is describing published research — not recommending or "
+            "endorsing it, and not claiming it is safe, suitable, effective, legal or available "
+            "for you. Interventions described in the literature can interact with medication "
+            "and can be unsafe in pregnancy, in childhood, in immune compromise or in "
+            "structural gastrointestinal disease. Discuss anything you are considering with a "
+            "qualified clinician first, and seek emergency care for an emergency.",
+
+            "<b>As is. No warranty. No liability.</b> The software, its reference data and this "
+            "report are provided as is and as available, with all faults and without warranty "
+            "or condition of any kind, express, implied or statutory — including merchantability, "
+            "fitness for any purpose, accuracy, completeness, reliability, scientific or "
+            "clinical validity and non-infringement. To the maximum extent the law allows, "
+            "neither OpenBiota nor any contributor is liable for any damages of any kind, or "
+            "for any injury, illness or death, misdiagnosis, missed or delayed diagnosis, "
+            "delayed or inappropriate treatment, or adverse reaction, arising out of or "
+            "relating to the software, this report or any reliance on either, under any theory "
+            "of liability. You use them entirely at your own risk and on your own judgement, "
+            "and you are solely responsible for what you do with them. Full terms: the "
+            "DISCLAIMER and LICENSE files distributed with the software, which govern.",
+        ],
+    )
 
 
 # --------------------------------------------------------------------------- #

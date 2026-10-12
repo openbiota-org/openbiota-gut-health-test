@@ -78,6 +78,11 @@ WATCH_BG: Final = colors.HexColor("#FDF4E8")
 CLEAR: Final = colors.HexColor("#2E8B6F")
 CLEAR_DARK: Final = colors.HexColor("#1F6B54")
 CLEAR_BG: Final = colors.HexColor("#EDF7F3")
+#: The report's own teal, for the panel that offers a way forward rather
+#: than a finding. Kept in step with `pdfreport`'s ACCENT.
+ACCENT: Final = colors.HexColor("#0F8B8D")
+ACCENT_DARK: Final = colors.HexColor("#0B6466")
+ACCENT_SOFT: Final = colors.HexColor("#E3F2F2")
 #: Ambiguous, or not assessed. Grey means "no claim", never "clean".
 QUIET: Final = colors.HexColor("#64748B")
 QUIET_BG: Final = colors.HexColor("#EEF1F4")
@@ -822,12 +827,28 @@ def _tone(record: Mapping[str, Any]) -> tuple[colors.Color, colors.Color]:
 # --------------------------------------------------------------------------- #
 
 
+#: Page one carries at most this many chips beside the verdict. Three fit on
+#: one line at the band's width whatever words they carry, so the band's
+#: height is known in advance and can never spill onto page two.
+MAX_PAGE1_CHIPS: Final = 3
+
+#: The share of the page the pathogen band takes. The quarter left over
+#: carries the way in to what can be done about any of it.
+BAND_SHARE: Final = 0.745
+SOLUTIONS_SHARE: Final = 1.0 - BAND_SHARE
+#: The gap between the two panels.
+PANEL_GAP: Final = 3.0 * mm
+
+
 def pathogen_alert(
     story: list[Any],
     st: dict[str, ParagraphStyle],
     *,
     pathogens: Mapping[str, Any] | None,
     section: int,
+    solutions_section: int = 0,
+    n_problems: int = 0,
+    n_options: int = 0,
 ) -> None:
     """The page-1 pathogen anchor: one compact band, linked into the detail.
 
@@ -942,27 +963,16 @@ def pathogen_alert(
     if n_opportunist and hit:
         chips.append(Chip(f"{n_opportunist} opportunist" if n_opportunist == 1
                           else f"{n_opportunist} opportunists", QUIET, QUIET_BG))
-    # One chip for the scope. It has to answer "was anything skipped?" in the
-    # space of a chip, and the earlier version answered wrongly: it read
-    # "332 of 486 targets searched" in amber, which says a third of the
-    # catalogue was never looked at. It had been counting as unsearched every
-    # row that answers at a shared rank (the diarrhoeagenic E. coli
-    # pathotypes are one genomic species, told apart by their toxin genes in
-    # the determinant screen) and every RNA virus, which a DNA library cannot
-    # contain at any depth. Neither is a skipped target. The chip now counts
-    # rows searched against rows this assay can answer, and is only amber when
-    # a reference is genuinely still pending.
-    searched = summary["searched"]
-    answerable = summary["answerable"]
-    if answerable:
-        pending = summary["reference_pending"]
-        label = (
-            f"all {answerable:,} targets searched" if not pending
-            else f"{searched:,} of {answerable:,} targets searched"
-        )
-        chips.append(Chip(label, WATCH if pending else CLEAR, WATCH_BG if pending else CLEAR_BG))
+    # The scope chip - "all 454 targets searched" - has left page one. It
+    # answered a question nobody asks of a summary, it was the chip most
+    # likely to push the row onto a second line, and the counts it carried
+    # are stated in full in the pathogen section. Page one now carries only
+    # what a reader would act on, and never more than three chips, so the
+    # band's height is fixed and it cannot push itself off the page.
+    chips = chips[:MAX_PAGE1_CHIPS]
 
-    text_width = CONTENT_WIDTH - 6 * mm - 14 * mm
+    band_width = CONTENT_WIDTH * BAND_SHARE
+    text_width = band_width - 6 * mm - 14 * mm
     link = RowLink(href=section_dest("pathogens"))
 
     # Verdict on the left of the top line, the way in on the right of it.
@@ -972,13 +982,16 @@ def pathogen_alert(
             linked_cell(
                 link,
                 Paragraph(
-                    f"<font size=7.2 color='{_hex(INK_SOFT)}'>Section {section} "
-                    "\u2014 full evidence <b>\u2192</b></font>",
+                    f"<font size=7.2 color='{_hex(INK_SOFT)}'>Section {section}</font>",
                     link_style,
                 ),
             ),
         ]],
-        colWidths=[text_width * 0.62, text_width * 0.38],
+        # The way in is now two words, so it takes the narrow column and
+        # the verdict keeps the rest. At three quarters of the page the
+        # headline wraps if it is given any less, and a wrapped headline
+        # costs the lists above a row each.
+        colWidths=[text_width * 0.80, text_width * 0.20],
         hAlign="LEFT",
     )
     top.setStyle(
@@ -1035,7 +1048,7 @@ def pathogen_alert(
     # The whole band is one link to the pathogen section.
     panel = LinkedTable(
         [[linked_cell(link, bug), text_cell]],
-        colWidths=[14 * mm, CONTENT_WIDTH - 14 * mm],
+        colWidths=[14 * mm, band_width - 14 * mm],
         hAlign="LEFT",
     )
     panel.setStyle(
@@ -1057,7 +1070,76 @@ def pathogen_alert(
             ]
         )
     )
-    story.append(panel)
+    story.append(_with_solutions(panel, st, band_width, solutions_section,
+                                 n_problems=n_problems, n_options=n_options))
+
+
+def _with_solutions(
+    band: Any,
+    st: dict[str, ParagraphStyle],
+    band_width: float,
+    section: int,
+    *,
+    n_problems: int = 0,
+    n_options: int = 0,
+) -> Any:
+    """The pathogen band, with the way in to the actions section beside it.
+
+    A reader who has just been told something was found asks one question
+    next, and page one should not make them hunt for the answer. This is the
+    same shape as the band it sits next to, in the report's teal rather than
+    its alarm colour, because it is the opposite kind of news.
+    """
+    if not section:
+        return band
+    width = CONTENT_WIDTH * SOLUTIONS_SHARE - PANEL_GAP
+    if n_problems and n_options:
+        line = (f"<b>{n_options}</b> studied options for the "
+                f"<b>{n_problems}</b> findings in this report")
+    elif n_options:
+        line = f"<b>{n_options}</b> studied options for what this report found"
+    else:
+        line = "What the research says about each finding in this report"
+    link = RowLink(href=section_dest("actions"))
+    inner = [
+        Paragraph(
+            f"<font size='9.6' color='{_hex(ACCENT_DARK)}'><b>Possible solutions</b></font>",
+            ParagraphStyle("solhead", parent=st["fine"], fontSize=9.6, leading=11.0,
+                           spaceBefore=0, spaceAfter=0)),
+        Spacer(1, 0.8 * mm),
+        Paragraph(
+            f"<font size='6.4' color='{_hex(INK)}'>{line}</font>",
+            ParagraphStyle("solline", parent=st["fine"], fontSize=6.4, leading=8.0,
+                           spaceBefore=0, spaceAfter=0)),
+        Spacer(1, 1.0 * mm),
+        Paragraph(
+            f"<font size='7.2' color='{_hex(ACCENT_DARK)}'><b>Section {section} \u2192</b></font>",
+            ParagraphStyle("sollink", parent=st["fine"], fontSize=7.2, leading=8.6,
+                           spaceBefore=0, spaceAfter=0)),
+    ]
+    solutions = LinkedTable([[linked_cell(link, inner)]], colWidths=[width], hAlign="LEFT")
+    solutions.setStyle(TableStyle([
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("BACKGROUND", (0, 0), (-1, -1), ACCENT_SOFT),
+        ("BOX", (0, 0), (-1, -1), 0.6, ACCENT),
+        ("ROUNDEDCORNERS", [8, 8, 8, 8]),
+        ("LEFTPADDING", (0, 0), (-1, -1), 3 * mm),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 2.5 * mm),
+        ("TOPPADDING", (0, 0), (-1, -1), 1.8 * mm),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 2.0 * mm),
+    ]))
+    pair = Table([[band, solutions]],
+                 colWidths=[band_width, CONTENT_WIDTH - band_width], hAlign="LEFT")
+    pair.setStyle(TableStyle([
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("LEFTPADDING", (0, 0), (0, 0), 0),
+        ("RIGHTPADDING", (0, 0), (0, 0), PANEL_GAP),
+        ("LEFTPADDING", (1, 0), (1, 0), 0),
+        ("RIGHTPADDING", (1, 0), (1, 0), 0),
+        ("TOPPADDING", (0, 0), (-1, -1), 0),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
+    ]))
+    return pair
 
 
 def _hex(c: colors.Color) -> str:

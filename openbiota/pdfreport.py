@@ -2825,6 +2825,70 @@ def _pdfinputs() -> Any:
     return pdfinputs
 
 
+def _solution_problems(
+    results: Mapping[str, Any] | None,
+    attention_items: Sequence[Any],
+    sections: Mapping[str, int],
+) -> list[Any]:
+    """Every finding this report makes, as a problem with its options.
+
+    One gathering point for the whole actions section, so a finding cannot be
+    explained in one section and then go unmentioned in the one that is
+    supposed to say what to do about it.
+    """
+    from openbiota import solutions as sol  # noqa: PLC0415
+
+    results = results or {}
+    problems: list[Any] = []
+
+    # Organisms the report flagged: overgrown, missing, depleted, watch.
+    problems += sol.organism_problems(
+        attention_items,
+        section=sections["organisms_detail"],
+        inventory=results.get("organism_inventory"),
+    )
+
+    # Metabolite pathways sitting away from the middle in the direction that
+    # matters for that pathway.
+    problems += sol.panel_problems(
+        results.get("report_rows") or [], section=sections["functions_detail"],
+    )
+
+    # Anything the pathogen screen actually called.
+    try:
+        from openbiota import pdfpathogens as _pdfpathogens  # noqa: PLC0415
+
+        summary = _pdfpathogens.summarise(results.get("pathogens"))
+        called = [
+            {"species": r.get("display_name"), "amount_words": r.get("stool_role") or ""}
+            for r in (summary.get("pathogens") or [])
+        ]
+    except Exception:  # noqa: BLE001 - a missing screen is not a reason to lose the section
+        called = []
+    problems += sol.pathogen_problems(called, section=sections["pathogens_detail"])
+
+    # Whole-gut findings that are not one organism or one pathway.
+    biofilm = (results.get("biofilm") or {})
+    concerns: dict[str, Any] = {}
+    forming = (biofilm.get("scores") or {}).get("biofilm_forming")
+    if isinstance(forming, (int, float)) and forming >= 60:
+        concerns["biofilm"] = {
+            "title": "Biofilm-forming potential is high",
+            "detail": f"{forming:.0f}/100 on the biofilm-forming axis",
+            "want": sol.WANT_DOWN, "severity": 4.0,
+        }
+    protective = (biofilm.get("scores") or {}).get("protective_barrier")
+    if isinstance(protective, (int, float)) and protective <= 40:
+        concerns["barrier"] = {
+            "title": "Protective gut-lining potential is low",
+            "detail": f"{protective:.0f}/100 on the protective axis",
+            "want": sol.WANT_UP, "severity": 4.0,
+        }
+    problems += sol.concern_problems(concerns, section=sections["biofilm_detail"])
+
+    return sol.ordered(problems)
+
+
 def _extension_view(results: Mapping[str, Any] | None, name: str) -> Mapping[str, Any] | None:
     """One view from the v0.8.3 extension, or None when it did not run.
 
@@ -2885,6 +2949,7 @@ def build_pdf(
         pdfpathogens,
         pdfprofiles,
         pdfskin,
+        pdfsolutions,
         pdfstrains,
         pdfsummary,
     )
@@ -2961,10 +3026,17 @@ def build_pdf(
         agent_library = load_agent_library(Path("pathogens/catalog")) or None
     except Exception:  # noqa: BLE001 - advice is never worth losing a report over
         agent_library = None
+    # The actions section is assembled before page one is drawn, because
+    # page one carries the way in to it and says how much is there.
+    attention_items = pdfattention.build(inv, findings)
+    solution_problems = _solution_problems(results, attention_items, SECTIONS)
     pdfsummary.summary_page(
         story, st, rows=ordered, similarity=similarity, rpob_profile=profile, meta=meta, findings=findings,
         age=age, age_meta=age_meta, pathogens=pathogens, pathogen_section=SECTIONS["pathogens"],
         results=results, inv=inv,
+        solutions_section=SECTIONS["actions"],
+        n_problems=len(solution_problems),
+        n_options=sum(len(p.options) for p in solution_problems),
     )
 
     taxo_note = (
@@ -3130,17 +3202,14 @@ def build_pdf(
         skin_axis=_skin_axis,
     )
 
-    # The actions section opens with the levers: every agent the organism registry
-    # knows, added up across the organisms flagged in this sample and ranked
-    # by how many it moves the right way. The registry's guideline and
-    # exact-product cards follow under their own heading.
+    # The actions section: one structure for every finding the report makes - what was
+    # found, what might move it the right way, what has been shown to move it
+    # the wrong way. The section heading comes first and everything that
+    # belongs to it comes after - the planner used to be emitted before the
+    # heading, which put its page inside the preceding section and made the two
+    # read as one muddle.
     story.append(PageBreak())
-    # A12: the consolidated view across every evidence card, before the
-    # per-organism levers it summarises (spec 0.8.3 §8.2).
-    _pdfextension().planner_block(story, st, _extension_view(results, "planner"))
-    pdfattention.levers(story, st, section=S["actions"], items=attention_items,
-                        detail_section=S["organisms_detail"])
-    pdfatlas.evidence_overview(story, st, section=S["actions"], plan=plan, as_subsection=True)
+    pdfsolutions.section(story, st, section_no=S["actions"], problems=solution_problems)
 
     # A16: the model-assisted comparison of a probiotic, a prebiotic and both
     # together belongs with the actions it informs (spec 0.8.3 §11.1).

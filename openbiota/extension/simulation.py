@@ -1510,6 +1510,8 @@ def plan_arm(
     arm_id: str,
     medium_id: str,
     caps: Mapping[str, float],
+    member_production: bool = True,
+    member_uptake: bool = True,
 ) -> LP.Arm:
     """Every linear programme one arm needs, planned without loading the model.
 
@@ -1518,6 +1520,15 @@ def plan_arm(
     butyrate capacity; and, when the arm caps a substrate, each member's
     maximum uptake of it. The last two are what turn a community number into
     "who makes it" and "who eats it".
+
+    ``member_production`` controls the per-member butyrate ranges, which are
+    two linear programmes per producing member and so the bulk of the arm.
+    Which substrate wins, what each contrast is and what the verdict says are
+    all community-level numbers that do not need them, and the report shows
+    "who makes it" for one candidate only. Planning them away for the arms
+    that will never display them is a smaller question set, not a smaller
+    answer: every number that does get shown is solved from the same
+    programme as before.
     """
     members = build.members()
     frame = _medium_frame(config, medium_id, caps)
@@ -1539,12 +1550,13 @@ def plan_arm(
     # so each member gets a "must" and a "can".
     member_exchanges: Mapping[str, Sequence[str]] = members.get("member_exchanges", {})
     pin = {"pin_exchange": BUTYRATE_EXCHANGE, "pin_fraction": MEMBER_RANGE_PIN_FRACTION}
-    for taxon in sorted(member_exchanges):
-        if BUTYRATE_TAXON_EXCHANGE in member_exchanges[taxon]:
-            target = f"{BUTYRATE_TAXON_EXCHANGE}__{taxon}"
-            questions.append(LP.Question("taxon_exchange", target, "min", **pin))
-            questions.append(LP.Question("taxon_exchange", target, "max", **pin))
-    for cap_exchange in sorted(caps):
+    if member_production:
+        for taxon in sorted(member_exchanges):
+            if BUTYRATE_TAXON_EXCHANGE in member_exchanges[taxon]:
+                target = f"{BUTYRATE_TAXON_EXCHANGE}__{taxon}"
+                questions.append(LP.Question("taxon_exchange", target, "min", **pin))
+                questions.append(LP.Question("taxon_exchange", target, "max", **pin))
+    for cap_exchange in sorted(caps) if member_uptake else ():
         base = member_exchange_id(cap_exchange)
         for taxon in sorted(member_exchanges):
             if base in member_exchanges[taxon]:
@@ -1686,6 +1698,11 @@ def run_arm(
     )
 
 
+#: The arms whose per-member production table the report actually shows:
+#: "as you are now" and "with both". The two single-component arms are
+#: compared at community level only.
+MEMBER_PRODUCTION_ARMS: Final[frozenset[str]] = frozenset({"neither", "both"})
+
 ARM_ORDER: Final[tuple[tuple[str, bool, bool], ...]] = (
     ("neither", False, False),
     ("probiotic_only", True, False),
@@ -1706,6 +1723,7 @@ def run_four_arms(
     workers: int | None = None,
     progress: Any = None,
     dry_run: bool = False,
+    member_detail: bool = True,
 ) -> tuple[tuple[ScenarioResult, ...], Contrasts]:
     """The whole comparison: neither, probiotic, substrate, both.
 
@@ -1734,6 +1752,10 @@ def run_four_arms(
         plans[arm] = plan_arm(
             builds[with_probiotic], config, arm_id=f"{candidate_id}.{arm}",
             medium_id=medium_id, caps=caps if with_substrate else {},
+            # "who makes it" is shown for the arms a reader compares - as you
+            # are now, and with both - so the other two arms never ask for it.
+            member_production=member_detail and arm in MEMBER_PRODUCTION_ARMS,
+            member_uptake=member_detail,
         )
     answers = LP.solve_arms(
         list(plans.values()), cache_dir=CACHE_DIR, workers=workers, progress=progress,
