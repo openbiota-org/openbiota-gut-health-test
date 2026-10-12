@@ -29,7 +29,17 @@ from reportlab.lib.units import mm
 from reportlab.platypus import CondPageBreak, KeepTogether, Spacer, Table, TableStyle
 
 from openbiota import solutions as sol
-from openbiota.pdflinks import Paragraph, section_heading
+from openbiota.pdflinks import (
+    Anchor,
+    LinkedTable,
+    Paragraph,
+    RowLink,
+    back_link_line,
+    linked_cell,
+    register_solutions,
+    section_heading,
+    solution_dest,
+)
 from openbiota.pdfreport import (
     ACCENT,
     ACCENT_DARK,
@@ -63,6 +73,13 @@ KIND_COLOUR: Final[dict[str, colors.Color]] = {
     "pattern": SLATE,
 }
 
+#: Fallback destination when a finding has no page of its own.
+_SECTION_ANCHOR: Final[dict[str, str]] = {
+    "pathogen": "pathogens_detail", "organism": "organisms_detail",
+    "concern": "biofilm_detail", "panel": "functions_detail",
+    "pattern": "patterns_detail",
+}
+
 KIND_WORDS: Final[dict[str, str]] = {
     "pathogen": "PATHOGEN SCREEN",
     "organism": "ORGANISM",
@@ -74,6 +91,19 @@ KIND_WORDS: Final[dict[str, str]] = {
 
 def _hex(c: colors.Color) -> str:
     return c.hexval().replace("0x", "#")
+
+
+def _contents_style() -> TableStyle:
+    return TableStyle([
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ("BACKGROUND", (0, 0), (-1, 0), PANEL_BG),
+        ("LINEBELOW", (0, 0), (-1, 0), 0.4, RULE),
+        ("LINEBELOW", (0, 1), (-1, -2), 0.25, colors.HexColor("#F0F3F6")),
+        ("LEFTPADDING", (0, 0), (-1, -1), 1.6 * mm),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 1.6 * mm),
+        ("TOPPADDING", (0, 0), (-1, -1), 1.1 * mm),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 1.1 * mm),
+    ])
 
 
 def _table(rows: list[list[Any]], widths: list[float], *, header_bg: colors.Color = PANEL_BG) -> Table:
@@ -142,16 +172,20 @@ def _problem_block(
     else:
         want_words, heading = "change it", "WHAT HAS BEEN TRIED IN THIS CONDITION"
 
-    head = [
+    head: list[Any] = [
+        Anchor(solution_dest(problem.key), above=5 * mm),
         Paragraph(
             f"<font size='5.8' color='{_hex(colour)}'><b>{kind_words}</b></font>", st["small"]),
         Paragraph(
             f"<font size='9.2' color='{_hex(INK)}'><b>{position}. {problem.title}</b></font>", st["h3"]),
     ]
+    # Back to the reading itself, not to the head of a section the reader
+    # would then have to search.
+    if problem.detail_dest:
+        head.insert(1, back_link_line(problem.detail_dest, "the reading this is about"))
     if problem.detail:
         head.append(Paragraph(
-            f"<font size='6.6' color='{_hex(INK_SOFT)}'>{problem.detail} \u00b7 "
-            f"see section {problem.section}</font>", st["small"]))
+            f"<font size='6.6' color='{_hex(INK_SOFT)}'>{problem.detail}</font>", st["small"]))
 
     if problem.nothing_known:
         head.append(Spacer(1, 1.2 * mm))
@@ -193,7 +227,7 @@ def _contents(
     story: list[Any], st: Mapping[str, ParagraphStyle], problems: Sequence[sol.Problem]
 ) -> None:
     """Everything the section covers, before it covers it."""
-    head = ("WHAT WAS FOUND", "WHERE", "OPTIONS ON RECORD")
+    head = ("WHAT WAS FOUND", "WHERE IT IS EXPLAINED", "OPTIONS ON RECORD")
     rows: list[list[Any]] = [[Paragraph(h, st["label"]) for h in head]]
     for i, problem in enumerate(problems, start=1):
         colour = KIND_COLOUR.get(problem.kind, SLATE)
@@ -204,13 +238,35 @@ def _contents(
             + (f" <font color='{_hex(CORAL)}'>\u00b7 {len(problem.worsens)} to avoid</font>"
                if problem.worsens else "")
         )
+        # The whole row goes to the block that answers this finding, further
+        # down this section. The middle cell is the one exception: it goes to
+        # the page that explains the reading, and it goes to the reading
+        # itself rather than to the top of the section it lives in.
+        row_link = RowLink(href=solution_dest(problem.key))
+        where = (
+            f"<font size='6' color='{_hex(colour)}'>{KIND_WORDS.get(problem.kind, '')}</font>"
+        )
+        where_cell: Any
+        if problem.detail_dest:
+            where_cell = Paragraph(
+                where + f"<br/><a href='#{problem.detail_dest}'>"
+                f"<font size='6' color='{_hex(ACCENT_DARK)}'>this reading, in full \u203a</font></a>",
+                st["cell"])
+        else:
+            where_cell = Paragraph(
+                where + f"<br/><a href='#sec-{_SECTION_ANCHOR.get(problem.kind, 'actions')}'>"
+                f"<font size='6' color='{_hex(ACCENT_DARK)}'>section {problem.section}</font></a>",
+                st["cell"])
         rows.append([
-            Paragraph(f"<font size='6.6'><b>{i}.</b> {problem.title}</font>", st["cell"]),
-            Paragraph(f"<font size='6' color='{_hex(colour)}'>"
-                      f"{KIND_WORDS.get(problem.kind, '')} \u00b7 section {problem.section}</font>", st["cell"]),
+            linked_cell(row_link, Paragraph(
+                f"<font size='6.6'><b>{i}.</b> {problem.title}</font>", st["cell"])),
+            where_cell,
             Paragraph(f"<font size='6.4'>{count}</font>", st["cell"]),
         ])
-    story.append(_table(rows, [CONTENT_WIDTH * w for w in (0.56, 0.28, 0.16)]))
+    table = LinkedTable(rows, colWidths=[CONTENT_WIDTH * w for w in (0.56, 0.28, 0.16)],
+                        hAlign="LEFT", repeatRows=1)
+    table.setStyle(_contents_style())
+    story.append(table)
 
 
 def section(
@@ -221,6 +277,9 @@ def section(
     problems: Sequence[sol.Problem],
 ) -> None:
     """The whole of the actions section."""
+    # Tell the rest of the report which findings have an answer here, so a
+    # detail page offers the way through only when there is one.
+    register_solutions(p.key for p in problems)
     story.extend(section_heading(section_no, "What you can do about it", st["h1"]))
 
     if not problems:

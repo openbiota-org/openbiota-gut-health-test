@@ -282,6 +282,39 @@ def _opposite(want: str) -> str:
 # --------------------------------------------------------------------------- #
 
 
+def _dest(kind: str, name: str) -> str:
+    """Where this report explains this particular reading.
+
+    "See section 16" is not an answer when section 16 is twenty pages of
+    organisms: the reader has to land on the organism. Every reading already
+    has its own destination for exactly this reason, so the actions section
+    uses it rather than the top of the section.
+    """
+    from openbiota import pdflinks  # noqa: PLC0415 - pdflinks imports this module's siblings
+
+    if not name:
+        return ""
+    if kind == "organism":
+        return pdflinks.organism_dest(name, detail=True)
+    if kind == "panel":
+        return pdflinks.function_dest(name, detail=True)
+    if kind == "pathogen":
+        return pdflinks.pathogen_dest(name, detail=True)
+    if kind == "pattern":
+        return pdflinks.profile_dest(name, detail=True)
+    return ""
+
+
+def problem_key(kind: str, name: str) -> str:
+    """The identity of one finding, the same from either end.
+
+    A detail page and the actions section both build this from the organism
+    or pathway they are about, so the link between them needs nothing to be
+    handed across.
+    """
+    return f"{kind}:{norm(name)}"
+
+
 @dataclass
 class Problem:
     """One finding of this report, and what is known about changing it."""
@@ -293,6 +326,10 @@ class Problem:
     want: str
     severity: float
     section: int
+    #: The destination of this reading's own page in the report, so "where"
+    #: lands on the finding rather than at the top of a section the reader
+    #: then has to scroll.
+    detail_dest: str = ""
     options: list[Option] = field(default_factory=list)
     #: Things shown to push this finding further the wrong way. Knowing what
     #: feeds an overgrowth is as useful as knowing what starves it, and it
@@ -376,14 +413,16 @@ def organism_problems(
         display = str(getattr(item, "display", "") or getattr(item, "species", ""))
         name = norm(getattr(item, "species", "") or display)
         names = set(aliases.get(name) or set()) | {name, norm(display)}
+        species = str(getattr(item, "species", "") or display)
         problem = Problem(
-            key=f"organism:{name}",
+            key=problem_key("organism", species),
             kind="organism",
             title=f"{display} {_GROUP_TITLE.get(group, 'needs attention')}",
             detail=_detail_for(item),
             want=want,
             severity=float(getattr(item, "weight", 0.0) or 0.0),
             section=section,
+            detail_dest=_dest("organism", species),
         )
         genera = sorted({genus_of(n) for n in names if n})
         problem.options = atlas_options(species=sorted(names), genera=genera, want=want)
@@ -498,7 +537,7 @@ def panel_problems(panels: Sequence[Mapping[str, Any]], *, section: int) -> list
         words = band.replace("_", " ")
         percentile = panel.get("percentile")
         problem = Problem(
-            key=f"panel:{key}",
+            key=problem_key("panel", key),
             kind="panel",
             title=f"{label} capacity is {words}",
             detail=(f"{percentile:.0f}th percentile against the reference cohort"
@@ -506,6 +545,7 @@ def panel_problems(panels: Sequence[Mapping[str, Any]], *, section: int) -> list
             want=want,
             severity=3.0 if band.startswith("notably") else 2.0,
             section=section,
+            detail_dest=_dest("panel", key),
         )
         problem.options = _dedupe(atlas_options(panels=[key], want=want))
         problem.worsens = _dedupe(atlas_options(panels=[key], want=_opposite(want)))
@@ -522,13 +562,14 @@ def pathogen_problems(records: Sequence[Mapping[str, Any]], *, section: int) -> 
         if not name:
             continue
         problem = Problem(
-            key=f"pathogen:{norm(name)}",
+            key=problem_key("pathogen", name),
             kind="pathogen",
             title=f"{name} was detected by the pathogen screen",
             detail=str(record.get("amount_words") or record.get("tier") or ""),
             want=WANT_DOWN,
             severity=10.0,
             section=section,
+            detail_dest=_dest("pathogen", str(record.get("target_id") or name)),
         )
         problem.options = _dedupe(atlas_options(
             species=[name], genera=[genus_of(name)], concerns=["pathogen_burden"], want=WANT_DOWN,
@@ -547,7 +588,7 @@ def concern_problems(flags: Mapping[str, Any], *, section: int) -> list[Problem]
             continue
         title = str((entry or {}).get("title") or key.replace("_", " ").capitalize())
         problem = Problem(
-            key=f"concern:{key}",
+            key=problem_key("concern", key),
             kind="concern",
             title=title,
             detail=str((entry or {}).get("detail") or ""),
@@ -636,13 +677,14 @@ def pattern_problems(
             continue
         display = str(trigger.get("display") or trigger.get("target") or "")
         problem = Problem(
-            key=f"pattern:{trigger.get('target')}",
+            key=problem_key("pattern", str(trigger.get("target") or display)),
             kind="pattern",
             title=display,
             detail="A community-level resemblance to a published pattern, not a diagnosis",
             want="registry",
             severity=2.5 if level == "notably_high" else 1.5,
             section=section,
+            detail_dest=_dest("pattern", str(trigger.get("target") or "")),
         )
         problem.options = _dedupe(by_trigger.get(str(trigger.get("trigger_id")), []))
         problem.nothing_known = not problem.options

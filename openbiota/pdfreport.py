@@ -56,6 +56,7 @@ from reportlab.platypus import (
 )
 
 from openbiota import __version__
+from openbiota import solutions as _solutions
 from openbiota.pdflinks import (
     Anchor,
     LinkedTable,
@@ -64,7 +65,12 @@ from openbiota.pdflinks import (
     back_link_line,
     function_dest,
     linked_cell,
+    organism_dest,
+    pathogen_dest,
+    profile_dest,
+    reset_solutions,
     section_heading,
+    solutions_line,
 )
 
 #: The brand, and the report's own name. Kept apart: the brand is who made
@@ -1984,6 +1990,9 @@ def _detail_pages(  # noqa: PLR0915 - one long card, built in order
             Anchor(function_dest(row.panel, detail=True), above=6 * mm),
             back_link_line(function_dest(row.panel), "at a glance"),
         ]
+        _forward = solutions_line(_solutions.problem_key("panel", row.panel))
+        if _forward is not None:
+            block.append(_forward)
         header = Table(
             [
                 [
@@ -2860,7 +2869,8 @@ def _solution_problems(
 
         summary = _pdfpathogens.summarise(results.get("pathogens"))
         called = [
-            {"species": r.get("display_name"), "amount_words": r.get("stool_role") or ""}
+            {"species": r.get("display_name"), "target_id": r.get("target_id"),
+             "amount_words": r.get("stool_role") or ""}
             for r in (summary.get("pathogens") or [])
         ]
     except Exception:  # noqa: BLE001 - a missing screen is not a reason to lose the section
@@ -2894,6 +2904,26 @@ def _solution_problems(
     # The registry's exact-protocol cards join the organism and pathway
     # problems they were fired by, at the top of each.
     sol.attach_registry(problems, results)
+
+    # A link to a page the report never drew crashes the build, and a link
+    # to the wrong page is worse than none. Only destinations that are
+    # certain to be anchored survive; the rest fall back to the section.
+    anchored: set[str] = set()
+    for item in attention_items:
+        anchored.add(organism_dest(item.species, detail=True))
+    for row in (results.get("report_rows") or []):
+        panel = row.get("panel") if isinstance(row, Mapping) else None
+        if panel:
+            anchored.add(function_dest(str(panel), detail=True))
+    for record in called:
+        if record.get("target_id"):
+            anchored.add(pathogen_dest(str(record["target_id"]), detail=True))
+    for name in ((results.get("profile_similarity") or {}).get("ranked") or {}):
+        anchored.add(profile_dest(str(name), detail=True))
+    for problem in problems:
+        if problem.detail_dest and problem.detail_dest not in anchored:
+            problem.detail_dest = ""
+
     return sol.ordered(problems)
 
 
@@ -3035,7 +3065,10 @@ def build_pdf(
     except Exception:  # noqa: BLE001 - advice is never worth losing a report over
         agent_library = None
     # The actions section is assembled before page one is drawn, because
-    # page one carries the way in to it and says how much is there.
+    # page one carries the way in to it and says how much is there. The
+    # registry of which findings it answers is cleared first, so a second
+    # report rendered in the same process cannot inherit the first one's.
+    reset_solutions()
     attention_items = pdfattention.build(inv, findings)
     solution_problems = _solution_problems(results, attention_items, SECTIONS)
     pdfsummary.summary_page(

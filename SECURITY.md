@@ -14,7 +14,6 @@ report describes their health. Treat these as personal data at every step:
 - the FASTQ files (`fastq/`), which git ignores;
 - everything under `results/` (`results.json`, the report, logs, alignments),
   which git ignores;
-- third-party reports (`tinyhealth/`), which git ignores.
 
 The repository tracks no reads, no results, no report and no fixture derived
 from a real person's sample. Tests that need a finished run read it from the

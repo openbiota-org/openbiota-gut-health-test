@@ -30,6 +30,7 @@ from reportlab.platypus import CondPageBreak, KeepTogether, Spacer, Table, Table
 
 from openbiota import modulators as mods
 from openbiota import organisms as org
+from openbiota import solutions as sol
 from openbiota.inventory import Organism
 from openbiota.pdflinks import (
     Anchor,
@@ -40,6 +41,7 @@ from openbiota.pdflinks import (
     linked_cell,
     organism_dest,
     section_heading,
+    solutions_line,
 )
 from openbiota.pdfreport import (
     AMBER,
@@ -604,6 +606,10 @@ def _card(story: list[Any], st: dict[str, ParagraphStyle], a: Attention, plan: A
         Anchor(organism_dest(a.species, detail=True), above=6 * mm),
         back_link_line(organism_dest(a.species), "at a glance"),
     ]
+    # On to what has been shown to move this organism, when anything has.
+    forward = solutions_line(sol.problem_key("organism", a.species))
+    if forward is not None:
+        block.append(forward)
 
     # ---- title ------------------------------------------------------------ #
     head = Table([[

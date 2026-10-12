@@ -21,6 +21,7 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
 from reportlab.platypus import KeepTogether, PageBreak, Spacer, Table, TableStyle
 
+from openbiota import solutions as _solutions
 from openbiota.pdflinks import (
     Anchor,
     LinkedTable,
@@ -31,6 +32,7 @@ from openbiota.pdflinks import (
     linked_cell,
     profile_dest,
     section_heading,
+    solutions_line,
 )
 from openbiota.pdfreport import (
     ACCENT,
@@ -631,6 +633,9 @@ def _profile_page(
     # Where the at-a-glance row leads; the small link takes the reader back.
     story.append(Anchor(profile_dest(profile.name, detail=True), above=6 * mm))
     story.append(back_link_line(profile_dest(profile.name), "at a glance"))
+    _forward = solutions_line(_solutions.problem_key("pattern", profile.name))
+    if _forward is not None:
+        story.append(_forward)
     head = Table(
         [[Paragraph(
             f"{profile.label}",

@@ -56,6 +56,7 @@ from openbiota.pdflinks import (
     pathogen_dest,
     section_dest,
     section_heading,
+    solutions_line,
 )
 
 CONTENT_WIDTH: Final = 170 * mm
@@ -832,12 +833,22 @@ def _tone(record: Mapping[str, Any]) -> tuple[colors.Color, colors.Color]:
 #: height is known in advance and can never spill onto page two.
 MAX_PAGE1_CHIPS: Final = 3
 
-#: The share of the page the pathogen band takes. The quarter left over
-#: carries the way in to what can be done about any of it.
+#: The gap between the two panels on page one.
+PANEL_GAP: Final = 4.0 * mm
+#: The share of the *drawable* width - the page less that gap - that the
+#: pathogen band takes. The quarter left over carries the way in to what can
+#: be done about any of it. Shares are taken of the width after the gap, so
+#: the two boxes plus the gap come to exactly the content width and both
+#: edges land on the margin.
 BAND_SHARE: Final = 0.745
 SOLUTIONS_SHARE: Final = 1.0 - BAND_SHARE
-#: The gap between the two panels.
-PANEL_GAP: Final = 3.0 * mm
+
+
+def _panel_widths() -> tuple[float, float]:
+    """(band, solutions). They and the gap fill the content width exactly."""
+    drawable = CONTENT_WIDTH - PANEL_GAP
+    band = round(drawable * BAND_SHARE, 4)
+    return band, drawable - band
 
 
 def pathogen_alert(
@@ -971,7 +982,7 @@ def pathogen_alert(
     # band's height is fixed and it cannot push itself off the page.
     chips = chips[:MAX_PAGE1_CHIPS]
 
-    band_width = CONTENT_WIDTH * BAND_SHARE
+    band_width, _solutions_width = _panel_widths()
     text_width = band_width - 6 * mm - 14 * mm
     link = RowLink(href=section_dest("pathogens"))
 
@@ -1092,7 +1103,7 @@ def _with_solutions(
     """
     if not section:
         return band
-    width = CONTENT_WIDTH * SOLUTIONS_SHARE - PANEL_GAP
+    _band_width, width = _panel_widths()
     if n_problems and n_options:
         line = (f"<b>{n_options}</b> studied options for the "
                 f"<b>{n_problems}</b> findings in this report")
@@ -1117,7 +1128,12 @@ def _with_solutions(
             ParagraphStyle("sollink", parent=st["fine"], fontSize=7.2, leading=8.6,
                            spaceBefore=0, spaceAfter=0)),
     ]
-    solutions = LinkedTable([[linked_cell(link, inner)]], colWidths=[width], hAlign="LEFT")
+    # Both boxes are drawn to the same height. Two panels side by side whose
+    # borders stop at different places read as a mistake, and the taller of
+    # the two is whichever happens to carry more words today.
+    band_height = band.wrap(band_width, 10_000)[1]
+    solutions = LinkedTable([[linked_cell(link, *inner)]], colWidths=[width],
+                            rowHeights=[band_height], hAlign="LEFT")
     solutions.setStyle(TableStyle([
         ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
         ("BACKGROUND", (0, 0), (-1, -1), ACCENT_SOFT),
@@ -1128,18 +1144,28 @@ def _with_solutions(
         ("TOPPADDING", (0, 0), (-1, -1), 1.8 * mm),
         ("BOTTOMPADDING", (0, 0), (-1, -1), 2.0 * mm),
     ]))
-    pair = Table([[band, solutions]],
-                 colWidths=[band_width, CONTENT_WIDTH - band_width], hAlign="LEFT")
+    # The gap is a column of its own rather than cell padding. As padding it
+    # narrowed the cell without narrowing the band inside it, so the band
+    # overflowed into the gap and the two boxes touched.
+    pair = Table([[band, "", solutions]],
+                 colWidths=[band_width, PANEL_GAP, width],
+                 rowHeights=[band_height], hAlign="LEFT")
     pair.setStyle(TableStyle([
-        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-        ("LEFTPADDING", (0, 0), (0, 0), 0),
-        ("RIGHTPADDING", (0, 0), (0, 0), PANEL_GAP),
-        ("LEFTPADDING", (1, 0), (1, 0), 0),
-        ("RIGHTPADDING", (1, 0), (1, 0), 0),
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 0),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 0),
         ("TOPPADDING", (0, 0), (-1, -1), 0),
         ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
     ]))
     return pair
+
+
+def _solutions_link(record: Mapping[str, Any]) -> Any:
+    """The way on from a pathogen card to what is known about reducing it."""
+    from openbiota import solutions as _solutions  # noqa: PLC0415 - avoids a cycle at import
+
+    name = str(record.get("display_name") or record.get("target_id") or "")
+    return solutions_line(_solutions.problem_key("pathogen", name)) if name else None
 
 
 def _hex(c: colors.Color) -> str:
@@ -1925,6 +1951,7 @@ def _detail_card(
     flow: list[Any] = [
         Anchor(pathogen_dest(target, detail=True), above=6 * mm),
         back_link_line(pathogen_dest(target), "at a glance"),
+        *([f] if (f := _solutions_link(record)) is not None else []),
         header,
         Spacer(1, 1.6 * mm),
     ]

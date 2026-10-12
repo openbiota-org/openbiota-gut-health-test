@@ -38,6 +38,7 @@ Destination names:
 from __future__ import annotations
 
 import re
+from collections.abc import Iterable
 from typing import Any, Final
 
 from reportlab.lib.colors import HexColor
@@ -65,6 +66,11 @@ __all__ = [
     "section_dest",
     "section_heading",
     "skin_dest",
+    "solution_dest",
+    "solutions_line",
+    "has_solutions",
+    "register_solutions",
+    "reset_solutions",
 ]
 
 #: Headroom above a destination, so the target is not flush with the top of
@@ -104,6 +110,64 @@ def pathogen_dest(target_id: str, *, detail: bool = False) -> str:
 
 def skin_dest(panel_id: str, *, detail: bool = False) -> str:
     return f"skn-{_slug(panel_id)}" + ("-detail" if detail else "")
+
+
+def solution_dest(problem_key: str) -> str:
+    """Where the actions section answers one particular finding.
+
+    The key is the one :mod:`openbiota.solutions` builds, so a detail page
+    and the actions section arrive at the same destination without having to
+    be handed one.
+    """
+    return f"sol-{_slug(problem_key)}"
+
+
+#: Which findings the actions section actually drew a block for, this
+#: render. A detail page offers a way through to its own solutions only when
+#: there is something at the other end; a link to a destination nobody
+#: anchored is worse than no link at all. The actions section is built
+#: before Part B is laid out, so by the time a detail page asks, the answer
+#: is known.
+_SOLUTIONS: set[str] = set()
+
+
+def reset_solutions() -> None:
+    """Forget the last render's solution blocks. Called once per report."""
+    _SOLUTIONS.clear()
+
+
+def register_solutions(keys: Iterable[str]) -> None:
+    _SOLUTIONS.update(str(k) for k in keys)
+
+
+def has_solutions(problem_key: str) -> bool:
+    return str(problem_key) in _SOLUTIONS
+
+
+def solutions_line(problem_key: str, *, label: str = "what you can do about it",
+                   size: float = 7.0) -> Flowable | None:
+    """A forward link from a reading to the options for it, or None.
+
+    The counterpart to :func:`back_link_line`: that one goes back up the
+    report, this one goes on to the part that says what to do.
+    """
+    if not has_solutions(problem_key):
+        return None
+    _, colour = _sections_and_colour()
+    style = ParagraphStyle(
+        "solutionslink",
+        fontName="Helvetica-Bold",
+        fontSize=size,
+        leading=size + 2.6,
+        textColor=HexColor(colour),
+        alignment=TA_LEFT,
+        spaceBefore=0,
+        spaceAfter=1.2,
+    )
+    return Paragraph(
+        f'<a href="#{solution_dest(problem_key)}" color="{colour}">'
+        f"{label}&nbsp;\u203a</a>", style
+    )
 
 
 def _sections_and_colour() -> tuple[dict[int, str], str]:

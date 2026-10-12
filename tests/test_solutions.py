@@ -267,3 +267,47 @@ def test_laboratory_and_animal_evidence_actually_survives_into_the_registry() ->
     assert "in_vitro" in settings
     assert "animal" in settings
     assert sum(1 for r in rows if r["setting"] == "in_vitro") > 50
+
+
+# --------------------------------------------------------------------------- #
+# finding your way between a reading and what to do about it
+# --------------------------------------------------------------------------- #
+
+
+def test_a_reading_and_the_actions_section_agree_on_one_identity() -> None:
+    """Both ends build the key from the organism, so neither has to be told."""
+    from openbiota import pdflinks
+
+    key = sol.problem_key("organism", "Mediterraneibacter_gnavus")
+    assert key == "organism:mediterraneibacter gnavus"
+    # A GTDB suffix must not produce a second, unreachable identity.
+    assert sol.problem_key("organism", "Blautia_A luti") == sol.problem_key("organism", "Blautia luti")
+    assert pdflinks.solution_dest(key) == "sol-organism-mediterraneibacter-gnavus"
+
+
+def test_a_reading_links_on_only_when_there_is_something_at_the_far_end() -> None:
+    """A link to a page the report never drew would crash the build."""
+    from openbiota import pdflinks
+
+    pdflinks.reset_solutions()
+    key = sol.problem_key("panel", "butyrate")
+    assert pdflinks.solutions_line(key) is None
+    pdflinks.register_solutions([key])
+    assert pdflinks.solutions_line(key) is not None
+    pdflinks.reset_solutions()
+    assert pdflinks.solutions_line(key) is None
+
+
+def test_a_problem_points_at_the_reading_rather_than_the_section() -> None:
+    """"See section 16" is no answer when section 16 is twenty pages long."""
+    from openbiota import pdflinks
+
+    problems = sol.panel_problems(
+        [{"panel": "butyrate", "percentile": 3.0, "metabolite": "Butyrate"}], section=19)
+    assert problems[0].detail_dest == pdflinks.function_dest("butyrate", detail=True)
+
+    pathogens = sol.pathogen_problems(
+        [{"species": "Clostridioides difficile", "target_id": "bacteria.clostridioides_difficile"}],
+        section=18)
+    assert pathogens[0].detail_dest == pdflinks.pathogen_dest(
+        "bacteria.clostridioides_difficile", detail=True)
