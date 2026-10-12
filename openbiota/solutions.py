@@ -157,7 +157,7 @@ class Option:
     @property
     def sort_key(self) -> tuple[Any, ...]:
         """Strongest evidence first, then the kind, then stably by name."""
-        binding_rank = {"species": 0, "strain": 0, "panel": 1, "concern": 2, "genus": 3}
+        binding_rank = {"strain": -1, "species": 0, "panel": 1, "concern": 2, "genus": 3}
         return (
             binding_rank.get(self.binding, 4),
             *DEL.sort_key(self.setting, self.delivery),
@@ -561,6 +561,124 @@ def concern_problems(flags: Mapping[str, Any], *, section: int) -> list[Problem]
     return out
 
 
+#: The evidence lanes of the curated registry, as settings here. The lanes
+#: already record what kind of study stands behind an exact protocol.
+_LANE_SETTING: Final[dict[str, str]] = {
+    "A": "human_trial", "B": "human_trial", "C": "human_trial",
+    "D": "human_observational", "E": "in_vitro", "X": "human_trial",
+}
+
+#: And the registry's own intervention classes, as material kinds.
+_CLASS_KIND: Final[dict[str, str]] = {
+    "probiotic": "probiotic", "live_biotherapeutic": "probiotic",
+    "multi_ingredient_product": "compound", "botanical_supplement": "herb",
+    "vitamin_supplement": "compound", "prescription_drug": "drug",
+    "otc_drug": "drug", "clinical_route": "clinical_route",
+    "fmt_microbiota_product": "procedure", "diet": "diet", "lifestyle": "lifestyle",
+    "prebiotic": "prebiotic", "food": "food",
+}
+
+
+def registry_options(results: Mapping[str, Any] | None) -> dict[str, list[Option]]:
+    """The curated exact-protocol cards, keyed by the trigger that fired them.
+
+    These are the registry's own evidence summaries: an exact product, the
+    protocol that was actually studied, the population it was studied in and
+    the safety rules that apply. They are the strongest material the report
+    has, and they reach the actions section through the same shape as
+    everything else rather than through a block of their own.
+    """
+    out: dict[str, list[Option]] = {}
+    findings = (results or {}).get("findings_and_evidence") or {}
+    for summary in (findings.get("evidence_summaries") or ()):
+        label = str(summary.get("intervention_display") or summary.get("title") or "").strip()
+        if not label:
+            continue
+        kind = _CLASS_KIND.get(str(summary.get("intervention_class") or ""), "compound")
+        protocol = str(summary.get("studied_protocol_text") or "")
+        population = str(summary.get("population_text") or "")
+        option = Option(
+            label=label if len(label) <= 150 else label[:149] + "\u2026",
+            kind=kind,
+            direction="registry",
+            setting=_LANE_SETTING.get(str(summary.get("supporting_evidence_lane") or ""), "human_trial"),
+            delivery="oral_tested",
+            effect=" ".join(x for x in (protocol, f"Studied in {population}." if population else "") if x)[:400],
+            boundary=str(summary.get("context_note") or "")[:400],
+            source=str((summary.get("sources") or [{}])[0].get("url") or "")
+            if isinstance(summary.get("sources"), list) and summary.get("sources") else "",
+            option_id=str(summary.get("summary_id") or summary.get("action_mapping_id") or ""),
+            binding="strain",
+        )
+        for trigger_id in (summary.get("trigger_ids") or ()):
+            out.setdefault(str(trigger_id), []).append(option)
+    return out
+
+
+def pattern_problems(
+    results: Mapping[str, Any] | None, *, section: int
+) -> list[Problem]:
+    """A problem for every disease pattern this sample resembles.
+
+    The resemblance is a research observation about a community, not a
+    diagnosis, and the only evidence that bears on it is the curated
+    registry: exact products studied in people who actually have the
+    condition. A pattern with nothing behind it says so.
+    """
+    findings = (results or {}).get("findings_and_evidence") or {}
+    by_trigger = registry_options(results)
+    out: list[Problem] = []
+    for trigger in (findings.get("triggers") or ()):
+        if trigger.get("trigger_type") != "research_profile_resemblance":
+            continue
+        level = str(trigger.get("level") or "")
+        if level not in {"high", "notably_high"}:
+            continue
+        display = str(trigger.get("display") or trigger.get("target") or "")
+        problem = Problem(
+            key=f"pattern:{trigger.get('target')}",
+            kind="pattern",
+            title=display,
+            detail="A community-level resemblance to a published pattern, not a diagnosis",
+            want="registry",
+            severity=2.5 if level == "notably_high" else 1.5,
+            section=section,
+        )
+        problem.options = _dedupe(by_trigger.get(str(trigger.get("trigger_id")), []))
+        problem.nothing_known = not problem.options
+        out.append(problem)
+    return out
+
+
+def attach_registry(problems: Sequence[Problem], results: Mapping[str, Any] | None) -> None:
+    """Add the curated cards to the organism and pathway problems they match.
+
+    A registry card fired by "butyrate gene capacity: low" belongs on the
+    butyrate problem, at the top, because an exact studied protocol is the
+    strongest thing the report can offer.
+    """
+    findings = (results or {}).get("findings_and_evidence") or {}
+    by_trigger = registry_options(results)
+    by_target: dict[tuple[str, str], list[Option]] = {}
+    for trigger in (findings.get("triggers") or ()):
+        options = by_trigger.get(str(trigger.get("trigger_id")))
+        if not options:
+            continue
+        kind = {
+            "functional_capacity_finding": "panel",
+            "ecological_finding": "panel",
+            "exact_microbiome_feature": "organism",
+        }.get(str(trigger.get("trigger_type")))
+        if kind:
+            by_target.setdefault((kind, norm(trigger.get("target"))), []).extend(options)
+    for problem in problems:
+        _, _, target = problem.key.partition(":")
+        extra = by_target.get((problem.kind, norm(target)))
+        if extra:
+            problem.options = _dedupe([*extra, *problem.options])
+            problem.nothing_known = not problem.options
+
+
 def ordered(problems: Iterable[Problem]) -> list[Problem]:
     """Worst first, and inside that the ones with something to do about them.
 
@@ -586,6 +704,7 @@ def footnotes(problems: Iterable[Problem]) -> list[str]:
 
 __all__ = [
     "Option",
+    "attach_registry",
     "Problem",
     "atlas_options",
     "concern_problems",
@@ -596,4 +715,6 @@ __all__ = [
     "organism_problems",
     "panel_problems",
     "pathogen_problems",
+    "pattern_problems",
+    "registry_options",
 ]

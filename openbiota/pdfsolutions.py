@@ -132,7 +132,15 @@ def _problem_block(
 ) -> None:
     colour = KIND_COLOUR.get(problem.kind, SLATE)
     kind_words = KIND_WORDS.get(problem.kind, problem.kind.upper())
-    want_words = ("bring it down" if problem.want == sol.WANT_DOWN else "bring it up")
+    # A disease-pattern resemblance is not a quantity to raise or lower, so
+    # it is not offered as one: what is on record for it is what has been
+    # tried in people who have the condition.
+    if problem.want == sol.WANT_DOWN:
+        want_words, heading = "bring it down", "WHAT MIGHT BRING IT DOWN"
+    elif problem.want == sol.WANT_UP:
+        want_words, heading = "bring it up", "WHAT MIGHT BRING IT UP"
+    else:
+        want_words, heading = "change it", "WHAT HAS BEEN TRIED IN THIS CONDITION"
 
     head = [
         Paragraph(
@@ -160,13 +168,10 @@ def _problem_block(
     head.append(Spacer(1, 1.2 * mm))
     shown = min(len(problem.options), PER_PROBLEM)
     more = len(problem.options) - shown
+    count = (f"{shown} of {len(problem.options)} on record" if more else str(len(problem.options)))
     head.append(Paragraph(
-        f"<font size='6.4' color='{_hex(GREEN)}'><b>WHAT MIGHT {want_words.upper()}</b></font>"
-        f"  <font size='5.8' color='{_hex(INK_FAINT)}'>{shown} of {len(problem.options)} on record</font>"
-        if more else
-        f"<font size='6.4' color='{_hex(GREEN)}'><b>WHAT MIGHT {want_words.upper()}</b></font>"
-        f"  <font size='5.8' color='{_hex(INK_FAINT)}'>{len(problem.options)}</font>",
-        st["small"]))
+        f"<font size='6.4' color='{_hex(GREEN)}'><b>{heading}</b></font>"
+        f"  <font size='5.8' color='{_hex(INK_FAINT)}'>{count}</font>", st["small"]))
     widths = [CONTENT_WIDTH * w for w in (0.30, 0.16, 0.18, 0.36)]
     head.append(_table(_option_rows(st, problem.options, limit=PER_PROBLEM), widths))
     story.append(KeepTogether(head))

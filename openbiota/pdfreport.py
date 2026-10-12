@@ -2886,6 +2886,14 @@ def _solution_problems(
         }
     problems += sol.concern_problems(concerns, section=sections["biofilm_detail"])
 
+    # Published disease patterns this sample resembles. The only evidence
+    # that bears on them is the curated registry: exact products studied in
+    # people who have the condition.
+    problems += sol.pattern_problems(results, section=sections["patterns_detail"])
+
+    # The registry's exact-protocol cards join the organism and pathway
+    # problems they were fired by, at the top of each.
+    sol.attach_registry(problems, results)
     return sol.ordered(problems)
 
 
