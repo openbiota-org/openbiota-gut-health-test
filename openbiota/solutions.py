@@ -137,6 +137,8 @@ class Option:
     #: "species" when the study named this organism, "genus" when it named
     #: only its genus, "panel"/"concern" for a pathway or a general finding.
     binding: str
+    #: How to name the paper in a line, when the source says.
+    citation: str = ""
 
     @property
     def reach(self) -> DEL.Reach:
@@ -215,6 +217,8 @@ def _as_option(raw: Mapping[str, Any], *, binding: str, direction: str | None = 
         source=source,
         option_id=str(raw.get("option_id") or ""),
         binding=binding,
+        citation=(f"PMID {raw['pmid']}" if raw.get("pmid")
+                  else (f"doi:{raw['doi']}" if raw.get("doi") else "")),
     )
 
 
@@ -335,6 +339,11 @@ class Problem:
     #: feeds an overgrowth is as useful as knowing what starves it, and it
     #: keeps those rows from being mistaken for solutions.
     worsens: list[Option] = field(default_factory=list)
+    #: Studied on this finding, but the source never said which way it went.
+    #: These are real materials with real papers and they are not hidden;
+    #: they are simply not claimed to help, because the record does not say
+    #: so. A third of everything on record for an organism lands here.
+    unclear: list[Option] = field(default_factory=list)
     #: Set when nothing is on record, so the page can say so in words.
     nothing_known: bool = False
     #: Why there is nothing, when the registry has an explanation for it.
@@ -342,7 +351,7 @@ class Problem:
 
     @property
     def markers(self) -> set[str]:
-        return {m for o in (*self.options, *self.worsens) for m in o.reach.markers}
+        return {m for o in (*self.options, *self.worsens, *self.unclear) for m in o.reach.markers}
 
     def top(self, n: int) -> list[Option]:
         return self.options[:n]
@@ -434,6 +443,8 @@ def organism_problems(
             atlas_options(species=sorted(names), genera=genera, want=_opposite(want))
             + _modulator_options(getattr(item, "modulators", None), want=_opposite(want))
         )
+        problem.unclear = _dedupe(
+            atlas_options(species=sorted(names), genera=genera, want="unclear"))
         problem.nothing_known = not problem.options
         out.append(problem)
     return out
@@ -551,6 +562,7 @@ def panel_problems(panels: Sequence[Mapping[str, Any]], *, section: int) -> list
         )
         problem.options = _dedupe(atlas_options(panels=[key], want=want))
         problem.worsens = _dedupe(atlas_options(panels=[key], want=_opposite(want)))
+        problem.unclear = _dedupe(atlas_options(panels=[key], want="unclear"))
         problem.nothing_known = not problem.options
         out.append(problem)
     return out
@@ -577,6 +589,8 @@ def pathogen_problems(records: Sequence[Mapping[str, Any]], *, section: int) -> 
             species=[name], genera=[genus_of(name)], concerns=["pathogen_burden"], want=WANT_DOWN,
         ))
         problem.worsens = _dedupe(atlas_options(species=[name], want=WANT_UP))
+        problem.unclear = _dedupe(atlas_options(
+            species=[name], genera=[genus_of(name)], concerns=["pathogen_burden"], want="unclear"))
         problem.nothing_known = not problem.options
         out.append(problem)
     return out
@@ -631,6 +645,35 @@ _CLASS_KIND: Final[dict[str, str]] = {
 NOT_AN_OPTION: Final[frozenset[str]] = frozenset({
     "no_supported_targeted_intervention", "inform_only", "not_actionable",
 })
+
+
+def _first_source(summary: Mapping[str, Any]) -> str:
+    """A link to the strongest paper behind a registry card.
+
+    The supporting assertions carry the papers; `sources` is a separate
+    roll-up that is often empty.
+    """
+    for entry in (*(summary.get("supporting") or ()), *(summary.get("sources") or ())):
+        if not isinstance(entry, Mapping):
+            continue
+        url = str(entry.get("url") or "")
+        # Some rows carry a citation string where a URL belongs; a link to
+        # "Ha CWY et al. Cell 2020" is not a link.
+        if url.startswith(("http://", "https://")):
+            return url
+        if entry.get("pmid"):
+            return f"https://pubmed.ncbi.nlm.nih.gov/{entry['pmid']}/"
+        if entry.get("doi"):
+            return f"https://doi.org/{entry['doi']}"
+    return ""
+
+
+def _citation_of(summary: Mapping[str, Any]) -> str:
+    """How to name that paper in a line."""
+    for entry in (*(summary.get("supporting") or ()), *(summary.get("sources") or ())):
+        if isinstance(entry, Mapping) and entry.get("citation"):
+            return str(entry["citation"])
+    return ""
 
 
 def registry_notes(results: Mapping[str, Any] | None) -> dict[str, list[str]]:
@@ -694,10 +737,10 @@ def registry_options(results: Mapping[str, Any] | None) -> dict[str, list[Option
             # studied in, what it is not, what it has been shown to harm.
             # It is not trimmed to fit a column.
             boundary=str(summary.get("context_note") or "")[:600],
-            source=str((summary.get("sources") or [{}])[0].get("url") or "")
-            if isinstance(summary.get("sources"), list) and summary.get("sources") else "",
+            source=_first_source(summary),
             option_id=str(summary.get("summary_id") or summary.get("action_mapping_id") or ""),
             binding="strain",
+            citation=_citation_of(summary),
         )
         for trigger_id in (summary.get("trigger_ids") or ()):
             out.setdefault(str(trigger_id), []).append(option)
@@ -792,7 +835,8 @@ def ordered(problems: Iterable[Problem]) -> list[Problem]:
     tier = {"pathogen": 0, "organism": 1, "concern": 2, "panel": 3, "pattern": 4}
     return sorted(
         problems,
-        key=lambda p: (tier.get(p.kind, 5), p.nothing_known, -p.severity, p.title.lower()),
+        key=lambda p: (tier.get(p.kind, 5), p.nothing_known and not p.unclear,
+                       -p.severity, p.title.lower()),
     )
 
 

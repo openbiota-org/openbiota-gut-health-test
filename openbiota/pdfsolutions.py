@@ -34,7 +34,6 @@ from openbiota.pdflinks import (
     LinkedTable,
     Paragraph,
     RowLink,
-    back_link_line,
     linked_cell,
     register_solutions,
     section_heading,
@@ -60,6 +59,8 @@ from openbiota.pdfreport import (
 PER_PROBLEM: Final = 10
 #: And how many of the wrong-direction ones.
 PER_PROBLEM_WORSE: Final = 4
+#: And how many of the studied-but-undirected ones.
+PER_PROBLEM_UNCLEAR: Final = 6
 
 #: How much of an option's limits to print. Long enough for the whole
 #: caveat on the rows that carry a real one.
@@ -113,6 +114,15 @@ def _contents_style() -> TableStyle:
     ])
 
 
+def _xml(text: object) -> str:
+    """Text safe to drop into a reportlab paragraph.
+
+    Citations are full of ampersands and apostrophes, and an unescaped one
+    takes the whole report down with a parser error.
+    """
+    return (str(text or "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
+
+
 def _table(rows: list[list[Any]], widths: list[float], *, header_bg: colors.Color = PANEL_BG) -> Table:
     table = Table(rows, colWidths=widths, hAlign="LEFT", repeatRows=1)
     table.setStyle(TableStyle([
@@ -139,34 +149,55 @@ def _option_rows(
         name = option.label if len(option.label) <= 96 else option.label[:95] + "\u2026"
         rows.append([
             Paragraph(
-                f"<font size='6.6'><b>{name}</b>"
+                f"<font size='6.6'><b>{_xml(name)}</b>"
                 f"<super><font size='5.4' color='{_hex(INK_FAINT)}'>{reach.marker_text}</font></super>"
                 "</font>", st["cell"]),
             Paragraph(
-                f"<font size='6.2' color='{_hex(INK_SOFT)}'>{option.kind_words}</font>"
+                f"<font size='6.2' color='{_hex(INK_SOFT)}'>{_xml(option.kind_words)}</font>"
                 + (f"<br/><font size='5.8' color='{_hex(CORAL)}'>prescriber decides</font>"
                    if option.needs_prescriber else ""),
                 st["cell"]),
             Paragraph(
                 f"<font size='6.2' color='{_hex(tone)}'>{reach.setting_words}</font>"
                 + (f"<br/><font size='5.8' color='{_hex(INK_FAINT)}'>{reach.delivery_words}</font>"
-                   if reach.marker_text else ""),
+                   if reach.marker_text else "")
+                # The paper itself. Eight hundred of these were sitting in the
+                # data unprinted: a reader who wants to check a claim, or take
+                # it to a clinician, needs the reference, not a promise that
+                # one exists.
+                + (f'<br/><a href="{_xml(option.source)}">'
+                   f"<font size='5.6' color='{_hex(ACCENT_DARK)}'>"
+                   f"{_xml(option.citation) or 'source'}</font></a>"
+                   if option.source else
+                   (f"<br/><font size='5.6' color='{_hex(INK_FAINT)}'>"
+                    f"{_xml(option.citation)}</font>" if option.citation else "")),
                 st["cell"]),
             Paragraph(
-                (f"<font size='6.2'>{option.effect[:EFFECT_CHARS]}</font>" if option.effect else "")
+                (f"<font size='6.2'>{_xml(option.effect[:EFFECT_CHARS])}</font>" if option.effect else "")
                 + ("<br/>" if option.effect and option.boundary else "")
                 # The boundary is where the limits live - what a material is
                 # not, who it was studied in, what it has been shown to
                 # harm. Clipping it at a tweet's length cut the sentence a
                 # reader most needs off the end of the row, so it gets the
                 # room it takes.
-                + (f"<font size='5.8' color='{_hex(INK_FAINT)}'>{option.boundary[:BOUNDARY_CHARS]}</font>"
+                + (f"<font size='5.8' color='{_hex(INK_FAINT)}'>{_xml(option.boundary[:BOUNDARY_CHARS])}</font>"
                    if option.boundary else "")
                 + ("" if (option.effect or option.boundary)
                    else f"<font size='6.2' color='{_hex(INK_FAINT)}'>{EM_DASH}</font>"),
                 st["cell"]),
         ])
     return rows
+
+
+def _nav_line(st: Mapping[str, ParagraphStyle], problem: sol.Problem) -> Any:
+    """Back to the list, and across to the reading, on one line."""
+    parts = [f"<a href='#{CONTENTS_DEST}'><font color='{_hex(ACCENT_DARK)}'>"
+             f"\u2039 back to the list</font></a>"]
+    if problem.detail_dest:
+        parts.append(f"<a href='#{problem.detail_dest}'><font color='{_hex(ACCENT_DARK)}'>"
+                     f"the reading this is about \u203a</font></a>")
+    joined = NAV_SEPARATOR.join(parts)
+    return Paragraph(f"<font size='6.6'>{joined}</font>", st["small"])
 
 
 def _problem_block(
@@ -191,15 +222,14 @@ def _problem_block(
         Paragraph(
             f"<font size='9.2' color='{_hex(INK)}'><b>{position}. {problem.title}</b></font>", st["h3"]),
     ]
-    # Back to the reading itself, not to the head of a section the reader
-    # would then have to search.
-    if problem.detail_dest:
-        head.insert(1, back_link_line(problem.detail_dest, "the reading this is about"))
+    # Two ways out, in the order a reader wants them: back to the list they
+    # came from, and across to the reading this is about.
+    head.insert(1, _nav_line(st, problem))
     if problem.detail:
         head.append(Paragraph(
-            f"<font size='6.6' color='{_hex(INK_SOFT)}'>{problem.detail}</font>", st["small"]))
+            f"<font size='6.6' color='{_hex(INK_SOFT)}'>{_xml(problem.detail)}</font>", st["small"]))
 
-    if problem.nothing_known:
+    if problem.nothing_known and not problem.unclear:
         head.append(Spacer(1, 1.2 * mm))
         head.append(Paragraph(
             f"<font size='6.6' color='{_hex(INK_SOFT)}'><b>Nothing on record.</b> No study in any "
@@ -212,6 +242,29 @@ def _problem_block(
                 f"<font size='6.2' color='{_hex(INK_FAINT)}'>{note}</font>", st["small"]))
         story.append(KeepTogether(head))
         story.append(Spacer(1, 2.5 * mm))
+        return
+
+    if problem.nothing_known:
+        head.append(Spacer(1, 1.2 * mm))
+        head.append(Paragraph(
+            f"<font size='6.6' color='{_hex(INK_SOFT)}'>No study on record says which way to "
+            f"{want_words}. What has been studied on it is below, with the direction its source "
+            "actually reported \u2014 which was none.</font>", st["small"]))
+        for note in problem.notes:
+            head.append(Paragraph(
+                f"<font size='6.2' color='{_hex(INK_FAINT)}'>{note}</font>", st["small"]))
+        story.append(KeepTogether(head))
+        story.append(Spacer(1, 1.2 * mm))
+        story.append(KeepTogether([
+            Paragraph(
+                f"<font size='6.4' color='{_hex(SLATE)}'><b>ALSO STUDIED ON THIS, DIRECTION NOT "
+                f"STATED</b></font>  <font size='5.8' color='{_hex(INK_FAINT)}'>"
+                f"{len(problem.unclear)}</font>", st["small"]),
+            _table(_option_rows(st, problem.unclear,
+                                limit=PER_PROBLEM_UNCLEAR),
+                   [CONTENT_WIDTH * w for w in (0.30, 0.16, 0.18, 0.36)]),
+        ]))
+        story.append(Spacer(1, 3 * mm))
         return
 
     head.append(Spacer(1, 1.2 * mm))
@@ -235,13 +288,38 @@ def _problem_block(
             _table(_option_rows(st, problem.worsens, limit=PER_PROBLEM_WORSE), widths),
         ]
         story.append(KeepTogether(tail))
+
+    # Everything else that has been studied on this finding. These are real
+    # materials with real papers whose source never said which way the
+    # reading moved, so they are not claimed to help - and they are not
+    # hidden either, which is what used to happen to a third of the record.
+    if problem.unclear:
+        more: list[Any] = [
+            Spacer(1, 1.2 * mm),
+            Paragraph(
+                f"<font size='6.4' color='{_hex(SLATE)}'><b>ALSO STUDIED ON THIS, DIRECTION NOT "
+                f"STATED</b></font>  <font size='5.8' color='{_hex(INK_FAINT)}'>"
+                f"{len(problem.unclear)}</font>", st["small"]),
+            _table(_option_rows(st, problem.unclear, limit=PER_PROBLEM_UNCLEAR), widths),
+        ]
+        story.append(KeepTogether(more))
     story.append(Spacer(1, 3 * mm))
+
+
+#: The destination of the section's own list, so every block can go back to
+#: the row the reader clicked. Landing on a block with no way back but
+#: "the reading this is about" was a dead end.
+CONTENTS_DEST: Final = "sol-contents"
+
+#: Between the two ways out of a block.
+NAV_SEPARATOR: Final = "  &nbsp;&nbsp;\u00b7&nbsp;&nbsp;  "
 
 
 def _contents(
     story: list[Any], st: Mapping[str, ParagraphStyle], problems: Sequence[sol.Problem]
 ) -> None:
     """Everything the section covers, before it covers it."""
+    story.append(Anchor(CONTENTS_DEST, above=4 * mm))
     head = ("WHAT WAS FOUND", "WHERE IT IS EXPLAINED", "OPTIONS ON RECORD")
     rows: list[list[Any]] = [[Paragraph(h, st["label"]) for h in head]]
     for i, problem in enumerate(problems, start=1):
@@ -273,8 +351,12 @@ def _contents(
                 f"<font size='6' color='{_hex(ACCENT_DARK)}'>section {problem.section}</font></a>",
                 st["cell"])
         rows.append([
+            # Coloured and arrowed, so a row reads as the link it is.
             linked_cell(row_link, Paragraph(
-                f"<font size='6.6'><b>{i}.</b> {problem.title}</font>", st["cell"])),
+                f"<font size='6.6'><b>{i}.</b> "
+                f"<a href='#{solution_dest(problem.key)}'><font color='{_hex(ACCENT_DARK)}'>"
+                f"{_xml(problem.title)}</font></a>"
+                f" <font size='6' color='{_hex(ACCENT)}'>\u203a</font></font>", st["cell"])),
             where_cell,
             Paragraph(f"<font size='6.4'>{count}</font>", st["cell"]),
         ])

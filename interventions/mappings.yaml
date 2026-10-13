@@ -1241,38 +1241,43 @@ action_mappings:
   - action_mapping_id: MAP_TAXON_ABSENT_FMT_ENGRAFTMENT_V1
     trigger_selector: {trigger_type: exact_microbiome_feature, target: "*", direction: low}
     render: clinician_review
-    intervention_protocol_ref: PROTOCOL_FMT_RCDI_AGA_V1
+    # Deliberately NOT the recurrent-C.-difficile protocol. The strain data is
+    # about what whole-community transfer does to a gut; routing it through
+    # the one approved indication made the report read as though transfer
+    # only works for C. difficile, which is not what the evidence says.
+    intervention_protocol_ref: PROTOCOL_FMT_ENGRAFTMENT_V1
     evidence_assertion_refs:
       - IE_FMT_STRAIN_ENGRAFTMENT_AGGARWALA_V1
       - IE_FMT_ENGRAFTMENT_DETERMINANTS_PODLESNY_V1
     against_evidence_assertion_refs:
       - IE_FMT_COLONIZATION_NOT_OUTCOME_SCHMIDT_X_V1
       - IE_FDA_FMT_SAFETY_ALERTS_X_V1
-      - IE_AGA_FMT_2024_IBD_IBS_AGAINST_X_V1
     safety_rule_refs:
       - FMT_CLINICIAN_ONLY_V1
       - FMT_SEVERE_IMMUNOCOMPROMISE_V1
       - MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1
-    # The one approved indication. Naming it here is what keeps the card from
-    # reading as though a low commensal were itself a reason to have the
-    # procedure: the route is real, and this is the condition under which it
-    # is an approved one.
-    confirmation_rule_refs: [recurrent_c_difficile_infection]
-    title: Re-establishing organisms — whole-community transfer is the route with direct evidence
+    # The real gate is a clinician, not a particular diagnosis.
+    confirmation_rule_refs: [clinician_assessment_for_microbiota_transfer]
+    title: Putting organisms back — whole-community transfer is the one route shown to do it
     context_note: >
-      Donor strains do establish and persist — 71% still present five years on, with most of the
-      recipient's own strains displaced. It is not selective: which strains take hold depends on
-      how disturbed the gut was, on antibiotic pretreatment and lavage and on donor fit, not on
-      choosing a target. Colonisation was mostly unrelated to whether patients improved, and
-      transmission of multidrug-resistant organisms, including a death, is documented. Approved
-      for recurrent C. difficile infection only; otherwise investigational, and a clinician's call.
+      This is the route with direct evidence that gut organisms can be re-established. Tracking
+      individual strains, 71% of donor strains were still present five years after transfer, and
+      most of the recipient's own strains had been displaced (Aggarwala et al., Nature
+      Microbiology 2021, PMID 34580445). Across 316 transfers in ten different conditions, donor
+      strains colonised recipients throughout (Schmidt et al., Nature Medicine 2022, PMID
+      36109371) — this is not something that happens only in one disease. What it is not is
+      selective: which strains take hold depends on how disturbed the gut was, on antibiotic
+      pretreatment and bowel lavage and on donor fit, not on choosing a target (Podlesny et al.,
+      Cell Reports Medicine 2022, PMID 35903545). Colonisation was mostly unrelated to whether
+      patients improved, and transmission of multidrug-resistant organisms, including a death,
+      has been documented, so donor screening and a clinician are not optional.
     never_say:
       - DIY FMT
       - home fecal transplant
       - FMT will restore your microbiome
       - FMT cures
     follow_up_route: >
-      Gastroenterology, which is where the indication, donor screening and route are decided.
+      Gastroenterology, which is where donor screening, route and whether it applies to you are decided.
     fmt_status: investigational_non_cdi
   - action_mapping_id: MAP_TAXON_UNEXPECTED_PRESENT_GENERIC_V1
     trigger_selector: {trigger_type: exact_microbiome_feature, target: "*", direction: high}

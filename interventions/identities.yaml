@@ -1282,6 +1282,23 @@ protocols:
     intervention_id: RX_NEOMYCIN_PLUS_RIFAXIMIN_IMO_V1
     population: {age_range_years: [18, 65], confirmed_condition: methane-positive IBS-C, geography: USA, n: 31}
     administration: {dose_source_text: "neomycin 500 mg twice daily plus rifaximin 550 mg three times daily for 14 days", route: oral, frequency: daily, duration_days: 14}
+  # The engraftment evidence is about what whole-community transfer does to a
+  # gut, measured by strain tracking. Its population is the people those
+  # studies followed, not an approved indication: tying it to the recurrent
+  # C. difficile protocol made the report read as though transfer only works
+  # for C. difficile, which is not what the strain data says.
+  - protocol_id: PROTOCOL_FMT_ENGRAFTMENT_V1
+    intervention_id: FMT_INVESTIGATIONAL_NON_CDI_V1
+    population:
+      age_range_years: [18, 99]
+      confirmed_condition: null
+      n: "316 transplants across ten indications in the largest strain-resolved analysis"
+    administration:
+      dose_source_text: single or repeated whole-community transfer, by colonoscopy, enema or capsule (clinician-only detail)
+      route: colonoscopic/enema/oral capsule
+      frequency: once (repeatable)
+      duration_days: 1
+
   - protocol_id: PROTOCOL_FMT_RCDI_AGA_V1
     intervention_id: FMT_CONVENTIONAL_RCDI_V1
     population: {age_range_years: [18, 99], confirmed_condition: recurrent C. difficile infection after standard-of-care antibiotics (immunocompetent or mildly/moderately immunocompromised adults)}

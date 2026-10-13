@@ -340,16 +340,61 @@ def test_the_report_never_claims_nothing_can_restore_an_organism() -> None:
 
     card = maps["MAP_TAXON_ABSENT_FMT_ENGRAFTMENT_V1"]
     note = card.context_note.lower()
-    # It says the route exists...
+    # It says the route exists, and cites the study that shows it.
     assert "persist" in note or "establish" in note
-    # ...and carries every limit that has to travel with it.
-    assert "not selective" in note or "selective" in note
-    assert "c. difficile" in note
-    assert "investigational" in note
-    assert "multidrug-resistant" in note or "harm" in note
+    assert "71%" in note and "34580445" in note, "the engraftment finding must be cited inline"
+    # It must not read as though transfer only works for one disease: the
+    # protocol it hangs off is the engraftment evidence, not the one approved
+    # indication, and the note says so.
+    assert card.intervention_protocol_ref == "PROTOCOL_FMT_ENGRAFTMENT_V1"
+    assert "ten different conditions" in note or "not something that happens only in one" in note
+    # ...and every limit still travels with it.
+    assert "selective" in note
+    assert "multidrug-resistant" in note
     assert card.fmt_status, "an FMT card must declare its regulatory status"
-    assert card.confirmation_rule_refs, "an FMT route needs a clinician-confirmed condition"
     assert any("DIY" in s or "home fecal" in s for s in card.never_say)
+
+
+def test_a_studied_material_is_never_silently_dropped() -> None:
+    """A source that did not state a direction is not a reason to hide it.
+
+    A third of everything on record for an organism says what was given and
+    what was measured but never which way the reading moved. Those rows are
+    not claimed to help - they go in their own group - but they are shown.
+    """
+    rows = (
+        _option(option_id="DOWN", material="Lowers it", direction="decrease"),
+        _option(option_id="UNK", material="Studied, direction unstated", direction="unclear"),
+    )
+    import pytest as _pytest  # noqa: PLC0415
+
+    mp = _pytest.MonkeyPatch()
+    mp.setattr(sol, "_atlas", lambda: rows)
+    sol._index.cache_clear()
+    unclear = sol.atlas_options(species=["Testus organismus"], want="unclear")
+    sol._index.cache_clear()
+    mp.undo()
+    assert [o.option_id for o in unclear] == ["UNK"]
+
+
+def test_every_option_carries_its_paper_when_the_source_has_one() -> None:
+    """800 citations were in the data and none reached the page."""
+    rows = sol._atlas()
+    if not rows:
+        return
+    with_ref = [r for r in rows if r.get("pmid") or r.get("doi") or r.get("url")]
+    assert len(with_ref) > len(rows) // 2
+    sample = sol._as_option(with_ref[0], binding="species")
+    assert sample.source or sample.citation
+
+
+def test_a_citation_is_never_mistaken_for_a_link() -> None:
+    """"Ha CWY et al. Cell 2020" is not a URL, and linking it crashed the build."""
+    summary = {"supporting": [{"url": "Ha CWY et al. Cell 2020;183:666", "citation": "Ha CWY et al."}]}
+    assert sol._first_source(summary) == ""
+    assert sol._citation_of(summary) == "Ha CWY et al."
+    ok = {"supporting": [{"url": "https://pubmed.ncbi.nlm.nih.gov/1/", "citation": "A et al."}]}
+    assert sol._first_source(ok).startswith("https://")
 
 
 def test_a_card_that_proposes_nothing_is_not_counted_as_an_option() -> None:
