@@ -1247,7 +1247,7 @@ atlas_options:
 - option_id: ATLAS-TM18
   source_table: T040
   material: Refractory H. pylori infection ← oral NAC pretreatment followed by culture-guided antibiotics
-  kind: drug
+  kind: compound
   setting: human_trial
   delivery: oral_tested
   direction: unclear
@@ -1406,7 +1406,7 @@ atlas_options:
 - option_id: ATLAS-TM26
   source_table: T040
   material: CRKP K. pneumoniae ZKP25 ← L. plantarum LP1812
-  kind: drug
+  kind: compound
   setting: animal
   delivery: oral_tested
   direction: decrease
@@ -2066,9 +2066,9 @@ atlas_options:
 - option_id: ATLAS-AM004
   source_table: T042
   material: Bulgarian oregano and thyme oils, separately and with antibiotics
-  kind: drug
+  kind: essential_oil
   setting: in_vitro
-  delivery: oral_tested
+  delivery: enteric_required
   direction: decrease
   effect: Activity against K. pneumoniae and P. aeruginosa
   boundary: Ingredient and combination observations separate; no antibiotic-equivalence claim from culture
@@ -3856,7 +3856,7 @@ atlas_options:
 - option_id: ATLAS-PB008
   source_table: T045
   material: L. reuteri DSM17938 + ATCC PTA6475
-  kind: drug
+  kind: compound
   setting: human_trial
   delivery: oral_tested
   direction: decrease
@@ -4677,7 +4677,7 @@ atlas_options:
 - option_id: ATLAS-AB001
   source_table: T046
   material: N-acetylcysteine (NAC), oral pretreatment before culture-guided antibiotics
-  kind: drug
+  kind: compound
   setting: human_trial
   delivery: oral_tested
   direction: decrease
@@ -5381,7 +5381,7 @@ atlas_options:
 - option_id: ATLAS-AR011
   source_table: T047
   material: Tributyrin, alone/with L. rhamnosus GG in factorial experiment
-  kind: drug
+  kind: compound
   setting: animal
   delivery: oral_tested
   direction: unclear
@@ -5402,7 +5402,7 @@ atlas_options:
 - option_id: ATLAS-AR012
   source_table: T047
   material: Tributyrin
-  kind: drug
+  kind: compound
   setting: animal
   delivery: oral_tested
   direction: increase
@@ -10712,7 +10712,7 @@ atlas_options:
 - option_id: ATLAS-PX009
   source_table: T057
   material: Limosilactobacillus reuteri DSM17648, nonviable, with triple therapy
-  kind: drug
+  kind: probiotic
   setting: human_trial
   delivery: oral_tested
   direction: 'null'
@@ -10995,7 +10995,7 @@ atlas_options:
 - option_id: ATLAS-PX022
   source_table: T057
   material: L. rhamnosus GR-1 plus L. reuteri RC-14
-  kind: drug
+  kind: probiotic
   setting: human_trial
   delivery: oral_tested
   direction: decrease
@@ -11100,7 +11100,7 @@ atlas_options:
 - option_id: ATLAS-PX027
   source_table: T057
   material: Lcr35 plus sodium thiosulfate, vaginal-product formulation
-  kind: drug
+  kind: compound
   setting: in_vitro
   delivery: oral_tested
   direction: decrease
@@ -11124,9 +11124,9 @@ atlas_options:
 - option_id: ATLAS-PX028
   source_table: T057
   material: Lcr35 plus sulfur-generating formulation components
-  kind: drug
+  kind: compound
   setting: in_vitro
-  delivery: oral_tested
+  delivery: unknown
   direction: decrease
   effect: Antifungal activity enhanced by thiosulfate decomposition into elemental sulfur under acidic
     conditions.
@@ -11769,7 +11769,7 @@ atlas_options:
 - option_id: ATLAS-PX058
   source_table: T057
   material: L. casei DN114001 plus S. thermophilus and L. bulgaricus fermented drink
-  kind: drug
+  kind: compound
   setting: human_trial
   delivery: oral_tested
   direction: unclear
@@ -12026,9 +12026,9 @@ atlas_options:
 - option_id: ATLAS-PX070
   source_table: T057
   material: L. acidophilus CL1285 plus L. casei LBC80R
-  kind: drug
+  kind: compound
   setting: human_trial
-  delivery: oral_tested
+  delivery: unknown
   direction: decrease
   effect: Defined combination reduced diarrhea endpoints in the studied setting.
   boundary: Later three-strain Bio-K+ adds CLR2; preparations cannot be silently merged.
@@ -12153,9 +12153,9 @@ atlas_options:
 - option_id: ATLAS-CX003
   source_table: T060
   material: SIM01 studied formulation
-  kind: drug
+  kind: compound
   setting: in_vitro
-  delivery: oral_tested
+  delivery: unknown
   direction: decrease
   effect: Reported resistome changes associated with treatment
   boundary: A lower fecal ARG signal does not reverse a pathogen's resistance phenotype or prove infection
@@ -13222,7 +13222,7 @@ atlas_options:
 - option_id: ATLAS-TX013
   source_table: T061
   material: Saccharomyces boulardii capsules added to metronidazole
-  kind: drug
+  kind: spore_probiotic
   setting: human_trial
   delivery: oral_tested
   direction: unclear
@@ -15342,9 +15342,9 @@ atlas_options:
 - option_id: ATLAS-T082-41901
   source_table: T082
   material: HST017 — Excess dietary zinc in an antibiotic/CDI context
-  kind: drug
+  kind: mineral
   setting: animal
-  delivery: oral_tested
+  delivery: inherently_stable
   direction: decrease
   effect: Mouse nutritional/infection study. Adverse ecological/disease cascade experimentally supported.
   boundary: Excess dietary zinc → altered gut community `M` → greater susceptibility to antibiotic-associated
@@ -15371,9 +15371,9 @@ atlas_options:
 - option_id: ATLAS-T082-41902
   source_table: T082
   material: HST018 — Zinc gluconate in antibiotic/peptidoglycan injury
-  kind: drug
+  kind: mineral
   setting: animal
-  delivery: oral_tested
+  delivery: inherently_stable
   direction: decrease
   effect: August 2026 mouse intervention after antibiotic disruption and peptidoglycan challenge; study-specific
     administration. Parallel host/community outcomes; not infection clearance.
@@ -16036,7 +16036,7 @@ atlas_options:
 - option_id: ATLAS-FEC009
   source_table: T083
   material: Host mucin glycans after antibiotics; not a supplement
-  kind: drug
+  kind: prebiotic
   setting: animal
   delivery: oral_tested
   direction: decrease
@@ -16074,9 +16074,9 @@ atlas_options:
 - option_id: ATLAS-FEC011
   source_table: T083
   material: Carbohydrate fermentation plus antibiotic or motility disturbance
-  kind: drug
+  kind: compound
   setting: animal
-  delivery: oral_tested
+  delivery: unknown
   direction: decrease
   effect: B. thetaiotaomicron succinate → C. difficile reduction to butyrate → pathogen growth advantage
   boundary: ''
@@ -16475,9 +16475,9 @@ atlas_options:
 - option_id: ATLAS-FEC029
   source_table: T083
   material: Loss of butyrate-producing Clostridia after antibiotics/inflammation
-  kind: drug
+  kind: compound
   setting: in_vitro
-  delivery: oral_tested
+  delivery: unknown
   direction: decrease
   effect: Host metabolic switch → host-derived lactate → Salmonella lactate oxidation and growth advantage
   boundary: ''
@@ -17355,9 +17355,9 @@ atlas_options:
 - option_id: ATLAS-PRX031
   source_table: T085
   material: Bio-25 study's 11-strain probiotic mixture after antibiotics; exact study composition
-  kind: drug
+  kind: probiotic
   setting: animal
-  delivery: oral_tested
+  delivery: inherently_stable
   direction: decrease
   effect: Antibiotic-opened niche → stronger probiotic mucosal colonization / inhibitory soluble factors
     → delayed indigenous-community and transcriptome recovery.
@@ -17544,9 +17544,9 @@ atlas_options:
   source_table: T086
   material: Berberine-containing arms of PREMOTE; adults with newly diagnosed type 2 diabetes, after antibiotic
     run-in; accompanying R. bromii AF25-7 laboratory work
-  kind: drug
+  kind: polyphenol
   setting: in_vitro
-  delivery: oral_tested
+  delivery: inherently_stable
   direction: decrease
   effect: 'M: treatment depleted several carbohydrate-fermenting taxa, including R. bromii, Roseburia,
     F. prausnitzii and some Bifidobacterium. [S07]'
@@ -17647,7 +17647,7 @@ atlas_options:
   source_table: T086
   material: Defined carvacrol-plus-thymol mixture; experimental mouse colitis, antibiotic-depleted mice,
     B. pseudolongum RU224 and metabolite/epithelial arms
-  kind: drug
+  kind: essential_oil
   setting: animal
   delivery: oral_tested
   direction: decrease

@@ -534,3 +534,88 @@ def test_an_organism_card_reaches_a_pathogen_finding() -> None:
     )
     sol.attach_registry([problem], results)
     assert [o.label for o in problem.options] == ["An approved product"]
+
+
+# --------------------------------------------------------------------------- #
+# what a row has to tell a reader
+# --------------------------------------------------------------------------- #
+
+
+def test_an_option_name_is_never_truncated() -> None:
+    """The name is the only thing that says what the option is."""
+    long_name = (
+        "Limosilactobacillus reuteri DSM 17938 plus glycerol, as the exact "
+        "precursor-dependent reuterin-producing preparation studied, not any other reuteri"
+    )
+    option = sol._as_option(
+        {"material": long_name, "kind": "probiotic", "setting": "human_trial",
+         "delivery": "oral_tested", "direction": "decrease", "option_id": "X"},
+        binding="species")
+    assert option.label == long_name
+    assert "\u2026" not in option.label
+
+
+def test_every_option_says_how_to_get_it() -> None:
+    """An exact strain is no use if a reader cannot tell what sort of thing it is."""
+    for kind, expected in (("probiotic", "supplement"), ("food", "food"),
+                           ("drug", "prescription"), ("procedure", "clinician"),
+                           ("diet", "way of eating")):
+        option = sol._as_option(
+            {"material": "X", "kind": kind, "setting": "human_trial",
+             "delivery": "oral_tested", "direction": "decrease", "option_id": "X"},
+            binding="species")
+        assert expected in option.how_to_get, f"{kind}: {option.how_to_get!r}"
+
+
+def test_the_transfer_family_is_one_option_not_four() -> None:
+    """Conventional FMT, the same for another indication, REBYOTA and VOWST
+    are one decision to a reader, and printing four rows reads as though they
+    were alternatives to each other."""
+    def opt(label: str, oid: str) -> sol.Option:
+        return sol._as_option(
+            {"material": label, "kind": "procedure", "setting": "human_trial",
+             "delivery": "oral_tested", "direction": "decrease", "option_id": oid},
+            binding="species")
+
+    merged = sol._dedupe([
+        opt("Conventional fecal microbiota transplantation for recurrent C. difficile", "a"),
+        opt("Fecal microbiota transplantation for a non-CDI indication (investigational)", "b"),
+        opt("REBYOTA (fecal microbiota, live-jslm) rectal suspension", "c"),
+        opt("VOWST (fecal microbiota spores, live-brpk) oral capsules", "d"),
+        opt("Inulin", "e"),
+    ])
+    labels = [o.label for o in merged]
+    assert len(labels) == 2, labels
+    transfer = next(o for o in merged if "whole-community transfer" in o.label)
+    # Every member is still named, so nothing is hidden by the merge.
+    for member in ("REBYOTA", "VOWST", "non-CDI"):
+        assert member in transfer.effect
+
+
+def test_a_food_yeast_is_not_a_problem_to_be_fixed() -> None:
+    """Most of what a stool metagenome sees is baker's yeast and food moulds.
+
+    Making a problem of every supported fungus put Saccharomyces cerevisiae -
+    a studied probiotic organism - on the page as something needing an
+    intervention, with no level and no reason.
+    """
+    myco = {
+        "measurement": {"fungal_fragments_per_million": 96.3},
+        "within_fungi": {"composition": [{"name": "Candida albicans", "share": 0.42}]},
+        "taxa": [
+            {"accepted_name": "Saccharomyces cerevisiae", "detection_state": "supported",
+             "category": "studied_probiotic_species"},
+            {"accepted_name": "Brettanomyces bruxellensis", "detection_state": "supported",
+             "category": "food_associated"},
+            {"accepted_name": "Candida albicans", "detection_state": "supported",
+             "category": "commensal_opportunist", "category_words": "a common gut commensal"},
+        ],
+    }
+    problems = sol.fungal_problems(myco, section=22)
+    assert [p.title for p in problems] == ["Candida albicans is present in the mycobiome"]
+    only = problems[0]
+    # The level has to be there: "detected" alone says nothing.
+    assert "42.0% of the fungal DNA" in only.detail
+    assert "96 fragments per million" in only.detail
+    # And why it is on the page at all.
+    assert any("overgrow" in n for n in only.notes)

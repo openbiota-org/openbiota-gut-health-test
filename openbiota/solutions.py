@@ -31,7 +31,7 @@ from __future__ import annotations
 
 import re
 from collections.abc import Iterable, Mapping, Sequence
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Final
@@ -71,6 +71,40 @@ KIND_WORDS: Final[dict[str, tuple[str, int]]] = {
 
 #: Kinds a reader cannot act on alone. They are shown, and marked.
 PRESCRIBER = frozenset({"drug", "procedure", "clinical_route"})
+
+#: How a reader would actually obtain each kind of thing. Naming the exact
+#: strain or preparation is useless on its own: a reader then has to work out
+#: whether it is a supplement they can buy, a food, a prescription or a
+#: procedure. This says which.
+HOW_TO_GET: Final[dict[str, str]] = {
+    "food": "a food - buy it as food",
+    "diet": "a way of eating, not a product",
+    "fibre": "sold as a supplement and present in foods",
+    "prebiotic": "sold as a supplement; check the label for this exact fibre",
+    "probiotic": "sold as a supplement; check the label for these exact strains",
+    "spore_probiotic": "sold as a spore supplement; check the label for these exact strains",
+    "postbiotic": "sold as a supplement; check the label for this exact preparation",
+    "polyphenol": "sold as a supplement and present in foods",
+    "herb": "sold as a supplement or herb; preparation matters",
+    "essential_oil": "sold as an oil; an enteric capsule is what gets it past the stomach",
+    "enzyme": "sold as a supplement; an enteric form is what gets it past the stomach",
+    "mineral": "sold as a supplement",
+    "compound": "sold as a supplement",
+    "lifestyle": "nothing to buy",
+    "drug": "prescription - a prescriber decides",
+    "procedure": "a clinical procedure, arranged by a clinician",
+    "clinical_route": "a clinician arranges this",
+}
+
+#: Where the registry states a regulatory position, it overrides the kind.
+REGULATORY_WORDS: Final[dict[str, str]] = {
+    "fda_approved": "an approved prescription product",
+    "prescription": "prescription - a prescriber decides",
+    "otc": "available over the counter",
+    "investigational": "investigational - available only in a trial or by a clinician's decision",
+    "dietary_supplement": "sold as a dietary supplement",
+    "food": "a food",
+}
 
 
 # --------------------------------------------------------------------------- #
@@ -139,6 +173,8 @@ class Option:
     binding: str
     #: How to name the paper in a line, when the source says.
     citation: str = ""
+    #: How a reader would obtain it, in a phrase.
+    availability: str = ""
 
     @property
     def reach(self) -> DEL.Reach:
@@ -147,6 +183,11 @@ class Option:
     @property
     def kind_words(self) -> str:
         return KIND_WORDS.get(self.kind, (self.kind.replace("_", " "), 99))[0]
+
+    @property
+    def how_to_get(self) -> str:
+        """Where a reader would get this, which the name alone never says."""
+        return self.availability or HOW_TO_GET.get(self.kind, "")
 
     @property
     def kind_rank(self) -> int:
@@ -479,12 +520,53 @@ def _modulator_options(modulators: Any, *, want: str) -> list[Option]:
     return out
 
 
+#: Things that are one treatment to a reader even though the registry holds
+#: them as separate identities. Conventional donor transplantation, the same
+#: procedure for a non-approved indication, and the two licensed stool-derived
+#: products are one decision - "have a screened donor community put in" - and
+#: printing them as three or four separate options reads as though they were
+#: alternatives to each other.
+_FAMILIES: Final[tuple[tuple[str, str, str], ...]] = (
+    (
+        "whole_community_transfer",
+        r"fecal microbiota|faecal microbiota|\bfmt\b|rebyota|vowst|donor stool|"
+        r"microbiota transplant",
+        "Screened-donor whole-community transfer: conventional faecal microbiota "
+        "transplantation, or the licensed stool-derived products (REBYOTA, VOWST)",
+    ),
+)
+
+
+def _family_of(label: str) -> tuple[str, str] | None:
+    low = label.lower()
+    for key, pattern, display in _FAMILIES:
+        if re.search(pattern, low):
+            return key, display
+    return None
+
+
 def _dedupe(options: Sequence[Option]) -> list[Option]:
-    """One row per material, keeping the strongest evidence for it."""
+    """One row per material, keeping the strongest evidence for it.
+
+    Members of a family collapse into a single row under the family's own
+    name, keeping the strongest evidence among them and every citation.
+    """
     best: dict[str, Option] = {}
     for option in sorted(options, key=lambda o: o.sort_key):
-        key = norm(option.label)[:60]
-        best.setdefault(key, option)
+        family = _family_of(option.label)
+        key = family[0] if family else norm(option.label)[:60]
+        if key in best:
+            continue
+        if family:
+            members = sorted(
+                {o.label for o in options if (_family_of(o.label) or ("",))[0] == family[0]})
+            extra = "" if len(members) < 2 else (
+                "  Studied as: " + "; ".join(members) + ".")
+            option = replace(
+                option, label=family[1],
+                effect=(option.effect + extra).strip(),
+            )
+        best[key] = option
     return sorted(best.values(), key=lambda o: o.sort_key)
 
 
@@ -622,29 +704,85 @@ def group_problems(groups: Sequence[Mapping[str, Any]], *, section: int) -> list
     return out
 
 
-def fungal_problems(mycobiome: Mapping[str, Any] | None, *, section: int) -> list[Problem]:
-    """A problem for every fungus the mycobiome lane supported.
+#: Fungal categories that are a finding. A detection is not a problem: most
+#: of what a stool metagenome sees is baker's and brewer's yeast and
+#: environmental moulds that arrived with food. An earlier version made a
+#: problem of every supported fungus, which put *Saccharomyces cerevisiae* -
+#: a studied probiotic organism - on the page as something needing an
+#: intervention, with no level and no reason.
+_FUNGAL_CONCERN: Final[frozenset[str]] = frozenset({
+    "commensal_opportunist", "pathogen_alert_route", "opportunist", "pathogen",
+})
 
-    The fungal section is a whole lane of the pipeline and had no way in to
-    what can be done about anything it found.
+#: Two or three sentences on what it is and why it is here, by category. The
+#: module's own words for the organism are used when it has them.
+_FUNGAL_WHY: Final[dict[str, str]] = {
+    "commensal_opportunist": (
+        "A fungus that lives in many people's guts without causing trouble and can "
+        "overgrow when the bacterial community is disturbed or immunity is reduced. "
+        "DNA in stool is not an infection; it is a reading worth knowing alongside "
+        "the bacterial findings."
+    ),
+    "pathogen_alert_route": (
+        "A fungus on the report's alert list, which means a positive reading is a "
+        "reason for clinical assessment rather than something to act on at home. "
+        "Stool DNA does not establish infection on its own."
+    ),
+}
+
+
+def fungal_problems(mycobiome: Mapping[str, Any] | None, *, section: int) -> list[Problem]:
+    """A problem for a fungus the mycobiome module itself treats as a concern.
+
+    The level is carried with it - what share of the identified fungi it is,
+    and how much fungal DNA was there at all - because "detected" on its own
+    tells a reader nothing about whether anything is out of place.
     """
-    lane = ((mycobiome or {}).get("genome_lane") or {})
+    myco = mycobiome or {}
+    shares = {
+        str(c.get("name")): c
+        for c in ((myco.get("within_fungi") or {}).get("composition") or ())
+    }
+    measured = myco.get("measurement") or {}
+    per_million = measured.get("fungal_fragments_per_million")
+    flagged = {
+        str(f.get("name") or f.get("accepted_name") or "")
+        for f in (myco.get("potential_concern_findings") or ())
+    }
     out: list[Problem] = []
-    for taxon in (lane.get("taxa") or (mycobiome or {}).get("taxa") or ()):
-        if str(taxon.get("detection_state") or "supported") not in {"supported", "ambiguous_complex"}:
-            continue
+    for taxon in (myco.get("taxa") or ()):
         name = str(taxon.get("accepted_name") or taxon.get("name") or "")
-        if not name:
+        state = str(taxon.get("detection_state") or "")
+        category = str(taxon.get("category") or "")
+        if not name or state not in {"supported", "ambiguous_complex"}:
             continue
+        if category not in _FUNGAL_CONCERN and name not in flagged:
+            continue
+        share = (shares.get(name) or {}).get("share")
+        bits = []
+        if isinstance(share, (int, float)):
+            bits.append(f"{share * 100:.1f}% of the fungal DNA that could be identified")
+        if isinstance(per_million, (int, float)):
+            bits.append(f"fungi were {per_million:.0f} fragments per million of this library")
+        words = str(taxon.get("category_words") or category.replace("_", " "))
+        if words:
+            bits.append(words)
         problem = Problem(
             key=problem_key("fungus", name),
             kind="fungus",
-            title=f"{name} was detected in the mycobiome",
-            detail=str(taxon.get("category") or taxon.get("rank") or ""),
+            title=f"{name} is present in the mycobiome",
+            detail="; ".join(bits),
             want=WANT_DOWN,
             severity=3.0,
             section=section,
         )
+        problem.notes = [
+            n for n in (
+                str(taxon.get("role") or ""),
+                _FUNGAL_WHY.get(category, ""),
+                str(taxon.get("origin_interpretation") or ""),
+            ) if n
+        ]
         problem.options = _dedupe(atlas_options(
             species=[name], genera=[genus_of(name)], concerns=["fungal"], want=WANT_DOWN))
         problem.worsens = _dedupe(atlas_options(
@@ -673,6 +811,8 @@ def pathogen_problems(records: Sequence[Mapping[str, Any]], *, section: int) -> 
             section=section,
             detail_dest=_dest("pathogen", str(record.get("target_id") or name)),
         )
+        if record.get("note"):
+            problem.notes.append(str(record["note"]))
         problem.options = _dedupe(atlas_options(
             species=[name], genera=[genus_of(name)], concerns=["pathogen_burden"], want=WANT_DOWN,
         ))
@@ -721,6 +861,7 @@ _CLASS_KIND: Final[dict[str, str]] = {
     "otc_drug": "drug", "clinical_route": "clinical_route",
     "fmt_microbiota_product": "procedure", "diet": "diet", "lifestyle": "lifestyle",
     "prebiotic": "prebiotic", "food": "food",
+    "postbiotic": "postbiotic", "topical_live_biotherapeutic": "procedure",
 }
 
 
@@ -816,7 +957,7 @@ def registry_options(results: Mapping[str, Any] | None) -> dict[str, list[Option
 def _options_of(summary: Mapping[str, Any]) -> list[Option]:
     """Every distinct intervention one card puts on the table."""
     population = str(summary.get("population_text") or "")
-    boundary = str(summary.get("context_note") or "")[:600]
+    boundary = str(summary.get("context_note") or "")
     lane = str(summary.get("supporting_evidence_lane") or "")
     card_id = str(summary.get("summary_id") or summary.get("action_mapping_id") or "")
 
@@ -827,13 +968,16 @@ def _options_of(summary: Mapping[str, Any]) -> list[Option]:
         if "not shown in participant mode" in protocol:
             protocol = ""
         return Option(
-            label=label if len(label) <= 150 else label[:149] + "\u2026",
+            # Never shortened. The name is the only thing that tells a reader
+            # what the option actually is; a cell can wrap, a reader cannot
+            # un-truncate.
+            label=label,
             kind=_CLASS_KIND.get(klass, "compound"),
             direction="registry",
             setting=setting,
             delivery="oral_tested",
             effect=" ".join(
-                x for x in (protocol, f"Studied in {population}." if population else "") if x)[:480],
+                x for x in (protocol, f"Studied in {population}." if population else "") if x),
             boundary=boundary,
             source=source,
             option_id=f"{card_id}|{suffix}",

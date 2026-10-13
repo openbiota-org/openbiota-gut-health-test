@@ -26,7 +26,7 @@ from typing import Any, Final
 from reportlab.lib import colors
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
-from reportlab.platypus import CondPageBreak, KeepTogether, Spacer, Table, TableStyle
+from reportlab.platypus import KeepTogether, PageBreak, Spacer, Table, TableStyle
 
 from openbiota import solutions as sol
 from openbiota.pdflinks import (
@@ -152,14 +152,20 @@ def _option_rows(
     for option in options[:limit]:
         reach = option.reach
         tone = GREEN if option.setting in {"human_trial", "human_observational"} else INK_SOFT
-        name = option.label if len(option.label) <= 96 else option.label[:95] + "\u2026"
         rows.append([
+            # The whole name, never shortened: it is the only thing that says
+            # what the option is, and a cell can wrap.
             Paragraph(
-                f"<font size='6.6'><b>{_xml(name)}</b>"
+                f"<font size='6.6'><b>{_xml(option.label)}</b>"
                 f"<super><font size='5.4' color='{_hex(INK_FAINT)}'>{reach.marker_text}</font></super>"
                 "</font>", st["cell"]),
             Paragraph(
                 f"<font size='6.2' color='{_hex(INK_SOFT)}'>{_xml(option.kind_words)}</font>"
+                # Where a reader would actually get it. The exact strain or
+                # preparation is no use if they cannot tell whether it is a
+                # supplement, a food, a prescription or a procedure.
+                + (f"<br/><font size='5.8' color='{_hex(ACCENT_DARK)}'>"
+                   f"{_xml(option.how_to_get)}</font>" if option.how_to_get else "")
                 + (f"<br/><font size='5.8' color='{_hex(CORAL)}'>prescriber decides</font>"
                    if option.needs_prescriber else ""),
                 st["cell"]),
@@ -234,6 +240,11 @@ def _problem_block(
     if problem.detail:
         head.append(Paragraph(
             f"<font size='6.6' color='{_hex(INK_SOFT)}'>{_xml(problem.detail)}</font>", st["small"]))
+    # What it is and why it is here, when the report can say.
+    for note in problem.notes:
+        head.append(Spacer(1, 0.8 * mm))
+        head.append(Paragraph(
+            f"<font size='6.6' color='{_hex(INK)}'>{_xml(note)}</font>", st["small"]))
 
     if problem.nothing_known and not problem.unclear:
         head.append(Spacer(1, 1.2 * mm))
@@ -243,9 +254,6 @@ def _problem_block(
             f"{want_words}. That is the state of the research, not a judgement that this does not "
             "matter, and not a reason to do nothing: the sections above explain the finding and a "
             "clinician can act on it.</font>", st["small"]))
-        for note in problem.notes:
-            head.append(Paragraph(
-                f"<font size='6.2' color='{_hex(INK_FAINT)}'>{note}</font>", st["small"]))
         story.append(KeepTogether(head))
         story.append(Spacer(1, 2.5 * mm))
         return
@@ -256,9 +264,6 @@ def _problem_block(
             f"<font size='6.6' color='{_hex(INK_SOFT)}'>No study on record says which way to "
             f"{want_words}. What has been studied on it is below, with the direction its source "
             "actually reported \u2014 which was none.</font>", st["small"]))
-        for note in problem.notes:
-            head.append(Paragraph(
-                f"<font size='6.2' color='{_hex(INK_FAINT)}'>{note}</font>", st["small"]))
         story.append(KeepTogether(head))
         story.append(Spacer(1, 1.2 * mm))
         story.append(KeepTogether([
@@ -268,7 +273,7 @@ def _problem_block(
                 f"{len(problem.unclear)}</font>", st["small"]),
             _table(_option_rows(st, problem.unclear,
                                 limit=PER_PROBLEM_UNCLEAR),
-                   [CONTENT_WIDTH * w for w in (0.30, 0.16, 0.18, 0.36)]),
+                   [CONTENT_WIDTH * w for w in (0.33, 0.17, 0.17, 0.33)]),
         ]))
         story.append(Spacer(1, 3 * mm))
         return
@@ -280,7 +285,7 @@ def _problem_block(
     head.append(Paragraph(
         f"<font size='6.4' color='{_hex(GREEN)}'><b>{heading}</b></font>"
         f"  <font size='5.8' color='{_hex(INK_FAINT)}'>{count}</font>", st["small"]))
-    widths = [CONTENT_WIDTH * w for w in (0.30, 0.16, 0.18, 0.36)]
+    widths = [CONTENT_WIDTH * w for w in (0.33, 0.17, 0.17, 0.33)]
     head.append(_table(_option_rows(st, problem.options, limit=PER_PROBLEM), widths))
     story.append(KeepTogether(head))
 
@@ -407,8 +412,11 @@ def section(
     _contents(story, st, problems)
     story.append(Spacer(1, 4 * mm))
 
+    # One finding per page. Landing on a block and having to read the tail of
+    # the previous one to work out what you are looking at is not navigation.
     for i, problem in enumerate(problems, start=1):
-        story.append(CondPageBreak(55 * mm))
+        if i > 1:
+            story.append(PageBreak())
         _problem_block(story, st, problem, position=i)
 
     notes = sol.footnotes(problems)

@@ -2835,6 +2835,17 @@ def _pdfinputs() -> Any:
     return pdfinputs
 
 
+#: What the pathogen screen's role words mean to a reader.
+_PATHOGEN_ROLE: Final[dict[str, str]] = {
+    "carriage_common": "commonly carried without illness; found here by the pathogen screen",
+    "carriage_uncommon": "uncommonly carried; found here by the pathogen screen",
+    "always_pathogenic": "not part of a normal gut community",
+    "opportunist": "harmless in most people, a problem when it expands",
+    "intestinal_shedding": "found in stool; shedding does not by itself mean illness",
+    "unknown": "found by the pathogen screen",
+}
+
+
 def _solution_problems(
     results: Mapping[str, Any] | None,
     attention_items: Sequence[Any],
@@ -2872,8 +2883,14 @@ def _solution_problems(
 
         summary = _pdfpathogens.summarise(results.get("pathogens"))
         called = [
-            {"species": r.get("display_name"), "target_id": r.get("target_id"),
-             "amount_words": r.get("stool_role") or ""}
+            {
+                "species": r.get("display_name"), "target_id": r.get("target_id"),
+                # Reader-facing words and the screen's own statement, not the
+                # raw enum: "carriage_common" told nobody anything.
+                "amount_words": _PATHOGEN_ROLE.get(
+                    str(r.get("stool_role") or ""), str(r.get("stool_role") or "").replace("_", " ")),
+                "note": str(r.get("plain_statement") or ""),
+            }
             for r in (summary.get("pathogens") or [])
         ]
     except Exception:  # noqa: BLE001 - a missing screen is not a reason to lose the section

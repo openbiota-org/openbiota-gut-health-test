@@ -114,15 +114,18 @@ KIND_PATTERNS: tuple[tuple[str, str], ...] = (
     ("procedure", r"\b(?:transplant|fmt\b|colonoscop|endoscop|surgery|faecal microbiota transplant)"),
     ("clinical_route", r"\b(?:referral|specialist|gastroenterolog|dermatolog|clinical evaluation|"
                        r"screening programme|guideline route)"),
-    ("drug", r"\b(?:rifaximin|vancomycin|metronidazole|fidaxomicin|antibiotic|mesalazine|statin|metformin|"
-             r"ppi\b|proton pump|omeprazole|antifungal|fluconazole|nystatin|ivermectin|albendazole|"
-             r"neomycin|azithromycin|doxycycline|amoxicillin|clarithromycin|levodopa|digoxin|"
-             r"prescription|triple therapy)"),
     ("spore_probiotic", r"\b(?:bacillus |spore|clostridium butyricum|saccharomyces boulardii)"),
     ("probiotic", r"\b(?:lactobacill|bifidobacter|lacticaseibacill|limosilactobacill|lactiplantibacill|"
                   r"streptococcus thermophilus|akkermansia|probiotic|synbiotic|postbiotic|"
                   r"live biotherapeutic|heat-?inactivated|pasteuri[sz]ed|escherichia coli nissle|"
                   r"\becn\b|consortium|defined community)"),
+    # Named drugs only. "antibiotic", "antifungal" and "prescription" used to
+    # be in here and dragged in anything whose study happened to mention one -
+    # which is how a two-strain probiotic came to be labelled a medication.
+    ("drug", r"\b(?:rifaximin|vancomycin|metronidazole|fidaxomicin|mesalazine|statin|metformin|"
+             r"omeprazole|fluconazole|nystatin|ivermectin|albendazole|neomycin|azithromycin|"
+             r"doxycycline|amoxicillin|clarithromycin|levodopa|digoxin|triple therapy|"
+             r"proton pump inhibitor)"),
     ("essential_oil", r"\b(?:essential oil|oregano oil|thyme oil|tea tree|carvacrol|thymol|eugenol|"
                       r"peppermint oil|cinnamaldehyde|limonene|oil of )"),
     ("enzyme", r"\b(?:enzyme|lactase|protease|amylase|lysozyme|dnase|serrapeptase|nattokinase|"
