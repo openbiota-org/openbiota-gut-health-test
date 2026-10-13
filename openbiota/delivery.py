@@ -44,6 +44,11 @@ SETTINGS: Final[tuple[str, ...]] = (
     "animal",
     "ex_vivo",
     "in_vitro",
+    # A documented food rather than a study: what it is made from, how it is
+    # fermented and whether it still contains live organisms when you eat it.
+    # That is a real thing to know and a real thing to choose, and it is not
+    # a trial, so it says so.
+    "food_identity",
     "mechanistic",
 )
 
@@ -55,6 +60,7 @@ SETTING_WORDS: Final[dict[str, tuple[str, str]]] = {
     "animal": ("animal study", "\u2020"),
     "ex_vivo": ("human tissue or stool, outside the body", "\u2021"),
     "in_vitro": ("laboratory culture", "\u2021"),
+    "food_identity": ("documented fermented food", "\u00a4"),
     "mechanistic": ("mechanism only", "\u2021"),
 }
 
@@ -103,6 +109,9 @@ FOOTNOTES: Final[dict[str, str]] = {
               "organism is susceptible to the substance, not that eating it will do this in you.",
     "\u00a7": "Would need an enteric-coated or delayed-release preparation to reach the colon "
               "intact; the plain form is absorbed or destroyed before it arrives.",
+    "\u00a4": "A documented fermented food: what it is made from, how it is fermented and "
+              "whether it still contains live organisms when eaten. Not a trial showing it "
+              "changes this reading.",
     "\u00b6": "The source does not say how it was delivered.",
 }
 

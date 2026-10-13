@@ -636,6 +636,142 @@ def option_from(row: dict[str, Any], table_id: str, roles: dict[str, str]) -> di
     return option
 
 
+#: Fermented foods, as what they are. 70 food families with their substrate,
+#: how they are fermented, whether they still hold live organisms when eaten
+#: and what the tradeoffs are. None of this is a trial, and none of it is
+#: claimed to be: it is the answer to "what could I actually eat", which the
+#: report had no way of answering at all.
+FOOD_TABLES: tuple[str, ...] = ("T088", "T090")
+
+#: Measured growth of named strains on named carbohydrates: 30 Bifidobacterium
+#: strains against 43 substrates, 1,290 outcomes. This is the most direct
+#: evidence in the whole package of "this fibre feeds this organism", and it
+#: was not being imported at all.
+GROWTH_TABLES: tuple[str, ...] = ("T074", "T075", "T076")
+
+#: The organisms a fermentation identity implies are present and alive. Only
+#: used when the row says live organisms survive to consumption.
+_FERMENT_ORGANISMS: tuple[tuple[str, tuple[str, ...]], ...] = (
+    ("lactic", ("Lactobacillus", "Lacticaseibacillus", "Lactiplantibacillus", "Leuconostoc")),
+    ("dairy", ("Streptococcus thermophilus", "Lactobacillus delbrueckii")),
+    ("kefir", ("Lactobacillus kefiranofaciens", "Saccharomyces cerevisiae")),
+    ("koji", ("Aspergillus oryzae",)),
+    ("bacillus", ("Bacillus subtilis",)),
+    ("acetic", ("Acetobacter", "Komagataeibacter")),
+)
+
+
+def food_options(head: sqlite3.Cursor, body: sqlite3.Cursor) -> list[dict[str, Any]]:
+    """One option per fermented-food family."""
+    rows: dict[str, dict[str, str]] = {}
+    for table_id in FOOD_TABLES:
+        if not head.execute(
+                "select 1 from data_tables where table_id=?", (table_id,)).fetchone():
+            continue
+        for row in rows_of(body, table_id):
+            fields = {k: text_of(v) for k, v in row["fields"].items()}
+            family = fields.get("Food family") or ""
+            if not family:
+                continue
+            rows.setdefault(family, {}).update({k: v for k, v in fields.items() if v})
+    out: list[dict[str, Any]] = []
+    for family, f in sorted(rows.items()):
+        live = f.get("Live at consumption") or ""
+        matrix = f.get("Matrix") or f.get("Substrates and preparation") or ""
+        identity = f.get("Fermentation identity") or ""
+        tradeoffs = f.get("Tradeoffs / qualification") or f.get("Material tradeoffs") or ""
+        blob = f"{identity} {family}".lower()
+        taxa: list[str] = []
+        # Only name organisms when the row says something is still alive.
+        if re.search(r"live|possible|product-dependent", live, re.I):
+            for cue, organisms in _FERMENT_ORGANISMS:
+                if cue in blob:
+                    taxa.extend(organisms)
+        out.append({
+            "option_id": f"ATLAS-{f.get('Family ID') or f.get('ID') or _slugish(family)}",
+            "source_table": "T088/T090",
+            "material": family,
+            "kind": "food",
+            "setting": "food_identity",
+            "delivery": "inherently_stable",
+            "direction": "increase" if taxa else "unclear",
+            "effect": "; ".join(x for x in (
+                f"{identity}." if identity else "",
+                f"Made from {matrix}." if matrix else "",
+                f"Live organisms at consumption: {live}" if live else "",
+            ) if x),
+            "boundary": tradeoffs,
+            "taxa": sorted(set(taxa)),
+            "genera": [],
+            "panels": [],
+            "concerns": ["diversity", "colonisation_resistance", "short_chain_fatty_acids"],
+            "taxon_direction": dict.fromkeys(sorted(set(taxa)), "increase"),
+        })
+    return out
+
+
+_STRAIN_ABBREV = re.compile(r"^([A-Z])\.\s*([a-z][a-z-]+)")
+
+
+def growth_options(head: sqlite3.Cursor, body: sqlite3.Cursor) -> list[dict[str, Any]]:
+    """One option per carbohydrate that measurably feeds a named organism."""
+    for table_id in GROWTH_TABLES:
+        if not head.execute(
+                "select 1 from data_tables where table_id=?", (table_id,)).fetchone():
+            return []
+    substrates = {
+        text_of(r["fields"].get("Substrate index")): text_of(r["fields"].get("Exact source substrate"))
+        for r in rows_of(body, "T074")
+    }
+    strains = {
+        text_of(r["fields"].get("Strain index")): text_of(r["fields"].get("Exact source strain"))
+        for r in rows_of(body, "T075")
+    }
+    # Collapse the 1,290 strain-by-substrate cells into one row per
+    # substrate-and-species: a reader buys a fibre, not a strain index.
+    grouped: dict[tuple[str, str], list[str]] = {}
+    for row in rows_of(body, "T076"):
+        f = row["fields"]
+        outcome = text_of(f.get("Outcome")).lower()
+        if outcome not in {"growth", "weak growth"}:
+            continue
+        substrate = substrates.get(text_of(f.get("Substrate index")), "")
+        strain = strains.get(text_of(f.get("Strain index")), "")
+        if not substrate or not strain:
+            continue
+        match = _STRAIN_ABBREV.match(strain)
+        species = f"Bifidobacterium {match.group(2)}" if match and match.group(1) == "B" else strain
+        grouped.setdefault((substrate, species), []).append(f"{strain} ({outcome})")
+    out: list[dict[str, Any]] = []
+    for (substrate, species), hits in sorted(grouped.items()):
+        out.append({
+            "option_id": "ATLAS-GFC-" + _slugish(f"{substrate}-{species}"),
+            "source_table": "T076",
+            "material": substrate,
+            "kind": "prebiotic",
+            "setting": "in_vitro",
+            "delivery": "inherently_stable",
+            "direction": "increase",
+            "effect": f"{species} grew on this carbohydrate in defined culture "
+                      f"({len(hits)} of the tested strains: {'; '.join(sorted(hits)[:4])}"
+                      + (", and more" if len(hits) > 4 else "") + ").",
+            "boundary": "A defined single-strain culture on one purified carbohydrate. It shows "
+                        "the organism can use the substrate, not that eating it raises that "
+                        "organism in a whole gut community.",
+            "taxa": [species],
+            "genera": ["Bifidobacterium"] if species.startswith("Bifidobacterium") else [],
+            "panels": [],
+            "concerns": [],
+            "taxon_direction": {species: "increase"},
+            "doi": "10.1038/s41564-025-02056-x",
+        })
+    return out
+
+
+def _slugish(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", str(text).lower()).strip("-")[:48]
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--zip", type=Path, default=DEFAULT_ZIP)
@@ -679,6 +815,12 @@ def main() -> int:
                     options.append(option)
                     kept += 1
             per_table[table_id] = kept
+
+        # The two sources that are not one-observation-per-row and so need
+        # their own adapters.
+        for extra in (food_options(head, body), growth_options(head, body)):
+            options.extend(extra)
+        per_table["fermented foods"] = len(options) - sum(per_table.values())
         con.close()
 
     settings = collections.Counter(o["setting"] for o in options)

@@ -318,6 +318,47 @@ def option_direction(raw: Mapping[str, Any], taxon: str | None) -> str:
     return str(raw.get("direction") or "unclear")
 
 
+#: The whole-gut subjects a finding touches, so that evidence filed against
+#: a subject rather than against one organism can still reach it. Without
+#: this the 70 imported fermented foods were unreachable: they are filed
+#: under diversity, colonisation resistance and short-chain fatty acids, and
+#: nothing in the report ever asked for those.
+CONCERNS_FOR: Final[dict[str, tuple[str, ...]]] = {
+    # metabolite pathways
+    "butyrate": ("short_chain_fatty_acids",),
+    "propionate": ("short_chain_fatty_acids",),
+    "fermentation": ("short_chain_fatty_acids", "diversity"),
+    "bai": ("bile_acids",), "bsh": ("bile_acids",),
+    "mucinlps": ("mucus", "barrier"), "h2s": ("inflammation",),
+    "crc_virulence": ("pathogen_burden",),
+    # microbial groups
+    "beneficial": ("colonisation_resistance", "diversity", "short_chain_fatty_acids"),
+    "probiotics": ("colonisation_resistance",),
+    "opportunistic_pathogens": ("pathogen_burden", "colonisation_resistance"),
+    "oral_origin": ("colonisation_resistance",),
+    "mucin_degraders": ("mucus", "barrier"),
+    "sulfate_reducers": ("inflammation",),
+    "methanogens": ("transit",),
+    "hexa_lps": ("inflammation",),
+    "polyphenol_metabolisers": ("diversity",),
+}
+
+#: What a depleted or missing organism is always also about: there is less
+#: of something that should be there, and a community that resists
+#: newcomers is how it stays that way.
+RESTORATION_CONCERNS: Final[tuple[str, ...]] = (
+    "colonisation_resistance", "diversity", "short_chain_fatty_acids",
+)
+
+
+def concerns_for(key: str, want: str) -> list[str]:
+    """Which whole-gut subjects to ask about alongside a named finding."""
+    out = list(CONCERNS_FOR.get(key, ()))
+    if want == WANT_UP:
+        out += [c for c in RESTORATION_CONCERNS if c not in out]
+    return out
+
+
 def _opposite(want: str) -> str:
     return WANT_UP if want == WANT_DOWN else WANT_DOWN
 
@@ -479,7 +520,9 @@ def organism_problems(
             detail_dest=_dest("organism", species),
         )
         genera = sorted({genus_of(n) for n in names if n})
-        problem.options = atlas_options(species=sorted(names), genera=genera, want=want)
+        subjects = concerns_for(name, want)
+        problem.options = atlas_options(
+            species=sorted(names), genera=genera, concerns=subjects, want=want)
         problem.options += _modulator_options(getattr(item, "modulators", None), want=want)
         problem.options = _dedupe(problem.options)
         problem.worsens = _dedupe(
@@ -661,7 +704,8 @@ def panel_problems(panels: Sequence[Mapping[str, Any]], *, section: int) -> list
             section=section,
             detail_dest=_dest("panel", key),
         )
-        problem.options = _dedupe(atlas_options(panels=[key], want=want))
+        subjects = concerns_for(key, want)
+        problem.options = _dedupe(atlas_options(panels=[key], concerns=subjects, want=want))
         problem.worsens = _dedupe(atlas_options(panels=[key], want=_opposite(want)))
         problem.unclear = _dedupe(atlas_options(panels=[key], want="unclear"))
         problem.nothing_known = not problem.options
@@ -705,8 +749,9 @@ def group_problems(groups: Sequence[Mapping[str, Any]], *, section: int) -> list
         # A group is asked for three ways: as a panel key of the same name
         # (butyrate, methane), as a concern, and by the organisms in it.
         members = [str(m.get("species") or m.get("name") or m) for m in (group.get("members") or ())]
+        subjects = [name, *concerns_for(name, want)]
         problem.options = _dedupe(atlas_options(
-            panels=[name], concerns=[name], species=members[:40], want=want))
+            panels=[name], concerns=subjects, species=members[:40], want=want))
         problem.worsens = _dedupe(atlas_options(
             panels=[name], concerns=[name], species=members[:40], want=_opposite(want)))
         problem.unclear = _dedupe(atlas_options(

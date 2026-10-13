@@ -57,11 +57,11 @@ from openbiota.pdfreport import (
 
 #: How many options to print per problem. Enough to choose from, few enough
 #: that the page stays readable; the rest are counted, never silently lost.
-PER_PROBLEM: Final = 10
+PER_PROBLEM: Final = 24
 #: And how many of the wrong-direction ones.
 PER_PROBLEM_WORSE: Final = 4
 #: And how many of the studied-but-undirected ones.
-PER_PROBLEM_UNCLEAR: Final = 6
+PER_PROBLEM_UNCLEAR: Final = 8
 
 #: How much of an option's limits to print. Long enough for the whole
 #: caveat on the rows that carry a real one.
@@ -144,12 +144,40 @@ def _table(rows: list[list[Any]], widths: list[float], *, header_bg: colors.Colo
     return table
 
 
+def _spread(options: Sequence[sol.Option], limit: int) -> list[sol.Option]:
+    """The strongest options, with every kind of thing represented.
+
+    Taking the top N by evidence alone meant a finding with fifty entries
+    showed fifty trials of compounds and not one food, because a documented
+    food sorts below a trial by design. A reader choosing what to do needs
+    to see that there is a food option at all. So the list is filled a kind
+    at a time - best food, best probiotic, best fibre, best herb - and then
+    topped up in rank order.
+    """
+    if len(options) <= limit:
+        return list(options)
+    by_kind: dict[str, list[sol.Option]] = {}
+    for option in options:
+        by_kind.setdefault(option.kind, []).append(option)
+    order = sorted(by_kind, key=lambda k: by_kind[k][0].kind_rank)
+    picked: list[sol.Option] = []
+    while len(picked) < limit:
+        before = len(picked)
+        for kind in order:
+            queue = by_kind[kind]
+            if queue and len(picked) < limit:
+                picked.append(queue.pop(0))
+        if len(picked) == before:   # every queue is empty
+            break
+    return sorted(picked, key=lambda o: o.sort_key)
+
+
 def _option_rows(
     st: Mapping[str, ParagraphStyle], options: Sequence[sol.Option], *, limit: int
 ) -> list[list[Any]]:
     head = ("WHAT", "KIND", "WHERE THIS COMES FROM", "WHAT WAS SEEN")
     rows: list[list[Any]] = [[Paragraph(h, st["label"]) for h in head]]
-    for option in options[:limit]:
+    for option in _spread(options, limit):
         reach = option.reach
         tone = GREEN if option.setting in {"human_trial", "human_observational"} else INK_SOFT
         rows.append([

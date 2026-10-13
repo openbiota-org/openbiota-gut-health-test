@@ -630,3 +630,58 @@ def test_a_food_yeast_is_not_a_problem_to_be_fixed() -> None:
     assert "96 fragments per million" in only.detail
     # And why it is on the page at all.
     assert any("overgrow" in n for n in only.notes)
+
+
+def test_fermented_foods_are_in_the_record_and_can_be_reached() -> None:
+    """70 food families were imported and none could reach a finding.
+
+    They are filed under diversity, colonisation resistance and short-chain
+    fatty acids, and nothing in the report asked for those subjects, so the
+    answer to "what could I actually eat" was absent.
+    """
+    rows = sol._atlas()
+    if not rows:
+        return
+    foods = [r for r in rows if r.get("setting") == "food_identity"]
+    assert len(foods) > 40, "the fermented-food families should be imported"
+    # A depleted finding asks about restoration, which is where they live.
+    assert "colonisation_resistance" in sol.concerns_for("beneficial", sol.WANT_UP)
+    assert "short_chain_fatty_acids" in sol.concerns_for("butyrate", sol.WANT_UP)
+    reachable = sol.atlas_options(
+        concerns=["colonisation_resistance", "diversity", "short_chain_fatty_acids"],
+        want="increase")
+    assert any(o.setting == "food_identity" for o in reachable)
+
+
+def test_a_food_record_says_what_it_is_rather_than_claiming_a_trial() -> None:
+    """A documented food is not a study, and must not be dressed as one."""
+    from openbiota import delivery as _delivery
+
+    reach = _delivery.assess("food_identity", "inherently_stable")
+    assert reach.reportable
+    assert reach.setting_words == "documented fermented food"
+    assert _delivery.footnotes_for(set(reach.markers))[0].startswith("\u00a4")
+    assert "Not a trial" in _delivery.FOOTNOTES["\u00a4"]
+
+
+def test_what_is_shown_represents_every_kind_of_thing() -> None:
+    """A finding with fifty trials of compounds must still show the food.
+
+    Taking the top N by evidence alone hid every food behind the compounds,
+    because a documented food sorts below a trial by design.
+    """
+    from openbiota import pdfsolutions
+
+    def opt(kind: str, setting: str, name: str) -> sol.Option:
+        return sol._as_option(
+            {"material": name, "kind": kind, "setting": setting,
+             "delivery": "inherently_stable", "direction": "increase", "option_id": name},
+            binding="species")
+
+    many = [opt("compound", "human_trial", f"compound {i}") for i in range(30)]
+    many.append(opt("food", "food_identity", "Kefir"))
+    many.append(opt("probiotic", "human_trial", "A probiotic"))
+    shown = pdfsolutions._spread(sorted(many, key=lambda o: o.sort_key), 6)
+    labels = {o.label for o in shown}
+    assert "Kefir" in labels, labels
+    assert "A probiotic" in labels, labels
