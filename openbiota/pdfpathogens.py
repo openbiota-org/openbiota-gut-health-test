@@ -835,6 +835,15 @@ MAX_PAGE1_CHIPS: Final = 3
 
 #: The gap between the two panels on page one.
 PANEL_GAP: Final = 4.0 * mm
+
+#: The least the page-one pair may be. A verdict of "none found" carries no
+#: organism name and so measures a good deal shorter than one that does, and
+#: at that height the panel beside it had its own words pressed against its
+#: border. The pair is given a floor instead, and both boxes centre their
+#: contents inside it, so a clean report and an alarming one are the same
+#: shape and neither looks squeezed. Page one absorbs it: `pdfsummary`
+#: measures this band first and hands the lists above whatever is left.
+MIN_PAIR_HEIGHT: Final = 17.0 * mm
 #: The share of the *drawable* width - the page less that gap - that the
 #: pathogen band takes. The quarter left over carries the way in to what can
 #: be done about any of it. Shares are taken of the width after the gap, so
@@ -1085,6 +1094,19 @@ def pathogen_alert(
                                  n_problems=n_problems, n_options=n_options))
 
 
+#: The teal panel's look, used both to measure it and to draw it.
+_SOLUTIONS_STYLE: Final = [
+    ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+    ("BACKGROUND", (0, 0), (-1, -1), ACCENT_SOFT),
+    ("BOX", (0, 0), (-1, -1), 0.6, ACCENT),
+    ("ROUNDEDCORNERS", [8, 8, 8, 8]),
+    ("LEFTPADDING", (0, 0), (-1, -1), 3 * mm),
+    ("RIGHTPADDING", (0, 0), (-1, -1), 2.5 * mm),
+    ("TOPPADDING", (0, 0), (-1, -1), 2.0 * mm),
+    ("BOTTOMPADDING", (0, 0), (-1, -1), 2.2 * mm),
+]
+
+
 def _with_solutions(
     band: Any,
     st: dict[str, ParagraphStyle],
@@ -1128,28 +1150,32 @@ def _with_solutions(
             ParagraphStyle("sollink", parent=st["fine"], fontSize=7.2, leading=8.6,
                            spaceBefore=0, spaceAfter=0)),
     ]
-    # Both boxes are drawn to the same height. Two panels side by side whose
-    # borders stop at different places read as a mistake, and the taller of
-    # the two is whichever happens to carry more words today.
-    band_height = band.wrap(band_width, 10_000)[1]
+    # Both boxes are drawn to the same height, and neither is drawn smaller
+    # than its own words want. The taller of the two is whichever happens to
+    # carry more today, so the height is taken from both and from the floor.
+    natural_band = band.wrap(band_width, 10_000)[1]
+    probe = LinkedTable([[linked_cell(link, *inner)]], colWidths=[width], hAlign="LEFT")
+    probe.setStyle(TableStyle(_SOLUTIONS_STYLE))
+    natural_solutions = probe.wrap(width, 10_000)[1]
+    height = max(natural_band, natural_solutions, MIN_PAIR_HEIGHT)
+
+    # The band is already built, so it is padded up to the height rather than
+    # rebuilt; its contents are middle-aligned and stay centred.
+    if height > natural_band:
+        extra = (height - natural_band) / 2.0
+        band.setStyle(TableStyle([
+            ("TOPPADDING", (0, 0), (-1, -1), 1.8 * mm + extra),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 2.0 * mm + extra),
+        ]))
     solutions = LinkedTable([[linked_cell(link, *inner)]], colWidths=[width],
-                            rowHeights=[band_height], hAlign="LEFT")
-    solutions.setStyle(TableStyle([
-        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-        ("BACKGROUND", (0, 0), (-1, -1), ACCENT_SOFT),
-        ("BOX", (0, 0), (-1, -1), 0.6, ACCENT),
-        ("ROUNDEDCORNERS", [8, 8, 8, 8]),
-        ("LEFTPADDING", (0, 0), (-1, -1), 3 * mm),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 2.5 * mm),
-        ("TOPPADDING", (0, 0), (-1, -1), 1.8 * mm),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 2.0 * mm),
-    ]))
+                            rowHeights=[height], hAlign="LEFT")
+    solutions.setStyle(TableStyle(_SOLUTIONS_STYLE))
     # The gap is a column of its own rather than cell padding. As padding it
     # narrowed the cell without narrowing the band inside it, so the band
     # overflowed into the gap and the two boxes touched.
     pair = Table([[band, "", solutions]],
                  colWidths=[band_width, PANEL_GAP, width],
-                 rowHeights=[band_height], hAlign="LEFT")
+                 rowHeights=[height], hAlign="LEFT")
     pair.setStyle(TableStyle([
         ("VALIGN", (0, 0), (-1, -1), "TOP"),
         ("LEFTPADDING", (0, 0), (-1, -1), 0),

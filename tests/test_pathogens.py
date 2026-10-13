@@ -1654,6 +1654,54 @@ def test_page_one_offers_a_way_to_what_can_be_done() -> None:
     assert "Possible solutions" not in _flat_text(bare)
 
 
+def test_the_two_page_one_panels_are_always_one_height() -> None:
+    """A clean verdict and an alarming one are the same shape.
+
+    "None found" carries no organism name and so measures several
+    millimetres shorter than a verdict that does. Left alone, the panel
+    beside it inherited that height and had its own words pressed against
+    its border, and the pair read as a mistake on one report and not on the
+    next. Neither box is drawn smaller than its own words want, and both are
+    drawn to the same height whatever the verdict.
+    """
+    from reportlab.lib.units import mm
+
+    def paired(payload: dict) -> float:
+        story: list[Any] = []
+        pdfpathogens.pathogen_alert(
+            story, _styles(), pathogens=payload, section=7,
+            solutions_section=14, n_problems=18, n_options=40,
+        )
+        return _band_height_mm(story)
+
+    clean = {
+        "results": [_result("bacteria.x", "bacteria", "not_detected")],
+        "coverage": {"assessed": 486, "not_assessed": 0},
+    }
+    busy = {
+        "results": [
+            _finding("bacteria.b", "bacteria", "conditional_opportunist"),
+            dict(_finding("bacteria.c", "bacteria", "established_enteric"),
+                 report_tier="unresolved_complex"),
+        ],
+        "coverage": {"assessed": 333, "not_assessed": 153},
+    }
+    alarm = {
+        "results": [
+            _finding("bacteria.salmonella_enterica", "bacteria", "established_enteric",
+                     name="Salmonella enterica"),
+            _finding("bacteria.campylobacter_jejuni", "bacteria", "established_enteric",
+                     name="Campylobacter jejuni"),
+        ],
+        "coverage": {"assessed": 333, "not_assessed": 153},
+    }
+    heights = [paired(p) for p in (clean, busy, alarm)]
+    assert max(heights) - min(heights) < 0.1, f"the pair changes height by verdict: {heights}"
+    assert min(heights) >= pdfpathogens.MIN_PAIR_HEIGHT / mm - 0.1
+    # And it still has to leave page one room to be page one.
+    assert max(heights) <= _BAND_ALARM_MM
+
+
 def test_a_positive_verdict_names_what_was_found_and_still_fits() -> None:
     """The one case where a name has to be on page one, inside its budget."""
     alarm = {
