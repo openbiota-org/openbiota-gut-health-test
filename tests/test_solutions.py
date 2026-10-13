@@ -567,10 +567,16 @@ def test_every_option_says_how_to_get_it() -> None:
         assert expected in option.how_to_get, f"{kind}: {option.how_to_get!r}"
 
 
-def test_the_transfer_family_is_one_option_not_four() -> None:
-    """Conventional FMT, the same for another indication, REBYOTA and VOWST
-    are one decision to a reader, and printing four rows reads as though they
-    were alternatives to each other."""
+def test_whole_community_transfer_is_one_option_but_vowst_is_not_in_it() -> None:
+    """Conventional FMT, the same for another indication and REBYOTA are one
+    decision; VOWST is a different product and must stay its own row.
+
+    REBYOTA is a screened donor stool suspension - a whole community, the
+    same thing in kind as a transplant. VOWST is purified Firmicutes spores:
+    ethanol-treated so only spore-formers survive, which leaves out the
+    Bacteroidetes and everything non-sporulating. Merging it with
+    transplantation would tell a reader the two are interchangeable.
+    """
     def opt(label: str, oid: str) -> sol.Option:
         return sol._as_option(
             {"material": label, "kind": "procedure", "setting": "human_trial",
@@ -585,11 +591,16 @@ def test_the_transfer_family_is_one_option_not_four() -> None:
         opt("Inulin", "e"),
     ])
     labels = [o.label for o in merged]
-    assert len(labels) == 2, labels
-    transfer = next(o for o in merged if "whole-community transfer" in o.label)
-    # Every member is still named, so nothing is hidden by the merge.
-    for member in ("REBYOTA", "VOWST", "non-CDI"):
-        assert member in transfer.effect
+    assert len(labels) == 3, labels
+
+    transfer = next(o for o in merged if "faecal microbiota transplant" in o.label.lower())
+    assert "REBYOTA" in transfer.label
+    assert "VOWST" not in transfer.label, "a spore fraction is not a community transfer"
+    # The members of the merge are still named, so nothing is hidden by it.
+    assert "non-CDI" in transfer.effect
+
+    assert any(o.label.startswith("VOWST") for o in merged), "VOWST keeps its own row"
+    assert any(o.label == "Inulin" for o in merged)
 
 
 def test_a_food_yeast_is_not_a_problem_to_be_fixed() -> None:

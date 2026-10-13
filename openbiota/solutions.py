@@ -521,18 +521,30 @@ def _modulator_options(modulators: Any, *, want: str) -> list[Option]:
 
 
 #: Things that are one treatment to a reader even though the registry holds
-#: them as separate identities. Conventional donor transplantation, the same
-#: procedure for a non-approved indication, and the two licensed stool-derived
-#: products are one decision - "have a screened donor community put in" - and
-#: printing them as three or four separate options reads as though they were
-#: alternatives to each other.
+#: them as separate identities.
+#:
+#: Whole-community transfer is one decision - "have a screened donor
+#: community put in" - whether it is conventional faecal transplantation,
+#: the same procedure for a non-approved indication, or REBYOTA, which the
+#: registry itself describes as a "screened donor stool suspension". Printing
+#: those as three options reads as though they were alternatives to each
+#: other.
+#:
+#: VOWST is deliberately NOT in this family. The registry describes it as
+#: "purified Firmicutes spores from screened donor stool": the preparation is
+#: ethanol-treated so that only spore-formers survive, which leaves out the
+#: Bacteroidetes and every non-sporulating organism. It is a spore fraction,
+#: not a community, and merging it with transplantation would tell a reader
+#: the two are interchangeable when they are different products with
+#: different contents and different routes.
 _FAMILIES: Final[tuple[tuple[str, str, str], ...]] = (
     (
         "whole_community_transfer",
-        r"fecal microbiota|faecal microbiota|\bfmt\b|rebyota|vowst|donor stool|"
-        r"microbiota transplant",
-        "Screened-donor whole-community transfer: conventional faecal microbiota "
-        "transplantation, or the licensed stool-derived products (REBYOTA, VOWST)",
+        r"(?!.*vowst)(?:fecal microbiota transplant|faecal microbiota transplant|\bfmt\b|"
+        r"rebyota|donor stool suspension|conventional fecal microbiota|"
+        r"conventional faecal microbiota)",
+        "Donor-screened faecal microbiota transplant (FMT), or REBYOTA "
+        "(fecal microbiota, live-jslm) rectal suspension",
     ),
 )
 
@@ -540,7 +552,7 @@ _FAMILIES: Final[tuple[tuple[str, str, str], ...]] = (
 def _family_of(label: str) -> tuple[str, str] | None:
     low = label.lower()
     for key, pattern, display in _FAMILIES:
-        if re.search(pattern, low):
+        if re.search(pattern, low, flags=re.DOTALL):
             return key, display
     return None
 
