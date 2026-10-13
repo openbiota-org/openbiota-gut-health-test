@@ -1497,3 +1497,110 @@ assertions:
     proposition: evidence_signal_associated_with_state
     target_binding: {trigger_type: clinician_confirmed_condition, required_condition: seborrheic dermatitis, microbiome_profile_alone_sufficient: false}
     summary: "The gut evidence for seborrheic dermatitis is bacterial culture counts with an unexplained denominator, genetically instrumented associations rather than measured cases, and a clinical series without sequencing. Culture counts of living organisms do not convert into DNA relative abundance, and a reported 60% dysbiosis figure is not a screening prevalence or a cutoff. No score is computed, and that is not a negative test."
+
+  # --------------------------------------------------------------------------
+  # What FMT actually does to the community: strain-resolved engraftment.
+  #
+  # These are `evidence_intervention_changes_signal` on purpose. Donor strains
+  # demonstrably arrive and stay - that is a measured microbiome outcome, and
+  # it is the answer to "can a missing commensal be put back". It is NOT a
+  # clinical outcome: the largest strain-dynamics study found colonization
+  # mostly independent of how patients actually fared, which is why the
+  # clinical propositions for FMT stay in their own cards and keep their own
+  # guideline and safety evidence.
+  # --------------------------------------------------------------------------
+  - evidence_assertion_id: IE_FMT_STRAIN_ENGRAFTMENT_AGGARWALA_V1
+    protocol_ref: PROTOCOL_FMT_RCDI_AGA_V1
+    source:
+      source_type: nonrandomized_study
+      pmid: 34580445
+      citation: "Aggarwala V et al. Nat Microbiol 2021;6:1309 (Author Correction Nat Microbiol 2022;7:736)"
+      publication_status: peer_reviewed
+    study:
+      design: longitudinal strain tracking against >1,000 cultured isolate genomes
+      participants_randomized: null
+      analysis_population: "22 donors and recipients; 13 longitudinal FMT interventions"
+      risk_of_bias: moderate
+    pico:
+      comparator: the recipient's own pre-FMT community
+      outcome:
+        name: stable engraftment of donor bacterial strains in the recipient gut
+        class: microbiome_surrogate
+        timepoint_days: 1825
+      effect:
+        direction: benefit
+        estimate: "71% of donor strains still present at 5 years; 80% of pre-FMT recipient strains displaced"
+    lane: D
+    proposition: evidence_intervention_changes_signal
+    target_binding:
+      trigger_type: exact_microbiome_feature
+      required_condition: recurrent C. difficile infection
+      microbiome_profile_alone_sufficient: false
+    summary: "Donor strains do not merely pass through: 71% were still present five years after FMT,
+      and 80% of the recipient's own strains were displaced. This is the direct evidence that
+      transplanted organisms can establish and persist - a measured microbiome outcome in people
+      treated for recurrent C. difficile, not a demonstration that restoring any particular organism
+      changes how anyone feels."
+  - evidence_assertion_id: IE_FMT_ENGRAFTMENT_DETERMINANTS_PODLESNY_V1
+    protocol_ref: PROTOCOL_FMT_RCDI_AGA_V1
+    source:
+      source_type: systematic_review
+      pmid: 35903545
+      citation: "Podlesny D et al. Cell Rep Med 2022;3:100711"
+      publication_status: peer_reviewed
+    study:
+      design: metagenomic reanalysis of 14 FMT trials across five indications
+      participants_randomized: null
+      analysis_population: ">250 individuals"
+      risk_of_bias: moderate
+    pico:
+      comparator: across recipients differing in baseline state and procedure
+      outcome:
+        name: which donor strains engraft, and what predicts it
+        class: microbiome_surrogate
+        timepoint_days: null
+      effect:
+        direction: mixed
+        estimate: "engraftment rises with pre-FMT dysbiosis, antibiotic pretreatment and bowel lavage"
+    lane: D
+    proposition: evidence_intervention_changes_signal
+    target_binding:
+      trigger_type: exact_microbiome_feature
+      required_condition: null
+      microbiome_profile_alone_sufficient: false
+    summary: "Engraftment is real but not selective and not uniform. Strains of abundant species
+      engraft more readily; oral, oxygen-tolerant and gram-positive species less so. How disturbed
+      the recipient was beforehand, antibiotic pretreatment and bowel lavage matter more than the
+      choice of donor. No procedure targets one named organism."
+  - evidence_assertion_id: IE_FMT_COLONIZATION_NOT_OUTCOME_SCHMIDT_X_V1
+    protocol_ref: PROTOCOL_FMT_RCDI_AGA_V1
+    source:
+      source_type: systematic_review
+      pmid: 36109371
+      citation: "Schmidt TSB et al. Nat Med 2022;28:1902"
+      publication_status: peer_reviewed
+    study:
+      design: strain-resolved meta-analysis of 316 FMTs across ten indications
+      participants_randomized: null
+      analysis_population: "316 FMTs; 1,089 species"
+      risk_of_bias: moderate
+    pico:
+      comparator: recipients whose donor strains colonized versus those whose did not
+      outcome:
+        name: clinical outcome as a function of donor strain colonization
+        class: patient_clinical
+        timepoint_days: null
+      effect:
+        direction: "null"
+        estimate: "colonization and recipient strain resilience mostly independent of clinical outcome"
+    lane: X
+    against_kind: null_primary
+    proposition: evidence_intervention_changes_clinical_outcome
+    target_binding:
+      trigger_type: exact_microbiome_feature
+      required_condition: null
+      microbiome_profile_alone_sufficient: false
+    summary: "The counterweight, and it is the important one: across 316 transplants, whether donor
+      strains colonized was mostly unrelated to whether the patient got better. Putting an organism
+      back is a measurable thing to do; it is not, on this evidence, the thing that makes someone
+      well."

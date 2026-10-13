@@ -337,6 +337,8 @@ class Problem:
     worsens: list[Option] = field(default_factory=list)
     #: Set when nothing is on record, so the page can say so in words.
     nothing_known: bool = False
+    #: Why there is nothing, when the registry has an explanation for it.
+    notes: list[str] = field(default_factory=list)
 
     @property
     def markers(self) -> set[str]:
@@ -620,6 +622,37 @@ _CLASS_KIND: Final[dict[str, str]] = {
 }
 
 
+#: Registry cards that are not things to do. `no_supported_targeted_intervention`
+#: says there is nothing targeted; `inform_only` explains a reading without
+#: proposing anything. Both carry a context note worth reading, and neither is
+#: an option: counting them as one put the sentence "no supported targeted
+#: intervention" in the column of things that might help, and inflated the
+#: count of studied options on page one.
+NOT_AN_OPTION: Final[frozenset[str]] = frozenset({
+    "no_supported_targeted_intervention", "inform_only", "not_actionable",
+})
+
+
+def registry_notes(results: Mapping[str, Any] | None) -> dict[str, list[str]]:
+    """What the registry says about findings it has no action for, by trigger.
+
+    The reasoning on those cards is the best explanation the report has of
+    *why* there is nothing, so it is kept and shown beside "nothing on
+    record" rather than discarded with the card.
+    """
+    out: dict[str, list[str]] = {}
+    findings = (results or {}).get("findings_and_evidence") or {}
+    for summary in (findings.get("evidence_summaries") or ()):
+        if str(summary.get("render")) not in NOT_AN_OPTION:
+            continue
+        note = str(summary.get("context_note") or "").strip()
+        if not note:
+            continue
+        for trigger_id in (summary.get("trigger_ids") or ()):
+            out.setdefault(str(trigger_id), []).append(note)
+    return out
+
+
 def registry_options(results: Mapping[str, Any] | None) -> dict[str, list[Option]]:
     """The curated exact-protocol cards, keyed by the trigger that fired them.
 
@@ -628,15 +661,27 @@ def registry_options(results: Mapping[str, Any] | None) -> dict[str, list[Option
     the safety rules that apply. They are the strongest material the report
     has, and they reach the actions section through the same shape as
     everything else rather than through a block of their own.
+
+    Only cards that actually propose something come through here; see
+    :data:`NOT_AN_OPTION`.
     """
     out: dict[str, list[Option]] = {}
     findings = (results or {}).get("findings_and_evidence") or {}
     for summary in (findings.get("evidence_summaries") or ()):
-        label = str(summary.get("intervention_display") or summary.get("title") or "").strip()
+        if str(summary.get("render")) in NOT_AN_OPTION:
+            continue
+        label = str(summary.get("intervention_display") or "").strip()
         if not label:
+            # A card with no intervention is not an option, whatever its
+            # title reads like.
             continue
         kind = _CLASS_KIND.get(str(summary.get("intervention_class") or ""), "compound")
         protocol = str(summary.get("studied_protocol_text") or "")
+        # In participant mode the protocol is redacted to a placeholder; it
+        # carries no information and only crowds out the population, which
+        # does.
+        if "not shown in participant mode" in protocol:
+            protocol = ""
         population = str(summary.get("population_text") or "")
         option = Option(
             label=label if len(label) <= 150 else label[:149] + "\u2026",
@@ -644,8 +689,11 @@ def registry_options(results: Mapping[str, Any] | None) -> dict[str, list[Option
             direction="registry",
             setting=_LANE_SETTING.get(str(summary.get("supporting_evidence_lane") or ""), "human_trial"),
             delivery="oral_tested",
-            effect=" ".join(x for x in (protocol, f"Studied in {population}." if population else "") if x)[:400],
-            boundary=str(summary.get("context_note") or "")[:400],
+            effect=" ".join(x for x in (protocol, f"Studied in {population}." if population else "") if x)[:480],
+            # The context note is where a card's limits live - who it was
+            # studied in, what it is not, what it has been shown to harm.
+            # It is not trimmed to fit a column.
+            boundary=str(summary.get("context_note") or "")[:600],
             source=str((summary.get("sources") or [{}])[0].get("url") or "")
             if isinstance(summary.get("sources"), list) and summary.get("sources") else "",
             option_id=str(summary.get("summary_id") or summary.get("action_mapping_id") or ""),
@@ -697,28 +745,40 @@ def attach_registry(problems: Sequence[Problem], results: Mapping[str, Any] | No
 
     A registry card fired by "butyrate gene capacity: low" belongs on the
     butyrate problem, at the top, because an exact studied protocol is the
-    strongest thing the report can offer.
+    strongest thing the report can offer. Cards that propose nothing bring
+    their reasoning instead, which is what a problem with no options has to
+    say for itself.
     """
     findings = (results or {}).get("findings_and_evidence") or {}
     by_trigger = registry_options(results)
+    notes_by_trigger = registry_notes(results)
+    _KIND = {
+        "functional_capacity_finding": "panel",
+        "ecological_finding": "panel",
+        "exact_microbiome_feature": "organism",
+    }
     by_target: dict[tuple[str, str], list[Option]] = {}
+    notes_by_target: dict[tuple[str, str], list[str]] = {}
     for trigger in (findings.get("triggers") or ()):
-        options = by_trigger.get(str(trigger.get("trigger_id")))
-        if not options:
+        kind = _KIND.get(str(trigger.get("trigger_type")))
+        if not kind:
             continue
-        kind = {
-            "functional_capacity_finding": "panel",
-            "ecological_finding": "panel",
-            "exact_microbiome_feature": "organism",
-        }.get(str(trigger.get("trigger_type")))
-        if kind:
-            by_target.setdefault((kind, norm(trigger.get("target"))), []).extend(options)
+        key = (kind, norm(trigger.get("target")))
+        options = by_trigger.get(str(trigger.get("trigger_id")))
+        if options:
+            by_target.setdefault(key, []).extend(options)
+        for note in notes_by_trigger.get(str(trigger.get("trigger_id")), ()):
+            notes_by_target.setdefault(key, []).append(note)
     for problem in problems:
         _, _, target = problem.key.partition(":")
-        extra = by_target.get((problem.kind, norm(target)))
+        key = (problem.kind, norm(target))
+        extra = by_target.get(key)
         if extra:
             problem.options = _dedupe([*extra, *problem.options])
-            problem.nothing_known = not problem.options
+        for note in notes_by_target.get(key, ()):
+            if note not in problem.notes:
+                problem.notes.append(note)
+        problem.nothing_known = not problem.options
 
 
 def ordered(problems: Iterable[Problem]) -> list[Problem]:

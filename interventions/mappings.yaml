@@ -1216,19 +1216,64 @@ action_mappings:
     never_say: ["candida overgrowth", "anti-candida diet"]
   - action_mapping_id: MAP_TAXON_ABSENT_EXPECTED_GENERIC_V1
     trigger_selector: {trigger_type: exact_microbiome_feature, target: "*", direction: low}
-    render: no_supported_targeted_intervention
+    render: inform_only
     intervention_protocol_ref: null
     evidence_assertion_refs: [IE_DMP_NO_UNIVERSAL_CORE_V1]
     against_evidence_assertion_refs: [IE_SUEZ_POST_ANTIBIOTIC_X_V1]
     safety_rule_refs: [MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1]
     confirmation_rule_refs: []
-    title: Expected organism not detected or low — no supported way to 'add it back'
+    title: Expected organism not detected or low — what that reading is, and is not
+    # This card used to be headed "no supported way to 'add it back'", which was
+    # false. Donor strains transplanted into a person demonstrably arrive and
+    # stay - 71% of them five years later - so a way to put organisms back
+    # plainly exists. What does not exist is a way to put back one *chosen*
+    # organism, or an off-the-shelf product that supplies most commensals. The
+    # route and its real limits are a card of their own below; this one now
+    # does the job it can actually do, which is to say what the reading means.
     context_note: >
       A species that most reference adults carry is missing or low here. Large cohorts show there
       is no universal healthy core, so this is a position relative to a reference, not a
-      deficiency. No approved product supplies most gut commensals, and after antibiotics a
-      probiotic delayed native recovery.
+      deficiency. No off-the-shelf product supplies most gut commensals, and after antibiotics a
+      multistrain probiotic delayed native recovery rather than speeding it. Whole-community
+      transfer is the one route with direct evidence that organisms can be re-established; see
+      the card for it.
     never_say: ["deficiency", "replace with a probiotic"]
+  - action_mapping_id: MAP_TAXON_ABSENT_FMT_ENGRAFTMENT_V1
+    trigger_selector: {trigger_type: exact_microbiome_feature, target: "*", direction: low}
+    render: clinician_review
+    intervention_protocol_ref: PROTOCOL_FMT_RCDI_AGA_V1
+    evidence_assertion_refs:
+      - IE_FMT_STRAIN_ENGRAFTMENT_AGGARWALA_V1
+      - IE_FMT_ENGRAFTMENT_DETERMINANTS_PODLESNY_V1
+    against_evidence_assertion_refs:
+      - IE_FMT_COLONIZATION_NOT_OUTCOME_SCHMIDT_X_V1
+      - IE_FDA_FMT_SAFETY_ALERTS_X_V1
+      - IE_AGA_FMT_2024_IBD_IBS_AGAINST_X_V1
+    safety_rule_refs:
+      - FMT_CLINICIAN_ONLY_V1
+      - FMT_SEVERE_IMMUNOCOMPROMISE_V1
+      - MINOR_LIVE_MICROBE_AND_SUPPLEMENT_V1
+    # The one approved indication. Naming it here is what keeps the card from
+    # reading as though a low commensal were itself a reason to have the
+    # procedure: the route is real, and this is the condition under which it
+    # is an approved one.
+    confirmation_rule_refs: [recurrent_c_difficile_infection]
+    title: Re-establishing organisms — whole-community transfer is the route with direct evidence
+    context_note: >
+      Donor strains do establish and persist — 71% still present five years on, with most of the
+      recipient's own strains displaced. It is not selective: which strains take hold depends on
+      how disturbed the gut was, on antibiotic pretreatment and lavage and on donor fit, not on
+      choosing a target. Colonisation was mostly unrelated to whether patients improved, and
+      transmission of multidrug-resistant organisms, including a death, is documented. Approved
+      for recurrent C. difficile infection only; otherwise investigational, and a clinician's call.
+    never_say:
+      - DIY FMT
+      - home fecal transplant
+      - FMT will restore your microbiome
+      - FMT cures
+    follow_up_route: >
+      Gastroenterology, which is where the indication, donor screening and route are decided.
+    fmt_status: investigational_non_cdi
   - action_mapping_id: MAP_TAXON_UNEXPECTED_PRESENT_GENERIC_V1
     trigger_selector: {trigger_type: exact_microbiome_feature, target: "*", direction: high}
     render: no_supported_targeted_intervention

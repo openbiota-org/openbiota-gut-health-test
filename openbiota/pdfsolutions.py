@@ -61,6 +61,13 @@ PER_PROBLEM: Final = 10
 #: And how many of the wrong-direction ones.
 PER_PROBLEM_WORSE: Final = 4
 
+#: How much of an option's limits to print. Long enough for the whole
+#: caveat on the rows that carry a real one.
+#: And how much of what was actually seen.
+EFFECT_CHARS: Final = 340
+
+BOUNDARY_CHARS: Final = 560
+
 #: Used inside f-strings, where a backslash escape is not allowed.
 EM_DASH: Final = "\u2014"
 
@@ -146,9 +153,14 @@ def _option_rows(
                    if reach.marker_text else ""),
                 st["cell"]),
             Paragraph(
-                (f"<font size='6.2'>{option.effect[:220]}</font>" if option.effect else "")
+                (f"<font size='6.2'>{option.effect[:EFFECT_CHARS]}</font>" if option.effect else "")
                 + ("<br/>" if option.effect and option.boundary else "")
-                + (f"<font size='5.8' color='{_hex(INK_FAINT)}'>{option.boundary[:170]}</font>"
+                # The boundary is where the limits live - what a material is
+                # not, who it was studied in, what it has been shown to
+                # harm. Clipping it at a tweet's length cut the sentence a
+                # reader most needs off the end of the row, so it gets the
+                # room it takes.
+                + (f"<font size='5.8' color='{_hex(INK_FAINT)}'>{option.boundary[:BOUNDARY_CHARS]}</font>"
                    if option.boundary else "")
                 + ("" if (option.effect or option.boundary)
                    else f"<font size='6.2' color='{_hex(INK_FAINT)}'>{EM_DASH}</font>"),
@@ -195,6 +207,9 @@ def _problem_block(
             f"{want_words}. That is the state of the research, not a judgement that this does not "
             "matter, and not a reason to do nothing: the sections above explain the finding and a "
             "clinician can act on it.</font>", st["small"]))
+        for note in problem.notes:
+            head.append(Paragraph(
+                f"<font size='6.2' color='{_hex(INK_FAINT)}'>{note}</font>", st["small"]))
         story.append(KeepTogether(head))
         story.append(Spacer(1, 2.5 * mm))
         return

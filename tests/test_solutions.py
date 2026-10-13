@@ -311,3 +311,73 @@ def test_a_problem_points_at_the_reading_rather_than_the_section() -> None:
         section=18)
     assert pathogens[0].detail_dest == pdflinks.pathogen_dest(
         "bacteria.clostridioides_difficile", detail=True)
+
+
+# --------------------------------------------------------------------------- #
+# what the report may say about putting organisms back
+# --------------------------------------------------------------------------- #
+
+
+def test_the_report_never_claims_nothing_can_restore_an_organism() -> None:
+    """Donor strains demonstrably establish and persist, so saying otherwise is wrong.
+
+    The card for a missing commensal used to be headed "no supported way to
+    'add it back'". Strain-resolved tracking puts 71% of donor strains still
+    present five years after transplant, so a route plainly exists; what does
+    not exist is a way to put back one chosen organism. The report must not
+    tell someone there is no option.
+    """
+    import pathlib
+
+    from openbiota.interventions import load_registry
+
+    reg = load_registry(pathlib.Path("interventions"))
+    maps = {m.action_mapping_id: m for m in reg.mappings}
+    for mapping in maps.values():
+        prose = f"{mapping.title} {mapping.context_note}".lower()
+        assert "no supported way to 'add it back'" not in prose
+        assert "no supported way to add it back" not in prose
+
+    card = maps["MAP_TAXON_ABSENT_FMT_ENGRAFTMENT_V1"]
+    note = card.context_note.lower()
+    # It says the route exists...
+    assert "persist" in note or "establish" in note
+    # ...and carries every limit that has to travel with it.
+    assert "not selective" in note or "selective" in note
+    assert "c. difficile" in note
+    assert "investigational" in note
+    assert "multidrug-resistant" in note or "harm" in note
+    assert card.fmt_status, "an FMT card must declare its regulatory status"
+    assert card.confirmation_rule_refs, "an FMT route needs a clinician-confirmed condition"
+    assert any("DIY" in s or "home fecal" in s for s in card.never_say)
+
+
+def test_a_card_that_proposes_nothing_is_not_counted_as_an_option() -> None:
+    """"No supported targeted intervention" is not a thing you can do.
+
+    Rendering those cards as options put that sentence in the column of
+    things that might help and inflated the count of studied options on
+    page one.
+    """
+    results = {
+        "findings_and_evidence": {
+            "triggers": [
+                {"trigger_id": "T1", "trigger_type": "functional_capacity_finding",
+                 "target": "butyrate"},
+            ],
+            "evidence_summaries": [
+                {"summary_id": "S1", "render": "no_supported_targeted_intervention",
+                 "title": "Something — no supported targeted intervention",
+                 "intervention_display": None, "trigger_ids": ["T1"],
+                 "context_note": "Why there is nothing."},
+                {"summary_id": "S2", "render": "evidence_only", "title": "A real card",
+                 "intervention_display": "An exact studied product", "trigger_ids": ["T1"],
+                 "supporting_evidence_lane": "C", "intervention_class": "probiotic"},
+            ],
+        }
+    }
+    options = sol.registry_options(results)
+    labels = [o.label for v in options.values() for o in v]
+    assert labels == ["An exact studied product"]
+    # The reasoning is kept, and lands on the problem instead.
+    assert sol.registry_notes(results)["T1"] == ["Why there is nothing."]
