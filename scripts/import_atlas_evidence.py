@@ -39,6 +39,8 @@ import zipfile
 from pathlib import Path
 from typing import Any
 
+import yaml
+
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
@@ -403,47 +405,117 @@ _NOT_A_TAXON = {
 }
 
 #: Report panels, by the words a source would use for them.
-PANEL_WORDS: dict[str, str] = {
-    "butyrate": r"\bbutyrate|butyric\b",
-    "propionate": r"\bpropionate|propionic\b",
-    "bsh": r"\bbile salt hydrolase|\bbsh\b",
-    "bai": r"\bsecondary bile acid|7-?alpha-?dehydroxyl|\bbai\b|deoxycholic|lithocholic",
-    "h2s": r"\bhydrogen sulf|sulphide|\bh2s\b|sulfate-?reduc",
-    "methane": r"\bmethane|methanogen|archaea\b",
-    "bglucuronidase": r"\bbeta-?glucuronidase|\bgus\b",
-    "tmao": r"\btmao\b|trimethylamine",
-    "cutc": r"\bcholine|\bcutc\b",
-    "pcresol": r"\bp-?cresol|cresyl",
-    "indole": r"\bindole\b",
-    "ipa": r"indole-?3-?propion",
-    "tryptamine": r"\btryptamine|tryptophan\b",
-    "histamine": r"\bhistamine",
-    "gaba": r"\bgaba\b|gamma-?aminobutyr",
-    "dopamine": r"\bdopamine|levodopa",
-    "b12": r"\bb12\b|cobalamin",
-    "folate": r"\bfolate|folic acid",
-    "riboflavin": r"\briboflavin|vitamin b2",
-    "biotin": r"\bbiotin|vitamin b7",
-    "k2": r"\bvitamin k2|menaquinone",
-    "oxalate": r"\boxalate",
-    "urease": r"\burease|ammonia",
-    "equol": r"\bequol|isoflavone|daidzein",
-    "urda": r"\burolithin|ellagitannin|ellagic",
-    "mucinlps": r"\bmucin|mucus layer|lipopolysacchar|\blps\b",
-    "crc_virulence": r"\bcolibactin|\bpks\b|fragilysin|\bbft\b",
-    "carbohydrates": r"\bcarbohydrate-?active|\bcazy|glycoside hydrolase",
-    "fermentation": r"\bfermentation capacity|short-?chain fatty acid|\bscfa\b",
+#:
+#: Derived from the panel definitions themselves rather than written out by
+#: hand. A hand-kept list covered 29 of the 46 panels, so seventeen readings
+#: - agmatine, B6, glutathione, spermidine, thiamine and the rest - could
+#: never be matched to a single piece of evidence no matter what the research
+#: said. Each panel contributes its own name, its metabolite, its pathway and
+#: the gene symbols of its targets, which is what a paper actually calls these
+#: things.
+PANELS_DIR = REPO / "panels"
+
+#: Words too generic to match on: they would attach half the atlas to a panel.
+_PANEL_STOPWORDS = {
+    "formation", "production", "capacity", "synthesis", "degradation", "metabolism",
+    "pathway", "routes", "route", "activity", "gut", "microbial", "bacterial", "total",
+    "and", "the", "of", "acid", "acids", "vitamin", "amino", "other", "related",
 }
+
+
+def _panel_terms() -> dict[str, str]:
+    """A regex per panel, built from how the panel itself is defined."""
+    out: dict[str, str] = {}
+    for path in sorted(PANELS_DIR.glob("*.yaml")):
+        if path.name.startswith("_"):
+            continue
+        try:
+            spec = yaml.safe_load(path.read_text()) or {}
+        except (OSError, yaml.YAMLError):
+            continue
+        panel = path.stem
+        words: set[str] = set()
+        for value in (spec.get("name"), spec.get("metabolite"), spec.get("pathway")):
+            for part in re.split(r"[^A-Za-z0-9'-]+", str(value or "")):
+                part = part.strip("'-")
+                if len(part) > 3 and part.lower() not in _PANEL_STOPWORDS:
+                    words.add(part.lower())
+        for target in (spec.get("targets") or ()):
+            gene = str((target or {}).get("gene") or "").strip()
+            if len(gene) >= 3:
+                words.add(gene.lower())
+        if panel not in _PANEL_STOPWORDS and len(panel) > 2:
+            words.add(panel.lower())
+        if words:
+            out[panel] = r"\b(?:" + "|".join(re.escape(w) for w in sorted(words)) + ")"
+    return out
+
+
+#: The hand-written patterns stay as overrides where a panel needs a synonym
+#: its own definition does not contain - "p-cresol" for pcresol, "TMAO" for
+#: cutc - and are merged over the derived ones.
+PANEL_OVERRIDES: dict[str, str] = {
+    "butyrate": r"\b(?:butyrate|butyric|butyrogen)",
+    "propionate": r"\b(?:propionate|propionic)",
+    "bsh": r"\b(?:bile salt hydrolase|\bbsh\b|deconjugat)",
+    "bai": r"\b(?:secondary bile acid|7-?alpha-?dehydroxyl|\bbai\b|deoxychol|lithochol)",
+    "h2s": r"\b(?:hydrogen sulf|sulphide|sulfide|\bh2s\b|sulfate-?reduc|sulphate-?reduc)",
+    "methane": r"\b(?:methane|methanogen|archaea)",
+    "bglucuronidase": r"\b(?:beta-?glucuronidase|\bgus\b|glucuronide)",
+    "cutc": r"\b(?:choline|\bcutc\b|\btmao\b|trimethylamine)",
+    "pcresol": r"\b(?:p-?cresol|cresyl|cresol)",
+    "indole": r"\b(?:indole)",
+    "ipa": r"\b(?:indole-?3-?propion|\bipa\b)",
+    "tryptamine": r"\b(?:tryptamine|tryptophan)",
+    "histamine": r"\b(?:histamine|histidine decarboxyl)",
+    "gaba": r"\b(?:\bgaba\b|gamma-?aminobutyr|glutamate decarboxyl)",
+    "dopamine": r"\b(?:dopamine|levodopa|tyrosine decarboxyl)",
+    "b12": r"\b(?:\bb12\b|cobalamin|cbi\b)",
+    "folate": r"\b(?:folate|folic acid)",
+    "riboflavin": r"\b(?:riboflavin|vitamin b2)",
+    "biotin": r"\b(?:biotin|vitamin b7)",
+    "k2": r"\b(?:vitamin k2|menaquinone)",
+    "oxalate": r"\b(?:oxalate|oxalobacter)",
+    "urease": r"\b(?:urease|ammonia)",
+    "equol": r"\b(?:equol|isoflavone|daidzein|genistein)",
+    "urda": r"\b(?:urolithin|ellagitannin|ellagic)",
+    "mucinlps": r"\b(?:mucin|mucus layer|lipopolysacchar|\blps\b|lipid a\b)",
+    "crc_virulence": r"\b(?:colibactin|\bpks\b|fragilysin|\bbft\b|virulence)",
+    "carbohydrates": r"\b(?:carbohydrate-?active|\bcazy|glycoside hydrolase|polysacchar)",
+    "fermentation": r"\b(?:fermentation|short-?chain fatty acid|\bscfa\b)",
+    "bcaa": r"\b(?:branched-?chain|\bbcaa\b|valine|leucine|isoleucine)",
+    "glutathione": r"\b(?:glutathione)",
+    "spermidine": r"\b(?:spermidine|polyamine)",
+    "putrescine": r"\b(?:putrescine|polyamine)",
+    "ethanol": r"\b(?:ethanol|alcohol)",
+}
+
+PANEL_WORDS: dict[str, str] = {**_panel_terms(), **PANEL_OVERRIDES}
 
 #: Report-level concerns that are not organisms or panels.
 CONCERN_WORDS: dict[str, str] = {
-    "biofilm": r"\bbiofilm",
-    "barrier": r"\bbarrier|tight junction|permeab|leaky gut|mucosal (?:support|heal)",
-    "inflammation": r"\binflammat|calprotectin|\btnf\b|il-?6|cytokine",
-    "pathogen_burden": r"\bpathogen|decolon|eradicat|infection",
-    "diversity": r"\bdiversity|richness|evenness",
-    "transit": r"\bconstipat|diarrh|stool (?:form|consistency|frequency)|transit",
-    "antibiotic_resistance": r"\bresistance gene|\bamr\b|resistome",
+    # Whole-gut subjects a report raises that are not one organism and not
+    # one pathway. Seven of these left 120 atlas rows bound to nothing at
+    # all - real materials with real papers that no finding could ever reach.
+    "biofilm": r"\bbiofilm|\beps\b|extracellular polymeric",
+    "barrier": r"\bbarrier|tight junction|permeab|leaky gut|mucosal (?:support|heal)|"
+               r"epithelial integrity|zonulin|occludin",
+    "mucus": r"\bmucus|mucin|goblet cell",
+    "inflammation": r"\binflammat|calprotectin|\btnf\b|il-?6|il-?10|cytokine|crp\b|"
+                    r"nf-?kappa|colitis",
+    "pathogen_burden": r"\bpathogen|decolon|eradicat|infection|virulence|toxin",
+    "diversity": r"\bdiversity|richness|evenness|shannon|dysbio",
+    "transit": r"\bconstipat|diarrh|stool (?:form|consistency|frequency)|transit|motility|bloat",
+    "antibiotic_resistance": r"\bresistance gene|\bamr\b|resistome|multidrug-?resistant|\besbl\b",
+    "immune": r"\bimmune|iga\b|treg|t-?cell|vaccine response|allerg",
+    "metabolic": r"\binsulin|glycaem|glycem|glucose tolerance|hba1c|adiposity|body weight|"
+                 r"lipid|cholesterol|triglycerid",
+    "gut_brain": r"\bcognit|mood|depress|anxiet|fatigue|brain|sleep",
+    "colonisation_resistance": r"\bcolonization resistance|colonisation resistance|"
+                               r"competitive exclusion|niche exclusion|engraft",
+    "bile_acids": r"\bbile acid|bile salt|deconjugat|cholic|chenodeoxychol",
+    "short_chain_fatty_acids": r"\bshort-?chain fatty acid|\bscfa\b|butyrate|propionate|acetate",
+    "fungal": r"\bcandida|fungal|mycobiome|yeast|aspergillus|saccharomyces",
 }
 
 

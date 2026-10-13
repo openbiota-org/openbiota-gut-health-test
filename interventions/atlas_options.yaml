@@ -43,7 +43,8 @@ atlas_options:
     Staphylococcus aureus: decrease
     Agr quorum-sensing: decrease
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - biofilm
   url: https://journals.asm.org/doi/10.1128/msystems.00712-24
@@ -84,7 +85,11 @@ atlas_options:
   - Salmonella under
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - p9
+  - peptides
   concerns:
   - inflammation
   url: https://www.nature.com/articles/nature20557
@@ -123,7 +128,10 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - urolithin
   concerns: []
   url: https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2015.01030/full
   pmid: '26441950'
@@ -142,7 +150,8 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - barrier
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC3798544/
@@ -161,7 +170,9 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/16863564/
   pmid: '16863564'
@@ -180,7 +191,8 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - transit
   url: https://pubmed.ncbi.nlm.nih.gov/22912552/
   pmid: '22912552'
   doi: 10.3748/wjg.v18.i30.4012
@@ -218,7 +230,8 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - transit
   url: https://pubmed.ncbi.nlm.nih.gov/20145608/
@@ -259,7 +272,8 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - metabolic
   url: https://pubmed.ncbi.nlm.nih.gov/22990854/
   pmid: '22990854'
   doi: 10.1038/ejcn.2012.126
@@ -311,7 +325,10 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - urate
   concerns:
   - transit
   url: https://pubmed.ncbi.nlm.nih.gov/15702859/
@@ -330,7 +347,8 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - bile_acids
   url: https://pubmed.ncbi.nlm.nih.gov/25612224/
   pmid: '25612224'
 - option_id: ATLAS-BP01
@@ -349,9 +367,11 @@ atlas_options:
   - Randomized crossover
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - thiamine
   concerns:
   - barrier
+  - gut_brain
   url: https://pubmed.ncbi.nlm.nih.gov/16777920/
   pmid: '16777920'
   doi: 10.1136/gut.2006.099929
@@ -371,7 +391,10 @@ atlas_options:
   - Combination effects
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - p9
   concerns:
   - barrier
   url: https://pubmed.ncbi.nlm.nih.gov/27357095/
@@ -392,8 +415,10 @@ atlas_options:
   - Preserve route
   taxon_direction: {}
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - thiamine
+  concerns:
+  - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/24286534/
   pmid: '24286534'
 - option_id: ATLAS-BP04
@@ -414,9 +439,11 @@ atlas_options:
   taxon_direction:
     Oral glutamine: increase
   genera: []
-  panels: []
+  panels:
+  - thiamine
   concerns:
   - barrier
+  - diversity
   url: https://pubmed.ncbi.nlm.nih.gov/30108163/
   pmid: '30108163'
 - option_id: ATLAS-BP05
@@ -436,7 +463,8 @@ atlas_options:
   - Negative condition-specific
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - urate
   concerns:
   - barrier
   url: https://pubmed.ncbi.nlm.nih.gov/9888411/
@@ -457,7 +485,10 @@ atlas_options:
   - Useful counterexample
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - crc_virulence
+  - nitrogen
+  - p9
   concerns:
   - pathogen_burden
   url: https://journals.asm.org/doi/10.1128/spectrum.00975-23
@@ -480,7 +511,8 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - pathogen_burden
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC5844826/
 - option_id: ATLAS-BP08
   source_table: T039
@@ -498,7 +530,10 @@ atlas_options:
   - Intestinal epithelial
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
+  - thiamine
+  - urolithin
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/23359592/
   pmid: '23359592'
@@ -518,8 +553,11 @@ atlas_options:
   - Chemical injury
   taxon_direction: {}
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - p9
+  concerns:
+  - inflammation
+  - fungal
   url: https://pubmed.ncbi.nlm.nih.gov/11595448/
   pmid: '11595448'
 - option_id: ATLAS-BP10
@@ -538,9 +576,12 @@ atlas_options:
   - Article titles
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - urate
+  - urolithin
   concerns:
   - barrier
+  - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/17713731/
   pmid: '17713731'
 - option_id: ATLAS-BP11
@@ -559,9 +600,14 @@ atlas_options:
   - Cell exposure
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - nitrogen
+  - p9
+  - peptides
+  - urate
   concerns:
   - inflammation
+  - immune
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC2431115/
   pmid: '18061177'
   doi: 10.1053/j.gastro.2007.10.026
@@ -619,7 +665,10 @@ atlas_options:
   - Later sample
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - thiamine
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/32536023/
   pmid: '32536023'
@@ -637,9 +686,12 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - inflammation
+  - immune
+  - gut_brain
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC12432366/
   pmid: '40738103'
 - option_id: ATLAS-BP16
@@ -656,7 +708,11 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - fermentation
+  - nitrogen
+  - thiamine
+  - urate
   concerns:
   - barrier
   - inflammation
@@ -701,7 +757,8 @@ atlas_options:
   - Ruminococcus gnavus
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/37973815/
   pmid: '37973815'
@@ -729,7 +786,8 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  concerns:
+  - short_chain_fatty_acids
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC6355990/
   pmid: '30696735'
 - option_id: ATLAS-BP20
@@ -752,7 +810,10 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  - gababreak
+  - p9
+  concerns:
+  - short_chain_fatty_acids
   url: https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2018.02558/full
   pmid: '30455672'
   doi: 10.3389/fmicb.2018.02558/full
@@ -772,7 +833,9 @@ atlas_options:
   taxon_direction:
     Ruminococcus gnavus: increase
   genera: []
-  panels: []
+  panels:
+  - thiamine
+  - urolithin
   concerns: []
   url: https://journals.asm.org/doi/10.1128/msphere.00289-26
   doi: 10.1128/msphere.00289-26
@@ -794,8 +857,12 @@ atlas_options:
   taxon_direction:
     Fiber deprivation: increase
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - p9
   concerns:
+  - mucus
   - pathogen_burden
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC5131798/
   pmid: '27863247'
@@ -817,7 +884,11 @@ atlas_options:
   - Ruminococcus gnavus
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - nitrogen
+  - p9
+  - thiamine
+  - urate
   concerns:
   - inflammation
   url: https://www.nature.com/articles/s41564-019-0591-6
@@ -841,7 +912,10 @@ atlas_options:
   genera: []
   panels:
   - mucinlps
-  concerns: []
+  - p9
+  - urolithin
+  concerns:
+  - mucus
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC10903618/
 - option_id: ATLAS-BP25
   source_table: T039
@@ -858,7 +932,8 @@ atlas_options:
   - Oral recombinant
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - thiamine
   concerns:
   - barrier
   url: https://pubmed.ncbi.nlm.nih.gov/14647223/
@@ -911,9 +986,11 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - crc_virulence
   concerns:
   - biofilm
+  - pathogen_burden
   url: https://doi.org/10.1111/jam.13602
   pmid: '28980415'
   doi: 10.1111/jam.13602
@@ -959,7 +1036,9 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
+  - urolithin
   concerns:
   - biofilm
   url: https://pubmed.ncbi.nlm.nih.gov/24377137/
@@ -977,7 +1056,8 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - biofilm
   url: https://doi.org/10.1016/j.micpath.2019.103924
@@ -1013,7 +1093,8 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - urate
   concerns:
   - biofilm
 - option_id: ATLAS-TM10
@@ -1079,7 +1160,8 @@ atlas_options:
   taxon_direction:
     Also mouse: increase
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://doi.org/10.1111/apm.70164
   pmid: '41703979'
@@ -1097,7 +1179,10 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - p9
   concerns:
   - biofilm
   url: https://doi.org/10.1007/s12088-024-01231-8
@@ -1116,7 +1201,9 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns:
   - biofilm
   url: https://doi.org/10.3390/metabo13040580
@@ -1268,7 +1355,8 @@ atlas_options:
   - Study additionally
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - urate
   concerns:
   - biofilm
   url: https://doi.org/10.3390/microorganisms13081875
@@ -1288,7 +1376,10 @@ atlas_options:
   - Saccharomyces cerevisiae
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - thiamine
   concerns:
   - biofilm
   url: https://doi.org/10.3390/microorganisms10061082
@@ -1325,8 +1416,10 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - urate
+  concerns:
+  - short_chain_fatty_acids
   url: https://doi.org/10.3389/fcimb.2021.804253
   pmid: '34976873'
   doi: 10.3389/fcimb.2021.804253
@@ -1397,7 +1490,9 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns: []
   url: https://doi.org/10.1186/s12906-016-1367-7
   pmid: '27756364'
@@ -1417,7 +1512,8 @@ atlas_options:
   taxon_direction:
     Animal study: decrease
   genera: []
-  panels: []
+  panels:
+  - urolithin
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/2346674/
   pmid: '2346674'
@@ -1437,7 +1533,9 @@ atlas_options:
   taxon_direction:
     Preliminary human: increase
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/15136472/
   pmid: '15136472'
@@ -1456,7 +1554,8 @@ atlas_options:
   - Oral radiolabeled
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/9101079/
   pmid: '9101079'
@@ -1491,7 +1590,8 @@ atlas_options:
   taxon_direction:
     Exvivo pooled: decrease
   genera: []
-  panels: []
+  panels:
+  - bglucuronidase
   concerns: []
   url: https://www.sciencedirect.com/science/article/abs/pii/S1756464618303487
 - option_id: ATLAS-MET06
@@ -1507,7 +1607,8 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/21051639/
   pmid: '21051639'
@@ -1526,7 +1627,10 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels:
-  - tmao
+  - b6
+  - cutc
+  - glucosinolate
+  - p9
   concerns:
   - pathogen_burden
   url: https://pubmed.ncbi.nlm.nih.gov/26687352/
@@ -1546,7 +1650,8 @@ atlas_options:
     Mouse study: decrease
   genera: []
   panels:
-  - tmao
+  - cutc
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/27048804/
   pmid: '27048804'
@@ -1565,7 +1670,8 @@ atlas_options:
   taxon_direction:
     Invitro and: decrease
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/35087050/
   pmid: '35087050'
@@ -1582,7 +1688,9 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/25147155/
   pmid: '25147155'
@@ -1635,7 +1743,9 @@ atlas_options:
   - Mechanistically adsorbs
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - niacin
+  - nitrogen
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/25349205/
   pmid: '25349205'
@@ -1652,7 +1762,9 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
+  - urolithin
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/9558280/
   pmid: '9558280'
@@ -1669,8 +1781,11 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - b6
+  - glucosinolate
+  concerns:
+  - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/10961726/
   pmid: '10961726'
 - option_id: ATLAS-MET16
@@ -1688,6 +1803,7 @@ atlas_options:
   genera: []
   panels:
   - histamine
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/31807350/
   pmid: '31807350'
@@ -1725,6 +1841,7 @@ atlas_options:
   genera: []
   panels:
   - histamine
+  - p9
   concerns: []
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC12189723/
   doi: 10.3390/biology14060734
@@ -1761,6 +1878,7 @@ atlas_options:
   genera: []
   panels:
   - oxalate
+  - urate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/15086924/
   pmid: '15086924'
@@ -1799,6 +1917,7 @@ atlas_options:
   genera: []
   panels:
   - oxalate
+  - peptides
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/35552824/
   pmid: '35552824'
@@ -1816,8 +1935,13 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - b6
+  - glucosinolate
+  - thiamine
+  - urate
+  concerns:
+  - metabolic
   url: https://pubmed.ncbi.nlm.nih.gov/22990854/
   pmid: '22990854'
 - option_id: ATLAS-MET24
@@ -1834,7 +1958,8 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  concerns:
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/12736763/
   pmid: '12736763'
 - option_id: ATLAS-MET25
@@ -1851,8 +1976,14 @@ atlas_options:
   - Dietary mouse
   taxon_direction: {}
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - b6
+  - glucosinolate
+  - p9
+  - urolithin
+  concerns:
+  - inflammation
+  - immune
   url: https://pubmed.ncbi.nlm.nih.gov/32366032/
   pmid: '32366032'
 - option_id: ATLAS-MET26
@@ -1926,8 +2057,10 @@ atlas_options:
     Escherichia coli: decrease
     Klebsiella pneumoniae: decrease
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - urate
+  concerns:
+  - antibiotic_resistance
   url: https://pubmed.ncbi.nlm.nih.gov/42042033/
   pmid: '42042033'
 - option_id: ATLAS-AM004
@@ -1989,7 +2122,8 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - mucus
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC10003975/
 - option_id: ATLAS-AM007
   source_table: T042
@@ -2024,7 +2158,8 @@ atlas_options:
   taxon_direction:
     Reported reduced: decrease
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/10815019/
   pmid: '10815019'
@@ -2043,7 +2178,9 @@ atlas_options:
   taxon_direction:
     Escherichia coli: decrease
   genera: []
-  panels: []
+  panels:
+  - p9
+  - urate
   concerns:
   - biofilm
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC4964365/
@@ -2083,7 +2220,8 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - urate
   concerns: []
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC6073756/
   pmid: '16076102'
@@ -2139,7 +2277,8 @@ atlas_options:
   taxon_direction:
     Enterococcus faecalis: decrease
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - biofilm
   url: https://pubmed.ncbi.nlm.nih.gov/27242142/
@@ -2158,7 +2297,8 @@ atlas_options:
   taxon_direction:
     Ruminococcus gnavus: decrease
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC5070223/
 - option_id: ATLAS-AM016
@@ -2233,6 +2373,7 @@ atlas_options:
   panels: []
   concerns:
   - biofilm
+  - fungal
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC8324356/
 - option_id: ATLAS-AM020
   source_table: T042
@@ -2464,7 +2605,9 @@ atlas_options:
   - Planktonic activity
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns:
   - biofilm
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC5149674/
@@ -2634,7 +2777,8 @@ atlas_options:
     Free fatty: decrease
     Clostridioides difficile: decrease
   genera: []
-  panels: []
+  panels:
+  - nitrogen
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/24328700/
   pmid: '24328700'
@@ -2670,7 +2814,9 @@ atlas_options:
   taxon_direction:
     Increased fecal: increase
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns:
   - transit
   url: https://pubmed.ncbi.nlm.nih.gov/31509971/
@@ -2711,7 +2857,11 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  - fermentation
+  - nitrogen
+  - urate
+  concerns:
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/37541036/
   pmid: '37541036'
 - option_id: ATLAS-PF04
@@ -2732,8 +2882,11 @@ atlas_options:
     Lachnospiraceae with: increase
   genera: []
   panels:
+  - b6
   - fermentation
-  concerns: []
+  - glucosinolate
+  concerns:
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/37105857/
   pmid: '37105857'
 - option_id: ATLAS-PF05
@@ -2749,7 +2902,9 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/18466655/
   pmid: '18466655'
@@ -2766,7 +2921,9 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns:
   - diversity
   url: https://pubmed.ncbi.nlm.nih.gov/32440730/
@@ -2785,7 +2942,8 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - metabolic
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC5603605/
 - option_id: ATLAS-PF08
   source_table: T043
@@ -2819,7 +2977,9 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns:
   - transit
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC10867466/
@@ -2839,8 +2999,13 @@ atlas_options:
     Increased bifidobacteria: increase
   genera: []
   panels:
+  - b6
   - butyrate
-  concerns: []
+  - glucosinolate
+  - urolithin
+  concerns:
+  - metabolic
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/30827722/
   pmid: '30827722'
 - option_id: ATLAS-PF11
@@ -2858,7 +3023,10 @@ atlas_options:
   taxon_direction:
     Bifidobacterium and: increase
   genera: []
-  panels: []
+  panels:
+  - fermentation
+  - nitrogen
+  - urate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/21984234/
   pmid: '21984234'
@@ -2894,7 +3062,11 @@ atlas_options:
   - Faecalibacterium prausnitzii
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - fermentation
+  - gababreak
+  - nitrogen
+  - urate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/34053530/
   pmid: '34053530'
@@ -2964,7 +3136,8 @@ atlas_options:
     Salmonella pullorum: decrease
     Escherichia coli: decrease
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://journal.hep.com.cn/fib/EN/10.1007/s11515-017-1464-0
   doi: 10.1007/s11515-017-1464-0
@@ -2983,8 +3156,11 @@ atlas_options:
   - Other commercial
   taxon_direction: {}
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - b6
+  - glucosinolate
+  concerns:
+  - metabolic
   url: https://pubmed.ncbi.nlm.nih.gov/12947435/
   pmid: '12947435'
 - option_id: ATLAS-PF18
@@ -3091,7 +3267,8 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  concerns:
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/30696735/
   pmid: '30696735'
 - option_id: ATLAS-PF24
@@ -3176,7 +3353,9 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
+  - urolithin
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/38484069/
   pmid: '38484069'
@@ -3196,7 +3375,9 @@ atlas_options:
   genera: []
   panels:
   - fermentation
-  concerns: []
+  - p9
+  concerns:
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/32893709/
   pmid: '32893709'
 - option_id: ATLAS-PF30
@@ -3240,7 +3421,8 @@ atlas_options:
   genera: []
   panels:
   - bai
-  concerns: []
+  concerns:
+  - bile_acids
   url: https://pubmed.ncbi.nlm.nih.gov/21144106/
   pmid: '21144106'
   doi: 10.1017/S0007114510004009
@@ -3294,7 +3476,9 @@ atlas_options:
   taxon_direction:
     Trial increased: increase
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/32536023/
   pmid: '32536023'
@@ -3329,7 +3513,8 @@ atlas_options:
   - Bifidobacterium breve
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - pantothenate
   concerns: []
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC3811376/
 - option_id: ATLAS-PF37
@@ -3387,7 +3572,8 @@ atlas_options:
     Salmonella enterica: decrease
     Clostridium perfringens: increase
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/42582314/
   pmid: '42582314'
@@ -3407,7 +3593,10 @@ atlas_options:
   taxon_direction:
     Ruminococcus gnavus: increase
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - urolithin
   concerns: []
   url: https://journals.asm.org/doi/10.1128/msphere.00289-26
   doi: 10.1128/msphere.00289-26
@@ -3426,7 +3615,8 @@ atlas_options:
   taxon_direction:
     Clostridium perfringens: decrease
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/41840217/
@@ -3446,7 +3636,10 @@ atlas_options:
   - Manufacturer lists
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - fermentation
+  - nitrogen
+  - urate
   concerns: []
   url: https://trykepos.com/products/kepos-for-digestion-daily-prebiotic
 - option_id: ATLAS-PF43
@@ -3463,7 +3656,9 @@ atlas_options:
   - Adult randomized
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns:
   - diversity
   url: https://pubmed.ncbi.nlm.nih.gov/42178844/
@@ -3500,7 +3695,10 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - fermentation
+  - nitrogen
+  - urate
   concerns: []
   url: https://academic.oup.com/ijfst/article/56/5/2432/7805948
   pmid: '41926473'
@@ -3520,7 +3718,8 @@ atlas_options:
   taxon_direction:
     Staphylococcus aureus: decrease
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns:
   - pathogen_burden
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC9932624/
@@ -3584,9 +3783,11 @@ atlas_options:
     Typhimurium infection: decrease
     Escherichia coli: decrease
   genera: []
-  panels: []
+  panels:
+  - urate
   concerns:
   - pathogen_burden
+  - immune
   url: https://pubmed.ncbi.nlm.nih.gov/12208607/
   pmid: '12208607'
 - option_id: ATLAS-PB005
@@ -3625,7 +3826,8 @@ atlas_options:
   taxon_direction:
     Inhibited growth: decrease
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/27981539/
   pmid: '27981539'
@@ -3702,7 +3904,8 @@ atlas_options:
   - Epithelial survival
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - urate
   concerns:
   - barrier
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC3798544/
@@ -3719,7 +3922,8 @@ atlas_options:
   - Viable recovery
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - urolithin
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/9872808/
   pmid: '9872808'
@@ -3754,7 +3958,8 @@ atlas_options:
   - Colonic mucosal
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC4613798/
   doi: 10.1111/apt.12800
@@ -3771,7 +3976,9 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns: []
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC5192275/
 - option_id: ATLAS-PB015
@@ -3787,7 +3994,8 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - urate
   concerns:
   - transit
   url: https://pubmed.ncbi.nlm.nih.gov/22912552/
@@ -3805,7 +4013,8 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - barrier
   url: https://pubmed.ncbi.nlm.nih.gov/20224007/
   pmid: '20224007'
   doi: 10.1152/ajpgi.00327.2009
@@ -3931,7 +4140,8 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - gut_brain
   url: https://pubmed.ncbi.nlm.nih.gov/27801892/
   pmid: '27801892'
 - option_id: ATLAS-PB024
@@ -4040,7 +4250,8 @@ atlas_options:
   genera: []
   panels:
   - mucinlps
-  concerns: []
+  concerns:
+  - mucus
   url: https://doi.org/10.1186/s12866-014-0282-7
   doi: 10.1186/s12866-014-0282-7
 - option_id: ATLAS-PB030
@@ -4096,7 +4307,8 @@ atlas_options:
   - Directly demonstrated
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://doi.org/10.3389/fmicb.2021.715863
   doi: 10.3389/fmicb.2021.715863
@@ -4153,7 +4365,10 @@ atlas_options:
     Spores survived: decrease
     Clostridioides difficile: decrease
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - p9
   concerns: []
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC7358638/
   doi: 10.3389/fmicb.2020.01010
@@ -4173,7 +4388,8 @@ atlas_options:
     Reduced functional: decrease
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - transit
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC9982755/
   doi: 10.1016/j.jff.2018.10.031
 - option_id: ATLAS-PB037
@@ -4191,8 +4407,10 @@ atlas_options:
   taxon_direction:
     Reduced bowel-movement: decrease
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - p9
+  concerns:
+  - transit
   url: https://pubmed.ncbi.nlm.nih.gov/20140275/
   pmid: '20140275'
 - option_id: ATLAS-PB038
@@ -4231,7 +4449,10 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  - urate
+  - urolithin
+  concerns:
+  - short_chain_fatty_acids
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC11988312/
   doi: 10.3390/ijms26072951
 - option_id: ATLAS-PB040
@@ -4247,7 +4468,9 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns: []
   url: https://doi.org/10.1248/bpb.b13-00641
   doi: 10.1248/bpb.b13-00641
@@ -4264,7 +4487,9 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns: []
   url: https://www.wjgnet.com/1007-9327/full/v21/i19/5985
   doi: 10.3748/wjg.v21.i19.5985
@@ -4286,7 +4511,9 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  concerns:
+  - metabolic
+  - short_chain_fatty_acids
   url: https://doi.org/10.1186/s12866-021-02415-8
   doi: 10.1186/s12866-021-02415-8
 - option_id: ATLAS-PB043
@@ -4305,7 +4532,8 @@ atlas_options:
     Pasteurized arm: increase
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - metabolic
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC6699990/
   doi: 10.1038/s41591-019-0495-2
 - option_id: ATLAS-PB044
@@ -4323,7 +4551,8 @@ atlas_options:
     Improved glycemic-variability: increase
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - metabolic
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC11321313/
 - option_id: ATLAS-PB045
   source_table: T045
@@ -4340,7 +4569,9 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  concerns:
+  - metabolic
+  - short_chain_fatty_acids
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC12087665/
   doi: 10.1080/19490976.2025.2504115
 - option_id: ATLAS-PB046
@@ -4357,7 +4588,8 @@ atlas_options:
   taxon_direction:
     Reduced experimental: decrease
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - inflammation
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC2575488/
@@ -4378,7 +4610,8 @@ atlas_options:
     Reduced selected: decrease
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - inflammation
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC4409148/
 - option_id: ATLAS-PB048
   source_table: T045
@@ -4395,7 +4628,9 @@ atlas_options:
   taxon_direction:
     Microcins supported: decrease
   genera: []
-  panels: []
+  panels:
+  - p9
+  - peptides
   concerns: []
   url: https://www.nature.com/articles/nature20557
 - option_id: ATLAS-PB049
@@ -4413,7 +4648,10 @@ atlas_options:
   taxon_direction:
     Separated genotoxic: decrease
   genera: []
-  panels: []
+  panels:
+  - p9
+  - urate
+  - urolithin
   concerns: []
   url: https://doi.org/10.1371/journal.ppat.1008029
   doi: 10.1371/journal.ppat.1008029
@@ -4430,7 +4668,9 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns: []
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC12113862/
   doi: 10.3390/microorganisms13051139
@@ -4495,7 +4735,8 @@ atlas_options:
   taxon_direction:
     Pseudomonas aeruginosa: increase
   genera: []
-  panels: []
+  panels:
+  - urate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/12037568/
   pmid: '12037568'
@@ -4541,7 +4782,8 @@ atlas_options:
     Clostridioides difficile: decrease
     Escherichia coli: decrease
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns:
   - pathogen_burden
   url: https://pubmed.ncbi.nlm.nih.gov/25901890/
@@ -4560,9 +4802,11 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - pathogen_burden
+  - immune
   url: https://pubmed.ncbi.nlm.nih.gov/41256169/
   pmid: '41256169'
   doi: 10.1101/2025.10.01.25337000
@@ -4582,7 +4826,11 @@ atlas_options:
   taxon_direction:
     Clostridioides difficile: decrease
   genera: []
-  panels: []
+  panels:
+  - b6
+  - bai
+  - glucosinolate
+  - p9
   concerns:
   - biofilm
   url: https://pubmed.ncbi.nlm.nih.gov/31098293/
@@ -4604,7 +4852,10 @@ atlas_options:
   - Clostridioides difficile
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - bai
+  - glucosinolate
   concerns:
   - biofilm
 - option_id: ATLAS-AB010
@@ -4687,7 +4938,8 @@ atlas_options:
   taxon_direction:
     Escherichia coli: decrease
   genera: []
-  panels: []
+  panels:
+  - urate
   concerns:
   - biofilm
   url: https://pubmed.ncbi.nlm.nih.gov/39452251/
@@ -4712,7 +4964,9 @@ atlas_options:
     Escherichia coli: decrease
     Pseudomonas aeruginosa: decrease
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns:
   - biofilm
   url: https://doi.org/10.3390/md19040197
@@ -4753,7 +5007,9 @@ atlas_options:
   - Pseudomonas aeruginosa
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns:
   - biofilm
   url: https://pubmed.ncbi.nlm.nih.gov/32523130/
@@ -4793,10 +5049,12 @@ atlas_options:
   taxon_direction:
     Candida albicans: decrease
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - biofilm
   - pathogen_burden
+  - fungal
   url: https://pubmed.ncbi.nlm.nih.gov/30068882/
   pmid: '30068882'
 - option_id: ATLAS-AB019
@@ -4835,7 +5093,8 @@ atlas_options:
   - Bacillus subtilis
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - biofilm
   url: https://pubmed.ncbi.nlm.nih.gov/20431016/
@@ -4856,7 +5115,9 @@ atlas_options:
   taxon_direction:
     Bacillus subtilis: decrease
   genera: []
-  panels: []
+  panels:
+  - nitrogen
+  - p9
   concerns:
   - biofilm
   url: https://pubmed.ncbi.nlm.nih.gov/24097941/
@@ -4923,6 +5184,7 @@ atlas_options:
   panels: []
   concerns:
   - barrier
+  - metabolic
   url: https://doi.org/10.1038/s41467-025-59916-7
   doi: 10.1038/s41467-025-59916-7
 - option_id: ATLAS-AR001
@@ -4979,7 +5241,8 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/24286534/
   pmid: '24286534'
 - option_id: ATLAS-AR004
@@ -5032,7 +5295,8 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - urate
   concerns:
   - barrier
   url: https://pubmed.ncbi.nlm.nih.gov/9888411/
@@ -5050,7 +5314,9 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - crc_virulence
+  - p9
   concerns:
   - pathogen_burden
   url: https://doi.org/10.1128/spectrum.00975-23
@@ -5087,7 +5353,8 @@ atlas_options:
   taxon_direction:
     Improved epithelial: increase
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/23359592/
   pmid: '23359592'
@@ -5106,7 +5373,8 @@ atlas_options:
   taxon_direction:
     Enhanced tight-junction: increase
   genera: []
-  panels: []
+  panels:
+  - urate
   concerns:
   - barrier
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC2728689/
@@ -5124,7 +5392,9 @@ atlas_options:
   - Protected intestinal
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - nitrogen
+  - peptides
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/23630018/
   pmid: '23630018'
@@ -5183,7 +5453,9 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - nitrogen
+  - p9
   concerns:
   - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/18061177/
@@ -5296,7 +5568,8 @@ atlas_options:
   taxon_direction:
     Reduced oxidant: decrease
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/11860402/
   pmid: '11860402'
@@ -5316,7 +5589,8 @@ atlas_options:
   taxon_direction:
     Protected against: decrease
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://doi.org/10.3390/antiox8110512
   doi: 10.3390/antiox8110512
@@ -5335,7 +5609,8 @@ atlas_options:
   taxon_direction:
     Increased epithelial: increase
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/19297429/
   pmid: '19297429'
@@ -5446,7 +5721,9 @@ atlas_options:
   taxon_direction:
     Maintained permeability: decrease
   genera: []
-  panels: []
+  panels:
+  - nitrogen
+  - peptides
   concerns:
   - barrier
   url: https://pubmed.ncbi.nlm.nih.gov/26137304/
@@ -5467,7 +5744,9 @@ atlas_options:
   taxon_direction:
     Improved mucosal-barrier: increase
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns:
   - barrier
   - transit
@@ -5487,6 +5766,7 @@ atlas_options:
   genera: []
   panels:
   - mucinlps
+  - p9
   concerns:
   - barrier
   url: https://pubmed.ncbi.nlm.nih.gov/30747184/
@@ -5506,7 +5786,8 @@ atlas_options:
   taxon_direction:
     Increased recipient-gut: increase
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - barrier
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC8573259/
@@ -5549,7 +5830,11 @@ atlas_options:
   taxon_direction:
     Microbial pathway: increase
   genera: []
-  panels: []
+  panels:
+  - bcaa
+  - nitrogen
+  - p9
+  - peptides
   concerns: []
   url: https://journals.physiology.org/doi/full/10.1152/ajpendo.00256.2018
   doi: 10.1152/ajpendo.00256.2018
@@ -5572,8 +5857,12 @@ atlas_options:
   genera: []
   panels:
   - indole
+  - p9
   - tryptamine
-  concerns: []
+  - urate
+  - urolithin
+  concerns:
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/38918470/
   pmid: '38918470'
   doi: 10.1038/s41564-024-01737-3
@@ -5596,6 +5885,9 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels:
+  - ipa
+  - nitrogen
+  - p9
   - tryptamine
   concerns: []
   url: https://www.nature.com/articles/nature24661
@@ -5616,6 +5908,7 @@ atlas_options:
   genera: []
   panels:
   - gaba
+  - gababreak
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/36724279/
   pmid: '36724279'
@@ -5640,6 +5933,7 @@ atlas_options:
   genera: []
   panels:
   - gaba
+  - gababreak
   concerns: []
   url: https://academic.oup.com/jambio/article/134/2/lxac066/6918826
   doi: 10.1093/jambio/lxac066
@@ -5666,6 +5960,9 @@ atlas_options:
   genera: []
   panels:
   - dopamine
+  - glucosinolate
+  - p9
+  - peptides
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/31196984/
   pmid: '31196984'
@@ -5689,6 +5986,7 @@ atlas_options:
   - propionate
   concerns:
   - inflammation
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/36361652/
   pmid: '36361652'
   doi: 10.3390/ijms232112863
@@ -5715,8 +6013,11 @@ atlas_options:
     Ruminococcus gnavus: decrease
   genera: []
   panels:
+  - agmatine
+  - p9
   - tryptamine
-  concerns: []
+  concerns:
+  - metabolic
   url: https://www.nature.com/articles/s41467-023-40552-y
   doi: 10.1038/s41467-023-40552-y
 - option_id: ATLAS-AX001
@@ -5769,8 +6070,11 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - p9
+  concerns:
+  - inflammation
+  - metabolic
   url: https://pubmed.ncbi.nlm.nih.gov/21068351/
   pmid: '21068351'
 - option_id: ATLAS-AX004
@@ -5831,7 +6135,8 @@ atlas_options:
     Fecal diversity: increase
     Akkermansia increase: increase
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - diversity
   url: https://pubmed.ncbi.nlm.nih.gov/30873501/
@@ -5853,7 +6158,8 @@ atlas_options:
     Insulin resistance: increase
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - metabolic
   url: https://pubmed.ncbi.nlm.nih.gov/30873501/
   pmid: '30873501'
 - option_id: ATLAS-AX008
@@ -5916,9 +6222,11 @@ atlas_options:
     Intestinal inflammation: decrease
     Less intestinal: decrease
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - inflammation
+  - metabolic
   url: https://pubmed.ncbi.nlm.nih.gov/25080446/
   pmid: '25080446'
 - option_id: ATLAS-AX011
@@ -5943,7 +6251,8 @@ atlas_options:
     Methanobrevibacter smithii: increase
     Collinsella aerofaciens: increase
   genera: []
-  panels: []
+  panels:
+  - urolithin
   concerns: []
   url: https://doi.org/10.3390/foods13010015
   doi: 10.3390/foods13010015
@@ -5964,8 +6273,11 @@ atlas_options:
   genera: []
   panels:
   - propionate
+  - urate
   - urda
-  concerns: []
+  - urolithin
+  concerns:
+  - short_chain_fatty_acids
   url: https://doi.org/10.3390/foods13010015
   doi: 10.3390/foods13010015
 - option_id: ATLAS-AX013
@@ -5985,7 +6297,8 @@ atlas_options:
     Fecal bacterial: increase
     Highly individual: increase
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/30088420/
   pmid: '30088420'
@@ -6031,7 +6344,8 @@ atlas_options:
     Klebsiella and: increase
     Pseudomonas groups: increase
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns: []
   url: https://doi.org/10.1177/2515690X18790725
   doi: 10.1177/2515690X18790725
@@ -6049,7 +6363,9 @@ atlas_options:
   taxon_direction:
     Relative abundance: increase
   genera: []
-  panels: []
+  panels:
+  - p9
+  - peptides
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/34836169/
   pmid: '34836169'
@@ -6070,7 +6386,9 @@ atlas_options:
   panels:
   - butyrate
   - fermentation
-  concerns: []
+  - urate
+  concerns:
+  - short_chain_fatty_acids
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC8619629/
 - option_id: ATLAS-AX018
   source_table: T049
@@ -6091,6 +6409,7 @@ atlas_options:
   - fermentation
   concerns:
   - inflammation
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/37761122/
   pmid: '37761122'
 - option_id: ATLAS-AX019
@@ -6110,7 +6429,9 @@ atlas_options:
   panels:
   - butyrate
   - fermentation
-  concerns: []
+  - urate
+  concerns:
+  - short_chain_fatty_acids
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC10529306/
 - option_id: ATLAS-AX020
   source_table: T049
@@ -6126,7 +6447,8 @@ atlas_options:
   - Gut community
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/38358253/
   pmid: '38358253'
@@ -6208,7 +6530,8 @@ atlas_options:
   - Restructured relative
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - urolithin
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/29565634/
   pmid: '29565634'
@@ -6247,7 +6570,9 @@ atlas_options:
     Overall fecal: increase
     Distinct profile: increase
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns: []
   url: https://doi.org/10.1089/acm.2017.0422
   doi: 10.1089/acm.2017.0422
@@ -6318,7 +6643,8 @@ atlas_options:
     Enterococcus and: increase
     Eggerthella lenta: increase
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/22552027/
   pmid: '22552027'
@@ -6336,7 +6662,9 @@ atlas_options:
   - Generated multiple
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/22313337/
   pmid: '22313337'
@@ -6356,7 +6684,8 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/25724700/
   pmid: '25724700'
 - option_id: ATLAS-AX032
@@ -6427,7 +6756,8 @@ atlas_options:
     Collagenous colitis: 'null'
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/17764013/
   pmid: '17764013'
 - option_id: ATLAS-AX036
@@ -6446,7 +6776,9 @@ atlas_options:
     Active distal: increase
     Improved clinical: increase
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/11989836/
   pmid: '11989836'
@@ -6613,7 +6945,9 @@ atlas_options:
   - Fell compared
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns:
   - inflammation
   url: https://doi.org/10.3390/nu16234197
@@ -6654,6 +6988,7 @@ atlas_options:
     Helicobacter pylori: decrease
   genera: []
   panels:
+  - nitrogen
   - urease
   concerns:
   - pathogen_burden
@@ -6675,8 +7010,10 @@ atlas_options:
     Gastric mucosal: 'null'
     Mucosal malondialdehyde: decrease
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - glutathione
+  concerns:
+  - metabolic
   url: https://doi.org/10.5009/gnl14040
   doi: 10.5009/gnl14040
 - option_id: ATLAS-AX049
@@ -6697,7 +7034,8 @@ atlas_options:
     Lower intestinal: decrease
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - fungal
   url: https://pubmed.ncbi.nlm.nih.gov/27303684/
   pmid: '27303684'
   doi: 10.1128/mSphere.00020-15
@@ -6716,8 +7054,10 @@ atlas_options:
   - Inactivated tested
   taxon_direction: {}
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - p9
+  concerns:
+  - fungal
   url: https://pubmed.ncbi.nlm.nih.gov/11600381/
   pmid: '11600381'
 - option_id: ATLAS-AX051
@@ -6756,7 +7096,9 @@ atlas_options:
     Giardia lamblia: decrease
     Reduced growth: decrease
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/16678115/
   pmid: '16678115'
@@ -6866,7 +7208,8 @@ atlas_options:
   - Became dominant
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns: []
   url: https://doi.org/10.1371/journal.pone.0213869
   doi: 10.1371/journal.pone.0213869
@@ -6920,7 +7263,8 @@ atlas_options:
   - More balanced
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://doi.org/10.1371/journal.pone.0213869
   doi: 10.1371/journal.pone.0213869
@@ -6975,7 +7319,9 @@ atlas_options:
   taxon_direction:
     Positive within-group: increase
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/24833942/
   pmid: '24833942'
@@ -7013,7 +7359,8 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns:
   - barrier
   url: https://pubmed.ncbi.nlm.nih.gov/23660579/
@@ -7034,7 +7381,9 @@ atlas_options:
     Chronic idiopathic: decrease
     Null between: 'null'
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns:
   - transit
   url: https://pubmed.ncbi.nlm.nih.gov/29210625/
@@ -7180,8 +7529,10 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - p9
+  concerns:
+  - immune
   url: https://pubmed.ncbi.nlm.nih.gov/28164346/
   pmid: '28164346'
 - option_id: ATLAS-BX013
@@ -7258,7 +7609,8 @@ atlas_options:
   taxon_direction:
     Enterobacteriaceae decrease: decrease
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns:
   - inflammation
   - diversity
@@ -7281,7 +7633,8 @@ atlas_options:
     Active mild: 'null'
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/37525068/
   pmid: '37525068'
 - option_id: ATLAS-BX018
@@ -7304,7 +7657,8 @@ atlas_options:
     Positive compositional: increase
     Lachnospiraceae and: decrease
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/34439526/
   pmid: '34439526'
@@ -7384,6 +7738,7 @@ atlas_options:
   genera: []
   panels: []
   concerns:
+  - inflammation
   - diversity
   url: https://pubmed.ncbi.nlm.nih.gov/30972302/
   pmid: '30972302'
@@ -7402,8 +7757,10 @@ atlas_options:
   taxon_direction:
     Same colitis: increase
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - agmatine
+  concerns:
+  - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/30972302/
   pmid: '30972302'
 - option_id: ATLAS-BX024
@@ -7422,8 +7779,10 @@ atlas_options:
   taxon_direction:
     Positive mechanistic: increase
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - agmatine
+  concerns:
+  - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/37111109/
   pmid: '37111109'
 - option_id: ATLAS-BX025
@@ -7442,8 +7801,11 @@ atlas_options:
   genera: []
   panels:
   - mucinlps
+  - p9
   concerns:
   - barrier
+  - mucus
+  - immune
   url: https://pubmed.ncbi.nlm.nih.gov/20335627/
   pmid: '20335627'
 - option_id: ATLAS-BX026
@@ -7459,10 +7821,15 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - nitrogen
+  - p9
   concerns:
   - barrier
   - inflammation
+  - metabolic
   url: https://pubmed.ncbi.nlm.nih.gov/33830211/
   pmid: '33830211'
 - option_id: ATLAS-BX027
@@ -7496,7 +7863,8 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/29983966/
   pmid: '29983966'
 - option_id: ATLAS-BX029
@@ -7551,7 +7919,8 @@ atlas_options:
   taxon_direction:
     Mitochondrial function: increase
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - barrier
   url: https://pubmed.ncbi.nlm.nih.gov/41415575/
@@ -7622,8 +7991,11 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - nitrogen
+  - p9
+  concerns:
+  - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/35832050/
   pmid: '35832050'
 - option_id: ATLAS-BX036
@@ -7641,7 +8013,8 @@ atlas_options:
   - Gut barrier
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - urate
   concerns:
   - barrier
   - inflammation
@@ -7667,6 +8040,8 @@ atlas_options:
   - mucinlps
   concerns:
   - barrier
+  - mucus
+  - immune
   url: https://pubmed.ncbi.nlm.nih.gov/42336837/
   pmid: '42336837'
 - option_id: ATLAS-BX038
@@ -7710,6 +8085,8 @@ atlas_options:
   concerns:
   - barrier
   - inflammation
+  - pathogen_burden
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/37513677/
   pmid: '37513677'
 - option_id: ATLAS-BX040
@@ -7781,7 +8158,8 @@ atlas_options:
   - Adverse host
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/31102012/
   pmid: '31102012'
@@ -7802,6 +8180,7 @@ atlas_options:
   genera: []
   panels: []
   concerns:
+  - inflammation
   - transit
   url: https://pubmed.ncbi.nlm.nih.gov/17764013/
   pmid: '17764013'
@@ -7837,7 +8216,9 @@ atlas_options:
   taxon_direction:
     Comparative signal: 'null'
   genera: []
-  panels: []
+  panels:
+  - p9
+  - urolithin
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/23826890/
   pmid: '23826890'
@@ -7878,7 +8259,8 @@ atlas_options:
     Positive uncontrolled: increase
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/17881930/
   pmid: '17881930'
 - option_id: ATLAS-BX049
@@ -7967,8 +8349,11 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - nitrogen
+  - p9
+  concerns:
+  - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/34771012/
   pmid: '34771012'
 - option_id: ATLAS-BX054
@@ -7991,6 +8376,7 @@ atlas_options:
   concerns:
   - barrier
   - inflammation
+  - immune
   url: https://pubmed.ncbi.nlm.nih.gov/30817082/
   pmid: '30817082'
 - option_id: ATLAS-BX055
@@ -8006,7 +8392,9 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - nitrogen
+  - p9
   concerns:
   - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/39249130/
@@ -8026,7 +8414,8 @@ atlas_options:
   taxon_direction:
     Epithelial barrier: increase
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - barrier
   url: https://pubmed.ncbi.nlm.nih.gov/34014331/
@@ -8047,7 +8436,8 @@ atlas_options:
   taxon_direction:
     Chemical versus: increase
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/17611628/
@@ -8068,10 +8458,16 @@ atlas_options:
     Goblet cells: increase
   genera: []
   panels:
-  - mucinlps
+  - b6
   - fermentation
+  - glucosinolate
+  - mucinlps
+  - nitrogen
+  - p9
   concerns:
+  - mucus
   - inflammation
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/36590200/
   pmid: '36590200'
 - option_id: ATLAS-BX059
@@ -8091,9 +8487,12 @@ atlas_options:
   genera: []
   panels:
   - fermentation
+  - nitrogen
+  - p9
   concerns:
   - barrier
   - inflammation
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/34182753/
   pmid: '34182753'
 - option_id: ATLAS-BX060
@@ -8113,10 +8512,14 @@ atlas_options:
     Microbial biotransformation: increase
   genera: []
   panels:
+  - b6
   - butyrate
+  - glucosinolate
+  - p9
   concerns:
   - barrier
   - inflammation
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/42448689/
   pmid: '42448689'
 - option_id: ATLAS-BX061
@@ -8205,7 +8608,8 @@ atlas_options:
     Functional dyspepsia: increase
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - transit
   url: https://pubmed.ncbi.nlm.nih.gov/25954317/
   pmid: '25954317'
 - option_id: ATLAS-BX066
@@ -8222,7 +8626,9 @@ atlas_options:
   taxon_direction:
     Gastric emptying: 'null'
   genera: []
-  panels: []
+  panels:
+  - nitrogen
+  - peptides
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/21218090/
   pmid: '21218090'
@@ -8274,7 +8680,8 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - transit
   url: https://pubmed.ncbi.nlm.nih.gov/7964541/
   pmid: '7964541'
 - option_id: ATLAS-BX070
@@ -8430,7 +8837,8 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - gut_brain
   url: https://pubmed.ncbi.nlm.nih.gov/15914575/
   pmid: '15914575'
 - option_id: ATLAS-BX078
@@ -8764,7 +9172,8 @@ atlas_options:
   - Direct degradation
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/37253778/
   pmid: '37253778'
@@ -8783,7 +9192,9 @@ atlas_options:
   - Bifidobacterium longum
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
+  - urate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/37253778/
   pmid: '37253778'
@@ -8801,7 +9212,8 @@ atlas_options:
   - Bifidobacterium breve
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/37253778/
   pmid: '37253778'
@@ -8854,7 +9266,8 @@ atlas_options:
   - Lactiplantibacillus plantarum
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/37253778/
   pmid: '37253778'
@@ -9027,7 +9440,8 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/32385941/
   pmid: '32385941'
@@ -9046,7 +9460,8 @@ atlas_options:
   - Bifidobacterium breve
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/32385941/
   pmid: '32385941'
@@ -9100,7 +9515,8 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  concerns:
+  - short_chain_fatty_acids
   url: https://doi.org/10.3390/microorganisms10122496
   doi: 10.3390/microorganisms10122496
 - option_id: ATLAS-FE041
@@ -9116,8 +9532,10 @@ atlas_options:
   - Bifidobacterium adolescentis
   taxon_direction: {}
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - urate
+  concerns:
+  - short_chain_fatty_acids
   url: https://doi.org/10.3390/microorganisms10122496
   doi: 10.3390/microorganisms10122496
 - option_id: ATLAS-FE042
@@ -9136,7 +9554,9 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  - urate
+  concerns:
+  - short_chain_fatty_acids
   url: https://doi.org/10.3390/microorganisms10122496
   doi: 10.3390/microorganisms10122496
 - option_id: ATLAS-FE043
@@ -9208,7 +9628,8 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/37938239/
   pmid: '37938239'
@@ -9335,7 +9756,8 @@ atlas_options:
   taxon_direction:
     Increased abundance: increase
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/31539500/
   pmid: '31539500'
@@ -9374,7 +9796,8 @@ atlas_options:
   - Bacteroides vulgatus
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/31539500/
   pmid: '31539500'
@@ -9521,7 +9944,8 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  concerns:
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/32004499/
   pmid: '32004499'
   doi: 10.1016/j.chom.2020.01.006
@@ -9543,7 +9967,8 @@ atlas_options:
   genera: []
   panels:
   - propionate
-  concerns: []
+  concerns:
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/32004499/
   pmid: '32004499'
 - option_id: ATLAS-FE065
@@ -9559,7 +9984,8 @@ atlas_options:
   - Overall microbiome
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - thiamine
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/32004499/
   pmid: '32004499'
@@ -9579,7 +10005,8 @@ atlas_options:
     Klebsiella pneumoniae: increase
     Direct growth: increase
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/38512401/
   pmid: '38512401'
@@ -9713,7 +10140,8 @@ atlas_options:
   taxon_direction:
     Klebsiella pneumoniae: increase
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/36569071/
   pmid: '36569071'
@@ -9808,7 +10236,8 @@ atlas_options:
   genera: []
   panels:
   - bai
-  concerns: []
+  concerns:
+  - bile_acids
   url: https://pubmed.ncbi.nlm.nih.gov/29726951/
   pmid: '29726951'
 - option_id: ATLAS-FE079
@@ -9878,7 +10307,9 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns: []
   url: https://doi.org/10.1038/s41467-026-73297-5
   doi: 10.1038/s41467-026-73297-5
@@ -9918,7 +10349,8 @@ atlas_options:
     Ruminococcus gnavus: increase
     Enrichment possible: increase
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns: []
   url: https://doi.org/10.1038/s41467-026-73297-5
   doi: 10.1038/s41467-026-73297-5
@@ -9938,7 +10370,8 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  concerns:
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/42509322/
   pmid: '42509322'
   doi: 10.1038/s41589-026-02272-4
@@ -9956,7 +10389,8 @@ atlas_options:
   taxon_direction:
     Outcome depends: increase
   genera: []
-  panels: []
+  panels:
+  - urolithin
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/42509322/
   pmid: '42509322'
@@ -10005,7 +10439,8 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - urolithin
   concerns: []
   url: https://doi.org/10.1016/j.chom.2022.02.001
   doi: 10.1016/j.chom.2022.02.001
@@ -10164,7 +10599,8 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - transit
   url: https://pubmed.ncbi.nlm.nih.gov/37576702/
@@ -10189,7 +10625,9 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  - urate
+  concerns:
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/29881616/
   pmid: '29881616'
 - option_id: ATLAS-PX005
@@ -10206,7 +10644,8 @@ atlas_options:
   - Viable gastrointestinal
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - urolithin
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/30116228/
   pmid: '30116228'
@@ -10264,7 +10703,9 @@ atlas_options:
     Selective coaggregation: decrease
     Helicobacter strains: decrease
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/25481036/
   pmid: '25481036'
@@ -10354,7 +10795,8 @@ atlas_options:
     Methanobrevibacter and: decrease
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - bile_acids
   url: https://pubmed.ncbi.nlm.nih.gov/30525950/
   pmid: '30525950'
 - option_id: ATLAS-PX013
@@ -10398,8 +10840,12 @@ atlas_options:
     Anthropometric adiposity: increase
     Akkermansia increase: increase
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - b6
+  - glucosinolate
+  - p9
+  concerns:
+  - metabolic
   url: https://pubmed.ncbi.nlm.nih.gov/30262813/
   pmid: '30262813'
 - option_id: ATLAS-PX015
@@ -10421,7 +10867,8 @@ atlas_options:
   panels:
   - indole
   - tryptamine
-  concerns: []
+  concerns:
+  - gut_brain
   url: https://pubmed.ncbi.nlm.nih.gov/34875345/
   pmid: '34875345'
 - option_id: ATLAS-PX016
@@ -10459,7 +10906,8 @@ atlas_options:
   - Trial reported
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/24774670/
@@ -10500,7 +10948,8 @@ atlas_options:
     Some cognitive: increase
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - gut_brain
   url: https://pubmed.ncbi.nlm.nih.gov/35570493/
   pmid: '35570493'
 - option_id: ATLAS-PX020
@@ -10540,6 +10989,7 @@ atlas_options:
   panels: []
   concerns:
   - inflammation
+  - metabolic
   url: https://pubmed.ncbi.nlm.nih.gov/30251018/
   pmid: '30251018'
 - option_id: ATLAS-PX022
@@ -10559,7 +11009,8 @@ atlas_options:
     Adjunct group: decrease
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - fungal
   url: https://pubmed.ncbi.nlm.nih.gov/19187507/
   pmid: '19187507'
 - option_id: ATLAS-PX023
@@ -10576,7 +11027,9 @@ atlas_options:
   - Tinidazole plus
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/19295645/
   pmid: '19295645'
@@ -10612,9 +11065,13 @@ atlas_options:
   taxon_direction:
     Yeast recovery: decrease
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - p9
   concerns:
   - inflammation
+  - fungal
   url: https://pubmed.ncbi.nlm.nih.gov/19703242/
   pmid: '19703242'
 - option_id: ATLAS-PX026
@@ -10636,7 +11093,8 @@ atlas_options:
     Intestinal formulations: increase
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - fungal
   url: https://pubmed.ncbi.nlm.nih.gov/22542933/
   pmid: '22542933'
 - option_id: ATLAS-PX027
@@ -10658,7 +11116,9 @@ atlas_options:
     Candida albicans: decrease
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - short_chain_fatty_acids
+  - fungal
   url: https://pubmed.ncbi.nlm.nih.gov/33051479/
   pmid: '33051479'
 - option_id: ATLAS-PX028
@@ -10681,6 +11141,7 @@ atlas_options:
   panels: []
   concerns:
   - biofilm
+  - fungal
   url: https://pubmed.ncbi.nlm.nih.gov/38160785/
   pmid: '38160785'
 - option_id: ATLAS-PX029
@@ -10700,7 +11161,9 @@ atlas_options:
     Candidiasis survival: decrease
     Curative nematode: decrease
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns:
   - biofilm
   url: https://pubmed.ncbi.nlm.nih.gov/31878039/
@@ -10746,7 +11209,10 @@ atlas_options:
     Antagonism and: decrease
     Escherichia coli: decrease
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - p9
   concerns:
   - biofilm
   url: https://pubmed.ncbi.nlm.nih.gov/42593415/
@@ -10836,7 +11302,9 @@ atlas_options:
     Lactobacillales enrichment: increase
     Synergistales reduction: decrease
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns:
   - transit
   url: https://pubmed.ncbi.nlm.nih.gov/34119240/
@@ -10896,6 +11364,7 @@ atlas_options:
   concerns:
   - barrier
   - inflammation
+  - transit
   url: https://pubmed.ncbi.nlm.nih.gov/36269141/
   pmid: '36269141'
 - option_id: ATLAS-PX039
@@ -10916,6 +11385,7 @@ atlas_options:
   panels: []
   concerns:
   - barrier
+  - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/23263527/
   pmid: '23263527'
 - option_id: ATLAS-PX040
@@ -10936,7 +11406,9 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  concerns:
+  - mucus
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/25999470/
   pmid: '25999470'
 - option_id: ATLAS-PX041
@@ -10954,7 +11426,10 @@ atlas_options:
   genera: []
   panels:
   - fermentation
-  concerns: []
+  - p9
+  - urate
+  concerns:
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/25179909/
   pmid: '25179909'
 - option_id: ATLAS-PX042
@@ -10995,6 +11470,7 @@ atlas_options:
   - butyrate
   concerns:
   - barrier
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/28904372/
   pmid: '28904372'
 - option_id: ATLAS-PX044
@@ -11015,7 +11491,9 @@ atlas_options:
     Inhibition depended: decrease
     Clostridioides difficile: decrease
   genera: []
-  panels: []
+  panels:
+  - bai
+  - glucosinolate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/32179626/
   pmid: '32179626'
@@ -11037,7 +11515,8 @@ atlas_options:
   genera: []
   panels:
   - bai
-  concerns: []
+  concerns:
+  - bile_acids
   url: https://pubmed.ncbi.nlm.nih.gov/30482679/
   pmid: '30482679'
 - option_id: ATLAS-PX046
@@ -11055,7 +11534,8 @@ atlas_options:
     Oral strain: decrease
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - metabolic
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC8067450/
 - option_id: ATLAS-PX047
   source_table: T057
@@ -11079,9 +11559,10 @@ atlas_options:
     Lactobacillus decreased: decrease
   genera: []
   panels:
-  - propionate
   - fermentation
-  concerns: []
+  - propionate
+  concerns:
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/34600678/
   pmid: '34600678'
 - option_id: ATLAS-PX048
@@ -11118,6 +11599,7 @@ atlas_options:
     Community activity: increase
   genera: []
   panels:
+  - glucosinolate
   - methane
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/35465165/
@@ -11244,6 +11726,7 @@ atlas_options:
   concerns:
   - barrier
   - pathogen_burden
+  - fungal
   url: https://pubmed.ncbi.nlm.nih.gov/39243351/
   pmid: '39243351'
 - option_id: ATLAS-PX056
@@ -11315,7 +11798,8 @@ atlas_options:
   taxon_direction:
     Barrier permeability: decrease
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - barrier
   url: https://pubmed.ncbi.nlm.nih.gov/38811623/
@@ -11333,7 +11817,8 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/22738959/
   pmid: '22738959'
@@ -11352,8 +11837,13 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels:
+  - b6
   - fermentation
-  concerns: []
+  - glucosinolate
+  - p9
+  concerns:
+  - immune
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/34559598/
   pmid: '34559598'
 - option_id: ATLAS-PX062
@@ -11393,7 +11883,9 @@ atlas_options:
     Microbiota diversity: decrease
     Diversity increased: increase
   genera: []
-  panels: []
+  panels:
+  - nitrogen
+  - p9
   concerns:
   - inflammation
   - diversity
@@ -11421,6 +11913,7 @@ atlas_options:
   panels: []
   concerns:
   - inflammation
+  - transit
   url: https://pubmed.ncbi.nlm.nih.gov/30662004/
   pmid: '30662004'
 - option_id: ATLAS-PX065
@@ -11436,7 +11929,9 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/30256365/
   pmid: '30256365'
@@ -11457,7 +11952,9 @@ atlas_options:
     Bifidobacterium adolescentis: increase
   genera: []
   panels:
+  - b6
   - bglucuronidase
+  - glucosinolate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/35721806/
   pmid: '35721806'
@@ -11497,8 +11994,11 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - bsh
+  concerns:
+  - metabolic
+  - bile_acids
   url: https://pubmed.ncbi.nlm.nih.gov/22990854/
   pmid: '22990854'
 - option_id: ATLAS-PX069
@@ -11582,7 +12082,8 @@ atlas_options:
     All arms: increase
     Helicobacter pylori: decrease
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - pathogen_burden
   url: https://pubmed.ncbi.nlm.nih.gov/36193094/
@@ -11624,7 +12125,8 @@ atlas_options:
     Greater alleviation: increase
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - gut_brain
   url: https://pubmed.ncbi.nlm.nih.gov/38071990/
   pmid: '38071990'
 - option_id: ATLAS-CX002
@@ -11641,8 +12143,11 @@ atlas_options:
   - Pilot reported
   taxon_direction: {}
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - p9
+  concerns:
+  - diversity
+  - immune
   url: https://pubmed.ncbi.nlm.nih.gov/35170078/
   pmid: '35170078'
 - option_id: ATLAS-CX003
@@ -11660,7 +12165,10 @@ atlas_options:
   - Reported resistome
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - p9
   concerns:
   - antibiotic_resistance
   url: https://pubmed.ncbi.nlm.nih.gov/36201636/
@@ -11680,7 +12188,9 @@ atlas_options:
   taxon_direction:
     Plaque psoriasis: increase
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/31453631/
   pmid: '31453631'
@@ -11721,7 +12231,8 @@ atlas_options:
   - Androgenetic alopecia
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - thiamine
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/39275216/
   pmid: '39275216'
@@ -11738,7 +12249,9 @@ atlas_options:
   - Androgenetic alopecia
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
+  - thiamine
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/31385480/
   pmid: '31385480'
@@ -11817,7 +12330,8 @@ atlas_options:
     Anxiety improved: increase
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - gut_brain
   url: https://pubmed.ncbi.nlm.nih.gov/19338686/
   pmid: '19338686'
 - option_id: ATLAS-CX012
@@ -11860,7 +12374,8 @@ atlas_options:
     Improved selected: increase
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - gut_brain
   url: https://pubmed.ncbi.nlm.nih.gov/32623402/
   pmid: '32623402'
 - option_id: ATLAS-CX014
@@ -11879,7 +12394,8 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - gut_brain
   url: https://pubmed.ncbi.nlm.nih.gov/35570493/
   pmid: '35570493'
 - option_id: ATLAS-CX015
@@ -11896,8 +12412,10 @@ atlas_options:
   - Multiple sclerosis
   taxon_direction: {}
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - p9
+  concerns:
+  - immune
   url: https://pubmed.ncbi.nlm.nih.gov/32160527/
   pmid: '32160527'
 - option_id: ATLAS-CX016
@@ -11916,7 +12434,8 @@ atlas_options:
     Multiple sclerosis: decrease
     Trial reported: decrease
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/42402345/
   pmid: '42402345'
@@ -12049,7 +12568,8 @@ atlas_options:
   - Protective effects
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://www.nature.com/articles/s41467-026-71718-z
 - option_id: ATLAS-CX024
@@ -12068,7 +12588,9 @@ atlas_options:
     Active celiac: increase
     Some symptom: increase
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns:
   - barrier
   url: https://pubmed.ncbi.nlm.nih.gov/23314670/
@@ -12108,8 +12630,11 @@ atlas_options:
     Major depression: increase
     Greater short-term: increase
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - b6
+  - glucosinolate
+  concerns:
+  - gut_brain
   url: https://pubmed.ncbi.nlm.nih.gov/35654766/
   pmid: '35654766'
 - option_id: ATLAS-CX027
@@ -12129,7 +12654,9 @@ atlas_options:
   genera: []
   panels:
   - fermentation
-  concerns: []
+  - p9
+  concerns:
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/39196205/
   pmid: '39196205'
 - option_id: ATLAS-CX028
@@ -12146,7 +12673,9 @@ atlas_options:
   genera: []
   panels:
   - fermentation
-  concerns: []
+  concerns:
+  - immune
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/35045871/
   pmid: '35045871'
 - option_id: ATLAS-CX029
@@ -12167,7 +12696,8 @@ atlas_options:
     Pasteurized preparation: increase
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - metabolic
   url: https://doi.org/10.1038/s41591-019-0495-2
   doi: 10.1038/s41591-019-0495-2
 - option_id: ATLAS-CX030
@@ -12243,7 +12773,8 @@ atlas_options:
     Purine availability: decrease
     Reduced serum: decrease
   genera: []
-  panels: []
+  panels:
+  - urate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/35227163/
   pmid: '35227163'
@@ -12265,7 +12796,9 @@ atlas_options:
     Ecosystem collateral: decrease
     Escherichia and: decrease
   genera: []
-  panels: []
+  panels:
+  - p9
+  - urate
   concerns:
   - diversity
   url: https://pubmed.ncbi.nlm.nih.gov/31890166/
@@ -12284,7 +12817,8 @@ atlas_options:
   - Symptom and
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/17240130/
   pmid: '17240130'
@@ -12301,7 +12835,8 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/19962291/
@@ -12322,7 +12857,8 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/29174928/
   pmid: '29174928'
 - option_id: ATLAS-CX038
@@ -12341,7 +12877,8 @@ atlas_options:
     Ulcerative colitis: increase
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/33151988/
   pmid: '33151988'
 - option_id: ATLAS-CX039
@@ -12415,6 +12952,7 @@ atlas_options:
     Improved selected: increase
   genera: []
   panels:
+  - nitrogen
   - urease
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/15122774/
@@ -12655,8 +13193,10 @@ atlas_options:
   - Enterobacteriaceae intestinal
   taxon_direction: {}
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - peptides
+  concerns:
+  - antibiotic_resistance
   url: https://pubmed.ncbi.nlm.nih.gov/31494254/
   pmid: '31494254'
   doi: 10.1016/j.cmi.2019.08.019
@@ -12809,7 +13349,8 @@ atlas_options:
   - Enterobius vermicularis
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns: []
   url: https://www.iqjmc.uobaghdad.edu.iq/index.php/19JFacMedBaghdad36/article/view/1653
 - option_id: ATLAS-VC001
@@ -12830,6 +13371,7 @@ atlas_options:
   genera: []
   panels:
   - folate
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/26028733/
   pmid: '26028733'
@@ -12851,8 +13393,13 @@ atlas_options:
   genera: []
   panels:
   - butyrate
+  - fermentation
   - folate
-  concerns: []
+  - nitrogen
+  - p9
+  - urate
+  concerns:
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/35053965/
   pmid: '35053965'
   doi: 10.3390/foods11020234
@@ -12895,6 +13442,9 @@ atlas_options:
   genera: []
   panels:
   - b12
+  - fermentation
+  - nitrogen
+  - urate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/31333632/
   pmid: '31333632'
@@ -12916,6 +13466,7 @@ atlas_options:
   genera: []
   panels:
   - b12
+  - urolithin
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/39856975/
   pmid: '39856975'
@@ -12934,7 +13485,9 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
+  - thiamine
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/19200314/
   pmid: '19200314'
@@ -12955,6 +13508,9 @@ atlas_options:
   genera: []
   panels:
   - b12
+  - b6
+  - glucosinolate
+  - urolithin
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/17888910/
   pmid: '17888910'
@@ -12972,7 +13528,10 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - fermentation
+  - nitrogen
+  - urate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/26243944/
   pmid: '26243944'
@@ -12992,7 +13551,9 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/17158229/
   pmid: '17158229'
@@ -13016,6 +13577,7 @@ atlas_options:
   genera: []
   panels:
   - methane
+  - urolithin
   concerns:
   - transit
   url: https://pubmed.ncbi.nlm.nih.gov/28429333/
@@ -13040,8 +13602,12 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels:
+  - b6
   - butyrate
-  concerns: []
+  - glucosinolate
+  - urate
+  concerns:
+  - short_chain_fatty_acids
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC11988312/
   pmid: '40243571'
   doi: 10.3390/ijms26072951**
@@ -13062,7 +13628,9 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  concerns:
+  - immune
+  - short_chain_fatty_acids
   url: https://www.jstage.jst.go.jp/article/jvma/73/7/73_374/_article/-char/en
   doi: 10.12935/jvma.73.374**
 - option_id: ATLAS-BU03
@@ -13082,7 +13650,8 @@ atlas_options:
   genera: []
   panels:
   - fermentation
-  concerns: []
+  concerns:
+  - short_chain_fatty_acids
   url: https://www.wjgnet.com/1007-9327/full/v21/i19/5985
   pmid: '26019464'
   doi: 10.3748/wjg.v21.i19.5985**
@@ -13106,8 +13675,11 @@ atlas_options:
     Serum phosphorus: decrease
     Lachnoclostridium abundance: increase
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - b6
+  - glucosinolate
+  concerns:
+  - inflammation
   url: https://link.springer.com/article/10.1186/s41100-025-00657-0
   doi: 10.1186/s41100-025-00657-0**
 - option_id: ATLAS-BU05
@@ -13147,7 +13719,10 @@ atlas_options:
   - Half remained
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - p9
   concerns: []
   url: https://www.jstage.jst.go.jp/article/bpb/37/1/37_b13-00641/_html/-char/en
   doi: 10.1248/bpb.b13-00641**
@@ -13166,7 +13741,8 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://onlinelibrary.wiley.com/doi/full/10.1111/j.1348-0421.1997.tb01909.x
   pmid: '9343816'
@@ -13192,9 +13768,11 @@ atlas_options:
   panels:
   - butyrate
   - fermentation
+  - thiamine
   concerns:
   - barrier
   - inflammation
+  - short_chain_fatty_acids
   url: https://journals.asm.org/doi/10.1128/spectrum.01351-26
   pmid: '42549889'
   doi: 10.1128/spectrum.01351-26**
@@ -13218,7 +13796,9 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  - thiamine
+  concerns:
+  - short_chain_fatty_acids
   url: https://link.springer.com/article/10.1186/s12866-021-02415-8
   doi: 10.1186/s12866-021-02415-8**
 - option_id: ATLAS-BU10
@@ -13238,8 +13818,12 @@ atlas_options:
   taxon_direction:
     Improved glycemic-variability: increase
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - b6
+  - glucosinolate
+  concerns:
+  - metabolic
+  - fungal
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC11321313/
 - option_id: ATLAS-BU11
   source_table: T064
@@ -13263,7 +13847,12 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  - thiamine
+  - urate
+  - urolithin
+  concerns:
+  - metabolic
+  - short_chain_fatty_acids
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC12087665/
   pmid: '40371708'
   doi: 10.1080/19490976.2025.2504115**
@@ -13288,8 +13877,11 @@ atlas_options:
   genera: []
   panels:
   - butyrate
+  - p9
   concerns:
   - barrier
+  - immune
+  - short_chain_fatty_acids
   url: https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2025.1712993/full
   doi: 10.3389/fnut.2025.1712993**
 - option_id: ATLAS-NUT001
@@ -13314,7 +13906,10 @@ atlas_options:
     Fecal calprotectin: increase
     Escherichia coli: increase
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - peptides
   concerns:
   - inflammation
   - pathogen_burden
@@ -13344,7 +13939,8 @@ atlas_options:
     Normal decline: decrease
     Escherichia was: decrease
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns:
   - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/28753958/
@@ -13395,7 +13991,11 @@ atlas_options:
     Iron repletion: decrease
     Anemia improved: increase
   genera: []
-  panels: []
+  panels:
+  - b6
+  - crc_virulence
+  - glucosinolate
+  - peptides
   concerns:
   - pathogen_burden
   url: https://pubmed.ncbi.nlm.nih.gov/28774885/
@@ -13419,7 +14019,9 @@ atlas_options:
   taxon_direction:
     Fractional iron: increase
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/32692367/
   pmid: '32692367'
@@ -13448,6 +14050,7 @@ atlas_options:
   concerns:
   - pathogen_burden
   - diversity
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/34697758/
   pmid: '34697758'
   doi: 10.1007/s10534-021-00348-3
@@ -13497,8 +14100,12 @@ atlas_options:
   taxon_direction:
     Hemoglobin improved: increase
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - b6
+  - glucosinolate
+  - urate
+  concerns:
+  - colonisation_resistance
   url: https://pubmed.ncbi.nlm.nih.gov/25395392/
   pmid: '25395392'
   doi: 10.1093/ndt/gfu357
@@ -13572,8 +14179,10 @@ atlas_options:
   - Ferric maltol
   taxon_direction: {}
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - p9
+  concerns:
+  - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/34209042/
   pmid: '34209042'
   doi: 10.3390/nu13072269
@@ -13599,7 +14208,9 @@ atlas_options:
     Bisglycinate increased: increase
     Clinical infection: increase
   genera: []
-  panels: []
+  panels:
+  - peptides
+  - urolithin
   concerns:
   - pathogen_burden
   url: https://pubmed.ncbi.nlm.nih.gov/37199608/
@@ -13624,8 +14235,10 @@ atlas_options:
   - Net response
   taxon_direction: {}
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - p9
+  concerns:
+  - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/28368910/
   pmid: '28368910'
   doi: 10.1097/MIB.0000000000001089
@@ -13674,8 +14287,12 @@ atlas_options:
   - Epithelial hyperproliferation
   taxon_direction: {}
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - b6
+  - glucosinolate
+  - h2s
+  concerns:
+  - mucus
   url: https://pubmed.ncbi.nlm.nih.gov/26216954/
   pmid: '26216954'
   doi: 10.1073/pnas.1507645112
@@ -13700,9 +14317,13 @@ atlas_options:
     Sulfate partly: increase
     Early iron-depletion: decrease
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - p9
   concerns:
   - diversity
+  - fungal
   url: https://pubmed.ncbi.nlm.nih.gov/25461615/
   pmid: '25461615'
   doi: 10.1002/mbo3.213
@@ -13728,7 +14349,9 @@ atlas_options:
     Induced anemia: decrease
     Lower oxidative: decrease
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/24394211/
   pmid: '24394211'
@@ -13785,7 +14408,10 @@ atlas_options:
     Escherichia fell: increase
     Roseburia change: increase
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - urolithin
   concerns:
   - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/27548249/
@@ -13812,7 +14438,8 @@ atlas_options:
     Biofilm development: decrease
     Pseudomonas aeruginosa: increase
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - biofilm
   url: https://pubmed.ncbi.nlm.nih.gov/12037568/
@@ -13836,7 +14463,8 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - immune
   url: https://pubmed.ncbi.nlm.nih.gov/30126153/
   pmid: '30126153'
   doi: 10.3390/nu10081115
@@ -13863,7 +14491,9 @@ atlas_options:
     Clostridioides difficile: increase
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - pathogen_burden
+  - colonisation_resistance
   url: https://pubmed.ncbi.nlm.nih.gov/27668938/
   pmid: '27668938'
   doi: 10.1038/nm.4174
@@ -13960,7 +14590,8 @@ atlas_options:
   - Host selenoprotein
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/21493887/
   pmid: '21493887'
@@ -13983,7 +14614,9 @@ atlas_options:
     Copper selected: increase
     Enterococcus faecium: increase
   genera: []
-  panels: []
+  panels:
+  - peptides
+  - thiamine
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/16957194/
   pmid: '16957194'
@@ -14037,7 +14670,9 @@ atlas_options:
   genera: []
   panels:
   - fermentation
-  concerns: []
+  - p9
+  concerns:
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/35674742/
   pmid: '35674742'
   doi: 10.1084/jem.20220057
@@ -14058,7 +14693,8 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels: []
-  concerns: []
+  concerns:
+  - immune
   url: https://pubmed.ncbi.nlm.nih.gov/36737826/
   pmid: '36737826'
   doi: 10.1186/s40168-023-01461-w
@@ -14102,7 +14738,9 @@ atlas_options:
   taxon_direction:
     Shannon diversity: 'null'
   genera: []
-  panels: []
+  panels:
+  - thiamine
+  - urolithin
   concerns:
   - diversity
   url: https://pubmed.ncbi.nlm.nih.gov/37287399/
@@ -14129,7 +14767,8 @@ atlas_options:
     Lachnospiraceae increased: increase
     Enterococcus and: increase
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/34439526/
   pmid: '34439526'
@@ -14153,10 +14792,12 @@ atlas_options:
   taxon_direction:
     Formulation aimed: increase
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - barrier
   - diversity
+  - immune
   url: https://pubmed.ncbi.nlm.nih.gov/33615992/
   pmid: '33615992'
   doi: 10.1080/19490976.2021.1875774
@@ -14179,8 +14820,11 @@ atlas_options:
     Desulfovibrio decreased: decrease
     Microbiota changes: decrease
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - b6
+  - glucosinolate
+  concerns:
+  - immune
   url: https://pubmed.ncbi.nlm.nih.gov/40187667/
   pmid: '40187667'
   doi: 10.1016/j.bbi.2025.03.032
@@ -14234,8 +14878,11 @@ atlas_options:
     Clinical benefit: increase
   genera: []
   panels:
+  - b6
   - butyrate
-  concerns: []
+  - glucosinolate
+  concerns:
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/35943883/
   pmid: '35943883'
   doi: 10.1089/ars.2022.0033
@@ -14262,7 +14909,9 @@ atlas_options:
   - Escherichia coli
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
+  - urolithin
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/22451274/
   pmid: '22451274'
@@ -14283,7 +14932,10 @@ atlas_options:
   - Klebsiella pneumoniae
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/31449551/
   pmid: '31449551'
@@ -14307,7 +14959,11 @@ atlas_options:
   - Klebsiella pneumoniae
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - nitrogen
+  - p9
+  - thiamine
+  - urolithin
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/32466801/
   pmid: '32466801'
@@ -14329,9 +14985,13 @@ atlas_options:
   - Klebsiella pneumoniae
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
+  - thiamine
+  - urolithin
   concerns:
   - inflammation
+  - immune
   url: https://pubmed.ncbi.nlm.nih.gov/36077725/
   pmid: '36077725'
   doi: 10.3390/cancers14174188
@@ -14355,7 +15015,12 @@ atlas_options:
   - Klebsiella pneumoniae
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - p9
+  - pantothenate
+  - peptides
   concerns:
   - pathogen_burden
   url: https://pubmed.ncbi.nlm.nih.gov/42053167/
@@ -14382,7 +15047,10 @@ atlas_options:
   taxon_direction:
     Glutamine during: decrease
   genera: []
-  panels: []
+  panels:
+  - nitrogen
+  - p9
+  - peptides
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/36770901/
   pmid: '36770901'
@@ -14407,7 +15075,10 @@ atlas_options:
   - Klebsiella pneumoniae
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/12483001/
   pmid: '12483001'
@@ -14433,7 +15104,14 @@ atlas_options:
   - Current symptoms
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - p9
+  - peptides
+  - thiamine
+  - urate
+  - urolithin
   concerns:
   - barrier
   - pathogen_burden
@@ -14457,7 +15135,10 @@ atlas_options:
   - Keep positive
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
+  - urate
+  - urolithin
   concerns:
   - barrier
   - inflammation
@@ -14480,9 +15161,13 @@ atlas_options:
   - Escherichia coli
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - crc_virulence
+  - nitrogen
+  - p9
   concerns:
   - pathogen_burden
+  - immune
   url: https://pubmed.ncbi.nlm.nih.gov/37815335/
   pmid: '37815335'
   doi: 10.1128/spectrum.00975-23
@@ -14504,8 +15189,12 @@ atlas_options:
   - Clostridioides difficile
   taxon_direction: {}
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - b6
+  - glucosinolate
+  - p9
+  concerns:
+  - pathogen_burden
   url: https://pubmed.ncbi.nlm.nih.gov/29221987/
   pmid: '29221987'
 - option_id: ATLAS-T082-41896
@@ -14524,7 +15213,11 @@ atlas_options:
   - Clostridioides difficile
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - p9
+  - urolithin
   concerns:
   - pathogen_burden
   url: https://pubmed.ncbi.nlm.nih.gov/23359592/
@@ -14552,8 +15245,13 @@ atlas_options:
   genera: []
   panels:
   - butyrate
+  - p9
+  - thiamine
+  - urate
   concerns:
   - inflammation
+  - short_chain_fatty_acids
+  - fungal
   url: https://pubmed.ncbi.nlm.nih.gov/28798125/
   pmid: '28798125'
 - option_id: ATLAS-T082-41898
@@ -14579,8 +15277,12 @@ atlas_options:
   genera: []
   panels:
   - mucinlps
+  - nitrogen
+  - p9
+  - urolithin
   concerns:
   - barrier
+  - mucus
   - pathogen_burden
   url: https://pubmed.ncbi.nlm.nih.gov/20335627/
   pmid: '20335627'
@@ -14600,8 +15302,13 @@ atlas_options:
   - Joint microbial
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - agmatine
+  - b6
+  - glucosinolate
+  - p9
   concerns:
+  - inflammation
   - diversity
   url: https://pubmed.ncbi.nlm.nih.gov/30972302/
   pmid: '30972302'
@@ -14622,10 +15329,13 @@ atlas_options:
   - Keep chelate
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
+  - peptides
   concerns:
   - barrier
   - pathogen_burden
+  - gut_brain
   url: https://pubmed.ncbi.nlm.nih.gov/16777920/
   pmid: '16777920'
   doi: 10.1136/gut.2006.099929
@@ -14649,7 +15359,9 @@ atlas_options:
   - Clostridioides difficile
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
+  - thiamine
   concerns:
   - inflammation
   - pathogen_burden
@@ -14677,7 +15389,11 @@ atlas_options:
   genera: []
   panels:
   - mucinlps
+  - nitrogen
+  - p9
+  - urolithin
   concerns:
+  - mucus
   - inflammation
   - pathogen_burden
   - diversity
@@ -14727,7 +15443,9 @@ atlas_options:
   - Klebsiella pneumoniae
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
+  - thiamine
   concerns:
   - pathogen_burden
   url: https://pubmed.ncbi.nlm.nih.gov/14521878/
@@ -14753,7 +15471,8 @@ atlas_options:
   - Staphylococcus aureus
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - urate
   concerns:
   - pathogen_burden
   url: https://doi.org/10.3390/nu12113340
@@ -14777,7 +15496,8 @@ atlas_options:
   - Monograph and
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns:
   - pathogen_burden
   - diversity
@@ -14802,7 +15522,10 @@ atlas_options:
   - Escherichia coli
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - urolithin
   concerns:
   - transit
   url: https://pubmed.ncbi.nlm.nih.gov/30897198/
@@ -14824,7 +15547,12 @@ atlas_options:
   - Preserve sample
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - nitrogen
+  - p9
+  - urolithin
   concerns:
   - barrier
   url: https://pubmed.ncbi.nlm.nih.gov/28275113/
@@ -14845,8 +15573,12 @@ atlas_options:
   genera: []
   panels:
   - mucinlps
+  - urate
+  - urolithin
   concerns:
+  - mucus
   - transit
+  - immune
   url: https://pubmed.ncbi.nlm.nih.gov/17615175/
   pmid: '17615175'
   doi: 10.1152/ajpgi.00195.2007
@@ -14868,10 +15600,13 @@ atlas_options:
   - Does not
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
+  - urolithin
   concerns:
   - biofilm
   - barrier
+  - mucus
   - pathogen_burden
   url: https://pubmed.ncbi.nlm.nih.gov/25275396/
   pmid: '25275396'
@@ -14892,7 +15627,10 @@ atlas_options:
   - Supports host-protective
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - p9
   concerns:
   - biofilm
   - barrier
@@ -14920,9 +15658,11 @@ atlas_options:
   - Bacteroides fragilis
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - thiamine
   concerns:
   - barrier
+  - metabolic
   url: https://pubmed.ncbi.nlm.nih.gov/40389439/
   pmid: '40389439'
   doi: 10.1038/s41467-025-59916-7
@@ -14971,7 +15711,11 @@ atlas_options:
   - Clostridioides difficile
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - bai
+  - nitrogen
+  - p9
+  - urate
   concerns:
   - biofilm
   url: https://pubmed.ncbi.nlm.nih.gov/31098293/
@@ -14996,9 +15740,12 @@ atlas_options:
   - Pseudomonas aeruginosa
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - crc_virulence
+  - p9
   concerns:
   - biofilm
+  - pathogen_burden
   url: https://pubmed.ncbi.nlm.nih.gov/25042103/
   pmid: '25042103'
   doi: 10.1038/ncomms5462
@@ -15023,9 +15770,13 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  - mucinlps
   - fermentation
-  concerns: []
+  - mucinlps
+  - p9
+  - urolithin
+  concerns:
+  - mucus
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/29565634/
   pmid: '29565634'
   doi: 10.1089/acm.2017.0422
@@ -15047,9 +15798,13 @@ atlas_options:
   - Transferring this
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
+  - thiamine
   concerns:
   - barrier
+  - mucus
+  - inflammation
   - pathogen_burden
   url: https://pubmed.ncbi.nlm.nih.gov/27863247/
   pmid: '27863247'
@@ -15072,7 +15827,11 @@ atlas_options:
   - Oral and
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - p9
+  - urate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/11121904/
   pmid: '11121904'
@@ -15094,9 +15853,14 @@ atlas_options:
   - Flower extract
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - p9
   concerns:
   - barrier
+  - mucus
+  - fungal
   url: https://doi.org/10.3390/antiox8110512
   doi: 10.3390/antiox8110512
 - option_id: ATLAS-FEC001
@@ -15124,7 +15888,8 @@ atlas_options:
   genera: []
   panels:
   - mucinlps
-  concerns: []
+  concerns:
+  - mucus
   url: https://doi.org/10.1128/msphere.00289-26
   pmid: '42429610'
   doi: 10.1128/msphere.00289-26
@@ -15183,7 +15948,10 @@ atlas_options:
     Bifidobacterium infantis: increase
     Ruminococcus gnavus: increase
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - peptides
   concerns: []
   url: https://doi.org/10.1038/s41467-026-73297-5
   doi: 10.1038/s41467-026-73297-5
@@ -15260,7 +16028,9 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  - urate
+  concerns:
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/37541036/
   pmid: '37541036'
 - option_id: ATLAS-FEC009
@@ -15277,7 +16047,8 @@ atlas_options:
   - Clostridioides difficile
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns: []
   url: https://doi.org/10.1038/nature12503
   pmid: '23995682'
@@ -15318,8 +16089,10 @@ atlas_options:
   genera: []
   panels:
   - butyrate
+  - gababreak
   concerns:
   - pathogen_burden
+  - short_chain_fatty_acids
   url: https://doi.org/10.1016/j.chom.2014.11.003
   pmid: '25498344'
   doi: 10.1016/j.chom.2014.11.003
@@ -15343,6 +16116,7 @@ atlas_options:
   - mucinlps
   concerns:
   - barrier
+  - mucus
   url: https://doi.org/10.1016/j.cell.2016.10.043
   doi: 10.1016/j.cell.2016.10.043
 - option_id: ATLAS-FEC013
@@ -15381,6 +16155,7 @@ atlas_options:
   panels: []
   concerns:
   - barrier
+  - inflammation
   url: https://doi.org/10.3389/fcimb.2022.1028267
   pmid: '36439215'
   doi: 10.3389/fcimb.2022.1028267
@@ -15398,7 +16173,13 @@ atlas_options:
   taxon_direction:
     Enteritidis colonization: increase
   genera: []
-  panels: []
+  panels:
+  - b6
+  - fermentation
+  - glucosinolate
+  - nitrogen
+  - peptides
+  - urate
   concerns: []
   url: https://doi.org/10.1136/gut.2003.023499
   pmid: '15016747'
@@ -15440,8 +16221,11 @@ atlas_options:
     Galleria virulence: decrease
     Candida albicans: increase
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - crc_virulence
+  - p9
+  concerns:
+  - pathogen_burden
   url: https://doi.org/10.1128/mbio.03851-25
   pmid: '42132389'
   doi: 10.1128/mbio.03851-25
@@ -15464,7 +16248,8 @@ atlas_options:
   genera: []
   panels:
   - fermentation
-  concerns: []
+  concerns:
+  - short_chain_fatty_acids
   url: https://doi.org/10.1016/j.chom.2026.05.007
   pmid: '42242208'
   doi: 10.1016/j.chom.2026.05.007
@@ -15484,7 +16269,8 @@ atlas_options:
     Complex glycan: increase
     Candida albicans: increase
   genera: []
-  panels: []
+  panels:
+  - gababreak
   concerns: []
   url: https://doi.org/10.1016/j.cub.2020.09.027
   pmid: '33035488'
@@ -15506,8 +16292,10 @@ atlas_options:
     Fungal intracellular: decrease
     Candida albicans: decrease
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - peptides
+  concerns:
+  - fungal
   url: https://pubmed.ncbi.nlm.nih.gov/42242208/
   pmid: '42242208'
 - option_id: ATLAS-FEC021
@@ -15526,7 +16314,9 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  concerns:
+  - short_chain_fatty_acids
+  - fungal
   url: https://doi.org/10.1038/s41589-026-02272-4
   pmid: '38838675'
   doi: 10.1038/s41589-026-02272-4
@@ -15543,7 +16333,10 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels:
+  - fermentation
   - h2s
+  - nitrogen
+  - urate
   concerns: []
   url: https://doi.org/10.1093/glycob/cwae085
   pmid: '39385462'
@@ -15564,7 +16357,10 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels:
+  - fermentation
   - methane
+  - nitrogen
+  - urate
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/39385462/
   pmid: '39385462'
@@ -15582,7 +16378,8 @@ atlas_options:
   taxon_direction:
     Salmonella uptake: increase
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns: []
   url: https://doi.org/10.1016/j.chom.2013.11.002
   pmid: '24331462'
@@ -15601,7 +16398,8 @@ atlas_options:
   taxon_direction:
     Salmonella intracellular: decrease
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/30057174/
   pmid: '30057174'
@@ -15621,7 +16419,8 @@ atlas_options:
   genera: []
   panels:
   - propionate
-  concerns: []
+  concerns:
+  - short_chain_fatty_acids
   url: https://doi.org/10.1016/j.celrep.2021.110180
   pmid: '34986344'
   doi: 10.1016/j.celrep.2021.110180
@@ -15644,7 +16443,8 @@ atlas_options:
     Escherichia coli: decrease
     Proteus mirabilis: decrease
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns: []
   url: https://doi.org/10.1084/jem.20181639
   pmid: '30563917'
@@ -15666,7 +16466,8 @@ atlas_options:
     Colonocyte oxidative: decrease
     Enterobacteriaceae expansion: decrease
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns: []
   url: https://doi.org/10.1038/s41589-026-02272-4
   pmid: '28798125'
@@ -15687,7 +16488,8 @@ atlas_options:
     Host metabolic: decrease
     Salmonella lactate: decrease
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://doi.org/10.1016/j.chom.2017.11.006
   pmid: '29276172'
@@ -15707,7 +16509,9 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  - urate
+  concerns:
+  - short_chain_fatty_acids
   url: https://doi.org/10.3390/microorganisms10122496
   doi: 10.3390/microorganisms10122496
 - option_id: ATLAS-FEC031
@@ -15726,7 +16530,8 @@ atlas_options:
   - Bifidobacterium breve
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://doi.org/10.1038/s42003-023-04970-4
   pmid: '37253778'
@@ -15783,7 +16588,10 @@ atlas_options:
   taxon_direction:
     Delayed arrival: decrease
   genera: []
-  panels: []
+  panels:
+  - fermentation
+  - nitrogen
+  - urate
   concerns: []
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC11934246/
 - option_id: ATLAS-FEC035
@@ -15802,6 +16610,7 @@ atlas_options:
   panels: []
   concerns:
   - inflammation
+  - bile_acids
   url: https://doi.org/10.1038/s41586-022-05380-y
   pmid: '36323778'
   doi: 10.1038/s41586-022-05380-y
@@ -15839,7 +16648,9 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  - urolithin
+  concerns:
+  - short_chain_fatty_acids
   url: https://doi.org/10.1038/s41589-026-02272-4
   pmid: '42509322'
   doi: 10.1038/s41589-026-02272-4
@@ -15882,8 +16693,13 @@ atlas_options:
     Carbohydrate uptake: increase
     Escherichia coli: increase
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - peptides
+  - urate
+  concerns:
+  - pathogen_burden
+  - immune
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/21270894/
   pmid: '21270894'
 - option_id: ATLAS-PRX002
@@ -15903,7 +16719,11 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  - fermentation
+  - nitrogen
+  - urate
+  concerns:
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/16672507/
   pmid: '16672507'
 - option_id: ATLAS-PRX003
@@ -15923,7 +16743,9 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  - urate
+  concerns:
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/27810444/
   pmid: '27810444'
 - option_id: ATLAS-PRX004
@@ -15944,7 +16766,10 @@ atlas_options:
   panels:
   - butyrate
   - mucinlps
-  concerns: []
+  - urate
+  concerns:
+  - mucus
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/28928206/
   pmid: '28928206'
 - option_id: ATLAS-PRX005
@@ -15964,10 +16789,13 @@ atlas_options:
     Akkermansia succinate-to-propionate: increase
   genera: []
   panels:
-  - propionate
   - b12
+  - gababreak
   - mucinlps
-  concerns: []
+  - propionate
+  concerns:
+  - mucus
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/28928206/
   pmid: '28928206'
 - option_id: ATLAS-PRX006
@@ -15986,7 +16814,8 @@ atlas_options:
   genera: []
   panels:
   - mucinlps
-  concerns: []
+  concerns:
+  - mucus
   url: https://pubmed.ncbi.nlm.nih.gov/25420416/
   pmid: '25420416'
 - option_id: ATLAS-PRX007
@@ -16003,8 +16832,12 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - peptides
+  - urate
+  concerns:
+  - pathogen_burden
+  - short_chain_fatty_acids
   url: https://pmc.ncbi.nlm.nih.gov/articles/PMC5717325/
 - option_id: ATLAS-PRX008
   source_table: T085
@@ -16021,9 +16854,13 @@ atlas_options:
   - Infant colonization
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - indole
+  - nitrogen
+  - p9
   concerns:
   - inflammation
+  - immune
   url: https://pubmed.ncbi.nlm.nih.gov/34143954/
   pmid: '34143954'
 - option_id: ATLAS-PRX009
@@ -16042,8 +16879,12 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels:
+  - nitrogen
+  - p9
   - tryptamine
-  concerns: []
+  - urate
+  concerns:
+  - immune
   url: https://pubmed.ncbi.nlm.nih.gov/34675385/
   pmid: '34675385'
 - option_id: ATLAS-PRX010
@@ -16063,6 +16904,7 @@ atlas_options:
   genera: []
   panels:
   - indole
+  - p9
   - tryptamine
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/28775213/
@@ -16083,6 +16925,7 @@ atlas_options:
   genera: []
   panels:
   - histamine
+  - p9
   concerns:
   - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/22384111/
@@ -16163,7 +17006,9 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
   concerns:
   - inflammation
   - pathogen_burden
@@ -16185,7 +17030,8 @@ atlas_options:
   taxon_direction:
     Enterobacteriaceae suppressed: decrease
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns:
   - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/27798599/
@@ -16229,7 +17075,11 @@ atlas_options:
   - Changed community
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - agmatine
+  - p9
+  - putrescine
+  - spermidine
   concerns:
   - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/24686447/
@@ -16253,8 +17103,11 @@ atlas_options:
     Community modulation: decrease
     Clostridioides difficile: decrease
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - gababreak
+  - p9
+  concerns:
+  - immune
   url: https://pubmed.ncbi.nlm.nih.gov/34294848/
   pmid: '34294848'
 - option_id: ATLAS-PRX020
@@ -16271,7 +17124,8 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/33193245/
@@ -16292,8 +17146,10 @@ atlas_options:
   - Clostridioides difficile
   taxon_direction: {}
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - bsh
+  concerns:
+  - bile_acids
   url: https://pubmed.ncbi.nlm.nih.gov/36914755/
   pmid: '36914755'
 - option_id: ATLAS-PRX022
@@ -16314,7 +17170,8 @@ atlas_options:
   genera: []
   panels:
   - bai
-  concerns: []
+  concerns:
+  - bile_acids
   url: https://pubmed.ncbi.nlm.nih.gov/25337874/
   pmid: '25337874'
 - option_id: ATLAS-PRX023
@@ -16331,7 +17188,8 @@ atlas_options:
   - Host epithelial
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/24141879/
   pmid: '24141879'
@@ -16356,7 +17214,9 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  - peptides
+  concerns:
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/25999470/
   pmid: '25999470'
 - option_id: ATLAS-PRX025
@@ -16378,6 +17238,7 @@ atlas_options:
     Food consortium: increase
   genera: []
   panels:
+  - glucosinolate
   - methane
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/35465165/
@@ -16400,8 +17261,10 @@ atlas_options:
     Secreted protease: decrease
     Clostridioides difficile: decrease
   genera: []
-  panels: []
-  concerns: []
+  panels:
+  - p9
+  concerns:
+  - pathogen_burden
   url: https://pubmed.ncbi.nlm.nih.gov/8945570/
   pmid: '8945570'
 - option_id: ATLAS-PRX027
@@ -16420,9 +17283,11 @@ atlas_options:
   taxon_direction:
     Akt signaling: decrease
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - barrier
+  - inflammation
   url: https://pubmed.ncbi.nlm.nih.gov/21606592/
   pmid: '21606592'
 - option_id: ATLAS-PRX028
@@ -16439,7 +17304,8 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns:
   - barrier
   url: https://pubmed.ncbi.nlm.nih.gov/27892954/
@@ -16520,7 +17386,8 @@ atlas_options:
   - Host susceptibility
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
   url: https://pubmed.ncbi.nlm.nih.gov/30581114/
   pmid: '30581114'
@@ -16578,8 +17445,11 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels:
+  - p9
   - propionate
-  concerns: []
+  - urate
+  concerns:
+  - short_chain_fatty_acids
   url: https://pubmed.ncbi.nlm.nih.gov/31235964/
   pmid: '31235964'
 - option_id: ATLAS-BOT001
@@ -16613,7 +17483,10 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - glutathione
+  - nitrogen
+  - p9
   concerns: []
 - option_id: ATLAS-BOT003
   source_table: T086
@@ -16665,7 +17538,8 @@ atlas_options:
   genera: []
   panels:
   - bsh
-  concerns: []
+  concerns:
+  - bile_acids
 - option_id: ATLAS-BOT007
   source_table: T086
   material: Berberine-containing arms of PREMOTE; adults with newly diagnosed type 2 diabetes, after antibiotic
@@ -16704,7 +17578,9 @@ atlas_options:
   taxon_direction:
     Clostridiales contributions: increase
   genera: []
-  panels: []
+  panels:
+  - nitrogen
+  - p9
   concerns: []
 - option_id: ATLAS-BOT009
   source_table: T086
@@ -16725,7 +17601,9 @@ atlas_options:
   genera: []
   panels:
   - butyrate
-  concerns: []
+  - peptides
+  concerns:
+  - short_chain_fatty_acids
 - option_id: ATLAS-BOT010
   source_table: T086
   material: Studied carvacrol-rich oregano essential oil; pigs
@@ -16742,7 +17620,8 @@ atlas_options:
   taxon_direction:
     Escherichia coli: decrease
   genera: []
-  panels: []
+  panels:
+  - peptides
   concerns: []
 - option_id: ATLAS-BOT011
   source_table: T086
@@ -16759,7 +17638,10 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - fermentation
+  - nitrogen
+  - urate
   concerns: []
 - option_id: ATLAS-BOT012
   source_table: T086
@@ -16926,7 +17808,8 @@ atlas_options:
   - Bacteroides thetaiotaomicron
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - urolithin
   concerns: []
 - option_id: ATLAS-BOT021
   source_table: T086
@@ -16958,7 +17841,9 @@ atlas_options:
   taxon_direction: {}
   genera: []
   panels:
+  - urate
   - urda
+  - urolithin
   concerns: []
 - option_id: ATLAS-BOT023
   source_table: T086
@@ -16976,6 +17861,7 @@ atlas_options:
   genera: []
   panels:
   - urda
+  - urolithin
   concerns: []
 - option_id: ATLAS-BOT024
   source_table: T086
@@ -17009,8 +17895,9 @@ atlas_options:
   genera: []
   panels:
   - bsh
-  - tmao
-  concerns: []
+  - cutc
+  concerns:
+  - bile_acids
 - option_id: ATLAS-BOT026
   source_table: T086
   material: Hop isoxanthohumol; faecal communities/Eubacterium limosum, then a small human exposure study
@@ -17025,7 +17912,10 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - b6
+  - glucosinolate
+  - p9
   concerns: []
 - option_id: ATLAS-BOT027
   source_table: T086
@@ -17057,7 +17947,8 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - glucosinolate
   concerns: []
 - option_id: ATLAS-BOT029
   source_table: T086
@@ -17091,7 +17982,8 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - urate
   concerns: []
 - option_id: ATLAS-BOT031
   source_table: T086
@@ -17125,7 +18017,8 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - p9
   concerns: []
 - option_id: ATLAS-BOT033
   source_table: T086
@@ -17158,7 +18051,9 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - glucosinolate
+  - urate
   concerns: []
 - option_id: ATLAS-BOT035
   source_table: T086
@@ -17175,5 +18070,6 @@ atlas_options:
   taxa: []
   taxon_direction: {}
   genera: []
-  panels: []
+  panels:
+  - urate
   concerns: []

@@ -49,6 +49,7 @@ from openbiota.pdfreport import (
     INK,
     INK_FAINT,
     INK_SOFT,
+    ORANGE,
     PANEL_BG,
     RULE,
     SLATE,
@@ -75,7 +76,9 @@ EM_DASH: Final = "\u2014"
 #: The colour each problem kind wears, so the eye can sort them.
 KIND_COLOUR: Final[dict[str, colors.Color]] = {
     "pathogen": CORAL,
+    "fungus": ORANGE,
     "organism": AMBER,
+    "group": ACCENT_DARK,
     "concern": ACCENT_DARK,
     "panel": ACCENT,
     "pattern": SLATE,
@@ -85,12 +88,15 @@ KIND_COLOUR: Final[dict[str, colors.Color]] = {
 _SECTION_ANCHOR: Final[dict[str, str]] = {
     "pathogen": "pathogens_detail", "organism": "organisms_detail",
     "concern": "biofilm_detail", "panel": "functions_detail",
-    "pattern": "patterns_detail",
+    "pattern": "patterns_detail", "fungus": "mycobiome_detail",
+    "group": "groups_detail",
 }
 
 KIND_WORDS: Final[dict[str, str]] = {
     "pathogen": "PATHOGEN SCREEN",
+    "fungus": "MYCOBIOME",
     "organism": "ORGANISM",
+    "group": "MICROBIAL GROUP",
     "concern": "WHOLE-GUT FINDING",
     "panel": "METABOLITE PATHWAY",
     "pattern": "DISEASE PATTERN",

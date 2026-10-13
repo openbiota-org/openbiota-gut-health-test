@@ -188,20 +188,73 @@ def test_a_problem_with_nothing_on_record_says_so(monkeypatch: Any) -> None:
 
 
 def test_a_pathway_is_a_problem_only_in_the_direction_that_matters() -> None:
-    """Low butyrate is a finding; high butyrate is not. The reverse for H2S."""
-    low_butyrate = sol.panel_problems(
-        [{"panel": "butyrate", "percentile": 3.0, "metabolite": "Butyrate"}], section=19)
-    high_butyrate = sol.panel_problems(
-        [{"panel": "butyrate", "percentile": 97.0, "metabolite": "Butyrate"}], section=19)
-    high_h2s = sol.panel_problems(
-        [{"panel": "h2s", "percentile": 97.0, "metabolite": "Hydrogen sulfide"}], section=19)
-    low_h2s = sol.panel_problems(
-        [{"panel": "h2s", "percentile": 3.0, "metabolite": "Hydrogen sulfide"}], section=19)
+    """Which end is the finding is the panel's own business, not a list here.
+
+    A panel declares whether more of it is `favourable`, `adverse` or
+    `context-dependent`, and that is what decides. A hand-kept list of
+    panels and directions covered 35 of 46, so eleven readings could never
+    become something to act on however extreme they were.
+    """
+    def panel(key: str, pct: float, means: str) -> list[dict[str, object]]:
+        return [{"panel": key, "percentile": pct, "metabolite": key, "higher_means": means}]
+
+    low_butyrate = sol.panel_problems(panel("butyrate", 3.0, "favourable"), section=19)
+    high_butyrate = sol.panel_problems(panel("butyrate", 97.0, "favourable"), section=19)
+    high_h2s = sol.panel_problems(panel("h2s", 97.0, "adverse"), section=19)
+    low_h2s = sol.panel_problems(panel("h2s", 3.0, "adverse"), section=19)
 
     assert len(low_butyrate) == 1 and low_butyrate[0].want == sol.WANT_UP
-    assert high_butyrate == []
+    assert high_butyrate == [], "a favourable reading at the top is not a problem"
     assert len(high_h2s) == 1 and high_h2s[0].want == sol.WANT_DOWN
-    assert low_h2s == []
+    assert low_h2s == [], "an adverse reading at the bottom is not a problem"
+
+
+def test_a_context_dependent_pathway_is_a_finding_at_either_end() -> None:
+    """Eleven panels are neither simply good nor simply bad at the top.
+
+    Agmatine, equol, GABA, dopamine and the rest used to raise nothing at
+    all, whatever the reading. Both tails are findings now, and what the
+    reader wants is to come back toward the middle.
+    """
+    high = sol.panel_problems(
+        [{"panel": "agmatine", "percentile": 97.0, "higher_means": "context-dependent"}], section=19)
+    low = sol.panel_problems(
+        [{"panel": "agmatine", "percentile": 2.0, "higher_means": "context-dependent"}], section=19)
+    middle = sol.panel_problems(
+        [{"panel": "agmatine", "percentile": 50.0, "higher_means": "context-dependent"}], section=19)
+    assert len(high) == 1 and high[0].want == sol.WANT_DOWN
+    assert len(low) == 1 and low[0].want == sol.WANT_UP
+    assert middle == []
+
+
+def test_every_panel_in_the_report_can_be_asked_about() -> None:
+    """A panel with no search key could never match a single paper.
+
+    The keys are derived from the panel definitions now, so a panel cannot
+    be added to the report and silently have no evidence route.
+    """
+    import pathlib
+
+    import yaml as _yaml
+
+    names = {p.stem for p in pathlib.Path("panels").glob("*.yaml") if not p.name.startswith("_")}
+    if not names:
+        return
+    index = sol._index()["panel"]
+    # Not every panel will have evidence in this snapshot, but every panel
+    # must be *askable*: the importer has to know a pattern for it.
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location(
+        "atlas_import", "scripts/import_atlas_evidence.py")
+    if spec is None or spec.loader is None:
+        return
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    missing = names - set(module.PANEL_WORDS)
+    assert not missing, f"panels with no evidence key: {sorted(missing)}"
+    assert index, "the atlas should bind at least some panels"
+    _ = _yaml
 
 
 def test_a_typical_pathway_is_not_a_problem() -> None:
@@ -426,3 +479,58 @@ def test_a_card_that_proposes_nothing_is_not_counted_as_an_option() -> None:
     assert labels == ["An exact studied product"]
     # The reasoning is kept, and lands on the problem instead.
     assert sol.registry_notes(results)["T1"] == ["Why there is nothing."]
+
+
+def test_a_card_offers_every_intervention_its_evidence_names() -> None:
+    """One card is not one option, and taking only the headline lost the treatments.
+
+    The Clostridioides difficile card is headed by a toxin-testing route and
+    cites conventional faecal transplantation, VOWST and REBYOTA. Reading
+    only the headline meant the two FDA-approved products for recurrent CDI
+    appeared nowhere in the report at all.
+    """
+    import pathlib
+
+    from openbiota.interventions import TriggerRecord, generate, load_registry
+
+    reg = load_registry(pathlib.Path("interventions"))
+    trigger = TriggerRecord(
+        trigger_id="T_CDIFF", trigger_type="exact_microbiome_feature",
+        target="Clostridioides_difficile", direction="present",
+        source_record_ref="pathogen:cdiff", confirmation_status="profile_only",
+        level="concern", level_rank=None, microbial_context={},
+        display="Clostridioides difficile: concern",
+    )
+    summaries = generate(reg, [trigger], sample="S", context=None, mode="research")
+    results = {"findings_and_evidence": {
+        "triggers": [{"trigger_id": trigger.trigger_id,
+                      "trigger_type": trigger.trigger_type, "target": trigger.target}],
+        "evidence_summaries": [s.to_json() for s in summaries],
+    }}
+    labels = " | ".join(o.label for v in sol.registry_options(results).values() for o in v)
+    assert "VOWST" in labels
+    assert "REBYOTA" in labels
+    assert "fecal microbiota transplantation" in labels.lower()
+
+
+def test_an_organism_card_reaches_a_pathogen_finding() -> None:
+    """The screen and the reference cohort name the same organisms.
+
+    A card written for an organism has to reach whichever kind of problem
+    the report raised for it, or the card is written and never shown.
+    """
+    results = {"findings_and_evidence": {
+        "triggers": [{"trigger_id": "T1", "trigger_type": "exact_microbiome_feature",
+                      "target": "Clostridioides_difficile"}],
+        "evidence_summaries": [{
+            "summary_id": "S1", "render": "evidence_only", "title": "A card",
+            "intervention_display": "An approved product", "intervention_class": "probiotic",
+            "trigger_ids": ["T1"], "supporting_evidence_lane": "A",
+        }],
+    }}
+    problem = sol.Problem(
+        key=sol.problem_key("pathogen", "Clostridioides difficile"), kind="pathogen",
+        title="found", detail="", want=sol.WANT_DOWN, severity=10.0, section=18,
+    )
+    sol.attach_registry([problem], results)
+    assert [o.label for o in problem.options] == ["An approved product"]

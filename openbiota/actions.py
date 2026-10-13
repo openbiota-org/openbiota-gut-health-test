@@ -177,6 +177,7 @@ def build_action_plan(
     reporter: Reporter | None = None,
     out_of_scope_fractions: Mapping[str, float] | None = None,
     context_ledger: ContextLedger | None = None,
+    pathogen_species: Sequence[str] = (),
 ) -> ActionPlan:
     """Build findings, triggers and evidence cards for one sample."""
     notes: list[str] = []
@@ -237,6 +238,17 @@ def build_action_plan(
             for t in findings.taxa:
                 if t.bucket in BUCKET_TRIGGER and (t.headline or t.bucket in (2, 3)):
                     taxa_buckets[t.species] = BUCKET_TRIGGER[t.bucket]
+
+    # Organisms the pathogen screen named. They reach the registry only from
+    # here: the buckets above come from the reference cohort, and an organism
+    # found by the pathogen branch is not in them. That is why the card
+    # written for Clostridioides difficile - the one card that carries
+    # conventional transplantation, VOWST and REBYOTA - never fired for a
+    # sample in which C. difficile was actually found.
+    for species in pathogen_species:
+        key = str(species).replace(" ", "_")
+        if key:
+            taxa_buckets.setdefault(key, "concern")
     else:
         notes.append("No matched reference cohort: organism findings and missing-species calls are unavailable.")
 

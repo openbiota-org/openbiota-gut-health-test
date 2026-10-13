@@ -824,8 +824,27 @@ def _against_set(against: Sequence[Assertion]) -> list[str]:
     return [k for k in AGAINST_ORDER if k in kinds]
 
 
-def _assertion_json(a: Assertion, protocol: Protocol | None) -> dict[str, Any]:
+def _cited(registry: Registry, a: Assertion) -> dict[str, Any]:
+    """An assertion with the protocol and intervention it was studied as."""
+    protocol = registry.protocols.get(a.protocol_ref) if a.protocol_ref else None
+    intervention = registry.interventions.get(protocol.intervention_id) if protocol else None
+    return _assertion_json(a, protocol, intervention)
+
+
+def _assertion_json(
+    a: Assertion, protocol: Protocol | None, intervention: Intervention | None = None
+) -> dict[str, Any]:
+    """One cited study, as data.
+
+    The intervention is named here as well as the dose. A card commonly
+    cites several different interventions - the C. difficile card cites
+    conventional FMT, VOWST and REBYOTA - and without the name, everything
+    the card cites but is not headed by was unreachable downstream.
+    """
     return {
+        "intervention_display": None if intervention is None else intervention.display_name,
+        "intervention_class": None if intervention is None else intervention.intervention_class,
+        "intervention_id": None if intervention is None else intervention.intervention_id,
         "evidence_assertion_id": a.evidence_assertion_id, "lane": a.lane, "lane_meaning": LANE_MEANING.get(a.lane, ""),
         "against_kind": a.against_kind, "proposition": a.proposition,
         "source_type": a.source.get("source_type"), "publication_status": a.source.get("publication_status", "peer_reviewed"),
@@ -956,8 +975,8 @@ def generate(
             },
             eligibility_explanation=notes, context_note=mapping.context_note, never_say=list(mapping.never_say),
             follow_up_route=mapping.follow_up_route, fmt_status=mapping.fmt_status,
-            supporting=[_assertion_json(a, registry.protocols.get(a.protocol_ref) if a.protocol_ref else None) for a in supporting],
-            against=[_assertion_json(a, registry.protocols.get(a.protocol_ref) if a.protocol_ref else None) for a in against],
+            supporting=[_cited(registry, a) for a in supporting],
+            against=[_cited(registry, a) for a in against],
             sources=list(mapping.sources), rejections=rejections, participant_paragraphs=paragraphs, dose_shown=dose_shown,
         ))
     return summaries

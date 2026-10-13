@@ -64,6 +64,7 @@ from openbiota.pdflinks import (
     RowLink,
     back_link_line,
     function_dest,
+    group_dest,
     linked_cell,
     organism_dest,
     pathogen_dest,
@@ -2838,6 +2839,8 @@ def _solution_problems(
     results: Mapping[str, Any] | None,
     attention_items: Sequence[Any],
     sections: Mapping[str, int],
+    *,
+    draws_group_pages: bool = False,
 ) -> list[Any]:
     """Every finding this report makes, as a problem with its options.
 
@@ -2896,6 +2899,16 @@ def _solution_problems(
         }
     problems += sol.concern_problems(concerns, section=sections["biofilm_detail"])
 
+    # The ten microbial groups, which are a whole section of the report and
+    # had no way in to what can be done about any of them.
+    community = ((results.get("profile_similarity") or {}).get("community") or {})
+    problems += sol.group_problems(
+        community.get("groups") or [], section=sections["groups_detail"])
+
+    # And the fungal lane, likewise.
+    problems += sol.fungal_problems(
+        results.get("mycobiome"), section=sections["mycobiome_detail"])
+
     # Published disease patterns this sample resembles. The only evidence
     # that bears on them is the curated registry: exact products studied in
     # people who have the condition.
@@ -2920,6 +2933,13 @@ def _solution_problems(
             anchored.add(pathogen_dest(str(record["target_id"]), detail=True))
     for name in ((results.get("profile_similarity") or {}).get("ranked") or {}):
         anchored.add(profile_dest(str(name), detail=True))
+    # The group detail pages are only drawn when the community profile is
+    # there to draw them from; without it, a link to one would dangle and
+    # take the whole render down.
+    if draws_group_pages:
+        for group in (community.get("groups") or []):
+            if isinstance(group, Mapping) and group.get("group"):
+                anchored.add(group_dest(str(group["group"]), detail=True))
     for problem in problems:
         if problem.detail_dest and problem.detail_dest not in anchored:
             problem.detail_dest = ""
@@ -3070,7 +3090,10 @@ def build_pdf(
     # report rendered in the same process cannot inherit the first one's.
     reset_solutions()
     attention_items = pdfattention.build(inv, findings)
-    solution_problems = _solution_problems(results, attention_items, SECTIONS)
+    solution_problems = _solution_problems(
+        results, attention_items, SECTIONS,
+        draws_group_pages=similarity is not None and similarity.community is not None,
+    )
     pdfsummary.summary_page(
         story, st, rows=ordered, similarity=similarity, rpob_profile=profile, meta=meta, findings=findings,
         age=age, age_meta=age_meta, pathogens=pathogens, pathogen_section=SECTIONS["pathogens"],

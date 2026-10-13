@@ -1946,6 +1946,27 @@ def _strain_block(
     }
 
 
+def _pathogen_species(results_json: dict[str, Any]) -> list[str]:
+    """Organisms the pathogen screen actually named, for the registry.
+
+    Without these, a card written for a named pathogen never fires, because
+    the only organisms that reach the registry are the ones the reference
+    cohort flagged.
+    """
+    try:
+        from openbiota import pdfpathogens as _pdfpathogens  # noqa: PLC0415
+
+        summary = _pdfpathogens.summarise((results_json or {}).get("pathogens"))
+    except Exception:  # noqa: BLE001 - never lose the plan for this
+        return []
+    out: list[str] = []
+    for record in (summary.get("pathogens") or ()):
+        name = str(record.get("display_name") or "").strip()
+        if name and name not in out:
+            out.append(name)
+    return out
+
+
 def _resolution_census(sample: str, results_json: dict[str, Any]) -> dict[str, Any]:
     """Every registered target's terminal state, for one sample.
 
@@ -3151,6 +3172,7 @@ def cmd_run(
                 medications=_split_list(args.medications) if args.medications else None,
                 mode=args.mode, taxa_dir=Path(args.taxa_dir), reporter=reporter,
                 out_of_scope_fractions=out_of_scope, context_ledger=context_ledger,
+                pathogen_species=_pathogen_species(results_json),
             )
         except OpenBiotaError as exc:
             reporter.warn(f"intervention evidence unavailable: {exc}")

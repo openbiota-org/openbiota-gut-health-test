@@ -306,6 +306,8 @@ def _dest(kind: str, name: str) -> str:
         return pdflinks.pathogen_dest(name, detail=True)
     if kind == "pattern":
         return pdflinks.profile_dest(name, detail=True)
+    if kind == "group":
+        return pdflinks.group_dest(name, detail=True)
     return ""
 
 
@@ -486,21 +488,6 @@ def _dedupe(options: Sequence[Option]) -> list[Option]:
     return sorted(best.values(), key=lambda o: o.sort_key)
 
 
-#: The panels a reader would want to move, and which way. A panel that is
-#: only ever informational is not a problem and gets no row.
-PANEL_WANT: Final[dict[str, str]] = {
-    "butyrate": WANT_UP, "propionate": WANT_UP, "fermentation": WANT_UP,
-    "b12": WANT_UP, "folate": WANT_UP, "riboflavin": WANT_UP, "biotin": WANT_UP,
-    "k2": WANT_UP, "thiamine": WANT_UP, "niacin": WANT_UP, "pantothenate": WANT_UP,
-    "b6": WANT_UP, "indole": WANT_UP, "ipa": WANT_UP, "bsh": WANT_UP,
-    "glutathione": WANT_UP, "spermidine": WANT_UP, "urolithin": WANT_UP, "urda": WANT_UP,
-    "h2s": WANT_DOWN, "bai": WANT_DOWN, "pcresol": WANT_DOWN, "cutc": WANT_DOWN,
-    "bglucuronidase": WANT_DOWN, "histamine": WANT_DOWN, "ethanol": WANT_DOWN,
-    "putrescine": WANT_DOWN, "crc_virulence": WANT_DOWN, "mucinlps": WANT_DOWN,
-    "methane": WANT_DOWN, "urease": WANT_DOWN, "oxalate": WANT_DOWN, "ammonia": WANT_DOWN,
-    "bcaa": WANT_DOWN, "tmao": WANT_DOWN,
-}
-
 #: Band words that mean a panel is outside the usual range and in which
 #: direction it sits. Both spellings of the report's own seven-band scale
 #: are accepted, since the bands are written with spaces on the page and
@@ -525,6 +512,29 @@ def band_of(percentile: float | None) -> str:
     return "notably_high"
 
 
+#: What a reading away from the middle means for the reader, taken from the
+#: panel's own definition rather than from a list kept here. A hand-kept list
+#: covered 35 of 46 panels, so eleven readings - agmatine, equol, GABA,
+#: dopamine, carbohydrate-active enzymes and the rest - could never become
+#: something to act on however extreme they were.
+#:
+#: `favourable`: more is better, so a low reading is the finding.
+#: `adverse`: less is better, so a high reading is the finding.
+#: `context-dependent`: neither end is simply good, so either extreme is a
+#: finding and what the reader wants is to move back toward the middle.
+def want_for_panel(higher_means: str, band: str) -> str | None:
+    """Which way to move this reading, or None if it is not a finding."""
+    sits_low, sits_high = band in _LOW, band in _HIGH
+    if not (sits_low or sits_high):
+        return None
+    meaning = str(higher_means or "").strip().lower()
+    if meaning.startswith("favourable"):
+        return WANT_UP if sits_low else None
+    if meaning.startswith("adverse"):
+        return WANT_DOWN if sits_high else None
+    return WANT_DOWN if sits_high else WANT_UP
+
+
 def panel_problems(panels: Sequence[Mapping[str, Any]], *, section: int) -> list[Problem]:
     """A problem for every metabolite pathway sitting outside the usual range.
 
@@ -535,16 +545,13 @@ def panel_problems(panels: Sequence[Mapping[str, Any]], *, section: int) -> list
     out: list[Problem] = []
     for panel in panels:
         key = str(panel.get("id") or panel.get("panel") or "")
+        if not key:
+            continue
         band = str(panel.get("band") or panel.get("level") or "").replace(" ", "_").lower()
         if not band or band == "unknown":
             band = band_of(panel.get("percentile"))
-        want = PANEL_WANT.get(key)
-        if not key or not want:
-            continue
-        sits_low, sits_high = band in _LOW, band in _HIGH
-        if not (sits_low or sits_high):
-            continue
-        if (want == WANT_UP and not sits_low) or (want == WANT_DOWN and not sits_high):
+        want = want_for_panel(str(panel.get("higher_means") or ""), band)
+        if want is None:
             continue
         label = str(panel.get("label") or panel.get("metabolite") or key.replace("_", " "))
         words = band.replace("_", " ")
@@ -563,6 +570,87 @@ def panel_problems(panels: Sequence[Mapping[str, Any]], *, section: int) -> list
         problem.options = _dedupe(atlas_options(panels=[key], want=want))
         problem.worsens = _dedupe(atlas_options(panels=[key], want=_opposite(want)))
         problem.unclear = _dedupe(atlas_options(panels=[key], want="unclear"))
+        problem.nothing_known = not problem.options
+        out.append(problem)
+    return out
+
+
+def group_problems(groups: Sequence[Mapping[str, Any]], *, section: int) -> list[Problem]:
+    """A problem for every microbial group sitting away from the reference.
+
+    The ten groups - the butyrate producers, the mucin degraders, the oral
+    colonisers, the sulfate reducers and the rest - are a whole section of
+    the report, and nothing in the actions section used to see them. They
+    carry their own `higher_means`, so the same rule as the pathways decides
+    which end is the finding, and a group's name is also an atlas key and a
+    concern, so the research reaches them.
+    """
+    out: list[Problem] = []
+    for group in groups:
+        name = str(group.get("group") or group.get("name") or "")
+        if not name:
+            continue
+        percentile = group.get("percentile")
+        band = band_of(percentile if isinstance(percentile, (int, float)) else None)
+        want = want_for_panel(str(group.get("higher_means") or ""), band)
+        if want is None:
+            continue
+        label = str(group.get("label") or name.replace("_", " "))
+        problem = Problem(
+            key=problem_key("group", name),
+            kind="group",
+            title=f"{label} as a group is {band.replace('_', ' ')}",
+            detail=(f"{percentile:.0f}th percentile; "
+                    f"{group.get('n_detected', 0)} of {group.get('n_members', 0)} members detected"
+                    if isinstance(percentile, (int, float)) else ""),
+            want=want,
+            severity=2.5 if band.startswith("notably") else 1.5,
+            section=section,
+            detail_dest=_dest("group", name),
+        )
+        # A group is asked for three ways: as a panel key of the same name
+        # (butyrate, methane), as a concern, and by the organisms in it.
+        members = [str(m.get("species") or m.get("name") or m) for m in (group.get("members") or ())]
+        problem.options = _dedupe(atlas_options(
+            panels=[name], concerns=[name], species=members[:40], want=want))
+        problem.worsens = _dedupe(atlas_options(
+            panels=[name], concerns=[name], species=members[:40], want=_opposite(want)))
+        problem.unclear = _dedupe(atlas_options(
+            panels=[name], concerns=[name], species=members[:40], want="unclear"))
+        problem.nothing_known = not problem.options
+        out.append(problem)
+    return out
+
+
+def fungal_problems(mycobiome: Mapping[str, Any] | None, *, section: int) -> list[Problem]:
+    """A problem for every fungus the mycobiome lane supported.
+
+    The fungal section is a whole lane of the pipeline and had no way in to
+    what can be done about anything it found.
+    """
+    lane = ((mycobiome or {}).get("genome_lane") or {})
+    out: list[Problem] = []
+    for taxon in (lane.get("taxa") or (mycobiome or {}).get("taxa") or ()):
+        if str(taxon.get("detection_state") or "supported") not in {"supported", "ambiguous_complex"}:
+            continue
+        name = str(taxon.get("accepted_name") or taxon.get("name") or "")
+        if not name:
+            continue
+        problem = Problem(
+            key=problem_key("fungus", name),
+            kind="fungus",
+            title=f"{name} was detected in the mycobiome",
+            detail=str(taxon.get("category") or taxon.get("rank") or ""),
+            want=WANT_DOWN,
+            severity=3.0,
+            section=section,
+        )
+        problem.options = _dedupe(atlas_options(
+            species=[name], genera=[genus_of(name)], concerns=["fungal"], want=WANT_DOWN))
+        problem.worsens = _dedupe(atlas_options(
+            species=[name], genera=[genus_of(name)], want=WANT_UP))
+        problem.unclear = _dedupe(atlas_options(
+            species=[name], genera=[genus_of(name)], concerns=["fungal"], want="unclear"))
         problem.nothing_known = not problem.options
         out.append(problem)
     return out
@@ -697,54 +785,89 @@ def registry_notes(results: Mapping[str, Any] | None) -> dict[str, list[str]]:
 
 
 def registry_options(results: Mapping[str, Any] | None) -> dict[str, list[Option]]:
-    """The curated exact-protocol cards, keyed by the trigger that fired them.
+    """Every intervention the curated cards name, keyed by the trigger that fired them.
 
-    These are the registry's own evidence summaries: an exact product, the
-    protocol that was actually studied, the population it was studied in and
-    the safety rules that apply. They are the strongest material the report
-    has, and they reach the actions section through the same shape as
-    everything else rather than through a block of their own.
+    One card is not one option. A card is a finding with a body of evidence
+    behind it, and that evidence commonly names several different things: the
+    C. difficile card cites conventional faecal transplantation, VOWST and
+    REBYOTA, all three approved or guideline-backed, while the card itself is
+    headed by a toxin-testing route. Taking only the headline meant 40 of the
+    registry's 92 interventions - including those three, and berberine,
+    garlic, oregano oil and a dozen probiotics - could never appear in the
+    report at all.
 
-    Only cards that actually propose something come through here; see
-    :data:`NOT_AN_OPTION`.
+    So every intervention a card names becomes its own row, with the study
+    that names it and that study's own citation. Only cards that propose
+    something come through here; see :data:`NOT_AN_OPTION`.
     """
     out: dict[str, list[Option]] = {}
     findings = (results or {}).get("findings_and_evidence") or {}
     for summary in (findings.get("evidence_summaries") or ()):
         if str(summary.get("render")) in NOT_AN_OPTION:
             continue
-        label = str(summary.get("intervention_display") or "").strip()
-        if not label:
-            # A card with no intervention is not an option, whatever its
-            # title reads like.
+        options = _options_of(summary)
+        if not options:
             continue
-        kind = _CLASS_KIND.get(str(summary.get("intervention_class") or ""), "compound")
-        protocol = str(summary.get("studied_protocol_text") or "")
+        for trigger_id in (summary.get("trigger_ids") or ()):
+            out.setdefault(str(trigger_id), []).extend(options)
+    return out
+
+
+def _options_of(summary: Mapping[str, Any]) -> list[Option]:
+    """Every distinct intervention one card puts on the table."""
+    population = str(summary.get("population_text") or "")
+    boundary = str(summary.get("context_note") or "")[:600]
+    lane = str(summary.get("supporting_evidence_lane") or "")
+    card_id = str(summary.get("summary_id") or summary.get("action_mapping_id") or "")
+
+    def _make(label: str, klass: str, protocol: str, setting: str,
+              source: str, citation: str, suffix: str) -> Option:
         # In participant mode the protocol is redacted to a placeholder; it
-        # carries no information and only crowds out the population, which
-        # does.
+        # carries no information and only crowds out the population.
         if "not shown in participant mode" in protocol:
             protocol = ""
-        population = str(summary.get("population_text") or "")
-        option = Option(
+        return Option(
             label=label if len(label) <= 150 else label[:149] + "\u2026",
-            kind=kind,
+            kind=_CLASS_KIND.get(klass, "compound"),
             direction="registry",
-            setting=_LANE_SETTING.get(str(summary.get("supporting_evidence_lane") or ""), "human_trial"),
+            setting=setting,
             delivery="oral_tested",
-            effect=" ".join(x for x in (protocol, f"Studied in {population}." if population else "") if x)[:480],
-            # The context note is where a card's limits live - who it was
-            # studied in, what it is not, what it has been shown to harm.
-            # It is not trimmed to fit a column.
-            boundary=str(summary.get("context_note") or "")[:600],
-            source=_first_source(summary),
-            option_id=str(summary.get("summary_id") or summary.get("action_mapping_id") or ""),
+            effect=" ".join(
+                x for x in (protocol, f"Studied in {population}." if population else "") if x)[:480],
+            boundary=boundary,
+            source=source,
+            option_id=f"{card_id}|{suffix}",
             binding="strain",
-            citation=_citation_of(summary),
+            citation=citation,
         )
-        for trigger_id in (summary.get("trigger_ids") or ()):
-            out.setdefault(str(trigger_id), []).append(option)
-    return out
+
+    found: dict[str, Option] = {}
+    headline = str(summary.get("intervention_display") or "").strip()
+    if headline:
+        found[norm(headline)] = _make(
+            headline, str(summary.get("intervention_class") or ""),
+            str(summary.get("studied_protocol_text") or ""),
+            _LANE_SETTING.get(lane, "human_trial"),
+            _first_source(summary), _citation_of(summary), "head",
+        )
+    # Then everything the card's own evidence names. A study that was run on
+    # an exact product is the best possible reason to name that product.
+    for cited in (summary.get("supporting") or ()):
+        if not isinstance(cited, Mapping):
+            continue
+        label = str(cited.get("intervention_display") or "").strip()
+        if not label or norm(label) in found:
+            continue
+        url = str(cited.get("url") or "")
+        found[norm(label)] = _make(
+            label, str(cited.get("intervention_class") or ""),
+            str(cited.get("studied_protocol") or ""),
+            _LANE_SETTING.get(str(cited.get("lane") or ""), "human_trial"),
+            url if url.startswith(("http://", "https://")) else "",
+            str(cited.get("citation") or ""),
+            str(cited.get("evidence_assertion_id") or label)[:40],
+        )
+    return sorted(found.values(), key=lambda o: o.sort_key)
 
 
 def pattern_problems(
@@ -795,23 +918,25 @@ def attach_registry(problems: Sequence[Problem], results: Mapping[str, Any] | No
     findings = (results or {}).get("findings_and_evidence") or {}
     by_trigger = registry_options(results)
     notes_by_trigger = registry_notes(results)
+    # An organism trigger can answer either an organism problem or a
+    # pathogen one: the screen and the reference cohort name the same
+    # organisms, and a card written for one of them has to reach whichever
+    # problem the report actually raised.
     _KIND = {
-        "functional_capacity_finding": "panel",
-        "ecological_finding": "panel",
-        "exact_microbiome_feature": "organism",
+        "functional_capacity_finding": ("panel",),
+        "ecological_finding": ("panel",),
+        "exact_microbiome_feature": ("organism", "pathogen"),
     }
     by_target: dict[tuple[str, str], list[Option]] = {}
     notes_by_target: dict[tuple[str, str], list[str]] = {}
     for trigger in (findings.get("triggers") or ()):
-        kind = _KIND.get(str(trigger.get("trigger_type")))
-        if not kind:
-            continue
-        key = (kind, norm(trigger.get("target")))
-        options = by_trigger.get(str(trigger.get("trigger_id")))
-        if options:
-            by_target.setdefault(key, []).extend(options)
-        for note in notes_by_trigger.get(str(trigger.get("trigger_id")), ()):
-            notes_by_target.setdefault(key, []).append(note)
+        for kind in _KIND.get(str(trigger.get("trigger_type")), ()):
+            key = (kind, norm(trigger.get("target")))
+            options = by_trigger.get(str(trigger.get("trigger_id")))
+            if options:
+                by_target.setdefault(key, []).extend(options)
+            for note in notes_by_trigger.get(str(trigger.get("trigger_id")), ()):
+                notes_by_target.setdefault(key, []).append(note)
     for problem in problems:
         _, _, target = problem.key.partition(":")
         key = (problem.kind, norm(target))
@@ -832,7 +957,8 @@ def ordered(problems: Iterable[Problem]) -> list[Problem]:
     so a reader meets the actionable findings first and the open ones
     together at the end.
     """
-    tier = {"pathogen": 0, "organism": 1, "concern": 2, "panel": 3, "pattern": 4}
+    tier = {"pathogen": 0, "fungus": 1, "organism": 2, "concern": 3,
+            "group": 4, "panel": 5, "pattern": 6}
     return sorted(
         problems,
         key=lambda p: (tier.get(p.kind, 5), p.nothing_known and not p.unclear,
@@ -859,6 +985,8 @@ __all__ = [
     "ordered",
     "organism_keys",
     "organism_problems",
+    "fungal_problems",
+    "group_problems",
     "panel_problems",
     "pathogen_problems",
     "pattern_problems",
