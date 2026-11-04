@@ -1,11 +1,18 @@
 # OpenBiota Gut Health Test
 #
+# `make install` sets everything up (it runs ./install.sh).
 # `make` alone runs the full screen on ./fastq.
 # `make help` lists everything.
 
 SHELL      := /bin/bash
-PYTHON     ?= python3.13
+# The newest python 3.11+ on the machine. macOS gets 3.13 from Homebrew;
+# Debian 12 ships 3.11 and Ubuntu 24.04 ships 3.12 as plain python3.
+PYTHON     ?= $(shell for p in python3.13 python3.12 python3.11 python3; do command -v $$p >/dev/null 2>&1 && echo $$p && break; done)
 VENV       := .venv
+# Tools the installer put under vendor/ (the conda fallback, the BLAST+
+# links) come first, exactly as they do for bin/openbiota, so make and the
+# launcher always run the same binary.
+export PATH := $(CURDIR)/vendor/bin:$(CURDIR)/vendor/conda/bin:$(PATH)
 PY         := $(VENV)/bin/python
 OPENBIOTA       := $(VENV)/bin/openbiota
 THREADS    ?= $(shell getconf _NPROCESSORS_ONLN 2>/dev/null || echo 8)
@@ -99,10 +106,13 @@ TRACS_COMMIT      ?= de9282a64fba8e3d4386ce114e50d55e7fddc440
 TRACS_REPORTS_VERSION ?= 1.1.3
 
 .DEFAULT_GOAL := run
-.PHONY: sample-reports tools-expanded refs-expanded refs-globdb-genomes expansion-cohorts expansion-crosswalks expansion-reconcile expansion extension-refs substrate-refs help setup doctor panels build-db cohort validate depth-check all smoke run compact json test lint clean clean-all profilers strain-tools strain-system-deps strain-tools-report strain-tools-lock refs-strain refs-strain-verify refs-ctnpc instrain kleborate-optional vendor-tools genome-lane mycobiome-refs
+.PHONY: install install-full sample-reports tools-expanded refs-expanded refs-globdb-genomes expansion-cohorts expansion-crosswalks expansion-reconcile expansion extension-refs substrate-refs help setup doctor panels build-db cohort validate depth-check all smoke run compact json test lint clean clean-all profilers strain-tools strain-system-deps strain-tools-report strain-tools-lock refs-strain refs-strain-verify refs-ctnpc instrain kleborate-optional vendor-tools genome-lane mycobiome-refs
 
 help:
 	@echo "OpenBiota Gut Health Test — targets"
+	@echo
+	@echo "  make install     everything, in one go (runs ./install.sh; see ./install.sh --help)"
+	@echo "  make install-full  the same plus every optional detection lane (~1.5 TB)"
 	@echo
 	@echo "  make setup       create $(VENV) and install the package (editable)"
 	@echo "  make doctor      check dependencies, hardware and inputs"
@@ -156,13 +166,22 @@ help:
 	@echo "             COHORT_SAMPLES=$(COHORT_SAMPLES)"
 
 $(VENV)/bin/activate: pyproject.toml
-	$(PYTHON) -m venv $(VENV)
+	@test -x $(PY) || ( test -n "$(PYTHON)" || ( echo "no python 3.11+ found; run ./install.sh" && exit 1 ); $(PYTHON) -m venv $(VENV) )
 	$(PY) -m pip install --quiet --upgrade pip
 	$(PY) -m pip install --quiet -e '.[dev]'
 	@touch $(VENV)/bin/activate
 
 setup: $(VENV)/bin/activate
 	@$(OPENBIOTA) --version
+
+# The one-command install: system tools, environments, reference data and
+# databases, verified at the end. INSTALL_ARGS passes options through, e.g.
+# `make install INSTALL_ARGS=--skip-host-index`.
+install:
+	@./install.sh $(INSTALL_ARGS)
+
+install-full:
+	@./install.sh --full $(INSTALL_ARGS)
 
 doctor: setup
 	@$(OPENBIOTA) doctor --fastq-dir $(FASTQ_DIR)
@@ -339,7 +358,14 @@ extension-refs: setup
 		got=$$(shasum -a 256 "refs/micom/s10/$$name" | cut -d' ' -f1); \
 		[ "$$got" = "$$want" ] || ( echo "  $$name checksum mismatch: $$got"; exit 1 ); \
 	done
-	@$(OPENBIOTA) extension-assets verify --spec 0.8.3
+	@# Every download above was checksummed; this asks the simulation layer
+	@# itself whether it can now run here (solver, MICOM, model library).
+	@$(PY) -c "from openbiota.extension.simulation import SimulationConfig, readiness; \
+		r = readiness(SimulationConfig.load()); \
+		print('  model-assisted scenarios:', 'ready' if r['can_run'] else 'NOT READY', \
+		'| micom', r['micom']['installed'], '| solver', r['solver']['installed'], \
+		'| model library', r['model_library']['installed']); \
+		raise SystemExit(0 if r['can_run'] else 1)"
 
 ## substrate-refs: the dbCAN snapshot behind the A01 substrate panel (~2 GB).
 ##   One dated release, fetched together, with a snapshot.json recording every

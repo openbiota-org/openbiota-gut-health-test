@@ -3311,6 +3311,15 @@ def cmd_run(
             + "; ".join(completeness.missing)
             + f"\n{_describe_completeness(completeness)}"
         )
+        # The report exists all the same, and most of what is missing on a
+        # standard install is a detection lane whose references were never
+        # installed; say both, or the red line reads as "nothing was made".
+        reporter.info(
+            f"  the report was still written: {', '.join(produced)} in {out_dir}\n"
+            "  a stage shown as 'not installed', 'not assessed' or 'reference_unavailable' is a "
+            "detection lane the full install adds (./install.sh --full); the report states "
+            "each one as not assessed, never as a negative result"
+        )
     else:
         reporter.ok(
             f"done in {human_duration(total)} — all {len(completeness.stages)} stages ran — "

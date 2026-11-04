@@ -30,7 +30,10 @@ so the normalisation arithmetic can be checked against values computed by hand.
 | Organism attribution | Sums to the fragment total, not the read total — asserted at runtime too |
 | Pathway validation | Every malformed-YAML case fails with a specific message |
 | Query hazards | `gene:cutC` never used; no comma-inside-parentheses in any shipped query; excluded genes stay excluded |
-| Input handling | Pair discovery, gzip preference, subsampling, truncated and malformed FASTQ |
+| Input handling | Pair discovery in `fastq/` and one folder down, the file naming the sample, hidden files ignored, the same sample in two folders refused, gzip preference, subsampling, truncated and malformed FASTQ |
+| Installation | `install.sh` under shellcheck and bash 3.2 rules; every advertised step has its functions, label and help text; options parse and bad ones are refused; `--list`, `--dry-run`, the lock, the log; the `launcher` step on a throwaway `$HOME` (link, `PATH` line, idempotence, a foreign file left alone); `bin/openbiota` with and without a `.venv` and through a symlink; every readiness check on an empty folder; `make install` |
+| Reference-data archive | `data/derived-refs.tar.gz` matches its manifest, fits GitHub's file limit, holds every promised item and no reads or results; pack → restore round trip, existing files kept unless `--force`, tampering and path traversal refused, reproducible bytes, split-and-join when the part size is exceeded |
+| Installation docs | Every `install.sh` option the docs mention exists; every step is described; the quickstart tells the three steps in order and explains the terminal first; the run step is the program, not a make target; the `fastq/` layout drawn in the docs is the one the code reads; the installer's closing message matches the quickstart; CI exercises the installer on Ubuntu and macOS |
 | Cohort ranges | Percentile interpolation, classification, old/new phylum name merging |
 | QC | Read statistics, caching and invalidation, binned-quality detection |
 | Reporting | Band boundaries, diagnostic firing, JSON completeness |
@@ -67,9 +70,15 @@ plausible-looking numbers:
 ## Integration checks
 
 ```bash
-openbiota run --subsample 100000     # end to end on real reads, ~17 s
-openbiota validate                   # synthetic communities with known truth
+bin/openbiota run --subsample 100000 # end to end on real reads, ~17 s
+bin/openbiota validate               # synthetic communities with known truth
 ```
+
+The installer has an integration check of its own in CI: a fresh Ubuntu and
+a fresh macOS runner clone the repository and run `./install.sh --only
+preflight,system,python,launcher,profiler,data --yes --no-path`, then run it
+again and require every step to report *already done*. The steps left out
+are the ones that download gigabytes of reference data.
 
 `openbiota validate` is the substantive one — it builds samples whose correct answer
 is known and measures what the pipeline reports. See

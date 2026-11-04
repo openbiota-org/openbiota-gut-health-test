@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# bin/openbiota - run the screen.
+#
+#   bin/openbiota run                       one sample in fastq/
+#   bin/openbiota run --sample my-sample    one of several
+#   bin/openbiota run-all                   every sample in fastq/
+#   bin/openbiota doctor                    is everything installed?
+#   bin/openbiota --help                    every command
+#
+# ./install.sh also links this onto your PATH, so in a new terminal the same
+# thing is just `openbiota run`.
+#
+# This is the same program as .venv/bin/openbiota, started with the tools the
+# installer put under vendor/ on the PATH, so a tool that came from conda or
+# was vendored is found exactly as it was during the install.
+
+set -u
+# Resolve a symlink (the PATH copy) back to the repository.
+self=$0
+while [ -L "$self" ]; do
+    target=$(readlink "$self")
+    case "$target" in
+        /*) self=$target ;;
+        *) self=$(dirname "$self")/$target ;;
+    esac
+done
+repo=$(cd "$(dirname "$self")/.." && pwd -P)
+
+if [ ! -x "$repo/.venv/bin/openbiota" ]; then
+    printf 'openbiota is not installed yet.\n\n  In the repository folder (%s), run:\n\n      ./install.sh\n\n' "$repo" >&2
+    exit 1
+fi
+
+export PATH="$repo/vendor/bin:$repo/vendor/conda/bin:$PATH"
+# Homebrew on Apple silicon is outside the default PATH of a fresh shell.
+[ -d /opt/homebrew/bin ] && export PATH="$PATH:/opt/homebrew/bin"
+
+# No arguments means run: that is what someone who copied their files into
+# fastq/ wants, and `openbiota --help` still gets the help.
+if [ $# -eq 0 ]; then set -- run; fi
+
+exec "$repo/.venv/bin/openbiota" "$@"

@@ -78,11 +78,13 @@ disease-pattern resemblance. Behind it, the same pages for each report:
 
 -   **[Quickstart](QUICKSTART.md)**
 
-    From a fresh clone to your first PDF: tools, reference data, one command.
+    Three steps from nothing to your first PDF, starting with opening a
+    terminal: `./install.sh`, copy your files, `bin/openbiota run`.
 
 -   **[Installation](INSTALL.md)**
 
-    macOS and Linux, the two MetaPhlAn environments, verifying the install.
+    What the one-command installer does on macOS and Linux, its options,
+    what to do when it stops, and how to do any part by hand.
 
 -   **[Usage](USAGE.md)**
 

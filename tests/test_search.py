@@ -159,6 +159,73 @@ def test_discovery_keeps_the_full_filename_as_the_sample(tmp_path: Path):
 
 
 # --------------------------------------------------------------------------- #
+# one folder per sample (the documented layout)
+# --------------------------------------------------------------------------- #
+
+
+def _folder_pair(fastq_dir: Path, folder: str, name: str) -> Path:
+    sub = fastq_dir / folder
+    sub.mkdir(parents=True, exist_ok=True)
+    _write_fastq(sub / f"{name}_1.fastq.gz", 3, gzipped=True)
+    _write_fastq(sub / f"{name}_2.fastq.gz", 3, gzipped=True)
+    return sub
+
+
+def test_a_sample_in_its_own_folder_is_found(tmp_path: Path):
+    _folder_pair(tmp_path, "my-sample", "my-sample")
+    sample = discover_sample(fastq_dir=tmp_path)
+    assert sample.sample == "my-sample"
+    assert [m.path.parent.name for m in sample.mates] == ["my-sample", "my-sample"]
+
+
+def test_the_file_names_the_sample_not_the_folder(tmp_path: Path):
+    _folder_pair(tmp_path, "delivery-2026-03", "K1_FCG748")
+    assert discover_sample(fastq_dir=tmp_path).sample == "K1_FCG748"
+
+
+def test_folders_and_loose_files_are_found_together(tmp_path: Path):
+    _folder_pair(tmp_path, "alice", "alice")
+    _folder_pair(tmp_path, "bob", "bob")
+    _write_fastq(tmp_path / "carol_R1.fastq", 3)
+    _write_fastq(tmp_path / "carol_R2.fastq", 3)
+    found = discover_samples(tmp_path)
+    assert [s.sample for s in found] == ["alice", "bob", "carol"]
+    assert discover_sample(fastq_dir=tmp_path, sample="bob").sample == "bob"
+
+
+def test_hidden_folders_and_files_are_not_samples(tmp_path: Path):
+    _folder_pair(tmp_path, "real", "real")
+    _folder_pair(tmp_path, ".Trash", "ghost")
+    (tmp_path / ".DS_Store").write_bytes(b"\0")
+    (tmp_path / "real" / "._real_1.fastq.gz").write_bytes(b"\0")  # a macOS resource fork
+    assert [s.sample for s in discover_samples(tmp_path)] == ["real"]
+
+
+def test_only_one_folder_level_is_searched(tmp_path: Path):
+    # A provider's nested delivery is not silently flattened into samples.
+    _folder_pair(tmp_path / "delivery", "lane1", "deep")
+    with pytest.raises(InputError, match="no FASTQ files found"):
+        discover_sample(fastq_dir=tmp_path)
+
+
+def test_the_same_sample_in_two_folders_is_refused(tmp_path: Path):
+    _folder_pair(tmp_path, "first", "twin")
+    _folder_pair(tmp_path, "second", "twin")
+    with pytest.raises(InputError, match="appears in two places"):
+        discover_samples(tmp_path)
+    with pytest.raises(InputError, match="appears in two places"):
+        discover_sample(fastq_dir=tmp_path)
+
+
+def test_layout_help_accompanies_an_empty_directory(tmp_path: Path):
+    with pytest.raises(InputError) as excinfo:
+        discover_sample(fastq_dir=tmp_path)
+    message = str(excinfo.value)
+    assert "fastq/my-sample/my-sample_1.fastq.gz" in message
+    assert "one folder down" in message
+
+
+# --------------------------------------------------------------------------- #
 # subsampling
 # --------------------------------------------------------------------------- #
 

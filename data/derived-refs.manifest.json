@@ -1,0 +1,102 @@
+{
+  "schema": "openbiota.bundle/1",
+  "bundle": "derived-refs",
+  "summary": "reference data this project computed: ranges, cohorts, age model, crosswalks, locks, resolution references, BacDive cache",
+  "built_utc": "2026-11-04T04:32:00Z",
+  "total_bytes": 52667880,
+  "n_files": 1135,
+  "parts": [
+    {
+      "name": "derived-refs.tar.gz.part00",
+      "bytes": 47185920,
+      "sha256": "b9c2e8acc7cb869689706847e0e335380cf890a75766783e649b24c3360588a5"
+    },
+    {
+      "name": "derived-refs.tar.gz.part01",
+      "bytes": 5481960,
+      "sha256": "81b87ebd988fcc8b4187201d39e536f5907296c9a1b416488c813fc4fea3c828"
+    }
+  ],
+  "contents": [
+    {
+      "path": "refs/reference_ranges.json",
+      "why": "the percentile ranges every pathway in the report is scored against, computed from the reference cohort",
+      "required": true
+    },
+    {
+      "path": "refs/reference_cohort_samples.json",
+      "why": "which public samples the pathway cohort was built from",
+      "required": true
+    },
+    {
+      "path": "refs/taxonomic_cohort.json",
+      "why": "the scoring cohort matrix: species abundances across the reference adults, from curatedMetagenomicData",
+      "required": true
+    },
+    {
+      "path": "refs/taxonomic_cohort_manifest.json",
+      "why": "what that matrix was built from",
+      "required": true
+    },
+    {
+      "path": "refs/cmd",
+      "why": "the curatedMetagenomicData extract behind the scoring cohort; rebuilding it needs R and ExperimentHub",
+      "required": true
+    },
+    {
+      "path": "refs/age",
+      "why": "the trained microbiome-age models and their model cards",
+      "required": true
+    },
+    {
+      "path": "refs/crosswalk",
+      "why": "species-name crosswalks between GTDB releases and the MetaPhlAn catalogues, derived from the bridges",
+      "required": true
+    },
+    {
+      "path": "refs/expanded",
+      "why": "the reference locks and the reconciliation summary: what every expansion lane was pinned to",
+      "required": true
+    },
+    {
+      "path": "refs/expansion_cohort",
+      "why": "expansion lanes profiled locally from public reads - days of compute",
+      "required": true
+    },
+    {
+      "path": "refs/ctnpc",
+      "why": "the curated toxin and non-pathogen control references",
+      "required": true
+    },
+    {
+      "path": "refs/panels",
+      "why": "the toxin-locus, probiotic-strain and control reference sequences the resolution lanes align against; small, lock-verified NCBI fetches that are flaky to repeat",
+      "required": true
+    },
+    {
+      "path": "refs/bacdive",
+      "why": "the BacDive API cache, so organism enrichment works without an account of your own",
+      "required": false
+    },
+    {
+      "path": "refs/strain_refs.lock.json",
+      "why": "what the strain lane was pinned to",
+      "required": true
+    },
+    {
+      "path": "refs/pathogens/resolutions.cache.json",
+      "why": "how every pathogen catalogue name resolved at NCBI, so the full install's pathogen build does not repeat 377 taxonomy lookups",
+      "required": false
+    },
+    {
+      "path": "refs/MANIFEST.json",
+      "why": "the reference inventory",
+      "required": true
+    },
+    {
+      "path": "refs/MANIFEST.md",
+      "why": "the reference inventory, readable",
+      "required": true
+    }
+  ]
+}

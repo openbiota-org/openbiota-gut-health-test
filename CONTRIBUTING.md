@@ -56,13 +56,18 @@ welcome.
 ## Running the pieces
 
 ```bash
-make setup                 # virtualenv and the package
+make setup                 # virtualenv and the package (enough for the suite)
 make test                  # the suite
 make lint                  # ruff
+./install.sh               # everything a full report needs; see docs/INSTALL.md
 ```
 
-A full report needs the reference data and the profilers described in
-[docs/INSTALL.md](docs/INSTALL.md); the suite does not.
+A full report needs the reference data and the profilers that `./install.sh`
+sets up, described in [docs/INSTALL.md](docs/INSTALL.md); the suite does not.
+The reference data the project computed itself ships in
+`data/derived-refs.tar.gz`; after changing anything under `refs/` that the
+archive carries, rebuild it with `scripts/derived_refs.py pack` and commit
+both files in `data/`.
 
 ## Adding a pathway, profile, group or intervention
 

@@ -137,6 +137,58 @@ def _mate_key(path: Path) -> tuple[str, str] | None:
     return stem[: match.start()], f"R{match.group(2)}"
 
 
+#: What a FASTQ directory may look like. Quoted by every error message that
+#: needs to explain the layout, so the explanation is the same everywhere.
+LAYOUT_HELP: Final = (
+    "Put each sample in its own folder under the FASTQ directory, for example\n"
+    "  fastq/my-sample/my-sample_1.fastq.gz\n"
+    "  fastq/my-sample/my-sample_2.fastq.gz\n"
+    "Files directly inside the FASTQ directory are found too. The sample is named "
+    "by its file: NAME_1.fastq.gz / NAME_2.fastq.gz (or NAME_R1 / NAME_R2) is the "
+    "sample NAME."
+)
+
+
+def fastq_candidates(fastq_dir: Path) -> list[Path]:
+    """Every FASTQ file directly in ``fastq_dir`` or one folder below it.
+
+    One level, not a recursive walk: the documented layout is one folder per
+    sample, and a recursive walk would pull in whatever a sequencing provider
+    nested three deep in its delivery, which is exactly the ambiguity the
+    folder-per-sample layout exists to avoid. Hidden files and folders are
+    skipped, so ``.DS_Store`` and editor droppings never become samples.
+    """
+    out: list[Path] = []
+    for entry in sorted(fastq_dir.iterdir()):
+        if entry.name.startswith("."):
+            continue
+        if entry.is_file():
+            if _SUFFIX_RE.search(entry.name):
+                out.append(entry)
+        elif entry.is_dir():
+            out.extend(
+                p for p in sorted(entry.iterdir())
+                if p.is_file() and _SUFFIX_RE.search(p.name) and not p.name.startswith(".")
+            )
+    return out
+
+
+def _place(slot: dict[str, Path], path: Path, sample_id: str) -> None:
+    """File a mate under its form, refusing a second copy from another folder.
+
+    The same ``NAME_1.fastq.gz`` in two folders would otherwise be resolved by
+    sort order, and the report would silently describe whichever came first.
+    """
+    form = "gz" if path.suffix.lower() == ".gz" else "plain"
+    other = slot.get(form)
+    if other is not None and other.parent != path.parent:
+        raise InputError(
+            f"sample {sample_id!r} appears in two places: {other} and {path}. "
+            f"Keep one, or rename one of the files, so the sample is unambiguous."
+        )
+    slot[form] = path
+
+
 def discover_samples(fastq_dir: Path, *, prefer_gzip: bool = True) -> list[SampleInput]:
     """Every mate pair in a directory, for batch runs.
 
@@ -147,11 +199,7 @@ def discover_samples(fastq_dir: Path, *, prefer_gzip: bool = True) -> list[Sampl
     if not fastq_dir.is_dir():
         raise InputError(f"FASTQ directory not found: {fastq_dir}")
 
-    candidates = [
-        p
-        for p in sorted(fastq_dir.iterdir())
-        if p.is_file() and _SUFFIX_RE.search(p.name) and not p.name.startswith(".")
-    ]
+    candidates = fastq_candidates(fastq_dir)
     groups: dict[str, dict[str, dict[str, Path]]] = {}
     for path in candidates:
         key = _mate_key(path)
@@ -159,7 +207,7 @@ def discover_samples(fastq_dir: Path, *, prefer_gzip: bool = True) -> list[Sampl
             continue
         sample_id, mate_label = key
         slot = groups.setdefault(sample_id, {}).setdefault(mate_label, {})
-        slot["gz" if path.suffix.lower() == ".gz" else "plain"] = path
+        _place(slot, path, sample_id)
 
     out: list[SampleInput] = []
     for sample_id in sorted(groups):
@@ -202,14 +250,11 @@ def discover_sample(
     if not fastq_dir.is_dir():
         raise InputError(f"FASTQ directory not found: {fastq_dir}")
 
-    candidates = [
-        p
-        for p in sorted(fastq_dir.iterdir())
-        if p.is_file() and _SUFFIX_RE.search(p.name) and not p.name.startswith(".")
-    ]
+    candidates = fastq_candidates(fastq_dir)
     if not candidates:
         raise InputError(
-            f"no FASTQ files found in {fastq_dir} (looking for *.fastq, *.fq, *.fastq.gz, *.fq.gz)"
+            f"no FASTQ files found in {fastq_dir} (looking for *.fastq, *.fq, "
+            f"*.fastq.gz, *.fq.gz, directly inside it or one folder down).\n{LAYOUT_HELP}"
         )
 
     # sample -> mate -> {gz: path, plain: path}
@@ -222,7 +267,7 @@ def discover_sample(
             continue
         sample_id, mate_label = key
         slot = groups.setdefault(sample_id, {}).setdefault(mate_label, {})
-        slot["gz" if path.suffix.lower() == ".gz" else "plain"] = path
+        _place(slot, path, sample_id)
 
     if not groups:
         if len(unpaired) == 1:
@@ -233,7 +278,7 @@ def discover_sample(
         raise InputError(
             f"could not identify mate pairs in {fastq_dir}. Expected names like "
             f"NAME_1.fastq.gz / NAME_2.fastq.gz or NAME_R1.fastq / NAME_R2.fastq. "
-            f"Found: {', '.join(p.name for p in candidates[:8])}"
+            f"Found: {', '.join(p.name for p in candidates[:8])}\n{LAYOUT_HELP}"
         )
 
     if sample is not None and sample in groups:
@@ -295,15 +340,40 @@ def _sysctl(name: str) -> str:
     return proc.stdout.strip() if proc.returncode == 0 else ""
 
 
+def _linux_memory_bytes() -> int:
+    try:
+        with Path("/proc/meminfo").open(encoding="utf-8") as handle:
+            for line in handle:
+                if line.startswith("MemTotal:"):
+                    return int(line.split()[1]) * 1024
+    except (OSError, ValueError, IndexError):
+        pass
+    return 0
+
+
+def _linux_cpu_brand() -> str:
+    try:
+        with Path("/proc/cpuinfo").open(encoding="utf-8") as handle:
+            for line in handle:
+                if line.startswith("model name"):
+                    return line.split(":", 1)[1].strip()
+    except (OSError, IndexError):
+        pass
+    return ""
+
+
 def platform_info() -> PlatformInfo:
+    # sysctl answers these on macOS; Linux keeps them in /proc.
     memory = _sysctl("hw.memsize")
+    memory_bytes = int(memory) if memory.isdigit() else _linux_memory_bytes()
     return PlatformInfo(
         machine=platform.machine(),
         system=platform.system(),
         translated=_sysctl("sysctl.proc_translated") == "1",
-        cpu_brand=_sysctl("machdep.cpu.brand_string") or platform.processor() or "unknown",
+        cpu_brand=_sysctl("machdep.cpu.brand_string") or _linux_cpu_brand()
+        or platform.processor() or "unknown",
         logical_cpus=os.cpu_count() or 1,
-        memory_bytes=int(memory) if memory.isdigit() else 0,
+        memory_bytes=memory_bytes,
     )
 
 
@@ -320,9 +390,13 @@ def diamond_binary_arch(diamond: str = "diamond") -> str:
     except (OSError, subprocess.SubprocessError):
         return "unknown"
     text = proc.stdout.strip()
-    for arch in ("arm64", "x86_64", "arm64e", "i386"):
+    # macOS says "x86_64" / "arm64"; Linux ELF binaries say "x86-64" / "aarch64".
+    for arch, spelling in (
+        ("arm64", "arm64"), ("x86_64", "x86_64"), ("arm64e", "arm64e"), ("i386", "i386"),
+        ("x86-64", "x86_64"), ("aarch64", "arm64"),
+    ):
         if arch in text:
-            return arch
+            return spelling
     return text[:60] or "unknown"
 
 

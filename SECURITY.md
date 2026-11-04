@@ -2,9 +2,11 @@
 
 OpenBiota runs entirely on the machine that holds the reads. It makes network
 requests only to fetch reference databases and tools during installation
-(`make setup`, `make build-db`, `make refs-expanded`), and to the BacDive API
-during a run for culture-collection metadata about named species; no sample
-data leaves the machine. The test suite makes no network requests.
+(`./install.sh`, and the `make` targets it runs: `build-db`, `extension-refs`,
+`host-index`, `refs-expanded` and so on), and to the BacDive API during a run
+for culture-collection metadata about named species; no sample data leaves
+the machine. The test suite makes no network requests. Nothing under `fastq/`
+or `results/` is tracked by git, at any depth.
 
 ## What is sensitive
 

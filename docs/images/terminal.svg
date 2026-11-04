@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="332" viewBox="0 0 760 332" font-family="SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="15">
+  <title>A terminal window with the three install commands typed into it</title>
+  <defs>
+    <clipPath id="w"><rect x="10" y="10" width="740" height="312" rx="12"/></clipPath>
+  </defs>
+  <rect x="10" y="10" width="740" height="312" rx="12" fill="#1c1f26" stroke="#30343d"/>
+  <g clip-path="url(#w)">
+    <rect x="10" y="10" width="740" height="38" fill="#2a2e37"/>
+    <circle cx="34" cy="29" r="6.5" fill="#ff5f57"/>
+    <circle cx="56" cy="29" r="6.5" fill="#febc2e"/>
+    <circle cx="78" cy="29" r="6.5" fill="#28c840"/>
+    <text x="380" y="34" text-anchor="middle" fill="#9aa0ab" font-size="13" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">Terminal</text>
+  </g>
+  <g fill="#d7dbe2">
+    <text x="32" y="84"><tspan fill="#7bd88f">$</tspan> git clone https://github.com/openbiota-org/openbiota-gut-health-test</text>
+    <text x="32" y="108" fill="#8d93a0">Cloning into 'openbiota-gut-health-test'... done.</text>
+    <text x="32" y="140"><tspan fill="#7bd88f">$</tspan> cd openbiota-gut-health-test</text>
+    <text x="32" y="172"><tspan fill="#7bd88f">$</tspan> ./install.sh</text>
+    <text x="32" y="200" fill="#e6e9ee" font-weight="bold">OpenBiota installer  <tspan fill="#8d93a0" font-weight="normal">standard install</tspan></text>
+    <text x="32" y="228"><tspan fill="#4fc1c9">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;</tspan> <tspan fill="#8d93a0"> 5/11</tspan>  Reference data from the repository</text>
+    <text x="32" y="252">  <tspan fill="#7bd88f">&#10003;</tspan> reference ranges, scoring cohort, age model, crosswalks and panels in refs/</text>
+    <text x="32" y="280"><tspan fill="#4fc1c9">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;</tspan> <tspan fill="#8d93a0"> 6/11</tspan>  MetaPhlAn marker database</text>
+    <text x="32" y="304" fill="#8d93a0">  installing mpa_v31_CHOCOPhlAn_201901  4m12s  Downloading 1.9 GB of 3.5 GB</text>
+  </g>
+</svg>

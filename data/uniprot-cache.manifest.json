@@ -1,0 +1,2477 @@
+{
+  "schema": "openbiota.bundle/1",
+  "bundle": "uniprot-cache",
+  "summary": "the UniProt responses behind the protein search database (CC BY 4.0), so build-db is a local two-minute step",
+  "built_utc": "2026-11-04T04:32:06Z",
+  "total_bytes": 208952947,
+  "n_files": 488,
+  "parts": [
+    {
+      "name": "uniprot-cache.tar.gz.part00",
+      "bytes": 47185920,
+      "sha256": "a7eed6e43c170beba8e03fa918e41a964853d6e6cf724bf4852e06d227e0ceb4"
+    },
+    {
+      "name": "uniprot-cache.tar.gz.part01",
+      "bytes": 47185920,
+      "sha256": "23ba7f16e8bf98b2dd94d2e7eb0e6e652001c75e0e28a841f150fe9e611d15e3"
+    },
+    {
+      "name": "uniprot-cache.tar.gz.part02",
+      "bytes": 47185920,
+      "sha256": "593d6c3363d8075158aee7d18197a11991544ca00037ce0f71f0fa0c449e2726"
+    },
+    {
+      "name": "uniprot-cache.tar.gz.part03",
+      "bytes": 47185920,
+      "sha256": "14d9af16a3fef2fbded09ca3e84443955df25f29c85008ae0da090375d5f4e98"
+    },
+    {
+      "name": "uniprot-cache.tar.gz.part04",
+      "bytes": 20209267,
+      "sha256": "1572551a54853177a2808c868f8ca39fc34fdf0a0a3f4871e5225f1b3de38a11"
+    }
+  ],
+  "contents": [
+    {
+      "path": "refs/cache/rpob_4ceddb18900367b6d6140de5.tsv.gz",
+      "why": "UniProt response for _normalizer:RPOB (normalizer)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/rpob_4ceddb18900367b6d6140de5.tsv.meta.json",
+      "why": "query and counts behind _normalizer:RPOB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/adia_832e543d81dee658f0de6451.tsv.gz",
+      "why": "UniProt response for agmatine:ADIA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/adia_832e543d81dee658f0de6451.tsv.meta.json",
+      "why": "query and counts behind agmatine:ADIA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/cbia_87a7af144fcd4440cd992381.tsv.gz",
+      "why": "UniProt response for b12:CBIA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/cbia_87a7af144fcd4440cd992381.tsv.meta.json",
+      "why": "query and counts behind b12:CBIA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/cobs_d6c54b663b4efaff9b28fa89.tsv.gz",
+      "why": "UniProt response for b12:COBS (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/cobs_d6c54b663b4efaff9b28fa89.tsv.meta.json",
+      "why": "query and counts behind b12:COBS",
+      "required": true
+    },
+    {
+      "path": "refs/cache/btub_a6bd51c254516bb8d8e0879f.tsv.gz",
+      "why": "UniProt response for b12:BTUB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/btub_a6bd51c254516bb8d8e0879f.tsv.meta.json",
+      "why": "query and counts behind b12:BTUB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/amidolig_2a06a56457da83380c5b84ed.tsv.gz",
+      "why": "UniProt response for b12:AMIDOLIG (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/amidolig_2a06a56457da83380c5b84ed.tsv.meta.json",
+      "why": "query and counts behind b12:AMIDOLIG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/tonbbg_f9dfc7a7e55dadf6e868b3ce.tsv.gz",
+      "why": "UniProt response for b12:TONBBG (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/tonbbg_f9dfc7a7e55dadf6e868b3ce.tsv.meta.json",
+      "why": "query and counts behind b12:TONBBG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pdxs_9332db512e14eddc8c9ad380.tsv.gz",
+      "why": "UniProt response for b6:PDXS (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pdxs_9332db512e14eddc8c9ad380.tsv.meta.json",
+      "why": "query and counts behind b6:PDXS",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pdxt_afeb1214497aaf1086e002ea.tsv.gz",
+      "why": "UniProt response for b6:PDXT (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pdxt_afeb1214497aaf1086e002ea.tsv.meta.json",
+      "why": "query and counts behind b6:PDXT",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pdxa_64bc51d6389faf59df605f03.tsv.gz",
+      "why": "UniProt response for b6:PDXA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pdxa_64bc51d6389faf59df605f03.tsv.meta.json",
+      "why": "query and counts behind b6:PDXA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pdxj_082a7267e5d9fde7223cf05e.tsv.gz",
+      "why": "UniProt response for b6:PDXJ (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pdxj_082a7267e5d9fde7223cf05e.tsv.meta.json",
+      "why": "query and counts behind b6:PDXJ",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pdxh_5a562c0b715ccfab882f0ed6.tsv.gz",
+      "why": "UniProt response for b6:PDXH (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pdxh_5a562c0b715ccfab882f0ed6.tsv.meta.json",
+      "why": "query and counts behind b6:PDXH",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pdxk_8fe7c36d7f99cea621f97560.tsv.gz",
+      "why": "UniProt response for b6:PDXK (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pdxk_8fe7c36d7f99cea621f97560.tsv.meta.json",
+      "why": "query and counts behind b6:PDXK",
+      "required": true
+    },
+    {
+      "path": "refs/cache/baicd_60ce0bfab218d27c27a74410.tsv.gz",
+      "why": "UniProt response for bai:BAICD (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/baicd_60ce0bfab218d27c27a74410.tsv.meta.json",
+      "why": "query and counts behind bai:BAICD",
+      "required": true
+    },
+    {
+      "path": "refs/cache/baih_7c61604a97b1da0a244b9972.tsv.gz",
+      "why": "UniProt response for bai:BAIH (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/baih_7c61604a97b1da0a244b9972.tsv.meta.json",
+      "why": "query and counts behind bai:BAIH",
+      "required": true
+    },
+    {
+      "path": "refs/cache/baib_29b99cb9ccb3a85d26742680.tsv.gz",
+      "why": "UniProt response for bai:BAIB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/baib_29b99cb9ccb3a85d26742680.tsv.meta.json",
+      "why": "query and counts behind bai:BAIB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/baif_b0a59de8ffb52c28d4a28ef5.tsv.gz",
+      "why": "UniProt response for bai:BAIF (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/baif_b0a59de8ffb52c28d4a28ef5.tsv.meta.json",
+      "why": "query and counts behind bai:BAIF",
+      "required": true
+    },
+    {
+      "path": "refs/cache/baie_40b1ff1b7c13cbca0b67ebf2.tsv.gz",
+      "why": "UniProt response for bai:BAIE (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/baie_40b1ff1b7c13cbca0b67ebf2.tsv.meta.json",
+      "why": "query and counts behind bai:BAIE",
+      "required": true
+    },
+    {
+      "path": "refs/cache/baia_216af80f5ffe7245c85864d9.tsv.gz",
+      "why": "UniProt response for bai:BAIA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/baia_216af80f5ffe7245c85864d9.tsv.meta.json",
+      "why": "query and counts behind bai:BAIA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/sdrbg_461a47067506932b406fc641.tsv.gz",
+      "why": "UniProt response for bai:SDRBG (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/sdrbg_461a47067506932b406fc641.tsv.meta.json",
+      "why": "query and counts behind bai:SDRBG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/oye_03c61c0e067079d8c236ec7a.tsv.gz",
+      "why": "UniProt response for bai:OYE (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/oye_03c61c0e067079d8c236ec7a.tsv.meta.json",
+      "why": "query and counts behind bai:OYE",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ilvc_fa178172592ab7805af8b4f7.tsv.gz",
+      "why": "UniProt response for bcaa:ILVC (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ilvc_fa178172592ab7805af8b4f7.tsv.meta.json",
+      "why": "query and counts behind bcaa:ILVC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ilvd_70f0f01f7004519e9564b420.tsv.gz",
+      "why": "UniProt response for bcaa:ILVD (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ilvd_70f0f01f7004519e9564b420.tsv.meta.json",
+      "why": "query and counts behind bcaa:ILVD",
+      "required": true
+    },
+    {
+      "path": "refs/cache/leua_da4e75ed3d4c95ba43320b22.tsv.gz",
+      "why": "UniProt response for bcaa:LEUA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/leua_da4e75ed3d4c95ba43320b22.tsv.meta.json",
+      "why": "query and counts behind bcaa:LEUA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/dhadbg_3837ae8086aed5bdb9007f35.tsv.gz",
+      "why": "UniProt response for bcaa:DHADBG (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/dhadbg_3837ae8086aed5bdb9007f35.tsv.meta.json",
+      "why": "query and counts behind bcaa:DHADBG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/drebg_1bebb92fd25a4d4033d81754.tsv.gz",
+      "why": "UniProt response for bcaa:DREBG (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/drebg_1bebb92fd25a4d4033d81754.tsv.meta.json",
+      "why": "query and counts behind bcaa:DREBG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/nadpred_af658f0318d06b8776ba076e.tsv.gz",
+      "why": "UniProt response for bcaa:NADPRED (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/nadpred_af658f0318d06b8776ba076e.tsv.meta.json",
+      "why": "query and counts behind bcaa:NADPRED",
+      "required": true
+    },
+    {
+      "path": "refs/cache/gus_bc08f8767ca8cdab4661ed47.tsv.gz",
+      "why": "UniProt response for bglucuronidase:GUS (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/gus_bc08f8767ca8cdab4661ed47.tsv.meta.json",
+      "why": "query and counts behind bglucuronidase:GUS",
+      "required": true
+    },
+    {
+      "path": "refs/cache/lacz_224d887c795fcea7918c60f5.tsv.gz",
+      "why": "UniProt response for bglucuronidase:LACZ (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/lacz_224d887c795fcea7918c60f5.tsv.meta.json",
+      "why": "query and counts behind bglucuronidase:LACZ",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ghbg_a5ff3cc842755355a5629b34.tsv.gz",
+      "why": "UniProt response for bglucuronidase:GHBG (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ghbg_a5ff3cc842755355a5629b34.tsv.meta.json",
+      "why": "query and counts behind bglucuronidase:GHBG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/biob_dfe1168d5b8addff227b6bd1.tsv.gz",
+      "why": "UniProt response for biotin:BIOB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/biob_dfe1168d5b8addff227b6bd1.tsv.meta.json",
+      "why": "query and counts behind biotin:BIOB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/biof_a1cbc484d41d5e350cf9afe1.tsv.gz",
+      "why": "UniProt response for biotin:BIOF (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/biof_a1cbc484d41d5e350cf9afe1.tsv.meta.json",
+      "why": "query and counts behind biotin:BIOF",
+      "required": true
+    },
+    {
+      "path": "refs/cache/biod_d85604efa72853f7526bc2b1.tsv.gz",
+      "why": "UniProt response for biotin:BIOD (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/biod_d85604efa72853f7526bc2b1.tsv.meta.json",
+      "why": "query and counts behind biotin:BIOD",
+      "required": true
+    },
+    {
+      "path": "refs/cache/radsam2_e2af7760ccb0a0f743cc8b62.tsv.gz",
+      "why": "UniProt response for biotin:RADSAM2 (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/radsam2_e2af7760ccb0a0f743cc8b62.tsv.meta.json",
+      "why": "query and counts behind biotin:RADSAM2",
+      "required": true
+    },
+    {
+      "path": "refs/cache/aosbg_752231e74c4a2506be0832d7.tsv.gz",
+      "why": "UniProt response for biotin:AOSBG (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/aosbg_752231e74c4a2506be0832d7.tsv.meta.json",
+      "why": "query and counts behind biotin:AOSBG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/bsh_3e0e1a2884789a49ad5b594c.tsv.gz",
+      "why": "UniProt response for bsh:BSH (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/bsh_3e0e1a2884789a49ad5b594c.tsv.meta.json",
+      "why": "query and counts behind bsh:BSH",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pva_87d227e1a9a9035fc188db9e.tsv.gz",
+      "why": "UniProt response for bsh:PVA (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pva_87d227e1a9a9035fc188db9e.tsv.meta.json",
+      "why": "query and counts behind bsh:PVA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/but_952cc92a9d036b2f062faf89.tsv.gz",
+      "why": "UniProt response for butyrate:BUT (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/but_952cc92a9d036b2f062faf89.tsv.meta.json",
+      "why": "query and counts behind butyrate:BUT",
+      "required": true
+    },
+    {
+      "path": "refs/cache/buk_86b4d2cda88c97ed1b00dd50.tsv.gz",
+      "why": "UniProt response for butyrate:BUK (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/buk_86b4d2cda88c97ed1b00dd50.tsv.meta.json",
+      "why": "query and counts behind butyrate:BUK",
+      "required": true
+    },
+    {
+      "path": "refs/cache/lcta_37559f8c225d521dc106deb1.tsv.gz",
+      "why": "UniProt response for butyrate:LCTA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/lcta_37559f8c225d521dc106deb1.tsv.meta.json",
+      "why": "query and counts behind butyrate:LCTA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/lctb_322c62e4f9d70f6c3adc59fd.tsv.gz",
+      "why": "UniProt response for butyrate:LCTB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/lctb_322c62e4f9d70f6c3adc59fd.tsv.meta.json",
+      "why": "query and counts behind butyrate:LCTB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/lctc_4343942b439266cbf0e1f463.tsv.gz",
+      "why": "UniProt response for butyrate:LCTC (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/lctc_4343942b439266cbf0e1f463.tsv.meta.json",
+      "why": "query and counts behind butyrate:LCTC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/acka_072435963312d64b735ca9d7.tsv.gz",
+      "why": "UniProt response for butyrate:ACKA (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/acka_072435963312d64b735ca9d7.tsv.meta.json",
+      "why": "query and counts behind butyrate:ACKA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/hbcoat_976629c10458083fcceebfae.tsv.gz",
+      "why": "UniProt response for butyrate:HBCOAT (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/hbcoat_976629c10458083fcceebfae.tsv.meta.json",
+      "why": "query and counts behind butyrate:HBCOAT",
+      "required": true
+    },
+    {
+      "path": "refs/cache/cell_74f20c178698145b1bba380e.tsv.gz",
+      "why": "UniProt response for carbohydrates:CELL (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/cell_74f20c178698145b1bba380e.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:CELL",
+      "required": true
+    },
+    {
+      "path": "refs/cache/endogluc_c1c105779f28198399b2f63d.tsv.gz",
+      "why": "UniProt response for carbohydrates:ENDOGLUC (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/endogluc_c1c105779f28198399b2f63d.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:ENDOGLUC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/bgluc_67f0f9b421a12ba8627c55cf.tsv.gz",
+      "why": "UniProt response for carbohydrates:BGLUC (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/bgluc_67f0f9b421a12ba8627c55cf.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:BGLUC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/amya_5cd185cda87b6f7f59f39594.tsv.gz",
+      "why": "UniProt response for carbohydrates:AMYA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/amya_5cd185cda87b6f7f59f39594.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:AMYA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pula_f89e1bda7adcf0ec033cc109.tsv.gz",
+      "why": "UniProt response for carbohydrates:PULA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pula_f89e1bda7adcf0ec033cc109.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:PULA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/glucoamy_4644a4b8c31862fb6390b93c.tsv.gz",
+      "why": "UniProt response for carbohydrates:GLUCOAMY (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/glucoamy_4644a4b8c31862fb6390b93c.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:GLUCOAMY",
+      "required": true
+    },
+    {
+      "path": "refs/cache/agluc_938f67b137152dcfb4887c20.tsv.gz",
+      "why": "UniProt response for carbohydrates:AGLUC (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/agluc_938f67b137152dcfb4887c20.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:AGLUC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ogluc_fb6e96128200593b7efc88aa.tsv.gz",
+      "why": "UniProt response for carbohydrates:OGLUC (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ogluc_fb6e96128200593b7efc88aa.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:OGLUC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/chia_54c4f6f4e8ee4f87ca5e61e9.tsv.gz",
+      "why": "UniProt response for carbohydrates:CHIA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/chia_54c4f6f4e8ee4f87ca5e61e9.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:CHIA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/chid_dcdefd77c696a18dd6133870.tsv.gz",
+      "why": "UniProt response for carbohydrates:CHID (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/chid_dcdefd77c696a18dd6133870.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:CHID",
+      "required": true
+    },
+    {
+      "path": "refs/cache/nagz_fd768c0c8d658d5dac3264f3.tsv.gz",
+      "why": "UniProt response for carbohydrates:NAGZ (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/nagz_fd768c0c8d658d5dac3264f3.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:NAGZ",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pgal_23effff33e938b6b2802415e.tsv.gz",
+      "why": "UniProt response for carbohydrates:PGAL (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pgal_23effff33e938b6b2802415e.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:PGAL",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pecl_a21788fb2371358950d36c3f.tsv.gz",
+      "why": "UniProt response for carbohydrates:PECL (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pecl_a21788fb2371358950d36c3f.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:PECL",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pece_32bd6af8069e0ba174c95d9f.tsv.gz",
+      "why": "UniProt response for carbohydrates:PECE (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pece_32bd6af8069e0ba174c95d9f.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:PECE",
+      "required": true
+    },
+    {
+      "path": "refs/cache/rhamg_a3e8c5014903d4d82552501b.tsv.gz",
+      "why": "UniProt response for carbohydrates:RHAMG (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/rhamg_a3e8c5014903d4d82552501b.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:RHAMG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/saca_954d42d799c4df6c33e6c871.tsv.gz",
+      "why": "UniProt response for carbohydrates:SACA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/saca_954d42d799c4df6c33e6c871.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:SACA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/leva_6710c5f369737b1cbd01bfa4.tsv.gz",
+      "why": "UniProt response for carbohydrates:LEVA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/leva_6710c5f369737b1cbd01bfa4.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:LEVA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/bgal_6f95cbe8d65c2c6ef2e7ac73.tsv.gz",
+      "why": "UniProt response for carbohydrates:BGAL (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/bgal_6f95cbe8d65c2c6ef2e7ac73.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:BGAL",
+      "required": true
+    },
+    {
+      "path": "refs/cache/agal_d270c5ad0347ddac7c8f8475.tsv.gz",
+      "why": "UniProt response for carbohydrates:AGAL (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/agal_d270c5ad0347ddac7c8f8475.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:AGAL",
+      "required": true
+    },
+    {
+      "path": "refs/cache/xylb_15efab0e8879e4e075007b9e.tsv.gz",
+      "why": "UniProt response for carbohydrates:XYLB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/xylb_15efab0e8879e4e075007b9e.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:XYLB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/xyna_d9ccbec76dfe97b2f438bb5f.tsv.gz",
+      "why": "UniProt response for carbohydrates:XYNA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/xyna_d9ccbec76dfe97b2f438bb5f.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:XYNA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/abfa_3b8817f8774e519a676af217.tsv.gz",
+      "why": "UniProt response for carbohydrates:ABFA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/abfa_3b8817f8774e519a676af217.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:ABFA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/axe_c52d032e67a28538935a119f.tsv.gz",
+      "why": "UniProt response for carbohydrates:AXE (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/axe_c52d032e67a28538935a119f.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:AXE",
+      "required": true
+    },
+    {
+      "path": "refs/cache/fae_6aec084cc2301305077f4992.tsv.gz",
+      "why": "UniProt response for carbohydrates:FAE (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/fae_6aec084cc2301305077f4992.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:FAE",
+      "required": true
+    },
+    {
+      "path": "refs/cache/lich_78edcf1e346502bb7f98f1e0.tsv.gz",
+      "why": "UniProt response for carbohydrates:LICH (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/lich_78edcf1e346502bb7f98f1e0.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:LICH",
+      "required": true
+    },
+    {
+      "path": "refs/cache/bg13_d07be52eeb39a27a65f677df.tsv.gz",
+      "why": "UniProt response for carbohydrates:BG13 (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/bg13_d07be52eeb39a27a65f677df.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:BG13",
+      "required": true
+    },
+    {
+      "path": "refs/cache/manb_9fb81547f98df19ce5498d1d.tsv.gz",
+      "why": "UniProt response for carbohydrates:MANB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/manb_9fb81547f98df19ce5498d1d.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:MANB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/mana_c69ce595252b2a13fb5e2e32.tsv.gz",
+      "why": "UniProt response for carbohydrates:MANA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/mana_c69ce595252b2a13fb5e2e32.tsv.meta.json",
+      "why": "query and counts behind carbohydrates:MANA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/fada_76bdeb783ff43cd2b883dade.tsv.gz",
+      "why": "UniProt response for crc_virulence:FADA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/fada_76bdeb783ff43cd2b883dade.tsv.meta.json",
+      "why": "query and counts behind crc_virulence:FADA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/bft_e53dbca7c0ada359f78ae8a5.tsv.gz",
+      "why": "UniProt response for crc_virulence:BFT (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/bft_e53dbca7c0ada359f78ae8a5.tsv.meta.json",
+      "why": "query and counts behind crc_virulence:BFT",
+      "required": true
+    },
+    {
+      "path": "refs/cache/clbb_ce61ab5b3ae2e61db707c99d.tsv.gz",
+      "why": "UniProt response for crc_virulence:CLBB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/clbb_ce61ab5b3ae2e61db707c99d.tsv.meta.json",
+      "why": "query and counts behind crc_virulence:CLBB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/metallobg_5727ab5abadc7ba5648e4893.tsv.gz",
+      "why": "UniProt response for crc_virulence:METALLOBG (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/metallobg_5727ab5abadc7ba5648e4893.tsv.meta.json",
+      "why": "query and counts behind crc_virulence:METALLOBG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/bftpara_069e6bee60b389b094682b1a.tsv.gz",
+      "why": "UniProt response for crc_virulence:BFTPARA (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/bftpara_069e6bee60b389b094682b1a.tsv.meta.json",
+      "why": "query and counts behind crc_virulence:BFTPARA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/nrpsbg_f06a14b5a78474ca4ea63ea8.tsv.gz",
+      "why": "UniProt response for crc_virulence:NRPSBG (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/nrpsbg_f06a14b5a78474ca4ea63ea8.tsv.meta.json",
+      "why": "query and counts behind crc_virulence:NRPSBG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/fadbg_80760a1ccd4caaf21df97887.tsv.gz",
+      "why": "UniProt response for crc_virulence:FADBG (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/fadbg_80760a1ccd4caaf21df97887.tsv.meta.json",
+      "why": "query and counts behind crc_virulence:FADBG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/cutc_a07a6d9d4532083c1528a6a7.tsv.gz",
+      "why": "UniProt response for cutc:CUTC (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/cutc_a07a6d9d4532083c1528a6a7.tsv.meta.json",
+      "why": "query and counts behind cutc:CUTC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/cnta_3a06b48766f5f9a806a9c938.tsv.gz",
+      "why": "UniProt response for cutc:CNTA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/cnta_3a06b48766f5f9a806a9c938.tsv.meta.json",
+      "why": "query and counts behind cutc:CNTA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pflb_551b4de6eb5310fa06901315.tsv.gz",
+      "why": "UniProt response for cutc:PFLB (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pflb_551b4de6eb5310fa06901315.tsv.meta.json",
+      "why": "query and counts behind cutc:PFLB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/iseg_8787d7cb77231c53a354ae71.tsv.gz",
+      "why": "UniProt response for cutc:ISEG (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/iseg_8787d7cb77231c53a354ae71.tsv.meta.json",
+      "why": "query and counts behind cutc:ISEG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/rieske_64e578ed679218f7a8e0a411.tsv.gz",
+      "why": "UniProt response for cutc:RIESKE (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/rieske_64e578ed679218f7a8e0a411.tsv.meta.json",
+      "why": "query and counts behind cutc:RIESKE",
+      "required": true
+    },
+    {
+      "path": "refs/cache/tyrdc_2d9f886ddb9b9647c8a13dfc.tsv.gz",
+      "why": "UniProt response for dopamine:TYRDC (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/tyrdc_2d9f886ddb9b9647c8a13dfc.tsv.meta.json",
+      "why": "query and counts behind dopamine:TYRDC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/dadh_c3f0c978c4d3b597ddec171b.tsv.gz",
+      "why": "UniProt response for dopamine:DADH (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/dadh_c3f0c978c4d3b597ddec171b.tsv.meta.json",
+      "why": "query and counts behind dopamine:DADH",
+      "required": true
+    },
+    {
+      "path": "refs/cache/plpdc2_6787f3a4e8320496e6a12ff6.tsv.gz",
+      "why": "UniProt response for dopamine:PLPDC2 (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/plpdc2_6787f3a4e8320496e6a12ff6.tsv.meta.json",
+      "why": "query and counts behind dopamine:PLPDC2",
+      "required": true
+    },
+    {
+      "path": "refs/cache/modep_260af7c252b4723c2b9fdea6.tsv.gz",
+      "why": "UniProt response for dopamine:MODEP (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/modep_260af7c252b4723c2b9fdea6.tsv.meta.json",
+      "why": "query and counts behind dopamine:MODEP",
+      "required": true
+    },
+    {
+      "path": "refs/cache/dznr_d26d0dab76309440ca1b6c7f.tsv.gz",
+      "why": "UniProt response for equol:DZNR (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/dznr_d26d0dab76309440ca1b6c7f.tsv.meta.json",
+      "why": "query and counts behind equol:DZNR",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ddr_de493111279b8701fb9042df.tsv.gz",
+      "why": "UniProt response for equol:DDR (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ddr_de493111279b8701fb9042df.tsv.meta.json",
+      "why": "query and counts behind equol:DDR",
+      "required": true
+    },
+    {
+      "path": "refs/cache/tdr_4f5a391734aee1ce9084b648.tsv.gz",
+      "why": "UniProt response for equol:TDR (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/tdr_4f5a391734aee1ce9084b648.tsv.meta.json",
+      "why": "query and counts behind equol:TDR",
+      "required": true
+    },
+    {
+      "path": "refs/cache/adhe_0ace1d17d23e6ac2424e7060.tsv.gz",
+      "why": "UniProt response for ethanol:ADHE (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/adhe_0ace1d17d23e6ac2424e7060.tsv.meta.json",
+      "why": "query and counts behind ethanol:ADHE",
+      "required": true
+    },
+    {
+      "path": "refs/cache/adhp_5544b7748098776bcd504a9b.tsv.gz",
+      "why": "UniProt response for ethanol:ADHP (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/adhp_5544b7748098776bcd504a9b.tsv.meta.json",
+      "why": "query and counts behind ethanol:ADHP",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pdc_ba078c3af23b2e5160785e5e.tsv.gz",
+      "why": "UniProt response for ethanol:PDC (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pdc_ba078c3af23b2e5160785e5e.tsv.meta.json",
+      "why": "query and counts behind ethanol:PDC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/eutb_941d17b72205c8cf088e752b.tsv.gz",
+      "why": "UniProt response for ethanol:EUTB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/eutb_941d17b72205c8cf088e752b.tsv.meta.json",
+      "why": "query and counts behind ethanol:EUTB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/eutc_97ab2d3200c83f79725737c3.tsv.gz",
+      "why": "UniProt response for ethanol:EUTC (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/eutc_97ab2d3200c83f79725737c3.tsv.meta.json",
+      "why": "query and counts behind ethanol:EUTC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pta_f0ca91d3e0f0949a0a844ee7.tsv.gz",
+      "why": "UniProt response for fermentation:PTA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pta_f0ca91d3e0f0949a0a844ee7.tsv.meta.json",
+      "why": "query and counts behind fermentation:PTA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/acsb_c5be0888ee0750388fd036e9.tsv.gz",
+      "why": "UniProt response for fermentation:ACSB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/acsb_c5be0888ee0750388fd036e9.tsv.meta.json",
+      "why": "query and counts behind fermentation:ACSB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/coos_a8a02bcdb2608374d347ea85.tsv.gz",
+      "why": "UniProt response for fermentation:COOS (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/coos_a8a02bcdb2608374d347ea85.tsv.meta.json",
+      "why": "query and counts behind fermentation:COOS",
+      "required": true
+    },
+    {
+      "path": "refs/cache/fhs_247feb89c8a39e0219297009.tsv.gz",
+      "why": "UniProt response for fermentation:FHS (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/fhs_247feb89c8a39e0219297009.tsv.meta.json",
+      "why": "query and counts behind fermentation:FHS",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ldhd_35d4fd41845f85528bf24852.tsv.gz",
+      "why": "UniProt response for fermentation:LDHD (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ldhd_35d4fd41845f85528bf24852.tsv.meta.json",
+      "why": "query and counts behind fermentation:LDHD",
+      "required": true
+    },
+    {
+      "path": "refs/cache/mutb_266126afde60876b42497e0e.tsv.gz",
+      "why": "UniProt response for fermentation:MUTB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/mutb_266126afde60876b42497e0e.tsv.meta.json",
+      "why": "query and counts behind fermentation:MUTB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/scpa_542b46cc3cef959d75bf354c.tsv.gz",
+      "why": "UniProt response for fermentation:SCPA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/scpa_542b46cc3cef959d75bf354c.tsv.meta.json",
+      "why": "query and counts behind fermentation:SCPA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pduc2_d7a9d29fc7ba31a1f72e2bfb.tsv.gz",
+      "why": "UniProt response for fermentation:PDUC2 (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pduc2_d7a9d29fc7ba31a1f72e2bfb.tsv.meta.json",
+      "why": "query and counts behind fermentation:PDUC2",
+      "required": true
+    },
+    {
+      "path": "refs/cache/hyda_9c4b87e0e8358c05d728ec4c.tsv.gz",
+      "why": "UniProt response for fermentation:HYDA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/hyda_9c4b87e0e8358c05d728ec4c.tsv.meta.json",
+      "why": "query and counts behind fermentation:HYDA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ldhl_0dad24ae53f3686ad352f709.tsv.gz",
+      "why": "UniProt response for fermentation:LDHL (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ldhl_0dad24ae53f3686ad352f709.tsv.meta.json",
+      "why": "query and counts behind fermentation:LDHL",
+      "required": true
+    },
+    {
+      "path": "refs/cache/xfp_916bd0022cab190f9490f50c.tsv.gz",
+      "why": "UniProt response for fermentation:XFP (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/xfp_916bd0022cab190f9490f50c.tsv.meta.json",
+      "why": "query and counts behind fermentation:XFP",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ldh_0dad24ae53f3686ad352f709.tsv.gz",
+      "why": "UniProt response for fermentation:LDH (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ldh_0dad24ae53f3686ad352f709.tsv.meta.json",
+      "why": "query and counts behind fermentation:LDH",
+      "required": true
+    },
+    {
+      "path": "refs/cache/mdh_ecba172774e59cc3530c725a.tsv.gz",
+      "why": "UniProt response for fermentation:MDH (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/mdh_ecba172774e59cc3530c725a.tsv.meta.json",
+      "why": "query and counts behind fermentation:MDH",
+      "required": true
+    },
+    {
+      "path": "refs/cache/folp_f662732445b3337ce382c842.tsv.gz",
+      "why": "UniProt response for folate:FOLP (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/folp_f662732445b3337ce382c842.tsv.meta.json",
+      "why": "query and counts behind folate:FOLP",
+      "required": true
+    },
+    {
+      "path": "refs/cache/folk_c4bc36f000a1f4e0220e3d36.tsv.gz",
+      "why": "UniProt response for folate:FOLK (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/folk_c4bc36f000a1f4e0220e3d36.tsv.meta.json",
+      "why": "query and counts behind folate:FOLK",
+      "required": true
+    },
+    {
+      "path": "refs/cache/folc_39983ef6593887c036941e44.tsv.gz",
+      "why": "UniProt response for folate:FOLC (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/folc_39983ef6593887c036941e44.tsv.meta.json",
+      "why": "query and counts behind folate:FOLC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pterinbg_385607e3f964c569d6bb6b86.tsv.gz",
+      "why": "UniProt response for folate:PTERINBG (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pterinbg_385607e3f964c569d6bb6b86.tsv.meta.json",
+      "why": "query and counts behind folate:PTERINBG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/murlig_2f173174025caadc81878986.tsv.gz",
+      "why": "UniProt response for folate:MURLIG (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/murlig_2f173174025caadc81878986.tsv.meta.json",
+      "why": "query and counts behind folate:MURLIG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/gadb_b3bc673c98ed7cb3774fdbc8.tsv.gz",
+      "why": "UniProt response for gaba:GADB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/gadb_b3bc673c98ed7cb3774fdbc8.tsv.meta.json",
+      "why": "query and counts behind gaba:GADB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/gabt_936121b3bffe1abfbbdcc408.tsv.gz",
+      "why": "UniProt response for gaba:GABT (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/gabt_936121b3bffe1abfbbdcc408.tsv.meta.json",
+      "why": "query and counts behind gaba:GABT",
+      "required": true
+    },
+    {
+      "path": "refs/cache/plpdc_45408be04c93f4445cd57d11.tsv.gz",
+      "why": "UniProt response for gaba:PLPDC (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/plpdc_45408be04c93f4445cd57d11.tsv.meta.json",
+      "why": "query and counts behind gaba:PLPDC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/aminotbg_c8221b250daabe5dd4093153.tsv.gz",
+      "why": "UniProt response for gaba:AMINOTBG (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/aminotbg_c8221b250daabe5dd4093153.tsv.meta.json",
+      "why": "query and counts behind gaba:AMINOTBG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/gabd_6bea4c437ae13f1dd0ce1119.tsv.gz",
+      "why": "UniProt response for gababreak:GABD (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/gabd_6bea4c437ae13f1dd0ce1119.tsv.meta.json",
+      "why": "query and counts behind gababreak:GABD",
+      "required": true
+    },
+    {
+      "path": "refs/cache/abfh_ebefb40abe3671a7a50ee014.tsv.gz",
+      "why": "UniProt response for gababreak:ABFH (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/abfh_ebefb40abe3671a7a50ee014.tsv.meta.json",
+      "why": "query and counts behind gababreak:ABFH",
+      "required": true
+    },
+    {
+      "path": "refs/cache/btgsl_99eabe11efb9d2aa21c3187e.tsv.gz",
+      "why": "UniProt response for glucosinolate:BTGSL (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/btgsl_99eabe11efb9d2aa21c3187e.tsv.meta.json",
+      "why": "query and counts behind glucosinolate:BTGSL",
+      "required": true
+    },
+    {
+      "path": "refs/cache/gsha_c6b499b99b5092c82cbad887.tsv.gz",
+      "why": "UniProt response for glutathione:GSHA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/gsha_c6b499b99b5092c82cbad887.tsv.meta.json",
+      "why": "query and counts behind glutathione:GSHA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/gshb_ec5165b03447f0e586b65412.tsv.gz",
+      "why": "UniProt response for glutathione:GSHB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/gshb_ec5165b03447f0e586b65412.tsv.meta.json",
+      "why": "query and counts behind glutathione:GSHB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/gshf_33d7e1ef608560d1ba31ed27.tsv.gz",
+      "why": "UniProt response for glutathione:GSHF (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/gshf_33d7e1ef608560d1ba31ed27.tsv.meta.json",
+      "why": "query and counts behind glutathione:GSHF",
+      "required": true
+    },
+    {
+      "path": "refs/cache/gor_4be29ad19b90a25357f4162e.tsv.gz",
+      "why": "UniProt response for glutathione:GOR (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/gor_4be29ad19b90a25357f4162e.tsv.meta.json",
+      "why": "query and counts behind glutathione:GOR",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ggt_c1ffe9173329793fe0a764cd.tsv.gz",
+      "why": "UniProt response for glutathione:GGT (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ggt_c1ffe9173329793fe0a764cd.tsv.meta.json",
+      "why": "query and counts behind glutathione:GGT",
+      "required": true
+    },
+    {
+      "path": "refs/cache/dsra_02363dce1b317a2ff1d8bec3.tsv.gz",
+      "why": "UniProt response for h2s:DSRA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/dsra_02363dce1b317a2ff1d8bec3.tsv.meta.json",
+      "why": "query and counts behind h2s:DSRA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/asra_cd9f827e510a7f89bf52bc6f.tsv.gz",
+      "why": "UniProt response for h2s:ASRA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/asra_cd9f827e510a7f89bf52bc6f.tsv.meta.json",
+      "why": "query and counts behind h2s:ASRA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/cgl_18711f511a9f04e1e8d9d2f6.tsv.gz",
+      "why": "UniProt response for h2s:CGL (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/cgl_18711f511a9f04e1e8d9d2f6.tsv.meta.json",
+      "why": "query and counts behind h2s:CGL",
+      "required": true
+    },
+    {
+      "path": "refs/cache/tpa_da9779a70250a71fdf959ee2.tsv.gz",
+      "why": "UniProt response for h2s:TPA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/tpa_da9779a70250a71fdf959ee2.tsv.meta.json",
+      "why": "query and counts behind h2s:TPA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/isl_db8703f471d47228d1d3e290.tsv.gz",
+      "why": "UniProt response for h2s:ISL (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/isl_db8703f471d47228d1d3e290.tsv.meta.json",
+      "why": "query and counts behind h2s:ISL",
+      "required": true
+    },
+    {
+      "path": "refs/cache/cysi_e082a7d173590adac0f18cb3.tsv.gz",
+      "why": "UniProt response for h2s:CYSI (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/cysi_e082a7d173590adac0f18cb3.tsv.meta.json",
+      "why": "query and counts behind h2s:CYSI",
+      "required": true
+    },
+    {
+      "path": "refs/cache/plpbg_f4650a6c3ffafbee7a5cd5ea.tsv.gz",
+      "why": "UniProt response for h2s:PLPBG (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/plpbg_f4650a6c3ffafbee7a5cd5ea.tsv.meta.json",
+      "why": "query and counts behind h2s:PLPBG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/hdca_e169ee62a399918ee0c78ed9.tsv.gz",
+      "why": "UniProt response for histamine:HDCA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/hdca_e169ee62a399918ee0c78ed9.tsv.meta.json",
+      "why": "query and counts behind histamine:HDCA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/hdctrans_8b6ced77cb8e080019c23bed.tsv.gz",
+      "why": "UniProt response for histamine:HDCTRANS (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/hdctrans_8b6ced77cb8e080019c23bed.tsv.meta.json",
+      "why": "query and counts behind histamine:HDCTRANS",
+      "required": true
+    },
+    {
+      "path": "refs/cache/plpdc3_3dd29e291b768c18be44c685.tsv.gz",
+      "why": "UniProt response for histamine:PLPDC3 (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/plpdc3_3dd29e291b768c18be44c685.tsv.meta.json",
+      "why": "query and counts behind histamine:PLPDC3",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pyruvoyl_f32d17f9af4217ceea42feae.tsv.gz",
+      "why": "UniProt response for histamine:PYRUVOYL (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pyruvoyl_f32d17f9af4217ceea42feae.tsv.meta.json",
+      "why": "query and counts behind histamine:PYRUVOYL",
+      "required": true
+    },
+    {
+      "path": "refs/cache/tnaa_4f490018ab3f00c80298056c.tsv.gz",
+      "why": "UniProt response for indole:TNAA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/tnaa_4f490018ab3f00c80298056c.tsv.meta.json",
+      "why": "query and counts behind indole:TNAA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/tpl_ee9c973937cfb6f2bb3a525c.tsv.gz",
+      "why": "UniProt response for indole:TPL (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/tpl_ee9c973937cfb6f2bb3a525c.tsv.meta.json",
+      "why": "query and counts behind indole:TPL",
+      "required": true
+    },
+    {
+      "path": "refs/cache/plplyase_4a92bb96c5f04f611ff3cc4e.tsv.gz",
+      "why": "UniProt response for indole:PLPLYASE (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/plplyase_4a92bb96c5f04f611ff3cc4e.tsv.meta.json",
+      "why": "query and counts behind indole:PLPLYASE",
+      "required": true
+    },
+    {
+      "path": "refs/cache/fldbc_ed48f218c368fed6d73746af.tsv.gz",
+      "why": "UniProt response for ipa:FLDBC (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/fldbc_ed48f218c368fed6d73746af.tsv.meta.json",
+      "why": "query and counts behind ipa:FLDBC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/fldh_bbd2973218daa73ef8739724.tsv.gz",
+      "why": "UniProt response for ipa:FLDH (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/fldh_bbd2973218daa73ef8739724.tsv.meta.json",
+      "why": "query and counts behind ipa:FLDH",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ldhd_0205147e358fab2cc09fb223.tsv.gz",
+      "why": "UniProt response for ipa:LDHD (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ldhd_0205147e358fab2cc09fb223.tsv.meta.json",
+      "why": "query and counts behind ipa:LDHD",
+      "required": true
+    },
+    {
+      "path": "refs/cache/hadehyd_02f9ad56233dda1289615967.tsv.gz",
+      "why": "UniProt response for ipa:HADEHYD (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/hadehyd_02f9ad56233dda1289615967.tsv.meta.json",
+      "why": "query and counts behind ipa:HADEHYD",
+      "required": true
+    },
+    {
+      "path": "refs/cache/mena_a0d0aeb0b988fd420b71e61f.tsv.gz",
+      "why": "UniProt response for k2:MENA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/mena_a0d0aeb0b988fd420b71e61f.tsv.meta.json",
+      "why": "query and counts behind k2:MENA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/mend_58bd381fb5092df2a39434fd.tsv.gz",
+      "why": "UniProt response for k2:MEND (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/mend_58bd381fb5092df2a39434fd.tsv.meta.json",
+      "why": "query and counts behind k2:MEND",
+      "required": true
+    },
+    {
+      "path": "refs/cache/mqne_b132cda0865d8f3c2f9e9ea4.tsv.gz",
+      "why": "UniProt response for k2:MQNE (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/mqne_b132cda0865d8f3c2f9e9ea4.tsv.meta.json",
+      "why": "query and counts behind k2:MQNE",
+      "required": true
+    },
+    {
+      "path": "refs/cache/prenylbg_fe342884e5e5e56723e7cb67.tsv.gz",
+      "why": "UniProt response for k2:PRENYLBG (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/prenylbg_fe342884e5e5e56723e7cb67.tsv.meta.json",
+      "why": "query and counts behind k2:PRENYLBG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/thdpbg_478bd5e39f86c51f1f9d85f1.tsv.gz",
+      "why": "UniProt response for k2:THDPBG (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/thdpbg_478bd5e39f86c51f1f9d85f1.tsv.meta.json",
+      "why": "query and counts behind k2:THDPBG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/radsambg_31b6dd695c808dbeb63810c5.tsv.gz",
+      "why": "UniProt response for k2:RADSAMBG (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/radsambg_31b6dd695c808dbeb63810c5.tsv.meta.json",
+      "why": "query and counts behind k2:RADSAMBG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/mcra_6059ac5ee5b447387cc9443d.tsv.gz",
+      "why": "UniProt response for methane:MCRA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/mcra_6059ac5ee5b447387cc9443d.tsv.meta.json",
+      "why": "query and counts behind methane:MCRA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/mcrb_27a4522e35e8d044efb201ef.tsv.gz",
+      "why": "UniProt response for methane:MCRB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/mcrb_27a4522e35e8d044efb201ef.tsv.meta.json",
+      "why": "query and counts behind methane:MCRB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/mtab_4579b3f152be7aaa1ec17ca4.tsv.gz",
+      "why": "UniProt response for methane:MTAB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/mtab_4579b3f152be7aaa1ec17ca4.tsv.meta.json",
+      "why": "query and counts behind methane:MTAB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/archbg_1ddd1e5e30dbfc2100995571.tsv.gz",
+      "why": "UniProt response for methane:ARCHBG (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/archbg_1ddd1e5e30dbfc2100995571.tsv.meta.json",
+      "why": "query and counts behind methane:ARCHBG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/nanh_9451a68179a09b14c317b8f4.tsv.gz",
+      "why": "UniProt response for mucinlps:NANH (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/nanh_9451a68179a09b14c317b8f4.tsv.meta.json",
+      "why": "query and counts behind mucinlps:NANH",
+      "required": true
+    },
+    {
+      "path": "refs/cache/fuca_d655dd3f526129f9d836de54.tsv.gz",
+      "why": "UniProt response for mucinlps:FUCA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/fuca_d655dd3f526129f9d836de54.tsv.meta.json",
+      "why": "query and counts behind mucinlps:FUCA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/sulf_b873a19c1d83056428fdf5cb.tsv.gz",
+      "why": "UniProt response for mucinlps:SULF (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/sulf_b873a19c1d83056428fdf5cb.tsv.meta.json",
+      "why": "query and counts behind mucinlps:SULF",
+      "required": true
+    },
+    {
+      "path": "refs/cache/lpxa_0c6cec9a5c50fca3e4928a73.tsv.gz",
+      "why": "UniProt response for mucinlps:LPXA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/lpxa_0c6cec9a5c50fca3e4928a73.tsv.meta.json",
+      "why": "query and counts behind mucinlps:LPXA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/lpxc_849629977d59a20cb6f9092b.tsv.gz",
+      "why": "UniProt response for mucinlps:LPXC (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/lpxc_849629977d59a20cb6f9092b.tsv.meta.json",
+      "why": "query and counts behind mucinlps:LPXC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/lpxl_54bc8c6c16c28d2569c25a54.tsv.gz",
+      "why": "UniProt response for mucinlps:LPXL (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/lpxl_54bc8c6c16c28d2569c25a54.tsv.meta.json",
+      "why": "query and counts behind mucinlps:LPXL",
+      "required": true
+    },
+    {
+      "path": "refs/cache/hdha_315525fa0916999a9643a514.tsv.gz",
+      "why": "UniProt response for mucinlps:HDHA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/hdha_315525fa0916999a9643a514.tsv.meta.json",
+      "why": "query and counts behind mucinlps:HDHA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/nada_d40def53a4259c813e0085a8.tsv.gz",
+      "why": "UniProt response for niacin:NADA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/nada_d40def53a4259c813e0085a8.tsv.meta.json",
+      "why": "query and counts behind niacin:NADA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/nadb_951b6eb4e58abc20b29b94d8.tsv.gz",
+      "why": "UniProt response for niacin:NADB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/nadb_951b6eb4e58abc20b29b94d8.tsv.meta.json",
+      "why": "query and counts behind niacin:NADB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/nadc_0b7afa8f3258da53b446ee81.tsv.gz",
+      "why": "UniProt response for niacin:NADC (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/nadc_0b7afa8f3258da53b446ee81.tsv.meta.json",
+      "why": "query and counts behind niacin:NADC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/nadd_3bac401bf851365b047be9b2.tsv.gz",
+      "why": "UniProt response for niacin:NADD (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/nadd_3bac401bf851365b047be9b2.tsv.meta.json",
+      "why": "query and counts behind niacin:NADD",
+      "required": true
+    },
+    {
+      "path": "refs/cache/nade_424a6d02b37ca02fe7b128ec.tsv.gz",
+      "why": "UniProt response for niacin:NADE (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/nade_424a6d02b37ca02fe7b128ec.tsv.meta.json",
+      "why": "query and counts behind niacin:NADE",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pnca_388f7eed2f33b88eb584e0c3.tsv.gz",
+      "why": "UniProt response for niacin:PNCA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pnca_388f7eed2f33b88eb584e0c3.tsv.meta.json",
+      "why": "query and counts behind niacin:PNCA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pncb_7a0f37ef1d9332fced0bdb87.tsv.gz",
+      "why": "UniProt response for niacin:PNCB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pncb_7a0f37ef1d9332fced0bdb87.tsv.meta.json",
+      "why": "query and counts behind niacin:PNCB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pnuc_0432696e093c8b46e6875c4f.tsv.gz",
+      "why": "UniProt response for niacin:PNUC (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pnuc_0432696e093c8b46e6875c4f.tsv.meta.json",
+      "why": "query and counts behind niacin:PNUC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/nadsalv_012beba4b98394feb85a6514.tsv.gz",
+      "why": "UniProt response for niacin:NADSALV (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/nadsalv_012beba4b98394feb85a6514.tsv.meta.json",
+      "why": "query and counts behind niacin:NADSALV",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pept_5eafa017ea9ec1b36e513096.tsv.gz",
+      "why": "UniProt response for nitrogen:PEPT (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pept_5eafa017ea9ec1b36e513096.tsv.meta.json",
+      "why": "query and counts behind nitrogen:PEPT",
+      "required": true
+    },
+    {
+      "path": "refs/cache/dppa_54f05c2f4417ba78332222b6.tsv.gz",
+      "why": "UniProt response for nitrogen:DPPA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/dppa_54f05c2f4417ba78332222b6.tsv.meta.json",
+      "why": "query and counts behind nitrogen:DPPA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/grda_bfa4139a54ad12834f57ca35.tsv.gz",
+      "why": "UniProt response for nitrogen:GRDA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/grda_bfa4139a54ad12834f57ca35.tsv.meta.json",
+      "why": "query and counts behind nitrogen:GRDA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/prda_435ccc95bd07e97598756c59.tsv.gz",
+      "why": "UniProt response for nitrogen:PRDA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/prda_435ccc95bd07e97598756c59.tsv.meta.json",
+      "why": "query and counts behind nitrogen:PRDA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ilve_972b51956e48a14135d03f4b.tsv.gz",
+      "why": "UniProt response for nitrogen:ILVE (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ilve_972b51956e48a14135d03f4b.tsv.meta.json",
+      "why": "query and counts behind nitrogen:ILVE",
+      "required": true
+    },
+    {
+      "path": "refs/cache/bkda_8b13b46adff4f5eabc4012a9.tsv.gz",
+      "why": "UniProt response for nitrogen:BKDA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/bkda_8b13b46adff4f5eabc4012a9.tsv.meta.json",
+      "why": "query and counts behind nitrogen:BKDA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/gdha_cba9621ccb8d2f620f90d473.tsv.gz",
+      "why": "UniProt response for nitrogen:GDHA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/gdha_cba9621ccb8d2f620f90d473.tsv.meta.json",
+      "why": "query and counts behind nitrogen:GDHA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/aspa_fbf26ed7f0a5d1e57f0f6117.tsv.gz",
+      "why": "UniProt response for nitrogen:ASPA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/aspa_fbf26ed7f0a5d1e57f0f6117.tsv.meta.json",
+      "why": "query and counts behind nitrogen:ASPA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ansa_70bbe647f9200e0e914dff00.tsv.gz",
+      "why": "UniProt response for nitrogen:ANSA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ansa_70bbe647f9200e0e914dff00.tsv.meta.json",
+      "why": "query and counts behind nitrogen:ANSA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pora_ad2bc64e5f5561bf0c2ede0c.tsv.gz",
+      "why": "UniProt response for nitrogen:PORA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pora_ad2bc64e5f5561bf0c2ede0c.tsv.meta.json",
+      "why": "query and counts behind nitrogen:PORA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/padi_52437374ee99319726d0ef83.tsv.gz",
+      "why": "UniProt response for nitrogen:PADI (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/padi_52437374ee99319726d0ef83.tsv.meta.json",
+      "why": "query and counts behind nitrogen:PADI",
+      "required": true
+    },
+    {
+      "path": "refs/cache/oxc_8183c4a53978551bbbdb0cb9.tsv.gz",
+      "why": "UniProt response for oxalate:OXC (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/oxc_8183c4a53978551bbbdb0cb9.tsv.meta.json",
+      "why": "query and counts behind oxalate:OXC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/frc_c81ee671d63c07346250bdf5.tsv.gz",
+      "why": "UniProt response for oxalate:FRC (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/frc_c81ee671d63c07346250bdf5.tsv.meta.json",
+      "why": "query and counts behind oxalate:FRC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/thdpbg2_001a681d19ddd5b5280e0285.tsv.gz",
+      "why": "UniProt response for oxalate:THDPBG2 (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/thdpbg2_001a681d19ddd5b5280e0285.tsv.meta.json",
+      "why": "query and counts behind oxalate:THDPBG2",
+      "required": true
+    },
+    {
+      "path": "refs/cache/coatbg2_a01316f9bb8cf1c9cbca4875.tsv.gz",
+      "why": "UniProt response for oxalate:COATBG2 (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/coatbg2_a01316f9bb8cf1c9cbca4875.tsv.meta.json",
+      "why": "query and counts behind oxalate:COATBG2",
+      "required": true
+    },
+    {
+      "path": "refs/cache/p9_6480568021fb81d1a0475ca9.tsv.gz",
+      "why": "UniProt response for p9:P9 (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/p9_6480568021fb81d1a0475ca9.tsv.meta.json",
+      "why": "query and counts behind p9:P9",
+      "required": true
+    },
+    {
+      "path": "refs/cache/s41a_637eebe29ddace6cbbcef08f.tsv.gz",
+      "why": "UniProt response for p9:S41A (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/s41a_637eebe29ddace6cbbcef08f.tsv.meta.json",
+      "why": "query and counts behind p9:S41A",
+      "required": true
+    },
+    {
+      "path": "refs/cache/wrongid_15a38b5a1008ed80d69281bb.tsv.gz",
+      "why": "UniProt response for p9:WRONGID (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/wrongid_15a38b5a1008ed80d69281bb.tsv.meta.json",
+      "why": "query and counts behind p9:WRONGID",
+      "required": true
+    },
+    {
+      "path": "refs/cache/panc_95c8d22ced7dc8987ba7d2c5.tsv.gz",
+      "why": "UniProt response for pantothenate:PANC (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/panc_95c8d22ced7dc8987ba7d2c5.tsv.meta.json",
+      "why": "query and counts behind pantothenate:PANC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/panb_bb3a858ff6c03e4828966ac3.tsv.gz",
+      "why": "UniProt response for pantothenate:PANB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/panb_bb3a858ff6c03e4828966ac3.tsv.meta.json",
+      "why": "query and counts behind pantothenate:PANB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pand_1e453b24e5873771a9a408e0.tsv.gz",
+      "why": "UniProt response for pantothenate:PAND (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pand_1e453b24e5873771a9a408e0.tsv.meta.json",
+      "why": "query and counts behind pantothenate:PAND",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pane_3d202ae923972af3707c17aa.tsv.gz",
+      "why": "UniProt response for pantothenate:PANE (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pane_3d202ae923972af3707c17aa.tsv.meta.json",
+      "why": "query and counts behind pantothenate:PANE",
+      "required": true
+    },
+    {
+      "path": "refs/cache/panf_96e9c808e723d8972ffe199b.tsv.gz",
+      "why": "UniProt response for pantothenate:PANF (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/panf_96e9c808e723d8972ffe199b.tsv.meta.json",
+      "why": "query and counts behind pantothenate:PANF",
+      "required": true
+    },
+    {
+      "path": "refs/cache/hpdb_e46b8f30fc4b158745750b7c.tsv.gz",
+      "why": "UniProt response for pcresol:HPDB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/hpdb_e46b8f30fc4b158745750b7c.tsv.meta.json",
+      "why": "query and counts behind pcresol:HPDB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/oppa_1912da103f5b5b36d035bbc9.tsv.gz",
+      "why": "UniProt response for peptides:OPPA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/oppa_1912da103f5b5b36d035bbc9.tsv.meta.json",
+      "why": "query and counts behind peptides:OPPA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/oppb_d4d24d70b8e6a9a130217cd3.tsv.gz",
+      "why": "UniProt response for peptides:OPPB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/oppb_d4d24d70b8e6a9a130217cd3.tsv.meta.json",
+      "why": "query and counts behind peptides:OPPB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/oppd_8c353bbe62d1e93f45e149a9.tsv.gz",
+      "why": "UniProt response for peptides:OPPD (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/oppd_8c353bbe62d1e93f45e149a9.tsv.meta.json",
+      "why": "query and counts behind peptides:OPPD",
+      "required": true
+    },
+    {
+      "path": "refs/cache/dtpt_98ec4171f0c57ce3edcddf16.tsv.gz",
+      "why": "UniProt response for peptides:DTPT (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/dtpt_98ec4171f0c57ce3edcddf16.tsv.meta.json",
+      "why": "query and counts behind peptides:DTPT",
+      "required": true
+    },
+    {
+      "path": "refs/cache/livk_46e1c71cf67a5dbb92b72c4a.tsv.gz",
+      "why": "UniProt response for peptides:LIVK (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/livk_46e1c71cf67a5dbb92b72c4a.tsv.meta.json",
+      "why": "query and counts behind peptides:LIVK",
+      "required": true
+    },
+    {
+      "path": "refs/cache/brnq_5e2d7715441acbb662901489.tsv.gz",
+      "why": "UniProt response for peptides:BRNQ (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/brnq_5e2d7715441acbb662901489.tsv.meta.json",
+      "why": "query and counts behind peptides:BRNQ",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pct_9652f48139dc48332a0a3c97.tsv.gz",
+      "why": "UniProt response for propionate:PCT (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pct_9652f48139dc48332a0a3c97.tsv.meta.json",
+      "why": "query and counts behind propionate:PCT",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pdup_7b9fe35e3cab8bf0502d102b.tsv.gz",
+      "why": "UniProt response for propionate:PDUP (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/pdup_7b9fe35e3cab8bf0502d102b.tsv.meta.json",
+      "why": "query and counts behind propionate:PDUP",
+      "required": true
+    },
+    {
+      "path": "refs/cache/lcda_080db572dc40b013d8e8a96a.tsv.gz",
+      "why": "UniProt response for propionate:LCDA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/lcda_080db572dc40b013d8e8a96a.tsv.meta.json",
+      "why": "query and counts behind propionate:LCDA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/lcdb_dc843dbb44277e2414816825.tsv.gz",
+      "why": "UniProt response for propionate:LCDB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/lcdb_dc843dbb44277e2414816825.tsv.meta.json",
+      "why": "query and counts behind propionate:LCDB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/mmda_832cd496943e010c47e77283.tsv.gz",
+      "why": "UniProt response for propionate:MMDA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/mmda_832cd496943e010c47e77283.tsv.meta.json",
+      "why": "query and counts behind propionate:MMDA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/coatbg_794b83c0183f6c52ed627916.tsv.gz",
+      "why": "UniProt response for propionate:COATBG (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/coatbg_794b83c0183f6c52ed627916.tsv.meta.json",
+      "why": "query and counts behind propionate:COATBG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/aldhbg_cbf5a6127e9c366db78f7ff4.tsv.gz",
+      "why": "UniProt response for propionate:ALDHBG (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/aldhbg_cbf5a6127e9c366db78f7ff4.tsv.meta.json",
+      "why": "query and counts behind propionate:ALDHBG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/spec_b84a928eef59a4070e4437f2.tsv.gz",
+      "why": "UniProt response for putrescine:SPEC (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/spec_b84a928eef59a4070e4437f2.tsv.meta.json",
+      "why": "query and counts behind putrescine:SPEC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/speb_d869bf7700a3137901da7afe.tsv.gz",
+      "why": "UniProt response for putrescine:SPEB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/speb_d869bf7700a3137901da7afe.tsv.meta.json",
+      "why": "query and counts behind putrescine:SPEB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/agua_740932dee372ed0151103384.tsv.gz",
+      "why": "UniProt response for putrescine:AGUA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/agua_740932dee372ed0151103384.tsv.meta.json",
+      "why": "query and counts behind putrescine:AGUA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/agub_47b4251e738e1f5c16520656.tsv.gz",
+      "why": "UniProt response for putrescine:AGUB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/agub_47b4251e738e1f5c16520656.tsv.meta.json",
+      "why": "query and counts behind putrescine:AGUB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ribb_7840c8accd5a0607dc478f4a.tsv.gz",
+      "why": "UniProt response for riboflavin:RIBB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ribb_7840c8accd5a0607dc478f4a.tsv.meta.json",
+      "why": "query and counts behind riboflavin:RIBB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ribe_8fb7c5688140abc52aec23f2.tsv.gz",
+      "why": "UniProt response for riboflavin:RIBE (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ribe_8fb7c5688140abc52aec23f2.tsv.meta.json",
+      "why": "query and counts behind riboflavin:RIBE",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ribh_1cd338e7281cc198b792a514.tsv.gz",
+      "why": "UniProt response for riboflavin:RIBH (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ribh_1cd338e7281cc198b792a514.tsv.meta.json",
+      "why": "query and counts behind riboflavin:RIBH",
+      "required": true
+    },
+    {
+      "path": "refs/cache/flavbg_584174019ef5e65074beba9a.tsv.gz",
+      "why": "UniProt response for riboflavin:FLAVBG (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/flavbg_584174019ef5e65074beba9a.tsv.meta.json",
+      "why": "query and counts behind riboflavin:FLAVBG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/gtpcyc_c11f5db06eed98017aa0edf7.tsv.gz",
+      "why": "UniProt response for riboflavin:GTPCYC (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/gtpcyc_c11f5db06eed98017aa0edf7.tsv.meta.json",
+      "why": "query and counts behind riboflavin:GTPCYC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/spee_b18fbe812f8b0c144ee1b941.tsv.gz",
+      "why": "UniProt response for spermidine:SPEE (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/spee_b18fbe812f8b0c144ee1b941.tsv.meta.json",
+      "why": "query and counts behind spermidine:SPEE",
+      "required": true
+    },
+    {
+      "path": "refs/cache/sped_07c9eb2bed95790d3536629e.tsv.gz",
+      "why": "UniProt response for spermidine:SPED (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/sped_07c9eb2bed95790d3536629e.tsv.meta.json",
+      "why": "query and counts behind spermidine:SPED",
+      "required": true
+    },
+    {
+      "path": "refs/cache/casdh_e5b91978acc78492b11f027e.tsv.gz",
+      "why": "UniProt response for spermidine:CASDH (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/casdh_e5b91978acc78492b11f027e.tsv.meta.json",
+      "why": "query and counts behind spermidine:CASDH",
+      "required": true
+    },
+    {
+      "path": "refs/cache/casdc_8db487d92c9b7b588340dafa.tsv.gz",
+      "why": "UniProt response for spermidine:CASDC (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/casdc_8db487d92c9b7b588340dafa.tsv.meta.json",
+      "why": "query and counts behind spermidine:CASDC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/thie_c991b3210fbb43ddcf57d535.tsv.gz",
+      "why": "UniProt response for thiamine:THIE (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/thie_c991b3210fbb43ddcf57d535.tsv.meta.json",
+      "why": "query and counts behind thiamine:THIE",
+      "required": true
+    },
+    {
+      "path": "refs/cache/thic_dd65141ee6c706900dcc8611.tsv.gz",
+      "why": "UniProt response for thiamine:THIC (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/thic_dd65141ee6c706900dcc8611.tsv.meta.json",
+      "why": "query and counts behind thiamine:THIC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/thid_4d831e335ceef3ee91435cfc.tsv.gz",
+      "why": "UniProt response for thiamine:THID (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/thid_4d831e335ceef3ee91435cfc.tsv.meta.json",
+      "why": "query and counts behind thiamine:THID",
+      "required": true
+    },
+    {
+      "path": "refs/cache/thim_3f1579c137fe91adee86a4cf.tsv.gz",
+      "why": "UniProt response for thiamine:THIM (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/thim_3f1579c137fe91adee86a4cf.tsv.meta.json",
+      "why": "query and counts behind thiamine:THIM",
+      "required": true
+    },
+    {
+      "path": "refs/cache/thig_0c22b99b520adb4c4cb66a6d.tsv.gz",
+      "why": "UniProt response for thiamine:THIG (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/thig_0c22b99b520adb4c4cb66a6d.tsv.meta.json",
+      "why": "query and counts behind thiamine:THIG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/thih_a4da98eb5652cac21a353009.tsv.gz",
+      "why": "UniProt response for thiamine:THIH (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/thih_a4da98eb5652cac21a353009.tsv.meta.json",
+      "why": "query and counts behind thiamine:THIH",
+      "required": true
+    },
+    {
+      "path": "refs/cache/this_4d8bcbe521ee135b17a586e1.tsv.gz",
+      "why": "UniProt response for thiamine:THIS (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/this_4d8bcbe521ee135b17a586e1.tsv.meta.json",
+      "why": "query and counts behind thiamine:THIS",
+      "required": true
+    },
+    {
+      "path": "refs/cache/thib_3f4c708ce1a196b3fc8fefc6.tsv.gz",
+      "why": "UniProt response for thiamine:THIB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/thib_3f4c708ce1a196b3fc8fefc6.tsv.meta.json",
+      "why": "query and counts behind thiamine:THIB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/thip_4967884478a9f6d7cf506f59.tsv.gz",
+      "why": "UniProt response for thiamine:THIP (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/thip_4967884478a9f6d7cf506f59.tsv.meta.json",
+      "why": "query and counts behind thiamine:THIP",
+      "required": true
+    },
+    {
+      "path": "refs/cache/thiq_f653e6e7f6b8942d55d27b00.tsv.gz",
+      "why": "UniProt response for thiamine:THIQ (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/thiq_f653e6e7f6b8942d55d27b00.tsv.meta.json",
+      "why": "query and counts behind thiamine:THIQ",
+      "required": true
+    },
+    {
+      "path": "refs/cache/tdc_069783e31cb2cbbedd8dd079.tsv.gz",
+      "why": "UniProt response for tryptamine:TDC (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/tdc_069783e31cb2cbbedd8dd079.tsv.meta.json",
+      "why": "query and counts behind tryptamine:TDC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/aadc_1ceb4bbf403cbea3ab8a4d96.tsv.gz",
+      "why": "UniProt response for tryptamine:AADC (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/aadc_1ceb4bbf403cbea3ab8a4d96.tsv.meta.json",
+      "why": "query and counts behind tryptamine:AADC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/xdha_b3f97c23a1f08a749debb2d4.tsv.gz",
+      "why": "UniProt response for urate:XDHA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/xdha_b3f97c23a1f08a749debb2d4.tsv.meta.json",
+      "why": "query and counts behind urate:XDHA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/xdhb_65d3ff783757460ae6df2996.tsv.gz",
+      "why": "UniProt response for urate:XDHB (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/xdhb_65d3ff783757460ae6df2996.tsv.meta.json",
+      "why": "query and counts behind urate:XDHB",
+      "required": true
+    },
+    {
+      "path": "refs/cache/xdhc_d70fefbde4004197da1d13bd.tsv.gz",
+      "why": "UniProt response for urate:XDHC (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/xdhc_d70fefbde4004197da1d13bd.tsv.meta.json",
+      "why": "query and counts behind urate:XDHC",
+      "required": true
+    },
+    {
+      "path": "refs/cache/uox_fd1f2898d09e5c2684d35e30.tsv.gz",
+      "why": "UniProt response for urate:UOX (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/uox_fd1f2898d09e5c2684d35e30.tsv.meta.json",
+      "why": "query and counts behind urate:UOX",
+      "required": true
+    },
+    {
+      "path": "refs/cache/hpt_43bb094ebf4d1f2d7fda31b6.tsv.gz",
+      "why": "UniProt response for urate:HPT (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/hpt_43bb094ebf4d1f2d7fda31b6.tsv.meta.json",
+      "why": "query and counts behind urate:HPT",
+      "required": true
+    },
+    {
+      "path": "refs/cache/urda_85883c3fe341465db12b3c24.tsv.gz",
+      "why": "UniProt response for urda:URDA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/urda_85883c3fe341465db12b3c24.tsv.meta.json",
+      "why": "query and counts behind urda:URDA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/frda_cfe7953c282c5fdbe6e6ce14.tsv.gz",
+      "why": "UniProt response for urda:FRDA (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/frda_cfe7953c282c5fdbe6e6ce14.tsv.meta.json",
+      "why": "query and counts behind urda:FRDA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/sdha_a7b54bc853395e90df787c64.tsv.gz",
+      "why": "UniProt response for urda:SDHA (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/sdha_a7b54bc853395e90df787c64.tsv.meta.json",
+      "why": "query and counts behind urda:SDHA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/urealpha_55e009af36eb8213609c6a23.tsv.gz",
+      "why": "UniProt response for urease:UREALPHA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/urealpha_55e009af36eb8213609c6a23.tsv.meta.json",
+      "why": "query and counts behind urease:UREALPHA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/urebeta_bc28e1f4bd1d7c38a65c0691.tsv.gz",
+      "why": "UniProt response for urease:UREBETA (target)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/urebeta_bc28e1f4bd1d7c38a65c0691.tsv.meta.json",
+      "why": "query and counts behind urease:UREBETA",
+      "required": true
+    },
+    {
+      "path": "refs/cache/amidobg_489784a7122e98c55afe3b98.tsv.gz",
+      "why": "UniProt response for urease:AMIDOBG (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/amidobg_489784a7122e98c55afe3b98.tsv.meta.json",
+      "why": "query and counts behind urease:AMIDOBG",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ureacc_62c109d14603045b5d9e38b4.tsv.gz",
+      "why": "UniProt response for urease:UREACC (decoy)",
+      "required": true
+    },
+    {
+      "path": "refs/cache/ureacc_62c109d14603045b5d9e38b4.tsv.meta.json",
+      "why": "query and counts behind urease:UREACC",
+      "required": true
+    }
+  ]
+}

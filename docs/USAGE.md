@@ -383,7 +383,12 @@ after a full screen only pays for the shallower depths.
 
 ## Make targets
 
+`./install.sh` (or `make install`) is the one that sets a machine up; the
+rest are the individual pieces and the everyday runs.
+
 ```
+make install     everything, in one go (runs ./install.sh; see ./install.sh --help)
+make install-full  the same plus every optional detection lane (~1.5 TB)
 make setup       create .venv and install
 make doctor      check dependencies, hardware and inputs
 make panels      list pathways
@@ -402,12 +407,17 @@ make clean       remove results/
 make clean-all   remove results/, refs/ and .venv/
 ```
 
-Variables: `THREADS`, `FASTQ_DIR`, `RESULTS`, `SUBSAMPLE`, `COHORT_SAMPLES`.
+Variables: `THREADS`, `FASTQ_DIR`, `RESULTS`, `SUBSAMPLE`, `COHORT_SAMPLES`,
+`INSTALL_ARGS`.
 
 ```bash
+make install INSTALL_ARGS="--skip-host-index"
 make run THREADS=8
 make cohort COHORT_SAMPLES=50
 ```
+
+`make run` and `bin/openbiota run` are the same program; the launcher is the
+one to reach for day to day, `make` when you want the variables above.
 
 ---
 

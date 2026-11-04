@@ -1,8 +1,11 @@
-# data — never commit sequencing reads
-fastq/*.fastq
-fastq/*.fastq.gz
-fastq/*.fq
-fastq/*.fq.gz
+# data — never commit sequencing reads, at any depth under fastq/
+# (samples live in fastq/<sample>/; only the README that explains that is kept)
+fastq/*
+!fastq/README.md
+
+# the installer's log and lock
+install.log
+.install.lock
 
 # generated artefacts
 results/

@@ -31,3 +31,41 @@ jobs:
         run: python -c "import compileall, sys; sys.exit(0 if compileall.compile_dir('openbiota', quiet=1) else 1)"
       - name: Test suite
         run: python -m pytest -q -p no:warnings --ignore=tests/test_layout_holds_under_pressure.py
+
+  # The installer on a machine that has never seen the project: a fresh
+  # Ubuntu and a fresh macOS runner, straight from `git clone`. The steps
+  # that download gigabytes of reference data (the MetaPhlAn database,
+  # UniProt, the human genome) are left out; everything that decides whether
+  # the install works on a stranger's computer - package managers, python
+  # discovery, the environments, the launcher, the committed data archive,
+  # the readiness checks - runs for real.
+  install:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: shellcheck
+        run: |
+          if ! command -v shellcheck >/dev/null; then
+            if [ "$RUNNER_OS" = "macOS" ]; then brew install shellcheck; else sudo apt-get install -y shellcheck; fi
+          fi
+          shellcheck -s bash install.sh bin/openbiota
+      - name: The installer, from a fresh clone
+        run: ./install.sh --only preflight,system,python,launcher,profiler,data --yes --no-path --threads 2
+      - name: What it left behind
+        run: |
+          ./install.sh --list
+          bin/openbiota --version
+          bin/openbiota doctor --fastq-dir fastq || true
+          .venv/bin/python -m openbiota.installcheck python
+          .venv/bin/python -m openbiota.installcheck profiler
+          .venv/bin/python -m openbiota.installcheck data
+          for tool in diamond bowtie2 samtools fastp; do command -v "$tool"; done
+      - name: Running it again changes nothing
+        run: ./install.sh --only system,python,launcher,profiler,data --yes --no-path | tee /dev/stderr | grep -c "already done" | grep -qx 5
+      - name: The install log
+        if: always()
+        run: tail -n 60 install.log

@@ -25,10 +25,15 @@ metagenomes, and every number traces back to the reads that produced it.
 <p align="center"><sub><b>Two sample reports from real samples</b>, produced by the same software: a community the index places as <a href="sample-reports/EM1_AMD614_report.pdf">broadly disturbed</a> (left) and one in the <a href="sample-reports/MM1_FXX745_report.pdf">healthy range</a> (right). Click either page to read the whole report.</sub></p>
 
 ```bash
-brew install diamond bowtie2 && make setup
-make run          # ./fastq → results/<sample>/<sample>_report.pdf
-make run-all      # every sample in ./fastq, plus a side-by-side comparison
+git clone https://github.com/openbiota-org/openbiota-gut-health-test
+cd openbiota-gut-health-test
+./install.sh                      # one command: tools, environments, reference data (~1 h, resumable)
+# copy SAMPLE_1.fastq.gz and SAMPLE_2.fastq.gz into fastq/SAMPLE/
+bin/openbiota run                 # → results/SAMPLE/SAMPLE_report.pdf
 ```
+
+Never used a terminal? The [Quickstart](docs/QUICKSTART.md) starts from
+opening one. `./install.sh --full` adds the optional detection lanes (~1.5 TB).
 
 <p align="center">
   <img src="docs/images/em1/organisms-page.png" width="24%" alt="Organisms that need attention in the broadly disturbed report: overgrown, missing, low">
@@ -265,8 +270,11 @@ Absence is now a category: 48th percentile, and the score dropped to 23rd.
 
 ## Commands
 
+`bin/openbiota` from the repository folder, or plain `openbiota` in any
+terminal opened after the install:
+
 ```bash
-openbiota run                          # screen ./fastq
+openbiota run                          # screen ./fastq (one sample, or --sample NAME)
 openbiota run-all                      # every sample, plus comparison.json
 openbiota run --subsample 100000       # 17-second smoke test
 openbiota run --compact                # one-screen answer
@@ -287,17 +295,25 @@ openbiota doctor                       # check dependencies and inputs
 openbiota depth-check                  # was the sequencing deep enough?
 ```
 
-One-time reference builds, all cached and idempotent:
+`./install.sh` runs every one-time build; each is also a `make` target for
+doing one piece by hand, all cached and idempotent:
 
 ```bash
-make build-db           # ~16 min  protein references from UniProt
-make cohort             # ~10 min  percentile ranges for Part A
-make taxonomic-cohort   # ~8 min   3,027-sample species cohort
-make host-index         # ~40 min  GRCh38 + PhiX for host removal
+./install.sh --list     # which install steps are done on this machine
+make build-db           # ~2 min   protein search database (from the cached UniProt tables)
+make host-index         # ~1 h     GRCh38 + PhiX for host removal
+make extension-refs     # ~2 min   MICOM and the AGORA2 model library
 make validate           # ~5 min   sensitivity, specificity, calibration
 make validate-profiles  # ~2 min   AUCs on labelled cohorts
-make all                # the lot, in order, then run
+make help               # every target, including the full-install lanes
 ```
+
+The percentile ranges, the species cohort and the age model are computed
+rather than downloaded, so they ship with the repository (`data/`, 50 MB)
+and the installer unpacks them; `make cohort` and `make taxonomic-cohort`
+rebuild them from the public data. The 244 UniProt responses the protein
+database is built from ship too (`data/`, 200 MB, CC BY 4.0), because
+fetching them takes UniProt about six hours.
 
 ---
 
