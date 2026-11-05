@@ -59,7 +59,7 @@ Three things to know, and then you know enough:
 | | |
 |---|---|
 | A computer | A Mac (Intel or Apple silicon) or a Linux machine. 8 GB of memory is enough; more is faster. |
-| Free disk | About **20 GB** for the standard install. (The optional full install is about 1.5 TB; see the end of this page.) |
+| Free disk | About **20 GB** for the standard install, **on the computer's own disk** — your home folder is the right place. Not a network share and not an external drive formatted for Windows (exFAT/NTFS): `git clone` itself fails there with *unable to write file … Permission denied*, and the installer refuses to start. (The optional full install is about 1.5 TB; see the end of this page.) |
 | Internet | The installer downloads the reference databases once, roughly 3 GB. |
 | About an hour | Mostly waiting for downloads and one index build. You can leave it. |
 | Your sample | **Two FASTQ files** from a shotgun-sequenced stool sample, usually named something like `SAMPLE_1.fastq.gz` and `SAMPLE_2.fastq.gz`. |
@@ -84,9 +84,13 @@ cd openbiota-gut-health-test
 What each line does:
 
 1. **`git clone …`** downloads the project into a new folder called
-   `openbiota-gut-health-test`. On a Mac that has never run a developer
-   tool, macOS may first offer to install its *command line developer tools*
-   — accept, wait for it to finish, then run the line again.
+   `openbiota-gut-health-test`, inside the folder the terminal is in — your
+   home folder when it opens, which is where it should be. On a Mac that has
+   never run a developer tool, macOS may first offer to install its *command
+   line developer tools* — accept, wait for it to finish, then run the line
+   again. If the clone ends with `unable to write file … Permission denied`,
+   the terminal was in a network share or an external drive; type `cd ~`
+   and run the line again.
 2. **`cd openbiota-gut-health-test`** moves into that folder.
 3. **`./install.sh`** does everything else, in eleven numbered steps with a
    progress bar:

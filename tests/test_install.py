@@ -244,6 +244,47 @@ def test_final_message_names_the_two_remaining_steps(tmp_path: Path):
     assert "results/my-sample/my-sample_report.pdf" in out
 
 
+@pytest.mark.parametrize("fs,kind", [
+    ("cifs", "network share"), ("smbfs", "network share"), ("nfs4", "network share"),
+    ("sshfs", "network share"), ("exfat", "formatted for Windows"), ("ntfs", "formatted for Windows"),
+    ("vfat", "formatted for Windows"), ("fuseblk", "formatted for Windows"),
+])
+def test_preflight_refuses_a_share_or_a_windows_drive(tmp_path: Path, fs: str, kind: str):
+    """A Linux box cloning onto a Mac's SMB share was the first real failure
+    a user hit: git itself fails there, and so would every later step."""
+    root = _skeleton(tmp_path)
+    proc = _sh("install.sh", "--only", "preflight", "--dry-run", "--no-path", cwd=root,
+               env={"INSTALL_FS_TYPE": fs})
+    out = proc.stdout + proc.stderr
+    assert proc.returncode == 1, out
+    assert kind in out and f"({fs})" in out
+    assert "cd ~ && git clone" in out, "the fix must be spelled out"
+    assert not list(root.glob(".install-probe.*")), "the probe folder must not be left behind"
+
+
+def test_preflight_accepts_a_local_filesystem(tmp_path: Path):
+    root = _skeleton(tmp_path)
+    proc = _sh("install.sh", "--only", "preflight", "--dry-run", "--no-path", cwd=root,
+               env={"INSTALL_FS_TYPE": "ext4"})
+    assert "local filesystem (ext4)" in proc.stdout, proc.stdout + proc.stderr
+    assert not list(root.glob(".install-probe.*"))
+
+
+def test_preflight_only_warns_on_an_unknown_fuse_filesystem(tmp_path: Path):
+    root = _skeleton(tmp_path)
+    proc = _sh("install.sh", "--only", "preflight", "--dry-run", "--no-path", cwd=root,
+               env={"INSTALL_FS_TYPE": "fuse.snapfuse"})
+    assert "FUSE filesystem" in proc.stdout
+    assert "local filesystem (fuse.snapfuse)" in proc.stdout
+
+
+def test_the_filesystem_check_runs_before_anything_is_downloaded():
+    text = INSTALL.read_text()
+    preflight = text[text.index("run_preflight()"):text.index("# -- system")]
+    assert preflight.index("check_filesystem") < preflight.index("free_gb")
+    assert preflight.index("check_filesystem") < preflight.index("online")
+
+
 def test_data_step_fails_clearly_without_the_archive(tmp_path: Path):
     root = _skeleton(tmp_path, with_venv=True)
     (root / ".venv" / "bin" / "python").write_text("#!/usr/bin/env bash\nexit 1\n")

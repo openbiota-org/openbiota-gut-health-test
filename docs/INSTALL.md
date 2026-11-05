@@ -41,7 +41,7 @@ report of the state of the machine.
 
 | # | Step | What it produces | Skipped when |
 |---|---|---|---|
-| 1 | `preflight` | nothing; it checks the OS, free disk, memory, network and write access, and on a Mac the Xcode command-line tools and Homebrew | never |
+| 1 | `preflight` | nothing; it checks the OS, that the folder is on a local filesystem that can hold symbolic links (not a network share or a Windows-formatted drive), free disk, memory, network and write access, and on a Mac the Xcode command-line tools and Homebrew | never |
 | 2 | `system` | `git`, `curl`, Python 3.11+, `diamond`, `bowtie2`, `samtools`, `fastp` (and `pigz` if available) | all are on the `PATH` |
 | 3 | `python` | `.venv/` with `openbiota` installed in editable mode | `.venv/bin/openbiota` imports |
 | 4 | `launcher` | `bin/openbiota` executable; `~/.local/bin/openbiota` linked to it; `~/.local/bin` on the `PATH` | the link and the `PATH` line exist |
@@ -156,6 +156,8 @@ what to do, and the last 25 lines of `install.log`. Fix the cause and run
 
 | It says | What it means |
 |---|---|
+| `git clone` itself: *unable to write file … Permission denied* / *unable to rename temporary '\*.pack' file* | The folder you cloned into is on a network share (SMB, NFS, sshfs — a Linux machine mounting a Mac's drive does exactly this) or on an external drive formatted for Windows. Git cannot build a repository there, and neither could the installer. `cd ~` and clone again on the computer's own disk. |
+| *this folder is on a network share* / *a drive formatted for Windows* | The same thing, caught by the installer's first step when the clone did succeed. The Python environments are made of symbolic links, bowtie2 memory-maps its indexes, SQLite needs file locks: the project has to live on a local disk. |
 | *the Xcode command line tools are not installed* | macOS needs them for `git` and compilers. The installer offers to open the dialog; finish it, then re-run. |
 | *Homebrew is not installed* | The installer offers to run Homebrew's installer, which asks for your password. Or install it from [brew.sh](https://brew.sh) and re-run. |
 | *no sudo: cannot use apt* | On Linux without `sudo`, the tools come from conda instead, automatically. Nothing to do. |

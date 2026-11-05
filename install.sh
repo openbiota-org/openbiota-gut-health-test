@@ -466,9 +466,63 @@ ensure_tool() {
 # --------------------------------------------------------------------------- #
 
 # -- preflight ---------------------------------------------------------------
+
+# The filesystem type under the repository, lower-case; "" when unknown.
+# INSTALL_FS_TYPE overrides it, which is how the tests reach the refusals.
+fs_type() {
+    if [ -n "${INSTALL_FS_TYPE:-}" ]; then echo "$INSTALL_FS_TYPE"; return; fi
+    local t=""
+    if [ "$OS" = "Darwin" ]; then
+        # mount prints: /dev/disk1s2 on /Volumes/X (apfs, local, ...)
+        #            or //user@host/share on /Volumes/X (smbfs, nodev, ...)
+        local mp; mp=$(df -P "$REPO" 2>/dev/null | awk 'NR==2 { print $NF }')
+        t=$(mount 2>/dev/null | awk -v mp="$mp" '$3 == mp { gsub(/[(,]/, "", $4); print $4; exit }')
+    else
+        t=$(df -T "$REPO" 2>/dev/null | awk 'NR==2 { print $2 }')
+        [ -n "$t" ] || t=$(stat -f -c %T "$REPO" 2>/dev/null)
+    fi
+    printf '%s' "$t" | tr '[:upper:]' '[:lower:]'
+}
+
+# Where the project cannot live, and why. The bioinformatics tools and the
+# Python environments need a filesystem of the computer's own: symbolic
+# links (every venv is made of them), hard links and rename semantics (git
+# refuses to write its pack files otherwise - the clone itself fails on an
+# SMB share), file locks (SQLite, samtools) and the I/O rate of a local disk
+# (a bowtie2 index is memory-mapped; a DIAMOND search streams gigabytes).
+check_filesystem() {
+    local t; t=$(fs_type)
+    local kind=""
+    case "$t" in
+        cifs|smb*|nfs*|afp*|sshfs|fuse.sshfs|vboxsf|9p|prl_fs|fuse.rclone|fuse.gvfs*|davfs*)
+            kind="a network share ($t)" ;;
+        exfat|vfat|msdos|fat*|ntfs*|fuseblk)
+            kind="a drive formatted for Windows ($t)" ;;
+    esac
+    if [ -n "$kind" ]; then
+        die "this folder is on $kind: $REPO
+  git, the Python environments and the alignment tools need the computer's own disk.
+  Clone into your home folder instead and run the installer there:
+      cd ~ && git clone https://github.com/openbiota-org/openbiota-gut-health-test
+      cd openbiota-gut-health-test && ./install.sh"
+    fi
+    # Whatever it is called, it must be able to do what the tools do.
+    local probe="$REPO/.install-probe.$$"
+    if ! { mkdir -p "$probe" && : >"$probe/file" && ln -s file "$probe/link" && [ -L "$probe/link" ]; } 2>/dev/null; then
+        rm -rf "$probe"
+        die "the filesystem under $REPO cannot hold symbolic links${t:+ (type: $t)}; the Python environments are made of them. Clone into your home folder on the computer's own disk and run the installer there."
+    fi
+    rm -rf "$probe"
+    case "$t" in
+        fuse*) warn "the folder is on a FUSE filesystem ($t); if the install misbehaves, move the project to a local disk" ;;
+    esac
+    ok "local filesystem${t:+ ($t)}"
+}
+
 done_preflight() { return 1; }   # always runs; it is the check
 run_preflight() {
     ok "$OS $ARCH, $(cpu_count) CPUs, $(memory_gb) GB memory, using $THREADS threads"
+    check_filesystem
     if [ "$OS" = "Darwin" ]; then
         if ! xcode-select -p >/dev/null 2>&1; then
             warn "the Xcode command line tools are not installed; macOS needs them for git and compilers"
