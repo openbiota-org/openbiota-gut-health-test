@@ -24,7 +24,7 @@ it is printed on one line.
 from __future__ import annotations
 
 from collections.abc import Callable, Mapping
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Final
 
 Check = Callable[[Mapping[str, Any]], tuple[bool, str]]
@@ -112,8 +112,12 @@ def _biofilm(r: Mapping[str, Any]) -> tuple[bool, str]:
 
 
 def _findings(r: Mapping[str, Any]) -> tuple[bool, str]:
+    # The stage has run when it has written both lists. Zero triggers is a
+    # result - a sample with nothing to act on - and was being read as a
+    # stage that never ran.
     f = r.get("findings_and_evidence") or {}
-    ok = isinstance(f.get("triggers"), list) and bool(f.get("triggers")) and "findings" in f
+    ok = isinstance(f.get("triggers"), list) and "findings" in f and (
+        bool(f["triggers"]) or bool(f.get("findings")))
     return ok, f"{len(f.get('triggers') or [])} triggers, {len(f.get('findings') or [])} findings"
 
 
@@ -208,6 +212,11 @@ REQUIRED: Final[tuple[Stage, ...]] = (
 @dataclass
 class Completeness:
     stages: list[dict[str, Any]]
+    #: "full" or "lite": which stages were asked about.
+    mode: str = "full"
+    #: Stages the mode does not promise, named so the record says they were
+    #: left out on purpose rather than forgotten.
+    not_in_mode: list[str] = field(default_factory=list)
 
     @property
     def complete(self) -> bool:
@@ -220,28 +229,44 @@ class Completeness:
     def to_json(self) -> dict[str, Any]:
         return {
             "complete": self.complete,
+            "mode": self.mode,
             "n_required": len(self.stages),
             "n_ran": sum(1 for s in self.stages if s["ran"]),
             "missing": self.missing,
+            "not_in_mode": list(self.not_in_mode),
             "stages": list(self.stages),
             "meaning": (
-                "Every required stage of the report, and whether it produced its result in "
+                "Every stage the report's mode requires, and whether it produced its result in "
                 "this run. A stage is judged by its output in this file, not by whether it "
-                "was attempted. A run with anything missing exits non-zero."
+                "was attempted. A run with anything missing exits non-zero. Stages under "
+                "not_in_mode belong to the full report and are not attempted by a lite run."
             ),
         }
 
 
-def audit(results: Mapping[str, Any]) -> Completeness:
-    """Ask every required stage whether it produced its result."""
+def audit(results: Mapping[str, Any], *, mode: str | None = None) -> Completeness:
+    """Ask every stage the mode requires whether it produced its result.
+
+    ``mode`` defaults to the mode the run recorded (see
+    :mod:`openbiota.reportmode`); a lite run is not asked about the
+    full-install lanes it never attempted.
+    """
+    from openbiota.reportmode import excluded_stages, mode_of  # noqa: PLC0415
+
+    mode = mode or mode_of(results)
+    excluded = excluded_stages(mode)
     rows: list[dict[str, Any]] = []
+    skipped: list[str] = []
     for stage in REQUIRED:
+        if stage.key in excluded:
+            skipped.append(stage.label)
+            continue
         try:
             ran, detail = stage.check(results)
         except Exception as exc:  # noqa: BLE001 - a broken check is a failed stage
             ran, detail = False, f"check failed: {type(exc).__name__}: {exc}"
         rows.append({"key": stage.key, "label": stage.label, "ran": bool(ran), "detail": detail})
-    return Completeness(rows)
+    return Completeness(rows, mode=mode, not_in_mode=skipped)
 
 
 def describe(report: Completeness) -> str:

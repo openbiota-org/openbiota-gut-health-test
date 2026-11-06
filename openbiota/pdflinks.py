@@ -45,7 +45,7 @@ from reportlab.lib.colors import HexColor
 from reportlab.lib.enums import TA_LEFT
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
-from reportlab.platypus import Flowable, Table
+from reportlab.platypus import BaseDocTemplate, Flowable, Frame, Spacer, Table
 from reportlab.platypus import Paragraph as _Paragraph
 
 __all__ = [
@@ -294,6 +294,156 @@ class Anchor(Flowable):
                 seen.add(self.name)
                 title, level = self.outline
                 canv.addOutlineEntry(title, self.name, level=level)
+
+
+class SoftPageBreak(Flowable):
+    """Start a new page - unless the current page is still empty.
+
+    A plain ``PageBreak`` always breaks. When the content before it happens
+    to end exactly at the foot of a page, ReportLab has already turned to a
+    fresh page by the time the break is reached, and the break then turns
+    another one: a blank page with nothing on it but the running header.
+    Every report had three of them. This break asks the frame whether
+    anything has been drawn on the page yet, and does nothing if not.
+
+    It is a flowable rather than a ``PageBreak`` subclass on purpose: the
+    document template handles ``PageBreak`` instances itself, before ``wrap``
+    is called, so a subclass could not decline. The mechanism here is the
+    one ``CondPageBreak`` uses - generated content on the frame - and a
+    frame break in a single-frame page template is a page break.
+    """
+
+    _ZEROSIZE = True
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.width = self.height = 0
+
+    def wrap(self, *_: float) -> tuple[float, float]:
+        frame = self._doctemplateAttr("frame")
+        if frame is None:
+            # No frame (a KeepInFrame measuring pass): the safe answer is to
+            # break, which is what a PageBreak would have done.
+            return 0.0, 0.0
+        # A page counts as empty when nothing visible has been drawn on it.
+        # The document keeps that record (see ReportDocTemplate): a spacer
+        # or an anchor that spilled onto a fresh page is not ink, and a
+        # break after it would still leave a page with nothing to read.
+        # Documents that do not keep the record fall back to the frame's
+        # own `_atTop`, which is true until anything at all is added.
+        ink = self._doctemplateAttr("page_has_ink")
+        empty = (not ink) if ink is not None else getattr(frame, "_atTop", False)
+        if not empty:
+            from reportlab.platypus.doctemplate import FrameBreak  # noqa: PLC0415
+
+            frame.add_generated_content(FrameBreak)
+        return 0.0, 0.0
+
+    def draw(self) -> None:
+        return None
+
+    def __repr__(self) -> str:
+        return "SoftPageBreak()"
+
+
+class ReportDocTemplate(BaseDocTemplate):
+    """The report's document: knows whether the current page has ink on it.
+
+    ReportLab's frame knows only whether anything has been *added* to the
+    page; a spacer that spilled over from the previous page counts, and the
+    soft page break would then turn an all-but-empty page into a blank one.
+    This template watches every flowable it places and records whether the
+    page has something a reader can see.
+    """
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        self.page_has_ink = False
+
+    def handle_pageBegin(self) -> None:  # noqa: N802 - ReportLab's name
+        super().handle_pageBegin()
+        self.page_has_ink = False
+
+    def afterFlowable(self, flowable: Any) -> None:  # noqa: N802 - ReportLab's name
+        super().afterFlowable(flowable)
+        if _inkless(flowable):
+            return
+        self.page_has_ink = True
+
+
+class ReportFrame(Frame):
+    """A frame that drops whitespace landing at the top of a page.
+
+    A spacer that trails a block spills onto the next page when the block
+    ends exactly at the foot of this one. ReportLab then counts the new
+    page as started: a `KeepTogether` that does not fit beside the spacer
+    moves to yet another page, and the one with only the spacer on it is
+    printed blank. Whitespace at the head of a page serves no purpose
+    anyway, so the frame consumes it without placing it.
+    """
+
+    # ReportLab binds `add` to the base class's `_add` at class definition,
+    # so the override has to be of `add` itself.
+    def add(self, flowable: Any, canv: Any, trySplit: int = 0) -> int:  # noqa: N803 - ReportLab's name
+        # Plain spacers only: CondPageBreak is a Spacer subclass with a job.
+        if type(flowable) is Spacer and getattr(self, "_atTop", False):
+            return 1
+        return Frame.add(self, flowable, canv, trySplit=trySplit)
+
+    _add = add
+
+
+class Separator(Flowable):
+    """A rule with air around it, between two cards - unless it would be
+    the first thing on a page, where it is nothing at all.
+
+    Emitted at the head of a card, inside the card's `KeepTogether`, so it
+    goes wherever the card goes; drawn only when the card follows another
+    on the same page.
+    """
+
+    def __init__(self, width: float, *, before: float = 4.25, after: float = 9.9,
+                 colour: Any = None, thickness: float = 0.6) -> None:
+        super().__init__()
+        self._width = width
+        self._before = before
+        self._after = after
+        self._colour = colour or HexColor("#E1E7EC")
+        self._thickness = thickness
+        self._shown = True
+
+    def wrap(self, availWidth: float, availHeight: float) -> tuple[float, float]:  # noqa: N803, ARG002
+        frame = self._doctemplateAttr("frame")
+        ink = self._doctemplateAttr("page_has_ink")
+        at_top = (not ink) if ink is not None else bool(getattr(frame, "_atTop", False))
+        self._shown = frame is None or not at_top
+        return (self._width, self._before + self._thickness + self._after) if self._shown else (self._width, 0.0)
+
+    def draw(self) -> None:
+        if not self._shown:
+            return
+        canv = self.canv
+        canv.saveState()
+        canv.setStrokeColor(self._colour)
+        canv.setLineWidth(self._thickness)
+        y = self._after + self._thickness / 2.0
+        canv.line(0, y, self._width, y)
+        canv.restoreState()
+
+
+def _inkless(flowable: Any) -> bool:
+    """Whether a placed flowable left nothing on the page.
+
+    Spacers, anchors, breaks and ReportLab's own bookkeeping flowables (the
+    ``ActionFlowable`` family: frame breaks, template switches, the
+    per-page actions it inserts itself) all pass through the frame without
+    drawing; the zero-size flag marks the rest.
+    """
+    from reportlab.platypus.doctemplate import ActionFlowable  # noqa: PLC0415
+
+    if isinstance(flowable, (Spacer, Anchor, SoftPageBreak, ActionFlowable)):
+        return True
+    return bool(getattr(flowable, "_ZEROSIZE", False))
 
 
 _TAGS: Final = re.compile(r"<[^>]+>")

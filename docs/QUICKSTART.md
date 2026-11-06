@@ -12,7 +12,7 @@ git clone https://github.com/openbiota-org/openbiota-gut-health-test
 cd openbiota-gut-health-test
 ./install.sh                          # ~1 hour, mostly downloads; safe to re-run
 # copy SAMPLE_1.fastq.gz and SAMPLE_2.fastq.gz into fastq/SAMPLE/
-bin/openbiota run                     # → results/SAMPLE/SAMPLE_report.pdf
+bin/openbiota run                     # asks full or lite → results/SAMPLE/SAMPLE_report.pdf, then opens it
 ```
 
 To see what you are working towards, two finished reports from real samples
@@ -161,46 +161,55 @@ In the terminal, still in the project folder:
 bin/openbiota run
 ```
 
-That is the actual program; `bin/openbiota --help` lists everything it can
-do. (The installer also puts `openbiota` on your path, so in any *new*
-terminal window the same command is just `openbiota run`.) With more than one
-sample in `fastq/`, say which: `bin/openbiota run --sample my-sample`.
+That is the actual program. (The installer also puts `openbiota` on your
+path, so in any *new* terminal window the same command is just
+`openbiota run`; and `openbiota` on its own prints what it can do and what
+is on this machine, like any command.) You can also name the sample
+directly instead of relying on the `fastq/` folder:
 
-The run prints each stage as it goes. Expect **about an hour** for a sample
-on a desktop, longer on a laptop: the read search and profiling take ten to
-twenty minutes, and the metabolic-model simulation near the end takes
-thirty to forty minutes on its own, because it solves several thousand
-linear programmes for your particular community. Every stage caches its
-work, so running the same sample again takes about five minutes. The report
-is written to:
-
-```
-results/my-sample/my-sample_report.pdf
+```bash
+bin/openbiota run fastq/my-sample                               # the sample's folder
+bin/openbiota run ~/Downloads/S_1.fastq.gz ~/Downloads/S_2.fastq.gz   # the two files
 ```
 
-!!! note "The last lines say INCOMPLETE RUN"
-    On the standard install they will. The run ends with a census of every
-    stage, and the detection lanes that only the full install provides —
-    the pathogen screen, the mycobiome, strain typing, the expanded
-    catalogues — are listed as *not installed* or *not assessed*, in red,
-    and the command exits non-zero so a script cannot mistake a partial
-    report for a complete one. The report itself is written and says the
-    same thing on its pages: each of those lanes is *not assessed*, never a
-    negative result. `./install.sh --full` is what turns them on.
+Before anything slow starts, the files are checked: not a FASTQ (a FASTA, a
+PDF, a web page saved by mistake), empty, a download that stopped early, or
+two files that are not the two halves of one sample — each is refused with
+a sentence saying what is wrong.
 
-Open it:
+With several samples in `fastq/`, it lists them and asks which (a number,
+several numbers, or `a` for all); `--sample my-sample` answers in advance.
 
-=== "macOS"
+It then asks **which report** — and this is the one choice worth knowing
+about:
 
-    ```bash
-    open results/my-sample/my-sample_report.pdf
-    ```
+| | full | lite |
+|---|---|---|
+| What it has | every section: the 485-target pathogen screen, the mycobiome, strain typing, the expanded organism catalogues, and everything in lite | your community and microbial groups, the organisms that need attention, 45 metabolite pathways, resemblance to published disease patterns, microbiome age, biofilm, the gut-skin axis, and what the research says you can do about each finding |
+| Needs | the full install (`openbiota install --full`: ~1.3 TB, most of a day) | the standard install |
+| First run of a sample, desktop | two to three hours | about an hour (most of it the metabolic-model simulation) |
+| The same sample again | about ten minutes | about five minutes |
 
-=== "Linux"
+`--mode full` or `--mode lite` answers in advance; without a terminal (a
+script, a cron job) the choice is automatic — full when the full install is
+present, lite otherwise — and is printed. Asking for `--mode full` on a
+machine without the full install does not start an hour-long run that
+cannot finish: it says what is missing and offers to install it. The
+report's title carries a small *full* or *lite* so you always know which
+one you are reading; a lite report simply has no pathogen, mycobiome or
+strain sections, and its remaining sections are numbered 1 to 23.
 
-    ```bash
-    xdg-open results/my-sample/my-sample_report.pdf
-    ```
+The run prints each stage as it goes, and **the last line is where the
+report is**:
+
+```
+Report: /home/you/openbiota-gut-health-test/results/my-sample/my-sample_report.pdf
+Opening it in your PDF viewer.
+```
+
+It opens on its own (`--no-open` stops that). Next to the PDF,
+`results.json` holds every number in it, machine-readable, and `run.log`
+the full log of the run.
 
 Start at page 1. [Reading the report](OUTPUT.md) explains the seven-band
 scale every reading is placed on and what each section means. Next to the
@@ -209,29 +218,32 @@ PDF, `results.json` holds every number in it, machine-readable, and
 
 ## Optional: the full install
 
-The standard install produces the complete report: community, pathways,
-disease patterns, microbiome age, the organisms that need attention and what
-the research says about them. Six further detection lanes — the 485-target
-pathogen screen, the mycobiome, strain placement, whole-genome and expanded
-catalogue detection — need about **1.5 TB** of reference data and most of a
+The standard install produces the **lite** report: the complete picture of
+your community, pathways, disease patterns, microbiome age, the organisms
+that need attention and what the research says about them. The **full**
+report adds six further detection lanes — the 485-target pathogen screen,
+the mycobiome, strain placement, whole-genome and expanded-catalogue
+detection — which need about **1.3 TB** of reference data and most of a
 day to fetch and build. When you have the disk:
 
 ```bash
-./install.sh --full
+bin/openbiota install --full          # the same as ./install.sh --full
 ```
 
-It is resumable like everything else, and each lane is reported in the PDF
-as *not assessed* until its references are present — never as a negative
-result. [Installation](INSTALL.md) describes every step, and
+It is resumable like everything else. Until it is done, `openbiota run`
+makes lite reports; afterwards it makes full ones (and asks, at a terminal,
+which you want). [Installation](INSTALL.md) describes every step, and
 [Organism detection](EXPANDED_DETECTION.md) the lanes.
 
 ## Useful next commands
 
 ```bash
+bin/openbiota                        # what it can do, and the state of this machine
 bin/openbiota run --help             # every flag: threads, panels, subject data
 bin/openbiota run --subject-age 42   # the age model also reports its error
 bin/openbiota run --compact          # one-screen answer in the terminal
 bin/openbiota run-all                # every sample in fastq/, plus a comparison
+bin/openbiota install --full         # add the full install's detection lanes
 bin/openbiota doctor                 # is everything installed? what inputs are there?
 bin/openbiota depth-check            # was the sequencing deep enough?
 bin/openbiota panels                 # the metabolite pathways and their genes

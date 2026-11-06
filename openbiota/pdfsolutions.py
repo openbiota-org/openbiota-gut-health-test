@@ -26,7 +26,7 @@ from typing import Any, Final
 from reportlab.lib import colors
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
-from reportlab.platypus import KeepTogether, PageBreak, Spacer, Table, TableStyle
+from reportlab.platypus import KeepTogether, Spacer, Table, TableStyle
 
 from openbiota import solutions as sol
 from openbiota.pdflinks import (
@@ -34,6 +34,7 @@ from openbiota.pdflinks import (
     LinkedTable,
     Paragraph,
     RowLink,
+    SoftPageBreak,
     linked_cell,
     register_solutions,
     section_heading,
@@ -444,7 +445,7 @@ def section(
     # the previous one to work out what you are looking at is not navigation.
     for i, problem in enumerate(problems, start=1):
         if i > 1:
-            story.append(PageBreak())
+            story.append(SoftPageBreak())
         _problem_block(story, st, problem, position=i)
 
     notes = sol.footnotes(problems)

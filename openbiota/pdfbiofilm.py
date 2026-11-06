@@ -37,13 +37,12 @@ from reportlab.lib.units import mm
 from reportlab.platypus import (
     KeepInFrame,
     KeepTogether,
-    PageBreak,
     Spacer,
     Table,
     TableStyle,
 )
 
-from openbiota.pdflinks import Paragraph, section_heading
+from openbiota.pdflinks import Paragraph, SoftPageBreak, section_heading
 
 CONTENT_WIDTH = 170 * mm
 #: Two equal columns. Fixed so the two axes are visually comparable and
@@ -948,7 +947,7 @@ def biofilm_detail(
         story.append(Spacer(1, 4 * mm))
 
     # ---- module census -----------------------------------------------------
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     story.append(Paragraph("<b>Every mechanism in the registry</b>", st["body"]))
     story.append(
         Paragraph(
@@ -1026,7 +1025,7 @@ def biofilm_detail(
     # ---- matched evidence --------------------------------------------------
     actions = list(biofilm.get("intervention_candidates") or [])
     if actions:
-        story.append(PageBreak())
+        story.append(SoftPageBreak())
         story.append(Paragraph("<b>Matched research evidence</b>", st["body"]))
         story.append(
             Paragraph(
@@ -1045,7 +1044,7 @@ def biofilm_detail(
             story.append(Spacer(1, 2.2 * mm))
 
     # ---- education ---------------------------------------------------------
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     story.append(Paragraph("<b>Reading this section</b>", st["body"]))
     for q, a in _EDUCATION:
         story.append(Spacer(1, 2 * mm))

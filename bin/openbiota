@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # bin/openbiota - run the screen.
 #
-#   bin/openbiota run                       one sample in fastq/
+#   bin/openbiota                           what it can do, and the state of this machine
+#   bin/openbiota run                       the one sample in fastq/
 #   bin/openbiota run --sample my-sample    one of several
 #   bin/openbiota run-all                   every sample in fastq/
 #   bin/openbiota doctor                    is everything installed?
@@ -35,8 +36,6 @@ export PATH="$repo/vendor/bin:$repo/vendor/conda/bin:$PATH"
 # Homebrew on Apple silicon is outside the default PATH of a fresh shell.
 [ -d /opt/homebrew/bin ] && export PATH="$PATH:/opt/homebrew/bin"
 
-# No arguments means run: that is what someone who copied their files into
-# fastq/ wants, and `openbiota --help` still gets the help.
-if [ $# -eq 0 ]; then set -- run; fi
-
+# With no arguments the program prints its help and a line about this
+# machine, like any command; `openbiota run` is what starts a report.
 exec "$repo/.venv/bin/openbiota" "$@"

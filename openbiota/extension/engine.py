@@ -470,10 +470,15 @@ def _run_resistance(results: Mapping[str, Any], out: ExtensionResult) -> None:
     """A11 — class, mechanism and carrier tables over the existing calls."""
     pathogens = results.get("pathogens")
     if not pathogens or not (pathogens.get("determinants") or []):
+        lite = str((results.get("run") or {}).get("report_mode") or "").lower() == "lite"
         out.unavailable.append(Unavailable(
             "A11", "Resistance overview", "missing_input",
-            "the pathogen screen did not run, so there are no determinant calls to group",
-            "a completed pathogen screen",
+            # In a lite report the screen is not attempted, which is a
+            # property of the report, not a failure of the run.
+            ("part of the full report: the resistance determinants come from the pathogen "
+             "screen, which the lite report does not include" if lite else
+             "the pathogen screen did not run, so there are no determinant calls to group"),
+            "the full report (openbiota install --full)" if lite else "a completed pathogen screen",
         ))
         return
     view = RES.build(pathogens)

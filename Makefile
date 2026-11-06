@@ -63,7 +63,13 @@ EUKDETECT_COMMIT  ?= 8d69014727b2c5956de30b0811644b6c3a7bd4f3
 # because mixing an HMM with an older mapping silently changes what every
 # family is taken to mean.
 DBCAN_RELEASE := V13
-DBCAN_BASE := https://bcb.unl.edu/dbCAN2/download/Databases/$(DBCAN_RELEASE)
+# dbCAN moved from bcb.unl.edu to pro.unl.edu in 2026; the old host now
+# answers every path with its home page (HTTP 200, HTML), which is why the
+# fetch below checks what it got rather than trusting the status code. The
+# substrate mapping lives at the root of the new site; the HMM database is
+# the only file still published under a release folder, and is what dates
+# the snapshot.
+DBCAN_BASE := https://pro.unl.edu/dbCAN2/download/Databases
 DBCAN_DIR := refs/dbcan
 
 MICOM_VERSION     ?= 0.37.0
@@ -374,17 +380,25 @@ extension-refs: setup
 substrate-refs: setup
 	@echo "installing the dbCAN $(DBCAN_RELEASE) snapshot for the A01 substrate panel"
 	@mkdir -p $(DBCAN_DIR)
-	@# One release, fetched together. The substrate mapping is what the
-	@# fourteen substrate views are reconciled against; a mapping from a
-	@# different release would quietly redefine every family.
-	@for f in fam-substrate-mapping.tsv CAZyDB.fa dbCAN-HMMdb-$(DBCAN_RELEASE).txt \
-	          dbCAN_sub.hmm PUL.faa dbCAN-PUL.xlsx; do \
-		test -s $(DBCAN_DIR)/$$f || ( \
-			echo "  fetching $$f"; \
-			curl -fsSL --retry 5 --retry-delay 10 -C - \
-				-o $(DBCAN_DIR)/$$f.part "$(DBCAN_BASE)/$$f" \
-			&& mv $(DBCAN_DIR)/$$f.part $(DBCAN_DIR)/$$f ) || \
-			echo "  WARNING: $$f is not in this release; recording the gap"; \
+	@# The mapping is what the fourteen substrate views are reconciled
+	@# against and the only dbCAN file the pipeline reads; the HMM database
+	@# is fetched beside it so the snapshot names a dated release. A download
+	@# that begins with '<' is a web page standing in for the file and is
+	@# discarded, not installed.
+	@set -e; for spec in "fam-substrate-mapping.tsv:$(DBCAN_BASE)/fam-substrate-mapping.tsv:required" \
+	          "dbCAN-HMMdb-$(DBCAN_RELEASE).txt:$(DBCAN_BASE)/$(DBCAN_RELEASE)/dbCAN-HMMdb-$(DBCAN_RELEASE).txt:optional"; do \
+		f=$${spec%%:*}; rest=$${spec#*:}; url=$${rest%:*}; need=$${rest##*:}; \
+		if test -s $(DBCAN_DIR)/$$f && [ "$$(head -c 1 $(DBCAN_DIR)/$$f)" != "<" ]; then continue; fi; \
+		rm -f $(DBCAN_DIR)/$$f; \
+		echo "  fetching $$f"; \
+		if curl -fsSL --retry 5 --retry-delay 10 -o $(DBCAN_DIR)/$$f.part "$$url" \
+		   && [ "$$(head -c 1 $(DBCAN_DIR)/$$f.part)" != "<" ]; then \
+			mv $(DBCAN_DIR)/$$f.part $(DBCAN_DIR)/$$f; \
+		else \
+			rm -f $(DBCAN_DIR)/$$f.part; \
+			if [ "$$need" = required ]; then echo "  FAILED: $$f could not be fetched from $$url"; exit 1; fi; \
+			echo "  WARNING: $$f is not available at $$url; recording the gap"; \
+		fi; \
 	done
 	@# Record exactly what was installed, so a report can name its release.
 	@$(VENV)/bin/python -c "import hashlib, json, pathlib; d = pathlib.Path('$(DBCAN_DIR)'); \

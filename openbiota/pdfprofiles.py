@@ -28,13 +28,12 @@ from reportlab.lib.units import mm
 from reportlab.platypus import (
     CondPageBreak,
     KeepTogether,
-    PageBreak,
     Spacer,
     Table,
     TableStyle,
 )
 
-from openbiota.pdflinks import Paragraph, section_heading
+from openbiota.pdflinks import Paragraph, SoftPageBreak, section_heading
 from openbiota.pdfreport import (
     ACCENT,
     AMBER,
@@ -490,7 +489,7 @@ def profile_pages(
     _how_to_read_a_profile(story, st, similarity)
 
     for result in similarity.results:
-        story.append(PageBreak())
+        story.append(SoftPageBreak())
         _profile_page(story, st, result, similarity, profile_validation)
 
 

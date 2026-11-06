@@ -531,31 +531,56 @@ _SPLIT = re.compile(r"[|,;]+")
 
 
 def load_dbcan_mapping(path: Path) -> dict[str, frozenset[str]]:
-    """family -> substrate words, from dbCAN's `fam-substrate-mapping.tsv`."""
+    """family -> substrate words, from dbCAN's `fam-substrate-mapping.tsv`.
+
+    Two editions of the file are read. The original has a header row and a
+    ``Substrate_high_level`` column. The 2025 re-curation adds a ``#``
+    comment line above the header, a ``new_Substrate_high_level`` column
+    carrying the revised assignment where one was made, and a ``type``
+    column whose ``REMOVED`` rows are assignments the curators withdrew.
+    The revised assignment is used where present and withdrawn rows are
+    left out, so the mapping is the curators' current opinion rather than
+    the one they corrected.
+    """
     out: dict[str, set[str]] = {}
     with path.open(encoding="utf-8") as handle:
-        header = handle.readline().rstrip("\n").split("\t")
+        header: list[str] = []
+        for line in handle:
+            if line.startswith("#") or not line.strip():
+                continue
+            header = line.rstrip("\n").split("\t")
+            break
+        names = [h.strip().lower() for h in header]
         try:
-            family_col = next(
-                i for i, name in enumerate(header) if "family" in name.lower()
-            )
+            family_col = next(i for i, name in enumerate(names) if "family" in name)
             substrate_col = next(
-                i for i, name in enumerate(header) if "substrate" in name.lower()
+                i for i, name in enumerate(names)
+                if "substrate" in name and not name.startswith("new_")
             )
         except StopIteration as exc:
             raise SubstrateError(
                 f"{path}: expected a family column and a substrate column, got {header}"
             ) from exc
+        revised_col = next(
+            (i for i, name in enumerate(names) if name.startswith("new_") and "substrate" in name),
+            None,
+        )
+        type_col = next((i for i, name in enumerate(names) if name == "type"), None)
         for line in handle:
+            if line.startswith("#"):
+                continue
             parts = line.rstrip("\n").split("\t")
             if len(parts) <= max(family_col, substrate_col):
+                continue
+            if type_col is not None and len(parts) > type_col and parts[type_col].strip().upper() == "REMOVED":
                 continue
             family = parts[family_col].strip()
             if not family:
                 continue
-            words = {
-                w.strip().lower() for w in _SPLIT.split(parts[substrate_col]) if w.strip()
-            }
+            substrate = parts[substrate_col]
+            if revised_col is not None and len(parts) > revised_col and parts[revised_col].strip():
+                substrate = parts[revised_col]
+            words = {w.strip().lower() for w in _SPLIT.split(substrate) if w.strip()}
             out.setdefault(family, set()).update(words)
     return {k: frozenset(v) for k, v in out.items()}
 

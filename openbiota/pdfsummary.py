@@ -469,6 +469,7 @@ def summary_page(
     n_options: int = 0,
     results: Mapping[str, Any] | None = None,
     inv: Any = None,
+    report_mode: str = "full",
 ) -> None:
     """Page 1 — every measurement, graphics first.
 
@@ -528,7 +529,7 @@ def summary_page(
     # Parts that do not change with the row budget, measured once.
     foot = _foot(st, pathogens=pathogens, pathogen_section=pathogen_section,
                  solutions_section=solutions_section, n_problems=n_problems,
-                 n_options=n_options)
+                 n_options=n_options, report_mode=report_mode)
     h_foot = height(foot, CONTENT_WIDTH) + (BLOCK_GAP if foot else 0.0)
     # Section-level elements: the whole block is one link to its section.
     right_top: list[Any] = []
@@ -536,6 +537,7 @@ def summary_page(
         right_top, st, similarity=similarity, rpob_profile=rpob_profile,
         findings=findings, width=col, inv=inv,
         primary_phyla=(results or {}).get("extended_catalogue", {}).get("phyla") if results else None,
+        lite_tiles=(report_mode == "lite"),
     )
     right_top = [linked_block(section_dest("community"), right_top, col)]
     h_right_top = height(right_top, col)
@@ -603,7 +605,7 @@ def summary_page(
 
     page: list[Any] | None = None
     for n_headlines in range(SUMMARY_MAX_HEADLINES, 3, -1):
-        head = _head(st, rows=rows, similarity=similarity, findings=findings,
+        head = _head(st, rows=rows, similarity=similarity, findings=findings, report_mode=report_mode,
                      meta=meta, n_headlines=n_headlines, inv=inv)
         avail = FIRST_FRAME_HEIGHT - height(head, CONTENT_WIDTH) - BLOCK_GAP - h_foot
         n_pr = fill(profiles, h_left_top, avail, max(n_profiles_max, SUMMARY_MIN_ROWS))
@@ -636,7 +638,7 @@ def summary_page(
     if page is None:
         # Nothing fitted even at the tightest budget. Take the tightest and
         # let the frame scale it; a slightly small page beats a lost row.
-        head = _head(st, rows=rows, similarity=similarity, findings=findings,
+        head = _head(st, rows=rows, similarity=similarity, findings=findings, report_mode=report_mode,
                      meta=meta, n_headlines=4, inv=inv)
         page = _assemble(
             head, left_top, profiles(SUMMARY_MIN_ROWS), right_top,
@@ -657,6 +659,7 @@ def _head(
     meta: dict[str, Any],
     n_headlines: int,
     inv: Any = None,
+    report_mode: str = "full",
 ) -> list[Any]:
     """Title block and the hero row: everything above the two columns."""
     # The frame starts just under the wordmark; this puts the kicker at the
@@ -674,7 +677,12 @@ def _head(
     )
     # The wordmark lives in the page header, drawn on the canvas opposite the
     # sample line, so the title block is the title and nothing else.
-    head.append(Paragraph(REPORT_TITLE, st["title"]))
+    # The mode, small and grey after the title: a reader comparing two
+    # reports can see at once which one has the full install's sections.
+    head.append(Paragraph(
+        f"{REPORT_TITLE}<super><font size='9' color='#A5AFB8'> {report_mode}</font></super>",
+        st["title"],
+    ))
     head.append(
         Paragraph(
             "What your gut bacteria can produce, who is living there, how healthy the "
@@ -697,11 +705,22 @@ def _foot(
     solutions_section: int = 0,
     n_problems: int = 0,
     n_options: int = 0,
+    report_mode: str = "full",
 ) -> list[Any]:
-    """The pathogen verdict and the way in to what can be done about it."""
+    """The pathogen verdict and the way in to what can be done about it.
+
+    A lite report has no pathogen screen, so there is no verdict to print
+    and no box to leave empty: the way in to the actions section takes the
+    whole width instead, at the same height, so page one keeps its shape.
+    """
     from openbiota import pdfpathogens
 
     foot: list[Any] = []
+    if report_mode == "lite":
+        pdfpathogens.solutions_panel(
+            foot, st, section=solutions_section, n_problems=n_problems, n_options=n_options,
+        )
+        return foot
     pdfpathogens.pathogen_alert(
         foot, st, pathogens=pathogens, section=pathogen_section,
         solutions_section=solutions_section, n_problems=n_problems, n_options=n_options,
@@ -1259,6 +1278,7 @@ def _community_block(
     width: float = CONTENT_WIDTH,
     inv: Any = None,
     primary_phyla: dict[str, float] | None = None,
+    lite_tiles: bool = False,
 ) -> None:
     _block_heading(
         story, st, "Microbiome Diversity",
@@ -1393,12 +1413,23 @@ def _community_block(
                            if n_all else "no organism list"),
                      width=tile_w, height=12 * mm,
                      accent=ACCENT if n_all else SLATE),
-                Tile(value=f"{n_strain:,}" if n_strain else "\u2014",
-                     label="Resolved to strain",
-                     note=("read at single-base resolution" if n_strain
-                           else "strain typing did not run"),
-                     width=tile_w, height=12 * mm,
-                     accent=ACCENT if n_strain else SLATE),
+                (
+                    # Strain typing belongs to the full install; a lite report
+                    # has no tile to fill with "did not run" and shows the
+                    # genus count, which every report has, in its place.
+                    Tile(value=f"{n_genera:,}" if n_genera else "\u2014",
+                         label="Genera detected",
+                         note="distinct genera across every catalogue" if n_genera else "no organism list",
+                         width=tile_w, height=12 * mm,
+                         accent=ACCENT if n_genera else SLATE)
+                    if lite_tiles else
+                    Tile(value=f"{n_strain:,}" if n_strain else "\u2014",
+                         label="Resolved to strain",
+                         note=("read at single-base resolution" if n_strain
+                               else "strain typing did not run"),
+                         width=tile_w, height=12 * mm,
+                         accent=ACCENT if n_strain else SLATE)
+                ),
             ],
         ],
         colWidths=[tile_w + 3 * mm, tile_w],

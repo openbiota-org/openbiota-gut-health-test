@@ -84,6 +84,7 @@ def host_index(repo: Path) -> bool:
     return host_index_ready(repo / "refs" / "host")
 
 
+#: The standard install: what a lite report needs.
 CHECKS: dict[str, Check] = {
     "python": python_env,
     "profiler": profiler,
@@ -95,23 +96,119 @@ CHECKS: dict[str, Check] = {
 }
 
 
+# --------------------------------------------------------------------------- #
+# The full install: the optional detection lanes. Each check is the question
+# the installer's matching step asks before skipping itself, written once
+# here so the installer, `openbiota run --mode full` and `openbiota doctor`
+# cannot disagree about what "installed" means.
+# --------------------------------------------------------------------------- #
+
+
+def profiler4(repo: Path) -> bool:
+    return (repo / ".venv-mpa4" / "bin" / "metaphlan").exists()
+
+
+def vendor_tools(repo: Path) -> bool:
+    return (repo / "vendor" / "bin" / "blastn").exists() or any(
+        repo.glob("vendor/ncbi-blast-*/bin/blastn"))
+
+
+def strain_tools(repo: Path) -> bool:
+    return (repo / ".venv-strain" / "bin" / "ectyper").exists()
+
+
+def refs_strain(repo: Path) -> bool:
+    return (repo / "refs" / "strain_refs.lock.json").is_file() and (
+        repo / "refs" / "panels" / "probiotics").is_dir()
+
+
+def pathogens(repo: Path) -> bool:
+    return (repo / "refs" / "pathogens" / "bundle" / "manifest.json").is_file()
+
+
+def substrate_refs(repo: Path) -> bool:
+    """The dbCAN mapping is present and is a table, not the web page the
+    old host now serves in place of every file."""
+    mapping = repo / "refs" / "dbcan" / "fam-substrate-mapping.tsv"
+    if not mapping.is_file() or not (repo / "refs" / "dbcan" / "snapshot.json").is_file():
+        return False
+    try:
+        with mapping.open("rb") as handle:
+            return handle.read(1) not in (b"<", b"")
+    except OSError:
+        return False
+
+
+def tools_expanded(repo: Path) -> bool:
+    return all((repo / env / "bin" / tool).exists() for env, tool in (
+        (".venv-mpa42", "metaphlan"), (".venv-motus", "motus"), (".venv-singlem", "singlem")))
+
+
+def refs_expanded(repo: Path) -> bool:
+    refs = repo / "refs"
+    return (refs / "motus" / "db").is_dir() and (refs / "kraken2").is_dir() and (
+        refs / "metaphlan4_db").is_dir()
+
+
+def expansion(repo: Path) -> bool:
+    return (repo / "refs" / "expanded" / "reconciliation" / "summary.json").is_file()
+
+
+def genome_lane(repo: Path) -> bool:
+    return (repo / "vendor" / "sylph" / "bin" / "sylph").exists() and any(
+        (repo / "refs" / "sylph").glob("*.syl2db"))
+
+
+def mycobiome_refs(repo: Path) -> bool:
+    return (repo / "refs" / "mycobiome" / "reference_lock.json").is_file()
+
+
+FULL_CHECKS: dict[str, Check] = {
+    "profiler4": profiler4,
+    "vendor_tools": vendor_tools,
+    "strain_tools": strain_tools,
+    "refs_strain": refs_strain,
+    "pathogens": pathogens,
+    "substrate_refs": substrate_refs,
+    "tools_expanded": tools_expanded,
+    "refs_expanded": refs_expanded,
+    "expansion": expansion,
+    "genome_lane": genome_lane,
+    "mycobiome_refs": mycobiome_refs,
+}
+
+ALL_CHECKS: dict[str, Check] = {**CHECKS, **FULL_CHECKS}
+
+
+def full_missing(repo: Path | None = None) -> list[str]:
+    """The full-install pieces that are not present, in install order."""
+    root = repo or REPO_ROOT
+    return [name for name, check in FULL_CHECKS.items() if not check(root)]
+
+
+def full_ready(repo: Path | None = None) -> bool:
+    return not full_missing(repo)
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("name", nargs="?", choices=sorted(CHECKS))
-    ap.add_argument("--all", action="store_true", help="report every check")
+    ap.add_argument("name", nargs="?", choices=sorted(ALL_CHECKS))
+    ap.add_argument("--all", action="store_true", help="report every standard-install check")
+    ap.add_argument("--full", action="store_true", help="report every full-install check")
     ap.add_argument("--repo", type=Path, default=REPO_ROOT)
     args = ap.parse_args(argv)
-    if not args.all and args.name is None:
-        ap.error("give a check name or --all")
-    if args.all:
+    if not (args.all or args.full) and args.name is None:
+        ap.error("give a check name, --all or --full")
+    if args.all or args.full:
         worst = 0
-        for name, check in CHECKS.items():
+        table = {**(CHECKS if args.all else {}), **(FULL_CHECKS if args.full else {})}
+        for name, check in table.items():
             ready = check(args.repo)
             print(f"  {name:<14}{'ready' if ready else 'MISSING'}")
             worst |= 0 if ready else 1
         return worst
-    return 0 if CHECKS[args.name](args.repo) else 1
+    return 0 if ALL_CHECKS[args.name](args.repo) else 1
 
 
 if __name__ == "__main__":

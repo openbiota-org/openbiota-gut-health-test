@@ -1186,6 +1186,58 @@ def _with_solutions(
     return pair
 
 
+def solutions_panel(
+    story: list[Any],
+    st: dict[str, ParagraphStyle],
+    *,
+    section: int,
+    n_problems: int = 0,
+    n_options: int = 0,
+) -> None:
+    """The way in to the actions section, across the whole foot of page one.
+
+    A lite report has no pathogen verdict to put beside it. Rather than
+    leave the band's three quarters empty, the teal panel takes the full
+    width at the pair's usual height, with its three parts laid side by
+    side, so page one is the same shape in both modes and the lists above
+    are given the same room.
+    """
+    if not section:
+        return
+    if n_problems and n_options:
+        line = (f"<b>{n_options}</b> studied options for the "
+                f"<b>{n_problems}</b> findings in this report")
+    elif n_options:
+        line = f"<b>{n_options}</b> studied options for what this report found"
+    else:
+        line = "What the research says about each finding in this report"
+    link = RowLink(href=section_dest("actions"))
+    head = Paragraph(
+        f"<font size='9.6' color='{_hex(ACCENT_DARK)}'><b>Possible solutions</b></font>",
+        ParagraphStyle("solhead", parent=st["fine"], fontSize=9.6, leading=11.0,
+                       spaceBefore=0, spaceAfter=0))
+    body = Paragraph(
+        f"<font size='7.0' color='{_hex(INK)}'>{line}. Each option says what it is, where it "
+        "comes from, what was seen and in whom.</font>",
+        ParagraphStyle("solline", parent=st["fine"], fontSize=7.0, leading=8.8,
+                       spaceBefore=0, spaceAfter=0))
+    way_in = Paragraph(
+        f"<font size='7.2' color='{_hex(ACCENT_DARK)}'><b>Section {section} \u2192</b></font>",
+        ParagraphStyle("sollink", parent=st["fine"], fontSize=7.2, leading=8.6,
+                       spaceBefore=0, spaceAfter=0, alignment=TA_RIGHT))
+    widths = [CONTENT_WIDTH * 0.24, CONTENT_WIDTH * 0.60, CONTENT_WIDTH * 0.16]
+    panel = LinkedTable(
+        [[linked_cell(link, head), linked_cell(link, body), linked_cell(link, way_in)]],
+        colWidths=widths, rowHeights=[MIN_PAIR_HEIGHT], hAlign="LEFT",
+    )
+    panel.setStyle(TableStyle([
+        *_SOLUTIONS_STYLE,
+        ("LEFTPADDING", (1, 0), (1, 0), 0),
+        ("ALIGN", (2, 0), (2, 0), "RIGHT"),
+    ]))
+    story.append(panel)
+
+
 def _solutions_link(record: Mapping[str, Any]) -> Any:
     """The way on from a pathogen card to what is known about reducing it."""
     from openbiota import solutions as _solutions  # noqa: PLC0415 - avoids a cycle at import

@@ -55,7 +55,7 @@ from openbiota.engines.metaphlan4 import (
     run_metaphlan4,
     run_sample2markers,
 )
-from openbiota.errors import DependencyError, OpenBiotaError
+from openbiota.errors import DependencyError, InputError, OpenBiotaError
 from openbiota.interpret import build_rows, cohort_note, load_optional_json, reference_json
 from openbiota.logging_util import Reporter, Style, human_bytes, human_duration
 from openbiota.panels import Panel, PanelSet, load_panel_set
@@ -127,7 +127,26 @@ REPO_ROOT: Final = Path(__file__).resolve().parent.parent
 SUBCOMMANDS: Final = (
     "run", "panels", "build-db", "doctor", "cohort", "validate", "depth-check",
     "taxonomic-cohort", "profiles", "validate-profiles", "build-host-index", "run-all",
-    "prune", "age-model", "fmt", "biofilm", "mycobiome",
+    "prune", "age-model", "fmt", "biofilm", "mycobiome", "install",
+)
+
+#: What `openbiota` prints on its own, after the list of commands.
+EXAMPLES: Final = (
+    "the three things most people do:\n"
+    "  openbiota run                               make the report for the one sample in ./fastq\n"
+    "  openbiota run fastq/my-sample               ... or name the sample's folder\n"
+    "  openbiota run S_1.fastq.gz S_2.fastq.gz     ... or its two FASTQ files\n"
+    "\n"
+    "and then:\n"
+    "  openbiota run --sample my-sample            one of several samples in ./fastq\n"
+    "  openbiota run --mode lite                   the standard install's report (no questions asked)\n"
+    "  openbiota run --mode full                   every section; needs the full install\n"
+    "  openbiota run-all                           every sample in ./fastq, plus a comparison\n"
+    "  openbiota install --full                    add the full install's detection lanes (~1.3 TB)\n"
+    "  openbiota doctor                            what is installed, and what is in ./fastq\n"
+    "\n"
+    "The report is written to results/<sample>/<sample>_report.pdf and opened when it is done.\n"
+    "`openbiota run --help` lists every option."
 )
 
 SENSITIVITIES: Final = (
@@ -156,21 +175,44 @@ def build_parser() -> argparse.ArgumentParser:
             "disease-associated microbiome patterns. Research use; not a diagnostic test."
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog=(
-            "examples:\n"
-            "  openbiota                                 # full run on ./fastq, all panels\n"
-            "  openbiota run --subsample 100000          # fast smoke test\n"
-            "  openbiota run --panels urda,cutc          # report a subset of panels\n"
-            "  openbiota run --compact                   # one-screen answer\n"
-            "  openbiota panels                          # list panels\n"
-            "  openbiota doctor                          # check dependencies and hardware\n"
-        ),
+        epilog=EXAMPLES,
     )
     parser.add_argument("--version", action="version", version=f"openbiota {__version__}")
-    sub = parser.add_subparsers(dest="command")
+    sub = parser.add_subparsers(dest="command", metavar="command")
 
-    run = sub.add_parser("run", help="run the screen (default command)")
+    run = sub.add_parser(
+        "run", help="make the report for one sample",
+        description=(
+            "Make the Gut Health Test report for one sample. Name the sample's FASTQ files or "
+            "folder, or leave it out to use the one sample in ./fastq (with several there, you "
+            "are asked which, or pass --sample). The report lands in results/<sample>/ and is "
+            "opened in your PDF viewer when it is done."
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=(
+            "examples:\n"
+            "  openbiota run                                    the one sample in ./fastq\n"
+            "  openbiota run fastq/my-sample                    a sample folder\n"
+            "  openbiota run S_1.fastq.gz S_2.fastq.gz          the two files directly\n"
+            "  openbiota run --sample my-sample                 one of several in ./fastq\n"
+            "  openbiota run --mode lite                        the standard install's report, no prompt\n"
+            "  openbiota run --mode full                        every section (needs the full install)\n"
+            "  openbiota run --subsample 100000 --no-open       a fast smoke test, no viewer\n"
+        ),
+    )
     _add_run_arguments(run)
+
+    install = sub.add_parser(
+        "install", help="install or extend the software (runs ./install.sh)",
+        description=(
+            "Run the installer. Without options it brings the standard install up to date; "
+            "--full adds the optional detection lanes (the pathogen screen, the mycobiome, "
+            "strain typing, the expanded catalogues: about 1.3 TB of reference data, most of a "
+            "day). Any other option is passed to ./install.sh; see ./install.sh --help."
+        ),
+    )
+    install.add_argument("install_args", nargs=argparse.REMAINDER, metavar="...",
+                         help="options for ./install.sh, e.g. --full, --list, --skip-host-index")
 
     panels = sub.add_parser("panels", help="list or inspect gene panels")
     panels.add_argument("--panels-dir", type=Path, default=REPO_ROOT / "panels")
@@ -549,12 +591,29 @@ def build_parser() -> argparse.ArgumentParser:
 def _add_run_arguments(p: argparse.ArgumentParser) -> None:
     inputs = p.add_argument_group("inputs")
     inputs.add_argument(
+        "inputs", nargs="*", type=Path, metavar="FASTQ_OR_FOLDER",
+        help="the sample's two FASTQ files (R1 then R2), one FASTQ file, or a folder holding "
+             "them; leave out to use ./fastq",
+    )
+    inputs.add_argument(
         "--fastq-dir", type=Path, default=REPO_ROOT / "fastq",
         help="directory holding the FASTQ pair (default: ./fastq)",
     )
     inputs.add_argument("--r1", type=Path, help="explicit mate 1 path")
     inputs.add_argument("--r2", type=Path, help="explicit mate 2 path")
     inputs.add_argument("--sample", help="sample name (default: inferred from filenames)")
+
+    mode = p.add_argument_group("what kind of report")
+    mode.add_argument(
+        "--mode", choices=("full", "lite", "auto"), default=None,
+        help="full: every section (needs the full install). lite: the standard install's "
+             "report. auto: full when the full install is present, else lite. Not given: "
+             "you are asked at a terminal, and auto is used otherwise.",
+    )
+    mode.add_argument(
+        "--no-open", action="store_true",
+        help="do not open the finished report in the system PDF viewer",
+    )
     inputs.add_argument(
         "--no-prefer-gzip", action="store_true",
         help="use the uncompressed FASTQ when both forms exist (default prefers .gz: "
@@ -680,6 +739,8 @@ def _add_run_arguments(p: argparse.ArgumentParser) -> None:
     sim.add_argument("--no-pathogens", action="store_true",
                      help="skip the pathogen screen (bacteria, protozoa, worms, "
                           "microsporidia, fungi, viruses and their determinants)")
+    sim.add_argument("--no-mycobiome", action="store_true",
+                     help="skip the mycobiome module even when its references are installed")
     sim.add_argument(
         "--strict-cdiff", action="store_true",
         help="report a Clostridioides difficile species detection as a positive pathogen "
@@ -720,8 +781,8 @@ def _add_run_arguments(p: argparse.ArgumentParser) -> None:
     sim.add_argument("--taxa-dir", type=Path, default=REPO_ROOT / "taxa",
                      help="curated taxon groups (butyrate producers, oral-origin …) for the "
                           "community overview and carrier features")
-    sim.add_argument("--mode", choices=("participant", "clinician", "research"), default="research",
-                     help="report mode (spec v04 §3). This tool is released to internal research mode "
+    sim.add_argument("--audience", dest="audience", choices=("participant", "clinician", "research"), default="research",
+                     help="who the report is written for (spec v04 §3; was --mode). This tool is released to internal research mode "
                           "(the default): the age estimate is produced without an actual age (no residual), "
                           "and evidence cards show studied doses for supplements and diets. participant "
                           "mode fails closed: no age estimate without a known adult age, no doses; "
@@ -1176,6 +1237,9 @@ def cmd_run_all(args: argparse.Namespace) -> int:
     """Screen every sample in the FASTQ directory, then compare them."""
     reporter = Reporter(verbose=not args.quiet)
     samples = discover_samples(Path(args.fastq_dir), prefer_gzip=not args.no_prefer_gzip)
+    # One mode for the whole batch, settled here and never asked per sample.
+    _apply_mode(args, allow_prompt=False)
+    reporter.info(f"report mode: {args.report_mode} ({args.mode_reason})")
 
     wanted = _split_list(args.only)
     if wanted:
@@ -1260,6 +1324,14 @@ def cmd_run_all(args: argparse.Namespace) -> int:
     print("  not a diagnosis and not a probability of disease.")
     print()
     reporter.ok(f"comparison written to {comparison}")
+    # Where every report is, last of all.
+    print()
+    for o in outcomes:
+        pdf = o.out_dir / f"{o.sample}_report.pdf"
+        if pdf.is_file():
+            print(f"Report: {pdf.resolve()}" + ("" if o.ok else "  (incomplete; see its run.log)"))
+        else:
+            print(f"No report for {o.sample}: see {o.out_dir / 'run.log'}")
     return 0 if all(o.ok for o in outcomes) else 1
 
 
@@ -1268,7 +1340,7 @@ _BATCH_ONLY_FLAGS: Final = {"--only", "--parallel"}
 _BATCH_ONLY_SWITCHES: Final = {"--skip-existing", "--continue-on-error", "--stop-on-error"}
 
 
-def _single_run_argv(sample: SampleInput, threads: int) -> list[str]:
+def _single_run_argv(sample: SampleInput, threads: int, mode: str = "auto") -> list[str]:
     """Rebuild the command line for one sample from the batch invocation.
 
     The batch's own options are dropped, the pair is named explicitly so
@@ -1286,13 +1358,16 @@ def _single_run_argv(sample: SampleInput, threads: int) -> list[str]:
             continue
         if token in _BATCH_ONLY_SWITCHES:
             continue
-        if token in _BATCH_ONLY_FLAGS or token in {"--threads", "-p", "--fastq-dir", "--sample", "--r1", "--r2"}:
+        if token in _BATCH_ONLY_FLAGS or token in {"--threads", "-p", "--fastq-dir", "--sample", "--r1", "--r2", "--mode"}:
             skip_next = True
             continue
-        if any(token.startswith(f"{flag}=") for flag in (*_BATCH_ONLY_FLAGS, "--threads", "--fastq-dir", "--sample", "--r1", "--r2")):
+        if any(token.startswith(f"{flag}=") for flag in (*_BATCH_ONLY_FLAGS, "--threads", "--fastq-dir", "--sample", "--r1", "--r2", "--mode")):
+            continue
+        if token == "--no-open":
             continue
         out.append(token)
-    argv = ["run", *out, "--sample", sample.sample, "--threads", str(threads), "--r1", str(sample.mates[0].path)]
+    argv = ["run", *out, "--sample", sample.sample, "--threads", str(threads), "--mode", mode, "--no-open",
+            "--r1", str(sample.mates[0].path)]
     if len(sample.mates) > 1:
         argv += ["--r2", str(sample.mates[1].path)]
     return argv
@@ -1326,7 +1401,7 @@ def _run_all_parallel(
         # timings in it. Console output is captured beside it instead, and is
         # what the error tail shows if the child died before writing its log.
         console_path = out_dir / "run.console.log"
-        argv = _single_run_argv(sample, per_thread)
+        argv = _single_run_argv(sample, per_thread, getattr(args, "report_mode", "auto"))
         with console_path.open("w", encoding="utf-8") as console:
             proc = subprocess.run(
                 [sys.executable, "-m", "openbiota", *argv], stdout=console, stderr=subprocess.STDOUT,
@@ -2041,6 +2116,270 @@ def _resolution_census(sample: str, results_json: dict[str, Any]) -> dict[str, A
     return census
 
 
+# --------------------------------------------------------------------------- #
+# the run entry: inputs, choices, mode, then one screen per sample
+# --------------------------------------------------------------------------- #
+
+
+def _interactive() -> bool:
+    """Whether a person is at the other end to answer a question."""
+    return sys.stdin.isatty() and sys.stdout.isatty() and not os.environ.get("CI")
+
+
+def _ask(prompt: str) -> str:
+    try:
+        return input(prompt).strip()
+    except EOFError:
+        return ""
+
+
+def _resolve_inputs(args: argparse.Namespace) -> None:
+    """Turn the positional paths into the --r1/--r2/--fastq-dir the rest expects.
+
+    One folder is the FASTQ directory (a sample's own folder works: discovery
+    looks inside it). One file is mate 1, with its mate 2 found beside it
+    when the names say there is one. Two files are the pair, mate 1 first
+    whatever order they were given in. More than two is a mistake worth
+    naming, not guessing at.
+    """
+    from openbiota.search import _mate_key, validate_fastq_inputs  # noqa: PLC0415
+
+    given: list[Path] = list(getattr(args, "inputs", None) or [])
+    if not given:
+        if args.r1 is not None:
+            validate_fastq_inputs([p for p in (args.r1, args.r2) if p is not None])
+        return
+    if args.r1 is not None or args.r2 is not None:
+        raise InputError("give the FASTQ files either as arguments or with --r1/--r2, not both")
+    if len(given) == 1 and given[0].is_dir():
+        args.fastq_dir = given[0]
+        return
+    files = list(given)
+    for p in files:
+        if p.is_dir():
+            raise InputError(
+                f"{p} is a folder; give one folder on its own, or the FASTQ files themselves"
+            )
+    if len(files) > 2:
+        raise InputError(
+            f"{len(files)} files given; a sample is one FASTQ file or two (R1 and R2). "
+            "For several samples put each in its own folder under fastq/ and use "
+            "`openbiota run-all`."
+        )
+    if len(files) == 1:
+        key = _mate_key(files[0])
+        if key is not None and key[1] == "R1":
+            # Look for the mate beside it, under either naming convention.
+            stem = files[0].name
+            for a, b in (("_1.", "_2."), ("_R1.", "_R2."), (".1.", ".2."), (".R1.", ".R2."), ("_1_", "_2_")):
+                if a in stem:
+                    sibling = files[0].with_name(stem.replace(a, b, 1))
+                    if sibling.is_file():
+                        files.append(sibling)
+                        break
+    if len(files) == 2:
+        keys = [_mate_key(p) for p in files]
+        if all(k is not None for k in keys) and keys[0][1] == "R2" and keys[1][1] == "R1":
+            files.reverse()
+    validate_fastq_inputs(files)
+    args.r1 = files[0]
+    args.r2 = files[1] if len(files) > 1 else None
+
+
+def _choose_samples(samples: list[SampleInput]) -> list[SampleInput]:
+    """Ask which of several samples to run. Only called at a terminal."""
+    print("\nSeveral samples are in the FASTQ folder:\n")
+    for i, s in enumerate(samples, 1):
+        size = sum(m.path.stat().st_size for m in s.mates)
+        where = s.mates[0].path.parent
+        print(f"  {i:>2})  {s.sample:<28} {human_bytes(size):>9}   {where}")
+    print("\nWhich one? A number, several (1,3), or 'a' for all of them; 'q' quits.")
+    while True:
+        answer = _ask("sample: ").lower()
+        if answer in ("q", "quit", "exit", ""):
+            raise InputError("no sample chosen")
+        if answer in ("a", "all"):
+            return list(samples)
+        try:
+            picks = sorted({int(x) for x in answer.replace(" ", ",").split(",") if x})
+        except ValueError:
+            picks = []
+        if picks and all(1 <= n <= len(samples) for n in picks):
+            return [samples[n - 1] for n in picks]
+        print(f"  please answer with numbers between 1 and {len(samples)}, 'a' or 'q'")
+
+
+def _select_samples(args: argparse.Namespace) -> list[SampleInput]:
+    """The samples this invocation will run, after the inputs are resolved."""
+    if args.r1 is not None:
+        return [discover_sample(r1=args.r1, r2=args.r2, sample=args.sample,
+                                prefer_gzip=not args.no_prefer_gzip)]
+    fastq_dir = Path(args.fastq_dir)
+    samples = discover_samples(fastq_dir, prefer_gzip=not args.no_prefer_gzip)
+    if not samples:
+        # discover_sample raises the detailed layout help for an empty or
+        # unpaired directory; a single unpaired file is accepted there too.
+        return [discover_sample(fastq_dir=fastq_dir, sample=args.sample,
+                                prefer_gzip=not args.no_prefer_gzip)]
+    if args.sample:
+        chosen = [s for s in samples if s.sample == args.sample]
+        if not chosen:
+            names = ", ".join(s.sample for s in samples)
+            raise InputError(f"no sample named {args.sample!r} in {fastq_dir}; there: {names}")
+        return chosen
+    if len(samples) == 1:
+        return samples
+    if _interactive():
+        return _choose_samples(samples)
+    names = ", ".join(s.sample for s in samples)
+    raise InputError(
+        f"{fastq_dir} holds {len(samples)} samples ({names}). Say which:\n"
+        f"  openbiota run --sample NAME\n"
+        f"  openbiota run {fastq_dir}/<folder>        (a sample's own folder)\n"
+        f"  openbiota run-all                          (every one of them)"
+    )
+
+
+def _offer_full_install() -> None:
+    """At a terminal, offer to start the full install; otherwise explain."""
+    from openbiota import reportmode  # noqa: PLC0415
+
+    missing = reportmode.full_install_missing()
+    print(
+        f"\nThe full report needs the full install, and this machine lacks "
+        f"{len(missing)} piece{'s' if len(missing) != 1 else ''} of it ({', '.join(missing)}).\n"
+        f"`openbiota install --full` adds them: {reportmode.FULL_INSTALL_COST}.",
+    )
+    if _interactive() and _ask("Start the full install now? [y/N] ").lower() in ("y", "yes"):
+        print("\nStarting ./install.sh --full. Run `openbiota run` again when it has finished.\n")
+        os.execv("/bin/bash", ["bash", str(REPO_ROOT / "install.sh"), "--full"])
+    raise InputError(
+        "the full report is not available on this machine; run `openbiota install --full`, "
+        "or make the lite report with `openbiota run --mode lite`"
+    )
+
+
+def _prompt_mode() -> str:
+    """Ask full or lite at a terminal, saying what each costs and gives."""
+    from openbiota import reportmode  # noqa: PLC0415
+
+    missing = reportmode.full_install_missing()
+    full_state = (
+        "installed on this machine" if not missing
+        else f"NOT installed on this machine: `openbiota install --full` adds it, "
+             f"{reportmode.FULL_INSTALL_COST}"
+    )
+    print("\nWhich report?\n")
+    print(f"  1) full   {reportmode.FULL.summary}: {reportmode.FULL.sections}.")
+    print(f"            {reportmode.FULL.time_first} the first time for a sample on a desktop, "
+          f"{reportmode.FULL.time_again} when run again.")
+    print(f"            Full install: {full_state}.")
+    print(f"  2) lite   {reportmode.LITE.summary}: {reportmode.LITE.sections}.")
+    print(f"            {reportmode.LITE.time_first} the first time on a desktop, "
+          f"{reportmode.LITE.time_again} when run again. Leaves out the sections above that "
+          "need the full install.")
+    print("\n(--mode full or --mode lite skips this question.)")
+    while True:
+        answer = _ask(f"full or lite? [{'1' if not missing else '2'}] ").lower()
+        if answer in ("q", "quit", "exit"):
+            raise InputError("no report mode chosen")
+        if answer in ("", "1", "2", "full", "lite", "f", "l"):
+            if answer == "":
+                return "full" if not missing else "lite"
+            return "full" if answer in ("1", "full", "f") else "lite"
+        print("  please answer 1, 2, full or lite")
+
+
+def _apply_mode(args: argparse.Namespace, *, allow_prompt: bool) -> str:
+    """Settle the report mode on ``args`` and gate the lanes accordingly.
+
+    Idempotent: batch mode settles it once and every sample inherits it.
+    """
+    from openbiota import reportmode  # noqa: PLC0415
+
+    settled = getattr(args, "report_mode", None)
+    if settled in reportmode.MODES:
+        return settled
+    requested = getattr(args, "mode", None)
+    if requested is None and allow_prompt and _interactive():
+        mode = _prompt_mode()
+        reason = "chosen at the prompt"
+    else:
+        mode, reason = reportmode.resolve(None if requested == "auto" else requested)
+    if mode == "full" and reportmode.full_install_missing():
+        _offer_full_install()   # exits or raises
+    args.report_mode = mode
+    args.mode_reason = reason
+    if mode == "lite":
+        # The lanes the lite report never carries are not attempted: a lite
+        # run on a full install is the quick report, not the full one with
+        # its sections hidden.
+        args.no_extended_catalogue = True
+        args.no_pathogens = True
+        args.no_mycobiome = True
+    return mode
+
+
+def _open_report(path: Path) -> bool:
+    """Open the PDF in the system viewer, if there is a desktop to open it on."""
+    if os.environ.get("OPENBIOTA_NO_OPEN") or os.environ.get("CI"):
+        return False
+    if sys.platform == "darwin":
+        cmd = ["open", str(path)]
+    elif sys.platform.startswith("linux"):
+        if not (os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY")):
+            return False
+        opener = shutil.which("xdg-open")
+        if opener is None:
+            return False
+        cmd = [opener, str(path)]
+    else:
+        return False
+    try:
+        subprocess.Popen(  # noqa: S603 - fixed argv
+            cmd, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL, start_new_session=True,
+        )
+    except OSError:
+        return False
+    return True
+
+
+def cmd_run_entry(args: argparse.Namespace) -> int:
+    """`openbiota run`: resolve what to run and how, run it, say where it is."""
+    _resolve_inputs(args)
+    samples = _select_samples(args)
+    _apply_mode(args, allow_prompt=True)
+    if getattr(args, "mode_reason", "") and not args.quiet:
+        print(f"report mode: {args.report_mode} ({args.mode_reason})", file=sys.stderr)
+
+    outcomes: list[tuple[str, Path | None, int]] = []
+    worst = 0
+    for sample in samples:
+        args._last_report = None  # noqa: SLF001
+        code = cmd_run(args, sample_input=sample, print_summary=(len(samples) == 1 and not args.quiet))
+        outcomes.append((sample.sample, getattr(args, "_last_report", None), code))
+        worst = max(worst, code)
+
+    # The last thing on the screen is where the report is. Printed after the
+    # summary text, which is long, so it cannot scroll out of sight; and to
+    # stdout, so `$(openbiota run ...)`-style capture gets it too - except in
+    # --json mode, whose stdout is the JSON and nothing else.
+    out = sys.stderr if args.json else sys.stdout
+    print("", file=out)
+    for name, pdf, code in outcomes:
+        if pdf is not None and pdf.is_file():
+            state = "" if code == 0 else "  (see the stages marked MISSING above)"
+            print(f"Report: {pdf.resolve()}{state}", file=out)
+        else:
+            print(f"No report for {name}: the run did not produce a PDF (exit {code}); see "
+                  f"results/{name}/run.log", file=out)
+    reports = [pdf for _, pdf, _ in outcomes if pdf is not None and pdf.is_file()]
+    if len(reports) == 1 and not args.no_open and _interactive() and _open_report(reports[0]):
+        print("Opening it in your PDF viewer.", file=out)
+    return worst
+
+
 def cmd_run(
     args: argparse.Namespace,
     *,
@@ -2272,14 +2611,14 @@ def cmd_run(
     # what stays unknown. One ledger feeds the profile abstention rules, the
     # intervention safety rules and the reading-guide page alike.
     context_ledger = resolve_context(
-        mode=args.mode,
+        mode=args.audience,
         medications=_split_list(args.medications) if args.medications else None,
         antibiotics_days_ago=args.antibiotics_days_ago,
         subject_age=args.subject_age, subject_sex=args.subject_sex, subject_country=args.subject_country,
     )
     if context_ledger.assumptions:
         reporter.record(
-            f"    subject context: {len(context_ledger.assumptions)} assumptions in {args.mode} mode "
+            f"    subject context: {len(context_ledger.assumptions)} assumptions in {args.audience} mode "
             f"({', '.join(a.sentence() for a in context_ledger.assumptions[:3])}"
             + (f", +{len(context_ledger.assumptions) - 3} more" if len(context_ledger.assumptions) > 3 else "")
             + "); nothing supplied is withheld, every assumption is printed"
@@ -2518,7 +2857,7 @@ def cmd_run(
                     age_result = predict_age(
                         bundle, taxonomy.species,
                         actual_age=args.subject_age, age_known=args.subject_age is not None,
-                        mode=args.mode, profiler_index=taxonomy.index,
+                        mode=args.audience, profiler_index=taxonomy.index,
                         # MetaPhlAn 3 does not write a read count into its profile;
                         # the depth gate then uses the non-host pair count (x2 mates).
                         n_reads=(
@@ -2559,7 +2898,7 @@ def cmd_run(
                 # The skin panels have their own depth floor, stated in pairs.
                 usable_read_pairs=known_total_pairs,
                 qc_passed=qc is None or not qc.failed,
-                mode=args.mode,
+                mode=args.audience,
             )
         timings["profile similarity"] = time.monotonic() - t0
 
@@ -2659,6 +2998,9 @@ def cmd_run(
         run_meta={k: str(v) for k, v in run_meta.items()},
         reference_entries={k: v.to_json() for k, v in sorted(database.entries.items())},
     )
+    # The mode is recorded as soon as the results object exists: the report
+    # extension and the census both read it from here.
+    results_json.setdefault("run", {})["report_mode"] = getattr(args, "report_mode", None) or "full"
     # ---- cohort comparison + PDF ------------------------------------------ #
     ranges: ReferenceRanges | None = None
     if Path(args.reference_ranges).is_file():
@@ -3113,7 +3455,9 @@ def cmd_run(
         from openbiota.mycobiome import engine as _myco_engine
         from openbiota.mycobiome import references as _myco_refs
 
-        if _myco_refs.available(Path(args.refs_dir) / "mycobiome"):
+        if getattr(args, "no_mycobiome", False):
+            reporter.record("    mycobiome: not part of this report mode; not attempted")
+        elif _myco_refs.available(Path(args.refs_dir) / "mycobiome"):
             with reporter.stage("mycobiome"):
                 if taxonomy is not None and taxonomy.host is not None:
                     m1, m2 = taxonomy.host.nonhost_r1, taxonomy.host.nonhost_r2
@@ -3170,7 +3514,7 @@ def cmd_run(
                 subject_age=args.subject_age, subject_sex=args.subject_sex,
                 subject_country=args.subject_country,
                 medications=_split_list(args.medications) if args.medications else None,
-                mode=args.mode, taxa_dir=Path(args.taxa_dir), reporter=reporter,
+                mode=args.audience, taxa_dir=Path(args.taxa_dir), reporter=reporter,
                 out_of_scope_fractions=out_of_scope, context_ledger=context_ledger,
                 pathogen_species=_pathogen_species(results_json),
             )
@@ -3223,7 +3567,7 @@ def cmd_run(
     from openbiota.completeness import audit as _audit_completeness  # noqa: PLC0415
 
     completeness = _audit_completeness(results_json)
-    results_json.setdefault("run", {})["completeness"] = completeness.to_json()
+    results_json["run"]["completeness"] = completeness.to_json()
     # Spec 0.8.4 §7 reproducibility gate: actual peak RAM, disk and runtime
     # are recorded, not estimated. ru_maxrss is bytes on macOS, KB on Linux.
     try:
@@ -3272,7 +3616,7 @@ def cmd_run(
                     age=age_result,
                     age_meta=age_meta,
                     gates=gates,
-                    mode=args.mode,
+                    mode=args.audience,
                     subject_age=args.subject_age,
                 )
             except ImportError:
@@ -3322,9 +3666,12 @@ def cmd_run(
         )
     else:
         reporter.ok(
-            f"done in {human_duration(total)} — all {len(completeness.stages)} stages ran — "
-            f"{', '.join(produced)} in {out_dir}"
+            f"done in {human_duration(total)} — all {len(completeness.stages)} "
+            f"{completeness.mode} stages ran — {', '.join(produced)} in {out_dir}"
         )
+    # The caller (the run entry, or run-all) prints the report's path as the
+    # very last line and opens it; the exit code is all this function returns.
+    args._last_report = pdf_path  # noqa: SLF001 - our own namespace
 
     write_run_log(
         out_dir / "run.log",
@@ -3437,18 +3784,76 @@ def cmd_mycobiome(args: argparse.Namespace) -> int:
     return _run_mycobiome(args)
 
 
+def _machine_summary() -> str:
+    """Two lines about this machine, for the bare `openbiota` help: what
+    kind of report it can make, and what is in ./fastq. Cheap - a few file
+    checks - and never a reason for the help not to print."""
+    lines: list[str] = []
+    try:
+        from openbiota.installcheck import full_missing  # noqa: PLC0415
+
+        missing = full_missing()
+        lines.append(
+            "this machine: full install - every section is available"
+            if not missing else
+            f"this machine: standard install - lite reports ({len(missing)} full-install "
+            f"pieces not installed; `openbiota install --full` adds them)"
+        )
+    except Exception:  # noqa: BLE001 - help must print regardless
+        pass
+    try:
+        samples = discover_samples(REPO_ROOT / "fastq")
+        names = ", ".join(s.sample for s in samples[:6]) + (" ..." if len(samples) > 6 else "")
+        lines.append(
+            f"./fastq: {len(samples)} sample{'s' if len(samples) != 1 else ''} ({names})"
+            if samples else
+            "./fastq: no samples yet - copy a sample's two FASTQ files into fastq/<sample>/"
+        )
+    except Exception:  # noqa: BLE001
+        pass
+    return "\n".join(lines)
+
+
+def cmd_install(args: argparse.Namespace) -> int:
+    """Hand over to ./install.sh with the given options, in its place.
+
+    Reached directly from ``main`` with the raw options: argparse's
+    REMAINDER cannot take options that start with ``--`` straight after
+    the command, and every installer option does.
+    """
+    script = REPO_ROOT / "install.sh"
+    if not script.is_file():
+        print(f"install.sh is not at {script}; run it from a checkout of the repository", file=sys.stderr)
+        return 1
+    extra = [a for a in (getattr(args, "install_args", None) or []) if a != "--"]
+    os.execv("/bin/bash", ["bash", str(script), *extra])
+    return 1  # pragma: no cover - execv does not return
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     raw = list(sys.argv[1:] if argv is None else argv)
-    # `openbiota` with no subcommand, or with only run-flags, means `openbiota run`.
-    if not raw or (raw[0] not in SUBCOMMANDS and raw[0] not in {"-h", "--help", "--version"}):
-        raw = ["run", *raw]
-
     parser = build_parser()
+    # `openbiota` on its own prints the help, as a command should, with a
+    # line about this machine. It used to start a run.
+    if not raw:
+        parser.print_help()
+        summary = _machine_summary()
+        if summary:
+            print(f"\n{summary}")
+        return 0
+
+    if raw[0] == "install" and not any(a in ("-h", "--help") for a in raw[1:2]):
+        return cmd_install(argparse.Namespace(install_args=raw[1:]))
+
     args = parser.parse_args(raw)
-    command = args.command or "run"
+    command = args.command
+    if command is None:
+        parser.print_help()
+        return 0
 
     handlers = {
-        "run": cmd_run,
+        "run": cmd_run_entry,
+        "install": cmd_install,
         "panels": cmd_panels,
         "build-db": cmd_build_db,
         "doctor": cmd_doctor,

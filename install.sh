@@ -865,6 +865,16 @@ run_check() {
     done
     if [ $SKIP_HOST_INDEX -eq 0 ]; then ready host_index || { warn "host index missing"; problems=1; }; fi
     "$VENV/bin/python" -m openbiota.installcheck --all >>"$LOG" 2>&1 || true
+    if [ $FULL -eq 1 ]; then
+        local missing
+        missing=$("$VENV/bin/python" -c 'from openbiota.installcheck import full_missing; print(" ".join(full_missing()))' 2>>"$LOG")
+        if [ -n "$missing" ]; then
+            warn "full-install pieces still missing: $missing"
+            problems=1
+        else
+            ok "the full install is complete: openbiota run makes full reports here"
+        fi
+    fi
     if [ $problems -ne 0 ]; then
         fail_with_log "the installation is not complete; the warnings above say what is missing"
     fi
@@ -877,32 +887,35 @@ make_step() {
     have make || ensure_tool make || die "--full needs make"
     run_logged "make $1" make --no-print-directory "$1" THREADS="$THREADS" || fail_with_log "make $1 failed"
 }
-done_profiler4()      { [ -x "$REPO/.venv-mpa4/bin/metaphlan" ]; }
+# Each "is it done?" question is answered by openbiota.installcheck, the
+# same module `openbiota run --mode full` consults, so the installer and the
+# program cannot disagree about what a full install is.
+done_profiler4()      { ready profiler4; }
 run_profiler4()       { make_step profilers; ok "MetaPhlAn 4 in .venv-mpa4"; }
-done_vendor_tools()   { [ -x "$REPO/vendor/bin/blastn" ] || [ -n "$(ls -d "$REPO"/vendor/ncbi-blast-*/bin/blastn 2>/dev/null)" ]; }
+done_vendor_tools()   { ready vendor_tools; }
 run_vendor_tools()    { make_step vendor-tools; ok "vendored BLAST+, AMRFinderPlus and StxTyper"; }
-done_strain_tools()   { [ -x "$REPO/.venv-strain/bin/ectyper" ]; }
+done_strain_tools()   { ready strain_tools; }
 run_strain_tools()    { make_step strain-tools; ok "strain and typing tools"; }
-done_refs_strain()    { [ -s "$REPO/refs/strain_refs.lock.json" ] && [ -d "$REPO/refs/panels/probiotics" ]; }
+done_refs_strain()    { ready refs_strain; }
 run_refs_strain()     { make_step refs-strain; ok "strain reference panels"; }
-done_pathogens()      { [ -s "$REPO/refs/pathogens/bundle/manifest.json" ]; }
+done_pathogens()      { ready pathogens; }
 run_pathogens() {
     note "377 reference genomes from NCBI, then k-mer ownership and a competitive index; this is the heaviest build"
     run_logged "building the pathogen bundle" "$VENV/bin/python" tools/build_pathogen_bundle.py --threads "$THREADS" \
         || fail_with_log "tools/build_pathogen_bundle.py failed"
     ok "pathogen reference bundle"
 }
-done_substrate_refs() { [ -s "$REPO/refs/dbcan/snapshot.json" ]; }
+done_substrate_refs() { ready substrate_refs; }
 run_substrate_refs()  { make_step substrate-refs; ok "dbCAN substrate references"; }
-done_tools_expanded() { [ -x "$REPO/.venv-mpa42/bin/metaphlan" ] && [ -x "$REPO/.venv-motus/bin/motus" ] && [ -x "$REPO/.venv-singlem/bin/singlem" ]; }
+done_tools_expanded() { ready tools_expanded; }
 run_tools_expanded()  { make_step tools-expanded; ok "expanded detection tools"; }
-done_refs_expanded()  { [ -d "$REPO/refs/motus/db" ] && [ -d "$REPO/refs/kraken2" ] && [ -d "$REPO/refs/metaphlan4_db" ]; }
+done_refs_expanded()  { ready refs_expanded; }
 run_refs_expanded()   { make_step refs-expanded; ok "expanded references"; }
-done_expansion()      { [ -s "$REPO/refs/expanded/reconciliation/summary.json" ]; }
+done_expansion()      { ready expansion; }
 run_expansion()       { make_step expansion; ok "crosswalks and reconciliation"; }
-done_genome_lane()    { [ -x "$REPO/vendor/sylph/bin/sylph" ] && [ -n "$(ls "$REPO"/refs/sylph/*.syl2db 2>/dev/null)" ]; }
+done_genome_lane()    { ready genome_lane; }
 run_genome_lane()     { make_step genome-lane; ok "sylph and the GTDB sketch"; }
-done_mycobiome_refs() { [ -s "$REPO/refs/mycobiome/reference_lock.json" ]; }
+done_mycobiome_refs() { ready mycobiome_refs; }
 run_mycobiome_refs()  { make_step mycobiome-refs; ok "mycobiome references"; }
 
 # --------------------------------------------------------------------------- #
@@ -910,7 +923,8 @@ run_mycobiome_refs()  { make_step mycobiome-refs; ok "mycobiome references"; }
 # --------------------------------------------------------------------------- #
 
 all_steps() {
-    if [ $FULL -eq 1 ]; then echo "$STANDARD_STEPS $FULL_STEPS"; else echo "$STANDARD_STEPS"; fi
+    # With --full the final check comes last, after the lanes it must also verify.
+    if [ $FULL -eq 1 ]; then echo "${STANDARD_STEPS% check} $FULL_STEPS check"; else echo "$STANDARD_STEPS"; fi
 }
 
 in_list() {

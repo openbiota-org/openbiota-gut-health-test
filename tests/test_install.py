@@ -116,6 +116,32 @@ def test_readiness_checks_cover_the_installed_pieces():
     }
 
 
+def test_full_install_checks_are_exactly_the_installers_full_steps():
+    """One list: the installer's --full steps and the checks `openbiota run
+    --mode full` consults are the same names, so neither can drift."""
+    assert set(installcheck.FULL_CHECKS) == set(_steps("FULL_STEPS"))
+    text = INSTALL.read_text()
+    for step in _steps("FULL_STEPS"):
+        assert re.search(rf"^done_{step}\(\)\s+\{{ ready {step}; \}}", text, re.M), (
+            f"done_{step} must ask openbiota.installcheck, not re-derive the answer")
+
+
+def test_every_full_check_answers_false_on_an_empty_folder(tmp_path: Path):
+    for name, check in installcheck.FULL_CHECKS.items():
+        assert check(tmp_path) is False, name
+    assert installcheck.full_missing(tmp_path) == list(installcheck.FULL_CHECKS)
+
+
+def test_substrate_check_rejects_a_web_page_standing_in_for_the_file(tmp_path: Path):
+    d = tmp_path / "refs" / "dbcan"
+    d.mkdir(parents=True)
+    (d / "snapshot.json").write_text("{}")
+    (d / "fam-substrate-mapping.tsv").write_text("<!DOCTYPE html>...")
+    assert installcheck.substrate_refs(tmp_path) is False
+    (d / "fam-substrate-mapping.tsv").write_text("#comment\nSubstrate_high_level\tFamily\n")
+    assert installcheck.substrate_refs(tmp_path) is True
+
+
 def test_the_installer_is_written_for_the_bash_macos_ships():
     """macOS has bash 3.2: no associative arrays, mapfile or ${var,,}."""
     code = "\n".join(
@@ -176,7 +202,9 @@ def test_list_with_full_appends_the_optional_lanes(tmp_path: Path):
     root = _skeleton(tmp_path)
     proc = _sh("install.sh", "--list", "--full", cwd=root)
     listed = [line.split()[0] for line in proc.stdout.splitlines() if line.startswith("  ")]
-    assert listed == _steps("STANDARD_STEPS") + _steps("FULL_STEPS")
+    standard = _steps("STANDARD_STEPS")
+    # The final check moves to the end, after the lanes it must also verify.
+    assert listed == standard[:-1] + _steps("FULL_STEPS") + ["check"]
 
 
 def test_dry_run_launcher_step_changes_nothing(tmp_path: Path):
@@ -340,10 +368,12 @@ def test_launcher_runs_the_venv_program_with_vendor_on_path(tmp_path: Path):
     assert proc.stdout.splitlines()[1].startswith(f"PATH={root}/vendor/bin:{root}/vendor/conda/bin:")
 
 
-def test_launcher_defaults_to_run(tmp_path: Path):
+def test_launcher_passes_no_arguments_through_unchanged(tmp_path: Path):
+    """A bare `openbiota` reaches the program with no arguments, which prints
+    the help; the launcher no longer turns it into a run."""
     root = _skeleton(tmp_path, with_venv=True)
     proc = _sh("bin/openbiota", cwd=root)
-    assert "fake openbiota: run" in proc.stdout
+    assert proc.stdout.splitlines()[0] == "fake openbiota: "
 
 
 def test_launcher_works_through_a_symlink_elsewhere(tmp_path: Path):

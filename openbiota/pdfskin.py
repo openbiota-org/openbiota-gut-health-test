@@ -31,13 +31,14 @@ from typing import Any
 from reportlab.lib import colors
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
-from reportlab.platypus import KeepTogether, PageBreak, Spacer, Table, TableStyle
+from reportlab.platypus import KeepTogether, Spacer, Table, TableStyle
 
 from openbiota.pdflinks import (
     Anchor,
     LinkedTable,
     Paragraph,
     RowLink,
+    SoftPageBreak,
     back_link_line,
     linked_cell,
     section_heading,
@@ -562,7 +563,7 @@ def skin_detail_pages(
     for record in records:
         n += 1
         if n > 1:
-            story.append(PageBreak())
+            story.append(SoftPageBreak())
         else:
             # The first panel shares the page with the paragraph that
             # introduces it: a lone intro followed by a forced break is a
@@ -595,7 +596,7 @@ def skin_detail_pages(
     sebd = tasks.get("SEBD_STOOL_RESEARCH_V1")
     if sebd:
         n += 1
-        story.append(PageBreak())
+        story.append(SoftPageBreak())
         _sebd_page(story, st, section=section, n=n, task=sebd)
     for task_id, task in tasks.items():
         if task_id == "SEBD_STOOL_RESEARCH_V1":

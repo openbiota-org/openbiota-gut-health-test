@@ -7,7 +7,10 @@ Every command and flag.
 ## Commands
 
 ```
-openbiota [run] [options]     screen a sample (default command)
+openbiota                     what it can do, and the state of this machine (prints help)
+openbiota run [FILES|FOLDER]  make the report for one sample
+openbiota run-all             every sample in ./fastq, plus a comparison
+openbiota install [--full]    install or extend the software (runs ./install.sh)
 openbiota panels              list or inspect pathways
 openbiota build-db            fetch reference sets, build the search database
 openbiota cohort              build percentile reference ranges
@@ -16,7 +19,8 @@ openbiota depth-check         test whether the sequencing depth was sufficient
 openbiota doctor              check dependencies, hardware and inputs
 ```
 
-`openbiota` with no subcommand means `openbiota run`.
+`openbiota` with no command prints the help, like any command; nothing
+starts until you ask for `run`.
 
 ---
 
@@ -24,15 +28,44 @@ openbiota doctor              check dependencies, hardware and inputs
 
 ### Inputs
 
+```bash
+openbiota run                                  # the one sample in ./fastq
+openbiota run fastq/my-sample                  # a folder: a sample's own, or one holding several
+openbiota run S_1.fastq.gz S_2.fastq.gz        # the pair, in either order
+openbiota run S_1.fastq.gz                     # one file; its mate is found beside it if there is one
+```
+
 | Flag | Default | Purpose |
 |---|---|---|
-| `--fastq-dir DIR` | `./fastq` | Directory holding the FASTQ pair |
+| `FASTQ_OR_FOLDER ...` | — | Positional: two FASTQ files, one FASTQ file, or one folder |
+| `--fastq-dir DIR` | `./fastq` | Directory holding the FASTQ pair(s) |
 | `--r1 PATH`, `--r2 PATH` | — | Explicit mate paths, overriding discovery |
-| `--sample NAME` | inferred | Sample name; required if the directory holds several |
+| `--sample NAME` | inferred | Which sample, when the directory holds several |
 | `--no-prefer-gzip` | off | Use uncompressed FASTQ when both forms exist |
 
 Filenames like `NAME_1.fastq.gz` / `NAME_2.fastq.gz` or `NAME_R1.fq` /
-`NAME_R2.fq` are recognised automatically.
+`NAME_R2.fq` are recognised automatically. Samples may sit directly in the
+directory or one folder down (`fastq/<sample>/`). With several samples and
+no `--sample`, a terminal is asked which (one, several or all); without a
+terminal the run stops and lists them.
+
+Every input is checked before anything slow starts: a file that is not
+FASTQ (FASTA, PDF, HTML), an empty file, a gzip that stops early, or two
+files whose first reads are not mates of one sample is refused with a
+sentence saying so.
+
+### Which report
+
+| Flag | Default | Purpose |
+|---|---|---|
+| `--mode {full,lite,auto}` | asked at a terminal, else `auto` | `full`: every section, needs the full install. `lite`: the standard install's report; the pathogen, mycobiome and strain sections are left out and the rest renumbered. `auto`: full if the full install is present |
+| `--no-open` | off | Do not open the finished PDF in the system viewer |
+
+A full run on a machine without the full install does not start: it names
+the missing pieces and, at a terminal, offers to run `openbiota install
+--full`. Every run records its mode in `results.json` (`run.report_mode`)
+and the closing census asks only about the stages that mode promises. The
+run's last line is `Report: <path>`.
 
 `.gz` is preferred by default because DIAMOND decompresses natively, halving
 disk I/O and letting you delete the uncompressed copies. Record counting and
@@ -108,7 +141,7 @@ filter, so it rebuilds only when a pathway definition actually changes.
 | `--no-pathogens` | Skip the pathogen screen |
 | `--strict-cdiff` | Report a *Clostridioides difficile* species detection as a positive finding even without the toxin genes (`tcdA`/`tcdB`), instead of filing it as carriage; the report states the mode |
 | `--no-age` | Skip the estimated microbiome age |
-| `--mode {participant,clinician,research}` | Report mode; `research` (the default) states that the age estimate carries no residual against an actual age |
+| `--audience {participant,clinician,research}` | Who the report is written for; `research` (the default) states that the age estimate carries no residual against an actual age |
 | `--profile-validation PATH` | Labelled-cohort AUCs and specificity matrix from `openbiota validate-profiles` |
 | `--panels-dir DIR` | An alternative panel definition directory |
 

@@ -19,7 +19,7 @@ from typing import Any, Final
 from reportlab.lib import colors
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
-from reportlab.platypus import KeepTogether, PageBreak, Spacer, Table, TableStyle
+from reportlab.platypus import KeepTogether, Spacer, Table, TableStyle
 
 from openbiota import solutions as _solutions
 from openbiota.pdflinks import (
@@ -27,6 +27,7 @@ from openbiota.pdflinks import (
     LinkedTable,
     Paragraph,
     RowLink,
+    SoftPageBreak,
     back_link_line,
     group_dest,
     linked_cell,
@@ -219,7 +220,7 @@ def library_pages(
     ))
 
     for result in _detailed(similarity):
-        story.append(PageBreak())
+        story.append(SoftPageBreak())
         _profile_page(story, st, result, profile_validation,
                       urticaria=getattr(similarity, "urticaria", None),
                       copri_complex=copri_complex)
@@ -230,7 +231,7 @@ def library_pages(
             )
     declined = [r for r in similarity.ranked if not r.reportable]
     if declined:
-        story.append(PageBreak())
+        story.append(SoftPageBreak())
         story.extend(section_heading(section, "Patterns not scored, and why", st["h1"], sub=1))
         story.append(Paragraph(
             "A pattern is not scored when its own conditions are not met. Each line says "
@@ -576,6 +577,13 @@ def _module_hint(module_score: Any) -> str:
     return " · ".join(parts)
 
 
+def _lite_report() -> bool:
+    """Whether the report being built is a lite one (no pathogen section)."""
+    from openbiota.pdfreport import SECTIONS  # noqa: PLC0415
+
+    return "pathogens" not in SECTIONS
+
+
 def _copri_block(
     story: list[Any], st: dict[str, ParagraphStyle], resolved: dict[str, Any]
 ) -> None:
@@ -807,7 +815,8 @@ def _profile_page(
     # is 13 species-level clades 13-21% apart, so a species-level number could
     # never say which was present. The extended lane resolves all of them, and
     # this is the profile where that matters.
-    if copri_complex and profile.name in {"ra", "t2d", "obesity"}:
+    if (copri_complex and profile.name in {"ra", "t2d", "obesity"}
+            and not (str(copri_complex.get("status") or "") == "not_assessed" and _lite_report())):
         _copri_block(story, st, copri_complex)
 
     # confidence vector + competition
@@ -1051,7 +1060,7 @@ def community_groups_pages(
                 inv=inv, carded=carded,
             )
 
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
 
 
 

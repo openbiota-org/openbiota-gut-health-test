@@ -173,6 +173,88 @@ def fastq_candidates(fastq_dir: Path) -> list[Path]:
     return out
 
 
+def _first_bytes(path: Path, n: int = 4096) -> bytes:
+    """The first ``n`` bytes of a FASTQ, decompressed if it is gzip.
+
+    Raises :class:`InputError` with a plain explanation when the file is
+    empty, unreadable, or gzip that cannot be decompressed (a download that
+    stopped early is the usual cause).
+    """
+    import gzip  # noqa: PLC0415
+    import zlib  # noqa: PLC0415
+
+    try:
+        with path.open("rb") as raw:
+            head = raw.read(2)
+        if head == b"\x1f\x8b":
+            with gzip.open(path, "rb") as handle:
+                return handle.read(n)
+        with path.open("rb") as handle:
+            return handle.read(n)
+    except (OSError, EOFError, gzip.BadGzipFile, zlib.error) as exc:
+        raise InputError(
+            f"{path} cannot be read as a FASTQ file ({type(exc).__name__}: {exc}). If it is a "
+            "download, it may have stopped early: compare its size with the provider's."
+        ) from exc
+
+
+def _read_name(head: bytes) -> str:
+    """The first read's name with its mate markers removed, for pairing."""
+    first = head.split(b"\n", 1)[0].decode("utf-8", "replace").strip()
+    token = first[1:].split()[0] if len(first) > 1 else ""
+    return re.sub(r"[/._](R?[12])$", "", token)
+
+
+def validate_fastq_inputs(paths: Sequence[Path]) -> None:
+    """Refuse an input that is not a FASTQ before an hour is spent on it.
+
+    Checks what can be checked in a few kilobytes: the file exists and has
+    content, gzip decompresses, the first record is a FASTQ record, and a
+    pair's two files name the same first read. Anything deeper - truncation
+    in the middle, read counts - the input-validation stage measures.
+    """
+    heads: list[tuple[Path, bytes]] = []
+    for path in paths:
+        if not path.exists():
+            raise InputError(f"input file not found: {path}")
+        if not path.is_file():
+            raise InputError(f"{path} is not a file")
+        if path.stat().st_size == 0:
+            raise InputError(f"{path} is empty (0 bytes)")
+        head = _first_bytes(path)
+        if not head.strip():
+            raise InputError(f"{path} has no content after decompression")
+        if head.lstrip()[:1] != b"@":
+            kind = (
+                "a FASTA file (sequences without quality scores)" if head.lstrip()[:1] == b">" else
+                "a SAM/BAM alignment, not raw reads" if head[:4] == b"BAM\x01" or head.lstrip()[:1] == b"@HD" else
+                "a PDF" if head[:4] == b"%PDF" else
+                "a web page" if head.lstrip()[:1] == b"<" else
+                None
+            )
+            shown = head.split(b"\n", 1)[0][:60].decode("utf-8", "replace")
+            raise InputError(
+                f"{path} does not look like FASTQ: its first line is {shown!r}"
+                + (f" - it looks like {kind}" if kind else "")
+                + ". The input is the raw sequencing reads: a FASTQ record starts with '@'."
+            )
+        lines = head.split(b"\n")
+        if len(lines) >= 3 and lines[2][:1] not in (b"+", b""):
+            raise InputError(
+                f"{path} does not look like FASTQ: the third line should start with '+', "
+                f"it starts with {lines[2][:20]!r}"
+            )
+        heads.append((path, head))
+    if len(heads) == 2:
+        a, b = (_read_name(h) for _, h in heads)
+        if a and b and a != b:
+            raise InputError(
+                f"these two files do not look like the two mates of one sample: the first read "
+                f"of {heads[0][0].name} is {a!r} and of {heads[1][0].name} is {b!r}. A pair's "
+                "reads share their names apart from the /1 and /2 (or R1 and R2) marker."
+            )
+
+
 def _place(slot: dict[str, Path], path: Path, sample_id: str) -> None:
     """File a mate under its form, refusing a second copy from another folder.
 

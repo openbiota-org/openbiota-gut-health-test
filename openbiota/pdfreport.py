@@ -27,7 +27,7 @@ from __future__ import annotations
 
 import datetime as dt
 import math
-from collections.abc import Mapping, Sequence
+from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Final
@@ -44,11 +44,9 @@ from reportlab.platypus import (
     BaseDocTemplate,
     CondPageBreak,
     Flowable,
-    Frame,
     Image,
     KeepTogether,
     NextPageTemplate,
-    PageBreak,
     PageTemplate,
     Spacer,
     Table,
@@ -61,7 +59,11 @@ from openbiota.pdflinks import (
     Anchor,
     LinkedTable,
     Paragraph,
+    ReportDocTemplate,
+    ReportFrame,
     RowLink,
+    Separator,
+    SoftPageBreak,
     back_link_line,
     function_dest,
     group_dest,
@@ -109,7 +111,7 @@ HEADER_META_BASELINE: Final = HEADER_BAND_MID + 0.72 * 6.4 / 2.0
 #: Part A is the reading order the report is built around: who is there and
 #: who is missing → how old the community reads → what it can make → what it
 #: resembles → what can be done. Part B repeats the order in depth.
-SECTIONS: Final[dict[str, int]] = {
+SECTIONS: dict[str, int] = {
     # The contents page carries no number - it is the map, not a stop on
     # the route - so the summary comes first and "what stood out" second.
     # Zero is how "no number" is spelled here: `section_heading` prints the
@@ -133,6 +135,36 @@ SECTIONS: Final[dict[str, int]] = {
     "context": 24,
     "limits": 25, "sequencing": 26, "accuracy": 27, "technical": 28,
 }
+#: The full report's numbering, kept apart so a build can be renumbered
+#: from it and the next build start from the same place.
+FULL_SECTIONS: Final[dict[str, int]] = dict(SECTIONS)
+
+
+def activate_sections(omit: Iterable[str] = ()) -> dict[str, int]:
+    """Number this build's sections, leaving out the ones it does not carry.
+
+    A lite report has no pathogen, mycobiome or strain sections. Dropping
+    them and keeping the full report's numbers would leave gaps - 6, 8, 9 -
+    that read as missing pages, so the sections that remain are renumbered
+    contiguously in their canonical order. ``SECTIONS`` is updated in place
+    because a dozen modules read it by name at call time; every heading,
+    cross-reference and contents entry picks up the new numbers without
+    being told. The contents table already skips a key that is absent.
+    """
+    omitted = frozenset(omit)
+    SECTIONS.clear()
+    n = 0
+    for key, number in FULL_SECTIONS.items():
+        if key in omitted:
+            continue
+        if number == 0:          # the contents page carries no number
+            SECTIONS[key] = 0
+            continue
+        n += 1
+        SECTIONS[key] = n
+    return SECTIONS
+
+
 TOOL_NAME: Final = f"{BRAND} Gut Health Test"
 
 #: Named destination for page one. Defined by the page chrome rather than by
@@ -1323,7 +1355,7 @@ class _Chrome:
 
 
 def _document(path: Path, chrome: _Chrome) -> BaseDocTemplate:
-    doc = BaseDocTemplate(
+    doc = ReportDocTemplate(
         str(path),
         pagesize=PAGE,
         leftMargin=MARGIN,
@@ -1334,11 +1366,11 @@ def _document(path: Path, chrome: _Chrome) -> BaseDocTemplate:
         author=f"{TOOL_NAME} (openbiota {__version__})",
         subject=f"Sample {chrome.sample}",
     )
-    first_frame = Frame(
+    first_frame = ReportFrame(
         MARGIN, FOOTER_H, CONTENT_WIDTH, FIRST_FRAME_HEIGHT, id="first",
         leftPadding=0, rightPadding=0, topPadding=0, bottomPadding=0,
     )
-    body_frame = Frame(
+    body_frame = ReportFrame(
         MARGIN, FOOTER_H, CONTENT_WIDTH, BODY_FRAME_HEIGHT, id="body",
         leftPadding=0, rightPadding=0, topPadding=0, bottomPadding=0,
     )
@@ -1979,18 +2011,29 @@ def _detail_pages(  # noqa: PLR0915 - one long card, built in order
         sequence.append(heading)
         sequence.extend(group)
 
+    # A group heading travels inside its first card's KeepTogether. On its
+    # own it was the last thing to fit on a page, the card moved to the next
+    # one, and the heading stood alone on a page with nothing under it.
+    pending_heading: list[Any] = []
+    first_card = True
     for row in sequence:
         if isinstance(row, str):
-            story.append(Spacer(1, 1.5 * mm))
-            story.append(Paragraph(row, st["h2"]))
-            story.append(Spacer(1, 1 * mm))
+            pending_heading = [Spacer(1, 1.5 * mm), Paragraph(row, st["h2"]), Spacer(1, 1 * mm)]
             continue
         # The card is where page 1 and the at-a-glance row both lead, and it
-        # links back to the row so the reader is never stranded here.
+        # links back to the row so the reader is never stranded here. The
+        # rule that separates it from the card before travels at its head,
+        # inside the same KeepTogether, and draws nothing at the top of a
+        # page: trailing the previous card, it could be the only thing on
+        # a page the card itself had moved off.
         block: list[Any] = [
+            *([] if first_card else [Separator(CONTENT_WIDTH, before=1.5 * mm, after=3.5 * mm, colour=RULE)]),
             Anchor(function_dest(row.panel, detail=True), above=6 * mm),
+            *pending_heading,
             back_link_line(function_dest(row.panel), "at a glance"),
         ]
+        pending_heading = []
+        first_card = False
         _forward = solutions_line(_solutions.problem_key("panel", row.panel))
         if _forward is not None:
             block.append(_forward)
@@ -2125,9 +2168,6 @@ def _detail_pages(  # noqa: PLR0915 - one long card, built in order
         story.append(KeepTogether(block))
         if plan is not None:
             evidence_cards(story, st, plan.cards_for("panel", row.panel))
-        story.append(Spacer(1, 1.5 * mm))
-        story.append(Rule(CONTENT_WIDTH))
-        story.append(Spacer(1, 3.5 * mm))
 
 
 # --------------------------------------------------------------------------- #
@@ -2544,6 +2584,9 @@ def _detection_catalogues(results: dict[str, Any]) -> str:
     catalogue available" and never name a version; this is where the
     versions live for anyone who needs to reproduce or compare.
     """
+    from openbiota import reportmode  # noqa: PLC0415
+
+    lite = reportmode.mode_of(results) == "lite"
     parts: list[str] = []
     ext = results.get("extended_catalogue") or {}
     if ext:
@@ -2556,8 +2599,12 @@ def _detection_catalogues(results: dict[str, Any]) -> str:
             f"({gen.get('catalogue_size', 199_923):,} species clusters, "
             f"ANI \u2265 {gen.get('minimum_ani', 95):.0f}%)"
         )
-    elif gen.get("status") == "not_assessed":
+    elif gen.get("status") == "not_assessed" and not lite:
         parts.append("GTDB whole-genome lane: not assessed (not installed)")
+    if lite:
+        # The record says what kind of report this is instead of listing
+        # each lane the lite report never attempts.
+        parts.append("lite report: the full install's detection lanes were not run")
     return "; ".join(parts) if parts else "\u2014"
 
 
@@ -2665,6 +2712,8 @@ def _technical_page(
     *,
     section: int = 17,
 ) -> None:
+    from openbiota import reportmode  # noqa: PLC0415
+
     story.extend(section_heading(section, "Technical data", st["h1"]))
     _detection_references(story, st, results)
 
@@ -2719,6 +2768,7 @@ def _technical_page(
                 f"{tax.family} {tax.profiler_version}" if tax is not None else "not run",
             ),
             ("Taxonomic database", tax.index if tax is not None else "—"),
+            ("Report mode", reportmode.mode_of(results)),
             (
                 "Detection catalogues",
                 _detection_catalogues(results),
@@ -2895,7 +2945,10 @@ def _solution_problems(
         ]
     except Exception:  # noqa: BLE001 - a missing screen is not a reason to lose the section
         called = []
-    problems += sol.pathogen_problems(called, section=sections["pathogens_detail"])
+    # A lite report has no pathogen section to point at, and no screen to
+    # have called anything; the problems are only added where both exist.
+    if "pathogens_detail" in sections:
+        problems += sol.pathogen_problems(called, section=sections["pathogens_detail"])
 
     # Whole-gut findings that are not one organism or one pathway.
     biofilm = (results.get("biofilm") or {})
@@ -2923,8 +2976,9 @@ def _solution_problems(
         community.get("groups") or [], section=sections["groups_detail"])
 
     # And the fungal lane, likewise.
-    problems += sol.fungal_problems(
-        results.get("mycobiome"), section=sections["mycobiome_detail"])
+    if "mycobiome_detail" in sections:
+        problems += sol.fungal_problems(
+            results.get("mycobiome"), section=sections["mycobiome_detail"])
 
     # Published disease patterns this sample resembles. The only evidence
     # that bears on them is the curated registry: exact products studied in
@@ -3106,6 +3160,13 @@ def build_pdf(
     # registry of which findings it answers is cleared first, so a second
     # report rendered in the same process cannot inherit the first one's.
     reset_solutions()
+    # Full or lite decides which sections exist and how the rest are
+    # numbered; it is settled before anything that prints a number.
+    from openbiota import reportmode  # noqa: PLC0415
+
+    report_mode = reportmode.mode_of(results)
+    lite = report_mode == "lite"
+    activate_sections(reportmode.omitted_sections(report_mode))
     attention_items = pdfattention.build(inv, findings)
     solution_problems = _solution_problems(
         results, attention_items, SECTIONS,
@@ -3113,11 +3174,13 @@ def build_pdf(
     )
     pdfsummary.summary_page(
         story, st, rows=ordered, similarity=similarity, rpob_profile=profile, meta=meta, findings=findings,
-        age=age, age_meta=age_meta, pathogens=pathogens, pathogen_section=SECTIONS["pathogens"],
+        age=age, age_meta=age_meta, pathogens=pathogens,
+        pathogen_section=SECTIONS.get("pathogens", 0),
         results=results, inv=inv,
         solutions_section=SECTIONS["actions"],
         n_problems=len(solution_problems),
         n_options=sum(len(p.options) for p in solution_problems),
+        report_mode=report_mode,
     )
 
     taxo_note = (
@@ -3133,13 +3196,13 @@ def build_pdf(
     # what it can make → what it resembles → what can be done.
     # ------------------------------------------------------------------ #
     story.append(NextPageTemplate("interior"))
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     # The contents come before the findings: a reader who has just met the
     # first page wants to know where everything is, and the page that tells
     # them was behind the one that assumes they already know.
     pdfatlas.reading_guide_page(story, st, section=S["guide"])
 
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     story.append(Paragraph("PART A &mdash; AT A GLANCE", st["kicker"]))
     pdfsummary.insights_page(
         story, st, rows=ordered, similarity=similarity, meta=meta, findings=findings, age=age, plan=plan,
@@ -3147,7 +3210,7 @@ def build_pdf(
     )
 
     # 1 · your microbiome make-up: summary infographic, groups, organisms
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     story.append(Paragraph("PART A &mdash; MICROBIOME DIVERSITY: WHAT'S THERE AND WHAT'S MISSING", st["kicker"]))
     # The neutral range strips that used to follow the species list are gone:
     # this section now runs from the community picture straight to the one
@@ -3183,7 +3246,7 @@ def build_pdf(
     pdfatlas.groups_glance(story, st, section=S["groups"], similarity=similarity, cohort_note=taxo_note,
                            inv=inv, carded=carded)
 
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     pdfattention.glance(story, st, section=S["organisms"], detail_section=S["organisms_detail"],
                         items=attention_items, findings=findings,
                         n_all_detected=len(inv) if inv is not None else 0, cohort_note=taxo_note)
@@ -3191,7 +3254,7 @@ def build_pdf(
     # The full organism list, directly after the flagged ones. Having just
     # read which organisms need attention, the reader's next question is what
     # else is in there, and the answer should not be at the back of the report.
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     story.append(Paragraph("PART A &mdash; EVERY ORGANISM DETECTED", st["kicker"]))
     pdflibrary.catalogue_page(
         story, st, section=S["catalogue"],
@@ -3204,23 +3267,26 @@ def build_pdf(
 
     # 1c · pathogens (spec v5.0 §13). Placed straight after "who is there",
     # because the reader's first question about a stool metagenome is whether
-    # anything in it causes disease.
-    story.append(PageBreak())
-    story.append(Paragraph("PART A &mdash; PATHOGENS: DISEASE-CAUSING ORGANISMS", st["kicker"]))
-    pdfpathogens.pathogens_glance(
-        story, st, pathogens=pathogens, section=S["pathogens"],
-        detail_section=S["pathogens_detail"],
-    )
+    # anything in it causes disease. A lite report has no pathogen screen
+    # and therefore no pathogen section: nothing is rendered rather than a
+    # page saying the screen did not run.
+    if not lite:
+        story.append(SoftPageBreak())
+        story.append(Paragraph("PART A &mdash; PATHOGENS: DISEASE-CAUSING ORGANISMS", st["kicker"]))
+        pdfpathogens.pathogens_glance(
+            story, st, pathogens=pathogens, section=S["pathogens"],
+            detail_section=S["pathogens_detail"],
+        )
 
     # 2 · biological age
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     story.append(Paragraph("PART A &mdash; ESTIMATED BIOLOGICAL AGE OF BIOTA", st["kicker"]))
     pdfatlas.age_page(
         story, st, section=S["age"], age=age, age_meta=age_meta, subject_age=subject_age, mode=mode,
     )
 
     # 3 · metabolic functions
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     story.append(Paragraph("PART A &mdash; WHAT YOUR BACTERIA CAN MAKE AND BREAK DOWN", st["kicker"]))
     # Spec 0.8.3 §12.1: existing panel totals and the new A01-A08 and §5.8
     # readings sit together under one set of reader-facing headings, in this
@@ -3244,14 +3310,14 @@ def build_pdf(
     )
 
     # 4 · disease patterns
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     story.append(Paragraph("PART A &mdash; RESEMBLANCE TO PUBLISHED DISEASE PATTERNS", st["kicker"]))
     pdfatlas.profiles_glance(story, st, section=S["patterns"], similarity=similarity)
 
     # 4a · biofilm-related potential (spec v8.0 §13.1). Front-loaded among the
     # visual metric pages rather than buried after the prose, because the two
     # axes only make sense next to each other.
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     story.append(Paragraph("PART A &mdash; BIOFILM-RELATED POTENTIAL", st["kicker"]))
     pdfbiofilm.biofilm_overview(
         story, st, section=S["biofilm"],
@@ -3260,17 +3326,19 @@ def build_pdf(
     )
 
     # The mycobiome page follows the biofilm page: one complete overview
-    # among the early visual summaries (spec §3), detail in Part B.
-    story.append(PageBreak())
-    pdfmycobiome.mycobiome_overview(
-        story, st, section=S["mycobiome"],
-        myco=(results.get("mycobiome") if results else None),
-        detail_section=S["mycobiome_detail"],
-    )
+    # among the early visual summaries (spec §3), detail in Part B. Full
+    # reports only: the fungal references are part of the full install.
+    if not lite:
+        story.append(SoftPageBreak())
+        pdfmycobiome.mycobiome_overview(
+            story, st, section=S["mycobiome"],
+            myco=(results.get("mycobiome") if results else None),
+            detail_section=S["mycobiome_detail"],
+        )
 
     # 4b · inflammatory skin research panels (spec v4.2 §7.2). Front-loaded,
     # paginated in full: no top-N truncation.
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     story.append(Paragraph("PART A &mdash; SKIN-CONDITION RESEARCH PATTERNS", st["kicker"]))
     from openbiota import skinaxis  # noqa: PLC0415
 
@@ -3289,7 +3357,7 @@ def build_pdf(
     # belongs to it comes after - the planner used to be emitted before the
     # heading, which put its page inside the preceding section and made the two
     # read as one muddle.
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     pdfsolutions.section(story, st, section_no=S["actions"], problems=solution_problems)
 
     # A16: the model-assisted comparison of a probiotic, a prebiotic and both
@@ -3310,20 +3378,21 @@ def build_pdf(
         "the evidence for and against side by side and the safety rules that apply. Where nothing has been shown "
         "to work, the card says so. Where fecal microbiota transplantation is the only route with evidence, "
         "the card says that and gives its regulatory status.",
-        contents=(
+        contents=tuple(line for line in (
             f"{S['groups_detail']} · Your microbial groups in detail, and every species detected",
             f"{S['organisms_detail']} · Organisms that need attention, one by one",
-            f"{S['pathogens_detail']} · Pathogens, one at a time, and what was not assessed",
+            (f"{S['pathogens_detail']} · Pathogens, one at a time, and what was not assessed"
+             if not lite else None),
             f"{S['functions_detail']} · Your metabolic functions in detail ({len(rows)} pathways)",
             f"{S['patterns_detail']} · Disease-pattern resemblance, every scored pattern",
             f"{S['skin_detail']} · Gut-skin axis, panel by panel",
             f"{S['context']} · Your information, and what this report assumed",
             f"{S['limits']} · What none of this can tell you · {S['sequencing']} · Sequencing quality and reference coverage",
             f"{S['accuracy']} · Measured accuracy · {S['technical']} · Technical record",
-        ),
+        ) if line),
     )
 
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     story.append(Paragraph("PART B &mdash; WHO IS THERE", st["kicker"]))
     pdflibrary.community_groups_pages(
         story, st, section=S["groups_detail"],
@@ -3332,36 +3401,38 @@ def build_pdf(
         plan=plan,
     )
 
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     pdfattention.detail(story, st, section=S["organisms_detail"], items=attention_items, plan=plan,
                         bacdive=results.get("bacdive"), strain_analysis=results.get("strain_analysis"))
 
-    story.append(PageBreak())
-    story.append(Paragraph("PART B &mdash; PATHOGENS, ONE AT A TIME", st["kicker"]))
-    # Strain resolution sits between the organism inventory and the pathogen
-    # detail: it is the same organisms, one level finer.
-    story.append(PageBreak())
-    pdfstrains.strain_pages(
-        story, st, section=S["strains"],
-        strain=(results.get("strain_resolution") if results else None),
-    )
-    pdfstrains.placement_pages(
-        story, st, analysis=(results.get("strain_analysis") if results else None),
-        inventory=(results.get("organism_inventory") if results else None),
-    )
-    pdfstrains.census_pages(
-        story, st, census=(results.get("resolution_census") if results else None),
-    )
+    # Strain resolution and the pathogen detail: the same organisms, one
+    # level finer, then one at a time. Both need the full install's
+    # references, so a lite report goes straight on to the functions.
+    if not lite:
+        story.append(SoftPageBreak())
+        story.append(Paragraph("PART B &mdash; PATHOGENS, ONE AT A TIME", st["kicker"]))
+        story.append(SoftPageBreak())
+        pdfstrains.strain_pages(
+            story, st, section=S["strains"],
+            strain=(results.get("strain_resolution") if results else None),
+        )
+        pdfstrains.placement_pages(
+            story, st, analysis=(results.get("strain_analysis") if results else None),
+            inventory=(results.get("organism_inventory") if results else None),
+        )
+        pdfstrains.census_pages(
+            story, st, census=(results.get("resolution_census") if results else None),
+        )
 
-    pdfpathogens.pathogens_detail_pages(
-        story, st, pathogens=pathogens, section=S["pathogens_detail"],
-        agents=agent_library,
-    )
+        pdfpathogens.pathogens_detail_pages(
+            story, st, pathogens=pathogens, section=S["pathogens_detail"],
+            agents=agent_library,
+        )
 
     # A11: the class, mechanism and carrier view over the existing AMR calls.
     _pdfextension().resistance_block(story, st, _extension_view(results, "resistance"))
 
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     story.append(Paragraph("PART B &mdash; WHAT YOUR BACTERIA CAN MAKE AND BREAK DOWN", st["kicker"]))
     _detail_pages(story, st, ordered, cohort_note, section=S["functions_detail"], plan=plan)
     # A01-A08: the new substrate, route and transformation readings, grouped
@@ -3391,7 +3462,7 @@ def build_pdf(
     # the readings it qualifies.
     _pdfextension().redundancy_block(story, st, _extension_view(results, "ecology"))
 
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     story.append(Paragraph("PART B &mdash; DISEASE-PATTERN RESEMBLANCE", st["kicker"]))
     pdflibrary.library_pages(
         story, st, section=S["patterns_detail"], similarity=similarity,
@@ -3405,19 +3476,20 @@ def build_pdf(
         story, st, _extension_view(results, "contexts"),
     )
 
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     story.append(Paragraph("PART B &mdash; BIOFILM FINDINGS IN FULL", st["kicker"]))
     pdfbiofilm.biofilm_detail(
         story, st, section=S["biofilm_detail"],
         biofilm=(results.get("biofilm") if results else None),
     )
-    story.append(PageBreak())
-    pdfmycobiome.mycobiome_detail(
-        story, st, section=S["mycobiome_detail"],
-        myco=(results.get("mycobiome") if results else None),
-    )
+    if not lite:
+        story.append(SoftPageBreak())
+        pdfmycobiome.mycobiome_detail(
+            story, st, section=S["mycobiome_detail"],
+            myco=(results.get("mycobiome") if results else None),
+        )
 
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     story.append(Paragraph("PART B &mdash; SKIN-CONDITION RESEARCH PATTERNS", st["kicker"]))
     pdfskin.skin_detail_pages(
         story, st, section=S["skin_detail"],
@@ -3427,28 +3499,28 @@ def build_pdf(
 
     # A14: one combined register of everything supplied, assumed and absent,
     # placed immediately before the limits it explains (spec 0.8.3 §10.1).
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     _pdfinputs().inputs_section(
         story, st, _extension_view(results, "input_register"), section=S["context"],
     )
 
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     pdfprofiles.limits_page(story, st, section=S["limits"])
 
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     pdflibrary.sequencing_quality_page(
         story, st, section=S["sequencing"],
         quality=results.get("sequencing_quality"),
         extended=results.get("extended_catalogue"),
     )
 
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     _performance_page(story, st, validation, cohort, depth, section=S["accuracy"])
     pdfprofiles.performance_extension(
         story, st, profile_validation=profile_validation, similarity=similarity
     )
 
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     _technical_page(story, st, results, rows, similarity, section=S["technical"])
     # A15 §12.3: the complete index of the new measurements belongs in the
     # technical area, not in another results section.

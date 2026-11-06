@@ -29,17 +29,36 @@ def test_bare_flags_imply_the_run_subcommand():
     assert args.subsample == 1000
 
 
-@pytest.mark.parametrize("argv", [[], ["--threads", "4"], ["--compact"]])
-def test_main_inserts_run_for_bare_invocations(argv, monkeypatch):
-    seen: dict[str, object] = {}
+def test_bare_openbiota_prints_help_and_starts_nothing(monkeypatch, capsys):
+    """`openbiota` on its own used to start a run. It is a command: it says
+    what it does, with a line about this machine, and exits 0."""
+    started: list[str] = []
+    monkeypatch.setattr("openbiota.cli.cmd_run", lambda *_a, **_k: started.append("run") or 0)
+    monkeypatch.setattr("openbiota.cli.cmd_run_entry", lambda *_a, **_k: started.append("run") or 0)
+    assert main([]) == 0
+    out = capsys.readouterr().out
+    assert started == []
+    assert "openbiota run" in out and "openbiota install --full" in out
+    assert "results/<sample>/<sample>_report.pdf" in out
+    assert "this machine:" in out
 
-    def fake_run(args):
-        seen["command"] = args.command
-        return 0
 
-    monkeypatch.setattr("openbiota.cli.cmd_run", fake_run)
-    assert main(argv) == 0
-    assert seen["command"] is None or seen["command"] == "run"
+@pytest.mark.parametrize("argv", [["--threads", "4"], ["--compact"]])
+def test_bare_flags_are_an_error_not_a_run(argv, monkeypatch):
+    """Flags without a command are refused by the parser, never guessed at."""
+    monkeypatch.setattr("openbiota.cli.cmd_run_entry", lambda *_a, **_k: pytest.fail("a run started"))
+    with pytest.raises(SystemExit) as excinfo:
+        main(argv)
+    assert excinfo.value.code == 2
+
+
+def test_install_subcommand_hands_over_to_the_installer(monkeypatch):
+    calls: list[list[str]] = []
+    monkeypatch.setattr("openbiota.cli.os.execv", lambda exe, argv: calls.append([exe, *argv]))
+    main(["install", "--full", "--skip-host-index"])
+    assert calls and calls[0][0] == "/bin/bash"
+    assert calls[0][2].endswith("install.sh")
+    assert calls[0][3:] == ["--full", "--skip-host-index"]
 
 
 def test_explicit_subcommands_are_not_rewritten(capsys):

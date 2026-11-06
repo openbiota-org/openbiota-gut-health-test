@@ -49,6 +49,15 @@ a pipeline.
 
 ## The report's two parts
 
+!!! note "Full and lite"
+    The numbers below are the **full** report's. A **lite** report — what
+    the standard install makes — has no pathogen sections (7 and 18), no
+    mycobiome sections (12 and 22) and no strain section (17); the sections
+    that remain keep this order and are numbered 1 to 23 without gaps, page
+    one carries the "possible solutions" panel across its foot instead of
+    the pathogen verdict, and the title says *lite*. Everything else on this
+    page applies to both.
+
 **Part A — at a glance** (sections 1–14, about 55 pages). Every reading as a
 graphic, nothing deep; the full organism list sits here because "what else is
 in there" is the question that follows "what is flagged".

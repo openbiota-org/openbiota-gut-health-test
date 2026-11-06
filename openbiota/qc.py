@@ -333,9 +333,19 @@ def profile_sample(
             f"  {label}: profiling {path.name} ({human_bytes(path.stat().st_size)})"
             + ("" if count_all else " (record count skipped)")
         )
-        profile, ids = profile_mate(
-            path, label, sample_reads=sample_reads, count_all=count_all, reporter=reporter
-        )
+        try:
+            profile, ids = profile_mate(
+                path, label, sample_reads=sample_reads, count_all=count_all, reporter=reporter
+            )
+        except (EOFError, gzip.BadGzipFile, OSError) as exc:
+            # A gzip that stops before its end-of-stream marker is a file
+            # that was cut short - a download that did not finish is the
+            # usual story - and deserves to be named as such rather than
+            # surfacing as a traceback from the decompressor.
+            raise InputError(
+                f"{path} is incomplete or damaged: {exc}. If it was downloaded, compare its "
+                "size with the provider's and download it again."
+            ) from exc
         profiles.append(profile)
         id_lists.append(ids)
         reporter.record(

@@ -57,7 +57,9 @@ def run_sample(sample: str, extra: tuple[str, ...], *, threads: int, lp_workers:
     r1, r2 = FASTQ_DIR / f"{sample}_1.fastq.gz", FASTQ_DIR / f"{sample}_2.fastq.gz"
     if not r1.is_file():
         sys.exit(f"{r1} not found: the sample reports are generated from the project's own reads")
-    cmd = [str(OPENBIOTA), "run", "--r1", str(r1), "--sample", sample,
+    # The published reports are the full report, said explicitly so a
+    # machine's state can never turn them into lite ones; and no viewer opens.
+    cmd = [str(OPENBIOTA), "run", "--r1", str(r1), "--sample", sample, "--mode", "full", "--no-open",
            "--threads", str(threads), "--lp-workers", str(lp_workers), *extra]
     if r2.is_file():
         cmd[4:4] = ["--r2", str(r2)]

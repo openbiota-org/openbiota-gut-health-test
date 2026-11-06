@@ -203,8 +203,11 @@ These are large: budget about 1.5 TB and most of a day.
 | `genome_lane` | `genome-lane` | sylph and the GTDB R232 species sketch | 50 GB |
 | `mycobiome_refs` | `mycobiome-refs` | the fungal references: EukDetect2, FungiGutDB, RefSeq fungal genomes, strain panels | 230 GB |
 
-Until a lane's references are present the report marks it *not assessed* and
-says why — never as a negative result. [Organism detection](EXPANDED_DETECTION.md)
+Until the full install is complete, `openbiota run` makes **lite** reports:
+the sections these lanes feed are left out entirely rather than printed as
+"not assessed", and `--mode full` refuses to start and says what is missing.
+Once it is complete, runs are full by default (at a terminal, you are asked).
+`openbiota install --full` is the same command from the program itself. [Organism detection](EXPANDED_DETECTION.md)
 describes the lanes and [`refs/MANIFEST.md`](https://github.com/openbiota-org/openbiota-gut-health-test/blob/main/refs/MANIFEST.md)
 lists what each one puts on disk.
 
@@ -280,11 +283,15 @@ one eight-million-pair sample at a time:
 | strain placement (full install) | +5–40 min | per clade, cached |
 | PDF | ~15 s | |
 
-So the first run of a sample on the standard install is about an hour on
-this machine and longer on a laptop, almost all of it the simulation; a
-repeat run is about five minutes. The standard install's run ends with the
-completeness census listing the full-install lanes as *not installed*, in
-red, and exits non-zero — see the [Quickstart](QUICKSTART.md#step-3-run).
+So the first **lite** run of a sample on the standard install is about an
+hour on this machine and longer on a laptop, almost all of it the
+simulation; a repeat run is about five minutes. A **full** run adds the
+lanes below: two to three hours the first time, about ten minutes again.
+The run's closing census asks only about the stages its mode promises — a
+lite run that completes every lite stage ends green and exits 0 — and
+records the mode and the stages it did not attempt in `results.json`
+(`run.completeness`). See the [Quickstart](QUICKSTART.md#step-3-run) for
+the two modes side by side.
 
 Every run records its own peak memory in `results.json` (`run.resources`):
 the pipeline process peaks at 12–14 GB and the largest child process (the

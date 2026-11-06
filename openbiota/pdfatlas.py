@@ -32,7 +32,6 @@ from reportlab.platypus import (
     Flowable,
     KeepInFrame,
     KeepTogether,
-    PageBreak,
     Spacer,
     Table,
     TableStyle,
@@ -44,6 +43,7 @@ from openbiota.pdflinks import (
     LinkedTable,
     Paragraph,
     RowLink,
+    SoftPageBreak,
     group_dest,
     linked_block,
     linked_cell,
@@ -140,7 +140,7 @@ def _chip(text: str, colour: colors.Color, bg: colors.Color, width: float, *, si
 def section_divider(story: list[Any], st: dict[str, ParagraphStyle], part: str, title: str, blurb: str,
                     *, contents: Sequence[str] = ()) -> None:
     """A big, bold divider between the two parts of the report."""
-    story.append(PageBreak())
+    story.append(SoftPageBreak())
     story.append(Spacer(1, 18 * mm))
     story.append(_p(part.upper(), st["kicker"]))
     story.append(_p(title, st["divider"]))
