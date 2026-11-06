@@ -12,7 +12,19 @@ VENV       := .venv
 # Tools the installer put under vendor/ (the conda fallback, the BLAST+
 # links) come first, exactly as they do for bin/openbiota, so make and the
 # launcher always run the same binary.
-export PATH := $(CURDIR)/vendor/bin:$(CURDIR)/vendor/conda/bin:$(PATH)
+export PATH := $(CURDIR)/vendor/bin:$(CURDIR)/vendor/conda/bin:$(CURDIR)/vendor/cargo/bin:$(CURDIR)/vendor/sylph/bin:$(HOME)/.cargo/bin:$(PATH)
+UNAME_S    := $(shell uname -s)
+UNAME_M    := $(shell uname -m)
+# The catalogue tools (MetaPhlAn 4.2, mOTUs 4, SingleM) all install on
+# 3.12 and 3.13; mOTUs needs at least 3.12. They used to get their own 3.9
+# and 3.12 interpreters, and Homebrew has since disabled python@3.9.
+CAT_PYTHON ?= $(shell for p in python3.13 python3.12; do command -v $$p >/dev/null 2>&1 && echo $$p && break; done)
+# A tool the recipe below needs. ./install.sh puts tools on the PATH through
+# Homebrew, apt/dnf or conda before calling make; this only checks, and on a
+# machine with Homebrew installs the formula as a convenience.
+define need
+command -v $(1) >/dev/null 2>&1 || ( command -v brew >/dev/null 2>&1 && HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_INSTALL_UPGRADE=1 brew install $(2) ) || ( echo "FATAL: $(1) is not installed. ./install.sh installs it; by hand: brew/apt/conda install $(2)"; exit 1 )
+endef
 PY         := $(VENV)/bin/python
 OPENBIOTA       := $(VENV)/bin/openbiota
 THREADS    ?= $(shell getconf _NPROCESSORS_ONLN 2>/dev/null || echo 8)
@@ -112,13 +124,13 @@ TRACS_COMMIT      ?= de9282a64fba8e3d4386ce114e50d55e7fddc440
 TRACS_REPORTS_VERSION ?= 1.1.3
 
 .DEFAULT_GOAL := run
-.PHONY: install install-full sample-reports tools-expanded refs-expanded refs-globdb-genomes expansion-cohorts expansion-crosswalks expansion-reconcile expansion extension-refs substrate-refs help setup doctor panels build-db cohort validate depth-check all smoke run compact json test lint clean clean-all profilers strain-tools strain-system-deps strain-tools-report strain-tools-lock refs-strain refs-strain-verify refs-ctnpc instrain kleborate-optional vendor-tools genome-lane mycobiome-refs
+.PHONY: install install-full sample-reports catalogue-tools catalogue-refs tools-expanded refs-expanded refs-globdb-genomes expansion-cohorts expansion-crosswalks expansion-reconcile expansion extension-refs substrate-refs help setup doctor panels build-db cohort validate depth-check all smoke run compact json test lint clean clean-all profilers strain-tools strain-system-deps strain-tools-report strain-tools-lock refs-strain refs-strain-verify refs-ctnpc instrain kleborate-optional vendor-tools genome-lane mycobiome-refs
 
 help:
 	@echo "OpenBiota Gut Health Test — targets"
 	@echo
 	@echo "  make install     everything, in one go (runs ./install.sh; see ./install.sh --help)"
-	@echo "  make install-full  the same plus every optional detection lane (~1.5 TB)"
+	@echo "  make install-full  the same plus the pathogen, mycobiome and strain lanes (~1.1 TB more)"
 	@echo
 	@echo "  make setup       create $(VENV) and install the package (editable)"
 	@echo "  make doctor      check dependencies, hardware and inputs"
@@ -131,15 +143,16 @@ help:
 	@echo "  make profilers   create .venv-mpa3 / .venv-mpa4 at pinned versions"
 	@echo "  make strain-tools install the strain, typing and comparison tools (pinned)"
 	@echo "  make strain-tools-lock  freeze the installed strain tools to a lockfile"
-	@echo "  make tools-expanded     install every pinned tool for expanded detection (spec 0.8.4) and lock versions"
-	@echo "  make refs-expanded      fetch every expanded reference once, verified and locked (resumable)"
+	@echo "  make catalogue-tools    the five 2025 catalogue lanes' tools (standard install)"
+	@echo "  make catalogue-refs     their references, ~190 GB on disk, verified and locked (resumable)"
+	@echo "  make tools-expanded     the full install's further tools (skani, fastANI, the PhyloPhlAn toolchain) and the tool lock"
+	@echo "  make refs-expanded      the old name of catalogue-refs"
 	@echo "  make expansion          crosswalks + supplement reconciliation + rescue panel (needs refs-expanded)"
 	@echo "  make refs-globdb-genomes fetch + unpack the 272 GB GlobDB genome archive (confirmation of GlobDB-native clusters)"
 	@echo "  make expansion-cohorts  build the expanded lanes' own reference populations for percentiles"
 	@echo "  make refs-strain fetch the strain/typing reference panels"
 	@echo "  make refs-strain-verify   check every strain/typing reference against its lock"
 	@echo "  make refs-ctnpc  delimit the CTnPc accessory region against the study's comparators"
-	@echo "  make genome-lane install sylph and fetch the GTDB R232 species sketch (20 GB)"
 	@echo "  make mycobiome-refs       fungal references for the mycobiome module (~90 GB, resumable, locked)"
 	@echo "  make extension-refs       metabolic model library and replay fixtures for model-assisted scenarios"
 	@echo "  make substrate-refs       substrate gene references for the synbiotic scenarios (one dated release)"
@@ -295,24 +308,6 @@ kleborate-optional:
 # conflicts with `proj` (both ship libproj.a), and resolving that would mean
 # unlinking a formula this project does not own. NCBI's own tarball avoids the
 # question entirely.
-## genome-lane: install Sylph and fetch the GTDB species sketch (20 GB)
-genome-lane:
-	@mkdir -p vendor refs/sylph/tax
-	@test -x vendor/sylph/bin/sylph && vendor/sylph/bin/sylph --version | grep -q "$(SYLPH_VERSION)" || ( \
-		echo "  building sylph $(SYLPH_VERSION) from source"; \
-		cargo install --git https://github.com/bluenote-1577/sylph --tag v$(SYLPH_VERSION) \
-			--root vendor/sylph sylph )
-	@$(VENV)/bin/python -c "import sylph_tax" 2>/dev/null || ( \
-		echo "  installing sylph-tax $(SYLPH_TAX_VERSION)"; \
-		$(VENV)/bin/pip install -q "git+https://github.com/bluenote-1577/sylph-tax@v$(SYLPH_TAX_VERSION)" )
-	@test -s refs/sylph/tax/gtdb_r232_metadata.tsv.gz || \
-		$(VENV)/bin/sylph-tax download --download-to refs/sylph/tax
-	@test -s refs/sylph/$(SYLPH_DB) || ( \
-		echo "  fetching $(SYLPH_DB) (20 GB, resumable)"; \
-		curl -sSL --retry 5 --retry-delay 10 -C - -o refs/sylph/$(SYLPH_DB).part "$(SYLPH_DB_URL)" && \
-		mv refs/sylph/$(SYLPH_DB).part refs/sylph/$(SYLPH_DB) )
-	@echo "  genome lane ready: sylph $(SYLPH_VERSION), $(SYLPH_DB), GTDB r232 taxonomy"
-
 ## mycobiome-refs: fungal references for the mycobiome module (~90 GB): EukDetect2 DB, FungiGutDB,
 ## CGF + RefSeq fungal genomes, strain-panel assemblies and isolate reads, decoys; then lock, sketch,
 ## species index and strain panels. Resumable; every file is hashed into refs/mycobiome/reference_lock.json.
@@ -576,41 +571,59 @@ MPA42_VENV   ?= .venv-mpa42
 MOTUS_VENV   ?= .venv-motus
 SINGLEM_VENV ?= .venv-singlem
 SPADES_VERSION ?= 4.3.0
+# The publisher ships a Linux build and an Intel macOS build (Apple silicon runs it under Rosetta).
+ifeq ($(UNAME_S),Darwin)
+SPADES_OS    := Darwin
+SPADES_ASSET := Darwin-x86_64
+else
+SPADES_OS    := Linux
+SPADES_ASSET := Linux
+endif
 
-tools-expanded: setup
-	@echo "expanded detection tools (pinned):"
-	@# aria2 gives the reference fetcher parallel range requests (a 290 GB archive in minutes, not hours)
-	@command -v aria2c >/dev/null 2>&1 || HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_INSTALL_UPGRADE=1 brew install aria2
-	@command -v seqkit >/dev/null 2>&1 || HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_INSTALL_UPGRADE=1 brew install seqkit
+## catalogue-tools: the tools behind the five 2025 catalogue lanes, pinned. Part of the
+## standard install: MetaPhlAn 4.2 (Jan26 SGB catalogue), mOTUs 4, SingleM, Kraken 2 /
+## Bracken (UHGG), sylph (GlobDB and GTDB sketches), and SPAdes for targeted assembly.
+catalogue-tools: setup
+	@echo "catalogue tools (pinned):"
+	@test -n "$(CAT_PYTHON)" || ( echo "FATAL: python 3.12 or newer is needed for the catalogue tools (./install.sh provides one)"; exit 1 )
+	@# aria2 gives the reference fetcher parallel range requests; seqkit serves the fetcher and the lanes.
+	@$(call need,aria2c,aria2)
+	@$(call need,seqkit,seqkit)
 	@# MetaPhlAn 4.2.6 from the GitHub tag (its setup.py still reports 4.2.5); Jun23's 4.1.1 env is untouched.
-	@test -x $(MPA42_VENV)/bin/metaphlan || ( python3.9 -m venv $(MPA42_VENV) && $(MPA42_VENV)/bin/pip install -q --upgrade pip && \
-		$(MPA42_VENV)/bin/pip install -q "metaphlan @ https://github.com/biobakery/MetaPhlAn/archive/refs/tags/4.2.6.tar.gz" )
-	@# mOTUs 4.1.0 needs python >= 3.12
-	@test -x $(MOTUS_VENV)/bin/motus || ( python3.12 -m venv $(MOTUS_VENV) && $(MOTUS_VENV)/bin/pip install -q --upgrade pip && \
-		$(MOTUS_VENV)/bin/pip install -q "motus-tool @ https://github.com/motu-tool/mOTUs/archive/refs/tags/4.1.0.tar.gz" )
-	@# SingleM 0.21.4 and its binary dependencies
-	@command -v orfm >/dev/null 2>&1 || HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_INSTALL_UPGRADE=1 brew install brewsci/bio/orfm
-	@test -x $$HOME/.cargo/bin/smafa || $$HOME/.cargo/bin/cargo install smafa
-	@test -x $$HOME/.cargo/bin/mfqe || $$HOME/.cargo/bin/cargo install mfqe
-	@test -x $(SINGLEM_VENV)/bin/singlem || ( python3.12 -m venv $(SINGLEM_VENV) && $(SINGLEM_VENV)/bin/pip install -q --upgrade pip && \
-		$(SINGLEM_VENV)/bin/pip install -q "singlem==0.21.4" )
-	@# Kraken2, Bracken, skani, fastANI, bwa
-	@for t in kraken2 bracken skani fastani bwa; do command -v $$t >/dev/null 2>&1 || command -v fastANI >/dev/null 2>&1 || \
-		HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_INSTALL_UPGRADE=1 brew install $$t; done
-	@# SPAdes (macOS binary release) for targeted assembly
-	@test -x vendor/SPAdes-$(SPADES_VERSION)-Darwin/bin/spades.py || ( mkdir -p vendor && \
-		curl -sSL --max-time 600 -o vendor/spades.tar.gz "https://github.com/ablab/spades/releases/download/v$(SPADES_VERSION)/SPAdes-$(SPADES_VERSION)-Darwin-x86_64.tar.gz" && \
+	@test -x $(MPA42_VENV)/bin/metaphlan || ( $(CAT_PYTHON) -m venv $(MPA42_VENV) && $(MPA42_VENV)/bin/pip install -q --upgrade pip && \
+		$(MPA42_VENV)/bin/pip install -q --prefer-binary "metaphlan @ https://github.com/biobakery/MetaPhlAn/archive/refs/tags/4.2.6.tar.gz" )
+	@# mOTUs 4.1.0 needs python >= 3.12 and bwa
+	@test -x $(MOTUS_VENV)/bin/motus || ( $(CAT_PYTHON) -m venv $(MOTUS_VENV) && $(MOTUS_VENV)/bin/pip install -q --upgrade pip && \
+		$(MOTUS_VENV)/bin/pip install -q --prefer-binary "motus-tool @ https://github.com/motu-tool/mOTUs/archive/refs/tags/4.1.0.tar.gz" )
+	@$(call need,bwa,bwa)
+	@# SingleM 0.21.4 and its binary dependencies (orfm; smafa and mfqe are Rust)
+	@$(call need,orfm,brewsci/bio/orfm)
+	@# Built into vendor/cargo, inside the project and on every PATH the project sets up.
+	@command -v smafa >/dev/null 2>&1 || ( $(call need,cargo,rust) && cargo install -q --root vendor/cargo smafa )
+	@command -v mfqe >/dev/null 2>&1 || ( $(call need,cargo,rust) && cargo install -q --root vendor/cargo mfqe )
+	@test -x $(SINGLEM_VENV)/bin/singlem || ( $(CAT_PYTHON) -m venv $(SINGLEM_VENV) && $(SINGLEM_VENV)/bin/pip install -q --upgrade pip && \
+		$(SINGLEM_VENV)/bin/pip install -q --prefer-binary "singlem==0.21.4" )
+	@# Kraken 2 and Bracken against UHGG
+	@$(call need,kraken2,kraken2)
+	@$(call need,bracken,bracken)
+	@# sylph, built from its tagged source: the lane's cache key includes the version.
+	@mkdir -p vendor
+	@test -x vendor/sylph/bin/sylph && vendor/sylph/bin/sylph --version | grep -q "$(SYLPH_VERSION)" || ( \
+		$(call need,cargo,rust) && echo "  building sylph $(SYLPH_VERSION) from source" && \
+		cargo install -q --git https://github.com/bluenote-1577/sylph --tag v$(SYLPH_VERSION) --root vendor/sylph sylph )
+	@$(VENV)/bin/python -c "import sylph_tax" 2>/dev/null || ( \
+		echo "  installing sylph-tax $(SYLPH_TAX_VERSION)"; \
+		$(VENV)/bin/pip install -q "git+https://github.com/bluenote-1577/sylph-tax@v$(SYLPH_TAX_VERSION)" )
+	@# SPAdes, for the targeted assembly of lineages no catalogue placed: the publisher's binary for this OS.
+	@test -x vendor/SPAdes-$(SPADES_VERSION)-$(SPADES_OS)/bin/spades.py || ( mkdir -p vendor && \
+		echo "  fetching SPAdes $(SPADES_VERSION) ($(SPADES_OS))" && \
+		curl -fsSL --retry 5 --max-time 900 -o vendor/spades.tar.gz "https://github.com/ablab/spades/releases/download/v$(SPADES_VERSION)/SPAdes-$(SPADES_VERSION)-$(SPADES_ASSET).tar.gz" && \
 		tar xzf vendor/spades.tar.gz -C vendor && rm -f vendor/spades.tar.gz )
-	@# PhyloPhlAn (inside StrainPhlAn) looks for raxmlHPC, blastn and makeblastdb by name.
-	@mkdir -p vendor/bin
-	@for f in mafft trimal brewsci/bio/raxml brewsci/bio/fasttree; do HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_INSTALL_UPGRADE=1 brew install $$f >/dev/null 2>&1 || true; done
-	@test -e vendor/bin/raxmlHPC || ln -sf /usr/local/bin/raxmlHPC-PTHREADS-SSE3 vendor/bin/raxmlHPC
-	@# relative links, so the checkout can be moved or renamed without breaking them
-	@test -e vendor/bin/blastn || ln -sf "../ncbi-blast-$(BLAST_VERSION)+/bin/blastn" vendor/bin/blastn
-	@test -e vendor/bin/makeblastdb || ln -sf "../ncbi-blast-$(BLAST_VERSION)+/bin/makeblastdb" vendor/bin/makeblastdb
-	@$(PY) scripts/lock_tools.py
+	@echo "  catalogue tools ready"
 
-refs-expanded: setup
+## catalogue-refs: the five lanes' references (~130 GB of downloads, ~190 GB on disk), verified,
+## locked and resumable. The GlobDB genome archive (272 GB) is not among them: see refs-globdb-genomes.
+catalogue-refs: catalogue-tools
 	@$(PY) scripts/fetch_expanded_refs.py --jobs 6
 	@# The Jan26 marker index (publisher-built bowtie2 shards, ~40 GB) is installed by MetaPhlAn itself.
 	@$(MPA42_VENV)/bin/metaphlan --install --index mpa_vJan26_CHOCOPhlAnSGB_202605 --db_dir refs/metaphlan4_db --nproc $(THREADS)
@@ -618,7 +631,35 @@ refs-expanded: setup
 	@test -d refs/motus/db || ( mkdir -p refs/motus/db && tar xzf refs/motus/db_mOTU.tar.gz -C refs/motus/db )
 	@# mOTUs checks for the marker its own downloader writes; ours was md5-verified by the fetcher.
 	@test -f refs/motus/db/db_mOTU/db_mOTU.downloaded || echo "downloaded by scripts/fetch_expanded_refs.py (Zenodo 20322482, md5 verified)" > refs/motus/db/db_mOTU/db_mOTU.downloaded
-	@echo "expanded references fetched; locks in refs/expanded/locks"
+	@# The GTDB species sketch for the whole-genome lane, and sylph-tax's taxonomy tables.
+	@mkdir -p refs/sylph/tax
+	@test -s refs/sylph/tax/gtdb_r232_metadata.tsv.gz || $(VENV)/bin/sylph-tax download --download-to refs/sylph/tax
+	@test -s refs/sylph/$(SYLPH_DB) || ( \
+		echo "  fetching $(SYLPH_DB) (20 GB, resumable)"; \
+		curl -sSL --retry 5 --retry-delay 10 -C - -o refs/sylph/$(SYLPH_DB).part "$(SYLPH_DB_URL)" && \
+		mv refs/sylph/$(SYLPH_DB).part refs/sylph/$(SYLPH_DB) )
+	@echo "catalogue references fetched; locks in refs/expanded/locks"
+
+## tools-expanded: everything beyond the catalogue tools that the full install's lanes use -
+## skani and fastANI (confirmation), the PhyloPhlAn toolchain behind StrainPhlAn - and the tool lock.
+tools-expanded: catalogue-tools
+	@echo "expanded detection tools (pinned):"
+	@$(call need,skani,skani)
+	@command -v fastANI >/dev/null 2>&1 || $(call need,fastani,fastani)
+	@# PhyloPhlAn (inside StrainPhlAn) looks for raxmlHPC, blastn and makeblastdb by name.
+	@mkdir -p vendor/bin
+	@for f in mafft trimal brewsci/bio/raxml brewsci/bio/fasttree; do command -v brew >/dev/null 2>&1 && HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_INSTALL_UPGRADE=1 brew install $$f >/dev/null 2>&1 || true; done
+	@test -e vendor/bin/raxmlHPC || for c in raxmlHPC-PTHREADS-SSE3 raxmlHPC-PTHREADS raxmlHPC; do \
+		p=$$(command -v $$c 2>/dev/null) && ln -sf "$$p" vendor/bin/raxmlHPC && break; done; true
+	@# relative links, so the checkout can be moved or renamed without breaking them
+	@test -e vendor/bin/blastn || ln -sf "../ncbi-blast-$(BLAST_VERSION)+/bin/blastn" vendor/bin/blastn
+	@test -e vendor/bin/makeblastdb || ln -sf "../ncbi-blast-$(BLAST_VERSION)+/bin/makeblastdb" vendor/bin/makeblastdb
+	@$(PY) scripts/lock_tools.py
+
+# The names these targets had before the catalogue lanes joined the standard install.
+refs-expanded: catalogue-refs
+genome-lane: catalogue-refs
+	@echo "  genome lane ready: sylph $(SYLPH_VERSION), $(SYLPH_DB), GTDB r232 taxonomy"
 
 expansion-crosswalks: setup
 	@$(PY) -m openbiota.expansion.crosswalk

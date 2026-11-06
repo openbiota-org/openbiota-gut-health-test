@@ -124,9 +124,14 @@ def test_the_gate_requires_every_new_lane_and_stage() -> None:
 
 def test_makefile_installs_and_locks_everything() -> None:
     mk = (REPO / "Makefile").read_text()
-    for target in ("tools-expanded:", "refs-expanded:", "expansion:", "expansion-crosswalks:", "expansion-reconcile:"):
+    # The catalogue lanes' tools and references are the standard install's
+    # (catalogue-tools / catalogue-refs); the rest of the expanded toolchain
+    # and the lock stay in tools-expanded. The old names remain as aliases.
+    for target in ("catalogue-tools:", "catalogue-refs:", "tools-expanded:", "refs-expanded:",
+                   "expansion:", "expansion-crosswalks:", "expansion-reconcile:"):
         assert target in mk
-    for tool in ("4.2.6", "mOTUs/archive/refs/tags/4.1.0", "singlem==0.21.4", "kraken2 bracken skani", "SPAdes", "lock_tools.py"):
+    for tool in ("4.2.6", "mOTUs/archive/refs/tags/4.1.0", "singlem==0.21.4", "need,kraken2", "need,bracken",
+                 "need,skani", "SPAdes", "lock_tools.py"):
         assert tool in mk, f"Makefile does not install/lock {tool}"
 
 

@@ -10,7 +10,7 @@ thing is:
 ```bash
 git clone https://github.com/openbiota-org/openbiota-gut-health-test
 cd openbiota-gut-health-test
-./install.sh                          # ~1 hour, mostly downloads; safe to re-run
+./install.sh                          # a few hours, mostly downloads (~190 GB); safe to re-run
 # copy SAMPLE_1.fastq.gz and SAMPLE_2.fastq.gz into fastq/SAMPLE/
 bin/openbiota run                     # asks full or lite → results/SAMPLE/SAMPLE_report.pdf, then opens it
 ```
@@ -59,9 +59,9 @@ Three things to know, and then you know enough:
 | | |
 |---|---|
 | A computer | A Mac (Intel or Apple silicon) or a Linux machine. 8 GB of memory is enough; more is faster. |
-| Free disk | About **20 GB** for the standard install, **on the computer's own disk** — your home folder is the right place. Not a network share and not an external drive formatted for Windows (exFAT/NTFS): `git clone` itself fails there with *unable to write file … Permission denied*, and the installer refuses to start. (The optional full install is about 1.5 TB; see the end of this page.) |
-| Internet | The installer downloads the reference databases once, roughly 3 GB. |
-| About an hour | Mostly waiting for downloads and one index build. You can leave it. |
+| Free disk | About **230 GB** for the standard install (190 GB of it reference catalogues), **on the computer's own disk** — your home folder is the right place. Not a network share and not an external drive formatted for Windows (exFAT/NTFS): `git clone` itself fails there with *unable to write file … Permission denied*, and the installer refuses to start. (The optional full install is about 1.3 TB more; see the end of this page.) |
+| Internet | The installer downloads the reference databases once, roughly 135 GB; every download resumes if it is interrupted. |
+| A few hours | Mostly waiting for downloads and two index builds. You can leave it and come back; it continues where it stopped. |
 | Your sample | **Two FASTQ files** from a shotgun-sequenced stool sample, usually named something like `SAMPLE_1.fastq.gz` and `SAMPLE_2.fastq.gz`. |
 
 The FASTQ files are the **raw reads**, not a PDF and not a 16S amplicon run.
@@ -92,7 +92,7 @@ What each line does:
    the terminal was in a network share or an external drive; type `cd ~`
    and run the line again.
 2. **`cd openbiota-gut-health-test`** moves into that folder.
-3. **`./install.sh`** does everything else, in eleven numbered steps with a
+3. **`./install.sh`** does everything else, in thirteen numbered steps with a
    progress bar:
 
    | | |
@@ -102,7 +102,8 @@ What each line does:
    | Builds the environments | the program itself and MetaPhlAn 3, each in its own folder inside the project; nothing else on your computer is changed |
    | Unpacks the reference data | 250 MB that came with the download: the ranges every reading is scored against, the reference cohort, the age model, and the protein references the search database is built from |
    | Downloads and builds the databases | the MetaPhlAn marker database (a 0.4 GB download, indexed to 3.5 GB), the protein search database (built locally), the metabolic model library |
-   | Builds the human-read filter | downloads the human genome and indexes it; this is the long step, an hour or so on a laptop. `./install.sh --skip-host-index` leaves it out; the report then cannot state the human DNA fraction, which for stool is usually under 1 %. |
+   | Builds the human-read filter | downloads the human genome and indexes it; an hour or so on a laptop. `./install.sh --skip-host-index` leaves it out; the report then cannot state the human DNA fraction, which for stool is usually under 1 %. |
+   | Installs the catalogue lanes | the five 2025 organism catalogues — MetaPhlAn 4, mOTUs 4, Kraken 2 / UHGG, SingleM, sylph / GlobDB — that name most of what lives in a gut: their tools, then about 130 GB of references (190 GB on disk). This is the long part, hours on a fast connection, and it resumes if interrupted. |
    | Checks everything | and prints the two steps left |
 
    Every step is skipped if it was already done, so if anything interrupts
@@ -185,9 +186,9 @@ about:
 
 | | full | lite |
 |---|---|---|
-| What it has | every section: the 485-target pathogen screen, the mycobiome, strain typing, the expanded organism catalogues, and everything in lite | your community and microbial groups, the organisms that need attention, 45 metabolite pathways, resemblance to published disease patterns, microbiome age, biofilm, the gut-skin axis, and what the research says you can do about each finding |
-| Needs | the full install (`openbiota install --full`: ~1.3 TB, most of a day) | the standard install |
-| First run of a sample, desktop | two to three hours | about an hour (most of it the metabolic-model simulation) |
+| What it has | every section: the 485-target pathogen screen, the mycobiome, strain typing and strain placement, and everything in lite | your community and microbial groups, every organism the five 2025 catalogues can name, the organisms that need attention, 45 metabolite pathways, resemblance to published disease patterns, microbiome age, biofilm, the gut-skin axis, and what the research says you can do about each finding |
+| Needs | the full install (`openbiota install --full`: ~1.1 TB more, most of a day) | the standard install |
+| First run of a sample, desktop | two and a half to three hours | one and a half to two hours (the catalogue lanes and the metabolic-model simulation) |
 | The same sample again | about ten minutes | about five minutes |
 
 `--mode full` or `--mode lite` answers in advance; without a terminal (a
@@ -219,12 +220,12 @@ PDF, `results.json` holds every number in it, machine-readable, and
 ## Optional: the full install
 
 The standard install produces the **lite** report: the complete picture of
-your community, pathways, disease patterns, microbiome age, the organisms
-that need attention and what the research says about them. The **full**
-report adds six further detection lanes — the 485-target pathogen screen,
-the mycobiome, strain placement, whole-genome and expanded-catalogue
-detection — which need about **1.3 TB** of reference data and most of a
-day to fetch and build. When you have the disk:
+your community — every organism the five 2025 catalogues can name — pathways,
+disease patterns, microbiome age, the organisms that need attention and what
+the research says about them. The **full** report adds the 485-target
+pathogen screen, the mycobiome, strain typing and placement, and the GlobDB
+genome archive that confirms its native clusters — about **1.1 TB** more
+reference data and most of a day to fetch and build. When you have the disk:
 
 ```bash
 bin/openbiota install --full          # the same as ./install.sh --full

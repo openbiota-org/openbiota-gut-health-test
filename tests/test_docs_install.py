@@ -60,7 +60,7 @@ def test_install_doc_describes_every_step_once():
         assert f"`{step}`" in INSTALL_DOC, f"docs/INSTALL.md does not describe the {step} step"
     # The numbered table counts the standard steps, and so does the quickstart.
     n_standard = len(re.search(r'^STANDARD_STEPS="([^"]+)"', INSTALL, re.M).group(1).split())
-    words = {11: "eleven", 10: "ten", 12: "twelve"}
+    words = {11: "eleven", 12: "twelve", 13: "thirteen", 14: "fourteen"}
     assert words[n_standard] in INSTALL_DOC
     assert words[n_standard] in QUICKSTART
 

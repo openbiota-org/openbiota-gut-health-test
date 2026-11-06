@@ -2240,6 +2240,26 @@ def _select_samples(args: argparse.Namespace) -> list[SampleInput]:
     )
 
 
+def _require_standard_install() -> None:
+    """Both reports need the standard install; say what is missing before an hour is spent."""
+    from openbiota import reportmode  # noqa: PLC0415
+
+    missing = reportmode.standard_install_missing()
+    if not missing:
+        return
+    print(
+        f"\nThe standard install is not complete on this machine: missing "
+        f"{', '.join(missing)}.\n`./install.sh` (or `openbiota install`) finishes it; it continues "
+        "where it stopped.",
+    )
+    if _interactive() and _ask("Run the installer now? [y/N] ").lower() in ("y", "yes"):
+        print("\nStarting ./install.sh. Run `openbiota run` again when it has finished.\n")
+        os.execv("/bin/bash", ["bash", str(REPO_ROOT / "install.sh")])
+    raise InputError(
+        f"the standard install is not complete (missing: {', '.join(missing)}); run ./install.sh"
+    )
+
+
 def _offer_full_install() -> None:
     """At a terminal, offer to start the full install; otherwise explain."""
     from openbiota import reportmode  # noqa: PLC0415
@@ -2306,6 +2326,7 @@ def _apply_mode(args: argparse.Namespace, *, allow_prompt: bool) -> str:
         reason = "chosen at the prompt"
     else:
         mode, reason = reportmode.resolve(None if requested == "auto" else requested)
+    _require_standard_install()   # exits or raises when something is missing
     if mode == "full" and reportmode.full_install_missing():
         _offer_full_install()   # exits or raises
     args.report_mode = mode
@@ -2726,9 +2747,10 @@ def cmd_run(
                     reporter.warn(f"strain typing failed: {exc}")
                 timings["strain typing"] = time.monotonic() - t1
 
-            # Expanded detection (spec 0.8.4): five more lanes over the same
-            # host-filtered reads. Each is its own stage and its own record;
-            # the inventory merges them, the completeness gate checks them.
+        # Expanded detection (spec 0.8.4): the five 2025 catalogue lanes over the
+        # same host-filtered reads, part of every report mode. They used to sit
+        # inside the Jun23 catalogue's gate; they do not depend on it.
+        if not getattr(args, "no_expanded_lanes", False):
             t1 = time.monotonic()
             try:
                 from openbiota.expansion import lanes as _lanes
@@ -2764,7 +2786,7 @@ def cmd_run(
         # for - whose abundances stay a secondary reading. Absence of the
         # tool or database records the lane as not assessed, never as zero.
         genome_profile = None
-        if not args.no_extended_catalogue:
+        if not getattr(args, "no_expanded_lanes", False):
             t1 = time.monotonic()
             try:
                 from openbiota.engines import sylph as sylph_mod
@@ -3234,7 +3256,7 @@ def cmd_run(
             from openbiota.expansion import strainphlan as _sp
 
             jan26_sam = out_dir / "strain" / f"{sample_input.sample}.jan26.markers.sam.bz2"
-            if _sp.available() and jan26_sam.is_file():
+            if not args.no_extended_catalogue and _sp.available() and jan26_sam.is_file():
                 with reporter.stage("comparative strain analysis (StrainPhlAn 4 / Jan26)"):
                     results_json["strain_analysis"] = _sp.run(
                         sample=str(sample_input.sample), sam=jan26_sam, db_dir=Path(args.refs_dir) / "metaphlan4_db",

@@ -54,7 +54,7 @@ jobs:
           fi
           shellcheck -s bash install.sh bin/openbiota
       - name: The installer, from a fresh clone
-        run: ./install.sh --only preflight,system,python,launcher,profiler,data --yes --no-path --skip-host-index --threads 2
+        run: ./install.sh --only preflight,system,python,launcher,profiler,data --yes --no-path --skip-host-index --skip-catalogues --threads 2
       - name: What it left behind
         run: |
           ./install.sh --list
@@ -65,7 +65,7 @@ jobs:
           .venv/bin/python -m openbiota.installcheck data
           for tool in diamond bowtie2 samtools fastp; do command -v "$tool"; done
       - name: Running it again changes nothing
-        run: ./install.sh --only system,python,launcher,profiler,data --yes --no-path --skip-host-index | tee /dev/stderr | grep -c "already done" | grep -qx 5
+        run: ./install.sh --only system,python,launcher,profiler,data --yes --no-path --skip-host-index --skip-catalogues | tee /dev/stderr | grep -c "already done" | grep -qx 5
       - name: The install log
         if: always()
         run: tail -n 60 install.log

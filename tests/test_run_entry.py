@@ -187,11 +187,18 @@ def test_one_sample_needs_no_question(tmp_path: Path, monkeypatch):
 # --------------------------------------------------------------------------- #
 
 
-def test_lite_switches_the_full_only_lanes_off(monkeypatch):
+@pytest.fixture(autouse=True)
+def _standard_install_present(monkeypatch):
+    """Unless a test says otherwise, the machine has the standard install."""
+    monkeypatch.setattr(reportmode, "standard_install_missing", lambda _repo=None: [])
+
+
+def test_lite_switches_the_full_only_lanes_off_and_keeps_the_catalogues(monkeypatch):
     monkeypatch.setattr(cli, "_interactive", lambda: False)
     args = _args(argv=["--mode", "lite"])
     assert cli._apply_mode(args, allow_prompt=True) == "lite"
     assert args.no_extended_catalogue and args.no_pathogens and args.no_mycobiome
+    assert not getattr(args, "no_expanded_lanes", False), "the catalogue lanes run in lite"
     # Settled once: a second call changes nothing.
     args.mode = "full"
     assert cli._apply_mode(args, allow_prompt=True) == "lite"
@@ -220,6 +227,13 @@ def test_full_without_the_install_is_refused_with_the_command(monkeypatch):
         cli._apply_mode(_args(argv=["--mode", "full"]), allow_prompt=True)
 
 
+def test_a_run_refuses_to_start_without_the_standard_install(monkeypatch):
+    monkeypatch.setattr(cli, "_interactive", lambda: False)
+    monkeypatch.setattr(reportmode, "standard_install_missing", lambda _repo=None: ["catalogue_refs"])
+    with pytest.raises(InputError, match="catalogue_refs"):
+        cli._apply_mode(_args(argv=["--mode", "lite"]), allow_prompt=True)
+
+
 def test_mode_of_reads_the_record_and_defaults_to_full():
     assert reportmode.mode_of({"run": {"report_mode": "lite"}}) == "lite"
     assert reportmode.mode_of({"run": {"report_mode": "FULL"}}) == "full"
@@ -236,6 +250,11 @@ def test_the_split_is_consistent():
     assert reportmode.omitted_sections("full") == frozenset()
     assert {"pathogens", "mycobiome", "strain_typing"} <= reportmode.FULL_ONLY_STAGES
     assert {"pathogens", "mycobiome", "strains"} <= reportmode.FULL_ONLY_SECTIONS
+    # The five 2025 catalogue lanes, the whole-genome profile, confirmation and
+    # assembly belong to every report: the standard install carries them.
+    for key in ("lane_jan26", "lane_globdb", "lane_motus", "lane_kraken", "lane_singlem",
+                "genome_profile", "confirmation", "assembly"):
+        assert key not in reportmode.FULL_ONLY_STAGES, key
 
 
 def test_the_census_asks_a_lite_run_only_about_lite_stages():
@@ -244,6 +263,7 @@ def test_the_census_asks_a_lite_run_only_about_lite_stages():
     assert lite.mode == "lite" and full.mode == "full"
     assert len(lite.stages) + len(lite.not_in_mode) == len(full.stages) == len(completeness.REQUIRED)
     assert "pathogen screen" in lite.not_in_mode
+    assert len(lite.not_in_mode) == 5 and len(lite.stages) == 19
     assert lite.to_json()["not_in_mode"] == lite.not_in_mode
 
 

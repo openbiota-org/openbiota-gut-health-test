@@ -113,7 +113,14 @@ def test_standard_steps_begin_with_preflight_and_end_with_check():
 def test_readiness_checks_cover_the_installed_pieces():
     assert set(installcheck.CHECKS) == {
         "python", "profiler", "data", "metaphlan_db", "diamond_db", "models", "host_index",
+        "catalogue_tools", "catalogue_refs",
     }
+    # Every standard step that produces something has a check with its name.
+    steps = set(_steps("STANDARD_STEPS")) - {"preflight", "system", "launcher", "check"}
+    assert steps == set(installcheck.CHECKS)
+    # A skipped host index is a supported choice and not a missing piece.
+    assert "host_index" not in installcheck.standard_missing(Path("/nonexistent"))
+    assert "catalogue_refs" in installcheck.standard_missing(Path("/nonexistent"))
 
 
 def test_full_install_checks_are_exactly_the_installers_full_steps():
@@ -126,10 +133,14 @@ def test_full_install_checks_are_exactly_the_installers_full_steps():
             f"done_{step} must ask openbiota.installcheck, not re-derive the answer")
 
 
-def test_every_full_check_answers_false_on_an_empty_folder(tmp_path: Path):
+def test_every_full_check_answers_false_on_an_empty_folder(tmp_path: Path, monkeypatch):
+    # The tool checks look at the PATH too; an empty PATH makes the folder the whole world.
+    monkeypatch.setenv("PATH", str(tmp_path))
     for name, check in installcheck.FULL_CHECKS.items():
         assert check(tmp_path) is False, name
     assert installcheck.full_missing(tmp_path) == list(installcheck.FULL_CHECKS)
+    assert installcheck.catalogue_tools(tmp_path) is False
+    assert installcheck.catalogue_refs(tmp_path) is False
 
 
 def test_substrate_check_rejects_a_web_page_standing_in_for_the_file(tmp_path: Path):
@@ -428,3 +439,27 @@ def test_make_install_runs_the_script_with_its_arguments():
     assert "./install.sh --skip-host-index" in proc.stdout
     proc = subprocess.run(["make", "-n", "install-full"], cwd=REPO, capture_output=True, text=True, check=False)
     assert "./install.sh --full" in proc.stdout
+
+
+def test_every_path_the_project_sets_up_agrees():
+    """The installer, the Makefile and the launcher put the same vendored
+    folders first on the PATH, so a tool found during the install is the
+    tool found at run time: vendor/bin, the conda fallback, the cargo-built
+    helpers (smafa, mfqe) and sylph."""
+    for text, name in ((INSTALL.read_text(), "install.sh"), ((REPO / "Makefile").read_text(), "Makefile"),
+                       (LAUNCHER.read_text(), "bin/openbiota")):
+        path_line = next(line for line in text.splitlines() if line.lstrip().startswith("export PATH"))
+        # install.sh spells the first two through its own variables.
+        spelled = path_line.replace("$VENDOR_BIN", "vendor/bin").replace("$CONDA/bin", "vendor/conda/bin")
+        for folder in ("vendor/bin", "vendor/conda/bin", "vendor/cargo/bin", "vendor/sylph/bin"):
+            assert folder in spelled, f"{name} does not put {folder} on the PATH: {path_line}"
+    mk = (REPO / "Makefile").read_text()
+    assert "--root vendor/cargo smafa" in mk and "--root vendor/cargo mfqe" in mk, "cargo tools must be built into the project"
+    assert "--root vendor/sylph sylph" in mk
+
+
+def test_rust_from_a_distribution_is_treated_as_absent_when_too_old():
+    text = INSTALL.read_text()
+    assert "RUST_MIN_MINOR=85" in text
+    assert re.search(r"^cargo_ok\(\)", text, re.M)
+    assert "cc cmake pkg-config" in text, "the Rust builds need a compiler and cmake first"

@@ -32,7 +32,7 @@ if [ ! -x "$repo/.venv/bin/openbiota" ]; then
     exit 1
 fi
 
-export PATH="$repo/vendor/bin:$repo/vendor/conda/bin:$PATH"
+export PATH="$repo/vendor/bin:$repo/vendor/conda/bin:$repo/vendor/cargo/bin:$repo/vendor/sylph/bin:$PATH"
 # Homebrew on Apple silicon is outside the default PATH of a fresh shell.
 [ -d /opt/homebrew/bin ] && export PATH="$PATH:/opt/homebrew/bin"
 

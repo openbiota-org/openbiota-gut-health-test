@@ -84,6 +84,62 @@ def host_index(repo: Path) -> bool:
     return host_index_ready(repo / "refs" / "host")
 
 
+def catalogue_tools(repo: Path) -> bool:
+    """The tools behind the five 2025 catalogue lanes and targeted assembly.
+
+    Each engine looks in its own place (a venv under the repository, then
+    the PATH); the same places are checked here, so a tool that came from
+    conda or the system counts.
+    """
+    import shutil  # noqa: PLC0415
+
+    def venv_or_path(venv: str, tool: str) -> bool:
+        return (repo / venv / "bin" / tool).exists() or shutil.which(tool) is not None
+
+    def vendored_or_path(sub: str, tool: str) -> bool:
+        return (repo / "vendor" / sub / "bin" / tool).exists() or shutil.which(tool) is not None
+
+    sylph = vendored_or_path("sylph", "sylph")
+    # SingleM runs these two through the PATH.
+    helpers = vendored_or_path("cargo", "smafa") and vendored_or_path("cargo", "mfqe")
+    sylph_tax = (repo / ".venv" / "bin" / "sylph-tax").exists() or shutil.which("sylph-tax") is not None
+    spades = any(repo.glob("vendor/SPAdes-*/bin/metaspades.py")) or shutil.which("metaspades.py") is not None
+    return all((
+        (repo / ".venv-mpa42" / "bin" / "metaphlan").exists(),   # the Jan26 lane looks only here
+        venv_or_path(".venv-motus", "motus"),
+        venv_or_path(".venv-singlem", "singlem"),
+        shutil.which("kraken2") is not None, shutil.which("bracken") is not None,
+        shutil.which("bwa") is not None, shutil.which("bowtie2") is not None,
+        sylph, sylph_tax, spades, helpers,
+    ))
+
+
+def catalogue_refs(repo: Path) -> bool:
+    """Every catalogue lane's references, by each engine's own readiness test."""
+    from openbiota.engines import (  # noqa: PLC0415
+        kraken,
+        metaphlan_jan26,
+        motus,
+        singlem,
+        sylph,
+        sylph_globdb,
+    )
+
+    refs = repo / "refs"
+    try:
+        return all((
+            metaphlan_jan26.database_ready(refs / "metaphlan4_db"),
+            motus.database_ready(refs),
+            kraken.database_ready(refs),
+            singlem.ensure_extracted(refs),
+            sylph_globdb.database_ready(refs),
+            (refs / "sylph" / sylph.DATABASE_FILE).is_file()
+            and (refs / "sylph" / "tax" / "gtdb_r232_metadata.tsv.gz").is_file(),
+        ))
+    except Exception:  # noqa: BLE001 - an unreadable reference is a missing one
+        return False
+
+
 #: The standard install: what a lite report needs.
 CHECKS: dict[str, Check] = {
     "python": python_env,
@@ -93,7 +149,19 @@ CHECKS: dict[str, Check] = {
     "diamond_db": diamond_db,
     "models": models,
     "host_index": host_index,
+    "catalogue_tools": catalogue_tools,
+    "catalogue_refs": catalogue_refs,
 }
+
+
+def standard_missing(repo: Path | None = None) -> list[str]:
+    """The standard-install pieces that are not present, in install order.
+
+    ``host_index`` is left out: the installer's --skip-host-index is a
+    supported choice and the run only loses the human-DNA fraction.
+    """
+    root = repo or REPO_ROOT
+    return [name for name, check in CHECKS.items() if name != "host_index" and not check(root)]
 
 
 # --------------------------------------------------------------------------- #
@@ -140,23 +208,25 @@ def substrate_refs(repo: Path) -> bool:
 
 
 def tools_expanded(repo: Path) -> bool:
-    return all((repo / env / "bin" / tool).exists() for env, tool in (
-        (".venv-mpa42", "metaphlan"), (".venv-motus", "motus"), (".venv-singlem", "singlem")))
+    """The full install's further tools: skani, fastANI and the PhyloPhlAn
+    toolchain StrainPhlAn needs (raxmlHPC, mafft, trimal, FastTree)."""
+    import shutil  # noqa: PLC0415
+
+    return all((
+        shutil.which("skani") is not None,
+        shutil.which("fastANI") is not None or shutil.which("fastani") is not None,
+        (repo / "vendor" / "bin" / "raxmlHPC").exists() or shutil.which("raxmlHPC") is not None,
+        shutil.which("mafft") is not None,
+    ))
 
 
-def refs_expanded(repo: Path) -> bool:
-    refs = repo / "refs"
-    return (refs / "motus" / "db").is_dir() and (refs / "kraken2").is_dir() and (
-        refs / "metaphlan4_db").is_dir()
+def globdb_genomes(repo: Path) -> bool:
+    """The 272 GB GlobDB genome archive, unpacked: what confirms GlobDB-native clusters."""
+    return (repo / "refs" / "globdb_r232" / "genomes" / "index.tsv").is_file()
 
 
 def expansion(repo: Path) -> bool:
     return (repo / "refs" / "expanded" / "reconciliation" / "summary.json").is_file()
-
-
-def genome_lane(repo: Path) -> bool:
-    return (repo / "vendor" / "sylph" / "bin" / "sylph").exists() and any(
-        (repo / "refs" / "sylph").glob("*.syl2db"))
 
 
 def mycobiome_refs(repo: Path) -> bool:
@@ -171,9 +241,8 @@ FULL_CHECKS: dict[str, Check] = {
     "pathogens": pathogens,
     "substrate_refs": substrate_refs,
     "tools_expanded": tools_expanded,
-    "refs_expanded": refs_expanded,
+    "globdb_genomes": globdb_genomes,
     "expansion": expansion,
-    "genome_lane": genome_lane,
     "mycobiome_refs": mycobiome_refs,
 }
 
@@ -205,7 +274,7 @@ def main(argv: list[str] | None = None) -> int:
         table = {**(CHECKS if args.all else {}), **(FULL_CHECKS if args.full else {})}
         for name, check in table.items():
             ready = check(args.repo)
-            print(f"  {name:<14}{'ready' if ready else 'MISSING'}")
+            print(f"  {name:<16}{'ready' if ready else 'MISSING'}")
             worst |= 0 if ready else 1
         return worst
     return 0 if ALL_CHECKS[args.name](args.repo) else 1

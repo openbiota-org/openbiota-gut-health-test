@@ -421,7 +421,7 @@ rest are the individual pieces and the everyday runs.
 
 ```
 make install     everything, in one go (runs ./install.sh; see ./install.sh --help)
-make install-full  the same plus every optional detection lane (~1.5 TB)
+make install-full  the same plus the pathogen, mycobiome and strain lanes (~1.1 TB more)
 make setup       create .venv and install
 make doctor      check dependencies, hardware and inputs
 make panels      list pathways

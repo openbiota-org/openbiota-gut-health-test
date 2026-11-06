@@ -1,13 +1,14 @@
 """Full and lite: the two reports this software produces.
 
-The standard install (``./install.sh``) provides everything for a **lite**
-report: the community, the microbial groups, the organisms that need
-attention, the metabolite pathways, the disease-pattern resemblance, the
-microbiome age, biofilm, the gut-skin axis and what the research says
-about each finding. The **full** install (``./install.sh --full``, about
-1.3 TB of reference data) adds six detection lanes and the sections that
-need them: the pathogen screen, the mycobiome, strain typing and the
-expanded organism catalogues.
+The standard install (``./install.sh``, about 190 GB) provides everything
+for a **lite** report: the community, the microbial groups, the organisms
+that need attention - named across the five 2025 catalogue lanes (MetaPhlAn
+4 Jan26, mOTUs 4, Kraken 2 / UHGG, SingleM, sylph / GlobDB) - the metabolite
+pathways, the disease-pattern resemblance, the microbiome age, biofilm, the
+gut-skin axis and what the research says about each finding. The **full**
+install (``./install.sh --full``, about 1.1 TB more) adds the pathogen
+screen, the mycobiome, strain typing and placement, and the GlobDB genome
+archive that confirms GlobDB-native clusters.
 
 Before this module existed a run on the standard install attempted every
 lane, printed "not installed" for the ones it lacked, rendered whole
@@ -17,7 +18,7 @@ lanes are not attempted, their sections are not rendered, the remaining
 sections are numbered contiguously, and the completeness census asks only
 about the stages lite promises. In full mode everything is required, and a
 run refuses to start on a machine that does not have the full install
-rather than spend an hour producing an incomplete report.
+rather than spend hours producing an incomplete report.
 
 One module defines the split so the pipeline, the census and the PDF
 cannot disagree about it.
@@ -35,9 +36,11 @@ MODES: Final = ("full", "lite")
 #: Census stage keys (see :mod:`openbiota.completeness`) that only the full
 #: install can satisfy. Everything else is required in both modes.
 FULL_ONLY_STAGES: Final = frozenset({
-    "extended_catalogue", "genome_profile", "strain_typing", "pathogens", "mycobiome",
-    "lane_jan26", "lane_globdb", "lane_motus", "lane_kraken", "lane_singlem",
-    "strain_analysis",
+    # The Jun23 catalogue and the marker-consensus strain typing built on it,
+    # StrainPhlAn placement, the pathogen screen and the mycobiome. The five
+    # 2025 catalogue lanes, the whole-genome profile, confirmation and
+    # targeted assembly are part of every report.
+    "extended_catalogue", "strain_typing", "strain_analysis", "pathogens", "mycobiome",
 })
 
 #: Report sections (keys of ``pdfreport.SECTIONS``) that exist only in a
@@ -63,22 +66,23 @@ class Mode:
 FULL: Final = Mode(
     "full",
     "every section",
-    "the pathogen screen (485 targets), the mycobiome, strain typing, the expanded "
-    "organism catalogues (five more detection lanes), plus everything in lite",
-    "two to three hours", "about ten minutes",
+    "the pathogen screen (485 targets), the mycobiome, strain typing and strain placement, "
+    "plus everything in lite",
+    "two and a half to three hours", "about ten minutes",
 )
 LITE: Final = Mode(
     "lite",
     "the standard install's report",
-    "your community and microbial groups, the organisms that need attention, 45 metabolite "
-    "pathways, resemblance to published disease patterns, microbiome age, biofilm, the gut-skin "
-    "axis, and what the research says you can do about each finding",
-    "about an hour", "about five minutes",
+    "your community and microbial groups, every organism the five 2025 catalogues can name, "
+    "the organisms that need attention, 45 metabolite pathways, resemblance to published disease "
+    "patterns, microbiome age, biofilm, the gut-skin axis, and what the research says you can do "
+    "about each finding",
+    "one and a half to two hours", "about five minutes",
 )
 BY_NAME: Final = {FULL.name: FULL, LITE.name: LITE}
 
-#: What the full install costs, for the prompt that offers it.
-FULL_INSTALL_COST: Final = "about 1.3 TB of reference data and most of a day"
+#: What the full install costs beyond the standard one, for the prompt that offers it.
+FULL_INSTALL_COST: Final = "about 1.1 TB more reference data and most of a day"
 
 
 def excluded_stages(mode: str) -> frozenset[str]:
@@ -89,6 +93,13 @@ def excluded_stages(mode: str) -> frozenset[str]:
 def omitted_sections(mode: str) -> frozenset[str]:
     """Section keys a report in this mode does not carry."""
     return FULL_ONLY_SECTIONS if mode == "lite" else frozenset()
+
+
+def standard_install_missing(repo: Path | None = None) -> list[str]:
+    """The standard-install pieces this machine lacks; empty when complete."""
+    from openbiota.installcheck import standard_missing  # noqa: PLC0415
+
+    return standard_missing(repo)
 
 
 def full_install_missing(repo: Path | None = None) -> list[str]:

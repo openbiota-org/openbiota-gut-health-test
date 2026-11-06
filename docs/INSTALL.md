@@ -19,10 +19,10 @@ which explains the three lines above from the beginning.
 | | Standard install | Full install (`--full`) |
 |---|---|---|
 | Operating system | macOS 13 or newer (Intel or Apple silicon), or Linux (Debian, Ubuntu, Fedora; anything else via the conda fallback) | the same; the full lanes are built and tested on macOS, best-effort on Linux |
-| Disk | ~20 GB (~10 GB with `--skip-host-index`) | ~1.5 TB |
+| Disk | ~230 GB, 190 GB of it the five catalogue lanes' references (~220 GB with `--skip-host-index`) | ~1.5 TB |
 | Memory | 8 GB; 16 GB or more is faster | 32 GB (the Kraken 2 lane loads a 19 GB database) |
-| Time | about an hour, mostly downloads | most of a day |
-| Network | once, for the reference downloads; runs are offline afterwards | a fast connection; files over 1 GB are fetched with parallel range requests |
+| Time | a few hours, mostly downloads; resumable | most of a day |
+| Network | once, about 135 GB of reference downloads; runs are offline afterwards | a fast connection; files over 1 GB are fetched with parallel range requests |
 | Privileges | your own user. The installer asks for your password once, to install the command-line tools through Homebrew or `apt`/`dnf`. It never needs root itself and refuses to run as root on macOS. | the same |
 
 Nothing is installed outside the project folder except those command-line
@@ -34,7 +34,7 @@ skips both). Deleting the project folder removes everything else.
 
 ## What the installer does
 
-`./install.sh` runs eleven steps, each of which first checks whether its
+`./install.sh` runs thirteen steps, each of which first checks whether its
 work is already done and skips it if so. That is what makes it safe to run
 again after an interruption, and what makes `./install.sh --list` a true
 report of the state of the machine.
@@ -42,7 +42,7 @@ report of the state of the machine.
 | # | Step | What it produces | Skipped when |
 |---|---|---|---|
 | 1 | `preflight` | nothing; it checks the OS, that the folder is on a local filesystem that can hold symbolic links (not a network share or a Windows-formatted drive), free disk, memory, network and write access, and on a Mac the Xcode command-line tools and Homebrew | never |
-| 2 | `system` | `git`, `curl`, Python 3.11+, `diamond`, `bowtie2`, `samtools`, `fastp` (and `pigz` if available) | all are on the `PATH` |
+| 2 | `system` | `git`, `curl`, `bzip2`, Python 3.11+, `diamond`, `bowtie2`, `samtools`, `fastp` (and `pigz` if available) | all are on the `PATH` |
 | 3 | `python` | `.venv/` with `openbiota` installed in editable mode | `.venv/bin/openbiota` imports |
 | 4 | `launcher` | `bin/openbiota` executable; `~/.local/bin/openbiota` linked to it; `~/.local/bin` on the `PATH` | the link and the `PATH` line exist |
 | 5 | `profiler` | `.venv-mpa3/` with MetaPhlAn 3.1.0 — the scoring lane, pinned because the reference cohort was profiled with it | it reports that version |
@@ -51,7 +51,9 @@ report of the state of the machine.
 | 8 | `diamond_db` | `refs/db/<fingerprint>/` — every panel's reference proteins, from the cached UniProt responses, indexed by DIAMOND (about two minutes). The fingerprint includes the DIAMOND version, so this is always built on the machine that will use it | the fingerprinted index exists |
 | 9 | `models` | MICOM, an open LP solver and the AGORA2 species-model library under `refs/micom/` (~300 MB), for the synbiotic scenarios | the library and the pinned fixtures are present |
 | 10 | `host_index` | `refs/host/` — GRCh38 + PhiX as a Bowtie2 index. Downloads the human genome (0.9 GB) and indexes it: about an hour on a desktop, longer on a laptop | the index is complete, or `--skip-host-index` |
-| 11 | `check` | nothing; it runs `openbiota doctor`, imports the report modules and re-asks every readiness question | never |
+| 11 | `catalogue_tools` | the five 2025 catalogue lanes' tools: MetaPhlAn 4.2 (`.venv-mpa42`), mOTUs 4 (`.venv-motus`), SingleM (`.venv-singlem`) on the project's own Python 3.12+; Kraken 2 and Bracken, bwa, orfm, aria2, seqkit; sylph, smafa and mfqe built from their pinned sources (which is why a C compiler, cmake and Rust 1.85+ are put in place first — Debian and Ubuntu's packaged Rust is too old, so Rust comes from conda-forge there); sylph-tax; SPAdes for targeted assembly | each tool answers |
+| 12 | `catalogue_refs` | their references: the MetaPhlAn Jan26 SGB index (~60 GB built), mOTUs 4, Kraken 2 / UHGG v2.0.2, the SingleM GlobDB metapackage, the GlobDB and GTDB sylph sketches — about 130 GB of downloads, 190 GB on disk, each checksummed and locked under `refs/expanded/locks/`; resumable | every lane's own readiness test passes |
+| 13 | `check` | nothing; it runs `openbiota doctor`, imports the report modules and re-asks every readiness question | never |
 
 Readiness is decided by the pipeline, not guessed by the script:
 `python -m openbiota.installcheck --all` prints the same table the installer
@@ -92,6 +94,7 @@ was during the install.
 |---|---|
 | `--full` | also run the full-install steps below |
 | `--skip-host-index` | leave out step 10 (saves ~7 GB and an hour; the report then cannot state the human DNA fraction) |
+| `--skip-catalogues` | leave out steps 11 and 12 (~190 GB). The install is then ~20 GB but **cannot make a report** — `openbiota run` says so and offers to finish the install — so this is for staging a machine, not for using one |
 | `--no-path` | do not link `openbiota` into `~/.local/bin` or touch the shell start-up file |
 | `--only STEP[,STEP]` / `--skip STEP[,STEP]` | run a subset of the steps |
 | `--threads N` | CPU threads for the builds (default: all) |
@@ -184,23 +187,22 @@ bin/openbiota doctor                        # tools, hardware, inputs
 
 ## The full install
 
-`./install.sh --full` continues past the standard eleven steps with the
+`./install.sh --full` continues past the standard thirteen steps with the
 optional detection lanes. Each is a `Makefile` target, so every pinned
 version lives in one place (`make help` lists them), and each is resumable.
-These are large: budget about 1.5 TB and most of a day.
+These are large: budget about 1.5 TB in all and most of a day.
 
 | Step | `make` target | Adds | Size |
 |---|---|---|---|
-| `profiler4` | `profilers` | MetaPhlAn 4.1.1 in `.venv-mpa4` — the extended SGB catalogue | the Jun23 index is fetched on first use, ~25 GB |
+| `profiler4` | `profilers` | MetaPhlAn 4.1.1 in `.venv-mpa4` — the Jun23 SGB catalogue, whose marker consensus is what strain typing reads | the Jun23 index is fetched on first use, ~25 GB |
 | `vendor_tools` | `vendor-tools` | BLAST+, AMRFinderPlus and StxTyper under `vendor/` | 2 GB |
 | `strain_tools` | `strain-tools` | ECTyper, StrainGE, MIDAS, SameStr, TRACS, inStrain, Kleborate in their own environments | 5 GB |
 | `refs_strain` | `refs-strain` | the strain and typing reference panels, lock-verified | 1 GB |
 | `pathogens` | `tools/build_pathogen_bundle.py` | the 485-target pathogen screen: 377 NCBI genomes, k-mer ownership against human and food-animal decoys, a competitive Bowtie2 index | 130 GB, the heaviest build |
-| `substrate_refs` | `substrate-refs` | the dbCAN snapshot behind the substrate panel | 2 GB |
-| `tools_expanded` | `tools-expanded` | sylph, mOTUs 4, Kraken 2, Bracken, SingleM, SPAdes, MetaPhlAn 4.2 | 3 GB |
-| `refs_expanded` | `refs-expanded` | the expanded references: MetaPhlAn Jan26, mOTUs, Kraken 2 UHGG, SingleM, GTDB, GlobDB r232 | ~800 GB |
-| `expansion` | `expansion` | GTDB crosswalks and the supplement reconciliation | minutes |
-| `genome_lane` | `genome-lane` | sylph and the GTDB R232 species sketch | 50 GB |
+| `substrate_refs` | `substrate-refs` | the dbCAN mapping behind the substrate panel | 120 MB |
+| `tools_expanded` | `tools-expanded` | skani and fastANI for confirmation, the PhyloPhlAn toolchain (raxmlHPC, mafft, trimal, FastTree) for StrainPhlAn, and the tool lock | 1 GB |
+| `globdb_genomes` | `refs-globdb-genomes` | the GlobDB r232 genome archive, which is what competitively confirms GlobDB-native clusters | 272 GB download, ~545 GB unpacked |
+| `expansion` | `expansion` | GTDB crosswalks and the supplement reconciliation (shipped in `data/`; this recomputes them) | minutes |
 | `mycobiome_refs` | `mycobiome-refs` | the fungal references: EukDetect2, FungiGutDB, RefSeq fungal genomes, strain panels | 230 GB |
 
 Until the full install is complete, `openbiota run` makes **lite** reports:
@@ -286,7 +288,7 @@ one eight-million-pair sample at a time:
 So the first **lite** run of a sample on the standard install is about an
 hour on this machine and longer on a laptop, almost all of it the
 simulation; a repeat run is about five minutes. A **full** run adds the
-lanes below: two to three hours the first time, about ten minutes again.
+lanes below: two and a half to three hours the first time, about ten minutes again.
 The run's closing census asks only about the stages its mode promises — a
 lite run that completes every lite stage ends green and exits 0 — and
 records the mode and the stages it did not attempt in `results.json`

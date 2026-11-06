@@ -27,13 +27,13 @@ metagenomes, and every number traces back to the reads that produced it.
 ```bash
 git clone https://github.com/openbiota-org/openbiota-gut-health-test
 cd openbiota-gut-health-test
-./install.sh                      # one command: tools, environments, reference data (~1 h, resumable)
+./install.sh                      # one command: tools, environments, reference data (~190 GB; hours, resumable)
 # copy SAMPLE_1.fastq.gz and SAMPLE_2.fastq.gz into fastq/SAMPLE/
 bin/openbiota run                 # → results/SAMPLE/SAMPLE_report.pdf, opened when done
 ```
 
 Never used a terminal? The [Quickstart](docs/QUICKSTART.md) starts from
-opening one. `./install.sh --full` adds the optional detection lanes (~1.5 TB).
+opening one. `./install.sh --full` adds the pathogen screen, the mycobiome and strain typing (~1.1 TB more).
 
 <p align="center">
   <img src="docs/images/em1/organisms-page.png" width="24%" alt="Organisms that need attention in the broadly disturbed report: overgrown, missing, low">
@@ -280,7 +280,7 @@ openbiota run                          # the one sample in ./fastq (asks which, 
 openbiota run fastq/my-sample          # a sample's folder, or its two FASTQ files
 openbiota run --mode lite              # the standard install's report, no questions
 openbiota run --mode full              # every section; needs the full install
-openbiota install --full               # add the full install's detection lanes (~1.3 TB)
+openbiota install --full               # add the pathogen, mycobiome and strain lanes (~1.1 TB more)
 openbiota run-all                      # every sample, plus comparison.json
 openbiota run --subsample 100000       # 17-second smoke test
 openbiota run --compact                # one-screen answer

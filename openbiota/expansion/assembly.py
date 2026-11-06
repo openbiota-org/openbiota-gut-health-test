@@ -37,7 +37,29 @@ from pathlib import Path
 from typing import Any, Final
 
 MIN_CONTIG: Final = 2_000
-SPADES: Final = Path("vendor/SPAdes-4.3.0-Darwin/bin/metaspades.py")
+SPADES_VERSION: Final = "4.3.0"
+
+
+def _spades() -> Path:
+    """metaSPAdes: the publisher's build for this OS under vendor/, else one on the PATH.
+
+    The Makefile unpacks ``SPAdes-<version>-Darwin`` on macOS and
+    ``SPAdes-<version>-Linux`` on Linux; a conda or system install is
+    accepted too, so a Linux machine is not told the tool is missing because
+    it lives somewhere else.
+    """
+    import platform  # noqa: PLC0415
+    import shutil  # noqa: PLC0415
+
+    folder = "Darwin" if platform.system() == "Darwin" else "Linux"
+    vendored = Path(f"vendor/SPAdes-{SPADES_VERSION}-{folder}/bin/metaspades.py")
+    if vendored.is_file():
+        return vendored
+    found = shutil.which("metaspades.py")
+    return Path(found) if found else vendored
+
+
+SPADES: Final = _spades()
 TIME_BUDGET_S: Final = 2 * 3600
 MEMORY_GB: Final = 120
 

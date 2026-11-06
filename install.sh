@@ -29,14 +29,18 @@ MICROMAMBA_URL="https://micro.mamba.pm/api/micromamba"
 
 # Steps in the standard install, in order. Each is a pair of functions below:
 # done_<step> (0 when nothing is left to do) and run_<step>.
-STANDARD_STEPS="preflight system python launcher profiler data metaphlan_db diamond_db models host_index check"
+STANDARD_STEPS="preflight system python launcher profiler data metaphlan_db diamond_db models host_index catalogue_tools catalogue_refs check"
 # Added by --full. Each is a Makefile target, so the pinned versions live in
 # one place; these are the slow, large lanes and take most of a day.
-FULL_STEPS="profiler4 vendor_tools strain_tools refs_strain pathogens substrate_refs tools_expanded refs_expanded expansion genome_lane mycobiome_refs"
+FULL_STEPS="profiler4 vendor_tools strain_tools refs_strain pathogens substrate_refs tools_expanded globdb_genomes expansion mycobiome_refs"
 
 # Free disk each tier needs, in GB, with headroom for the downloads' temporaries.
-DISK_STANDARD_GB=20
-DISK_NO_HOST_GB=10
+# The standard install carries the five 2025 catalogue lanes (~190 GB of
+# references); --skip-catalogues leaves them out and with them the ability
+# to make any report, so it exists for staging an install, not for running.
+DISK_STANDARD_GB=230
+DISK_NO_HOST_GB=220
+DISK_NO_CATALOGUES_GB=20
 DISK_FULL_GB=1500
 
 # --------------------------------------------------------------------------- #
@@ -45,6 +49,7 @@ DISK_FULL_GB=1500
 
 FULL=0
 SKIP_HOST_INDEX=0
+SKIP_CATALOGUES=0
 NO_PATH=0
 FORCE=0
 ASSUME_YES=0
@@ -60,8 +65,12 @@ usage() {
     cat <<'EOF'
 usage: ./install.sh [options]
 
-  --full               also install every optional detection lane (~1.5 TB,
-                       most of a day; see docs/INSTALL.md for what each adds)
+  --full               also install the full report's lanes: the pathogen
+                       screen, the mycobiome, strain typing, the GlobDB genome
+                       archive (~1.1 TB more, most of a day; see docs/INSTALL.md)
+  --skip-catalogues    leave out the five 2025 catalogue lanes (~190 GB); the
+                       install is then ~20 GB but cannot make a report until
+                       they are added by running ./install.sh again
   --skip-host-index    leave out the human-read filter (saves ~7 GB and an
                        hour or more; the report then cannot state the human
                        DNA fraction, which for stool is usually under 1%)
@@ -91,11 +100,13 @@ Steps, in order:
                 UniProt responses; ~2 min)
   models        the metabolic model library for the synbiotic scenarios
   host_index    the human-genome read filter (7 GB download + build)
+  catalogue_tools  MetaPhlAn 4.2, mOTUs 4, SingleM, Kraken 2/Bracken, sylph, SPAdes
+  catalogue_refs   their references: ~130 GB of downloads, ~190 GB on disk
   check         verify every piece, end to end
 
 With --full, afterwards:
   profiler4 vendor_tools strain_tools refs_strain pathogens substrate_refs
-  tools_expanded refs_expanded expansion genome_lane mycobiome_refs
+  tools_expanded globdb_genomes expansion mycobiome_refs
 EOF
 }
 
@@ -103,6 +114,7 @@ while [ $# -gt 0 ]; do
     case "$1" in
         --full) FULL=1 ;;
         --skip-host-index) SKIP_HOST_INDEX=1 ;;
+        --skip-catalogues) SKIP_CATALOGUES=1 ;;
         --no-path) NO_PATH=1 ;;
         --only) shift; ONLY=${1:-}; [ -n "$ONLY" ] || { echo "--only needs a step name" >&2; exit 2; } ;;
         --only=*) ONLY=${1#--only=} ;;
@@ -143,7 +155,7 @@ mkdir -p "$VENDOR_BIN" "$REPO/refs" "$REPO/fastq" "$REPO/results"
 
 # Tools the installer puts under vendor/ win over whatever else is on PATH,
 # which is also what ./openbiota does, so the install and the run agree.
-export PATH="$VENDOR_BIN:$CONDA/bin:$PATH"
+export PATH="$VENDOR_BIN:$CONDA/bin:$REPO/vendor/cargo/bin:$REPO/vendor/sylph/bin:$PATH"
 export PIP_DISABLE_PIP_VERSION_CHECK=1
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_INSTALL_CLEANUP=1
@@ -341,6 +353,18 @@ memory_gb() {
     fi
 }
 
+# The newest python of at least MAJOR.MINOR on the machine, by command name.
+find_python_at_least() {
+    local major=$1 minor=$2 candidate
+    for candidate in python3.13 python3.12 python3.11 python3; do
+        if have "$candidate" && "$candidate" -c "import sys; raise SystemExit(0 if sys.version_info >= ($major, $minor) else 1)" 2>/dev/null; then
+            command -v "$candidate"
+            return 0
+        fi
+    done
+    return 1
+}
+
 # The newest python 3.11+ on the machine, by command name.
 find_python() {
     local candidate
@@ -361,9 +385,14 @@ find_python() {
 APT_UPDATED=0
 pkg_install() {
     # pkg_install NAME... (manager package names)
+    [ $# -gt 0 ] && [ -n "$1" ] || return 1
     [ $OFFLINE -eq 1 ] && { warn "offline: cannot install $*"; return 1; }
     case "$PKG" in
-        brew) run_logged "brew install $*" brew install "$@" ;;
+        brew)
+            run_logged "brew install $*" brew install "$@" && return 0
+            # bracken, orfm, raxml live in the brewsci/bio tap.
+            run_logged "brew tap brewsci/bio" brew tap brewsci/bio || true
+            run_logged "brew install $*" brew install "$@" ;;
         apt|dnf)
             # Ask for the password here, in the open, before the command's
             # output is sent to the log and the live status line would paint
@@ -398,6 +427,7 @@ ensure_micromamba() {
         *) return 1 ;;
     esac
     note "fetching micromamba so the missing tools can come from conda-forge/bioconda"
+    have bzip2 || pkg_install bzip2 || { warn "bzip2 is needed to unpack micromamba"; return 1; }
     local tmp="$REPO/vendor/.micromamba.tmp"
     rm -rf "$tmp"; mkdir -p "$tmp"
     download "$MICROMAMBA_URL/$platform/latest" "$tmp/mm.tar.bz2" || return 1
@@ -426,6 +456,16 @@ pkg_name_for() {
     local tool=$1
     case "$PKG:$tool" in
         apt:diamond) echo diamond-aligner ;;
+        brew:orfm) echo brewsci/bio/orfm ;;
+        apt:cc) echo build-essential ;;
+        dnf:cc) echo "gcc gcc-c++ make" ;;
+        apt:pkg-config) echo pkg-config ;;
+        dnf:pkg-config) echo pkgconf-pkg-config ;;
+        brew:cc) echo "" ;;   # the Xcode command line tools provide it; preflight checks them
+        brew:aria2c|apt:aria2c|dnf:aria2c) echo aria2 ;;
+        brew:cargo) echo rust ;;
+        apt:cargo) echo cargo ;;
+        dnf:cargo) echo cargo ;;
         apt:python) echo "python3 python3-venv python3-pip" ;;
         dnf:python) echo "python3 python3-pip" ;;
         brew:python) echo "python@3.13" ;;
@@ -436,8 +476,36 @@ pkg_name_for() {
 conda_name_for() {
     case "$1" in
         python) echo "python=3.12 pip" ;;
+        aria2c) echo aria2 ;;
+        cargo) echo rust ;;
+        cc) echo "c-compiler" ;;
         *) echo "$1" ;;
     esac
+}
+
+# conda-forge's compiler is installed under a target-prefixed name; the
+# plain `cc` the Rust linker asks for is a link in vendor/bin.
+link_conda_cc() {
+    have cc && return 0
+    local found=""
+    for found in "$CONDA"/bin/*-cc "$CONDA"/bin/gcc; do
+        [ -x "$found" ] && break
+        found=""
+    done
+    [ -n "$found" ] && ln -sf "$found" "$VENDOR_BIN/cc" && hash -r
+    have cc
+}
+
+# Rust: smafa, mfqe and sylph are built with cargo, and the two SingleM
+# helpers need the 2024 edition, Rust 1.85 or newer. Debian and Ubuntu ship
+# 1.75, so a distribution cargo is treated as absent and Rust comes from
+# conda-forge (or Homebrew, which is current).
+RUST_MIN_MINOR=85
+cargo_ok() {
+    local c v
+    c=$(command -v cargo 2>/dev/null || { [ -x "$HOME/.cargo/bin/cargo" ] && echo "$HOME/.cargo/bin/cargo"; }) || return 1
+    v=$("$c" --version 2>/dev/null | awk '{print $2}')
+    [ "$(printf '%s' "$v" | cut -d. -f1)" -ge 1 ] 2>/dev/null && [ "$(printf '%s' "$v" | cut -d. -f2)" -ge "$RUST_MIN_MINOR" ] 2>/dev/null
 }
 
 ensure_tool() {
@@ -445,6 +513,14 @@ ensure_tool() {
     local tool=$1
     if [ "$tool" = python ]; then
         find_python >/dev/null 2>&1 && return 0
+    elif [ "$tool" = cargo ]; then
+        cargo_ok && return 0
+        note "cargo is missing or older than 1.$RUST_MIN_MINOR"
+        if [ "$PKG" = brew ]; then pkg_install rust || true; cargo_ok && return 0; fi
+        conda_install rust || true
+        hash -r
+        cargo_ok && return 0
+        return 1
     else
         have "$tool" && return 0
     fi
@@ -458,6 +534,7 @@ ensure_tool() {
     conda_install $(conda_name_for "$tool") || true
     hash -r
     if [ "$tool" = python ]; then find_python >/dev/null 2>&1 && return 0; else have "$tool" && return 0; fi
+    [ "$tool" = cc ] && link_conda_cc && return 0
     return 1
 }
 
@@ -559,6 +636,7 @@ run_preflight() {
 
     local need free
     if [ $FULL -eq 1 ]; then need=$DISK_FULL_GB
+    elif [ $SKIP_CATALOGUES -eq 1 ]; then need=$DISK_NO_CATALOGUES_GB
     elif [ $SKIP_HOST_INDEX -eq 1 ]; then need=$DISK_NO_HOST_GB
     else need=$DISK_STANDARD_GB; fi
     free=$(free_gb)
@@ -599,7 +677,9 @@ online() {
 }
 
 # -- system ------------------------------------------------------------------
-SYSTEM_TOOLS="git curl python diamond bowtie2 samtools fastp"
+# bzip2 and tar are what the reference archives and micromamba arrive in; a
+# container image can lack bzip2.
+SYSTEM_TOOLS="git curl bzip2 python diamond bowtie2 samtools fastp"
 done_system() {
     local t py
     for t in $SYSTEM_TOOLS; do
@@ -849,6 +929,59 @@ run_host_index() {
     ok "human-read filter index"
 }
 
+# -- catalogue_tools -----------------------------------------------------------
+# The five 2025 catalogue lanes' tools. The Makefile target creates the three
+# Python environments (on the project's own 3.12+ interpreter), builds sylph
+# and fetches SPAdes; the system binaries it needs are put on the PATH here
+# first, by whatever route this machine has.
+# cc, cmake and pkg-config first: the Rust builds (sylph bundles a C library
+# built with cmake) need them, and a bare Linux image has none of them.
+CATALOGUE_TOOLS="cc cmake pkg-config kraken2 bracken bwa orfm aria2c seqkit cargo"
+done_catalogue_tools() {
+    [ $SKIP_CATALOGUES -eq 1 ] && return 0
+    ready catalogue_tools
+}
+run_catalogue_tools() {
+    if [ $SKIP_CATALOGUES -eq 1 ]; then note "skipped (--skip-catalogues)"; return 0; fi
+    [ $OFFLINE -eq 1 ] && die "offline: the catalogue tools are not installed"
+    have make || ensure_tool make || die "this step uses make"
+    local py
+    py=$(find_python_at_least 3 12) || {
+        note "the catalogue tools need python 3.12 or newer; fetching one from conda-forge"
+        conda_install "python=3.12" pip || die "could not provide python 3.12 (needed by mOTUs 4)"
+        hash -r
+        py=$(find_python_at_least 3 12) || die "python 3.12 is still not on the PATH"
+    }
+    local t
+    for t in $CATALOGUE_TOOLS; do
+        if [ "$t" = cargo ]; then
+            cargo_ok || ensure_tool cargo || die "could not provide Rust 1.$RUST_MIN_MINOR or newer (needed to build smafa, mfqe and sylph); see docs/INSTALL.md"
+        elif ! have "$t"; then
+            ensure_tool "$t" || die "could not install $t by any route (see docs/INSTALL.md)"
+        fi
+    done
+    run_logged "make catalogue-tools" make --no-print-directory catalogue-tools THREADS="$THREADS" CAT_PYTHON="$py" \
+        || fail_with_log "make catalogue-tools failed"
+    done_catalogue_tools || fail_with_log "a catalogue tool is still missing after installing (python -m openbiota.installcheck catalogue_tools)"
+    ok "MetaPhlAn 4.2, mOTUs 4, SingleM, Kraken 2, sylph and SPAdes"
+}
+
+# -- catalogue_refs ------------------------------------------------------------
+done_catalogue_refs() {
+    [ $SKIP_CATALOGUES -eq 1 ] && return 0
+    ready catalogue_refs
+}
+run_catalogue_refs() {
+    if [ $SKIP_CATALOGUES -eq 1 ]; then note "skipped (--skip-catalogues)"; return 0; fi
+    [ $OFFLINE -eq 1 ] && die "offline: the catalogue references are not installed"
+    note "about 130 GB of downloads (190 GB on disk): the MetaPhlAn Jan26 index, mOTUs, Kraken 2 / UHGG, SingleM, two sylph sketches"
+    note "hours on a fast connection; every file is checksummed and the step continues where it stopped"
+    run_logged "make catalogue-refs" make --no-print-directory catalogue-refs THREADS="$THREADS" \
+        || fail_with_log "make catalogue-refs failed (a dropped download is the usual cause; run ./install.sh again to resume)"
+    done_catalogue_refs || fail_with_log "a catalogue reference is still missing after fetching (python -m openbiota.installcheck catalogue_refs)"
+    ok "references for the five catalogue lanes"
+}
+
 # -- check -------------------------------------------------------------------
 done_check() { return 1; }   # always runs
 run_check() {
@@ -863,6 +996,13 @@ run_check() {
     for name in python profiler data metaphlan_db diamond_db models; do
         ready "$name" || { warn "$name is missing"; problems=1; }
     done
+    if [ $SKIP_CATALOGUES -eq 0 ]; then
+        for name in catalogue_tools catalogue_refs; do
+            ready "$name" || { warn "$name is missing"; problems=1; }
+        done
+    else
+        warn "the catalogue lanes were skipped: openbiota run will ask for them until ./install.sh is run again without --skip-catalogues"
+    fi
     if [ $SKIP_HOST_INDEX -eq 0 ]; then ready host_index || { warn "host index missing"; problems=1; }; fi
     "$VENV/bin/python" -m openbiota.installcheck --all >>"$LOG" 2>&1 || true
     if [ $FULL -eq 1 ]; then
@@ -908,13 +1048,14 @@ run_pathogens() {
 done_substrate_refs() { ready substrate_refs; }
 run_substrate_refs()  { make_step substrate-refs; ok "dbCAN substrate references"; }
 done_tools_expanded() { ready tools_expanded; }
-run_tools_expanded()  { make_step tools-expanded; ok "expanded detection tools"; }
-done_refs_expanded()  { ready refs_expanded; }
-run_refs_expanded()   { make_step refs-expanded; ok "expanded references"; }
+run_tools_expanded()  { make_step tools-expanded; ok "skani, fastANI and the PhyloPhlAn toolchain"; }
+done_globdb_genomes() { ready globdb_genomes; }
+run_globdb_genomes() {
+    note "the 272 GB GlobDB genome archive, unpacked to ~545 GB: what confirms GlobDB-native clusters"
+    make_step refs-globdb-genomes; ok "GlobDB genome archive"
+}
 done_expansion()      { ready expansion; }
 run_expansion()       { make_step expansion; ok "crosswalks and reconciliation"; }
-done_genome_lane()    { ready genome_lane; }
-run_genome_lane()     { make_step genome-lane; ok "sylph and the GTDB sketch"; }
 done_mycobiome_refs() { ready mycobiome_refs; }
 run_mycobiome_refs()  { make_step mycobiome-refs; ok "mycobiome references"; }
 
@@ -1043,10 +1184,11 @@ for step in $STEPS; do
         refs_strain) label="Strain references (full)" ;;
         pathogens) label="Pathogen reference bundle (full)" ;;
         substrate_refs) label="Substrate references (full)" ;;
-        tools_expanded) label="Expanded detection tools (full)" ;;
-        refs_expanded) label="Expanded references (full)" ;;
+        catalogue_tools) label="Catalogue lane tools" ;;
+        catalogue_refs) label="Catalogue lane references" ;;
+        tools_expanded) label="Further detection tools (full)" ;;
+        globdb_genomes) label="GlobDB genome archive (full)" ;;
         expansion) label="Crosswalks and reconciliation (full)" ;;
-        genome_lane) label="Whole-genome lane (full)" ;;
         mycobiome_refs) label="Mycobiome references (full)" ;;
     esac
     begin_step "$label"
