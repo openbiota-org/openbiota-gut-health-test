@@ -447,29 +447,24 @@ inflated in parallel. Nothing is ever decompressed to a file.
 
 ## Requirements
 
-Python 3.11+, DIAMOND 2.x, Bowtie2, ~30 GB for the core reference data
-(`make setup`, `make build-db`, `make cohort`).
+A Mac (Intel or Apple silicon) or a Linux machine, 8 GB of memory, and
+`./install.sh`, which installs everything below and checks it:
 
-For Part B: MetaPhlAn 3 in its own environment —
+| | Standard install → the **lite** report | Full install (`--full`) → the **full** report |
+|---|---|---|
+| Disk | ~230 GB, of which 190 GB are the five 2025 organism catalogues (MetaPhlAn 4 Jan26, mOTUs 4, Kraken 2 / UHGG, SingleM, sylph / GlobDB) | ~1.5 TB in all: adds the 485-target pathogen bundle, the mycobiome references and the GlobDB genome archive |
+| Tools | Python 3.12+, DIAMOND, Bowtie2, samtools, fastp, Kraken 2, Bracken, bwa, sylph, SPAdes — from Homebrew, apt/dnf or conda-forge, whichever the machine has | plus BLAST+, AMRFinderPlus, the strain-typing tools and the PhyloPhlAn toolchain |
+| Time | a few hours, mostly downloads; resumable | most of a day |
+| What the report has | community, every organism the 2025 catalogues name, microbial groups, the organisms that need attention, 45 pathways, disease patterns, microbiome age, biofilm, gut-skin axis, what the research says to do | all of that plus the pathogen screen, the mycobiome, strain typing and placement |
 
-```bash
-python3 -m venv .venv-mpa3 && .venv-mpa3/bin/pip install 'metaphlan==3.1.0'
-```
+MetaPhlAn 3 — version 3 specifically — remains the *scoring* lane in both,
+because the reference cohort and the GMWI2 index were built with it; the
+2025 catalogues decide who is named, not the scores. Every tool version and
+every reference file is pinned and checksummed (`refs/expanded/locks/`,
+`refs/MANIFEST.md`), and each `make` target the installer runs can be run
+on its own (`make help`).
 
-Version 3 specifically, because that is what the reference cohort and the
-GMWI2 index were built with. `openbiota run --no-profiles` skips all of it.
-
-For the full organism detection (nine methods, competitive confirmation,
-strain placement): `make tools-expanded` installs every pinned tool and
-`make refs-expanded` fetches and verifies every reference release; together
-they need about 1.3 TB of disk, most of it the GlobDB r232 genome archive
-(`make refs-globdb-genomes`). Every tool version and every reference file is
-locked with its checksum under `refs/expanded/`, and `refs/MANIFEST.md`
-lists what is on disk and how to rebuild it. A run without these installed
-still produces the report from the core lanes and says which methods did not
-run.
-
-About 2,500 tests, `make test`. No network access in the test suite.
+About 2,700 tests, `make test`. No network access and no FASTQ in the test suite.
 
 ---
 
