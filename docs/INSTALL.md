@@ -21,7 +21,7 @@ which explains the three lines above from the beginning.
 | Operating system | macOS 13 or newer (Intel or Apple silicon), or Linux (Debian, Ubuntu, Fedora; anything else via the conda fallback) | the same; the full lanes are built and tested on macOS, best-effort on Linux |
 | Disk | ~230 GB, 190 GB of it the five catalogue lanes' references (~220 GB with `--skip-host-index`) | ~1.5 TB |
 | Memory | 8 GB; 16 GB or more is faster | 32 GB (the Kraken 2 lane loads a 19 GB database) |
-| Time | a few hours, mostly downloads; resumable | most of a day |
+| Time | one to two hours: the human-genome index build (~50 min), the MetaPhlAn index build (~15 min), and downloads paced by the publishers' servers rather than your connection; resumable | most of a day |
 | Network | once, about 135 GB of reference downloads; runs are offline afterwards | a fast connection; files over 1 GB are fetched with parallel range requests |
 | Privileges | your own user. The installer asks for your password once, to install the command-line tools through Homebrew or `apt`/`dnf`. It never needs root itself and refuses to run as root on macOS. | the same |
 

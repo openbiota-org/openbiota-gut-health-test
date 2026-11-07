@@ -27,7 +27,7 @@ metagenomes, and every number traces back to the reads that produced it.
 ```bash
 git clone https://github.com/openbiota-org/openbiota-gut-health-test
 cd openbiota-gut-health-test
-./install.sh                      # one command: tools, environments, reference data (~190 GB; hours, resumable)
+./install.sh                      # one command: tools, environments, reference data (~190 GB; one to two hours, resumable)
 # copy SAMPLE_1.fastq.gz and SAMPLE_2.fastq.gz into fastq/SAMPLE/
 bin/openbiota run                 # → results/SAMPLE/SAMPLE_report.pdf, opened when done
 ```

@@ -975,7 +975,7 @@ run_catalogue_refs() {
     if [ $SKIP_CATALOGUES -eq 1 ]; then note "skipped (--skip-catalogues)"; return 0; fi
     [ $OFFLINE -eq 1 ] && die "offline: the catalogue references are not installed"
     note "about 130 GB of downloads (190 GB on disk): the MetaPhlAn Jan26 index, mOTUs, Kraken 2 / UHGG, SingleM, two sylph sketches"
-    note "hours on a fast connection; every file is checksummed and the step continues where it stopped"
+    note "paced by the publishers' servers, not your connection; every file is checksummed and the step continues where it stopped"
     run_logged "make catalogue-refs" make --no-print-directory catalogue-refs THREADS="$THREADS" \
         || fail_with_log "make catalogue-refs failed (a dropped download is the usual cause; run ./install.sh again to resume)"
     done_catalogue_refs || fail_with_log "a catalogue reference is still missing after fetching (python -m openbiota.installcheck catalogue_refs)"
