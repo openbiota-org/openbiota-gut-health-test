@@ -923,6 +923,7 @@ run_host_index() {
     if [ $SKIP_HOST_INDEX -eq 1 ]; then note "skipped (--skip-host-index)"; return 0; fi
     [ $OFFLINE -eq 1 ] && die "offline: the host index is not built and needs the GRCh38 download"
     note "downloads the human genome (0.9 GB) and indexes it; about an hour on a desktop, longer on a laptop"
+    note "bowtie2-build's memory grows with its threads; the build uses at most 8, fewer on a small machine, and retries with fewer if it is killed"
     run_logged "openbiota build-host-index" "$VENV/bin/openbiota" build-host-index --threads "$THREADS" \
         || fail_with_log "openbiota build-host-index failed"
     done_host_index || fail_with_log "the host index is not complete after building"

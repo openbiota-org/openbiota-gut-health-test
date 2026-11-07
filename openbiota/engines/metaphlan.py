@@ -208,15 +208,46 @@ def host_index_ready(host_dir: Path) -> bool:
     )
 
 
+#: bowtie2-build's memory grows with its thread count - roughly 2 GB per
+#: thread on GRCh38 on top of a ~4 GB base - and past eight threads the
+#: build barely gets faster. Thirty-two threads on a 62 GB machine was
+#: killed by the kernel ten minutes in, with nothing on stderr to say why.
+HOST_BUILD_MAX_THREADS: Final = 8
+HOST_BUILD_GB_PER_THREAD: Final = 2.5
+HOST_BUILD_BASE_GB: Final = 6.0
+
+_INDEX_SUFFIXES: Final = ("1", "2", "3", "4", "rev.1", "rev.2")
+
+
+def host_build_threads(requested: int, memory_bytes: int | None) -> int:
+    """How many threads bowtie2-build may use here without being killed."""
+    threads = max(1, min(requested, HOST_BUILD_MAX_THREADS))
+    if memory_bytes:
+        fits = int((memory_bytes / 1e9 - HOST_BUILD_BASE_GB) / HOST_BUILD_GB_PER_THREAD)
+        threads = max(1, min(threads, fits))
+    return threads
+
+
 def build_host_index(
     tools: MetaphlanTools, host_dir: Path, reporter: Reporter, *, threads: int = 8
 ) -> None:
-    """Download GRCh38 + PhiX and build the Bowtie2 host index (one-time, ~1 h)."""
+    """Download GRCh38 + PhiX and build the Bowtie2 host index (one-time, ~1 h).
+
+    The index is built under a temporary prefix and moved into place only
+    when bowtie2-build has finished, so a build that was killed - by the
+    out-of-memory killer, or by someone closing the terminal - can never
+    leave six truncated files behind that look like a finished index.
+    """
     from openbiota.net import download_to
+    from openbiota.search import platform_info
 
     host_dir.mkdir(parents=True, exist_ok=True)
     if host_index_ready(host_dir):
         return
+    # Not ready, so any host.*.bt2l here is what an earlier, interrupted
+    # build left under the final name; the finished index replaces them all.
+    for stale in host_dir.glob("host.*.bt2l"):
+        stale.unlink(missing_ok=True)
     fasta = host_dir / "host.fna"
     if not fasta.is_file():
         reporter.info("  downloading GRCh38 (~900 MB) and PhiX for host filtering (one-time)")
@@ -230,17 +261,60 @@ def build_host_index(
             for part in parts:
                 with gzip.open(part, "rb") as handle:
                     shutil.copyfileobj(handle, out, 1 << 22)
+
+    memory = platform_info().memory_bytes or None
+    use = host_build_threads(threads, memory)
+    mem_note = f"{memory / 1e9:.0f} GB of memory" if memory else "memory unknown"
+    if use < threads:
+        reporter.info(
+            f"  bowtie2-build with {use} thread{'s' if use != 1 else ''} rather than {threads}: "
+            f"its memory grows with the thread count and this machine has {mem_note}"
+        )
     reporter.info("  building Bowtie2 host index (one-time; this takes a while)")
     started = time.monotonic()
-    result = subprocess.run(
-        [tools.bowtie2_build, "--threads", str(threads), "--large-index",
-         str(fasta), str(host_dir / "host")],
-        capture_output=True, text=True, check=False,
-    )
-    if result.returncode != 0 or not host_index_ready(host_dir):
-        raise OpenBiotaError(f"bowtie2-build failed:\n{result.stderr[-2000:]}")
-    fasta.unlink(missing_ok=True)
-    reporter.ok(f"host index built in {human_duration(time.monotonic() - started)}")
+    temp_prefix = host_dir / "building"
+    for attempt, n_threads in enumerate((use, max(1, use // 4)), start=1):
+        _discard_partial_index(host_dir, temp_prefix)
+        result = subprocess.run(
+            [tools.bowtie2_build, "--threads", str(n_threads), "--large-index",
+             str(fasta), str(temp_prefix)],
+            capture_output=True, text=True, check=False,
+        )
+        elapsed = human_duration(time.monotonic() - started)
+        if result.returncode == 0 and all(
+            (host_dir / f"building.{s}.bt2l").is_file() for s in _INDEX_SUFFIXES
+        ):
+            for s in _INDEX_SUFFIXES:
+                (host_dir / f"building.{s}.bt2l").replace(host_dir / f"host.{s}.bt2l")
+            fasta.unlink(missing_ok=True)
+            reporter.ok(f"host index built in {elapsed}")
+            return
+        killed = result.returncode < 0
+        tail = result.stderr.strip().splitlines()[-6:]
+        if killed and attempt == 1 and n_threads > 1:
+            reporter.warn(
+                f"bowtie2-build was killed (signal {-result.returncode}) after {elapsed} with "
+                f"{n_threads} threads - on a machine with {mem_note} that is almost always the "
+                f"kernel's out-of-memory killer; retrying once with {max(1, use // 4)}"
+            )
+            continue
+        _discard_partial_index(host_dir, temp_prefix)
+        why = (
+            f"killed by signal {-result.returncode} (the kernel's out-of-memory killer, most likely: "
+            f"this machine has {mem_note})" if killed else f"exit {result.returncode}"
+        )
+        raise OpenBiotaError(
+            f"bowtie2-build failed after {elapsed}: {why}.\n"
+            + ("\n".join(tail) + "\n" if tail else "")
+            + "The host index only reports the human-DNA fraction (usually under 1% in stool); "
+            "`./install.sh --skip-host-index` leaves it out, or free memory and run the installer again."
+        )
+
+
+def _discard_partial_index(host_dir: Path, temp_prefix: Path) -> None:
+    """Remove whatever an unfinished bowtie2-build left under the temporary prefix."""
+    for path in host_dir.glob(f"{temp_prefix.name}.*"):
+        path.unlink(missing_ok=True)
 
 
 #: Pairs aligned in the host probe before the full pass is attempted. At this
