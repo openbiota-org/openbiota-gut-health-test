@@ -42,7 +42,7 @@ report of the state of the machine.
 | # | Step | What it produces | Skipped when |
 |---|---|---|---|
 | 1 | `preflight` | nothing; it checks the OS, that the folder is on a local filesystem that can hold symbolic links (not a network share or a Windows-formatted drive), free disk, memory, network and write access, and on a Mac the Xcode command-line tools and Homebrew | never |
-| 2 | `system` | `git`, `curl`, `bzip2`, Python 3.11+, `diamond`, `bowtie2`, `samtools`, `fastp` (and `pigz` if available) | all are on the `PATH` |
+| 2 | `system` | `git`, `curl`, `bzip2`, `make`, Python 3.11+, `diamond`, `bowtie2`, `samtools`, `fastp` (and `pigz` if available), plus every system binary the catalogue step will need (a C compiler, cmake, kraken2, bwa, aria2 …) — so the one password prompt is here, at the start, and nothing an hour later waits on it | all are on the `PATH` |
 | 3 | `python` | `.venv/` with `openbiota` installed in editable mode | `.venv/bin/openbiota` imports |
 | 4 | `launcher` | `bin/openbiota` executable; `~/.local/bin/openbiota` linked to it; `~/.local/bin` on the `PATH` | the link and the `PATH` line exist |
 | 5 | `profiler` | `.venv-mpa3/` with MetaPhlAn 3.1.0 — the scoring lane, pinned because the reference cohort was profiled with it | it reports that version |

@@ -677,9 +677,14 @@ online() {
 }
 
 # -- system ------------------------------------------------------------------
+# The catalogue lanes' system binaries. cc, cmake and pkg-config first: the
+# Rust builds (sylph bundles a C library built with cmake) need them, and a
+# bare Linux image has none of them. Installed in the system step, so the
+# one sudo prompt covers them; checked again in the catalogue step.
+CATALOGUE_TOOLS="cc cmake pkg-config kraken2 bracken bwa orfm aria2c seqkit cargo"
 # bzip2 and tar are what the reference archives and micromamba arrive in; a
-# container image can lack bzip2.
-SYSTEM_TOOLS="git curl bzip2 python diamond bowtie2 samtools fastp"
+# container image can lack bzip2. make runs the reference builds.
+SYSTEM_TOOLS="git curl bzip2 make python diamond bowtie2 samtools fastp"
 done_system() {
     local t py
     for t in $SYSTEM_TOOLS; do
@@ -721,6 +726,16 @@ run_system() {
             "$py" -c 'import venv, ensurepip' >/dev/null 2>&1 \
                 || die "$py has no venv module. On Debian/Ubuntu: sudo apt-get install python3-venv; then run ./install.sh again."
         fi
+    fi
+    # Everything a later step will want from the package manager is installed
+    # now too, so sudo is asked for once, here, and never an hour later when
+    # nobody is at the keyboard (sudo forgets the password after fifteen
+    # minutes). What apt or dnf cannot supply comes from conda, without sudo.
+    if [ $SKIP_CATALOGUES -eq 0 ]; then
+        for t in $CATALOGUE_TOOLS; do
+            if [ "$t" = cargo ]; then cargo_ok || ensure_tool cargo || true
+            elif ! have "$t"; then ensure_tool "$t" || true; fi
+        done
     fi
     # Some of these are easy to have at the wrong version; say what we got.
     ok "python   $("$(find_python)" --version 2>&1 | sed 's/Python //')  ($(find_python))"
@@ -907,7 +922,7 @@ run_diamond_db() {
 done_models() { ready models; }
 run_models() {
     [ $OFFLINE -eq 1 ] && die "offline: the model library is not installed"
-    have make || ensure_tool make || die "this step uses make"
+    have make || die "make is missing; run the system step (./install.sh --only system)"
     run_logged "make extension-refs" make --no-print-directory extension-refs THREADS="$THREADS" \
         || fail_with_log "make extension-refs failed"
     done_models || fail_with_log "the model library is incomplete after installing"
@@ -935,9 +950,6 @@ run_host_index() {
 # Python environments (on the project's own 3.12+ interpreter), builds sylph
 # and fetches SPAdes; the system binaries it needs are put on the PATH here
 # first, by whatever route this machine has.
-# cc, cmake and pkg-config first: the Rust builds (sylph bundles a C library
-# built with cmake) need them, and a bare Linux image has none of them.
-CATALOGUE_TOOLS="cc cmake pkg-config kraken2 bracken bwa orfm aria2c seqkit cargo"
 done_catalogue_tools() {
     [ $SKIP_CATALOGUES -eq 1 ] && return 0
     ready catalogue_tools
