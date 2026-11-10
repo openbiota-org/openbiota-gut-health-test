@@ -27,7 +27,7 @@ metagenomes, and every number traces back to the reads that produced it.
 ```bash
 git clone https://github.com/openbiota-org/openbiota-gut-health-test
 cd openbiota-gut-health-test
-./install.sh                      # one command: tools, environments, reference data (~190 GB; one to two hours, resumable)
+./install.sh                      # one command: tools, environments, reference data (~190 GB; two to three hours, resumable)
 # copy SAMPLE_1.fastq.gz and SAMPLE_2.fastq.gz into fastq/SAMPLE/
 bin/openbiota run                 # → results/SAMPLE/SAMPLE_report.pdf, opened when done
 ```
@@ -284,6 +284,9 @@ openbiota install --full               # add the pathogen, mycobiome and strain 
 openbiota run-all                      # every sample, plus comparison.json
 openbiota run --subsample 100000       # 17-second smoke test
 openbiota run --compact                # one-screen answer
+openbiota run --verbose                # every step as it happens (the default is one line per stage)
+openbiota run --summary                # also print the full text summary (always saved as summary.txt)
+openbiota selftest                     # run every detection lane on made-up reads, ~10 min
 openbiota run --no-profiles            # Part A only, no MetaPhlAn needed
 openbiota run --trim                   # let fastp trim adapters and write the reads it uses
 openbiota run --no-extended-catalogue  # skip the MetaPhlAn 4 SGB inventory
@@ -447,8 +450,10 @@ inflated in parallel. Nothing is ever decompressed to a file.
 
 ## Requirements
 
-A Mac (Intel or Apple silicon) or a Linux machine, 8 GB of memory, and
-`./install.sh`, which installs everything below and checks it:
+A Mac (Intel or Apple silicon) or a Linux machine with 64 GB of memory —
+one catalogue lane, MetaPhlAn 4, holds a 37 GB index in memory — and
+`./install.sh`, which installs everything below, checks it, and runs every
+detection lane once to prove it works on that machine:
 
 | | Standard install → the **lite** report | Full install (`--full`) → the **full** report |
 |---|---|---|
@@ -464,7 +469,7 @@ every reference file is pinned and checksummed (`refs/expanded/locks/`,
 `refs/MANIFEST.md`), and each `make` target the installer runs can be run
 on its own (`make help`).
 
-About 2,700 tests, `make test`. No network access and no FASTQ in the test suite.
+About 2,850 tests, `make test`. No network access and no FASTQ in the test suite.
 
 ---
 

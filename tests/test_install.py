@@ -101,10 +101,10 @@ def test_every_step_has_a_label_and_is_in_the_help():
         assert step in usage, f"{step} is not described in --help"
 
 
-def test_standard_steps_begin_with_preflight_and_end_with_check():
+def test_standard_steps_begin_with_preflight_and_end_with_the_check_and_the_trial_run():
     steps = _steps("STANDARD_STEPS")
     assert steps[0] == "preflight"
-    assert steps[-1] == "check"
+    assert steps[-2:] == ["check", "selftest"], "in place first, then proven to run"
     # Readiness is asked of the pipeline, not guessed by the shell.
     for name in installcheck.CHECKS:
         assert name in steps or name == "python", name
@@ -116,7 +116,7 @@ def test_readiness_checks_cover_the_installed_pieces():
         "catalogue_tools", "catalogue_refs",
     }
     # Every standard step that produces something has a check with its name.
-    steps = set(_steps("STANDARD_STEPS")) - {"preflight", "system", "launcher", "check"}
+    steps = set(_steps("STANDARD_STEPS")) - {"preflight", "system", "launcher", "check", "selftest"}
     assert steps == set(installcheck.CHECKS)
     # A skipped host index is a supported choice and not a missing piece.
     assert "host_index" not in installcheck.standard_missing(Path("/nonexistent"))
@@ -214,8 +214,8 @@ def test_list_with_full_appends_the_optional_lanes(tmp_path: Path):
     proc = _sh("install.sh", "--list", "--full", cwd=root)
     listed = [line.split()[0] for line in proc.stdout.splitlines() if line.startswith("  ")]
     standard = _steps("STANDARD_STEPS")
-    # The final check moves to the end, after the lanes it must also verify.
-    assert listed == standard[:-1] + _steps("FULL_STEPS") + ["check"]
+    # The final check and the trial run move to the end, after the lanes they must also cover.
+    assert listed == standard[:-2] + _steps("FULL_STEPS") + ["check", "selftest"]
 
 
 def test_dry_run_launcher_step_changes_nothing(tmp_path: Path):
@@ -315,6 +315,26 @@ def test_preflight_only_warns_on_an_unknown_fuse_filesystem(tmp_path: Path):
                env={"INSTALL_FS_TYPE": "fuse.snapfuse"})
     assert "FUSE filesystem" in proc.stdout
     assert "local filesystem (fuse.snapfuse)" in proc.stdout
+
+
+def _preflight(root: Path, memory_gb: int, *more: str) -> str:
+    proc = _sh("install.sh", "--only", "preflight", "--dry-run", "--no-path", *more, cwd=root,
+               env={"INSTALL_FS_TYPE": "ext4", "INSTALL_MEMORY_GB": str(memory_gb)})
+    return proc.stdout + proc.stderr
+
+
+def test_preflight_says_when_memory_is_short_for_the_metaphlan_lane(tmp_path: Path):
+    """The Jan26 index is held in memory, 37 GB in one program (measured by the
+    self-test). A machine without that has the lane killed on every run; it is
+    told before the 130 GB download, not after."""
+    root = _skeleton(tmp_path)
+    text = INSTALL.read_text()
+    assert re.search(r"^LANE_PEAK_GB=37$", text, re.M)
+    small = _preflight(root, 31)
+    assert "31 GB of memory: the MetaPhlAn 4 lane holds a 37 GB index in memory" in small
+    assert "every report will be missing it" in small and "64 GB is comfortable" in small
+    assert "MetaPhlAn 4 lane" not in _preflight(root, 62), "a 64 GB machine is not warned"
+    assert "MetaPhlAn 4 lane" not in _preflight(root, 31, "--skip-catalogues"), "nor one that is not installing the lanes"
 
 
 def test_the_filesystem_check_runs_before_anything_is_downloaded():

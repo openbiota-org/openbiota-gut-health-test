@@ -113,8 +113,14 @@ def available(refs_dir: Path, panel: str = "uhgg") -> bool:
     return k is not None and b is not None and database_ready(refs_dir, panel)
 
 
+def _gzipped(path: Path) -> bool:
+    """Whether the file starts with the gzip signature, whatever it is called."""
+    with path.open("rb") as fh:
+        return fh.read(2) == b"\x1f\x8b"
+
+
 def _read_length(r1: Path, n: int = 2000) -> int:
-    opener = gzip.open if r1.suffix == ".gz" else open
+    opener = gzip.open if _gzipped(r1) else open
     total = count = 0
     with opener(r1, "rt") as fh:  # type: ignore[arg-type]
         for i, line in enumerate(fh):
@@ -220,7 +226,11 @@ def run_kraken(
     assignments = work_dir / f"{sample}.kraken2.assignments.tsv.gz"
     cmd = [kraken, "--db", str(db), "--threads", str(threads), "--confidence", str(CONFIDENCE),
            "--minimum-hit-groups", str(MIN_HIT_GROUPS), "--report-minimizer-data",
-           "--report", str(report), "--output", "/dev/stdout", "--gzip-compressed"]
+           "--report", str(report), "--output", "/dev/stdout"]
+    # Said only when true. Told that plain FASTQ is gzipped, kraken2 reads
+    # nothing, exits 0 and reports an empty sample.
+    if _gzipped(r1):
+        cmd.append("--gzip-compressed")
     if r2 is not None:
         cmd += ["--paired", str(r1), str(r2)]
     else:
@@ -237,6 +247,10 @@ def run_kraken(
         gz.wait()
     if proc.returncode != 0 or gz.returncode != 0 or not report.is_file():
         raise RuntimeError(f"kraken2 failed (exit {proc.returncode}): {(kraken_stderr or '')[-2000:]}")
+    if report.stat().st_size == 0:
+        # No report line at all means no read was read; a sample that truly
+        # matched nothing still has its "unclassified" line.
+        raise RuntimeError(f"kraken2 read no sequences from {r1.name}: {(kraken_stderr or '').strip()[-300:]}")
 
     # Bracken wants the six-column report; the minimizer columns are kept
     # in the retained report and read below for support.

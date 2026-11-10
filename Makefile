@@ -596,8 +596,9 @@ catalogue-tools: setup
 	@test -x $(MOTUS_VENV)/bin/motus || ( $(CAT_PYTHON) -m venv $(MOTUS_VENV) && $(MOTUS_VENV)/bin/pip install -q --upgrade pip && \
 		$(MOTUS_VENV)/bin/pip install -q --prefer-binary "motus-tool @ https://github.com/motu-tool/mOTUs/archive/refs/tags/4.1.0.tar.gz" )
 	@$(call need,bwa,bwa)
-	@# SingleM 0.21.4 and its binary dependencies (orfm; smafa and mfqe are Rust)
+	@# SingleM 0.21.4 and its binary dependencies (orfm and HMMER; smafa and mfqe are Rust)
 	@$(call need,orfm,brewsci/bio/orfm)
+	@$(call need,hmmsearch,hmmer)
 	@# Built into vendor/cargo, inside the project and on every PATH the project sets up.
 	@command -v smafa >/dev/null 2>&1 || ( $(call need,cargo,rust) && cargo install -q --root vendor/cargo smafa )
 	@command -v mfqe >/dev/null 2>&1 || ( $(call need,cargo,rust) && cargo install -q --root vendor/cargo mfqe )
@@ -633,7 +634,7 @@ catalogue-refs: catalogue-tools
 	@test -f refs/motus/db/db_mOTU/db_mOTU.downloaded || echo "downloaded by scripts/fetch_expanded_refs.py (Zenodo 20322482, md5 verified)" > refs/motus/db/db_mOTU/db_mOTU.downloaded
 	@# The GTDB species sketch for the whole-genome lane, and sylph-tax's taxonomy tables.
 	@mkdir -p refs/sylph/tax
-	@test -s refs/sylph/tax/gtdb_r232_metadata.tsv.gz || $(VENV)/bin/sylph-tax download --download-to refs/sylph/tax
+	@test -s refs/sylph/tax/gtdb_r232_metadata.tsv.gz || $(VENV)/bin/sylph-tax --no-config download --download-to refs/sylph/tax
 	@test -s refs/sylph/$(SYLPH_DB) || ( \
 		echo "  fetching $(SYLPH_DB) (20 GB, resumable)"; \
 		curl -sSL --retry 5 --retry-delay 10 -C - -o refs/sylph/$(SYLPH_DB).part "$(SYLPH_DB_URL)" && \

@@ -39,7 +39,7 @@ list for archiving the repository or installing it on another machine.
 | sylph | 1.0.0 | `vendor/sylph` | GTDB R232 lane (unchanged) and GlobDB r232 lane |
 | mOTUs | 4.1.0 | `.venv-motus` (python 3.12) | universal-marker lane |
 | Kraken2 / Bracken | 2.1.x / 3.x | brew | gut rescue classifier |
-| SingleM | 0.21.4 | `.venv-singlem` (+ orfm, smafa, mfqe) | unrepresented-lineage rescue |
+| SingleM | 0.21.4 | `.venv-singlem` (+ orfm, HMMER, smafa, mfqe) | unrepresented-lineage rescue |
 | skani, fastANI | 0.3.x, 1.3x | brew | genome ANI + alignment fraction |
 | bowtie2, samtools | 2.5.x, 1.x | brew | competitive confirmation |
 | mafft, trimal, RAxML, blastn | brew / vendor | via `vendor/bin` | PhyloPhlAn inside StrainPhlAn |

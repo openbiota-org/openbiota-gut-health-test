@@ -47,6 +47,8 @@ from typing import Any, Final
 SYLPH_VERSION: Final = "1.0.0"
 DATABASE_FILE: Final = "gtdb-r232-c200-dbv2.syl2db"
 TAXONOMY_ID: Final = "GTDB_r232"
+#: Where sylph-tax's taxonomy tables sit, under the database folder.
+TAXONOMY_SUBDIR: Final = "tax"
 #: Species clusters in the pinned GTDB release, for the technical record.
 CATALOGUE_SIZE: Final = 199_923
 #: GTDB's species boundary. The starting point, not a knob.
@@ -237,12 +239,20 @@ def run_sylph(
     subprocess.run(cmd, check=True, capture_output=True)
 
     # sylph-tax writes <prefix><sample>.sylphmpa with the lineage per row.
+    # It is told where the taxonomy tables are: left to itself it reads the
+    # folder from ~/.config/sylph-tax, a per-user file holding one absolute
+    # path, which goes stale the day the repository is moved or cloned twice.
     prefix = str(work_dir / f"{sample}.")
-    subprocess.run(
-        [str(tax), "taxprof", str(profile_tsv), "-t", TAXONOMY_ID, "-o", prefix],
-        check=True, capture_output=True,
+    tax_dir = db_dir / TAXONOMY_SUBDIR
+    done = subprocess.run(
+        [str(tax), "--no-config", "--taxonomy-dir", str(tax_dir), "taxprof", str(profile_tsv),
+         "-t", TAXONOMY_ID, "-o", prefix],
+        check=False, capture_output=True, text=True,
     )
-    hits = _parse(profile_tsv)
+    if done.returncode != 0:
+        tail = ((done.stdout or "") + (done.stderr or "")).strip()[-600:]
+        raise RuntimeError(f"sylph-tax taxprof failed (exit {done.returncode}): {tail}")
+    hits = _parse(profile_tsv, tax_dir)
     profile = GenomeProfile(
         sample=sample, database=DATABASE_FILE, tool_version=SYLPH_VERSION,
         taxonomy=TAXONOMY_ID, hits=tuple(hits), elapsed_s=time.monotonic() - t0,
@@ -259,14 +269,14 @@ def _file_stamp(path: Path | None) -> str:
     return f"{path.name}:{st.st_size}:{int(st.st_mtime)}"
 
 
-def _parse(profile_tsv: Path) -> list[GenomeHit]:
+def _parse(profile_tsv: Path, tax_dir: Path | None = None) -> list[GenomeHit]:
     """Join Sylph's per-genome rows to the GTDB lineage of each genome.
 
     The raw profile's ``Contig_name`` carries the representative's GTDB
     accession; the lineage comes from the taxonomy table sylph-tax
     installed, 199,923 rows of ``accession<TAB>lineage``.
     """
-    lineage_by_acc = _lineages()
+    lineage_by_acc = _lineages(tax_dir)
     hits: list[GenomeHit] = []
     with profile_tsv.open() as fh:
         for row in csv.DictReader(fh, delimiter="\t"):
@@ -314,18 +324,22 @@ def _accession(genome_file: str) -> str:
     return head
 
 
-def _lineages() -> dict[str, str]:
-    """Accession -> lineage, from the taxonomy metadata sylph-tax installed."""
+def _lineages(tax_dir: Path | None = None) -> dict[str, str]:
+    """Accession -> lineage, from the taxonomy tables beside the database.
+
+    ``tax_dir`` is ``refs/sylph/tax``. sylph-tax's own per-user config is
+    consulted only when no folder is given, for callers that predate this.
+    """
     out: dict[str, str] = {}
-    cfg = Path.home() / ".config" / "sylph-tax" / "config.json"
-    tax_dir: Path | None = None
-    if cfg.is_file():
-        try:
-            tax_dir = Path(json.loads(cfg.read_text()).get("taxonomy_dir", ""))
-        except (json.JSONDecodeError, OSError, TypeError):
-            tax_dir = None
     if tax_dir is None or not tax_dir.is_dir():
-        tax_dir = Path("refs/sylph/tax")
+        cfg = Path.home() / ".config" / "sylph-tax" / "config.json"
+        if cfg.is_file():
+            try:
+                tax_dir = Path(json.loads(cfg.read_text()).get("taxonomy_dir", ""))
+            except (json.JSONDecodeError, OSError, TypeError):
+                tax_dir = None
+    if tax_dir is None or not tax_dir.is_dir():
+        tax_dir = Path(__file__).resolve().parents[2] / "refs" / "sylph" / TAXONOMY_SUBDIR
     for path in sorted(tax_dir.glob(f"*{TAXONOMY_ID.lower()}*")) + sorted(tax_dir.glob(f"*{TAXONOMY_ID}*")):
         opener = _opener(path)
         try:

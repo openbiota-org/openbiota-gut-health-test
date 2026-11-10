@@ -73,11 +73,10 @@ FULL: Final = Mode(
 LITE: Final = Mode(
     "lite",
     "the standard install's report",
-    "your community and microbial groups, every organism the five 2025 catalogues can name, "
-    "the organisms that need attention, 45 metabolite pathways, resemblance to published disease "
-    "patterns, microbiome age, biofilm, the gut-skin axis, and what the research says you can do "
-    "about each finding",
-    "one and a half to two hours", "about five minutes",
+    "your community, every organism the five 2025 catalogues can name, the organisms that need "
+    "attention, 45 metabolite pathways, disease patterns, microbiome age and what the research "
+    "says you can do",
+    "one to two hours", "about five minutes",
 )
 BY_NAME: Final = {FULL.name: FULL, LITE.name: LITE}
 

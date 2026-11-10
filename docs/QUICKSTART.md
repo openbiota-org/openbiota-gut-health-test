@@ -10,7 +10,7 @@ thing is:
 ```bash
 git clone https://github.com/openbiota-org/openbiota-gut-health-test
 cd openbiota-gut-health-test
-./install.sh                          # one to two hours (~190 GB of references); safe to re-run
+./install.sh                          # two to three hours (~190 GB of references); safe to re-run
 # copy SAMPLE_1.fastq.gz and SAMPLE_2.fastq.gz into fastq/SAMPLE/
 bin/openbiota run                     # asks full or lite → results/SAMPLE/SAMPLE_report.pdf, then opens it
 ```
@@ -58,10 +58,10 @@ Three things to know, and then you know enough:
 
 | | |
 |---|---|
-| A computer | A Mac (Intel or Apple silicon) or a Linux machine. 8 GB of memory is enough; more is faster. |
+| A computer | A Mac (Intel or Apple silicon) or a Linux machine with **64 GB of memory**. One of the catalogue lanes (MetaPhlAn 4) holds a 37 GB index in memory; on a machine that cannot spare that, the lane is stopped by the operating system and every report is missing it. The installer says so at its first step if the machine is short, and proves each lane at its last. |
 | Free disk | About **230 GB** for the standard install (190 GB of it reference catalogues), **on the computer's own disk** — your home folder is the right place. Not a network share and not an external drive formatted for Windows (exFAT/NTFS): `git clone` itself fails there with *unable to write file … Permission denied*, and the installer refuses to start. (The optional full install is about 1.3 TB more; see the end of this page.) |
 | Internet | The installer downloads the reference databases once, roughly 135 GB; every download resumes if it is interrupted. |
-| One to two hours | On a fast connection the time goes to two index builds and the publishers' own servers, not to your line. You can leave it and come back; it continues where it stopped. |
+| Two to three hours | On a fast connection the time goes to the publishers' own servers, two index builds and a ten-minute trial run of every lane, not to your line. You can leave it and come back; it continues where it stopped. |
 | Your sample | **Two FASTQ files** from a shotgun-sequenced stool sample, usually named something like `SAMPLE_1.fastq.gz` and `SAMPLE_2.fastq.gz`. |
 
 The FASTQ files are the **raw reads**, not a PDF and not a 16S amplicon run.
@@ -92,7 +92,7 @@ What each line does:
    the terminal was in a network share or an external drive; type `cd ~`
    and run the line again.
 2. **`cd openbiota-gut-health-test`** moves into that folder.
-3. **`./install.sh`** does everything else, in thirteen numbered steps with a
+3. **`./install.sh`** does everything else, in fourteen numbered steps with a
    progress bar:
 
    | | |
@@ -104,7 +104,8 @@ What each line does:
    | Downloads and builds the databases | the MetaPhlAn marker database (a 0.4 GB download, indexed to 3.5 GB), the protein search database (built locally), the metabolic model library |
    | Builds the human-read filter | downloads the human genome and indexes it; an hour or so on a laptop. `./install.sh --skip-host-index` leaves it out; the report then cannot state the human DNA fraction, which for stool is usually under 1 %. |
    | Installs the catalogue lanes | the five 2025 organism catalogues — MetaPhlAn 4, mOTUs 4, Kraken 2 / UHGG, SingleM, sylph / GlobDB — that name most of what lives in a gut: their tools, then about 130 GB of references (190 GB on disk). The downloads take as long as the publishers' servers allow — minutes on a fast line, longer on a slow one — and resume if interrupted. |
-   | Checks everything | and prints the two steps left |
+   | Checks everything | that every piece is in place |
+   | Tries every detection lane | each one is run once on a small made-up sample (about ten minutes), and has to find what that sample was made from — so a tool that is installed but cannot run is found now, not an hour into your first report. Then the installer prints the two steps left. |
 
    Every step is skipped if it was already done, so if anything interrupts
    the install — a dropped connection, a closed laptop — just run
@@ -188,7 +189,7 @@ about:
 |---|---|---|
 | What it has | every section: the 485-target pathogen screen, the mycobiome, strain typing and strain placement, and everything in lite | your community and microbial groups, every organism the five 2025 catalogues can name, the organisms that need attention, 45 metabolite pathways, resemblance to published disease patterns, microbiome age, biofilm, the gut-skin axis, and what the research says you can do about each finding |
 | Needs | the full install (`openbiota install --full`: ~1.1 TB more, most of a day) | the standard install |
-| First run of a sample, desktop | two and a half to three hours | one and a half to two hours (the catalogue lanes and the metabolic-model simulation) |
+| First run of a sample, desktop | two and a half to three hours | one to two hours (the catalogue lanes and the metabolic-model simulation) |
 | The same sample again | about ten minutes | about five minutes |
 
 `--mode full` or `--mode lite` answers in advance; without a terminal (a
@@ -200,17 +201,33 @@ report's title carries a small *full* or *lite* so you always know which
 one you are reading; a lite report simply has no pathogen, mycobiome or
 strain sections, and its remaining sections are numbered 1 to 23.
 
-The run prints each stage as it goes, and **the last line is where the
-report is**:
+While it runs, the terminal shows the stage in progress on one line, with
+a clock, and keeps one line for each stage that has finished. It ends with
+the outcome, and **the last line is where the report is**:
 
 ```
+my-sample: lite report from 2 FASTQ files (9.6GB). Usually one to two hours for a new sample, about five minutes for one run before.
+  ✓ input validation                                               1m12s
+  ✓ translated search (diamond blastx)                             6m40s
+  …
+  ✓ competitive confirmation                                      18m09s
+  ✓ report extension                                              16m03s
+  ✓ PDF report                                                     2m10s
+
+✓ Done in 50m57s: lite report, all 19 stages ran, 332 organisms named.
+  Everything else is in results/my-sample/: summary.txt (the full text summary), results.json, run.log.
+  Opening the report in your PDF viewer.
+
 Report: /home/you/openbiota-gut-health-test/results/my-sample/my-sample_report.pdf
-Opening it in your PDF viewer.
 ```
 
-It opens on its own (`--no-open` stops that). Next to the PDF,
-`results.json` holds every number in it, machine-readable, and `run.log`
-the full log of the run.
+The report opens on its own (`--no-open` stops that). If a stage could not
+run, the ending says which one and why in a line — for example that a
+program is missing and `./install.sh` will add it — and the report is
+still written, with that part marked as not assessed. Every step and every
+number is kept in the files beside the PDF; `--verbose` shows each step on
+the screen as it happens, and `--summary` prints the full text summary
+(several thousand lines) when the run ends.
 
 Start at page 1. [Reading the report](OUTPUT.md) explains the seven-band
 scale every reading is placed on and what each section means. Next to the
@@ -246,6 +263,7 @@ bin/openbiota run --compact          # one-screen answer in the terminal
 bin/openbiota run-all                # every sample in fastq/, plus a comparison
 bin/openbiota install --full         # add the full install's detection lanes
 bin/openbiota doctor                 # is everything installed? what inputs are there?
+bin/openbiota selftest               # run every detection lane on made-up reads (about ten minutes)
 bin/openbiota depth-check            # was the sequencing deep enough?
 bin/openbiota panels                 # the metabolite pathways and their genes
 bin/openbiota profiles               # the disease-pattern profiles

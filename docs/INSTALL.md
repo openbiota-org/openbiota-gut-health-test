@@ -20,8 +20,8 @@ which explains the three lines above from the beginning.
 |---|---|---|
 | Operating system | macOS 13 or newer (Intel or Apple silicon), or Linux (Debian, Ubuntu, Fedora; anything else via the conda fallback) | the same; the full lanes are built and tested on macOS, best-effort on Linux |
 | Disk | ~230 GB, 190 GB of it the five catalogue lanes' references (~220 GB with `--skip-host-index`) | ~1.5 TB |
-| Memory | 8 GB; 16 GB or more is faster | 32 GB (the Kraken 2 lane loads a 19 GB database) |
-| Time | one to two hours: the human-genome index build (~50 min), the MetaPhlAn index build (~15 min), and downloads paced by the publishers' servers rather than your connection; resumable | most of a day |
+| Memory | **64 GB.** The catalogue lanes hold their references in memory, and the largest is one program holding 37 GB: Bowtie2 on MetaPhlAn 4's Jan26 index (Kraken 2 holds 17 GB, mOTUs 9, sylph 7; [measured](#hardware-and-runtime)). The install has been run on machines with 62 GB and 192 GB; in a 29 GB virtual machine without swap the MetaPhlAn 4 lane is stopped by the kernel. The first step warns when the machine is short and the last step runs every lane, so this is found during the install, not in a report | the same |
+| Time | two to three hours. Measured on a 32-core Linux desktop on a multi-gigabit line: 2 h 10 min, of which 1 h 47 min was the catalogue references (paced by the publishers' servers rather than the connection) and 11 min the human-genome index (about 50 min on eight threads); the trial run of every lane adds ten minutes. Resumable | most of a day |
 | Network | once, about 135 GB of reference downloads; runs are offline afterwards | a fast connection; files over 1 GB are fetched with parallel range requests |
 | Privileges | your own user. The installer asks for your password once, to install the command-line tools through Homebrew or `apt`/`dnf`. It never needs root itself and refuses to run as root on macOS. | the same |
 
@@ -34,7 +34,7 @@ skips both). Deleting the project folder removes everything else.
 
 ## What the installer does
 
-`./install.sh` runs thirteen steps, each of which first checks whether its
+`./install.sh` runs fourteen steps, each of which first checks whether its
 work is already done and skips it if so. That is what makes it safe to run
 again after an interruption, and what makes `./install.sh --list` a true
 report of the state of the machine.
@@ -42,7 +42,7 @@ report of the state of the machine.
 | # | Step | What it produces | Skipped when |
 |---|---|---|---|
 | 1 | `preflight` | nothing; it checks the OS, that the folder is on a local filesystem that can hold symbolic links (not a network share or a Windows-formatted drive), free disk, memory, network and write access, and on a Mac the Xcode command-line tools and Homebrew | never |
-| 2 | `system` | `git`, `curl`, `bzip2`, `make`, Python 3.11+, `diamond`, `bowtie2`, `samtools`, `fastp` (and `pigz` if available), plus every system binary the catalogue step will need (a C compiler, cmake, kraken2, bwa, aria2 …) — so the one password prompt is here, at the start, and nothing an hour later waits on it | all are on the `PATH` |
+| 2 | `system` | `git`, `curl`, `bzip2`, `make`, Python 3.11+, `diamond`, `bowtie2`, `samtools`, `fastp` (and `pigz` if available), plus every system binary the catalogue step will need (a C compiler, cmake, kraken2, bwa, hmmer, aria2 …) — so the one password prompt is here, at the start, and nothing an hour later waits on it | all are on the `PATH` |
 | 3 | `python` | `.venv/` with `openbiota` installed in editable mode | `.venv/bin/openbiota` imports |
 | 4 | `launcher` | `bin/openbiota` executable; `~/.local/bin/openbiota` linked to it; `~/.local/bin` on the `PATH` | the link and the `PATH` line exist |
 | 5 | `profiler` | `.venv-mpa3/` with MetaPhlAn 3.1.0 — the scoring lane, pinned because the reference cohort was profiled with it | it reports that version |
@@ -51,9 +51,10 @@ report of the state of the machine.
 | 8 | `diamond_db` | `refs/db/<fingerprint>/` — every panel's reference proteins, from the cached UniProt responses, indexed by DIAMOND (about two minutes). The fingerprint includes the DIAMOND version, so this is always built on the machine that will use it | the fingerprinted index exists |
 | 9 | `models` | MICOM, an open LP solver and the AGORA2 species-model library under `refs/micom/` (~300 MB), for the synbiotic scenarios | the library and the pinned fixtures are present |
 | 10 | `host_index` | `refs/host/` — GRCh38 + PhiX as a Bowtie2 index. Downloads the human genome (0.9 GB) and indexes it: about an hour on a desktop, longer on a laptop. `bowtie2-build`'s memory grows with its thread count (roughly 6 GB plus 2.5 GB a thread on GRCh38), so the build uses at most 8 threads, fewer on a machine with less memory, and if the kernel kills it anyway it is retried once with a quarter of the threads. It is built under a temporary name and moved into place only when finished | the index is complete, or `--skip-host-index` |
-| 11 | `catalogue_tools` | the five 2025 catalogue lanes' tools: MetaPhlAn 4.2 (`.venv-mpa42`), mOTUs 4 (`.venv-motus`), SingleM (`.venv-singlem`) on the project's own Python 3.12+; Kraken 2 and Bracken, bwa, orfm, aria2, seqkit; sylph, smafa and mfqe built from their pinned sources (which is why a C compiler, cmake and Rust 1.85+ are put in place first — Debian and Ubuntu's packaged Rust is too old, so Rust comes from conda-forge there); sylph-tax; SPAdes for targeted assembly | each tool answers |
+| 11 | `catalogue_tools` | the five 2025 catalogue lanes' tools: MetaPhlAn 4.2 (`.venv-mpa42`), mOTUs 4 (`.venv-motus`), SingleM (`.venv-singlem`) on the project's own Python 3.12+; Kraken 2 and Bracken, bwa, orfm and HMMER (SingleM pipes the reads through both), aria2, seqkit; sylph, smafa and mfqe built from their pinned sources (which is why a C compiler, cmake and Rust 1.85+ are put in place first — Debian and Ubuntu's packaged Rust is too old, so Rust comes from conda-forge there); sylph-tax; SPAdes for targeted assembly | each tool answers |
 | 12 | `catalogue_refs` | their references: the MetaPhlAn Jan26 SGB index (~60 GB built), mOTUs 4, Kraken 2 / UHGG v2.0.2, the SingleM GlobDB metapackage, the GlobDB and GTDB sylph sketches — about 130 GB of downloads, 190 GB on disk, each checksummed and locked under `refs/expanded/locks/`; resumable | every lane's own readiness test passes |
 | 13 | `check` | nothing; it runs `openbiota doctor`, imports the report modules and re-asks every readiness question | never |
+| 14 | `selftest` | nothing; it **runs every detection lane once** on 120,000 made-up read pairs (`openbiota selftest`, about ten minutes). Files on disk are not proof that a tool can run — SingleM's were all present on a machine where its first real run died for want of HMMER — so each lane has to run to the end and find the organisms the reads were drawn from. A lane that cannot stops the install, with its reason | never |
 
 Readiness is decided by the pipeline, not guessed by the script:
 `python -m openbiota.installcheck --all` prints the same table the installer
@@ -96,7 +97,7 @@ was during the install.
 | `--skip-host-index` | leave out step 10 (saves ~7 GB and an hour; the report then cannot state the human DNA fraction) |
 | `--skip-catalogues` | leave out steps 11 and 12 (~190 GB). The install is then ~20 GB but **cannot make a report** — `openbiota run` says so and offers to finish the install — so this is for staging a machine, not for using one |
 | `--no-path` | do not link `openbiota` into `~/.local/bin` or touch the shell start-up file |
-| `--only STEP[,STEP]` / `--skip STEP[,STEP]` | run a subset of the steps |
+| `--only STEP[,STEP]` / `--skip STEP[,STEP]` | run a subset of the steps; `--skip selftest` leaves out the ten-minute trial run at the end (`openbiota selftest` runs it later) |
 | `--threads N` | CPU threads for the builds (default: all) |
 | `--force` | redo steps even when they look complete |
 | `--yes` | do not stop to ask before installing system packages (for scripts and CI) |
@@ -172,13 +173,18 @@ what to do, and the last 25 lines of `install.log`. Fix the cause and run
 | *MetaPhlAn could not install its database* | Almost always a dropped connection. Re-run; the download resumes. |
 | *openbiota build-db failed* | With the UniProt bundle unpacked this step needs no network; see `install.log` for DIAMOND's message. Without it, UniProt's REST service was unreachable or rate-limited: re-run later, everything fetched so far is cached under `refs/cache/`. |
 | *could not install X by any route* | Install it yourself with your package manager or conda, make sure it is on the `PATH`, and re-run. |
+| *N GB of memory: the MetaPhlAn 4 lane holds a 37 GB index in memory* | The first step's warning on a machine with less than about 44 GB. The install continues; the last step runs that lane and reports whether it survived. With swap it may, slowly; without, it is stopped by the kernel on every run and every report is missing that lane. |
+| *stopped by the operating system - almost always because the machine ran out of memory* | A lane's program was killed (the kernel's out-of-memory killer on Linux). [Hardware and runtime](#hardware-and-runtime) lists what each lane holds in memory; close other programs, add swap, or use a machine with more memory. |
+| *a detection lane does not work on this machine* | The final check ran every lane on made-up reads and one could not finish; the line above it names the lane and the reason. Usually a program is missing — run `./install.sh` again, which installs whatever is not there — and `bin/openbiota selftest` repeats just this test. |
+| A report's ending says *the program 'hmmsearch' is not installed* | The machine was installed before HMMER joined the list (SingleM starts it by name). Run `./install.sh` again: step 2 adds it, and the final check then runs SingleM to prove it. |
 | *do not run the installer as root on macOS* | Homebrew refuses root. Run it as your own user. |
 
-Three commands answer most other questions:
+Four commands answer most other questions:
 
 ```bash
 ./install.sh --list                         # which steps are done
 bin/openbiota doctor                        # tools, hardware, inputs
+bin/openbiota selftest                      # does every detection lane actually run? (about ten minutes)
 .venv/bin/python -m openbiota.installcheck --all   # every readiness question
 ```
 
@@ -188,7 +194,7 @@ bin/openbiota doctor                        # tools, hardware, inputs
 
 ## The full install
 
-`./install.sh --full` continues past the standard thirteen steps with the
+`./install.sh --full` continues past the standard steps with the
 optional detection lanes. Each is a `Makefile` target, so every pinned
 version lives in one place (`make help` lists them), and each is resumable.
 These are large: budget about 1.5 TB in all and most of a day.
@@ -281,8 +287,8 @@ one eight-million-pair sample at a time:
 |---|---|---|
 | read search, profiling, patterns, age, attention, solutions | 10–20 min cold, ~2 min cached | 30 threads; the DIAMOND search scales with cores |
 | model-assisted simulation | 35–40 min cold, seconds cached | measured on a fresh clone: ~4 min to build each community model from the AGORA2 library, then 82 linear programmes per arm, single-threaded. Cached on the community, so a new *sample* pays it again; the same sample re-run does not |
-| the expanded detection lanes (full install) | +35 min | most of it MetaPhlAn Jan26, SingleM and the two Kraken panels; every lane is cached on the reads |
-| competitive confirmation (full install) | +15–20 min | one Bowtie2 alignment against the candidates and their relatives |
+| the five catalogue lanes | +35 min | most of it MetaPhlAn Jan26, SingleM and Kraken 2; every lane is cached on the reads |
+| competitive confirmation | +15–20 min | one Bowtie2 alignment against the candidates and their relatives |
 | strain placement (full install) | +5–40 min | per clade, cached |
 | PDF | ~15 s | |
 
@@ -296,12 +302,29 @@ records the mode and the stages it did not attempt in `results.json`
 (`run.completeness`). See the [Quickstart](QUICKSTART.md#step-3-run) for
 the two modes side by side.
 
-Every run records its own peak memory in `results.json` (`run.resources`):
-the pipeline process peaks at 12–14 GB and the largest child process (the
-Kraken 2 lane with the UHGG database loaded) at ~19 GB, so 32 GB is a
-comfortable minimum for the full detection and 8 GB is enough for the
-standard report. Results take 4–9 GB per sample; `openbiota prune` removes
-the regenerable intermediates.
+**Memory.** What decides it is the largest single program, and the
+catalogue lanes hold their references in memory. `openbiota selftest` runs
+each lane in a process of its own and prints the most memory any one of its
+programs held; on the machine above:
+
+| lane | peak memory of one program | what holds it |
+|---|---|---|
+| MetaPhlAn 4 (Jan26 catalogue) | 37 GB | Bowtie2 with the 2025 marker index loaded |
+| Kraken 2 + Bracken (UHGG) | 17 GB | the UHGG hash table |
+| mOTUs 4 | 9 GB | bwa on the marker-gene database |
+| sylph (GlobDB) | 7 GB | the GlobDB sketch |
+| sylph (GTDB whole-genome profile) | 4 GB | the GTDB sketch |
+| SingleM (GlobDB) | 1 GB | many small processes |
+
+The lanes run one after another, so the machine needs the largest of these
+and room for the rest of the system: 64 GB is comfortable, and a machine
+that cannot give one program 37 GB cannot run the MetaPhlAn 4 lane unless
+it has swap to lean on. That lane then ends with *stopped by the operating
+system - almost always because the machine ran out of memory*, the report
+is written without it, and the run says so. Every run also records its own
+peaks in `results.json` (`run.resources`): the pipeline process itself
+reaches 12–14 GB. Results take 4–9 GB per sample; `openbiota prune`
+removes the regenerable intermediates.
 
 ---
 

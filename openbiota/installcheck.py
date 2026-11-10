@@ -84,8 +84,8 @@ def host_index(repo: Path) -> bool:
     return host_index_ready(repo / "refs" / "host")
 
 
-def catalogue_tools(repo: Path) -> bool:
-    """The tools behind the five 2025 catalogue lanes and targeted assembly.
+def catalogue_tools_missing(repo: Path) -> list[str]:
+    """Which of the catalogue lanes' tools are absent, by the name a person would install.
 
     Each engine looks in its own place (a venv under the repository, then
     the PATH); the same places are checked here, so a tool that came from
@@ -93,25 +93,37 @@ def catalogue_tools(repo: Path) -> bool:
     """
     import shutil  # noqa: PLC0415
 
+    from openbiota.engines.singlem import missing_path_tools  # noqa: PLC0415
+
+    def on_path(tool: str) -> bool:
+        return shutil.which(tool) is not None
+
     def venv_or_path(venv: str, tool: str) -> bool:
-        return (repo / venv / "bin" / tool).exists() or shutil.which(tool) is not None
+        return (repo / venv / "bin" / tool).exists() or on_path(tool)
 
     def vendored_or_path(sub: str, tool: str) -> bool:
-        return (repo / "vendor" / sub / "bin" / tool).exists() or shutil.which(tool) is not None
+        return (repo / "vendor" / sub / "bin" / tool).exists() or on_path(tool)
 
-    sylph = vendored_or_path("sylph", "sylph")
-    # SingleM runs these two through the PATH.
-    helpers = vendored_or_path("cargo", "smafa") and vendored_or_path("cargo", "mfqe")
-    sylph_tax = (repo / ".venv" / "bin" / "sylph-tax").exists() or shutil.which("sylph-tax") is not None
-    spades = any(repo.glob("vendor/SPAdes-*/bin/metaspades.py")) or shutil.which("metaspades.py") is not None
-    return all((
-        (repo / ".venv-mpa42" / "bin" / "metaphlan").exists(),   # the Jan26 lane looks only here
-        venv_or_path(".venv-motus", "motus"),
-        venv_or_path(".venv-singlem", "singlem"),
-        shutil.which("kraken2") is not None, shutil.which("bracken") is not None,
-        shutil.which("bwa") is not None, shutil.which("bowtie2") is not None,
-        sylph, sylph_tax, spades, helpers,
-    ))
+    present = {
+        "MetaPhlAn 4.2": (repo / ".venv-mpa42" / "bin" / "metaphlan").exists(),   # the Jan26 lane looks only here
+        "mOTUs": venv_or_path(".venv-motus", "motus"),
+        "SingleM": venv_or_path(".venv-singlem", "singlem"),
+        "kraken2": on_path("kraken2"), "bracken": on_path("bracken"),
+        "bwa": on_path("bwa"), "bowtie2": on_path("bowtie2"),
+        "sylph": vendored_or_path("sylph", "sylph"),
+        "sylph-tax": venv_or_path(".venv", "sylph-tax"),
+        "SPAdes": any(repo.glob("vendor/SPAdes-*/bin/metaspades.py")) or on_path("metaspades.py"),
+        # SingleM runs these through the PATH: two Rust helpers, and the
+        # programs it pipes reads through (OrfM into HMMER's hmmsearch, then DIAMOND).
+        "smafa": vendored_or_path("cargo", "smafa"), "mfqe": vendored_or_path("cargo", "mfqe"),
+    }
+    absent = [name for name, there in present.items() if not there]
+    return absent + [tool for tool in missing_path_tools() if tool not in absent]
+
+
+def catalogue_tools(repo: Path) -> bool:
+    """The tools behind the five 2025 catalogue lanes and targeted assembly."""
+    return not catalogue_tools_missing(repo)
 
 
 def catalogue_refs(repo: Path) -> bool:
@@ -152,6 +164,37 @@ CHECKS: dict[str, Check] = {
     "catalogue_tools": catalogue_tools,
     "catalogue_refs": catalogue_refs,
 }
+
+
+#: What each standard-install piece is, in words, for messages to a person.
+LABELS: dict[str, str] = {
+    "python": "the Python environment",
+    "profiler": "MetaPhlAn 3",
+    "data": "the reference data that ships in data/",
+    "metaphlan_db": "the MetaPhlAn marker database",
+    "diamond_db": "the protein search database",
+    "models": "the metabolic model library",
+    "host_index": "the human-read filter index",
+    "catalogue_tools": "the catalogue lanes' tools",
+    "catalogue_refs": "the catalogue lanes' references",
+}
+
+
+def describe_missing(names: list[str], repo: Path | None = None) -> str:
+    """Missing pieces in words; for the tools, which ones: "the catalogue lanes' tools (hmmsearch)"."""
+    root = repo or REPO_ROOT
+    parts: list[str] = []
+    for name in names:
+        label = LABELS.get(name, name)
+        if name == "catalogue_tools":
+            try:
+                which = catalogue_tools_missing(root)
+            except Exception:  # noqa: BLE001 - a description must not fail the message it is for
+                which = []
+            if which:
+                label += f" ({', '.join(which)})"
+        parts.append(label)
+    return ", ".join(parts)
 
 
 def standard_missing(repo: Path | None = None) -> list[str]:
@@ -260,6 +303,9 @@ def full_ready(repo: Path | None = None) -> bool:
 
 
 def main(argv: list[str] | None = None) -> int:
+    from openbiota import projectpath  # noqa: PLC0415
+
+    projectpath.ensure(REPO_ROOT)
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("name", nargs="?", choices=sorted(ALL_CHECKS))

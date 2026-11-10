@@ -17,6 +17,7 @@ openbiota cohort              build percentile reference ranges
 openbiota validate            measure sensitivity, specificity and accuracy
 openbiota depth-check         test whether the sequencing depth was sufficient
 openbiota doctor              check dependencies, hardware and inputs
+openbiota selftest            run every detection lane on made-up reads
 ```
 
 `openbiota` with no command prints the help, like any command; nothing
@@ -64,8 +65,30 @@ sentence saying so.
 A full run on a machine without the full install does not start: it names
 the missing pieces and, at a terminal, offers to run `openbiota install
 --full`. Every run records its mode in `results.json` (`run.report_mode`)
-and the closing census asks only about the stages that mode promises. The
-run's last line is `Report: <path>`.
+and the closing census asks only about the stages that mode promises.
+
+### What a run prints
+
+One line when it starts (the sample, the mode, how long that usually
+takes); one line for each stage that took more than a moment, with its
+duration; warnings in a line each; then the outcome and, last, the path:
+
+```
+✓ Done in 50m57s: lite report, all 19 stages ran, 332 organisms named.
+  Everything else is in results/my-sample/: summary.txt (the full text summary), results.json, run.log.
+
+Report: /home/you/openbiota-gut-health-test/results/my-sample/my-sample_report.pdf
+```
+
+On a terminal the stage in progress is a single line that redraws once a
+second with the elapsed time; into a pipe or a log file, a stage still
+running after two seconds is announced once instead. A stage that fails
+says why once, in words (`the program 'hmmsearch' is not installed - run
+./install.sh to add it`), and the ending lists only the stages that
+produced nothing, each with its reason; the exit status is then 2 and the
+report is still written. Progress goes to stderr and `Report: <path>` is
+the only line on stdout, so `report=$(openbiota run … | tail -n 1)` works.
+`run.log` always has every step with its timing.
 
 `.gz` is preferred by default because DIAMOND decompresses natively, halving
 disk I/O and letting you delete the uncompressed copies. Record counting and
@@ -156,7 +179,9 @@ filter, so it rebuilds only when a pathway definition actually changes.
 
 | Flag | Effect |
 |---|---|
-| `--compact` | One-screen answer only |
+| `--verbose`, `-v` | Show every step as it happens, timestamped — what `run.log` records |
+| `--summary` | Print the full text summary when the run ends (several thousand lines; always saved as `summary.txt`) |
+| `--compact` | Print the one-screen answer when the run ends |
 | `--json` | Print `results.json` to stdout |
 | `--no-pdf` | Skip the PDF report |
 | `--no-panel-hits` | Skip per-panel hit views |
@@ -164,7 +189,32 @@ filter, so it rebuilds only when a pathway definition actually changes.
 | `--validation PATH` | Measured performance (default `docs/validation_results.json`) |
 | `--out DIR` | Results root (default `./results`) |
 | `--refs-dir DIR` | Reference cache root (default `./refs`) |
-| `--quiet`, `-q` | Suppress progress on stderr |
+| `--quiet`, `-q` | Suppress progress on stderr; only `Report: <path>` is printed |
+
+---
+
+## `openbiota selftest`
+
+```bash
+openbiota selftest                              # every lane, about ten minutes
+openbiota selftest --lanes singlem_globdb motus4
+```
+
+Simulates 120,000 read pairs from three genomes that ship with the
+repository and runs them through each detection lane — MetaPhlAn 4, sylph
+against GlobDB and against GTDB, mOTUs 4, Kraken 2 with Bracken, SingleM —
+by the same code `openbiota run` uses. A lane passes when it runs to the
+end *and* finds what the reads were drawn from; a lane that exits cleanly
+having found nothing, or something else, has not worked either. (Found is
+judged by genus — *Bifidobacterium*, *Lacticaseibacillus* — because the
+catalogues give the same genome different species names.) It prints one
+line per lane — how long it took and the most memory any one of its
+programs held, each lane being run in a process of its own so that figure
+is its own — and exits non-zero if any failed, with
+the reason (`the program 'hmmsearch' is not installed - run ./install.sh to
+add it`). The installer ends with it; run it yourself after changing
+anything on the machine — an operating-system upgrade, a moved folder.
+`--keep DIR` keeps the test reads and each lane's output.
 
 ---
 

@@ -98,19 +98,33 @@ def run_all(
     lanes: dict[str, dict[str, Any]] = {}
     status: dict[str, dict[str, Any]] = {}
 
-    def attempt(lane_id: str, label: str, fn: Callable[[], LaneResult | None]) -> None:
+    def not_assessed(lane_id: str, label: str) -> None:
+        if lane_id == "kraken_rescue":
+            # An optional extra the reconciliation build adds; its absence is
+            # the normal state of an install and is recorded, not announced.
+            reason = "panel not built (scripts/build_rescue_panel_kraken.py)"
+            reporter.record(f"{label}: {reason}; recorded as not assessed")
+        else:
+            reason = "tool or reference not installed"
+            reporter.warn(f"{label}: {reason}; recorded as not assessed")
+        status[lane_id] = {"state": "not_assessed", "reason": reason}
+
+    def attempt(lane_id: str, label: str, fn: Callable[[], LaneResult | None],
+                ready: Callable[[], bool] | None = None) -> None:
         if only is not None and lane_id not in only:
             status[lane_id] = {"state": "skipped", "reason": "not requested"}
+            return
+        # Asked before the stage is opened: a lane that is not installed is
+        # not a stage that ran, and must not print as one that finished.
+        if ready is not None and not ready():
+            not_assessed(lane_id, label)
             return
         t0 = time.monotonic()
         try:
             with reporter.stage(label):
                 result = fn()
                 if result is None:
-                    reason = ("panel not built (scripts/build_rescue_panel_kraken.py)" if lane_id == "kraken_rescue"
-                              else "tool or reference not installed")
-                    status[lane_id] = {"state": "not_assessed", "reason": reason}
-                    reporter.warn(f"{label}: {reason}; recorded as not assessed")
+                    not_assessed(lane_id, label)
                     return
                 lanes[lane_id] = result.to_json()
                 status[lane_id] = {
@@ -126,6 +140,7 @@ def run_all(
             status[lane_id] = {"state": "failed", "reason": f"{type(exc).__name__}: {str(exc)[:300]}",
                                "error_detail": str(exc)[-2500:], "elapsed_s": round(time.monotonic() - t0, 1)}
             reporter.warn(f"{label} failed: {type(exc).__name__}: {str(exc)[:200]}")
+            reporter.record(f"    {label}: the end of what it reported: {str(exc)[-2500:]}")
 
     attempt("metaphlan_jan26", "marker lane (MetaPhlAn 4.2.6 / Jan26)", lambda: metaphlan_jan26.run_metaphlan_jan26(
         sample=sample, r1=r1, r2=r2, db_dir=refs_dir / "metaphlan4_db", work_dir=out_dir / "taxonomy",
@@ -137,7 +152,8 @@ def run_all(
     attempt("kraken_uhgg", "gut rescue classifier (Kraken2 + Bracken / UHGG v2.0.2)", lambda: kraken.run_kraken(
         sample=sample, r1=r1, r2=r2, refs_dir=refs_dir, work_dir=out_dir / "kraken", threads=threads))
     attempt("kraken_rescue", "gut rescue panel (Kraken2 + Bracken / reconciliation panel)", lambda: kraken.run_kraken(
-        sample=sample, r1=r1, r2=r2, refs_dir=refs_dir, work_dir=out_dir / "kraken_rescue", threads=threads, panel="rescue"))
+        sample=sample, r1=r1, r2=r2, refs_dir=refs_dir, work_dir=out_dir / "kraken_rescue", threads=threads, panel="rescue"),
+        ready=lambda: kraken.available(refs_dir, "rescue"))
     attempt("singlem_globdb", "unrepresented-lineage rescue (SingleM / GlobDB)", lambda: singlem.run_singlem(
         sample=sample, r1=r1, r2=r2, refs_dir=refs_dir, work_dir=out_dir / "singlem", threads=threads))
 

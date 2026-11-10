@@ -43,6 +43,19 @@ CACHE_VERSION: Final = 1
 _RANKS = ("d__", "p__", "c__", "o__", "f__", "g__", "s__")
 
 
+#: Programs `singlem pipe` starts by name, and what each one is. SingleM
+#: installs without them and fails on its first sample.
+PATH_TOOLS: Final[dict[str, str]] = {
+    "orfm": "OrfM, which finds the open reading frames",
+    "hmmsearch": "part of HMMER, which finds the marker genes",
+    "diamond": "DIAMOND, which assigns the taxonomy",
+}
+
+
+def missing_path_tools() -> list[str]:
+    return [tool for tool in PATH_TOOLS if shutil.which(tool) is None]
+
+
 def _tool() -> Path | None:
     root = Path(__file__).resolve().parents[2]
     exe = root / ".venv-singlem" / "bin" / "singlem"
@@ -104,6 +117,14 @@ def run_singlem(
     exe = _tool()
     if exe is None or not ensure_extracted(refs_dir):
         return None
+    absent = missing_path_tools()
+    if absent:
+        # Said now, by name. Left to SingleM it surfaces a minute in, as a
+        # shell's "command not found" inside a Python traceback.
+        raise RuntimeError(
+            f"SingleM cannot run: {', '.join(absent)}: not found on the PATH "
+            f"({'; '.join(f'{tool} is {PATH_TOOLS[tool]}' for tool in absent)})"
+        )
     work_dir.mkdir(parents=True, exist_ok=True)
     version = _version(exe)
     sha = input_sha256([r1, r2])

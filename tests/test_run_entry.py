@@ -230,8 +230,57 @@ def test_full_without_the_install_is_refused_with_the_command(monkeypatch):
 def test_a_run_refuses_to_start_without_the_standard_install(monkeypatch):
     monkeypatch.setattr(cli, "_interactive", lambda: False)
     monkeypatch.setattr(reportmode, "standard_install_missing", lambda _repo=None: ["catalogue_refs"])
-    with pytest.raises(InputError, match="catalogue_refs"):
+    with pytest.raises(InputError, match="the catalogue lanes' references"):
         cli._apply_mode(_args(argv=["--mode", "lite"]), allow_prompt=True)
+
+
+def test_the_refusal_names_the_missing_program_not_the_installer_step(monkeypatch, capsys):
+    """A machine installed before HMMER joined the list: the run stops before an hour is spent
+    and says `hmmsearch`, not `catalogue_tools`."""
+    from openbiota import installcheck
+
+    monkeypatch.setattr(cli, "_interactive", lambda: False)
+    monkeypatch.setattr(reportmode, "standard_install_missing", lambda _repo=None: ["catalogue_tools"])
+    monkeypatch.setattr(installcheck, "catalogue_tools_missing", lambda _repo: ["hmmsearch"])
+    with pytest.raises(InputError, match=r"the catalogue lanes' tools \(hmmsearch\)"):
+        cli._apply_mode(_args(argv=["--mode", "lite"]), allow_prompt=True)
+    said = capsys.readouterr().out
+    assert "Missing: the catalogue lanes' tools (hmmsearch)." in said and "./install.sh" in said
+    assert "catalogue_tools" not in said
+
+
+def test_the_help_screen_says_when_the_install_is_incomplete(monkeypatch):
+    from openbiota import installcheck
+
+    monkeypatch.setattr(installcheck, "standard_missing", lambda _repo=None: ["catalogue_tools"])
+    monkeypatch.setattr(installcheck, "catalogue_tools_missing", lambda _repo: ["hmmsearch"])
+    first = cli._machine_summary().splitlines()[0]
+    assert first == ("this machine: the install is not complete - missing the catalogue lanes' tools "
+                     "(hmmsearch); `./install.sh` adds it")
+    monkeypatch.setattr(installcheck, "standard_missing", lambda _repo=None: [])
+    monkeypatch.setattr(installcheck, "full_missing", lambda _repo=None: ["pathogens", "mycobiome_refs"])
+    assert cli._machine_summary().startswith("this machine: standard install - lite reports (2 full-install")
+
+
+def test_every_standard_piece_has_a_name_a_person_would_recognise():
+    from openbiota import installcheck
+
+    assert set(installcheck.LABELS) == set(installcheck.CHECKS)
+    assert installcheck.describe_missing(["models", "diamond_db"]) == "the metabolic model library, the protein search database"
+
+
+def test_the_tools_check_lists_what_is_absent(tmp_path: Path, monkeypatch):
+    import shutil
+
+    from openbiota import installcheck
+
+    monkeypatch.setattr(shutil, "which", lambda _tool: None)
+    absent = installcheck.catalogue_tools_missing(tmp_path)
+    for name in ("MetaPhlAn 4.2", "mOTUs", "SingleM", "kraken2", "bracken", "sylph", "SPAdes", "smafa", "mfqe",
+                 "orfm", "hmmsearch", "diamond"):
+        assert name in absent, name
+    assert len(absent) == len(set(absent))
+    assert installcheck.catalogue_tools(tmp_path) is False
 
 
 def test_mode_of_reads_the_record_and_defaults_to_full():
@@ -298,9 +347,26 @@ def test_the_report_path_is_the_last_thing_printed(tmp_path: Path, monkeypatch, 
     monkeypatch.setattr(cli, "_open_report", lambda p: opened.append(p) or True)
     args = _args(argv=[str(r1), str(r2), "--mode", "lite"])
     assert cli.cmd_run_entry(args) == 0
-    lines = [line for line in capsys.readouterr().out.splitlines() if line.strip()]
-    assert lines[-1] == f"Report: {pdf.resolve()}"
+    captured = capsys.readouterr()
+    assert captured.out.splitlines()[-1] == f"Report: {pdf.resolve()}", "the path, and nothing after it"
     assert opened == [], "no terminal, so nothing is opened"
+    # Where the rest is, for a person, on stderr: not in the way of the path.
+    assert "summary.txt (the full text summary), results.json, run.log" in captured.err
+    assert "MISSING" not in captured.out + captured.err
+
+
+def test_the_path_is_the_only_thing_the_entry_adds_to_stdout(tmp_path: Path, monkeypatch, capsys):
+    """`report=$(openbiota run ... | tail -n 1)` gets a clean line; --quiet gets only that line."""
+    pdf = tmp_path / "S_report.pdf"
+    pdf.write_bytes(b"%PDF-1.4")
+    r1 = _fastq(tmp_path / "S_1.fastq.gz", 1)
+    monkeypatch.setattr(cli, "cmd_run", lambda args, **_kw: setattr(args, "_last_report", pdf) or 2)
+    monkeypatch.setattr(cli, "_interactive", lambda: False)
+    assert cli.cmd_run_entry(_args(argv=[str(r1), "--mode", "lite"])) == 2
+    assert capsys.readouterr().out == f"Report: {pdf.resolve()}\n", "an incomplete run still has a report, and says where"
+    assert cli.cmd_run_entry(_args(argv=[str(r1), "--mode", "lite", "--quiet"])) == 2
+    captured = capsys.readouterr()
+    assert captured.out == f"Report: {pdf.resolve()}\n" and captured.err == ""
 
 
 def test_the_viewer_opens_only_at_a_terminal_and_only_once(tmp_path: Path, monkeypatch, capsys):
@@ -313,7 +379,9 @@ def test_the_viewer_opens_only_at_a_terminal_and_only_once(tmp_path: Path, monke
     monkeypatch.setattr(cli, "_open_report", lambda p: opened.append(p) or True)
     assert cli.cmd_run_entry(_args(argv=[str(r1), "--mode", "lite"])) == 0
     assert opened == [pdf]
-    assert "Opening it in your PDF viewer." in capsys.readouterr().out
+    captured = capsys.readouterr()
+    assert "Opening the report in your PDF viewer." in captured.err
+    assert captured.out.splitlines()[-1] == f"Report: {pdf.resolve()}", "the path stays the last line"
     opened.clear()
     assert cli.cmd_run_entry(_args(argv=[str(r1), "--mode", "lite", "--no-open"])) == 0
     assert opened == []
@@ -397,7 +465,12 @@ def test_interactive_prompts_on_a_pty(tmp_path: Path):
     assert "Several samples are in the FASTQ folder" in text
     assert " 1)  alice" in text and " 2)  bob" in text
     assert "Which report?" in text and "1) full" in text and "2) lite" in text
-    assert "the first time" in text, "each mode states how long it takes"
+    flat = " ".join(text.split())
+    assert "three hours for a new sample" in flat and "two hours for a new sample" in flat, \
+        "each mode states how long it takes"
+    assert "No pathogen, mycobiome or strain sections." in flat, "and lite says what it leaves out"
+    prompt = text[text.index("Which report?"):text.index("full or lite?")]
+    assert max(len(line) for line in prompt.splitlines()) <= 80, "wrapped, not one long line per mode"
     assert "no report mode chosen" in text
 
 

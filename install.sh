@@ -29,7 +29,7 @@ MICROMAMBA_URL="https://micro.mamba.pm/api/micromamba"
 
 # Steps in the standard install, in order. Each is a pair of functions below:
 # done_<step> (0 when nothing is left to do) and run_<step>.
-STANDARD_STEPS="preflight system python launcher profiler data metaphlan_db diamond_db models host_index catalogue_tools catalogue_refs check"
+STANDARD_STEPS="preflight system python launcher profiler data metaphlan_db diamond_db models host_index catalogue_tools catalogue_refs check selftest"
 # Added by --full. Each is a Makefile target, so the pinned versions live in
 # one place; these are the slow, large lanes and take most of a day.
 FULL_STEPS="profiler4 vendor_tools strain_tools refs_strain pathogens substrate_refs tools_expanded globdb_genomes expansion mycobiome_refs"
@@ -38,6 +38,10 @@ FULL_STEPS="profiler4 vendor_tools strain_tools refs_strain pathogens substrate_
 # The standard install carries the five 2025 catalogue lanes (~190 GB of
 # references); --skip-catalogues leaves them out and with them the ability
 # to make any report, so it exists for staging an install, not for running.
+# The most memory one program of the standard install holds (bowtie2 on the
+# MetaPhlAn Jan26 index, measured), and what the rest of the machine needs.
+LANE_PEAK_GB=37
+LANE_HEADROOM_GB=7
 DISK_STANDARD_GB=230
 DISK_NO_HOST_GB=220
 DISK_NO_CATALOGUES_GB=20
@@ -102,7 +106,10 @@ Steps, in order:
   host_index    the human-genome read filter (7 GB download + build)
   catalogue_tools  MetaPhlAn 4.2, mOTUs 4, SingleM, Kraken 2/Bracken, sylph, SPAdes
   catalogue_refs   their references: ~130 GB of downloads, ~190 GB on disk
-  check         verify every piece, end to end
+  check         verify that every piece is in place
+  selftest      run every detection lane once on made-up reads and require
+                each to find what the reads were drawn from (about ten
+                minutes; --skip selftest leaves it out)
 
 With --full, afterwards:
   profiler4 vendor_tools strain_tools refs_strain pathogens substrate_refs
@@ -346,6 +353,8 @@ free_gb() {
     df -Pk "$REPO" | awk 'NR==2 { printf "%d", $4 / 1048576 }'
 }
 memory_gb() {
+    # INSTALL_MEMORY_GB overrides it, which is how the tests reach the small-machine warning.
+    if [ -n "${INSTALL_MEMORY_GB:-}" ]; then printf '%s' "$INSTALL_MEMORY_GB"; return 0; fi
     if [ "$OS" = "Darwin" ]; then
         sysctl -n hw.memsize 2>/dev/null | awk '{ printf "%d", $1 / 1073741824 }'
     else
@@ -397,7 +406,9 @@ pkg_install() {
             # Ask for the password here, in the open, before the command's
             # output is sent to the log and the live status line would paint
             # over sudo's prompt.
-            if [ -n "$SUDO" ] && [ $DRY_RUN -eq 0 ]; then
+            # Said only when sudo is about to ask: while it still remembers
+            # the password there is nothing for the reader to do.
+            if [ -n "$SUDO" ] && [ $DRY_RUN -eq 0 ] && ! sudo -n true 2>/dev/null; then
                 printf '  %s%s needs administrator rights to install packages%s\n' "$DIM" "$PKG" "$RESET"
                 sudo -v || { warn "sudo refused; the tools will come from conda instead"; return 1; }
             fi
@@ -463,6 +474,7 @@ pkg_name_for() {
         dnf:pkg-config) echo pkgconf-pkg-config ;;
         brew:cc) echo "" ;;   # the Xcode command line tools provide it; preflight checks them
         brew:aria2c|apt:aria2c|dnf:aria2c) echo aria2 ;;
+        brew:hmmsearch|apt:hmmsearch|dnf:hmmsearch) echo hmmer ;;
         brew:cargo) echo rust ;;
         apt:cargo) echo cargo ;;
         dnf:cargo) echo cargo ;;
@@ -477,6 +489,7 @@ conda_name_for() {
     case "$1" in
         python) echo "python=3.12 pip" ;;
         aria2c) echo aria2 ;;
+        hmmsearch) echo hmmer ;;
         cargo) echo rust ;;
         cc) echo "c-compiler" ;;
         *) echo "$1" ;;
@@ -508,6 +521,10 @@ cargo_ok() {
     [ "$(printf '%s' "$v" | cut -d. -f1)" -ge 1 ] 2>/dev/null && [ "$(printf '%s' "$v" | cut -d. -f2)" -ge "$RUST_MIN_MINOR" ] 2>/dev/null
 }
 
+python3_version() {
+    python3 -c 'import sys; print("%d.%d" % sys.version_info[:2])' 2>/dev/null || echo "too old"
+}
+
 ensure_tool() {
     # ensure_tool NAME  - installed by whatever route works; 0 when present.
     local tool=$1
@@ -515,7 +532,7 @@ ensure_tool() {
         find_python >/dev/null 2>&1 && return 0
     elif [ "$tool" = cargo ]; then
         cargo_ok && return 0
-        note "cargo is missing or older than 1.$RUST_MIN_MINOR"
+        note "Rust 1.$RUST_MIN_MINOR or newer is needed (smafa, mfqe and sylph are built with it); the system's is older or absent"
         if [ "$PKG" = brew ]; then pkg_install rust || true; cargo_ok && return 0; fi
         conda_install rust || true
         hash -r
@@ -524,12 +541,25 @@ ensure_tool() {
     else
         have "$tool" && return 0
     fi
-    note "$tool is not installed"
-    if [ -n "$PKG" ]; then
+    # Each tool is not announced as missing: the step has listed what it is
+    # about to install, and the live line names the one being fetched.
+    local from_pkg=1
+    if [ "$tool" = python ] && have python3; then
+        note "python 3.11 or newer is needed; this machine's python3 is $(python3_version)"
+        # apt and dnf would only hand back the same python3; a newer one
+        # comes from conda, without touching the system's.
+        if [ "$PKG" != brew ]; then from_pkg=0; fi
+    fi
+    if [ -n "$PKG" ] && [ $from_pkg -eq 1 ]; then
+        # Not a warning: a distribution without a package for a tool is the
+        # ordinary case conda is there for.
         # shellcheck disable=SC2046
-        pkg_install $(pkg_name_for "$tool") || warn "$PKG could not install $tool; trying conda"
+        pkg_install $(pkg_name_for "$tool") || note "$PKG could not supply $tool; getting it from conda"
     fi
     if [ "$tool" = python ]; then find_python >/dev/null 2>&1 && return 0; else have "$tool" && return 0; fi
+    if [ "$tool" = python ] && [ $from_pkg -eq 1 ] && have python3; then
+        note "the python3 from $PKG is $(python3_version), older than 3.11; getting python 3.12 from conda"
+    fi
     # shellcheck disable=SC2046
     conda_install $(conda_name_for "$tool") || true
     hash -r
@@ -634,6 +664,21 @@ run_preflight() {
         fi
     fi
 
+    local mem; mem=$(memory_gb)
+    if [ "$mem" -gt 0 ] && [ "$mem" -lt 8 ]; then
+        warn "$mem GB memory is tight: the human-genome index build needs about 8 GB; consider --skip-host-index"
+    fi
+    # Measured, by `openbiota selftest`: MetaPhlAn 4 holds its 2025 index in
+    # memory, $LANE_PEAK_GB GB in one program; Kraken 2 holds 17. A machine
+    # without that much to give has the lane stopped by the kernel, and every
+    # report made on it is then short of that lane. Said now, before 130 GB
+    # is downloaded; the last step tries each lane and settles it.
+    if [ $SKIP_CATALOGUES -eq 0 ] && [ "$mem" -gt 0 ] && [ "$mem" -lt $(( LANE_PEAK_GB + LANE_HEADROOM_GB )) ]; then
+        warn "$mem GB of memory: the MetaPhlAn 4 lane holds a $LANE_PEAK_GB GB index in memory, more than this machine can spare"
+        note "unless it has swap to lean on, that lane will be stopped by the operating system and every report will be missing it"
+        note "the last install step tries each lane and will say; 64 GB is comfortable (docs/INSTALL.md, Requirements)"
+    fi
+
     local need free
     if [ $FULL -eq 1 ]; then need=$DISK_FULL_GB
     elif [ $SKIP_CATALOGUES -eq 1 ]; then need=$DISK_NO_CATALOGUES_GB
@@ -644,11 +689,6 @@ run_preflight() {
         die "only $free GB free on the drive holding this folder; the install needs about $need GB. Free some space, or clone onto a larger drive."
     fi
     ok "$free GB free (need about $need GB)"
-
-    local mem; mem=$(memory_gb)
-    if [ "$mem" -gt 0 ] && [ "$mem" -lt 8 ]; then
-        warn "$mem GB memory is tight: the human-genome index build needs about 8 GB; consider --skip-host-index"
-    fi
 
     if [ $OFFLINE -eq 0 ] && [ $DRY_RUN -eq 0 ]; then
         if ! online; then
@@ -681,7 +721,16 @@ online() {
 # Rust builds (sylph bundles a C library built with cmake) need them, and a
 # bare Linux image has none of them. Installed in the system step, so the
 # one sudo prompt covers them; checked again in the catalogue step.
-CATALOGUE_TOOLS="cc cmake pkg-config kraken2 bracken bwa orfm aria2c seqkit cargo"
+# hmmsearch (HMMER) and orfm are what SingleM pipes the reads through.
+CATALOGUE_TOOLS="cc cmake pkg-config kraken2 bracken bwa orfm hmmsearch aria2c seqkit cargo"
+catalogue_tools_missing() {
+    local t out=""
+    for t in $CATALOGUE_TOOLS; do
+        if [ "$t" = cargo ]; then cargo_ok || out="$out $t"
+        else have "$t" || out="$out $t"; fi
+    done
+    printf '%s' "$out"
+}
 # bzip2 and tar are what the reference archives and micromamba arrive in; a
 # container image can lack bzip2. make runs the reference builds.
 SYSTEM_TOOLS="git curl bzip2 make python diamond bowtie2 samtools fastp"
@@ -693,18 +742,22 @@ done_system() {
             "$py" -c 'import venv, ensurepip' >/dev/null 2>&1 || return 1
         else have "$t" || return 1; fi
     done
+    # The catalogue lanes' binaries are this step's too (one sudo prompt), so
+    # a machine installed before one was added to the list gets it here.
+    if [ $SKIP_CATALOGUES -eq 0 ] && [ -n "$(catalogue_tools_missing)" ]; then return 1; fi
     return 0
 }
 run_system() {
-    local t missing=""
+    local t missing="" lanes_missing=""
     for t in $SYSTEM_TOOLS; do
         if [ "$t" = python ]; then find_python >/dev/null 2>&1 || missing="$missing $t"
         else have "$t" || missing="$missing $t"; fi
     done
-    if [ -z "$missing" ]; then ok "every tool is already installed"; else
-        note "to install:$missing"
+    [ $SKIP_CATALOGUES -eq 1 ] || lanes_missing=$(catalogue_tools_missing)
+    if [ -z "$missing$lanes_missing" ]; then ok "every tool is already installed"; else
+        note "to install:$(printf '%s' "$missing$lanes_missing" | sed 's/ python/ python-3.11+/; s/ cc/ C-compiler/; s/ hmmsearch/ hmmer/; s/ cargo/ rust/')"
         if [ -n "$PKG" ] && [ "$PKG" != brew ] && [ $DRY_RUN -eq 0 ]; then
-            confirm "install them with $PKG (uses sudo)?" || die "cannot continue without:$missing"
+            confirm "install them with $PKG (uses sudo)?" || die "cannot continue without:$missing$lanes_missing"
         fi
         for t in $missing; do
             ensure_tool "$t" || die "could not install $t by any route. Install it yourself (see docs/INSTALL.md), then run ./install.sh again."
@@ -731,12 +784,9 @@ run_system() {
     # now too, so sudo is asked for once, here, and never an hour later when
     # nobody is at the keyboard (sudo forgets the password after fifteen
     # minutes). What apt or dnf cannot supply comes from conda, without sudo.
-    if [ $SKIP_CATALOGUES -eq 0 ]; then
-        for t in $CATALOGUE_TOOLS; do
-            if [ "$t" = cargo ]; then cargo_ok || ensure_tool cargo || true
-            elif ! have "$t"; then ensure_tool "$t" || true; fi
-        done
-    fi
+    for t in $lanes_missing; do
+        ensure_tool "$t" || true   # the catalogue step stops on what is still missing
+    done
     # Some of these are easy to have at the wrong version; say what we got.
     ok "python   $("$(find_python)" --version 2>&1 | sed 's/Python //')  ($(find_python))"
     ok "diamond  $(diamond version 2>/dev/null | head -1 | sed 's/diamond version //')"
@@ -1034,6 +1084,31 @@ run_check() {
     ok "every piece is in place"
 }
 
+# -- selftest ------------------------------------------------------------------
+# In place is not the same as working. SingleM's files were all there on a
+# fresh Ubuntu machine and its first run died on "hmmsearch: command not
+# found", an hour into a report. So every lane is run once, on made-up
+# reads, by the code `openbiota run` uses, and has to find what the reads
+# were drawn from. A lane that cannot fails here, in ten minutes.
+done_selftest() { return 1; }   # always runs
+run_selftest() {
+    if [ $SKIP_CATALOGUES -eq 1 ]; then note "skipped: the catalogue lanes are not installed (--skip-catalogues)"; return 0; fi
+    [ -x "$VENV/bin/openbiota" ] || die "the python step has not run yet (no .venv/bin/openbiota)"
+    note "120,000 made-up read pairs through every detection lane; about ten minutes"
+    local before
+    before=$(wc -l <"$LOG" | tr -d ' ')
+    if run_logged "openbiota selftest" "$REPO/bin/openbiota" selftest --threads "$THREADS"; then
+        ok "every detection lane ran and found what was in the test reads"
+        return 0
+    fi
+    printf '  %s%s a detection lane does not work on this machine; a report made now would be missing it:%s\n' "$RED" "$CROSS" "$RESET"
+    # The self-test marks each lane that failed with this glyph, whatever the locale.
+    tail -n +"$(( before + 1 ))" "$LOG" | grep -F '✗' | sed 's/^ *✗ */      /' || true
+    printf '\n  Run %s./install.sh%s again once it is fixed (it installs what is missing); %sbin/openbiota selftest%s repeats just this test.\n' "$BOLD" "$RESET" "$BOLD" "$RESET"
+    log "FAIL selftest"
+    exit 1
+}
+
 # -- the --full steps: each is a Makefile target --------------------------------
 make_step() {
     # make_step TARGET  - run a Makefile target as a step, logged
@@ -1077,8 +1152,8 @@ run_mycobiome_refs()  { make_step mycobiome-refs; ok "mycobiome references"; }
 # --------------------------------------------------------------------------- #
 
 all_steps() {
-    # With --full the final check comes last, after the lanes it must also verify.
-    if [ $FULL -eq 1 ]; then echo "${STANDARD_STEPS% check} $FULL_STEPS check"; else echo "$STANDARD_STEPS"; fi
+    # With --full the final check and the trial run come last, after the lanes they must also cover.
+    if [ $FULL -eq 1 ]; then echo "${STANDARD_STEPS% check selftest} $FULL_STEPS check selftest"; else echo "$STANDARD_STEPS"; fi
 }
 
 in_list() {
@@ -1158,7 +1233,7 @@ fi
 if [ $LIST_ONLY -eq 1 ]; then
     printf '%sInstall steps%s (%s)\n\n' "$BOLD" "$RESET" "$([ $FULL -eq 1 ] && echo full || echo standard)"
     for s in $(all_steps); do
-        if [ "$s" = preflight ] || [ "$s" = check ]; then state="  runs every time"
+        if [ "$s" = preflight ] || [ "$s" = check ] || [ "$s" = selftest ]; then state="  runs every time"
         elif "done_$s" 2>/dev/null; then state="${GREEN}  done${RESET}"
         else state="${YELLOW}  to do${RESET}"; fi
         printf '  %-16s%s\n' "$s" "$state"
@@ -1191,6 +1266,7 @@ for step in $STEPS; do
         models) label="Metabolic model library" ;;
         host_index) label="Human-read filter index" ;;
         check) label="Final check" ;;
+        selftest) label="Trial run of every detection lane" ;;
         profiler4) label="MetaPhlAn 4 (full)" ;;
         vendor_tools) label="Vendored tools (full)" ;;
         strain_tools) label="Strain and typing tools (full)" ;;

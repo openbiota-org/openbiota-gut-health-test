@@ -13,7 +13,7 @@ import sys
 import textwrap
 import time
 import traceback
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any, Final
 
@@ -127,7 +127,7 @@ REPO_ROOT: Final = Path(__file__).resolve().parent.parent
 SUBCOMMANDS: Final = (
     "run", "panels", "build-db", "doctor", "cohort", "validate", "depth-check",
     "taxonomic-cohort", "profiles", "validate-profiles", "build-host-index", "run-all",
-    "prune", "age-model", "fmt", "biofilm", "mycobiome", "install",
+    "prune", "age-model", "fmt", "biofilm", "mycobiome", "install", "selftest",
 )
 
 #: What `openbiota` prints on its own, after the list of commands.
@@ -142,7 +142,7 @@ EXAMPLES: Final = (
     "  openbiota run --mode lite                   the standard install's report (no questions asked)\n"
     "  openbiota run --mode full                   every section; needs the full install\n"
     "  openbiota run-all                           every sample in ./fastq, plus a comparison\n"
-    "  openbiota install --full                    add the full install's detection lanes (~1.3 TB)\n"
+    "  openbiota install --full                    add the full install's lanes (~1.1 TB more)\n"
     "  openbiota doctor                            what is installed, and what is in ./fastq\n"
     "\n"
     "The report is written to results/<sample>/<sample>_report.pdf and opened when it is done.\n"
@@ -206,13 +206,27 @@ def build_parser() -> argparse.ArgumentParser:
         "install", help="install or extend the software (runs ./install.sh)",
         description=(
             "Run the installer. Without options it brings the standard install up to date; "
-            "--full adds the optional detection lanes (the pathogen screen, the mycobiome, "
-            "strain typing, the expanded catalogues: about 1.3 TB of reference data, most of a "
+            "--full adds the full report's lanes (the pathogen screen, the mycobiome, strain "
+            "typing, the GlobDB genome archive: about 1.1 TB more reference data, most of a "
             "day). Any other option is passed to ./install.sh; see ./install.sh --help."
         ),
     )
     install.add_argument("install_args", nargs=argparse.REMAINDER, metavar="...",
                          help="options for ./install.sh, e.g. --full, --list, --skip-host-index")
+
+    selftest = sub.add_parser(
+        "selftest", help="run every detection lane on made-up reads (about ten minutes)",
+        description=(
+            "Simulate reads from three genomes that ship with the repository and run them through "
+            "each detection lane, by the same code `openbiota run` uses. A lane passes when it "
+            "runs to the end and finds the organisms the reads were drawn from. The installer ends "
+            "with this; run it yourself after changing anything on the machine."
+        ),
+    )
+    selftest.add_argument("--lanes", nargs="+", metavar="LANE", help="only these lanes (default: all)")
+    selftest.add_argument("--threads", "-p", type=int, default=_default_threads())
+    selftest.add_argument("--refs-dir", type=Path, default=REPO_ROOT / "refs")
+    selftest.add_argument("--keep", type=Path, metavar="DIR", help="keep the test reads and outputs here")
 
     panels = sub.add_parser("panels", help="list or inspect gene panels")
     panels.add_argument("--panels-dir", type=Path, default=REPO_ROOT / "panels")
@@ -698,7 +712,10 @@ def _add_run_arguments(p: argparse.ArgumentParser) -> None:
                          "trimming already handles paired-end adapters)")
 
     out = p.add_argument_group("output")
-    out.add_argument("--compact", action="store_true", help="print the one-screen answer only")
+    out.add_argument("--summary", action="store_true",
+                     help="print the full text summary when the run ends (it is always saved as "
+                          "summary.txt beside the report)")
+    out.add_argument("--compact", action="store_true", help="print the one-screen answer when the run ends")
     out.add_argument("--json", action="store_true", help="print results.json to stdout")
     out.add_argument("--no-panel-hits", action="store_true",
                      help="skip writing per-panel hits_<panel>_<mate>.tsv views")
@@ -716,6 +733,9 @@ def _add_run_arguments(p: argparse.ArgumentParser) -> None:
         default=REPO_ROOT / "docs" / "profile_validation.json",
         help="labelled-cohort AUCs and specificity matrix from `openbiota validate-profiles`",
     )
+    out.add_argument("--verbose", "-v", action="store_true",
+                     help="show every step as it happens, timestamped (what run.log records); the "
+                          "default is one line per stage")
     out.add_argument("--quiet", "-q", action="store_true", help="suppress progress on stderr")
 
     sim = p.add_argument_group(
@@ -2247,17 +2267,17 @@ def _require_standard_install() -> None:
     missing = reportmode.standard_install_missing()
     if not missing:
         return
+    from openbiota.installcheck import describe_missing  # noqa: PLC0415
+
+    what = describe_missing(missing)
     print(
-        f"\nThe standard install is not complete on this machine: missing "
-        f"{', '.join(missing)}.\n`./install.sh` (or `openbiota install`) finishes it; it continues "
-        "where it stopped.",
+        f"\nThe standard install is not complete on this machine. Missing: {what}.\n"
+        "`./install.sh` (or `openbiota install`) adds what is missing and skips what is done.",
     )
     if _interactive() and _ask("Run the installer now? [y/N] ").lower() in ("y", "yes"):
         print("\nStarting ./install.sh. Run `openbiota run` again when it has finished.\n")
         os.execv("/bin/bash", ["bash", str(REPO_ROOT / "install.sh")])
-    raise InputError(
-        f"the standard install is not complete (missing: {', '.join(missing)}); run ./install.sh"
-    )
+    raise InputError(f"the standard install is not complete (missing: {what}); run ./install.sh")
 
 
 def _offer_full_install() -> None:
@@ -2284,21 +2304,22 @@ def _prompt_mode() -> str:
     from openbiota import reportmode  # noqa: PLC0415
 
     missing = reportmode.full_install_missing()
-    full_state = (
-        "installed on this machine" if not missing
-        else f"NOT installed on this machine: `openbiota install --full` adds it, "
-             f"{reportmode.FULL_INSTALL_COST}"
-    )
+    full, lite = reportmode.FULL, reportmode.LITE
+
+    def entry(number: int, mode: reportmode.Mode, text: str) -> str:
+        head = f"  {number}) {mode.name}   "
+        return textwrap.fill(text, width=78, initial_indent=head, subsequent_indent=" " * len(head))
+
+    installed = ("Installed on this machine." if not missing else
+                 f"Not installed on this machine: `openbiota install --full` adds it "
+                 f"({reportmode.FULL_INSTALL_COST}).")
     print("\nWhich report?\n")
-    print(f"  1) full   {reportmode.FULL.summary}: {reportmode.FULL.sections}.")
-    print(f"            {reportmode.FULL.time_first} the first time for a sample on a desktop, "
-          f"{reportmode.FULL.time_again} when run again.")
-    print(f"            Full install: {full_state}.")
-    print(f"  2) lite   {reportmode.LITE.summary}: {reportmode.LITE.sections}.")
-    print(f"            {reportmode.LITE.time_first} the first time on a desktop, "
-          f"{reportmode.LITE.time_again} when run again. Leaves out the sections above that "
-          "need the full install.")
-    print("\n(--mode full or --mode lite skips this question.)")
+    print(entry(1, full, f"{full.summary.capitalize()}: {full.sections}. Usually {full.time_first} for a new "
+                         f"sample, {full.time_again} for one run before. {installed}"))
+    print(entry(2, lite, f"{lite.summary.capitalize()}: {lite.sections}. Usually {lite.time_first} for a new "
+                         f"sample, {lite.time_again} for one run before. No pathogen, mycobiome or strain "
+                         "sections."))
+    print("\n(--mode full or --mode lite answers in advance.)")
     while True:
         answer = _ask(f"full or lite? [{'1' if not missing else '2'}] ").lower()
         if answer in ("q", "quit", "exit"):
@@ -2371,7 +2392,7 @@ def cmd_run_entry(args: argparse.Namespace) -> int:
     _resolve_inputs(args)
     samples = _select_samples(args)
     _apply_mode(args, allow_prompt=True)
-    if getattr(args, "mode_reason", "") and not args.quiet:
+    if getattr(args, "mode_reason", "") and getattr(args, "verbose", False) and not args.quiet:
         print(f"report mode: {args.report_mode} ({args.mode_reason})", file=sys.stderr)
 
     outcomes: list[tuple[str, Path | None, int]] = []
@@ -2382,23 +2403,86 @@ def cmd_run_entry(args: argparse.Namespace) -> int:
         outcomes.append((sample.sample, getattr(args, "_last_report", None), code))
         worst = max(worst, code)
 
-    # The last thing on the screen is where the report is. Printed after the
-    # summary text, which is long, so it cannot scroll out of sight; and to
-    # stdout, so `$(openbiota run ...)`-style capture gets it too - except in
-    # --json mode, whose stdout is the JSON and nothing else.
+    # The last line on the screen is where the report is: after anything the
+    # run printed (--summary is thousands of lines), so it cannot scroll out
+    # of sight, with nothing after the path. It goes to stdout, so
+    # `$(openbiota run ...)`-style capture gets it - except in --json mode,
+    # whose stdout is the JSON and nothing else. The notes around it are
+    # for a person and go to stderr.
     out = sys.stderr if args.json else sys.stdout
-    print("", file=out)
+    reports = [pdf for _, pdf, _ in outcomes if pdf is not None and pdf.is_file()]
+    if not args.quiet:
+        style = Style(sys.stderr.isatty() and not os.environ.get("NO_COLOR"))
+        for _, pdf, _ in outcomes:
+            if pdf is not None and pdf.is_file():
+                where = _shown_path(pdf.parent)
+                print(style.dim(f"  Everything else is in {where}/: summary.txt (the full text summary), "
+                                "results.json, run.log."), file=sys.stderr)
+        if len(reports) == 1 and not args.no_open and _interactive() and _open_report(reports[0]):
+            print("  Opening the report in your PDF viewer.", file=sys.stderr)
+        print("", file=sys.stderr)
+        sys.stderr.flush()
+    elif len(reports) == 1 and not args.no_open and _interactive():
+        _open_report(reports[0])
     for name, pdf, code in outcomes:
         if pdf is not None and pdf.is_file():
-            state = "" if code == 0 else "  (see the stages marked MISSING above)"
-            print(f"Report: {pdf.resolve()}{state}", file=out)
+            print(f"Report: {pdf.resolve()}", file=out)
         else:
             print(f"No report for {name}: the run did not produce a PDF (exit {code}); see "
-                  f"results/{name}/run.log", file=out)
-    reports = [pdf for _, pdf, _ in outcomes if pdf is not None and pdf.is_file()]
-    if len(reports) == 1 and not args.no_open and _interactive() and _open_report(reports[0]):
-        print("Opening it in your PDF viewer.", file=out)
+                  f"{_shown_path(Path(args.out) / name)}/run.log", file=out)
     return worst
+
+
+def _shown_path(path: Path) -> str:
+    """A path as a person would type it: relative to here when it is under here."""
+    resolved = path.resolve()
+    try:
+        return str(resolved.relative_to(Path.cwd().resolve()))
+    except ValueError:
+        return str(resolved)
+
+
+def _run_headline(args: argparse.Namespace, sample_input: SampleInput, total_input: int) -> str:
+    """The run's first line in the short form: what is being made, from what, and how long it takes."""
+    from openbiota import reportmode  # noqa: PLC0415
+
+    mode_name = getattr(args, "report_mode", None)
+    n = len(sample_input.mates)
+    made_from = f"{n} FASTQ file{'s' if n != 1 else ''} ({human_bytes(total_input)})"
+    if getattr(args, "subsample", None):
+        made_from += f", first {args.subsample:,} read pairs only"
+    if mode_name not in reportmode.MODES:
+        return f"{sample_input.sample}: report from {made_from}."
+    mode = reportmode.FULL if mode_name == "full" else reportmode.LITE
+    line = f"{sample_input.sample}: {mode.name} report from {made_from}."
+    if getattr(args, "mode_reason", "") == "chosen at the prompt":
+        return line   # the prompt has just said how long each takes
+    return f"{line} Usually {mode.time_first} for a new sample, {mode.time_again} for one run before."
+
+
+def _short_outcome(reporter: Reporter, *, completeness: Any, total: float, results: Mapping[str, Any]) -> None:
+    """The run's last word in the short form: complete, or exactly what is missing and why."""
+    from openbiota.logging_util import plain_reason  # noqa: PLC0415
+
+    style = reporter.style
+    took = human_duration(total)
+    n = len(completeness.stages)
+    reporter.headline("")
+    if completeness.complete:
+        organisms = (results.get("organism_inventory") or {}).get("n_organisms")
+        named = f", {organisms:,} organisms named" if isinstance(organisms, int) and organisms else ""
+        reporter.headline(f"{style.green('✓')} Done in {took}: {completeness.mode} report, all {n} stages ran{named}.")
+        return
+    missing = [s for s in completeness.stages if not s["ran"]]
+    reporter.headline(
+        f"{style.red('✗')} Finished in {took}, but {len(missing)} of {n} stages produced no result:"
+    )
+    for stage in missing:
+        reporter.headline(f"    {stage['label']}: {plain_reason(str(stage['detail']))}")
+    reporter.headline(
+        "  The report was written all the same; it states each of these as not assessed, "
+        "never as a negative result."
+    )
 
 
 def cmd_run(
@@ -2417,7 +2501,9 @@ def cmd_run(
     # was stamping a ten-minute run as having "started" seven seconds before
     # it finished.
     started_at = time.strftime("%Y-%m-%d %H:%M:%S")
-    reporter = Reporter(verbose=not args.quiet)
+    # One line per stage unless --verbose asks for every step; run.log has
+    # every step either way.
+    reporter = Reporter(verbose=not args.quiet, detail=bool(getattr(args, "verbose", False)))
     timings: dict[str, float] = {}
 
     reporter.info(f"OpenBiota Gut Health Test (openbiota) v{__version__}")
@@ -2451,6 +2537,8 @@ def cmd_run(
         f"{human_bytes(total_input)} on disk"
         + (f" — SUBSAMPLED to the first {args.subsample:,} read pairs" if args.subsample else "")
     )
+    if not reporter.detail:
+        reporter.headline(_run_headline(args, sample_input, total_input))
 
     out_dir = Path(args.out) / (
         sample_input.sample
@@ -3657,6 +3745,7 @@ def cmd_run(
     # the log's last line — emitted *before* the buffer is flushed to disk,
     # which is the only way it can reach the file at all.
     total = time.monotonic() - started
+    reporter.close()   # no stage is running from here on; the status line is done
     produced = [summary_path.name, json_path.name, "run.log"]
     if pdf_path is not None:
         produced.insert(0, pdf_path.name)
@@ -3668,6 +3757,8 @@ def cmd_run(
             f"finished in {human_duration(total)} WITHOUT a PDF ({pdf_error}) — "
             f"{', '.join(produced)} in {out_dir}"
         )
+    elif not reporter.detail:
+        _short_outcome(reporter, completeness=completeness, total=total, results=results_json)
     elif not completeness.complete:
         from openbiota.completeness import describe as _describe_completeness  # noqa: PLC0415
 
@@ -3677,14 +3768,11 @@ def cmd_run(
             + "; ".join(completeness.missing)
             + f"\n{_describe_completeness(completeness)}"
         )
-        # The report exists all the same, and most of what is missing on a
-        # standard install is a detection lane whose references were never
-        # installed; say both, or the red line reads as "nothing was made".
+        # The report exists all the same; say so, or the red line reads as
+        # "nothing was made".
         reporter.info(
             f"  the report was still written: {', '.join(produced)} in {out_dir}\n"
-            "  a stage shown as 'not installed', 'not assessed' or 'reference_unavailable' is a "
-            "detection lane the full install adds (./install.sh --full); the report states "
-            "each one as not assessed, never as a negative result"
+            "  it states each missing stage as not assessed, never as a negative result"
         )
     else:
         reporter.ok(
@@ -3725,7 +3813,9 @@ def cmd_run(
                 style=style,
             )
         )
-    else:
+    elif getattr(args, "summary", False):
+        # Several thousand lines: every panel, profile and diagnostic. It is
+        # always in summary.txt; the terminal gets it only on request.
         print(
             render_summary(
                 sample=sample_input.sample,
@@ -3812,15 +3902,24 @@ def _machine_summary() -> str:
     checks - and never a reason for the help not to print."""
     lines: list[str] = []
     try:
-        from openbiota.installcheck import full_missing  # noqa: PLC0415
-
-        missing = full_missing()
-        lines.append(
-            "this machine: full install - every section is available"
-            if not missing else
-            f"this machine: standard install - lite reports ({len(missing)} full-install "
-            f"pieces not installed; `openbiota install --full` adds them)"
+        from openbiota.installcheck import (  # noqa: PLC0415
+            describe_missing,
+            full_missing,
+            standard_missing,
         )
+
+        incomplete = standard_missing()
+        missing = full_missing()
+        if incomplete:
+            lines.append(f"this machine: the install is not complete - missing {describe_missing(incomplete)}; "
+                         "`./install.sh` adds it")
+        else:
+            lines.append(
+                "this machine: full install - every section is available"
+                if not missing else
+                f"this machine: standard install - lite reports ({len(missing)} full-install "
+                f"pieces not installed; `openbiota install --full` adds them)"
+            )
     except Exception:  # noqa: BLE001 - help must print regardless
         pass
     try:
@@ -3834,6 +3933,12 @@ def _machine_summary() -> str:
     except Exception:  # noqa: BLE001
         pass
     return "\n".join(lines)
+
+
+def cmd_selftest(args: argparse.Namespace) -> int:
+    from openbiota import selftest  # noqa: PLC0415
+
+    return selftest.run(lanes=args.lanes, refs_dir=args.refs_dir, threads=args.threads, keep=args.keep)
 
 
 def cmd_install(args: argparse.Namespace) -> int:
@@ -3853,6 +3958,11 @@ def cmd_install(args: argparse.Namespace) -> int:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    from openbiota import projectpath  # noqa: PLC0415
+
+    # The tools the installer put inside the repository are found however
+    # the program was started, not only through bin/openbiota.
+    projectpath.ensure(REPO_ROOT)
     raw = list(sys.argv[1:] if argv is None else argv)
     parser = build_parser()
     # `openbiota` on its own prints the help, as a command should, with a
@@ -3876,6 +3986,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     handlers = {
         "run": cmd_run_entry,
         "install": cmd_install,
+        "selftest": cmd_selftest,
         "panels": cmd_panels,
         "build-db": cmd_build_db,
         "doctor": cmd_doctor,
