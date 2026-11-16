@@ -16,6 +16,7 @@ import os
 import shutil
 import sys
 import tarfile
+import time
 from pathlib import Path
 
 import pytest
@@ -197,13 +198,25 @@ def test_a_tampered_archive_is_refused(fake_repo, capsys):
     assert "does not match" in capsys.readouterr().err
 
 
-def test_packing_is_reproducible(fake_repo):
+def test_packing_is_reproducible(fake_repo, monkeypatch):
+    """The same data packs to the same bytes whenever it is packed: here, an hour apart.
+
+    gzip writes the time into its header. This test used to pack twice in a
+    row and compare; the two packs matched when they fell in the same second
+    and differed when the clock ticked between them, so it failed once in
+    a long while - and the archive was never reproducible from one day to
+    the next. The second pack is now made an hour later, as gzip reads the
+    clock, so the test says the same thing every time.
+    """
     module, root, bundle = fake_repo
     assert module.pack(bundle, quiet=True) == 0
     first = json.loads(bundle.manifest.read_text())["parts"][0]["sha256"]
+    real_time = time.time
+    monkeypatch.setattr(time, "time", lambda: real_time() + 3600.0)
     assert module.pack(bundle, quiet=True) == 0
     second = json.loads(bundle.manifest.read_text())["parts"][0]["sha256"]
     assert first == second, "the same data must pack to the same bytes"
+    assert bundle.archive.read_bytes()[4:8] == b"\0\0\0\0", "the gzip header carries no time"
 
 
 def test_a_large_archive_is_split_and_joined(fake_repo, monkeypatch):

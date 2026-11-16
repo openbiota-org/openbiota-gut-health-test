@@ -39,6 +39,7 @@ not match it.
 from __future__ import annotations
 
 import argparse
+import gzip
 import hashlib
 import json
 import shutil
@@ -189,7 +190,10 @@ def _human(n: float) -> str:
 
 
 def _reproducible(info: tarfile.TarInfo) -> tarfile.TarInfo:
-    """Drop the things that make two packs of the same data differ."""
+    """Drop the things that make two packs of the same data differ.
+
+    Per file, here; the archive's own gzip header is the other one (see pack).
+    """
     info.uid = info.gid = 0
     info.uname = info.gname = ""
     info.mtime = 0
@@ -221,7 +225,14 @@ def pack(bundle: Bundle, *, quiet: bool = False) -> int:
         staged = Path(tmp) / bundle.archive.name
         # Already-compressed members (the UniProt tables) do not shrink again;
         # level 6 keeps the pack quick without costing the others anything.
-        with tarfile.open(staged, "w:gz", compresslevel=6) as tar:
+        # The gzip wrapper is opened by hand so its header can be given a
+        # time: tarfile's own "w:gz" writes the clock there, and the same
+        # data then packs to different bytes from one second to the next.
+        with (
+            staged.open("wb") as raw,
+            gzip.GzipFile(filename=staged.name, mode="wb", compresslevel=6, fileobj=raw, mtime=0) as zipped,
+            tarfile.open(fileobj=zipped, mode="w") as tar,
+        ):
             for item in included:
                 source = REPO / item.path
                 if not quiet and len(included) <= 40:
