@@ -28,6 +28,15 @@ Every push runs `.github/workflows/tests.yml` on GitHub: this suite on Python
 3.11, 3.12 and 3.13, and the installer from a fresh clone on Ubuntu and on
 macOS.
 
+The tools that judge the code are held still in `pyproject.toml`: `ruff` at
+one exact version, `pytest` and `pypdf` below their next major version. A
+ruff release can switch on more rules, and unchanged code would then fail the
+lint on GitHub, which installs everything fresh at every run, while passing
+on a machine installed a month earlier. To move to a newer ruff, change that
+line and fix what it finds. The libraries the program runs on (`reportlab`,
+`numpy`, `PyYAML`) are left open on purpose: a new user gets the newest of
+each, so the newest is what the suite on GitHub should meet.
+
 ---
 
 ## What is covered

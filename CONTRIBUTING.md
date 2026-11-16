@@ -46,7 +46,7 @@ welcome.
 
 ## Style
 
-- Python 3.11+, type hints, `ruff` clean (`make lint`). Docstrings say what
+- Python 3.11+, type hints, `ruff` clean (`make lint`; the ruff version is pinned in `pyproject.toml`). Docstrings say what
   the function is for and why it is the way it is, not what each line does.
 - Report text: British spelling, no marketing, no exclamation marks, numbers
   with units, every reference a working link.
