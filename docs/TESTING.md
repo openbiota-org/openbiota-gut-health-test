@@ -18,7 +18,11 @@ suite. What the program prints depends on `NO_COLOR`, `TERM` and `COLUMNS`,
 and a shell, an editor's agent and a CI runner each set those differently;
 `tests/conftest.py` clears them before every test and sets `TERM`, and a
 test about colour, a dumb terminal or a narrow window sets that itself. A
-test that compares printed output must not depend on where it is run.
+test that compares printed output must not depend on where it is run. Nor
+may it depend on being the only run on the machine: a test's files go under
+pytest's `tmp_path` or stay in memory, never at a fixed path in `/tmp`, so
+two runs at once cannot meet in a file. `tests/test_the_suite_runs_anywhere.py`
+holds the suite to both.
 
 Every push runs `.github/workflows/tests.yml` on GitHub: this suite on Python
 3.11, 3.12 and 3.13, and the installer from a fresh clone on Ubuntu and on

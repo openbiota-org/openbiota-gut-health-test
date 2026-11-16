@@ -15,7 +15,6 @@ import argparse
 import contextlib
 import gc
 import io
-import os
 import re
 import threading
 import time
@@ -326,18 +325,6 @@ def test_colour_changes_nothing_but_the_colour(short):
         assert f"\033[{code}m" in coloured.getvalue(), what
     assert SGR.sub("", coloured.getvalue()) == plain.getvalue()
     assert plain.getvalue().count("\n") == 5, "headline, stage, warning, failed stage, error"
-
-
-def test_no_test_inherits_the_terminal_settings_of_whoever_runs_the_suite():
-    """tests/conftest.py clears them before every test. Without that, what a test of printed
-    output sees depends on the shell the suite was started from - which is how two tests in
-    this file passed where NO_COLOR was exported and failed on GitHub, where it is not."""
-    from tests import conftest
-
-    for name in conftest.PRESENTATION_VARIABLES:
-        assert name not in os.environ, name
-    assert {"NO_COLOR", "FORCE_COLOR", "COLUMNS"} <= set(conftest.PRESENTATION_VARIABLES)
-    assert os.environ["TERM"] == conftest.TEST_TERM
 
 
 @pytest.mark.parametrize(("terminal", "no_color", "expected"), [

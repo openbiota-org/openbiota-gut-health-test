@@ -8,6 +8,7 @@ and it has to mean what the scale says it means.
 
 from __future__ import annotations
 
+import io
 from typing import Any
 
 import pytest
@@ -92,9 +93,10 @@ def _render(view: dict[str, Any]) -> str:
     PX.redundancy_block(story, _styles(), view)
     if not story:
         return ""
-    path = "/tmp/_redundancy_render.pdf"
-    SimpleDocTemplate(path, pagesize=A4).build(story)
-    text = "".join(page.extract_text() for page in pypdf.PdfReader(path).pages)
+    # In memory: a fixed path in /tmp is shared by every run of the suite on the machine.
+    pdf = io.BytesIO()
+    SimpleDocTemplate(pdf, pagesize=A4).build(story)
+    text = "".join(page.extract_text() for page in pypdf.PdfReader(pdf).pages)
     # A phrase that wraps across a line is still on the page; collapse the
     # layout's newlines so the assertions test the prose, not the column width.
     return " ".join(text.split())

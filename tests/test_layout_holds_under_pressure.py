@@ -8,6 +8,7 @@ tell that anything is missing.
 
 from __future__ import annotations
 
+import io
 from typing import Any
 
 import pytest
@@ -38,9 +39,10 @@ def _render(fn: str, module: Any, view: Any) -> str:
     getattr(module, fn)(story, _styles(), view)
     if not story:
         return ""
-    path = f"/tmp/_layout_{fn}.pdf"
-    SimpleDocTemplate(path, pagesize=A4).build(story)
-    text = "".join(page.extract_text() for page in pypdf.PdfReader(path).pages)
+    # In memory: a fixed path in /tmp is shared by every run of the suite on the machine.
+    pdf = io.BytesIO()
+    SimpleDocTemplate(pdf, pagesize=A4).build(story)
+    text = "".join(page.extract_text() for page in pypdf.PdfReader(pdf).pages)
     return " ".join(text.split())
 
 

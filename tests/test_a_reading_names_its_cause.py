@@ -13,6 +13,7 @@ attribution, which named an organism nobody found.
 
 from __future__ import annotations
 
+import io
 import json
 from pathlib import Path
 from typing import Any
@@ -110,9 +111,11 @@ def _verdict_text(drv: Drivers) -> str:
     _drivers_verdict(story, _styles(), drv)
     if not story:
         return ""
-    SimpleDocTemplate("/tmp/_cause.pdf", pagesize=A4).build(story)
+    # In memory: a fixed path in /tmp is shared by every run of the suite on the machine.
+    pdf = io.BytesIO()
+    SimpleDocTemplate(pdf, pagesize=A4).build(story)
     return " ".join(
-        "".join(p.extract_text() for p in pypdf.PdfReader("/tmp/_cause.pdf").pages).split()
+        "".join(p.extract_text() for p in pypdf.PdfReader(pdf).pages).split()
     )
 
 
@@ -156,9 +159,10 @@ def test_the_organism_evidence_block_lists_only_organisms_in_the_sample() -> Non
     ))
     if not story:
         pytest.skip("no curated record for the fixture organisms in this checkout")
-    SimpleDocTemplate("/tmp/_orgev.pdf", pagesize=A4).build(story)
+    pdf = io.BytesIO()
+    SimpleDocTemplate(pdf, pagesize=A4).build(story)
     text = " ".join(
-        "".join(p.extract_text() for p in pypdf.PdfReader("/tmp/_orgev.pdf").pages).split()
+        "".join(p.extract_text() for p in pypdf.PdfReader(pdf).pages).split()
     )
     assert "Collinsella aerofaciens" in text
     assert "Escherichia coli" not in text, "an organism not in the sample was described"
@@ -177,8 +181,9 @@ def test_association_only_evidence_is_labelled_as_such() -> None:
                              _drivers(("Collinsella aerofaciens", 10, True, 0.85)))
     if not story:
         pytest.skip("no curated record for Collinsella in this checkout")
-    SimpleDocTemplate("/tmp/_assoc.pdf", pagesize=A4).build(story)
+    pdf = io.BytesIO()
+    SimpleDocTemplate(pdf, pagesize=A4).build(story)
     text = " ".join(
-        "".join(p.extract_text() for p in pypdf.PdfReader("/tmp/_assoc.pdf").pages).split()
+        "".join(p.extract_text() for p in pypdf.PdfReader(pdf).pages).split()
     )
     assert "Association only" in text

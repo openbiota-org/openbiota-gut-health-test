@@ -8,6 +8,7 @@ has to reject. Losing any of them turns a careful reading into a loose one.
 
 from __future__ import annotations
 
+import io
 from typing import Any
 
 from openbiota import pdfsynbiotic as PS
@@ -26,9 +27,10 @@ def _render(*blocks: str, views: dict[str, Any]) -> str:
         getattr(PS, name)(story, st, views)
     if not story:
         return ""
-    path = "/tmp/_method_notes_render.pdf"
-    SimpleDocTemplate(path, pagesize=A4).build(story)
-    text = "".join(page.extract_text() for page in pypdf.PdfReader(path).pages)
+    # In memory: a fixed path in /tmp is shared by every run of the suite on the machine.
+    pdf = io.BytesIO()
+    SimpleDocTemplate(pdf, pagesize=A4).build(story)
+    text = "".join(page.extract_text() for page in pypdf.PdfReader(pdf).pages)
     return " ".join(text.split())
 
 

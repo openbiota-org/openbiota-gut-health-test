@@ -8,6 +8,7 @@ dropping the trials that did not work. Each has a test here.
 
 from __future__ import annotations
 
+import io
 from typing import Any
 
 import pytest
@@ -143,9 +144,10 @@ def _render(view: dict[str, Any]) -> str:
     PS._evidence_seeds_block(story, st, view)
     if not story:
         return ""
-    path = "/tmp/_a16_coverage_render.pdf"
-    SimpleDocTemplate(path, pagesize=A4).build(story)
-    return "".join(page.extract_text() for page in pypdf.PdfReader(path).pages)
+    # In memory: a fixed path in /tmp is shared by every run of the suite on the machine.
+    pdf = io.BytesIO()
+    SimpleDocTemplate(pdf, pagesize=A4).build(story)
+    return "".join(page.extract_text() for page in pypdf.PdfReader(pdf).pages)
 
 
 def test_coverage_reaches_the_page_with_both_numbers() -> None:

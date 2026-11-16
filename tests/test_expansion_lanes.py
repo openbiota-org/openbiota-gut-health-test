@@ -60,11 +60,11 @@ def test_motus_parser_uses_assigned_inserts_as_the_denominator(tmp_path: Path) -
     assert obs[0].native_id == "mOTUv4.0_000158" and obs[0].species == "Blautia A wexlerae"
 
 
-def test_kraken_inventory_floor_and_supported_floor() -> None:
+def test_kraken_inventory_floor_and_supported_floor(tmp_path: Path) -> None:
     names = {1: "root", 2: "Bacteria", 10: "Blautia", 11: "Blautia wexlerae", 12: "Blautia obeum"}
     nodes = {1: (1, "root"), 2: (1, "domain"), 10: (2, "genus"), 11: (10, "species"), 12: (10, "species")}
     reps = {11: "MGYG000000001", 12: "MGYG000000002"}
-    report = Path("/tmp/_ob_kraken_report.tsv")
+    report = tmp_path / "kraken_report.tsv"
     report.write_text(
         "10.00\t100000\t100000\tU\t0\tunclassified\n"
         "90.00\t900000\t0\tR\t1\troot\n"
