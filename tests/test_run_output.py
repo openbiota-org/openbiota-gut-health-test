@@ -12,9 +12,15 @@ it back on the screen.
 from __future__ import annotations
 
 import argparse
+import contextlib
+import gc
 import io
 import os
 import re
+import threading
+import time
+import weakref
+from collections.abc import Iterator
 from pathlib import Path
 
 import pytest
@@ -28,18 +34,90 @@ HMMSEARCH = ("singlem pipe failed (exit 1): hmm - returned non-zero exit status 
              "b'bash: line 1: hmmsearch: command not found\\n'")
 
 
+#: Colour and weight. Not the line-clearing sequence, which is part of what is being tested.
+SGR = re.compile(r"\033\[[0-9;]*m")
+#: Back to the start of the line and wipe it: how the running stage's line is redrawn.
+CLEAR = "\r\033[2K"
+
+
 class _Terminal(io.StringIO):
     def isatty(self) -> bool:
         return True
 
 
-def _short(monkeypatch, *, terminal: bool = False) -> tuple[Reporter, io.StringIO]:
-    stream = _Terminal() if terminal else io.StringIO()
-    monkeypatch.setattr(logging_util.sys, "stderr", stream)
-    monkeypatch.setenv("TERM", "xterm")
-    reporter = Reporter(detail=False)
-    assert reporter._redraw is terminal  # noqa: SLF001
-    return reporter, stream
+class _Clock:
+    """The reporter's clock, moved by hand: nothing here depends on how fast the machine is."""
+
+    def __init__(self) -> None:
+        self.now = 1000.0
+
+    def monotonic(self) -> float:
+        return self.now
+
+    def sleep(self, _seconds: float) -> None:
+        time.sleep(0.01)   # the refresh thread's one-second wait, when a test lets that thread run
+
+
+class _Short:
+    """Reporters in the short form, in an environment the test states rather than inherits.
+
+    Whether the program colours its output, redraws a line in place, and how
+    wide it takes the window to be are read from the environment (NO_COLOR,
+    TERM, COLUMNS) and from the stream. A developer's shell, an editor's
+    agent and a CI runner set those differently - two of these tests passed
+    where NO_COLOR happened to be set and failed on GitHub, where it is not -
+    so every reporter made here is told all of them. Time is the test's too:
+    the clock moves only when `advance` is called, and no refresh thread
+    runs unless the test asks for it, so "0s" cannot become "1s" on a busy
+    machine.
+    """
+
+    def __init__(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        self._monkeypatch = monkeypatch
+        self.clock = _Clock()
+        self._made: list[weakref.ReferenceType[Reporter]] = []
+        monkeypatch.setattr(logging_util, "time", self.clock)
+
+    def __call__(self, *, terminal: bool = False, colour: bool = False, columns: int = 100,
+                 ticking: bool = False) -> tuple[Reporter, io.StringIO]:
+        patch = self._monkeypatch
+        stream = _Terminal() if terminal else io.StringIO()
+        patch.setattr(logging_util.sys, "stderr", stream)
+        patch.setenv("TERM", "xterm-256color")
+        patch.setenv("COLUMNS", str(columns))
+        if colour:
+            patch.delenv("NO_COLOR", raising=False)
+        else:
+            patch.setenv("NO_COLOR", "1")
+        # Unless the test is about the refresh thread, its place is taken and
+        # none starts: the test calls _refresh() where a second would pass.
+        reporter = Reporter(detail=False, _t0=self.clock.now,
+                            _ticker=None if ticking else threading.current_thread())
+        assert reporter._redraw is terminal  # noqa: SLF001
+        assert reporter.style.enabled is (terminal and colour)
+        self._made.append(weakref.ref(reporter))
+        return reporter, stream
+
+    def advance(self, seconds: float) -> None:
+        self.clock.now += seconds
+
+    def close(self) -> None:
+        for ref in self._made:
+            reporter = ref()
+            if reporter is not None:
+                reporter.close()
+
+
+@pytest.fixture
+def short(monkeypatch: pytest.MonkeyPatch) -> Iterator[_Short]:
+    session = _Short(monkeypatch)
+    yield session
+    session.close()
+
+
+def _done(name: str, took: str) -> str:
+    """A finished stage's line: the name, then the duration in a column of its own."""
+    return f"  ✓ {name:<58} {took:>8}"
 
 
 # --------------------------------------------------------------------------- #
@@ -47,9 +125,8 @@ def _short(monkeypatch, *, terminal: bool = False) -> tuple[Reporter, io.StringI
 # --------------------------------------------------------------------------- #
 
 
-def test_short_form_is_one_line_per_stage_without_the_detail(monkeypatch):
-    reporter, stream = _short(monkeypatch)
-    monkeypatch.setattr(logging_util, "STAGE_SHOWN_AFTER_S", 0.0)
+def test_short_form_is_one_line_per_stage_without_the_detail(short):
+    reporter, stream = short()
     reporter.info("OpenBiota Gut Health Test v0")
     reporter.headline("S: lite report from 2 FASTQ files (1.0GB).")
     with reporter.stage("input validation"):
@@ -57,36 +134,46 @@ def test_short_form_is_one_line_per_stage_without_the_detail(monkeypatch):
         reporter.ok("fastp: 120,000 pairs")
         with reporter.stage("a step inside it"):
             reporter.step("deeper still")
-    shown = stream.getvalue().splitlines()
-    assert shown[0] == "S: lite report from 2 FASTQ files (1.0GB)."
-    assert re.fullmatch(r"  ✓ input validation +\d+\.\ds", shown[1])
-    assert len(shown) == 2, shown
+        short.advance(72)
+    assert stream.getvalue().splitlines() == [
+        "S: lite report from 2 FASTQ files (1.0GB).",
+        "  ✓ input validation" + " " * 46 + "1m12s",
+    ]
+    assert _done("input validation", "1m12s") == stream.getvalue().splitlines()[1]
     assert "[" not in stream.getvalue(), "no timestamps in the short form"
 
 
-def test_a_stage_too_quick_to_matter_leaves_no_line(monkeypatch):
-    reporter, stream = _short(monkeypatch)
+def test_a_stage_too_quick_to_matter_leaves_no_line(short):
+    reporter, stream = short()
     with reporter.stage("tally and normalisation"):
-        pass
+        short.advance(0.9)
     assert stream.getvalue() == ""
-    assert any("tally and normalisation done in" in line for line in reporter._lines)  # noqa: SLF001
+    assert any("tally and normalisation done in 0.9s" in line for line in reporter._lines)  # noqa: SLF001
+    with reporter.stage("per-panel hit views"):
+        short.advance(1.0)
+    assert stream.getvalue() == _done("per-panel hit views", "1.0s") + "\n", "a second is long enough to say"
 
 
-def test_into_a_log_a_long_stage_is_announced_once_then_finished(monkeypatch):
+def test_into_a_log_a_long_stage_is_announced_once_then_finished(short):
     """Not a terminal, so no redrawn line: the last line of the log still says what is running."""
-    reporter, stream = _short(monkeypatch)
-    monkeypatch.setattr(logging_util, "STAGE_ANNOUNCED_AFTER_S", 0.0)
+    reporter, stream = short()
     with reporter.stage("competitive confirmation"):
-        reporter._refresh()  # noqa: SLF001 - the once-a-second tick
+        short.advance(1)
+        reporter._refresh()  # noqa: SLF001 - what the refresh thread does once a second
+        assert stream.getvalue() == "", "not yet: most stages are over in a moment"
+        short.advance(1)
         reporter._refresh()  # noqa: SLF001
         assert stream.getvalue() == "  · competitive confirmation …\n"
-    shown = stream.getvalue().splitlines()
-    assert len(shown) == 2 and shown[1].startswith("  ✓ competitive confirmation ")
+        short.advance(60)
+        reporter._refresh()  # noqa: SLF001
+        assert stream.getvalue() == "  · competitive confirmation …\n", "said once, however long it runs"
+    assert stream.getvalue().splitlines() == [
+        "  · competitive confirmation …", _done("competitive confirmation", "1m02s")]
     assert "\r" not in stream.getvalue() and "\033" not in stream.getvalue()
 
 
-def test_the_log_keeps_every_line_whatever_was_shown(monkeypatch):
-    reporter, _ = _short(monkeypatch)
+def test_the_log_keeps_every_line_whatever_was_shown(short):
+    reporter, _ = short()
     with reporter.stage("input validation"):
         reporter.info("  R1: profiling")
         with reporter.stage("a step inside it"):
@@ -106,95 +193,182 @@ def test_the_log_is_plain_text_even_when_the_terminal_is_coloured(monkeypatch):
     assert "\033" not in "\n".join(reporter._lines)  # noqa: SLF001
 
 
-def test_on_a_terminal_the_running_stage_is_one_line_redrawn_in_place(monkeypatch):
-    reporter, stream = _short(monkeypatch, terminal=True)
-    monkeypatch.setattr(logging_util, "STAGE_SHOWN_AFTER_S", 0.0)
+def test_on_a_terminal_the_running_stage_is_one_line_redrawn_in_place(short):
+    reporter, stream = short(terminal=True)
     with reporter.stage("competitive confirmation"):
+        assert stream.getvalue() == CLEAR + "  · competitive confirmation  0s"
         reporter.info("  mapping reads to 212 genomes")
-        reporter._refresh()  # noqa: SLF001 - the once-a-second tick
-    text = stream.getvalue()
-    assert "\r\033[2K  · competitive confirmation  0s" in text
-    assert "mapping reads to 212 genomes" in text, "the latest detail rides beside the stage name"
-    permanent = [line for line in text.split("\n") if "✓" in line]
-    assert len(permanent) == 1 and permanent[0].endswith("s")
-    assert text.count("\n") == 1, "only the finished stage takes a line"
+        short.advance(65)
+        reporter._refresh()  # noqa: SLF001 - what the refresh thread does once a second
+        assert stream.getvalue().endswith(
+            CLEAR + "  · competitive confirmation  1m05s  mapping reads to 212 genomes"
+        ), "the clock, and the latest detail beside the stage name"
+        assert "\n" not in stream.getvalue(), "redrawn in place: nothing has scrolled"
+    assert stream.getvalue().endswith(CLEAR + _done("competitive confirmation", "1m05s") + "\n")
+    assert stream.getvalue().count("\n") == 1, "only the finished stage takes a line"
 
 
-def test_a_step_inside_a_stage_shows_beside_it_not_under_it(monkeypatch):
-    reporter, stream = _short(monkeypatch, terminal=True)
+def test_a_step_inside_a_stage_shows_beside_it_not_under_it(short):
+    reporter, stream = short(terminal=True)
     with reporter.stage("taxonomic engine (MetaPhlAn)"), reporter.stage("host filtering"):
-        reporter._draw_live()  # noqa: SLF001
-    assert "· taxonomic engine (MetaPhlAn)  0s  host filtering" in re.sub(r"\033\[[0-9;]*m", "", stream.getvalue())
+        reporter._refresh()  # noqa: SLF001
+    assert CLEAR + "  · taxonomic engine (MetaPhlAn)  0s  host filtering" in stream.getvalue()
     assert "\n" not in stream.getvalue()
 
 
-def test_on_a_terminal_an_instant_stage_leaves_no_line(monkeypatch):
-    reporter, stream = _short(monkeypatch, terminal=True)
+def test_on_a_terminal_an_instant_stage_leaves_no_line(short):
+    reporter, stream = short(terminal=True)
     with reporter.stage("tally and normalisation"):
         pass
-    assert "\n" not in stream.getvalue()
-    assert stream.getvalue().endswith("\r\033[2K"), "and the status line is wiped, not left behind"
+    assert stream.getvalue() == CLEAR + "  · tally and normalisation  0s" + CLEAR, \
+        "drawn, then wiped: nothing is left behind and nothing has scrolled"
 
 
-def test_work_between_stages_shows_as_working_on_a_terminal(monkeypatch):
+def test_work_between_stages_shows_as_working_on_a_terminal(short):
     """Half a minute of unstaged work with nothing on the screen reads as a hang."""
-    reporter, stream = _short(monkeypatch, terminal=True)
-    monkeypatch.setattr(logging_util, "IDLE_SHOWN_AFTER_S", 0.0)
+    reporter, stream = short(terminal=True)
+    short.advance(30)
     reporter._refresh()  # noqa: SLF001
-    assert stream.getvalue() == "", "nothing before the first stage"
+    assert stream.getvalue() == "", "nothing before the first stage: the run has not begun"
     with reporter.stage("nucleotide locus mapping"):
         pass
+    quiet = stream.getvalue()
+    short.advance(1)
     reporter._refresh()  # noqa: SLF001
-    assert re.sub(r"\033\[[0-9;]*m", "", stream.getvalue()).endswith("\r\033[2K  · working  0s"[9:])
+    assert stream.getvalue() == quiet, "a pause of a second is not worth a line"
+    short.advance(33)
+    reporter._refresh()  # noqa: SLF001
+    assert stream.getvalue() == quiet + CLEAR + "  · working  34s"
     reporter.warn("a permanent line wipes it first")
-    assert stream.getvalue().endswith("\r\033[2K  ! a permanent line wipes it first\n")
+    assert stream.getvalue().endswith("  · working  34s" + CLEAR + "  ! a permanent line wipes it first\n")
+    short.advance(1)
+    reporter._refresh()  # noqa: SLF001
+    assert stream.getvalue().endswith("\n" + CLEAR + "  · working  35s"), "and it comes back under the warning"
 
 
-def test_close_wipes_the_status_line_for_good(monkeypatch):
-    reporter, stream = _short(monkeypatch, terminal=True)
-    monkeypatch.setattr(logging_util, "IDLE_SHOWN_AFTER_S", 0.0)
+def test_close_wipes_the_status_line_for_good(short):
+    reporter, stream = short(terminal=True)
     with reporter.stage("PDF report"):
         pass
+    short.advance(5)
     reporter._refresh()  # noqa: SLF001
+    assert stream.getvalue().endswith(CLEAR + "  · working  5s")
     reporter.close()
-    assert stream.getvalue().endswith("\r\033[2K")
+    assert stream.getvalue().endswith("  · working  5s" + CLEAR)
     before = stream.getvalue()
+    short.advance(5)
     reporter._refresh()  # noqa: SLF001
     reporter.headline("✓ Done in 1m00s")
     assert stream.getvalue() == before + "✓ Done in 1m00s\n", "nothing is drawn after the run's last word"
 
 
-def test_the_refresh_thread_ends_with_its_reporter(monkeypatch):
-    import gc
-    import threading
-    import time
+def test_the_refresh_thread_redraws_the_running_stage(short):
+    """The one place the real thread runs: it is what calls _refresh() in a real run."""
+    reporter, stream = short(terminal=True, ticking=True)
+    with reporter.stage("a long stage"):
+        deadline = time.monotonic() + 30
+        while stream.getvalue().count(CLEAR) < 3 and time.monotonic() < deadline:
+            time.sleep(0.01)
+        assert stream.getvalue().count(CLEAR) >= 3, "the stage's line is redrawn while it runs"
+    assert "\n" not in stream.getvalue()
 
-    reporter, _ = _short(monkeypatch, terminal=True)
-    real_sleep = time.sleep
-    monkeypatch.setattr(logging_util.time, "sleep", lambda _s: real_sleep(0.01))
+
+def test_the_refresh_thread_ends_with_its_reporter(short):
+    reporter, _ = short(terminal=True, ticking=True)
     with reporter.stage("a stage"):
         ticker = reporter._ticker  # noqa: SLF001
-        assert isinstance(ticker, threading.Thread) and ticker.is_alive()
+        assert isinstance(ticker, threading.Thread) and ticker is not threading.current_thread()
+        assert ticker.is_alive()
+        assert ticker.daemon, "and it can never keep the program from exiting"
     del reporter
     gc.collect()
-    ticker.join(timeout=5)
+    ticker.join(timeout=30)
     assert not ticker.is_alive()
 
 
-def test_the_status_line_never_wraps(monkeypatch):
-    reporter, stream = _short(monkeypatch, terminal=True)
-    monkeypatch.setattr(logging_util.shutil, "get_terminal_size", lambda _fallback=None: os.terminal_size((40, 24)))
+def test_the_status_line_never_wraps(short):
+    reporter, stream = short(terminal=True, columns=40)
     with reporter.stage("a stage with a very long name indeed, longer than the window is wide"):
         reporter.info("x" * 500)
-        reporter._draw_live()  # noqa: SLF001
-    for drawn in stream.getvalue().split("\r\033[2K"):
-        plain = re.sub(r"\033\[[0-9;]*m", "", drawn.split("\n")[0])
-        if "·" in plain:
-            assert len(plain) <= 39, (len(plain), plain)
+        reporter._refresh()  # noqa: SLF001
+        short.advance(3700)
+        reporter._refresh()  # noqa: SLF001
+        drawn = stream.getvalue().split(CLEAR)[1:]
+    assert len(drawn) == 3, "at the start, and at each of the two refreshes"
+    assert drawn[0].startswith("  · a stage with a very long name") and drawn[2].endswith("  1h01m40s")
+    assert max(len(line) for line in drawn) <= 39, [len(line) for line in drawn]
 
 
-def test_a_failed_stage_says_why_once_in_words(monkeypatch):
-    reporter, stream = _short(monkeypatch)
+def test_colour_changes_nothing_but_the_colour(short):
+    """The same run on a terminal with colour and without: the same text, once the colour is removed."""
+
+    def a_run(reporter: Reporter) -> None:
+        reporter.headline("S: lite report from 2 FASTQ files (1.0GB).")
+        with reporter.stage("translated search (diamond blastx)"):
+            reporter.info("  R1: 7,358 hit lines")
+            short.advance(400)
+            reporter._refresh()  # noqa: SLF001
+        short.advance(3)
+        reporter._refresh()  # noqa: SLF001
+        reporter.warn("host index not built: human reads are not removed")
+        with contextlib.suppress(RuntimeError), reporter.stage("unrepresented-lineage rescue (SingleM / GlobDB)"):
+            raise RuntimeError(HMMSEARCH)
+        reporter.error("PDF report failed: ValueError: x")
+        reporter.close()
+
+    plain_reporter, plain = short(terminal=True)
+    a_run(plain_reporter)
+    coloured_reporter, coloured = short(terminal=True, colour=True)
+    a_run(coloured_reporter)
+    assert not SGR.search(plain.getvalue())
+    for code, what in (("36", "the dot of a running stage"), ("2", "its clock"), ("32", "the tick"),
+                       ("33", "a warning's mark"), ("31", "a failure's cross")):
+        assert f"\033[{code}m" in coloured.getvalue(), what
+    assert SGR.sub("", coloured.getvalue()) == plain.getvalue()
+    assert plain.getvalue().count("\n") == 5, "headline, stage, warning, failed stage, error"
+
+
+def test_no_test_inherits_the_terminal_settings_of_whoever_runs_the_suite():
+    """tests/conftest.py clears them before every test. Without that, what a test of printed
+    output sees depends on the shell the suite was started from - which is how two tests in
+    this file passed where NO_COLOR was exported and failed on GitHub, where it is not."""
+    from tests import conftest
+
+    for name in conftest.PRESENTATION_VARIABLES:
+        assert name not in os.environ, name
+    assert {"NO_COLOR", "FORCE_COLOR", "COLUMNS"} <= set(conftest.PRESENTATION_VARIABLES)
+    assert os.environ["TERM"] == conftest.TEST_TERM
+
+
+@pytest.mark.parametrize(("terminal", "no_color", "expected"), [
+    (True, None, True),      # an ordinary terminal
+    (True, "1", False),      # one whose user has asked for no colour
+    (False, None, False),    # a pipe or a log file: GitHub's runner, `openbiota run 2> log`
+    (False, "1", False),
+])
+def test_colour_is_for_terminals_that_have_not_declined_it(monkeypatch, terminal: bool, no_color: str | None,
+                                                           expected: bool):
+    monkeypatch.setattr(logging_util.sys, "stderr", _Terminal() if terminal else io.StringIO())
+    if no_color is None:
+        monkeypatch.delenv("NO_COLOR", raising=False)
+    else:
+        monkeypatch.setenv("NO_COLOR", no_color)
+    assert Reporter().style.enabled is expected
+
+
+@pytest.mark.parametrize(("terminal", "term", "expected"), [
+    (True, "xterm-256color", True),
+    (True, "dumb", False),             # a terminal that cannot move the cursor
+    (False, "xterm-256color", False),  # not a terminal at all
+])
+def test_a_line_is_redrawn_only_where_it_can_be(monkeypatch, terminal: bool, term: str, expected: bool):
+    monkeypatch.setattr(logging_util.sys, "stderr", _Terminal() if terminal else io.StringIO())
+    monkeypatch.setenv("TERM", term)
+    assert Reporter(detail=False)._redraw is expected  # noqa: SLF001
+
+
+def test_a_failed_stage_says_why_once_in_words(short):
+    reporter, stream = short()
     label = "unrepresented-lineage rescue (SingleM / GlobDB)"
     try:
         with reporter.stage(label):
@@ -202,43 +376,39 @@ def test_a_failed_stage_says_why_once_in_words(monkeypatch):
     except RuntimeError as exc:
         # what the lane runner does next: it explains the failure it caught
         reporter.warn(f"{label} failed: RuntimeError: {str(exc)[:200]}")
-    shown = stream.getvalue().splitlines()
-    assert shown[-1] == f"  ✗ {label}: the program 'hmmsearch' is not installed - run ./install.sh to add it"
-    assert sum("hmmsearch" in line for line in shown) == 1, shown
-    assert "Traceback" not in stream.getvalue() and "exit status" not in stream.getvalue()
+    assert stream.getvalue().splitlines() == [
+        f"  ✗ {label}: the program 'hmmsearch' is not installed - run ./install.sh to add it"]
 
 
-def test_a_warning_is_one_line_and_said_once(monkeypatch):
-    reporter, stream = _short(monkeypatch)
+def test_a_warning_is_one_line_and_said_once(short):
+    reporter, stream = short()
     for _ in range(3):
         reporter.warn("host index not built: human reads are not removed\nmore\nlines")
     reporter.warn("x" * 400)
     shown = stream.getvalue().splitlines()
-    assert shown[0] == "  ! host index not built: human reads are not removed"
-    assert len(shown) == 2
-    assert shown[1].endswith("...") and len(shown[1]) < 240
+    assert shown == ["  ! host index not built: human reads are not removed", "  ! " + "x" * 220 + "..."]
 
 
-def test_an_unrelated_warning_after_a_failure_is_still_shown(monkeypatch):
-    reporter, stream = _short(monkeypatch)
+def test_an_unrelated_warning_after_a_failure_is_still_shown(short):
+    reporter, stream = short()
     with pytest.raises(ValueError, match="broken"), reporter.stage("stage one"):
         raise ValueError("broken")
     reporter.warn("something else entirely")
-    assert "  ! something else entirely" in stream.getvalue().splitlines()
+    assert stream.getvalue().splitlines() == ["  ✗ stage one: broken", "  ! something else entirely"]
 
 
-def test_an_error_shows_its_first_line_and_logs_the_rest(monkeypatch):
-    reporter, stream = _short(monkeypatch)
+def test_an_error_shows_its_first_line_and_logs_the_rest(short):
+    reporter, stream = short()
     reporter.error("PDF report failed: ValueError: x\nTraceback (most recent call last):\n  File ...")
     assert stream.getvalue().splitlines() == ["  ✗ PDF report failed: ValueError: x"]
     assert "Traceback" in "\n".join(reporter._lines)  # noqa: SLF001
 
 
-def test_ctrl_c_in_a_stage_adds_no_failure_line(monkeypatch):
-    reporter, stream = _short(monkeypatch)
+def test_ctrl_c_in_a_stage_adds_no_failure_line(short):
+    reporter, stream = short()
     with pytest.raises(KeyboardInterrupt), reporter.stage("a long stage"):
         raise KeyboardInterrupt
-    assert "✗" not in stream.getvalue()
+    assert stream.getvalue() == ""
 
 
 # --------------------------------------------------------------------------- #
@@ -314,16 +484,16 @@ def _stages(*missing: tuple[str, str], n: int = 19) -> Completeness:
     return Completeness(rows, mode="lite")
 
 
-def test_a_complete_run_ends_in_one_line(monkeypatch):
-    reporter, stream = _short(monkeypatch)
+def test_a_complete_run_ends_in_one_line(short):
+    reporter, stream = short()
     cli._short_outcome(reporter, completeness=_stages(), total=3057.0,  # noqa: SLF001
                        results={"organism_inventory": {"n_organisms": 332}})
     assert stream.getvalue().splitlines() == [
         "", "✓ Done in 50m57s: lite report, all 19 stages ran, 332 organisms named."]
 
 
-def test_an_incomplete_run_names_only_what_is_missing_and_why(monkeypatch):
-    reporter, stream = _short(monkeypatch)
+def test_an_incomplete_run_names_only_what_is_missing_and_why(short):
+    reporter, stream = short()
     label = "unrepresented-lineage rescue (SingleM / GlobDB)"
     cli._short_outcome(reporter, completeness=_stages((label, f"failed: RuntimeError: {HMMSEARCH}")),  # noqa: SLF001
                        total=3057.0, results={})

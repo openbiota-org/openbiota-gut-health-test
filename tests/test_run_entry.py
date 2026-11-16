@@ -427,6 +427,9 @@ def _drive(argv: list[str], answers: list[tuple[str, str]], cwd: Path, timeout: 
     if pid == 0:  # pragma: no cover - the child
         os.chdir(cwd)
         os.environ["OPENBIOTA_NO_OPEN"] = "1"
+        # A person at a terminal, whatever started the suite: under CI=true
+        # the program asks nothing, and this test is about what it asks.
+        os.environ.pop("CI", None)
         os.execv(argv[0], argv)
     out = b""
     i = 0

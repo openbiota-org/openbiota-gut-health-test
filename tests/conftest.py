@@ -3,6 +3,9 @@
 No real FASTQ and no network access. The reference database is constructed
 in-memory with hand-chosen reference lengths so the normalisation arithmetic
 can be verified against a value computed by hand.
+
+Every test also starts from the same terminal environment, whoever runs it
+and from where (`_the_same_terminal_everywhere`, below).
 """
 
 from __future__ import annotations
@@ -146,6 +149,31 @@ BUTYRATE_PANEL_YAML = {
     "aggregate": "sum",
     "citation": "test citation",
 }
+
+
+#: What a shell, an editor's agent or a CI runner may or may not export, and
+#: that changes what the program prints: whether it colours its output, and
+#: how wide it takes the window to be. TERM is the third; it is set, below.
+PRESENTATION_VARIABLES = ("NO_COLOR", "FORCE_COLOR", "CLICOLOR", "CLICOLOR_FORCE", "COLUMNS", "LINES")
+#: The terminal every test is run "in", unless it says otherwise.
+TEST_TERM = "xterm-256color"
+
+
+@pytest.fixture(autouse=True)
+def _the_same_terminal_everywhere(monkeypatch: pytest.MonkeyPatch) -> None:
+    """No test inherits the terminal settings of whoever started the suite.
+
+    The suite once passed on the machine it was written on and failed on
+    GitHub. The shell there exported NO_COLOR and the runner does not, and
+    two tests compared the program's output byte for byte: the difference
+    was the environment, and nothing in the suite said so. Now it does. A
+    test about colour, a dumb terminal or a narrow window sets that itself
+    (and the subprocess helpers pass their own); every other test sees an
+    ordinary terminal that has expressed no preference.
+    """
+    for name in PRESENTATION_VARIABLES:
+        monkeypatch.delenv(name, raising=False)
+    monkeypatch.setenv("TERM", TEST_TERM)
 
 
 @pytest.fixture

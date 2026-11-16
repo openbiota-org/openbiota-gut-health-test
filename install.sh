@@ -794,7 +794,9 @@ run_system() {
     ok "samtools $(samtools --version 2>/dev/null | head -1 | sed 's/samtools //')"
     ok "fastp    $(fastp --version 2>&1 | head -1 | sed 's/fastp //')"
     # pigz is optional and halves gzip time; make is only needed for --full.
-    have pigz || { [ -n "$PKG" ] && pkg_install pigz >/dev/null 2>&1 || true; }
+    # Written as an `if`: shellcheck before 0.11 reads `A && B || true` as a
+    # mistaken if-then-else (SC2015) and fails the lint on machines that have it.
+    if ! have pigz && [ -n "$PKG" ]; then pkg_install pigz >/dev/null 2>&1 || true; fi
     if [ $FULL -eq 1 ] && ! have make; then
         ensure_tool make || die "--full needs make"
     fi
