@@ -92,6 +92,17 @@ NOT_FOUND: Final = ("ran, but did not find the test organisms (" + ", ".join(EXP
                     + ") in reads drawn from them")
 
 
+def memory_text(peak_gb: float | None) -> str:
+    """The end of a passing lane's line: the most memory one of its programs held.
+
+    Whole gigabytes, because that is the question it answers (will this
+    machine do?). A lane of many small programs is "<1 GB", not "0 GB".
+    """
+    if peak_gb is None:
+        return ""
+    return f"  {'<1' if peak_gb < 1 else format(peak_gb, '.0f'):>4} GB of memory"
+
+
 def genera_found(lineages: Iterable[str]) -> tuple[str, ...]:
     """Which expected genera appear in these lineage strings, whatever the catalogue's spelling."""
     text = " ".join(lineages).replace("_", " ")
@@ -242,8 +253,8 @@ def run(*, lanes: Sequence[str] | None = None, refs_dir: Path | None = None, thr
             outcomes.append(outcome)
             took = human_duration(outcome.seconds)
             if outcome.ok:
-                memory = f"  {outcome.peak_gb:>4.0f} GB of memory" if outcome.peak_gb else ""
-                print(f"  {style.green('✓')} {outcome.label:<{width}}  {took:>7}{memory}", file=out, flush=True)
+                print(f"  {style.green('✓')} {outcome.label:<{width}}  {took:>7}{memory_text(outcome.peak_gb)}",
+                      file=out, flush=True)
             else:
                 print(f"  {style.red('✗')} {outcome.label:<{width}}  {outcome.reason}", file=out, flush=True)
         failed = [o for o in outcomes if not o.ok]

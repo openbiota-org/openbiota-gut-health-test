@@ -230,6 +230,18 @@ def test_every_lane_passing_exits_zero_with_a_line_each(tmp_path: Path, monkeypa
     assert lines[-1].startswith("Every lane works (")
 
 
+@pytest.mark.parametrize(("peak_gb", "text"), [
+    (37.2, "    37 GB of memory"),
+    (16.6, "    17 GB of memory"),
+    (1.0, "     1 GB of memory"),
+    (0.4, "    <1 GB of memory"),   # SingleM on Linux: many small programs. It printed "0 GB".
+    (0.0, "    <1 GB of memory"),
+    (None, ""),                      # not measured
+])
+def test_memory_is_whole_gigabytes_and_never_zero(peak_gb: float | None, text: str):
+    assert selftest.memory_text(peak_gb) == text
+
+
 def test_on_a_terminal_the_running_lane_is_replaced_by_its_result(monkeypatch):
     _stub(monkeypatch)
 
