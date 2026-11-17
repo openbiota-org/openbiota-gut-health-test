@@ -148,10 +148,16 @@ def test_data_archive_is_tracked_not_ignored():
 
 
 def test_disk_and_time_claims_agree_between_script_and_docs():
-    standard = int(re.search(r"^DISK_STANDARD_GB=(\d+)", INSTALL, re.M).group(1))
-    no_host = int(re.search(r"^DISK_NO_HOST_GB=(\d+)", INSTALL, re.M).group(1))
+    """What the installer asks a machine with nothing installed for is what the docs say it needs."""
+    small = int(re.search(r"^DISK_SMALL_GB=(\d+)", INSTALL, re.M).group(1))
+    table = INSTALL[INSTALL.index("disk_for() {"):]
+    sized = {name: int(gb) for name, gb in re.findall(r"^\s+(\w+)\) echo (\d+) ;;", table[:table.index("\n}\n")], re.M)}
+    standard = small + sized["metaphlan_db"] + sized["host_index"] + sized["catalogue_refs"]
+    no_host = standard - sized["host_index"]
     assert f"{standard} GB" in QUICKSTART and f"~{standard} GB" in INSTALL_DOC
     assert f"{no_host} GB" in INSTALL_DOC
+    full = standard + sum(gb for name, gb in sized.items() if name not in ("metaphlan_db", "host_index", "catalogue_refs"))
+    assert full == 1500 and "~1.5 TB" in INSTALL_DOC
 
 
 def test_ci_exercises_the_installer_on_both_platforms():

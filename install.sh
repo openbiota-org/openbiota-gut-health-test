@@ -34,18 +34,40 @@ STANDARD_STEPS="preflight system python launcher profiler data metaphlan_db diam
 # one place; these are the slow, large lanes and take most of a day.
 FULL_STEPS="profiler4 vendor_tools strain_tools refs_strain pathogens substrate_refs tools_expanded globdb_genomes expansion mycobiome_refs"
 
-# Free disk each tier needs, in GB, with headroom for the downloads' temporaries.
-# The standard install carries the five 2025 catalogue lanes (~190 GB of
-# references); --skip-catalogues leaves them out and with them the ability
-# to make any report, so it exists for staging an install, not for running.
 # The most memory one program of the standard install holds (bowtie2 on the
 # MetaPhlAn Jan26 index, measured), and what the rest of the machine needs.
 LANE_PEAK_GB=37
 LANE_HEADROOM_GB=7
-DISK_STANDARD_GB=230
-DISK_NO_HOST_GB=220
-DISK_NO_CATALOGUES_GB=20
-DISK_FULL_GB=1500
+
+# Free disk, in GB. Each large piece is listed with the room it needs while
+# it is fetched and built, the downloads' temporaries included; everything
+# else the installer makes - the environments, the tools, the bundled data -
+# fits in DISK_SMALL_GB. Only what is still to be installed is counted: a
+# machine that already holds the references, run again to add one small
+# tool, is asked for DISK_SMALL_GB and not for the 230 GB it already has.
+# With nothing installed the standard install comes to 230 GB (220 with
+# --skip-host-index, 20 with --skip-catalogues, which leaves out the five
+# 2025 catalogue lanes and with them the ability to make a report: it is
+# for staging an install, not for running one) and --full to 1,500.
+DISK_SMALL_GB=5
+disk_for() {
+    case "$1" in
+        metaphlan_db) echo 5 ;;       # a 0.4 GB download, indexed to 3.5 GB
+        host_index) echo 10 ;;        # the human genome and its index
+        catalogue_refs) echo 210 ;;   # 190 GB on disk, and the downloads beside them
+        profiler4) echo 25 ;;
+        vendor_tools) echo 2 ;;
+        strain_tools) echo 5 ;;
+        refs_strain) echo 1 ;;
+        pathogens) echo 150 ;;        # 130 GB when built; the heaviest build
+        substrate_refs) echo 1 ;;
+        tools_expanded) echo 1 ;;
+        globdb_genomes) echo 850 ;;   # a 272 GB archive, unpacked to 545 GB
+        expansion) echo 5 ;;
+        mycobiome_refs) echo 230 ;;
+        *) echo 0 ;;
+    esac
+}
 
 # --------------------------------------------------------------------------- #
 # Options
@@ -350,6 +372,8 @@ cpu_count() {
 
 free_gb() {
     # free space on the filesystem holding the repository, whole GB
+    # INSTALL_FREE_GB overrides it, which is how the tests reach both sides of the check.
+    if [ -n "${INSTALL_FREE_GB:-}" ]; then printf '%s' "$INSTALL_FREE_GB"; return 0; fi
     df -Pk "$REPO" | awk 'NR==2 { printf "%d", $4 / 1048576 }'
 }
 memory_gb() {
@@ -574,6 +598,34 @@ ensure_tool() {
 
 # -- preflight ---------------------------------------------------------------
 
+# What the steps about to run still need on disk: DISK_NEED_GB, and in
+# DISK_NEED_FOR which pieces need it. A piece that is already installed
+# needs nothing (unless --force is redoing it). The installer used to ask
+# for the whole install's worth of free space every time, so a machine with
+# a finished 230 GB install and 100 GB to spare was refused at the first
+# step when it was run again to pick up one new tool.
+DISK_NEED_GB=0
+DISK_NEED_FOR=""
+disk_needed() {
+    local consider=$STEPS s gb
+    # Asked on its own, the check answers for the whole install it guards.
+    if [ "${STEPS# }" = preflight ]; then consider=$(all_steps); fi
+    DISK_NEED_GB=$DISK_SMALL_GB
+    DISK_NEED_FOR=""
+    for s in $consider; do
+        gb=$(disk_for "$s")
+        [ "$gb" -gt 0 ] || continue
+        if [ $FORCE -eq 0 ] && "done_$s" 2>/dev/null; then continue; fi
+        DISK_NEED_GB=$(( DISK_NEED_GB + gb ))
+        DISK_NEED_FOR="$DISK_NEED_FOR$s $gb GB, "
+    done
+    if [ -n "$DISK_NEED_FOR" ]; then
+        DISK_NEED_FOR="${DISK_NEED_FOR}and $DISK_SMALL_GB GB for everything else"
+    else
+        DISK_NEED_FOR="for the environments, the tools and the data that ships with the repository"
+    fi
+}
+
 # The filesystem type under the repository, lower-case; "" when unknown.
 # INSTALL_FS_TYPE overrides it, which is how the tests reach the refusals.
 fs_type() {
@@ -679,16 +731,17 @@ run_preflight() {
         note "the last install step tries each lane and will say; 64 GB is comfortable (docs/INSTALL.md, Requirements)"
     fi
 
-    local need free
-    if [ $FULL -eq 1 ]; then need=$DISK_FULL_GB
-    elif [ $SKIP_CATALOGUES -eq 1 ]; then need=$DISK_NO_CATALOGUES_GB
-    elif [ $SKIP_HOST_INDEX -eq 1 ]; then need=$DISK_NO_HOST_GB
-    else need=$DISK_STANDARD_GB; fi
+    local free
+    disk_needed
     free=$(free_gb)
-    if [ "$free" -lt "$need" ]; then
-        die "only $free GB free on the drive holding this folder; the install needs about $need GB. Free some space, or clone onto a larger drive."
+    if [ "$free" -lt "$DISK_NEED_GB" ]; then
+        die "only $free GB free on the drive holding this folder; what is left to install needs about $DISK_NEED_GB GB ($DISK_NEED_FOR). Free some space, or clone onto a larger drive."
     fi
-    ok "$free GB free (need about $need GB)"
+    if [ "$DISK_NEED_GB" -gt "$DISK_SMALL_GB" ]; then
+        ok "$free GB free (what is left to install needs about $DISK_NEED_GB GB)"
+    else
+        ok "$free GB free (the large references are already here; about $DISK_NEED_GB GB is enough)"
+    fi
 
     if [ $OFFLINE -eq 0 ] && [ $DRY_RUN -eq 0 ]; then
         if ! online; then

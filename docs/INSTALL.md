@@ -37,11 +37,14 @@ skips both). Deleting the project folder removes everything else.
 `./install.sh` runs fourteen steps, each of which first checks whether its
 work is already done and skips it if so. That is what makes it safe to run
 again after an interruption, and what makes `./install.sh --list` a true
-report of the state of the machine.
+report of the state of the machine. The free-disk check works the same way:
+it asks for room only for what is still to be installed, so a finished
+install run again — to pick up a tool a newer version needs — is asked for
+about 5 GB, not for the 230 GB it already holds.
 
 | # | Step | What it produces | Skipped when |
 |---|---|---|---|
-| 1 | `preflight` | nothing; it checks the OS, that the folder is on a local filesystem that can hold symbolic links (not a network share or a Windows-formatted drive), free disk, memory, network and write access, and on a Mac the Xcode command-line tools and Homebrew | never |
+| 1 | `preflight` | nothing; it checks the OS, that the folder is on a local filesystem that can hold symbolic links (not a network share or a Windows-formatted drive), free disk for what is still to be installed, memory, network and write access, and on a Mac the Xcode command-line tools and Homebrew | never |
 | 2 | `system` | `git`, `curl`, `bzip2`, `make`, Python 3.11+, `diamond`, `bowtie2`, `samtools`, `fastp` (and `pigz` if available), plus every system binary the catalogue step will need (a C compiler, cmake, kraken2, bwa, hmmer, aria2 …) — so the one password prompt is here, at the start, and nothing an hour later waits on it | all are on the `PATH` |
 | 3 | `python` | `.venv/` with `openbiota` installed in editable mode | `.venv/bin/openbiota` imports |
 | 4 | `launcher` | `bin/openbiota` executable; `~/.local/bin/openbiota` linked to it; `~/.local/bin` on the `PATH` | the link and the `PATH` line exist |
@@ -165,7 +168,7 @@ what to do, and the last 25 lines of `install.log`. Fix the cause and run
 | *the Xcode command line tools are not installed* | macOS needs them for `git` and compilers. The installer offers to open the dialog; finish it, then re-run. |
 | *Homebrew is not installed* | The installer offers to run Homebrew's installer, which asks for your password. Or install it from [brew.sh](https://brew.sh) and re-run. |
 | *no sudo: cannot use apt* | On Linux without `sudo`, the tools come from conda instead, automatically. Nothing to do. |
-| *only N GB free … needs about M GB* | Free space on the drive holding the project folder, or clone onto a larger drive. `--skip-host-index` needs 10 GB rather than 20. |
+| *only N GB free … what is left to install needs about M GB* | The pieces still to be installed need that much room on the drive holding the project folder, and the message lists them with their sizes; pieces already installed are not counted. Free some space, or clone onto a larger drive. `--skip-host-index` leaves out 10 GB. |
 | *cannot reach the internet* | The install downloads references. Check the connection; a corporate proxy needs `https_proxy` set. `--offline` verifies what is already there without downloading. |
 | *another ./install.sh (pid N) is running* | Two installers building the same index would corrupt it. Wait for the other one, or delete `.install.lock` if it is stale. |
 | *python -m venv failed* | On Debian/Ubuntu: `sudo apt-get install python3-venv`, then re-run. |

@@ -337,6 +337,124 @@ def test_preflight_says_when_memory_is_short_for_the_metaphlan_lane(tmp_path: Pa
     assert "MetaPhlAn 4 lane" not in _preflight(root, 31, "--skip-catalogues"), "nor one that is not installing the lanes"
 
 
+# -- free disk: only what is still to be installed ------------------------------
+
+
+def _answers_ready(root: Path, *names: str) -> None:
+    """Make the skeleton's project python say "ready" for these pieces, as an installed machine's does.
+
+    The installer asks `.venv/bin/python -m openbiota.installcheck NAME` whether a piece is there.
+    """
+    python = root / ".venv" / "bin" / "python"
+    python.parent.mkdir(parents=True, exist_ok=True)
+    python.write_text(
+        "#!/usr/bin/env bash\n"
+        '[ "$1" = -m ] && [ "$2" = openbiota.installcheck ] || exit 1\n'
+        f'case " {" ".join(names)} " in *" $3 "*) exit 0 ;; esac\n'
+        "exit 1\n"
+    )
+    python.chmod(python.stat().st_mode | stat.S_IEXEC)
+
+
+def _disk_check(root: Path, free_gb: int, *more: str) -> subprocess.CompletedProcess:
+    return _sh("install.sh", "--only", "preflight", "--dry-run", "--no-path", *more, cwd=root,
+               env={"INSTALL_FS_TYPE": "ext4", "INSTALL_MEMORY_GB": "64", "INSTALL_FREE_GB": str(free_gb)})
+
+
+@pytest.mark.parametrize(("options", "total"), [
+    ((), 230),
+    (("--skip-host-index",), 220),
+    (("--skip-catalogues",), 20),
+    (("--full",), 1500),
+])
+def test_a_machine_with_nothing_installed_is_asked_for_the_whole_install(tmp_path: Path, options: tuple[str, ...],
+                                                                         total: int):
+    root = _skeleton(tmp_path)
+    short = _disk_check(root, total - 1, *options)
+    assert short.returncode == 1
+    assert f"only {total - 1} GB free" in short.stdout + short.stderr
+    assert f"what is left to install needs about {total} GB" in short.stdout + short.stderr
+    enough = _disk_check(root, total, *options)
+    assert enough.returncode == 0, enough.stdout + enough.stderr
+    assert f"{total} GB free (what is left to install needs about {total} GB)" in enough.stdout
+
+
+def test_the_refusal_says_which_pieces_need_the_room(tmp_path: Path):
+    out = _disk_check(_skeleton(tmp_path), 100)
+    text = out.stdout + out.stderr
+    assert "(metaphlan_db 5 GB, host_index 10 GB, catalogue_refs 210 GB, and 5 GB for everything else)" in text
+    assert "Free some space, or clone onto a larger drive." in text
+
+
+def test_an_installed_machine_is_asked_only_for_what_is_left(tmp_path: Path):
+    """A finished 230 GB install with 30 GB to spare, run again to pick up one new tool. It used to
+    be refused at the first step: "only 30 GB free ... the install needs about 230 GB"."""
+    root = _skeleton(tmp_path)
+    _answers_ready(root, "metaphlan_db", "host_index", "catalogue_refs")
+    out = _disk_check(root, 30)
+    assert out.returncode == 0, out.stdout + out.stderr
+    assert "30 GB free (the large references are already here; about 5 GB is enough)" in out.stdout
+    assert "230" not in out.stdout + out.stderr
+
+
+def test_a_missing_tool_does_not_cost_the_references_again(tmp_path: Path):
+    """catalogue_tools not ready (HMMER missing, say) while the references are all there."""
+    root = _skeleton(tmp_path)
+    _answers_ready(root, "metaphlan_db", "host_index", "catalogue_refs")   # and not catalogue_tools
+    assert _disk_check(root, 6).returncode == 0
+    refused = _disk_check(root, 4)
+    assert refused.returncode == 1
+    assert "needs about 5 GB (for the environments, the tools and the data that ships with the repository)" \
+        in refused.stdout + refused.stderr
+
+
+def test_only_the_missing_piece_is_counted(tmp_path: Path):
+    root = _skeleton(tmp_path)
+    _answers_ready(root, "metaphlan_db", "catalogue_refs")   # no human-read filter yet
+    refused = _disk_check(root, 14)
+    assert refused.returncode == 1
+    assert "needs about 15 GB (host_index 10 GB, and 5 GB for everything else)" in refused.stdout + refused.stderr
+    assert _disk_check(root, 15).returncode == 0
+    assert _disk_check(root, 5, "--skip-host-index").returncode == 0, "and nothing for a piece that is skipped"
+
+
+def test_the_full_install_on_top_of_a_standard_one_is_asked_for_the_difference(tmp_path: Path):
+    root = _skeleton(tmp_path)
+    _answers_ready(root, "metaphlan_db", "host_index", "catalogue_refs")
+    refused = _disk_check(root, 1274, "--full")
+    assert refused.returncode == 1
+    text = refused.stdout + refused.stderr
+    assert "needs about 1275 GB" in text and "globdb_genomes 850 GB" in text and "catalogue_refs" not in text
+    assert _disk_check(root, 1275, "--full").returncode == 0
+    _answers_ready(root, "metaphlan_db", "host_index", "catalogue_refs", "profiler4", "vendor_tools", "strain_tools",
+                   "refs_strain", "pathogens", "substrate_refs", "tools_expanded", "expansion", "mycobiome_refs")
+    left = _disk_check(root, 854, "--full")
+    assert left.returncode == 1 and "needs about 855 GB (globdb_genomes 850 GB, and 5 GB for everything else)" \
+        in left.stdout + left.stderr
+
+
+def test_force_redoes_the_pieces_and_needs_the_room_again(tmp_path: Path):
+    root = _skeleton(tmp_path)
+    _answers_ready(root, "metaphlan_db", "host_index", "catalogue_refs")
+    assert _disk_check(root, 100).returncode == 0
+    forced = _disk_check(root, 100, "--force")
+    assert forced.returncode == 1 and "needs about 230 GB" in forced.stdout + forced.stderr
+
+
+def test_every_large_piece_is_a_step_and_the_sizes_add_up():
+    """The table of sizes names installer steps, and nothing in it is a typo for one."""
+    text = INSTALL.read_text()
+    table = text[text.index("disk_for() {"):text.index("\n}\n", text.index("disk_for() {"))]
+    sized = dict(re.findall(r"^\s+(\w+)\) echo (\d+) ;;", table, re.M))
+    steps = _steps("STANDARD_STEPS") + _steps("FULL_STEPS")
+    assert set(sized) <= set(steps), set(sized) - set(steps)
+    small = int(re.search(r"^DISK_SMALL_GB=(\d+)", text, re.M).group(1))
+    standard = small + sum(int(sized[s]) for s in _steps("STANDARD_STEPS") if s in sized)
+    assert standard == 230
+    assert standard + sum(int(sized[s]) for s in _steps("FULL_STEPS") if s in sized) == 1500
+    assert set(_steps("FULL_STEPS")) <= set(sized), "every --full step says how much room it needs"
+
+
 def test_the_filesystem_check_runs_before_anything_is_downloaded():
     text = INSTALL.read_text()
     preflight = text[text.index("run_preflight()"):text.index("# -- system")]
